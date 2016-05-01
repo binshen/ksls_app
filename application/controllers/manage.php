@@ -51,8 +51,7 @@ class Manage extends MY_Controller {
 	}
 
 	public function add_company() {
-		$data['is_admin'] = $this->session->userdata('group_id') == 1;
-		$this->load->view('manage/add_company.php', $data);
+		$this->load->view('manage/add_company.php');
 	}
 
 	public function save_company() {
@@ -66,7 +65,6 @@ class Manage extends MY_Controller {
 
 	public function edit_company($id) {
 		$data = $this->manage_model->get_company($id);
-		$data['is_admin'] = $this->session->userdata('group_id') == 1;
 		$this->load->view('manage/add_company.php', $data);
 	}
 
@@ -112,6 +110,41 @@ class Manage extends MY_Controller {
 		$ret = $this->manage_model->delete_subsidiary($id);
 		if($ret == 1) {
 			form_submit_json("200", "操作成功", 'list_subsidiary', '', '');
+		} else {
+			form_submit_json("300", "删除失败");
+		}
+	}
+
+	/**
+	 * 角色信息
+	 */
+	public function list_role() {
+		$data = $this->manage_model->list_role();
+		$this->load->view('manage/list_role.php',$data);
+	}
+
+	public function add_role() {
+		$this->load->view('manage/add_role.php');
+	}
+
+	public function save_role() {
+		$ret = $this->manage_model->save_role();
+		if($ret == 1){
+			form_submit_json("200", "操作成功", 'list_role');
+		} else {
+			form_submit_json("300", "保存失败");
+		}
+	}
+
+	public function edit_role($id) {
+		$data = $this->manage_model->get_role($id);
+		$this->load->view('manage/add_role.php', $data);
+	}
+
+	public function delete_role($id) {
+		$ret = $this->manage_model->delete_role($id);
+		if($ret == 1) {
+			form_submit_json("200", "操作成功", 'list_role', '', '');
 		} else {
 			form_submit_json("300", "删除失败");
 		}
