@@ -19,10 +19,10 @@
             <thead>
             <tr>
                 <th width="120">ID</th>
-                <th>用户名</th>
-                <th>真实姓名</th>
-                <th>性别</th>
+                <th>姓名</th>
+                <th>电话</th>
                 <th>所在公司</th>
+                <th>所属分店</th>
                 <th>角色</th>
             </tr>
             </thead>
@@ -33,11 +33,11 @@
             ?>
                     <tr target="id" rel=<?php echo $row->id; ?>>
                         <td><?php echo $row->id;?></td>
-                        <td><?php echo $row->username;?></td>
                         <td><?php echo $row->rel_name;?></td>
-                        <td><?php echo $row->sex;?></td>
-                        <td><?php echo $row->company_id;?></td>
-                        <td><?php echo $row->role_id;?></td>
+                        <td><?php echo $row->tel;?></td>
+                        <td><?php echo $row->company_name;?></td>
+                        <td><?php echo $row->subsidiary_name;?></td>
+                        <td><?php echo $row->role_name;?></td>
                     </tr>
             <?php
                     endforeach;

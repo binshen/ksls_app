@@ -317,7 +317,7 @@ class Manage_model extends MY_Model
     }
 
     /**
-     * 行程选项
+     * 经纪人管理
      */
     public function list_user(){
         // 每页显示的记录条数，默认20条
@@ -327,13 +327,24 @@ class Manage_model extends MY_Model
         //获得总记录数
         $this->db->select('count(1) as num');
         $this->db->from('user');
+        if($this->input->post('rel_name'))
+            $this->db->like('rel_name',$this->input->post('rel_name'));
 
         $rs_total = $this->db->get()->row();
         //总记录数
         $data['countPage'] = $rs_total->num;
 
+        $data['rel_name'] = null;
         //list
-        $this->db->select('*')->from('user');
+        $this->db->select('a.*, b.name AS company_name, c.name AS subsidiary_name, d.name AS role_name');
+        $this->db->from('user a');
+        $this->db->join('company b', 'a.company_id = b.id', 'left');
+        $this->db->join('subsidiary c', 'a.subsidiary_id = c.id', 'left');
+        $this->db->join('role d', 'a.role_id = d.id', 'left');
+        if($this->input->post('rel_name')){
+            $this->db->like('a.rel_name',$this->input->post('rel_name'));
+            $data['rel_name'] = $this->input->post('rel_name');
+        }
         $this->db->limit($numPerPage, ($pageNum - 1) * $numPerPage );
         $this->db->order_by($this->input->post('orderField') ? $this->input->post('orderField') : 'id', $this->input->post('orderDirection') ? $this->input->post('orderDirection') : 'desc');
         $data['res_list'] = $this->db->get()->result();
@@ -342,10 +353,20 @@ class Manage_model extends MY_Model
         return $data;
     }
 
-    public function save_user() {
+    public function save_user($pic = NULL) {
         $data = array(
-            'name' => $this->input->post('name')
+            'username' => $this->input->post('tel'),
+            'password' => sha1('888888'),
+            'tel' => $this->input->post('tel'),
+            'company_id' => $this->input->post('company_id'),
+            'subsidiary_id' => $this->input->post('subsidiary_id'),
+            'rel_name' => $this->input->post('rel_name'),
+            'group_id' => 2
         );
+        if(!empty($pic)) {
+            $data['pic'] = '/uploadfiles/profile/' . $pic;
+        }
+
         $this->db->trans_start();//--------开始事务
 
         if($this->input->post('id')){//修改
@@ -354,6 +375,7 @@ class Manage_model extends MY_Model
         } else {
             $this->db->insert('user', $data);
         }
+
         $this->db->trans_complete();//------结束事务
         if ($this->db->trans_status() === FALSE) {
             return -1;
@@ -369,5 +391,9 @@ class Manage_model extends MY_Model
     public function delete_user($id) {
         $this->db->where('id', $id);
         return $this->db->delete('user');
+    }
+
+    public function get_user_by_tel($tel) {
+        return $this->db->get_where('user', array('tel' => $tel))->row_array();
     }
 }

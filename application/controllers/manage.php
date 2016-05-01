@@ -186,28 +186,71 @@ class Manage extends MY_Controller {
 	}
 
 	/**
-	 * 行程选项
+	 * 用户管理
 	 */
 	public function list_user() {
 		$data = $this->manage_model->list_user();
-		$this->load->view('manage/list_user.php',$data);
+		$this->load->view('manage/list_user.php', $data);
 	}
 
 	public function add_user() {
-		$this->load->view('manage/add_user.php');
+		$data = array();
+		$data['company_list'] = $this->manage_model->get_company_list();
+		if(!empty($data['company_list'])) {
+			$data['subsidiary_list'] = $this->manage_model->get_subsidiary_list_by_company($data['company_list'][0]->id);
+		}
+		$this->load->view('manage/add_user.php', $data);
 	}
 
 	public function save_user() {
-		$ret = $this->manage_model->save_user();
+
+		if(!$this->input->post('id')){
+			$tel = $this->input->post('tel');
+			$broker = $this->manage_model->get_user_by_tel($tel);
+			if(!empty($broker)) {
+				form_submit_json("300", "手机号已经注册过");
+				return;
+			}
+		}
+
+		if($_FILES["userfile"]['name'] and $this->input->post('old_img')){//修改上传的图片，需要先删除原来的图片
+			@unlink('./././uploadfiles/profile/'.$this->input->post('old_img'));//del old img
+		}else if(!$_FILES["userfile"]['name'] and !$this->input->post('old_img')){//未上传图片
+			form_submit_json("300", "请添加图片");exit;
+		}
+
+		if(!$_FILES["userfile"]['name'] and $this->input->post('old_img')){//不修改图片信息
+			$ret = $this->manage_model->save_user();
+		}else{
+			$config['upload_path'] = './././uploadfiles/profile';
+			$config['allowed_types'] = 'gif|jpg|png|jpeg';
+			$config['max_size'] = '1000';
+			$config['encrypt_name'] = true;
+			$this->load->library('upload', $config);
+			if($this->upload->do_upload()){
+				$img_info = $this->upload->data();
+				$ret = $this->manage_model->save_user($img_info['file_name']);
+			}else{
+				form_submit_json("300", $this->upload->display_errors('<b>','</b>'));
+				exit;
+			}
+		}
+
 		if($ret == 1){
-			form_submit_json("200", "操作成功", 'list_user');
-		} else {
+			form_submit_json("200", "操作成功", 'list_broker');
+		} else if($ret == -3){
+			form_submit_json("300", "已经超出业务员的数量，保存失败");
+		} else if($ret == -2){
+			form_submit_json("300", "已经超出可分配二手房的数量，保存失败");
+		}else {
 			form_submit_json("300", "保存失败");
 		}
 	}
 
 	public function edit_user($id) {
 		$data = $this->manage_model->get_user($id);
+		$data['company_list'] = $this->manage_model->get_company_list();
+		$data['subsidiary_list'] = $this->manage_model->get_subsidiary_list_by_company($data['company_id']);
 		$this->load->view('manage/add_user.php', $data);
 	}
 
@@ -218,5 +261,15 @@ class Manage extends MY_Controller {
 		} else {
 			form_submit_json("300", "删除失败");
 		}
+	}
+
+	public function get_subsidiary_list($id) {
+		$data = $this->manage_model->get_subsidiary_list_by_company($id);
+		$subSidiary = array();
+		foreach ($data as $s) {
+			$subSidiary[] = array($s['id'], $s['name']);
+		}
+		echo json_encode($subSidiary);
+		die;
 	}
 }
