@@ -149,4 +149,39 @@ class Manage extends MY_Controller {
 			form_submit_json("300", "删除失败");
 		}
 	}
+
+	/**
+	 * 行程选项
+	 */
+	public function list_activity_type() {
+		$data = $this->manage_model->list_activity_type();
+		$this->load->view('manage/list_activity_type.php',$data);
+	}
+
+	public function add_activity_type() {
+		$this->load->view('manage/add_activity_type.php');
+	}
+
+	public function save_activity_type() {
+		$ret = $this->manage_model->save_activity_type();
+		if($ret == 1){
+			form_submit_json("200", "操作成功", 'list_activity_type');
+		} else {
+			form_submit_json("300", "保存失败");
+		}
+	}
+
+	public function edit_activity_type($id) {
+		$data = $this->manage_model->get_activity_type($id);
+		$this->load->view('manage/add_activity_type.php', $data);
+	}
+
+	public function delete_activity_type($id) {
+		$ret = $this->manage_model->delete_activity_type($id);
+		if($ret == 1) {
+			form_submit_json("200", "操作成功", 'list_activity_type', '', '');
+		} else {
+			form_submit_json("300", "删除失败");
+		}
+	}
 }
