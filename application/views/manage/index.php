@@ -93,7 +93,7 @@ $(function(){
 							<li><a href="<?php echo site_url('manage/list_company');?>" target="navTab" rel="list_company">公司信息</a></li>
 							<li><a href="<?php echo site_url('manage/list_subsidiary');?>" target="navTab" rel="list_subsidiary">分店信息</a></li>
 							<li><a href="<?php echo site_url('manage/list_role');?>" target="navTab" rel="list_role">角色信息</a></li>
-							<li><a href="<?php echo site_url('manage/list_user');?>" target="navTab" rel="list_user">经纪人列表</a></li>
+							<li><a href="<?php echo site_url('manage/list_user');?>" target="navTab" rel="list_user">用户列表</a></li>
 							<li><a href="<?php echo site_url('manage/list_activity_type');?>" target="navTab" rel="list_activity_type">行程选项</a></li>
 						</ul>
 					</div>

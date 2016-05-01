@@ -1,4 +1,4 @@
-<form id="pagerForm" method="post" action="<?php echo site_url('manage/list_activity_type')?>">
+<form id="pagerForm" method="post" action="<?php echo site_url('manage/list_user')?>">
     <input type="hidden" name="pageNum" value="<?php echo $pageNum;?>" />
     <input type="hidden" name="numPerPage" value="<?php echo $numPerPage;?>" />
     <input type="hidden" name="orderField" value="<?php echo $this->input->post('orderField');?>" />
@@ -8,9 +8,9 @@
 <div class="pageContent">
     <div class="panelBar">
         <ul class="toolBar">
-            <li><a class="add" href="<?php echo site_url('manage/add_activity_type')?>" target="dialog" rel="add_activity_type" title="新建"><span>新建</span></a></li>
-            <li><a class="delete" href="<?php echo site_url('manage/delete_activity_type')?>/{id}" target="ajaxTodo"  title="确定要删除？" warn="请选择一条记录"><span>删除</span></a></li>
-            <li><a class="edit" href="<?php echo site_url('manage/edit_activity_type/{id}')?>" target="dialog" rel="edit_activity_type" warn="请选择一条记录" title="查看"><span>查看</span></a></li>
+            <li><a class="add" href="<?php echo site_url('manage/add_user')?>" target="dialog" rel="add_user" title="新建"><span>新建</span></a></li>
+            <li><a class="delete" href="<?php echo site_url('manage/delete_user')?>/{id}" target="ajaxTodo"  title="确定要删除？" warn="请选择一条记录"><span>删除</span></a></li>
+            <li><a class="edit" href="<?php echo site_url('manage/edit_user/{id}')?>" target="dialog" rel="edit_user" warn="请选择一条记录" title="查看"><span>查看</span></a></li>
         </ul>
     </div>
 
@@ -19,8 +19,11 @@
             <thead>
             <tr>
                 <th width="120">ID</th>
-                <th>名称</th>
-                <th>分数</th>
+                <th>用户名</th>
+                <th>真实姓名</th>
+                <th>性别</th>
+                <th>所在公司</th>
+                <th>角色</th>
             </tr>
             </thead>
             <tbody>
@@ -30,8 +33,11 @@
             ?>
                     <tr target="id" rel=<?php echo $row->id; ?>>
                         <td><?php echo $row->id;?></td>
-                        <td><?php echo $row->name;?></td>
-                        <td><?php echo $row->score;?></td>
+                        <td><?php echo $row->username;?></td>
+                        <td><?php echo $row->rel_name;?></td>
+                        <td><?php echo $row->sex;?></td>
+                        <td><?php echo $row->company_id;?></td>
+                        <td><?php echo $row->role_id;?></td>
                     </tr>
             <?php
                     endforeach;

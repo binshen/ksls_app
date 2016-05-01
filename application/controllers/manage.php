@@ -184,4 +184,39 @@ class Manage extends MY_Controller {
 			form_submit_json("300", "删除失败");
 		}
 	}
+
+	/**
+	 * 行程选项
+	 */
+	public function list_user() {
+		$data = $this->manage_model->list_user();
+		$this->load->view('manage/list_user.php',$data);
+	}
+
+	public function add_user() {
+		$this->load->view('manage/add_user.php');
+	}
+
+	public function save_user() {
+		$ret = $this->manage_model->save_user();
+		if($ret == 1){
+			form_submit_json("200", "操作成功", 'list_user');
+		} else {
+			form_submit_json("300", "保存失败");
+		}
+	}
+
+	public function edit_user($id) {
+		$data = $this->manage_model->get_user($id);
+		$this->load->view('manage/add_user.php', $data);
+	}
+
+	public function delete_user($id) {
+		$ret = $this->manage_model->delete_user($id);
+		if($ret == 1) {
+			form_submit_json("200", "操作成功", 'list_user', '', '');
+		} else {
+			form_submit_json("300", "删除失败");
+		}
+	}
 }
