@@ -20,7 +20,7 @@ class Manage extends MY_Controller {
 
 	function _remap($method,$params = array())
 	{
-		if(! $this->session->userdata('username'))
+		if(!$this->session->userdata('user_id'))
 		{
 			if($this->input->is_ajax_request()){
 				header('Content-type: text/json');
@@ -40,9 +40,5 @@ class Manage extends MY_Controller {
 	public function index()
 	{
 		$this->load->view('manage/index.php');
-	}
-
-	private function is_admin() {
-		return $this->session->userdata('group_id') == 1 || ($this->session->userdata('group_id') == 2 && $this->session->userdata('manager_group') == 1);
 	}
 }
