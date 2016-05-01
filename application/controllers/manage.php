@@ -41,4 +41,79 @@ class Manage extends MY_Controller {
 	{
 		$this->load->view('manage/index.php');
 	}
+
+	/**
+	 * 公司信息
+	 */
+	public function list_company() {
+		$data = $this->manage_model->list_company();
+		$this->load->view('manage/list_company.php',$data);
+	}
+
+	public function add_company() {
+		$data['is_admin'] = $this->session->userdata('group_id') == 1;
+		$this->load->view('manage/add_company.php', $data);
+	}
+
+	public function save_company() {
+		$ret = $this->manage_model->save_company();
+		if($ret == 1){
+			form_submit_json("200", "操作成功", 'list_company');
+		} else {
+			form_submit_json("300", "保存失败");
+		}
+	}
+
+	public function edit_company($id) {
+		$data = $this->manage_model->get_company($id);
+		$data['is_admin'] = $this->session->userdata('group_id') == 1;
+		$this->load->view('manage/add_company.php', $data);
+	}
+
+	public function delete_company($id) {
+		$ret = $this->manage_model->delete_company($id);
+		if($ret == 1) {
+			form_submit_json("200", "操作成功", 'list_company', '', '');
+		} else {
+			form_submit_json("300", "删除失败");
+		}
+	}
+
+	/**
+	 * 分店信息
+	 */
+	public function list_subsidiary() {
+		$data = $this->manage_model->list_subsidiary();
+		$this->load->view('manage/list_subsidiary.php', $data);
+	}
+
+	public function add_subsidiary() {
+		$data = array();
+		$data['company_list'] = $this->manage_model->get_company_list();
+		$this->load->view('manage/add_subsidiary.php', $data);
+	}
+
+	public function save_subsidiary() {
+		$ret = $this->manage_model->save_subsidiary();
+		if($ret == 1){
+			form_submit_json("200", "操作成功", 'list_subsidiary');
+		}else{
+			form_submit_json("300", "保存失败");
+		}
+	}
+
+	public function edit_subsidiary($id) {
+		$data = $this->manage_model->get_subsidiary($id);
+		$data['company_list'] = $this->manage_model->get_company_list();
+		$this->load->view('manage/add_subsidiary.php', $data);
+	}
+
+	public function delete_subsidiary($id) {
+		$ret = $this->manage_model->delete_subsidiary($id);
+		if($ret == 1) {
+			form_submit_json("200", "操作成功", 'list_subsidiary', '', '');
+		} else {
+			form_submit_json("300", "删除失败");
+		}
+	}
 }
