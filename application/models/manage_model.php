@@ -41,6 +41,8 @@ class Manage_model extends MY_Model
         	$user_info['user_id'] = $res->id;
             $user_info['username'] = $username;
             $user_info['rel_name'] = $res->rel_name;
+            $user_info['company_id'] = $res->company_id;
+            $user_info['subsidiary_id'] = $res->subsidiary_id;
             $user_info['group_id'] = $res->group_id;
             $this->session->set_userdata($user_info);
             return true;
