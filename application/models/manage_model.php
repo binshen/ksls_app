@@ -397,4 +397,8 @@ class Manage_model extends MY_Model
     public function get_user_by_tel($tel) {
         return $this->db->get_where('user', array('tel' => $tel))->row_array();
     }
+
+    public function get_role_list() {
+        return $this->db->get('role')->result_array();
+    }
 }

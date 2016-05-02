@@ -199,6 +199,7 @@ class Manage extends MY_Controller {
 		if(!empty($data['company_list'])) {
 			$data['subsidiary_list'] = $this->manage_model->get_subsidiary_list_by_company($data['company_list'][0]->id);
 		}
+		$data['role_list'] = $this->manage_model->get_role_list();
 		$this->load->view('manage/add_user.php', $data);
 	}
 
@@ -251,6 +252,7 @@ class Manage extends MY_Controller {
 		$data = $this->manage_model->get_user($id);
 		$data['company_list'] = $this->manage_model->get_company_list();
 		$data['subsidiary_list'] = $this->manage_model->get_subsidiary_list_by_company($data['company_id']);
+		$data['role_list'] = $this->manage_model->get_role_list();
 		$this->load->view('manage/add_user.php', $data);
 	}
 

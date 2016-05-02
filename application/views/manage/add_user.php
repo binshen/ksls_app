@@ -22,6 +22,57 @@
                     </dd>
                 </dl>
                 <dl>
+                    <dt>所属公司：</dt>
+                    <dd>
+                        <select name="company_id" class="combox" id="selectCompany" ref="selectSubSidiary" refUrl="/manage/get_subsidiary_list/{value}" >
+                            <?php
+                            if (!empty($company_list)):
+                                foreach ($company_list as $row):
+                                    $selected = !empty($company_id) && $row->id == $company_id ? "selected" : "";
+                                    ?>
+                                    <option value="<?php echo $row->id; ?>" <?php echo $selected; ?>><?php echo $row->name; ?></option>
+                                    <?php
+                                endforeach;
+                            endif;
+                            ?>
+                        </select>
+                    </dd>
+                </dl>
+                <dl>
+                    <dt>所属分店：</dt>
+                    <dd>
+                        <select name="subsidiary_id" class="combox" id="selectSubSidiary">
+                            <?php
+                            if (!empty($subsidiary_list)):
+                                foreach ($subsidiary_list as $row):
+                                    $selected = !empty($subsidiary_id) && $row['id'] == $subsidiary_id ? "selected" : "";
+                                    ?>
+                                    <option value="<?php echo $row['id']; ?>" <?php echo $selected; ?>><?php echo $row['name']; ?></option>
+                                    <?php
+                                endforeach;
+                            endif;
+                            ?>
+                        </select>
+                    </dd>
+                </dl>
+                <dl>
+                    <dt>角色：</dt>
+                    <dd>
+                        <select name="role_id" class="combox" id="selectRole">
+                            <?php
+                            if (!empty($role_list)):
+                                foreach ($role_list as $row):
+                                    $selected = !empty($role_id) && $row['id'] == $role_id ? "selected" : "";
+                                    ?>
+                                    <option value="<?php echo $row['id']; ?>" <?php echo $selected; ?>><?php echo $row['name']; ?></option>
+                                    <?php
+                                endforeach;
+                            endif;
+                            ?>
+                        </select>
+                    </dd>
+                </dl>
+                <dl>
                     <dt>头像：</dt>
                     <dd>
                         <div class="file-box">
@@ -36,40 +87,7 @@
                     <dt>头像预览：</dt>
                     <dd id="img"><?php if(!empty($pic)):?><img height="50px" width="50px" src="<?php echo base_url().$pic;?>" /><?php endif;?></dd>
                 </dl>
-                <dl>
-                    <dt>所属公司：</dt>
-                    <dd>
-                        <select name="company_id" class="combox" id="selectCompany" ref="selectSubSidiary" refUrl="/manage/get_subsidiary_list/{value}" >
-                            <?php
-                                if (!empty($company_list)):
-                                    foreach ($company_list as $row):
-                                        $selected = !empty($company_id) && $row->id == $company_id ? "selected" : "";
-                            ?>
-                                    <option value="<?php echo $row->id; ?>" <?php echo $selected; ?>><?php echo $row->name; ?></option>
-                            <?php
-                                    endforeach;
-                                endif;
-                            ?>
-                        </select>
-                    </dd>
-                </dl>
-                <dl>
-                    <dt>所属分店：</dt>
-                    <dd>
-                        <select name="subsidiary_id" class="combox" id="selectSubSidiary">
-                            <?php
-                                if (!empty($subsidiary_list)):
-                                    foreach ($subsidiary_list as $row):
-                                        $selected = !empty($subsidiary_id) && $row['id'] == $subsidiary_id ? "selected" : "";
-                            ?>
-                                    <option value="<?php echo $row['id']; ?>" <?php echo $selected; ?>><?php echo $row['name']; ?></option>
-                            <?php
-                                    endforeach;
-                                endif;
-                            ?>
-                        </select>
-                    </dd>
-                </dl>
+
             </fieldset>
         </div>
         <div class="formBar">
