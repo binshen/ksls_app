@@ -238,12 +238,8 @@ class Manage extends MY_Controller {
 		}
 
 		if($ret == 1){
-			form_submit_json("200", "操作成功", 'list_broker');
-		} else if($ret == -3){
-			form_submit_json("300", "已经超出业务员的数量，保存失败");
-		} else if($ret == -2){
-			form_submit_json("300", "已经超出可分配二手房的数量，保存失败");
-		}else {
+			form_submit_json("200", "操作成功", 'list_user');
+		} else {
 			form_submit_json("300", "保存失败");
 		}
 	}
