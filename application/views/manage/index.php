@@ -67,6 +67,9 @@ $(function(){
 	<div id="layout">
 		<div id="header">
 			<div class="headerNav">
+				<ul style="float: left; padding-left: 5px; padding-top: 5px">
+					<img src="static/images/logo.png" >
+				</ul>
 				<ul class="nav">
 					<li><a href="<?php echo base_url();?>" target="_black">前台首页</a></li>
 					<li><a href="<?php echo site_url('manage_login/change_pwd');?>" target="dialog" rel="chagepwd">密码修改</a></li>
@@ -76,7 +79,7 @@ $(function(){
 			</div>
 		</div>
 
-		<div id="leftside">
+		<div id="leftside" style="top: 50px">
 			<div id="sidebar_s">
 				<div class="collapse">
 					<div class="toggleCollapse"><div></div></div>
@@ -100,7 +103,7 @@ $(function(){
 				</div>
 			</div>
 		</div>
-		<div id="container">
+		<div id="container" style="top: 50px">
 			<div id="navTab" class="tabsPage">
 				<div class="tabsPageHeader">
 					<div class="tabsPageHeaderContent"><!-- 显示左右控制时添加 class="tabsPageHeaderMargin" -->
