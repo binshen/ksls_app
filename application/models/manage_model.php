@@ -35,6 +35,7 @@ class Manage_model extends MY_Model
         $this->db->from('user');
         $this->db->where('username', $username);
         $this->db->where('password', sha1($password));
+        $this->db->where('role_id <= 3');
         $rs = $this->db->get();
         if ($rs->num_rows() > 0) {
         	$res = $rs->row();
@@ -43,7 +44,6 @@ class Manage_model extends MY_Model
             $user_info['rel_name'] = $res->rel_name;
             $user_info['company_id'] = $res->company_id;
             $user_info['subsidiary_id'] = $res->subsidiary_id;
-            $user_info['group_id'] = $res->group_id;
             $this->session->set_userdata($user_info);
             return true;
         }
@@ -364,8 +364,7 @@ class Manage_model extends MY_Model
             'company_id' => $this->input->post('company_id'),
             'subsidiary_id' => $this->input->post('subsidiary_id'),
             'rel_name' => $this->input->post('rel_name'),
-            'role_id' => $this->input->post('role_id'),
-            'group_id' => 2
+            'role_id' => $this->input->post('role_id')
         );
         if(!empty($pic)) {
             $data['pic'] = '/uploadfiles/profile/' . $pic;
