@@ -8,28 +8,28 @@
         <div class="pageFormContent" layoutH="55">
         	<fieldset>
         	<legend>分店信息</legend>
+				<dl>
+					<dt>公司总部：</dt>
+					<dd>
+						<select name="company_id" class="combox">
+							<?php
+							if (!empty($company_list)):
+								foreach ($company_list as $row):
+									$selected = $row->id == $company_id ? "selected" : "";
+									?>
+									<option value="<?php echo $row->id; ?>" <?php echo $selected; ?>><?php echo $row->name; ?></option>
+									<?php
+								endforeach;
+							endif;
+							?>
+						</select>
+				</dl>
         	    <dl>
         			<dt>分店名称：</dt>
         			<dd>
         				<input type="hidden" name="id" value="<?php if(!empty($id)) echo $id;?>">
         				<input name="name" type="text" class="required" value="<?php if(!empty($name)) echo $name;?>" />
         			</dd>
-        		</dl>
-        		<dl>
-        			<dt>所属公司：</dt>
-        			<dd>
-        				<select name="company_id" class="combox">
-        					<?php          
-				                if (!empty($company_list)):
-				            	    foreach ($company_list as $row):
-				            	    	$selected = $row->id == $company_id ? "selected" : "";          
-				            ?>
-        								<option value="<?php echo $row->id; ?>" <?php echo $selected; ?>><?php echo $row->name; ?></option>
-        					<?php 
-				            		endforeach;
-				            	endif;
-				            ?>
-        				</select>
         		</dl>
         	</fieldset>
         </div>

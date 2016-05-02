@@ -3,7 +3,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="renderer" content="webkit" />
-<title>房猫网站后台管理</title>
+<title>房猫后台管理</title>
 
 <link href="<?php echo base_url();?>dwz/themes/default/style.css" rel="stylesheet" type="text/css" media="screen"/>
 <link href="<?php echo base_url();?>dwz/themes/css/core.css" rel="stylesheet" type="text/css" media="screen"/>
@@ -134,7 +134,7 @@ $(function(){
 
 	</div>
 
-	<div id="footer">Copyright &copy; 2015 Funmall Co., Ltd. All rights reserved. 备案号：苏CP备13003602号-2</div>
+	<div id="footer">Copyright &copy; 2016 Funmall Co., Ltd. All rights reserved. 备案号：苏CP备13003602号-2</div>
 
 
 </body>
