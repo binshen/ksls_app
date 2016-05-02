@@ -362,6 +362,7 @@ class Manage_model extends MY_Model
             'company_id' => $this->input->post('company_id'),
             'subsidiary_id' => $this->input->post('subsidiary_id'),
             'rel_name' => $this->input->post('rel_name'),
+            'role_id' => $this->input->post('role_id'),
             'group_id' => 2
         );
         if(!empty($pic)) {
