@@ -35,13 +35,14 @@ class Manage_model extends MY_Model
         $this->db->from('user');
         $this->db->where('username', $username);
         $this->db->where('password', sha1($password));
-        $this->db->where('role_id <= 3');
+        $this->db->where('role_id <= 4');
         $rs = $this->db->get();
         if ($rs->num_rows() > 0) {
         	$res = $rs->row();
         	$user_info['user_id'] = $res->id;
             $user_info['username'] = $username;
             $user_info['rel_name'] = $res->rel_name;
+            $user_info['role_id'] = $res->role_id;
             $user_info['company_id'] = $res->company_id;
             $user_info['subsidiary_id'] = $res->subsidiary_id;
             $this->session->set_userdata($user_info);
