@@ -79,6 +79,9 @@ class Manage_model extends MY_Model
         //获得总记录数
         $this->db->select('count(1) as num');
         $this->db->from('company');
+        if($this->session->userdata('role_id') > 1) {
+            $this->db->where('id', $this->session->userdata('company_id'));
+        }
 
         $rs_total = $this->db->get()->row();
         //总记录数
@@ -86,6 +89,9 @@ class Manage_model extends MY_Model
 
         //list
         $this->db->select('*')->from('company');
+        if($this->session->userdata('role_id') > 1) {
+            $this->db->where('id', $this->session->userdata('company_id'));
+        }
         $this->db->limit($numPerPage, ($pageNum - 1) * $numPerPage );
         $this->db->order_by($this->input->post('orderField') ? $this->input->post('orderField') : 'id', $this->input->post('orderDirection') ? $this->input->post('orderDirection') : 'desc');
         $data['res_list'] = $this->db->get()->result();
@@ -136,9 +142,11 @@ class Manage_model extends MY_Model
         //获得总记录数
         $this->db->select('count(1) as num');
         $this->db->from('subsidiary');
-
-        if($this->input->post('company_id'))
-            $this->db->where('company_id',$this->input->post('company_id'));
+        if($this->session->userdata('role_id') == 2) {
+            $this->db->where('company_id', $this->session->userdata('company_id'));
+        } else if($this->session->userdata('role_id') > 2) {
+            $this->db->where('id', $this->session->userdata('subsidiary_id'));
+        }
 
         $rs_total = $this->db->get()->row();
         //总记录数
@@ -149,9 +157,10 @@ class Manage_model extends MY_Model
         $this->db->select('a.*, b.name AS company_name');
         $this->db->from('subsidiary a');
         $this->db->join('company b', 'a.company_id = b.id', 'left');
-        if($this->input->post('company_id')){
-            $this->db->where('company_id',$this->input->post('company_id'));
-            $data['company_id'] = $this->input->post('company_id');
+        if($this->session->userdata('role_id') == 2) {
+            $this->db->where('a.company_id', $this->session->userdata('company_id'));
+        } else if($this->session->userdata('role_id') > 2) {
+            $this->db->where('a.id', $this->session->userdata('subsidiary_id'));
         }
 
         $this->db->limit($numPerPage, ($pageNum - 1) * $numPerPage );
@@ -194,19 +203,19 @@ class Manage_model extends MY_Model
         return $this->db->delete('subsidiary');
     }
 
-    public function get_company_list($id = NULL) {
-        if(empty($id)) {
+    public function get_company_list() {
+        if($this->session->userdata('role_id') == 1) {
             return $this->db->get('company')->result();
         } else {
-            return $this->db->get_where('company', array('id' => $id))->result();
+            return $this->db->get_where('company', array('id' => $this->session->userdata('company_id')))->result();
         }
     }
 
-    public function get_subsidiary_list_by_company($id, $sid = NULL) {
-        if(empty($sid)) {
+    public function get_subsidiary_list_by_company($id) {
+        if($this->session->userdata('role_id') < 4) {
             return $this->db->get_where('subsidiary', array('company_id' => $id))->result_array();
         } else {
-            return $this->db->get_where('subsidiary', array('company_id' => $id, 'id' => $sid))->result_array();
+            return $this->db->get_where('subsidiary', array('company_id' => $id, 'id' => $this->session->userdata('subsidiary_id')))->result_array();
         }
     }
 
@@ -331,8 +340,11 @@ class Manage_model extends MY_Model
         //获得总记录数
         $this->db->select('count(1) as num');
         $this->db->from('user');
-        if($this->input->post('rel_name'))
-            $this->db->like('rel_name',$this->input->post('rel_name'));
+        if($this->session->userdata('role_id') == 2) {
+            $this->db->where('company_id', $this->session->userdata('company_id'));
+        } else if($this->session->userdata('role_id') > 2) {
+            $this->db->where('subsidiary_id', $this->session->userdata('subsidiary_id'));
+        }
 
         $rs_total = $this->db->get()->row();
         //总记录数
@@ -345,9 +357,10 @@ class Manage_model extends MY_Model
         $this->db->join('company b', 'a.company_id = b.id', 'left');
         $this->db->join('subsidiary c', 'a.subsidiary_id = c.id', 'left');
         $this->db->join('role d', 'a.role_id = d.id', 'left');
-        if($this->input->post('rel_name')){
-            $this->db->like('a.rel_name',$this->input->post('rel_name'));
-            $data['rel_name'] = $this->input->post('rel_name');
+        if($this->session->userdata('role_id') == 2) {
+            $this->db->where('a.company_id', $this->session->userdata('company_id'));
+        } else if($this->session->userdata('role_id') > 2) {
+            $this->db->where('a.subsidiary_id', $this->session->userdata('subsidiary_id'));
         }
         $this->db->limit($numPerPage, ($pageNum - 1) * $numPerPage );
         $this->db->order_by($this->input->post('orderField') ? $this->input->post('orderField') : 'id', $this->input->post('orderDirection') ? $this->input->post('orderDirection') : 'desc');
@@ -402,6 +415,6 @@ class Manage_model extends MY_Model
     }
 
     public function get_role_list() {
-        return $this->db->get('role')->result_array();
+        return $this->db->get_where('role', array('id >' => 1))->result_array();
     }
 }

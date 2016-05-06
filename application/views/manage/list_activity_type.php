@@ -8,8 +8,10 @@
 <div class="pageContent">
     <div class="panelBar">
         <ul class="toolBar">
-            <li><a class="add" href="<?php echo site_url('manage/add_activity_type')?>" target="dialog" rel="add_activity_type" title="新建"><span>新建</span></a></li>
-            <li><a class="delete" href="<?php echo site_url('manage/delete_activity_type')?>/{id}" target="ajaxTodo"  title="确定要删除？" warn="请选择一条记录"><span>删除</span></a></li>
+            <?php if($this->session->userdata('role_id') == 1): ?>
+                <li><a class="add" href="<?php echo site_url('manage/add_activity_type')?>" target="dialog" rel="add_activity_type" title="新建"><span>新建</span></a></li>
+                <li><a class="delete" href="<?php echo site_url('manage/delete_activity_type')?>/{id}" target="ajaxTodo"  title="确定要删除？" warn="请选择一条记录"><span>删除</span></a></li>
+            <?php endif ?>
             <li><a class="edit" href="<?php echo site_url('manage/edit_activity_type/{id}')?>" target="dialog" rel="edit_activity_type" warn="请选择一条记录" title="查看"><span>查看</span></a></li>
         </ul>
     </div>
