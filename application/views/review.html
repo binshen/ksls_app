@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>房猫KPI系统</title>
+    <meta name="keywords" content="房猫KPI系统" />
+    <meta name="description" content="房猫KPI系统" />
+    <link href="/static/css/reset.css" rel="stylesheet" type="text/css">
+    <link href="/static/css/style.css" rel="stylesheet" type="text/css">
+    <!--[if IE 6]><script>document.execCommand("BackgroundImageCache", false, true)</script><![endif]-->
+</head>
+<body>
+<div class="doc">
+    <div class="header-wrap">
+        <div class="header-in-wrap">
+            <div class="header-left">
+                <p>昆山 5月03日 周二 11：16</p>
+            </div>
+            <div class="login-info">
+                <a href="javascript:" id="Jmoreoperation" class="moreoperation"><span class="logo-head-pic"><img src="/static/images/user-photo.gif" alt="" width="26" height="26" /> </span>
+                    郑法明<em class="up-icon"></em></a>
+                <div class="more-operation" style="display:none;">
+                    <a href=""><em class="a-em1"></em>完善资料</a>
+                    <a href=""><em class="a-em2"></em>修改密码</a>
+                </div>| 退出
+            </div>
+        </div>
+    </div>
+    <div class="wraper">
+        <!--<div class="search-wrap">-->
+        <!---->
+        <!--</div>-->
+        <div class="wrap-left">
+            <span class="logo"><img src="/static/images/logo.jpg" alt="" width="130" height="35"></span>
+            <div class="nav-left">
+                <ul class="nav-left-ul">
+                    <li><a href=""><em class="home"></em>回到首页</a></li>
+                    <li class="on"><a href=""><em class="schedule"></em>我的行程</a></li>
+                    <li><a href=""><em class="verify"></em>我的审核</a></li>
+                    <li><a href=""><em class="performance"></em>绩效排行</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="wrap-right">
+            <div class="search-wrap">
+                <form>
+                    <select name="sel-company">
+                        <option value="">选择公司</option>
+                        <option value="曼娜吉有限公司">曼娜吉有限公司</option>
+                    </select>
+                    <select name="sel-department">
+                        <option value="">选择部门</option>
+                        <option value="九杨店">九杨店</option>
+                        <option value="九杨店">九杨店</option>
+                    </select>
+                    <select name="sel-name">
+                        <option value="">选择员工</option>
+                        <option value="郑法明">郑法明</option>
+                        <option value="郑法明">郑法明</option>
+                    </select>
+                    <!--<select name="sel-begin-time">-->
+                    <!--<option value="">选择开始时间</option>-->
+                    <!--<option value="郑法明">郑法明</option>-->
+                    <!--<option value="郑法明">郑法明</option>-->
+                    <!--</select>-->
+                    <input type="text" name="begin-time" id="J_DepDate" value="" class="sel-begin-time" />
+                    <span class="time-break"> </span>
+                    <input type="text" name="begin-time" id="J_EndDate" value="" class="sel-end-time" />
+                    <!--<select name="sel-end-time" class="sel-end-time">-->
+                    <!--<option value="">选择截至日期</option>-->
+                    <!--<option value="郑法明">郑法明</option>-->
+                    <!--<option value="郑法明">郑法明</option>-->
+                    <!--</select>-->
+                    <a href="" class="search-btn"></a>
+                    <a href="" class="add-schedule-btn">+新增行程</a>
+                </form>
+            </div>
+            <div class="schedule-wrap">
+                <ul class="schedule-ul">
+                    <li class="wid60">姓名</li>
+                    <li class="wid92">时间/行程</li>
+                    <li class="wid103">9:00-10:30<span class="time-bor"></span>
+                        <em class="fz14">事件</em>&nbsp&nbsp<em class="fz14">工作量</em>
+                    </li>
+                    <li class="wid103">10:30-13:00<span class="time-bor"></span>
+                        <em class="fz14">事件</em>&nbsp&nbsp<em class="fz14">工作量</em>
+                    </li>
+                    <li class="wid103">13:00-15:00<span class="time-bor"></span>
+                        <em class="fz14">事件</em>&nbsp&nbsp<em class="fz14">工作量</em>
+                    </li>
+                    <li class="wid103">15:00-16:30<span class="time-bor"></span>
+                        <em class="fz14">事件</em>&nbsp&nbsp<em class="fz14">工作量</em>
+                    </li>
+                    <li class="wid103">16:30-18:00<span class="time-bor"></span>
+                        <em class="fz14">事件</em>&nbsp&nbsp<em class="fz14">工作量</em>
+                    </li>
+                    <li class="wid60">计划</li>
+                    <li class="wid60">自评</li>
+                    <li class="wid60">审核</li>
+                    <li class="wid75">操作</li>
+                </ul>
+                <ul class="schedule-list">
+                    <li class="name wid60">郑法明</li>
+                    <li class="bor-separate"></li>
+                    <li class="time wid92"><em class="em-lock"></em>05/04</li>
+                    <li class="bor-separate"></li>
+                    <li class="items wid103">
+                        <span class="item-icon item-icon-1"></span>
+                        <ul>
+                            <li class="i-plan">100组</li>
+                            <li class="i-reality">100组</li>
+                            <li class="i-verify">----</li>
+                        </ul>
+                    </li>
+                    <li class="bor-separate bor-separate1"></li>
+                    <li class="items wid103">
+                        <span class="item-icon item-icon-2"></span>
+                        <ul>
+                            <li class="i-plan">100组</li>
+                            <li class="i-reality">100组</li>
+                            <li class="i-verify">--</li>
+                        </ul>
+                    </li>
+                    <li class="bor-separate bor-separate1"></li>
+                    <li class="items wid103">
+                        <span class="item-icon item-icon-3"></span>
+                        <ul>
+                            <li class="i-plan">100组</li>
+                            <li class="i-reality">100组</li>
+                            <li class="i-verify">--</li>
+                        </ul>
+                    </li>
+                    <li class="bor-separate bor-separate1"></li>
+                    <li class="items wid103">
+                        <span class="item-icon item-icon-4"></span>
+                        <ul>
+                            <li class="i-plan">100组</li>
+                            <li class="i-reality">100组</li>
+                            <li class="i-verify">--</li>
+                        </ul>
+                    </li>
+                    <li class="bor-separate bor-separate1"></li>
+                    <li class="items wid103">
+                        <span class="item-icon item-icon-5"></span>
+                        <ul>
+                            <li class="i-plan">100组</li>
+                            <li class="i-reality">100组</li>
+                            <li class="i-verify">--</li>
+                        </ul>
+                    </li>
+                    <li class="bor-separate bor-separate1 bor-separate-none"></li>
+                    <li class="wid64 score-plan">100分</li>
+                    <li class="wid64 score-reality">100分</li>
+                    <li class="wid64 score-verify">100分</li>
+                    <li class="wid75"><a href="" class="operation-btn operation-btn-no">审核</a> </li>
+                </ul>
+                <ul class="schedule-list">
+                    <li class="name wid60">郑法明</li>
+                    <li class="bor-separate"></li>
+                    <li class="time wid92"><em class="em-lock"></em>05/04</li>
+                    <li class="bor-separate"></li>
+                    <li class="items wid103">
+                        <span class="item-icon item-icon-1"></span>
+                        <ul>
+                            <li class="i-plan">100组</li>
+                            <li class="i-reality">100组</li>
+                            <li class="i-verify">----</li>
+                        </ul>
+                    </li>
+                    <li class="bor-separate bor-separate1"></li>
+                    <li class="items wid103">
+                        <span class="item-icon item-icon-2"></span>
+                        <ul>
+                            <li class="i-plan">100组</li>
+                            <li class="i-reality">100组</li>
+                            <li class="i-verify">--</li>
+                        </ul>
+                    </li>
+                    <li class="bor-separate bor-separate1"></li>
+                    <li class="items wid103">
+                        <span class="item-icon item-icon-3"></span>
+                        <ul>
+                            <li class="i-plan">100组</li>
+                            <li class="i-reality">100组</li>
+                            <li class="i-verify">--</li>
+                        </ul>
+                    </li>
+                    <li class="bor-separate bor-separate1"></li>
+                    <li class="items wid103">
+                        <span class="item-icon item-icon-4"></span>
+                        <ul>
+                            <li class="i-plan">100组</li>
+                            <li class="i-reality">100组</li>
+                            <li class="i-verify">--</li>
+                        </ul>
+                    </li>
+                    <li class="bor-separate bor-separate1"></li>
+                    <li class="items wid103">
+                        <span class="item-icon item-icon-5"></span>
+                        <ul>
+                            <li class="i-plan">100组</li>
+                            <li class="i-reality">100组</li>
+                            <li class="i-verify">--</li>
+                        </ul>
+                    </li>
+                    <li class="bor-separate bor-separate1 bor-separate-none"></li>
+                    <li class="wid64 score-plan">100分</li>
+                    <li class="wid64 score-reality">100分</li>
+                    <li class="wid64 score-verify">100分</li>
+                    <li class="wid75"><a href="" class="operation-btn">审核</a> </li>
+                </ul>
+                <ul class="schedule-list">
+                    <li class="name wid60">郑法明</li>
+                    <li class="bor-separate"></li>
+                    <li class="time wid92"><em class="em-lock"></em>05/04</li>
+                    <li class="bor-separate"></li>
+                    <li class="items wid103">
+                        <span class="item-icon item-icon-1"></span>
+                        <ul>
+                            <li class="i-plan">100组</li>
+                            <li class="i-reality">100组</li>
+                            <li class="i-verify">----</li>
+                        </ul>
+                    </li>
+                    <li class="bor-separate bor-separate1"></li>
+                    <li class="items wid103">
+                        <span class="item-icon item-icon-2"></span>
+                        <ul>
+                            <li class="i-plan">100组</li>
+                            <li class="i-reality">100组</li>
+                            <li class="i-verify">--</li>
+                        </ul>
+                    </li>
+                    <li class="bor-separate bor-separate1"></li>
+                    <li class="items wid103">
+                        <span class="item-icon item-icon-3"></span>
+                        <ul>
+                            <li class="i-plan">100组</li>
+                            <li class="i-reality">100组</li>
+                            <li class="i-verify">--</li>
+                        </ul>
+                    </li>
+                    <li class="bor-separate bor-separate1"></li>
+                    <li class="items wid103">
+                        <span class="item-icon item-icon-4"></span>
+                        <ul>
+                            <li class="i-plan">100组</li>
+                            <li class="i-reality">100组</li>
+                            <li class="i-verify">--</li>
+                        </ul>
+                    </li>
+                    <li class="bor-separate bor-separate1"></li>
+                    <li class="items wid103">
+                        <span class="item-icon item-icon-5"></span>
+                        <ul>
+                            <li class="i-plan">100组</li>
+                            <li class="i-reality">100组</li>
+                            <li class="i-verify">--</li>
+                        </ul>
+                    </li>
+                    <li class="bor-separate bor-separate1 bor-separate-none"></li>
+                    <li class="wid64 score-plan">100分</li>
+                    <li class="wid64 score-reality">100分</li>
+                    <li class="wid64 score-verify">100分</li>
+                    <li class="wid75"><a href="" class="operation-btn">审核</a> </li>
+                </ul>
+                <ul class="schedule-list">
+                    <li class="name wid60">郑法明</li>
+                    <li class="bor-separate"></li>
+                    <li class="time wid92"><em class="em-lock"></em>05/04</li>
+                    <li class="bor-separate"></li>
+                    <li class="items wid103">
+                        <span class="item-icon item-icon-1"></span>
+                        <ul>
+                            <li class="i-plan">100组</li>
+                            <li class="i-reality">100组</li>
+                            <li class="i-verify">----</li>
+                        </ul>
+                    </li>
+                    <li class="bor-separate bor-separate1"></li>
+                    <li class="items wid103">
+                        <span class="item-icon item-icon-2"></span>
+                        <ul>
+                            <li class="i-plan">100组</li>
+                            <li class="i-reality">100组</li>
+                            <li class="i-verify">--</li>
+                        </ul>
+                    </li>
+                    <li class="bor-separate bor-separate1"></li>
+                    <li class="items wid103">
+                        <span class="item-icon item-icon-3"></span>
+                        <ul>
+                            <li class="i-plan">100组</li>
+                            <li class="i-reality">100组</li>
+                            <li class="i-verify">--</li>
+                        </ul>
+                    </li>
+                    <li class="bor-separate bor-separate1"></li>
+                    <li class="items wid103">
+                        <span class="item-icon item-icon-4"></span>
+                        <ul>
+                            <li class="i-plan">100组</li>
+                            <li class="i-reality">100组</li>
+                            <li class="i-verify">--</li>
+                        </ul>
+                    </li>
+                    <li class="bor-separate bor-separate1"></li>
+                    <li class="items wid103">
+                        <span class="item-icon item-icon-5"></span>
+                        <ul>
+                            <li class="i-plan">100组</li>
+                            <li class="i-reality">100组</li>
+                            <li class="i-verify">--</li>
+                        </ul>
+                    </li>
+                    <li class="bor-separate bor-separate1 bor-separate-none"></li>
+                    <li class="wid64 score-plan">100分</li>
+                    <li class="wid64 score-reality">100分</li>
+                    <li class="wid64 score-verify">100分</li>
+                    <li class="wid75"><a href="" class="operation-btn">审核</a> </li>
+                </ul>
+                <ul class="schedule-list">
+                    <li class="name wid60">郑法明</li>
+                    <li class="bor-separate"></li>
+                    <li class="time wid92"><em class="em-lock"></em>05/04</li>
+                    <li class="bor-separate"></li>
+                    <li class="items wid103">
+                        <span class="item-icon item-icon-1"></span>
+                        <ul>
+                            <li class="i-plan">100组</li>
+                            <li class="i-reality">100组</li>
+                            <li class="i-verify">----</li>
+                        </ul>
+                    </li>
+                    <li class="bor-separate bor-separate1"></li>
+                    <li class="items wid103">
+                        <span class="item-icon item-icon-2"></span>
+                        <ul>
+                            <li class="i-plan">100组</li>
+                            <li class="i-reality">100组</li>
+                            <li class="i-verify">--</li>
+                        </ul>
+                    </li>
+                    <li class="bor-separate bor-separate1"></li>
+                    <li class="items wid103">
+                        <span class="item-icon item-icon-3"></span>
+                        <ul>
+                            <li class="i-plan">100组</li>
+                            <li class="i-reality">100组</li>
+                            <li class="i-verify">--</li>
+                        </ul>
+                    </li>
+                    <li class="bor-separate bor-separate1"></li>
+                    <li class="items wid103">
+                        <span class="item-icon item-icon-4"></span>
+                        <ul>
+                            <li class="i-plan">100组</li>
+                            <li class="i-reality">100组</li>
+                            <li class="i-verify">--</li>
+                        </ul>
+                    </li>
+                    <li class="bor-separate bor-separate1"></li>
+                    <li class="items wid103">
+                        <span class="item-icon item-icon-5"></span>
+                        <ul>
+                            <li class="i-plan">100组</li>
+                            <li class="i-reality">100组</li>
+                            <li class="i-verify">--</li>
+                        </ul>
+                    </li>
+                    <li class="bor-separate bor-separate1 bor-separate-none"></li>
+                    <li class="wid64 score-plan">100分</li>
+                    <li class="wid64 score-reality">100分</li>
+                    <li class="wid64 score-verify">100分</li>
+                    <li class="wid75"><a href="" class="operation-btn">审核</a> </li>
+                </ul>
+                <div class="pages">
+                    <a href="" class="prev">上一页</a>
+                    <span class="current">1</span>
+                    <a href="">2</a>
+                    <a href="">3</a>
+                    <a href="">4</a>
+                    <a href="">5</a>
+                    <span>......</span>
+                    <a href="">20</a>
+                    <a href="" class="next">下一页</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript" src="/static/js/yui-min.js"></script>
+<script type="text/javascript" src="/static/js/jquery-1.9.0.js"></script>
+<script type="text/javascript">
+    $("#Jmoreoperation").click(function(){
+        $(".more-operation").toggle();
+        $(this).parent().mouseleave(function(){$(".more-operation").hide()});
+    })
+    YUI({
+        modules: {
+            'trip-calendar': {
+                fullpath: '/static/js/calendar.js',
+                type    : 'js',
+                requires: ['trip-calendar-css']
+            },
+            'trip-calendar-css': {
+                fullpath: '/static/css/calendar.css',
+                type    : 'css'
+            }
+        }
+    }).use('trip-calendar', function(Y) {
+        new Y.TripCalendar({
+            // minDate         : new Date,     //最小时间限制
+            triggerNode     : '#J_DepDate', //第一个触节点
+            finalTriggerNode: '#J_EndDate',  //最后一个触发节点
+            isHoliday:false,
+            isDateInfo:false,
+            count:1
+        });
+    });
+</script>
+</body>
+</html>
