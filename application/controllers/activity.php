@@ -15,7 +15,11 @@ class Activity extends MY_Controller {
         parent::__construct();
     }
 
-    public function review() {
-        $this->load->view('review.html');
+    public function list_activity() {
+        $this->load->view('list_activity.html');
+    }
+
+    public function list_review() {
+        $this->load->view('list_review.html');
     }
 }
