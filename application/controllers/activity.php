@@ -8,7 +8,7 @@
 
 if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-class Route extends MY_Controller {
+class Activity extends MY_Controller {
 
     public function __construct()
     {
