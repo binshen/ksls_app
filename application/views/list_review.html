@@ -40,7 +40,7 @@
         </div>
         <div class="wrap-right">
             <div class="search-wrap">
-                <form>
+                <form id="formSearchActivity" method="POST" action="/activity/list_review">
                     {{if $role_id == 1}}
                     <select name="company" id="sel_company">
                         <option value="">选择公司</option>
@@ -214,7 +214,7 @@
         });
     });
     $("#btn_search").click(function() {
-        alert("");
+        $('#formSearchActivity').submit();
     });
 </script>
 </body>
