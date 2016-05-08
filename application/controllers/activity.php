@@ -58,6 +58,22 @@ class Activity extends MY_Controller {
         $this->display('list_review.html');
     }
 
+    public function add_activity() {
+        $this->display('add_activity.html');
+    }
+
+    public function edit_activity() {
+        $this->display('add_activity.html');
+    }
+
+    public function inspect_activity() {
+        $this->display('add_activity.html');
+    }
+
+    public function review_activity() {
+        $this->display('add_activity.html');
+    }
+
     public function get_subsidiary_list($company_id) {
 
         $subsidiary_list = $this->activity_model->get_subsidiary_list($company_id);
