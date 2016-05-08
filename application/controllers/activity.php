@@ -44,6 +44,8 @@ class Activity extends MY_Controller {
             $this->assign('subsidiary_list', $subsidiary_list);
         }
 
+        $activity_list = $this->activity_model->list_activity();
+        $this->assign('activity_list', $activity_list);
 
         $this->assign('role_id', $role_id);
         $this->display('list_review.html');
