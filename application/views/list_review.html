@@ -61,7 +61,7 @@
                     <input type="text" name="start_date" id="J_DepDate" value="" class="sel-begin-time" />
                     <span class="time-break"> </span>
                     <input type="text" name="end_date" id="J_EndDate" value="" class="sel-end-time" />
-                    <a href="#" class="search-btn"></a>
+                    <a href="javascript:void(0);" class="search-btn" id="btn_search"></a>
                 </form>
             </div>
             <div class="schedule-wrap">
@@ -212,6 +212,9 @@
                 $("#sel_user").append('<option value="'+data[i].id+'">'+data[i].rel_name+'</option>');
             }
         });
+    });
+    $("#btn_search").click(function() {
+        alert("");
     });
 </script>
 </body>
