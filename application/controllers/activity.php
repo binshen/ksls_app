@@ -13,6 +13,7 @@ class Activity extends MY_Controller {
     public function __construct()
     {
         parent::__construct();
+        $this->load->model('activity_model');
     }
 
     public function list_activity() {
@@ -20,6 +21,25 @@ class Activity extends MY_Controller {
     }
 
     public function list_review() {
-        $this->load->view('list_review.html');
+
+        $role_id = $this->session->userdata('role_id');
+        if($role_id == 1) {
+            $company_list = $this->activity_model->get_company_list();
+            $this->assign('company_list', $company_list);
+        } else {
+            $company_id = $this->session->userdata('company_id');
+            $subsidiary_list = $this->activity_model->get_subsidiary_list($company_id);
+            $this->assign('subsidiary_list', $subsidiary_list);
+        }
+        
+
+        $this->display('list_review.html');
+    }
+
+    public function get_subsidiary_list($company_id) {
+
+        $subsidiary_list = $this->activity_model->get_subsidiary_list($company_id);
+        echo json_encode($subsidiary_list);
+        die;
     }
 }

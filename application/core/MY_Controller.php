@@ -17,26 +17,7 @@ class MY_Controller extends CI_Controller
     {
         parent::__construct();
         ini_set('date.timezone','Asia/Shanghai');
-//         $this->sysconfig_model->fenpei();
-//        $this->cismarty->assign('base_url',base_url());//url路径
-//        if($this->session->userdata('member_username')){
-//        	$this->cismarty->assign('member_username',$this->session->userdata('member_username'));
-//        }else{
-//        	$this->cismarty->assign('member_username','');
-//        }
-//
-//        $login_user_id = $this->session->userdata('user_id');
-//        $this->cismarty->assign('login_user_id', $login_user_id > 0 ? true : false);
-//
-//        $login_broker_id = $this->session->userdata('login_broker_id');
-//        $this->cismarty->assign('login_broker_id', $login_broker_id);
-//        $this->cismarty->assign('login_broker_id_flag', $login_broker_id > 0 ? true : false);
-//
-//        $group_id = $this->session->userdata('group_id');
-//        $manager_group = $this->session->userdata('manager_group');
-//        $this->cismarty->assign('login_manager_flag', $group_id < 3 && $manager_group > 0 ? true : false);
-//        $this->cismarty->assign('login_company_id', $this->session->userdata('company_id'));
-//        $this->cismarty->assign('login_subsidiary_id', $this->session->userdata('subsidiary_id'));
+        $this->cismarty->assign('base_url',base_url());//url路径
     }
     
 	//重载smarty方法assign
