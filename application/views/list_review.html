@@ -52,15 +52,26 @@
                     <select name="subsidiary" id="sel_subsidiary">
                         <option value="">选择分店</option>
                         {{foreach from=$subsidiary_list key=key item=item}}
-                            <option value="{{$item.id}}">{{$item.name}}</option>
+                            {{if $item.id == $subsidiary}}
+                                <option value="{{$item.id}}" selected>{{$item.name}}</option>
+                            {{else}}
+                                <option value="{{$item.id}}">{{$item.name}}</option>
+                            {{/if}}
                         {{/foreach}}
                     </select>
                     <select name="user" id="sel_user">
                         <option value="">选择员工</option>
+                        {{foreach from=$user_list key=key item=item}}
+                            {{if $item.id == $user}}
+                                <option value="{{$item.id}}" selected>{{$item.rel_name}}</option>
+                            {{else}}
+                                <option value="{{$item.id}}">{{$item.rel_name}}</option>
+                            {{/if}}
+                        {{/foreach}}
                     </select>
-                    <input type="text" name="start_date" id="J_DepDate" value="" class="sel-begin-time" />
+                    <input type="text" name="start_date" id="J_DepDate" value="{{$start_date|default:''}}" class="sel-begin-time" />
                     <span class="time-break"> </span>
-                    <input type="text" name="end_date" id="J_EndDate" value="" class="sel-end-time" />
+                    <input type="text" name="end_date" id="J_EndDate" value="{{$end_date|default:''}}" class="sel-end-time" />
                     <a href="javascript:void(0);" class="search-btn" id="btn_search"></a>
                 </form>
             </div>

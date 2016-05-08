@@ -38,14 +38,29 @@ class Activity extends MY_Controller {
         if($role_id == 1) {
             $company_list = $this->activity_model->get_company_list();
             $this->assign('company_list', $company_list);
-        } else if($role_id == 4) {
-            $subsidiary_id = $this->session->userdata('subsidiary_id');
-            $subsidiary_list = $this->activity_model->get_subsidiary_list(null, $subsidiary_id);
-            $this->assign('subsidiary_list', $subsidiary_list);
-        } else {
-            $company_id = $this->session->userdata('company_id');
-            $subsidiary_list = $this->activity_model->get_subsidiary_list($company_id);
-            $this->assign('subsidiary_list', $subsidiary_list);
+        }
+        $company_id = $this->session->userdata('company_id');
+        $subsidiary_id = $role_id < 4 ? null : $this->session->userdata('subsidiary_id');
+        $subsidiary_list = $this->activity_model->get_subsidiary_list($company_id, $subsidiary_id);
+        $this->assign('subsidiary_list', $subsidiary_list);
+
+        if($this->input->POST('company')) {
+            $this->assign('company', $this->input->POST('company'));
+        }
+        if($this->input->POST('subsidiary')) {
+            $this->assign('subsidiary', $this->input->POST('subsidiary'));
+
+            $user_list = $this->activity_model->get_subsidiary_user_list($this->input->POST('subsidiary'));
+            $this->assign('user_list', $user_list);
+        }
+        if($this->input->POST('user')) {
+            $this->assign('user', $this->input->POST('user'));
+        }
+        if($this->input->POST('start_date')) {
+            $this->assign('start_date', $this->input->POST('start_date'));
+        }
+        if($this->input->POST('end_date')) {
+            $this->assign('end_date', $this->input->POST('end_date'));
         }
 
         $data = $this->activity_model->list_activity();
