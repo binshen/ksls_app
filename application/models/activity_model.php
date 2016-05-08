@@ -45,8 +45,23 @@ class Activity_model extends MY_Model
 
         //获得总记录数
         $this->db->select('count(1) as num');
-        $this->db->from('activity');
-        //$this->db->where('id', $this->session->userdata('subsidiary_id'));
+        $this->db->from('activity a');
+        $this->db->join('user b', 'a.user_id = b.id', 'inner');
+        if($this->input->POST('company')) {
+            $this->db->where('b.company_id', $this->input->POST('company'));
+        }
+        if($this->input->POST('subsidiary')) {
+            $this->db->where('b.subsidiary_id', $this->input->POST('subsidiary'));
+        }
+        if($this->input->POST('user')) {
+            $this->db->where('b.id', $this->input->POST('user'));
+        }
+        if($this->input->POST('start_date')) {
+            $this->db->where('a.date >=', $this->input->POST('start_date'));
+        }
+        if($this->input->POST('end_date')) {
+            $this->db->where('a.date <=', $this->input->POST('end_date'));
+        }
 
         $rs_total = $this->db->get()->row();
         //总记录数
@@ -65,6 +80,21 @@ class Activity_model extends MY_Model
         $this->db->join('activity_type t3', 'a.a3 = t3.id', 'left');
         $this->db->join('activity_type t4', 'a.a4 = t4.id', 'left');
         $this->db->join('activity_type t5', 'a.a5 = t5.id', 'left');
+        if($this->input->POST('company')) {
+            $this->db->where('b.company_id', $this->input->POST('company'));
+        }
+        if($this->input->POST('subsidiary')) {
+            $this->db->where('b.subsidiary_id', $this->input->POST('subsidiary'));
+        }
+        if($this->input->POST('user')) {
+            $this->db->where('b.id', $this->input->POST('user'));
+        }
+        if($this->input->POST('start_date')) {
+            $this->db->where('a.date >=', $this->input->POST('start_date'));
+        }
+        if($this->input->POST('end_date')) {
+            $this->db->where('a.date <=', $this->input->POST('end_date'));
+        }
 
         $this->db->limit($numPerPage, ($pageNum - 1) * $numPerPage );
         $this->db->order_by($this->input->post('orderField') ? $this->input->post('orderField') : 'a.id', $this->input->post('orderDirection') ? $this->input->post('orderDirection') : 'desc');

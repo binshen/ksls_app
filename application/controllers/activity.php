@@ -21,7 +21,7 @@ class Activity extends MY_Controller {
         $user_info['rel_name'] = 'Test';
         $user_info['role_id'] = 4;
         $user_info['company_id'] = 1;
-        $user_info['subsidiary_id'] = 1;
+        $user_info['subsidiary_id'] = 2;
         $this->session->set_userdata($user_info);
         //////////////
 
