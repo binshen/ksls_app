@@ -19,7 +19,7 @@ class Activity extends MY_Controller {
         $user_info['user_id'] = 1;
         $user_info['username'] = 'test';
         $user_info['rel_name'] = 'Test';
-        $user_info['role_id'] = 2;
+        $user_info['role_id'] = 1;
         $user_info['company_id'] = 1;
         $user_info['subsidiary_id'] = 1;
         $this->session->set_userdata($user_info);
@@ -58,6 +58,13 @@ class Activity extends MY_Controller {
 
         $subsidiary_list = $this->activity_model->get_subsidiary_list($company_id);
         echo json_encode($subsidiary_list);
+        die;
+    }
+
+    public function get_subsidiary_user_list($subsidiary_id) {
+
+        $subsidiary_user_list = $this->activity_model->get_subsidiary_user_list($subsidiary_id);
+        echo json_encode($subsidiary_user_list);
         die;
     }
 }

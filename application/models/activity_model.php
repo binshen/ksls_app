@@ -29,7 +29,7 @@ class Activity_model extends MY_Model
         return $this->db->get_where('subsidiary', array('company_id' => $company_id))->result_array();
     }
 
-    public function get_user_list($subsidiary_id) {
+    public function get_subsidiary_user_list($subsidiary_id) {
         return $this->db->get_where('user', array('subsidiary_id' => $subsidiary_id))->result_array();
     }
 

@@ -27,9 +27,6 @@
         </div>
     </div>
     <div class="wraper">
-        <!--<div class="search-wrap">-->
-        <!---->
-        <!--</div>-->
         <div class="wrap-left">
             <span class="logo"><img src="/static/images/logo.jpg" alt="" width="130" height="35"></span>
             <div class="nav-left">
@@ -45,20 +42,20 @@
             <div class="search-wrap">
                 <form>
                     {{if $role_id == 1}}
-                    <select name="company">
+                    <select name="company" id="sel_company">
                         <option value="">选择公司</option>
                         {{foreach from=$company_list key=key item=item}}
                             <option value="{{$item.id}}">{{$item.name}}</option>
                         {{/foreach}}
                     </select>
                     {{/if}}
-                    <select name="subsidiary">
-                        <option value="">选择部门</option>
+                    <select name="subsidiary" id="sel_subsidiary">
+                        <option value="">选择分店</option>
                         {{foreach from=$subsidiary_list key=key item=item}}
                             <option value="{{$item.id}}">{{$item.name}}</option>
                         {{/foreach}}
                     </select>
-                    <select name="user">
+                    <select name="user" id="sel_user">
                         <option value="">选择员工</option>
                     </select>
                     <input type="text" name="start_date" id="J_DepDate" value="" class="sel-begin-time" />
@@ -173,7 +170,7 @@
     $("#Jmoreoperation").click(function(){
         $(".more-operation").toggle();
         $(this).parent().mouseleave(function(){$(".more-operation").hide()});
-    })
+    });
     YUI({
         modules: {
             'trip-calendar': {
@@ -188,12 +185,32 @@
         }
     }).use('trip-calendar', function(Y) {
         new Y.TripCalendar({
-            // minDate         : new Date,     //最小时间限制
             triggerNode     : '#J_DepDate', //第一个触节点
             finalTriggerNode: '#J_EndDate',  //最后一个触发节点
             isHoliday:false,
             isDateInfo:false,
             count:1
+        });
+    });
+    $('#sel_company').change(function(){
+        var company_id = $(this).val();
+        $.get('/activity/get_subsidiary_list/' + $(this).val(), function(data) {
+            $("#sel_subsidiary").empty();
+            $("#sel_subsidiary").append('<option value="">选择分店</option>');
+            var data = JSON.parse(data);
+            for(var i in data) {
+                $("#sel_subsidiary").append('<option value="'+data[i].id+'">'+data[i].name+'</option>');
+            }
+        });
+    });
+    $('#sel_subsidiary').change(function(){
+        $.get('/activity/get_subsidiary_user_list/' + $(this).val(), function(data) {
+            $("#sel_user").empty();
+            $("#sel_user").append('<option value="">选择员工</option>');
+            var data = JSON.parse(data);
+            for(var i in data) {
+                $("#sel_user").append('<option value="'+data[i].id+'">'+data[i].rel_name+'</option>');
+            }
         });
     });
 </script>
