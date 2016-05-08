@@ -26,7 +26,7 @@ class Activity_model extends MY_Model
     }
 
     public function get_subsidiary_list($company_id, $subsidiary_id=NULL) {
-        if(empty($subsidiary_id)) { 
+        if(empty($subsidiary_id)) {
             return $this->db->get_where('subsidiary', array('company_id' => $company_id))->result_array();
         } else {
             return $this->db->get_where('subsidiary', array('id' => $subsidiary_id))->result_array();
@@ -40,7 +40,7 @@ class Activity_model extends MY_Model
     public function list_activity() {
 
         // 每页显示的记录条数，默认20条
-        $numPerPage = $this->input->post('numPerPage') ? $this->input->post('numPerPage') : 20;
+        $numPerPage = $this->input->post('numPerPage') ? $this->input->post('numPerPage') : 1;
         $pageNum = $this->input->post('pageNum') ? $this->input->post('pageNum') : 1;
 
         //获得总记录数
