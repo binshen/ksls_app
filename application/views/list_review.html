@@ -44,21 +44,22 @@
         <div class="wrap-right">
             <div class="search-wrap">
                 <form>
+                    {{if $role_id == 1}}
                     <select name="sel-company">
                         <option value="">选择公司</option>
                         {{foreach from=$company_list key=key item=item}}
                             <option value="{{$item.id}}">{{$item.name}}</option>
                         {{/foreach}}
                     </select>
+                    {{/if}}
                     <select name="sel-department">
                         <option value="">选择部门</option>
-                        <option value="九杨店">九杨店</option>
-                        <option value="九杨店">九杨店</option>
+                        {{foreach from=$subsidiary_list key=key item=item}}
+                            <option value="{{$item.id}}">{{$item.name}}</option>
+                        {{/foreach}}
                     </select>
                     <select name="sel-name">
                         <option value="">选择员工</option>
-                        <option value="郑法明">郑法明</option>
-                        <option value="郑法明">郑法明</option>
                     </select>
                     <input type="text" name="begin-time" id="J_DepDate" value="" class="sel-begin-time" />
                     <span class="time-break"> </span>

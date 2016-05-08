@@ -13,6 +13,18 @@ class Activity extends MY_Controller {
     public function __construct()
     {
         parent::__construct();
+
+        //////////////
+        //for test only
+        $user_info['user_id'] = 1;
+        $user_info['username'] = 'test';
+        $user_info['rel_name'] = 'Test';
+        $user_info['role_id'] = 2;
+        $user_info['company_id'] = 1;
+        $user_info['subsidiary_id'] = 1;
+        $this->session->set_userdata($user_info);
+        //////////////
+
         $this->load->model('activity_model');
     }
 
@@ -31,8 +43,9 @@ class Activity extends MY_Controller {
             $subsidiary_list = $this->activity_model->get_subsidiary_list($company_id);
             $this->assign('subsidiary_list', $subsidiary_list);
         }
-        
 
+
+        $this->assign('role_id', $role_id);
         $this->display('list_review.html');
     }
 
