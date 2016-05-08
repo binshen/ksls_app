@@ -19,7 +19,7 @@ class Activity extends MY_Controller {
         $user_info['user_id'] = 1;
         $user_info['username'] = 'test';
         $user_info['rel_name'] = 'Test';
-        $user_info['role_id'] = 1;
+        $user_info['role_id'] = 4;
         $user_info['company_id'] = 1;
         $user_info['subsidiary_id'] = 1;
         $this->session->set_userdata($user_info);
@@ -38,6 +38,10 @@ class Activity extends MY_Controller {
         if($role_id == 1) {
             $company_list = $this->activity_model->get_company_list();
             $this->assign('company_list', $company_list);
+        } else if($role_id == 4) {
+            $subsidiary_id = $this->session->userdata('subsidiary_id');
+            $subsidiary_list = $this->activity_model->get_subsidiary_list(null, $subsidiary_id);
+            $this->assign('subsidiary_list', $subsidiary_list);
         } else {
             $company_id = $this->session->userdata('company_id');
             $subsidiary_list = $this->activity_model->get_subsidiary_list($company_id);

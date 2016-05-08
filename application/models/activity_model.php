@@ -25,8 +25,12 @@ class Activity_model extends MY_Model
         return $this->db->get_where('company', array('id' => $id))->result_array();
     }
 
-    public function get_subsidiary_list($company_id) {
-        return $this->db->get_where('subsidiary', array('company_id' => $company_id))->result_array();
+    public function get_subsidiary_list($company_id, $subsidiary_id=NULL) {
+        if(empty($subsidiary_id)) {
+            return $this->db->get_where('subsidiary', array('company_id' => $company_id))->result_array();
+        } else {
+            return $this->db->get_where('subsidiary', array('id' => $subsidiary_id))->result_array();
+        }
     }
 
     public function get_subsidiary_user_list($subsidiary_id) {
