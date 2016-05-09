@@ -39,6 +39,8 @@ class Activity_model extends MY_Model
 
     public function list_activity($page=1) {
 
+        $role_id = $this->session->userdata('role_id');
+
         // 每页显示的记录条数，默认20条
         $numPerPage = $this->input->post('numPerPage') ? $this->input->post('numPerPage') : 5;
         $pageNum = $this->input->post('pageNum') ? $this->input->post('pageNum') : $page;
@@ -62,11 +64,13 @@ class Activity_model extends MY_Model
         if($this->input->POST('end_date')) {
             $this->db->where('a.date <=', $this->input->POST('end_date'));
         }
+        if($role_id > 4) {
+            $this->db->where('a.user_id', $this->session->userdata('user_id'));
+        }
 
         $rs_total = $this->db->get()->row();
         //总记录数
         $data['countPage'] = $rs_total->num;
-        $data['company_id'] = null;
 
         //list
         $this->db->select('a.*, b.rel_name AS u_name, t1.name AS t1n, t2.name AS t2n, t3.name AS t3n, t4.name AS t4n, t5.name AS t5n');
@@ -94,6 +98,9 @@ class Activity_model extends MY_Model
         }
         if($this->input->POST('end_date')) {
             $this->db->where('a.date <=', $this->input->POST('end_date'));
+        }
+        if($role_id > 4) {
+            $this->db->where('a.user_id', $this->session->userdata('user_id'));
         }
 
         $this->db->limit($numPerPage, ($pageNum - 1) * $numPerPage );
