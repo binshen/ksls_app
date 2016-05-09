@@ -73,7 +73,9 @@ class Activity_model extends MY_Model
         $data['countPage'] = $rs_total->num;
 
         //list
-        $this->db->select('a.*, b.rel_name AS u_name, t1.name AS t1n, t2.name AS t2n, t3.name AS t3n, t4.name AS t4n, t5.name AS t5n');
+        $this->db->select('a.*, b.rel_name AS u_name');
+        $this->db->select('t1.name AS t1n, t2.name AS t2n, t3.name AS t3n, t4.name AS t4n, t5.name AS t5n');
+        $this->db->select('t1.unit AS t1u, t2.unit AS t2u, t3.unit AS t3u, t4.unit AS t4u, t5.unit AS t5u');
         $this->db->select('ROUND(a.a1s*a1n+a.a2s*a2n+a.a3s*a3n+a.a4s*a4n+a.a5s*a5n, 1) AS a1t', false);
         $this->db->select('ROUND(a.a1s*b1n+a.a2s*b2n+a.a3s*b3n+a.a4s*b4n+a.a5s*b5n, 1) AS b1t', false);
         $this->db->select('ROUND(a.a1s*c1n+a.a2s*c2n+a.a3s*c3n+a.a4s*c4n+a.a5s*c5n, 1) AS c1t', false);
