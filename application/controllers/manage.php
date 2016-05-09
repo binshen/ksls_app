@@ -7,7 +7,7 @@
  * @subpackage	core
  * @category	controller
  * @author		yaobin<645894453@qq.com>
- *
+ *1
  */
 class Manage extends MY_Controller {
 
