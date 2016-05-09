@@ -30,7 +30,7 @@
             <?php
                 if (!empty($res_list)):
                     foreach ($res_list as $row):
-            ?>unit
+            ?>
                     <tr target="id" rel=<?php echo $row->id; ?>>
                         <td><?php echo $row->id;?></td>
                         <td><?php echo $row->name;?></td>
