@@ -27,19 +27,19 @@ class MY_Pagination extends CI_Pagination {
  		
  		$config['uri_segment'] = $uri_segment;
 		
-//   	$config['first_link'] = false;
-//   	$config['last_link'] = false;
- 		$config['first_link']      = '&lt;&lt;首页';
- 		$config['first_tag_open']  = '';
- 		$config['first_tag_close'] = '';
- 		$config['last_link']      = '尾页&gt;&gt;';
- 		$config['last_tag_open']  = '';
- 		$config['last_tag_close'] = '';
+   		$config['first_link'] = false;
+   		$config['last_link'] = false;
+// 		$config['first_link']      = '&lt;&lt;首页';
+// 		$config['first_tag_open']  = '';
+// 		$config['first_tag_close'] = '';
+// 		$config['last_link']      = '尾页&gt;&gt;';
+// 		$config['last_tag_open']  = '';
+// 		$config['last_tag_close'] = '';
  		
 		
 		$this->initialize($config);
 		
-		$anchorClass = 'class="iPre"';
+		$anchorClass = 'class="prev"';
 		
 		// If our item count or per-page total is zero there is no need to continue.
 		if ($this->total_rows == 0 OR $this->per_page == 0)

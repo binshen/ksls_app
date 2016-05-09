@@ -29,6 +29,19 @@ class Activity extends MY_Controller {
     }
 
     public function list_activity() {
+        if($this->input->POST('start_date')) {
+            $this->assign('start_date', $this->input->POST('start_date'));
+        }
+        if($this->input->POST('end_date')) {
+            $this->assign('end_date', $this->input->POST('end_date'));
+        }
+
+        $data = $this->activity_model->list_activity();
+        $this->assign('activity_list', $data);
+
+        $pager = $this->pagination->getPageLink('/activity/list_review', $data['countPage'], $data['numPerPage']);
+        $this->assign('pager', $pager);
+
         $this->load->view('list_activity.html');
     }
 
