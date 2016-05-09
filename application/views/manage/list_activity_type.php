@@ -23,17 +23,19 @@
                 <th width="120">ID</th>
                 <th>名称</th>
                 <th>分数</th>
+                <th>单位</th>
             </tr>
             </thead>
             <tbody>
             <?php
                 if (!empty($res_list)):
                     foreach ($res_list as $row):
-            ?>
+            ?>unit
                     <tr target="id" rel=<?php echo $row->id; ?>>
                         <td><?php echo $row->id;?></td>
                         <td><?php echo $row->name;?></td>
                         <td><?php echo $row->score;?></td>
+                        <td><?php echo $row->unit;?></td>
                     </tr>
             <?php
                     endforeach;
