@@ -56,14 +56,21 @@ class Activity extends MY_Controller {
             $company_list = $this->activity_model->get_company_list();
             $this->assign('company_list', $company_list);
         }
-        $company_id = $this->session->userdata('login_company_id');
-        $subsidiary_id = $role_id < 4 ? null : $this->session->userdata('login_subsidiary_id');
-        $subsidiary_list = $this->activity_model->get_subsidiary_list($company_id, $subsidiary_id);
-        $this->assign('subsidiary_list', $subsidiary_list);
 
         if($this->input->POST('company')) {
             $this->assign('company', $this->input->POST('company'));
+            $subsidiary_list = $this->activity_model->get_subsidiary_list($this->input->POST('company'), NULL);
+        } else {
+            $company_id = $this->session->userdata('login_company_id');
+            if($role_id < 4) {
+                $subsidiary_list = $this->activity_model->get_subsidiary_list($company_id, NULL);
+            } else if($role_id == 4) {
+                $subsidiary_id = $this->session->userdata('login_subsidiary_id');
+                $subsidiary_list = $this->activity_model->get_subsidiary_list($company_id, $subsidiary_id);
+            }
         }
+        $this->assign('subsidiary_list', $subsidiary_list);
+
         if($this->input->POST('subsidiary')) {
             $this->assign('subsidiary', $this->input->POST('subsidiary'));
 
