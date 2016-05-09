@@ -8,6 +8,7 @@
 
  if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
+//test test
 class Index extends MY_Controller {
 
     public function __construct()
