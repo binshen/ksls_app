@@ -14,33 +14,32 @@ class MY_Pagination extends CI_Pagination {
 		$config['per_page'] = $per_page;
 		$config['use_page_numbers'] = true;
 		
-		$config['cur_tag_open']   = '<i class="curr">';
-		$config['cur_tag_close']  = '</i>';
+		$config['cur_tag_open']   = '<span class="current">';
+		$config['cur_tag_close']  = '</span>';
 		$config['num_tag_open']   = '';
 		$config['num_tag_close']  = '';
- 		$config['prev_link']      = '&lt;上一页';
+ 		$config['prev_link']      = '上一页';
  		$config['prev_tag_open']  = '';
  		$config['prev_tag_close'] = '';
- 		$config['next_link']      = '下一页&gt;';
+ 		$config['next_link']      = '下一页';
  		$config['next_tag_open']  = '';
  		$config['next_tag_close'] = '';
  		
  		$config['uri_segment'] = $uri_segment;
- 		
 		
-//   		$config['first_link'] = false;
-//   		$config['last_link'] = false;
- 		$config['first_link']      = '&lt;&lt;首页';
- 		$config['first_tag_open']  = '';
- 		$config['first_tag_close'] = '';
- 		$config['last_link']      = '尾页&gt;&gt;';
- 		$config['last_tag_open']  = '';
- 		$config['last_tag_close'] = '';
+   		$config['first_link'] = false;
+   		$config['last_link'] = false;
+// 		$config['first_link']      = '&lt;&lt;首页';
+// 		$config['first_tag_open']  = '';
+// 		$config['first_tag_close'] = '';
+// 		$config['last_link']      = '尾页&gt;&gt;';
+// 		$config['last_tag_open']  = '';
+// 		$config['last_tag_close'] = '';
  		
 		
 		$this->initialize($config);
 		
-		$anchorClass = 'class="iPre"';
+		$anchorClass = 'class="prev"';
 		
 		// If our item count or per-page total is zero there is no need to continue.
 		if ($this->total_rows == 0 OR $this->per_page == 0)

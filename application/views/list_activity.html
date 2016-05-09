@@ -27,16 +27,15 @@
         </div>
     </div>
     <div class="wraper">
-        <!--<div class="search-wrap">-->
-        <!---->
-        <!--</div>-->
         <div class="wrap-left">
             <span class="logo"><img src="/static/images/logo.jpg" alt="" width="130" height="35"></span>
             <div class="nav-left">
                 <ul class="nav-left-ul">
                     <li><a href="/"><em class="home"></em>回到首页</a></li>
                     <li class="on"><a href="/activity/list_activity"><em class="schedule"></em>我的行程</a></li>
-                    <li><a href="/activity/list_review"><em class="verify"></em>我的审核</a></li>
+                    {{if $role_id < 5 }}
+                        <li><a href="/activity/list_review"><em class="verify"></em>我的审核</a></li>
+                    {{/if}}
                 </ul>
             </div>
         </div>
@@ -73,278 +72,68 @@
                     <li class="wid60">审核</li>
                     <li class="wid138">操作</li>
                 </ul>
-                <ul class="schedule-list">
-                    <li class="time wid92">2016-05-04</li>
-                    <li class="bor-separate"></li>
-                    <li class="items wid103">
-                        <span class="item-icon item-icon-1"></span>
-                        <ul>
-                            <li class="i-plan">100组</li>
-                            <li class="i-reality">100组</li>
-                            <li class="i-verify">----</li>
-                        </ul>
-                    </li>
-                    <li class="bor-separate bor-separate1"></li>
-                    <li class="items wid103">
-                        <span class="item-icon item-icon-2"></span>
-                        <ul>
-                            <li class="i-plan">100组</li>
-                            <li class="i-reality">100组</li>
-                            <li class="i-verify">--</li>
-                        </ul>
-                    </li>
-                    <li class="bor-separate bor-separate1"></li>
-                    <li class="items wid103">
-                        <span class="item-icon item-icon-3"></span>
-                        <ul>
-                            <li class="i-plan">100组</li>
-                            <li class="i-reality">100组</li>
-                            <li class="i-verify">--</li>
-                        </ul>
-                    </li>
-                    <li class="bor-separate bor-separate1"></li>
-                    <li class="items wid103">
-                        <span class="item-icon item-icon-4"></span>
-                        <ul>
-                            <li class="i-plan">100组</li>
-                            <li class="i-reality">100组</li>
-                            <li class="i-verify">--</li>
-                        </ul>
-                    </li>
-                    <li class="bor-separate bor-separate1"></li>
-                    <li class="items wid103">
-                        <span class="item-icon item-icon-5"></span>
-                        <ul>
-                            <li class="i-plan">100组</li>
-                            <li class="i-reality">100组</li>
-                            <li class="i-verify">--</li>
-                        </ul>
-                    </li>
-                    <li class="bor-separate bor-separate1 bor-separate-none"></li>
-                    <li class="wid64 score-plan">100分</li>
-                    <li class="wid64 score-reality">100分</li>
-                    <li class="wid64 score-verify">100分</li>
-                    <li class="wid138">
-                        <a href="" class="operation-btn operation-btn-no">审核</a>
-                        <a href="" class="operation-btn operation-btn-no">审核</a>
-                    </li>
-                </ul>
-                <ul class="schedule-list">
-                    <li class="time wid92">2016-05-04</li>
-                    <li class="bor-separate"></li>
-                    <li class="items wid103">
-                        <span class="item-icon item-icon-1"></span>
-                        <ul>
-                            <li class="i-plan">100组</li>
-                            <li class="i-reality">100组</li>
-                            <li class="i-verify">----</li>
-                        </ul>
-                    </li>
-                    <li class="bor-separate bor-separate1"></li>
-                    <li class="items wid103">
-                        <span class="item-icon item-icon-2"></span>
-                        <ul>
-                            <li class="i-plan">100组</li>
-                            <li class="i-reality">100组</li>
-                            <li class="i-verify">--</li>
-                        </ul>
-                    </li>
-                    <li class="bor-separate bor-separate1"></li>
-                    <li class="items wid103">
-                        <span class="item-icon item-icon-3"></span>
-                        <ul>
-                            <li class="i-plan">100组</li>
-                            <li class="i-reality">100组</li>
-                            <li class="i-verify">--</li>
-                        </ul>
-                    </li>
-                    <li class="bor-separate bor-separate1"></li>
-                    <li class="items wid103">
-                        <span class="item-icon item-icon-4"></span>
-                        <ul>
-                            <li class="i-plan">100组</li>
-                            <li class="i-reality">100组</li>
-                            <li class="i-verify">--</li>
-                        </ul>
-                    </li>
-                    <li class="bor-separate bor-separate1"></li>
-                    <li class="items wid103">
-                        <span class="item-icon item-icon-5"></span>
-                        <ul>
-                            <li class="i-plan">100组</li>
-                            <li class="i-reality">100组</li>
-                            <li class="i-verify">--</li>
-                        </ul>
-                    </li>
-                    <li class="bor-separate bor-separate1 bor-separate-none"></li>
-                    <li class="wid64 score-plan">100分</li>
-                    <li class="wid64 score-reality">100分</li>
-                    <li class="wid64 score-verify">100分</li>
-                    <li class="wid138">
-                        <a href="" class="operation-btn">修改</a>
-                        <a href="" class="operation-btn">自评</a>
-                    </li>
-                </ul>
-                <ul class="schedule-list">
-                    <li class="time wid92">2016-05-04</li>
-                    <li class="bor-separate"></li>
-                    <li class="items wid103">
-                        <span class="item-icon item-icon-1"></span>
-                        <ul>
-                            <li class="i-plan">100组</li>
-                            <li class="i-reality">100组</li>
-                            <li class="i-verify">----</li>
-                        </ul>
-                    </li>
-                    <li class="bor-separate bor-separate1"></li>
-                    <li class="items wid103">
-                        <span class="item-icon item-icon-2"></span>
-                        <ul>
-                            <li class="i-plan">100组</li>
-                            <li class="i-reality">100组</li>
-                            <li class="i-verify">--</li>
-                        </ul>
-                    </li>
-                    <li class="bor-separate bor-separate1"></li>
-                    <li class="items wid103">
-                        <span class="item-icon item-icon-3"></span>
-                        <ul>
-                            <li class="i-plan">100组</li>
-                            <li class="i-reality">100组</li>
-                            <li class="i-verify">--</li>
-                        </ul>
-                    </li>
-                    <li class="bor-separate bor-separate1"></li>
-                    <li class="items wid103">
-                        <span class="item-icon item-icon-4"></span>
-                        <ul>
-                            <li class="i-plan">100组</li>
-                            <li class="i-reality">100组</li>
-                            <li class="i-verify">--</li>
-                        </ul>
-                    </li>
-                    <li class="bor-separate bor-separate1"></li>
-                    <li class="items wid103">
-                        <span class="item-icon item-icon-5"></span>
-                        <ul>
-                            <li class="i-plan">100组</li>
-                            <li class="i-reality">100组</li>
-                            <li class="i-verify">--</li>
-                        </ul>
-                    </li>
-                    <li class="bor-separate bor-separate1 bor-separate-none"></li>
-                    <li class="wid64 score-plan">100分</li>
-                    <li class="wid64 score-reality">100分</li>
-                    <li class="wid64 score-verify">100分</li>
-                    <li class="wid138"><a href="" class="operation-btn">审核</a> </li>
-                </ul>
-                <ul class="schedule-list">
-                    <li class="time wid92">2016-05-04</li>
-                    <li class="bor-separate"></li>
-                    <li class="items wid103">
-                        <span class="item-icon item-icon-1"></span>
-                        <ul>
-                            <li class="i-plan">100组</li>
-                            <li class="i-reality">100组</li>
-                            <li class="i-verify">----</li>
-                        </ul>
-                    </li>
-                    <li class="bor-separate bor-separate1"></li>
-                    <li class="items wid103">
-                        <span class="item-icon item-icon-2"></span>
-                        <ul>
-                            <li class="i-plan">100组</li>
-                            <li class="i-reality">100组</li>
-                            <li class="i-verify">--</li>
-                        </ul>
-                    </li>
-                    <li class="bor-separate bor-separate1"></li>
-                    <li class="items wid103">
-                        <span class="item-icon item-icon-3"></span>
-                        <ul>
-                            <li class="i-plan">100组</li>
-                            <li class="i-reality">100组</li>
-                            <li class="i-verify">--</li>
-                        </ul>
-                    </li>
-                    <li class="bor-separate bor-separate1"></li>
-                    <li class="items wid103">
-                        <span class="item-icon item-icon-4"></span>
-                        <ul>
-                            <li class="i-plan">100组</li>
-                            <li class="i-reality">100组</li>
-                            <li class="i-verify">--</li>
-                        </ul>
-                    </li>
-                    <li class="bor-separate bor-separate1"></li>
-                    <li class="items wid103">
-                        <span class="item-icon item-icon-5"></span>
-                        <ul>
-                            <li class="i-plan">100组</li>
-                            <li class="i-reality">100组</li>
-                            <li class="i-verify">--</li>
-                        </ul>
-                    </li>
-                    <li class="bor-separate bor-separate1 bor-separate-none"></li>
-                    <li class="wid64 score-plan">100分</li>
-                    <li class="wid64 score-reality">100分</li>
-                    <li class="wid64 score-verify">100分</li>
-                    <li class="wid138"><a href="" class="operation-btn">审核</a> </li>
-                </ul>
-                <ul class="schedule-list">
-                    <li class="time wid92">2016-05-04</li>
-                    <li class="bor-separate"></li>
-                    <li class="items wid103">
-                        <span class="item-icon item-icon-1"></span>
-                        <ul>
-                            <li class="i-plan">100组</li>
-                            <li class="i-reality">100组</li>
-                            <li class="i-verify">----</li>
-                        </ul>
-                    </li>
-                    <li class="bor-separate bor-separate1"></li>
-                    <li class="items wid103">
-                        <span class="item-icon item-icon-2"></span>
-                        <ul>
-                            <li class="i-plan">100组</li>
-                            <li class="i-reality">100组</li>
-                            <li class="i-verify">--</li>
-                        </ul>
-                    </li>
-                    <li class="bor-separate bor-separate1"></li>
-                    <li class="items wid103">
-                        <span class="item-icon item-icon-3"></span>
-                        <ul>
-                            <li class="i-plan">100组</li>
-                            <li class="i-reality">100组</li>
-                            <li class="i-verify">--</li>
-                        </ul>
-                    </li>
-                    <li class="bor-separate bor-separate1"></li>
-                    <li class="items wid103">
-                        <span class="item-icon item-icon-4"></span>
-                        <ul>
-                            <li class="i-plan">100组</li>
-                            <li class="i-reality">100组</li>
-                            <li class="i-verify">--</li>
-                        </ul>
-                    </li>
-                    <li class="bor-separate bor-separate1"></li>
-                    <li class="items wid103">
-                        <span class="item-icon item-icon-5"></span>
-                        <ul>
-                            <li class="i-plan">100组</li>
-                            <li class="i-reality">100组</li>
-                            <li class="i-verify">--</li>
-                        </ul>
-                    </li>
-                    <li class="bor-separate bor-separate1 bor-separate-none"></li>
-                    <li class="wid64 score-plan">100分</li>
-                    <li class="wid64 score-reality">100分</li>
-                    <li class="wid64 score-verify">100分</li>
-                    <li class="wid138"><a href="" class="operation-btn">审核</a> </li>
-                </ul>
+
+                {{foreach from=$activity_list.res_list item=item}}
+                    <ul class="schedule-list">
+                        <li class="time wid92">{{$item->date}}</li>
+                        <li class="bor-separate"></li>
+                        <li class="items wid103">
+                            <span class="item-icon item-icon-1"></span>
+                            <ul>
+                                <li class="i-plan">{{$item->a1n|default:'--'}}组</li>
+                                <li class="i-reality">{{$item->b1n|default:'--'}}组</li>
+                                <li class="i-verify">{{$item->c1n|default:'--'}}组</li>
+                            </ul>
+                        </li>
+                        <li class="bor-separate bor-separate1"></li>
+                        <li class="items wid103">
+                            <span class="item-icon item-icon-2"></span>
+                            <ul>
+                                <li class="i-plan">{{$item->a2n|default:'--'}}组</li>
+                                <li class="i-reality">{{$item->b2n|default:'--'}}组</li>
+                                <li class="i-verify">{{$item->c2n|default:'--'}}组</li>
+                            </ul>
+                        </li>
+                        <li class="bor-separate bor-separate1"></li>
+                        <li class="items wid103">
+                            <span class="item-icon item-icon-3"></span>
+                            <ul>
+                                <li class="i-plan">{{$item->a3n|default:'--'}}组</li>
+                                <li class="i-reality">{{$item->b3n|default:'--'}}组</li>
+                                <li class="i-verify">{{$item->c3n|default:'--'}}组</li>
+                            </ul>
+                        </li>
+                        <li class="bor-separate bor-separate1"></li>
+                        <li class="items wid103">
+                            <span class="item-icon item-icon-4"></span>
+                            <ul>
+                                <li class="i-plan">{{$item->a4n|default:'--'}}组</li>
+                                <li class="i-reality">{{$item->b4n|default:'--'}}组</li>
+                                <li class="i-verify">{{$item->c4n|default:'--'}}组</li>
+                            </ul>
+                        </li>
+                        <li class="bor-separate bor-separate1"></li>
+                        <li class="items wid103">
+                            <span class="item-icon item-icon-5"></span>
+                            <ul>
+                                <li class="i-plan">{{$item->a5n|default:'--'}}组</li>
+                                <li class="i-reality">{{$item->b5n|default:'--'}}组</li>
+                                <li class="i-verify">{{$item->c5n|default:'--'}}组</li>
+                            </ul>
+                        </li>
+                        <li class="bor-separate bor-separate1 bor-separate-none"></li>
+                        <li class="wid64 score-plan">{{$item->a1t|default:'0.0'}}分</li>
+                        <li class="wid64 score-reality">{{$item->b1t|default:'0.0'}}分</li>
+                        <li class="wid64 score-verify">{{$item->c1t|default:'0.0'}}分</li>
+                        <li class="wid138">
+                            <a href="" class="operation-btn">修改</a>
+                            <a href="" class="operation-btn">自评</a>
+                        </li>
+                    </ul>
+                {{/foreach}}
+
                 <div class="pages">
+                    <!--
                     <a href="" class="prev">上一页</a>
                     <span class="current">1</span>
                     <a href="">2</a>
@@ -354,6 +143,8 @@
                     <span>......</span>
                     <a href="">20</a>
                     <a href="" class="next">下一页</a>
+                    -->
+                    {{$pager}}
                 </div>
             </div>
         </div>

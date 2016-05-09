@@ -16,10 +16,10 @@ class Activity extends MY_Controller {
 
         //////////////
         //for test only
-        $user_info['user_id'] = 1;
+        $user_info['user_id'] = 5;
         $user_info['username'] = 'test';
         $user_info['rel_name'] = 'Test';
-        $user_info['role_id'] = 4;
+        $user_info['role_id'] = 1;
         $user_info['company_id'] = 1;
         $user_info['subsidiary_id'] = 2;
         $this->session->set_userdata($user_info);
@@ -28,13 +28,30 @@ class Activity extends MY_Controller {
         $this->load->model('activity_model');
     }
 
-    public function list_activity() {
-        $this->load->view('list_activity.html');
+    public function list_activity($page=1) {
+        $role_id = $this->session->userdata('role_id');
+        $this->assign('role_id', $role_id);
+
+        if($this->input->POST('start_date')) {
+            $this->assign('start_date', $this->input->POST('start_date'));
+        }
+        if($this->input->POST('end_date')) {
+            $this->assign('end_date', $this->input->POST('end_date'));
+        }
+
+        $data = $this->activity_model->list_activity($page, $role_id > 4 ? $this->session->userdata('user_id') : NULL);
+        $this->assign('activity_list', $data);
+
+        $pager = $this->pagination->getPageLink('/activity/list_activity', $data['countPage'], $data['numPerPage']);
+        $this->assign('pager', $pager);
+
+        $this->display('list_activity.html');
     }
 
-    public function list_review() {
+    public function list_review($page=1) {
 
         $role_id = $this->session->userdata('role_id');
+        $this->assign('role_id', $role_id);
         if($role_id == 1) {
             $company_list = $this->activity_model->get_company_list();
             $this->assign('company_list', $company_list);
@@ -63,13 +80,12 @@ class Activity extends MY_Controller {
             $this->assign('end_date', $this->input->POST('end_date'));
         }
 
-        $data = $this->activity_model->list_activity();
+        $data = $this->activity_model->list_activity($page);
         $this->assign('activity_list', $data);
 
         $pager = $this->pagination->getPageLink('/activity/list_review', $data['countPage'], $data['numPerPage']);
         $this->assign('pager', $pager);
 
-        $this->assign('role_id', $role_id);
         $this->display('list_review.html');
     }
 

@@ -26,7 +26,7 @@ class Activity_model extends MY_Model
     }
 
     public function get_subsidiary_list($company_id, $subsidiary_id=NULL) {
-        if(empty($subsidiary_id)) { 
+        if(empty($subsidiary_id)) {
             return $this->db->get_where('subsidiary', array('company_id' => $company_id))->result_array();
         } else {
             return $this->db->get_where('subsidiary', array('id' => $subsidiary_id))->result_array();
@@ -37,11 +37,13 @@ class Activity_model extends MY_Model
         return $this->db->get_where('user', array('subsidiary_id' => $subsidiary_id))->result_array();
     }
 
-    public function list_activity() {
+    public function list_activity($page=1, $user_id=NULL) {
+
+        $role_id = $this->session->userdata('role_id');
 
         // 每页显示的记录条数，默认20条
-        $numPerPage = $this->input->post('numPerPage') ? $this->input->post('numPerPage') : 20;
-        $pageNum = $this->input->post('pageNum') ? $this->input->post('pageNum') : 1;
+        $numPerPage = $this->input->post('numPerPage') ? $this->input->post('numPerPage') : 5;
+        $pageNum = $this->input->post('pageNum') ? $this->input->post('pageNum') : $page;
 
         //获得总记录数
         $this->db->select('count(1) as num');
@@ -62,11 +64,13 @@ class Activity_model extends MY_Model
         if($this->input->POST('end_date')) {
             $this->db->where('a.date <=', $this->input->POST('end_date'));
         }
+        if(!empty($user_id)) {
+            $this->db->where('a.user_id', $user_id);
+        }
 
         $rs_total = $this->db->get()->row();
         //总记录数
         $data['countPage'] = $rs_total->num;
-        $data['company_id'] = null;
 
         //list
         $this->db->select('a.*, b.rel_name AS u_name, t1.name AS t1n, t2.name AS t2n, t3.name AS t3n, t4.name AS t4n, t5.name AS t5n');
@@ -94,6 +98,9 @@ class Activity_model extends MY_Model
         }
         if($this->input->POST('end_date')) {
             $this->db->where('a.date <=', $this->input->POST('end_date'));
+        }
+        if(!empty($user_id)) {
+            $this->db->where('a.user_id', $user_id);
         }
 
         $this->db->limit($numPerPage, ($pageNum - 1) * $numPerPage );
