@@ -87,7 +87,7 @@ class Activity extends MY_Controller {
             $this->assign('end_date', $this->input->POST('end_date'));
         }
 
-        $data = $this->activity_model->list_activity($page, [3]);
+        $data = $this->activity_model->list_activity($page, [2,3]);
         $this->assign('activity_list', $data);
 
         $pager = $this->pagination->getPageLink('/activity/list_review', $data['countPage'], $data['numPerPage']);
