@@ -114,6 +114,104 @@ class Activity_model extends MY_Model
     }
 
     public function add_activity() {
-        
+        $data = array(
+            'user_id' => $this->input->post('user_id'),
+            'date' => $this->input->post('date'),
+            'status' => 1,
+            'a1' => $this->input->post('a1'),
+            'a1s' => $this->input->post('a1s'),
+            'a1n' => $this->input->post('a1n'),
+            'a1m' => $this->input->post('a1m'),
+            'a2' => $this->input->post('a2'),
+            'a2s' => $this->input->post('a2s'),
+            'a2n' => $this->input->post('a2n'),
+            'a2m' => $this->input->post('a2m'),
+            'a3' => $this->input->post('a3'),
+            'a3s' => $this->input->post('a3s'),
+            'a3n' => $this->input->post('a3n'),
+            'a3m' => $this->input->post('a3m'),
+            'a4' => $this->input->post('a4'),
+            'a4s' => $this->input->post('a4s'),
+            'a4n' => $this->input->post('a4n'),
+            'a4m' => $this->input->post('a4m'),
+            'a5' => $this->input->post('a5'),
+            'a5s' => $this->input->post('a5s'),
+            'a5n' => $this->input->post('a5n'),
+            'a5m' => $this->input->post('a5m')
+        );
+        $this->db->trans_start();//--------开始事务
+
+        if($this->input->post('id')){//修改
+            $this->db->where('id', $this->input->post('id'));
+            $this->db->update('activity', $data);
+        } else {
+            $this->db->insert('activity', $data);
+        }
+        $this->db->trans_complete();//------结束事务
+        if ($this->db->trans_status() === FALSE) {
+            return -1;
+        } else {
+            return 1;
+        }
+    }
+
+    public function assess_activity() {
+        if(!$this->input->post('id')){
+            return -1;
+        }
+
+        $data = array(
+            'status' => 2,
+            'b1n' => $this->input->post('b1n'),
+            'b1m' => $this->input->post('b1m'),
+            'b2n' => $this->input->post('b2n'),
+            'b2m' => $this->input->post('b2m'),
+            'b3n' => $this->input->post('b3n'),
+            'b3m' => $this->input->post('b3m'),
+            'b4n' => $this->input->post('b4n'),
+            'b4m' => $this->input->post('b4m'),
+            'b5n' => $this->input->post('b5n'),
+            'b5m' => $this->input->post('b5m')
+        );
+        $this->db->trans_start();//--------开始事务
+
+        $this->db->where('id', $this->input->post('id'));
+        $this->db->update('activity', $data);
+        $this->db->trans_complete();//------结束事务
+        if ($this->db->trans_status() === FALSE) {
+            return -1;
+        } else {
+            return 1;
+        }
+    }
+
+    public function review_activity() {
+        if(!$this->input->post('id')){
+            return -1;
+        }
+
+        $data = array(
+            'status' => 3,
+            'c1n' => $this->input->post('c1n'),
+            'c1m' => $this->input->post('c1m'),
+            'c2n' => $this->input->post('c2n'),
+            'c2m' => $this->input->post('c2m'),
+            'c3n' => $this->input->post('c3n'),
+            'c3m' => $this->input->post('c3m'),
+            'c4n' => $this->input->post('c4n'),
+            'c4m' => $this->input->post('c4m'),
+            'c5n' => $this->input->post('c5n'),
+            'c5m' => $this->input->post('c5m')
+        );
+        $this->db->trans_start();//--------开始事务
+
+        $this->db->where('id', $this->input->post('id'));
+        $this->db->update('activity', $data);
+        $this->db->trans_complete();//------结束事务
+        if ($this->db->trans_status() === FALSE) {
+            return -1;
+        } else {
+            return 1;
+        }
     }
 }
