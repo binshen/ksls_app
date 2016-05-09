@@ -37,11 +37,11 @@ class Activity_model extends MY_Model
         return $this->db->get_where('user', array('subsidiary_id' => $subsidiary_id))->result_array();
     }
 
-    public function list_activity() {
+    public function list_activity($page=1) {
 
         // 每页显示的记录条数，默认20条
-        $numPerPage = $this->input->post('numPerPage') ? $this->input->post('numPerPage') : 1;
-        $pageNum = $this->input->post('pageNum') ? $this->input->post('pageNum') : 1;
+        $numPerPage = $this->input->post('numPerPage') ? $this->input->post('numPerPage') : 5;
+        $pageNum = $this->input->post('pageNum') ? $this->input->post('pageNum') : $page;
 
         //获得总记录数
         $this->db->select('count(1) as num');

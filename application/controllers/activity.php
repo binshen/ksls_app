@@ -45,7 +45,7 @@ class Activity extends MY_Controller {
         $this->load->view('list_activity.html');
     }
 
-    public function list_review() {
+    public function list_review($page=1) {
 
         $role_id = $this->session->userdata('role_id');
         if($role_id == 1) {
@@ -76,7 +76,7 @@ class Activity extends MY_Controller {
             $this->assign('end_date', $this->input->POST('end_date'));
         }
 
-        $data = $this->activity_model->list_activity();
+        $data = $this->activity_model->list_activity($page);
         $this->assign('activity_list', $data);
 
         $pager = $this->pagination->getPageLink('/activity/list_review', $data['countPage'], $data['numPerPage']);
