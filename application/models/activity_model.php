@@ -37,7 +37,7 @@ class Activity_model extends MY_Model
         return $this->db->get_where('user', array('subsidiary_id' => $subsidiary_id))->result_array();
     }
 
-    public function list_activity($page=1) {
+    public function list_activity($page=1, $user_id=NULL) {
 
         $role_id = $this->session->userdata('role_id');
 
@@ -64,8 +64,8 @@ class Activity_model extends MY_Model
         if($this->input->POST('end_date')) {
             $this->db->where('a.date <=', $this->input->POST('end_date'));
         }
-        if($role_id > 4) {
-            $this->db->where('a.user_id', $this->session->userdata('user_id'));
+        if(!empty($user_id)) {
+            $this->db->where('a.user_id', $user_id);
         }
 
         $rs_total = $this->db->get()->row();
@@ -99,8 +99,8 @@ class Activity_model extends MY_Model
         if($this->input->POST('end_date')) {
             $this->db->where('a.date <=', $this->input->POST('end_date'));
         }
-        if($role_id > 4) {
-            $this->db->where('a.user_id', $this->session->userdata('user_id'));
+        if(!empty($user_id)) {
+            $this->db->where('a.user_id', $user_id);
         }
 
         $this->db->limit($numPerPage, ($pageNum - 1) * $numPerPage );
