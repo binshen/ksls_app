@@ -39,8 +39,6 @@ class Activity_model extends MY_Model
 
     public function list_activity($page, $status, $user_id=NULL) {
 
-        $role_id = $this->session->userdata('login_role_id');
-
         // 每页显示的记录条数，默认20条
         $numPerPage = $this->input->post('numPerPage') ? $this->input->post('numPerPage') : 5;
         $pageNum = $this->input->post('pageNum') ? $this->input->post('pageNum') : $page;
@@ -113,5 +111,9 @@ class Activity_model extends MY_Model
         $data['pageNum'] = $pageNum;
         $data['numPerPage'] = $numPerPage;
         return $data;
+    }
+
+    public function add_activity() {
+        
     }
 }
