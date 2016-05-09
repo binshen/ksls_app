@@ -14,6 +14,7 @@ class Index extends MY_Controller {
     public function __construct()
     {
         parent::__construct();
+        $this->load->model('user_model');
     }
 
     public function index() {
@@ -21,7 +22,9 @@ class Index extends MY_Controller {
     }
 
     public function login() {
+        if($this->user_model->check_login()){
 
+        }
     }
 
     public function logout() {

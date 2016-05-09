@@ -21,6 +21,12 @@
                         <input name="score" type="text" class="required" value="<?php if(!empty($score)) echo $score;?>" />
                     </dd>
                 </dl>
+                <dl>
+                    <dt>单位：</dt>
+                    <dd>
+                        <input name="unit" type="text" class="required" value="<?php if(!empty($unit)) echo $unit;?>" />
+                    </dd>
+                </dl>
             </fieldset>
         </div>
         <div class="formBar">
