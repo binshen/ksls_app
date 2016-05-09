@@ -41,12 +41,12 @@
         </div>
         <div class="wrap-right">
             <div class="search-wrap">
-                <form>
-                    <input type="text" name="begin-time" id="J_DepDate" value="" class="sel-begin-time" />
+                <form id="formSearchActivity" method="POST" action="/activity/list_activity">
+                    <input type="text" name="start_date" id="J_DepDate" value="{{$start_date|default:''}}" class="sel-begin-time" />
                     <span class="time-break"> </span>
-                    <input type="text" name="begin-time" id="J_EndDate" value="" class="sel-end-time" />
-                    <a href="" class="search-btn"></a>
-                    <a href="" class="add-schedule-btn">+新增行程</a>
+                    <input type="text" name="end_date" id="J_EndDate" value="{{$end_date|default:''}}" class="sel-end-time" />
+                    <a href="javascript:void(0);" class="search-btn" id="btn_search"></a>
+                    <a href="/activity/add_activity" class="add-schedule-btn">+新增行程</a>
                 </form>
             </div>
             <div class="schedule-wrap">
@@ -178,6 +178,9 @@
             isDateInfo:false,
             count:1
         });
+    });
+    $("#btn_search").click(function() {
+        $('#formSearchActivity').submit();
     });
 </script>
 </body>
