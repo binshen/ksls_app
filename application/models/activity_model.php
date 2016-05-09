@@ -37,7 +37,7 @@ class Activity_model extends MY_Model
         return $this->db->get_where('user', array('subsidiary_id' => $subsidiary_id))->result_array();
     }
 
-    public function list_activity($page=1, $user_id=NULL) {
+    public function list_activity($page, $status, $user_id=NULL) {
 
         $role_id = $this->session->userdata('login_role_id');
 
@@ -49,6 +49,7 @@ class Activity_model extends MY_Model
         $this->db->select('count(1) as num');
         $this->db->from('activity a');
         $this->db->join('user b', 'a.user_id = b.id', 'inner');
+        $this->db->where_in('a.status', $status);
         if($this->input->POST('company')) {
             $this->db->where('b.company_id', $this->input->POST('company'));
         }
@@ -86,6 +87,7 @@ class Activity_model extends MY_Model
         $this->db->join('activity_type t3', 'a.a3 = t3.id', 'left');
         $this->db->join('activity_type t4', 'a.a4 = t4.id', 'left');
         $this->db->join('activity_type t5', 'a.a5 = t5.id', 'left');
+        $this->db->where_in('a.status', $status);
         if($this->input->POST('company')) {
             $this->db->where('b.company_id', $this->input->POST('company'));
         }
