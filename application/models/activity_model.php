@@ -219,7 +219,7 @@ class Activity_model extends MY_Model
         return $this->db->get('activity_type')->result_array();
     }
 
-    public function save_activity() {
-
+    public function get_activity_by_id($id) {
+        return $this->db->get_where('activity', array('id' => $id))->row_array();
     }
 }
