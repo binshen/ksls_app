@@ -16,37 +16,61 @@ class Activity extends MY_Controller {
 
         //////////////
         //for test only
-        $user_info['user_id'] = 1;
-        $user_info['username'] = 'test';
-        $user_info['rel_name'] = 'Test';
-        $user_info['role_id'] = 4;
-        $user_info['company_id'] = 1;
-        $user_info['subsidiary_id'] = 2;
+        $user_info['login_user_id'] = 5;
+        $user_info['login_username'] = 'test';
+        $user_info['login_rel_name'] = 'Test';
+        $user_info['login_role_id'] = 1;
+        $user_info['login_company_id'] = 1;
+        $user_info['login_subsidiary_id'] = 2;
         $this->session->set_userdata($user_info);
         //////////////
 
         $this->load->model('activity_model');
     }
 
-    public function list_activity() {
-        $this->load->view('list_activity.html');
+    public function list_activity($page=1) {
+        $role_id = $this->session->userdata('login_role_id');
+        $this->assign('role_id', $role_id);
+
+        if($this->input->POST('start_date')) {
+            $this->assign('start_date', $this->input->POST('start_date'));
+        }
+        if($this->input->POST('end_date')) {
+            $this->assign('end_date', $this->input->POST('end_date'));
+        }
+
+        $data = $this->activity_model->list_activity($page, array(1,2,3), $role_id > 4 ? $this->session->userdata('login_user_id') : NULL);
+        $this->assign('activity_list', $data);
+
+        $pager = $this->pagination->getPageLink('/activity/list_activity', $data['countPage'], $data['numPerPage']);
+        $this->assign('pager', $pager);
+
+        $this->display('list_activity.html');
     }
 
-    public function list_review() {
+    public function list_review($page=1) {
 
-        $role_id = $this->session->userdata('role_id');
+        $role_id = $this->session->userdata('login_role_id');
+        $this->assign('role_id', $role_id);
         if($role_id == 1) {
             $company_list = $this->activity_model->get_company_list();
             $this->assign('company_list', $company_list);
         }
-        $company_id = $this->session->userdata('company_id');
-        $subsidiary_id = $role_id < 4 ? null : $this->session->userdata('subsidiary_id');
-        $subsidiary_list = $this->activity_model->get_subsidiary_list($company_id, $subsidiary_id);
-        $this->assign('subsidiary_list', $subsidiary_list);
 
         if($this->input->POST('company')) {
             $this->assign('company', $this->input->POST('company'));
+            $subsidiary_list = $this->activity_model->get_subsidiary_list($this->input->POST('company'), NULL);
+        } else {
+            $company_id = $this->session->userdata('login_company_id');
+            if($role_id < 4) {
+                $subsidiary_list = $this->activity_model->get_subsidiary_list($company_id, NULL);
+            } else if($role_id == 4) {
+                $subsidiary_id = $this->session->userdata('login_subsidiary_id');
+                $subsidiary_list = $this->activity_model->get_subsidiary_list($company_id, $subsidiary_id);
+            }
         }
+        $this->assign('subsidiary_list', $subsidiary_list);
+
         if($this->input->POST('subsidiary')) {
             $this->assign('subsidiary', $this->input->POST('subsidiary'));
 
@@ -63,13 +87,12 @@ class Activity extends MY_Controller {
             $this->assign('end_date', $this->input->POST('end_date'));
         }
 
-        $data = $this->activity_model->list_activity();
+        $data = $this->activity_model->list_activity($page, array(2,3));
         $this->assign('activity_list', $data);
 
         $pager = $this->pagination->getPageLink('/activity/list_review', $data['countPage'], $data['numPerPage']);
         $this->assign('pager', $pager);
 
-        $this->assign('role_id', $role_id);
         $this->display('list_review.html');
     }
 
