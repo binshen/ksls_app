@@ -116,7 +116,9 @@ class Activity extends MY_Controller {
     }
 
     public function save_activity() {
+        $this->activity_model->add_activity();
 
+        redirect(site_url('activity/list_activity'));
     }
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     public function get_subsidiary_list($company_id) {

@@ -42,7 +42,8 @@
                  <span class="span-date"><em class="em-lock"></em> 2016-5-10</span>
             </div>
             <div class="schedule-wrap">
-                <form>
+                <form id="activityForm" method="post" action="/activity/save_activity">
+                    <input type="hidden" name="date" value="2016-05-11">
                     <div class="schedule-tit plan-tit"><em></em>计划行程</div>
                     <ul class="add-schedule-ul">
                         <li class="wid110">时间</li>
@@ -155,7 +156,7 @@
 
                     <div class="statistics-score">
                         <ul>
-                            <li class="plan-score">计划总分：100分</li>
+                            <li class="plan-score">计划总分：<span class="plan_score">0</span>分</li>
                         </ul>
                     </div>
                     <div class="clear"></div>
@@ -190,6 +191,8 @@
             } else {
                 obj.find('.fz14').text(0);
             }
+
+            caculateTotal();
         }
     });
 
@@ -198,6 +201,20 @@
         var score = $(this).parent().parent().find('.single-score').text();
         if($.trim(score) == '--') score = 0;
         $(this).parent().parent().find('.fz14').text(score * num);
+
+        caculateTotal();
     });
+
+    $(".confirm-btn").click(function() {
+        $("#activityForm").submit();
+    });
+
+    function caculateTotal() {
+        var total = 0;
+        $("#activityForm").find('.fz14').each(function() {
+            total += parseFloat($(this).text());
+        });
+        $(".plan_score").text(total);
+    }
 </script>
 </body>

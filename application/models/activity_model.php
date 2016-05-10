@@ -115,7 +115,7 @@ class Activity_model extends MY_Model
 
     public function add_activity() {
         $data = array(
-            'user_id' => $this->input->post('user_id'),
+            'user_id' => $this->session->userdata('login_user_id'),
             'date' => $this->input->post('date'),
             'status' => 1,
             'a1' => $this->input->post('a1'),
@@ -217,5 +217,9 @@ class Activity_model extends MY_Model
 
     public function get_activity_type_list() {
         return $this->db->get('activity_type')->result_array();
+    }
+
+    public function save_activity() {
+
     }
 }
