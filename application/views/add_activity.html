@@ -61,7 +61,7 @@
                         <li class="wid85">
                             <input type="text" name="sc-num" class="sc-num" /> <span class="item-unit">组</span>
                         </li>
-                        <li class="wid135"><em class="fz14">--</em> 分</li>
+                        <li class="wid135"><em class="fz14">0</em> 分</li>
                         <li class="wid365"><textarea rows="2" cols="3" class="sce-remarks"></textarea></li>
                     </ul>
                     <!--选择行程事项-->
@@ -80,7 +80,7 @@
                         <li class="wid85">
                             <input type="text" name="sc-num" class="sc-num" /> <span class="item-unit">组</span>
                         </li>
-                        <li class="wid135"><em class="fz14">--</em> 分</li>
+                        <li class="wid135"><em class="fz14">0</em> 分</li>
                         <li class="wid365"><textarea rows="2" cols="3" class="sce-remarks"></textarea></li>
                     </ul>
                     <!--选择行程事项-->
@@ -98,7 +98,7 @@
                         <li class="wid85">
                             <input type="text" name="sc-num" class="sc-num" /> <span class="item-unit">组</span>
                         </li>
-                        <li class="wid135"><em class="fz14">--</em> 分</li>
+                        <li class="wid135"><em class="fz14">0</em> 分</li>
                         <li class="wid365"><textarea rows="2" cols="3" class="sce-remarks"></textarea></li>
                     </ul>
                     <!--选择行程事项-->
@@ -116,7 +116,7 @@
                         <li class="wid85">
                             <input type="text" name="sc-num" class="sc-num" /> <span class="item-unit">组</span>
                         </li>
-                        <li class="wid135"><em class="fz14">--</em> 分</li>
+                        <li class="wid135"><em class="fz14">0</em> 分</li>
                         <li class="wid365"><textarea rows="2" cols="3" class="sce-remarks"></textarea></li>
                     </ul>
                     <!--选择行程事项-->
@@ -134,7 +134,7 @@
                         <li class="wid85">
                             <input type="text" name="sc-num" class="sc-num" /> <span class="item-unit">组</span>
                         </li>
-                        <li class="wid135"><em class="fz14">--</em> 分</li>
+                        <li class="wid135"><em class="fz14">0</em> 分</li>
                         <li class="wid365"><textarea rows="2" cols="3" class="sce-remarks"></textarea></li>
                     </ul>
                     <!--选择行程事项-->
@@ -161,21 +161,15 @@
     $("#Jmoreoperation").click(function(){
         $(".more-operation").toggle();
         $(this).parent().mouseleave(function(){$(".more-operation").hide()});
-    })
+    });
 
+    var activity_type_list = JSON.parse('{{$activity_type_list}}');
+    activity_type_list.unshift({id:0, name:'选择行程事项',score:'--',unit:'组'});
     $('.add-select-items').SelectSimu({
         width : 135,
         zIndex : 999,
         listNum : 8,
-        data:[{id:0, name:'选择行程事项',score:'0',unit:''},{id:1, name:'电Call',score:'5',unit:'个'},{id:2, name:'带看',score:'10',unit:'组'},
-            {id:3, name:'房源录入',score:'25',unit:'条'}, {id:4, name:'客源录入',score:'15',unit:'条'},{id:5, name:'实勘',score:'20',unit:'组'},
-            {id:6, name:'房源发布',score:'30',unit:'条'},{id:7, name:'驻守',score:'35',unit:'次'}]
-//        listValue : ['0','1','2','3','4','5','6','7'],
-//        listOption : ['选择行程事项','电Call','待看','房源录入','实勘','房源发布','客源录入驻守','驻守'],
-//        score:['0','5','10','15','20','25','30','35'],
-//        unit:['','个','组','条','组','条','条','小时']
+        data: activity_type_list
     });
-
-   // [{id:1, name:'',score:'',unit:''}]
 </script>
 </body>

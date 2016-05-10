@@ -214,4 +214,8 @@ class Activity_model extends MY_Model
             return 1;
         }
     }
+
+    public function get_activity_type_list() {
+        return $this->db->get('activity_type')->result_array();
+    }
 }

@@ -97,6 +97,9 @@ class Activity extends MY_Controller {
     }
 
     public function add_activity() {
+        $activity_type_list = $this->activity_model->get_activity_type_list();
+        $this->assign('activity_type_list', json_encode($activity_type_list));
+
         $this->display('add_activity.html');
     }
 
@@ -112,6 +115,10 @@ class Activity extends MY_Controller {
         $this->display('review_activity.html');
     }
 
+    public function save_activity() {
+
+    }
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     public function get_subsidiary_list($company_id) {
 
         $subsidiary_list = $this->activity_model->get_subsidiary_list($company_id);
