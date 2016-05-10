@@ -105,11 +105,11 @@ class Activity extends MY_Controller {
     }
 
     public function inspect_activity() {
-        $this->display('add_activity.html');
+        $this->display('inspect_activity.html');
     }
 
     public function review_activity() {
-        $this->display('add_activity.html');
+        $this->display('review_activity.html');
     }
 
     public function get_subsidiary_list($company_id) {
