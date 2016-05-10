@@ -121,6 +121,9 @@ class Activity extends MY_Controller {
     }
 
     public function inspect_activity() {
+        $activity_type_list = $this->activity_model->get_activity_type_list();
+        $this->assign('activity_type_list', json_encode($activity_type_list));
+        
         $this->display('inspect_activity.html');
     }
 
