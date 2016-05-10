@@ -44,7 +44,7 @@
             <div class="schedule-wrap">
                 <form id="activityForm" method="post" action="/activity/save_activity">
                     <input type="hidden" name="id" value="{{$activity.id|default:''}}">
-                    <input type="hidden" name="date" value="{{$activity.a1n|default:'2016-05-11'}}">
+                    <input type="hidden" name="date" value="{{$activity.date|default:'2016-05-11'}}">
                     <div class="schedule-tit plan-tit"><em></em>计划行程</div>
                     <ul class="add-schedule-ul">
                         <li class="wid110">时间</li>
