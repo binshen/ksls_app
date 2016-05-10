@@ -72,7 +72,7 @@
                 </div>
                 <div class="outer-list-div">
                     <ul class="add-schedule-list">
-                        <li class="wid110">9:00-10:30</li>
+                        <li class="wid110">10:30-12:00</li>
                         <li class="wid135"></li>
                         <li class="wid85 single-score">
                             --
@@ -90,7 +90,7 @@
                 </div>
                 <div class="outer-list-div">
                     <ul class="add-schedule-list">
-                        <li class="wid110">9:00-10:30</li>
+                        <li class="wid110">13:30-15:00</li>
                         <li class="wid135"></li>
                         <li class="wid85 single-score">
                             --
@@ -108,7 +108,7 @@
                 </div>
                 <div class="outer-list-div">
                     <ul class="add-schedule-list">
-                        <li class="wid110">9:00-10:30</li>
+                        <li class="wid110">15:00-16:30</li>
                         <li class="wid135"></li>
                         <li class="wid85 single-score">
                             --
@@ -126,7 +126,7 @@
                 </div>
                 <div class="outer-list-div">
                     <ul class="add-schedule-list">
-                        <li class="wid110">9:00-10:30</li>
+                        <li class="wid110">16:30-18:00</li>
                         <li class="wid135"></li>
                         <li class="wid85 single-score">
                             --
@@ -169,7 +169,22 @@
         width : 135,
         zIndex : 999,
         listNum : 8,
-        data: activity_type_list
+        data: activity_type_list,
+        change: function(obj, score) {
+            var num = obj.find('.sc-num').val();
+            if(num > 0) {
+                obj.find('.fz14').text(score * num);
+            } else {
+                obj.find('.fz14').text(0);
+            }
+        }
+    });
+
+    $(".sc-num").change(function() {
+        var num = $(this).val();
+        var score = $(this).parent().parent().find('.single-score').text();
+        if($.trim(score) == '--') score = 0;
+        $(this).parent().parent().find('.fz14').text(score * num);
     });
 </script>
 </body>

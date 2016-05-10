@@ -66,6 +66,7 @@
 					_this.$e.find('.selectInput p').html(liTxt);
 					_this.$e.parent().children().find('.single-score').html(singleScore);
 					_this.$e.parent().children().find('.item-unit').html(itemsUnit);
+					_this.opts.change(_this.$e.parent().children(), singleScore);
 				});
 			}
 		}
