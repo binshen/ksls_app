@@ -162,14 +162,24 @@ class Activity_model extends MY_Model
 
         $data = array(
             'status' => 2,
+            'b1' => $this->input->post('b1'),
+            'b1s' => $this->input->post('b1s'),
             'b1n' => $this->input->post('b1n'),
             'b1m' => $this->input->post('b1m'),
+            'b2' => $this->input->post('b2'),
+            'b2s' => $this->input->post('b2s'),
             'b2n' => $this->input->post('b2n'),
             'b2m' => $this->input->post('b2m'),
+            'b3' => $this->input->post('b3'),
+            'b3s' => $this->input->post('b3s'),
             'b3n' => $this->input->post('b3n'),
             'b3m' => $this->input->post('b3m'),
+            'b4' => $this->input->post('b4'),
+            'b4s' => $this->input->post('b4s'),
             'b4n' => $this->input->post('b4n'),
             'b4m' => $this->input->post('b4m'),
+            'b5' => $this->input->post('b5'),
+            'b5s' => $this->input->post('b5s'),
             'b5n' => $this->input->post('b5n'),
             'b5m' => $this->input->post('b5m')
         );
@@ -192,14 +202,24 @@ class Activity_model extends MY_Model
 
         $data = array(
             'status' => 3,
+            'c1' => $this->input->post('c1'),
+            'c1s' => $this->input->post('c1s'),
             'c1n' => $this->input->post('c1n'),
             'c1m' => $this->input->post('c1m'),
+            'c2' => $this->input->post('c2'),
+            'c2s' => $this->input->post('c2s'),
             'c2n' => $this->input->post('c2n'),
             'c2m' => $this->input->post('c2m'),
+            'c3' => $this->input->post('c3'),
+            'c3s' => $this->input->post('c3s'),
             'c3n' => $this->input->post('c3n'),
             'c3m' => $this->input->post('c3m'),
+            'c4' => $this->input->post('c4'),
+            'c4s' => $this->input->post('c4s'),
             'c4n' => $this->input->post('c4n'),
             'c4m' => $this->input->post('c4m'),
+            'c5' => $this->input->post('c5'),
+            'c5s' => $this->input->post('c5s'),
             'c5n' => $this->input->post('c5n'),
             'c5m' => $this->input->post('c5m')
         );
