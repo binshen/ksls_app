@@ -16,7 +16,8 @@ body{background: #fff; font-family: "Microsoft YaHei";}
 .up-icon{display: inline-block; width:20px; height:16px; background: url(/static/images/logo_in.png) no-repeat 5px 3px;}
 .wraper{ background: #2a3542;}
 .logo{display: block;height:45px;}
-
+/*-------首页---------*/
+.index {background: url() no-repeat;}
 .wrap-left{padding-top:25px;width:130px; float:left; background: #fff; }
 .wrap-right{padding-top:25px;width:990px; float:left; background: #fff;}
 .nav-left{ background: #2a3542;}
@@ -159,7 +160,8 @@ border-top:none; background: #f5f5f5; }
 .sc-num{border:1px solid #1abc9c; font-size:14px; color:#5a5a5a; width:40px; height:34px; line-height: 34px; border-radius: 3px; text-align: center;}
 
 .unit-sel{border:1px solid #fff;}
-.sce-remarks{margin:2px 0;width:365px; background:#fcf2b0; border:1px solid #c4cbd4; height: 35px;}
+.sce-remarks{margin:2px 0;width:355px; background:#fcf2b0; border:1px solid #c4cbd4; height: 25px; color:#c4c2ac; font-size:16px;font-family: "Microsoft YaHei";
+padding:5px;}
 .statistics-score{margin-top:15px;height:50px; overflow: hidden;zoom: 1;}
 .statistics-score ul{float: right;}
 .statistics-score li{margin-right:20px; float:left; width:216px; height:48px; line-height: 48px; text-align: center; font-size:22px; background: #fff;border-radius: 3px;border:1px solid #fff;}
@@ -172,5 +174,5 @@ border-top:none; background: #f5f5f5; }
 .other-score .other-span1{width:135px; text-align:center;}
 .other-score .other-span2{width:237px;}
 .other-score .other-span3{width:85px;}.other-score .other-span4{width:140px; text-align: center;}
-.other-score .other-span5 .sce-remarks{height:46px;}
+.other-score .other-span5 .sce-remarks{height:36px;}
 .other-score .specradio{margin:0 5px;}
