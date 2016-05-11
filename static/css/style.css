@@ -94,7 +94,10 @@ body{background: #fff; font-family: "Microsoft YaHei";}
 .schedule-list .items li{margin-bottom:2px; height:18px; line-height: 18px;}
 .schedule-list .items .span-num-text{width: 42px;height:18px; line-height: 18px; background:#f3f5f6;border-radius: 3px; float: left;}
 .schedule-list .items .item-icon{width:18px; height:18px; float:left; margin:0 15px;background:url(/static/images/list_icon.png) no-repeat; }
-.schedule-list .items .item-icon-0{background: none;}
+.schedule-list .items .item-icon-0-plan,.schedule-list .items .item-icon-0-reality,.schedule-list .items .item-icon-0-review{background: none;}
+.schedule-list .items .item-icon-0-plan{ color:#a9d86e;}
+.schedule-list .items .item-icon-0-reality{ color:#59ace2;}
+.schedule-list .items .item-icon-0-review{ color:#ff6c60;}
     /*电call*/
 .schedule-list .items .item-icon-1-plan{ background-position: 0 0;}
 .schedule-list .items .item-icon-1-reality{ background-position: -26px 0;}
