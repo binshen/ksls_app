@@ -141,7 +141,7 @@
                                 {{$activity.b1s|default:0}}
                             </li>
                             <li class="wid85">
-                                <input type="text" name="b1n" class="sc-num" value="{{$activity.b1n|default:0}}"/> <span class="item-unit">{{$activity.t1u|default:''}}</span>
+                                <input type="text" name="b1n" class="sc-num" value="{{$activity.b1n|default:0}}"/> <span class="item-unit">{{$activity.t6u|default:''}}</span>
                             </li>
                             <li class="wid135"><em class="fz14">{{$activity.b1t|default:0}}</em> 分</li>
                             <li class="wid365">
@@ -161,7 +161,7 @@
                                 {{$activity.b2s|default:0}}
                             </li>
                             <li class="wid85">
-                                <input type="text" name="b2n" class="sc-num" value="{{$activity.b2n|default:0}}"/> <span class="item-unit">{{$activity.t2u|default:''}}</span>
+                                <input type="text" name="b2n" class="sc-num" value="{{$activity.b2n|default:0}}"/> <span class="item-unit">{{$activity.t7u|default:''}}</span>
                             </li>
                             <li class="wid135"><em class="fz14">{{$activity.b2t|default:0}}</em> 分</li>
                             <li class="wid365">
@@ -181,7 +181,7 @@
                                 {{$activity.b3s|default:0}}
                             </li>
                             <li class="wid85">
-                                <input type="text" name="b3n" class="sc-num" value="{{$activity.b3n|default:0}}"/> <span class="item-unit">{{$activity.t3u|default:''}}</span>
+                                <input type="text" name="b3n" class="sc-num" value="{{$activity.b3n|default:0}}"/> <span class="item-unit">{{$activity.t8u|default:''}}</span>
                             </li>
                             <li class="wid135"><em class="fz14">{{$activity.b3t|default:0}}</em> 分</li>
                             <li class="wid365">
@@ -201,7 +201,7 @@
                                 {{$activity.b4s|default:0}}
                             </li>
                             <li class="wid85">
-                                <input type="text" name="b4n" class="sc-num" value="{{$activity.b4n|default:0}}"/> <span class="item-unit">{{$activity.t4u|default:''}}</span>
+                                <input type="text" name="b4n" class="sc-num" value="{{$activity.b4n|default:0}}"/> <span class="item-unit">{{$activity.t9u|default:''}}</span>
                             </li>
                             <li class="wid135"><em class="fz14">{{$activity.b4t|default:0}}</em> 分</li>
                             <li class="wid365">
@@ -221,7 +221,7 @@
                                 {{$activity.b5s|default:0}}
                             </li>
                             <li class="wid85">
-                                <input type="text" name="b5n" class="sc-num" value="{{$activity.b5n|default:0}}"/> <span class="item-unit">{{$activity.t5u|default:''}}</span>
+                                <input type="text" name="b5n" class="sc-num" value="{{$activity.b5n|default:0}}"/> <span class="item-unit">{{$activity.t10u|default:''}}</span>
                             </li>
                             <li class="wid135"><em class="fz14">{{$activity.a5t|default:0}}</em> 分</li>
                             <li class="wid365">
@@ -256,11 +256,11 @@
 
     var activity_type_list = JSON.parse('{{$activity_type_list}}');
     activity_type_list.unshift({id:0, name:'选择行程事项',score:'--',unit:'组'});
-    var o1 = '{{$activity.a1|default:0}}';
-    var o2 = '{{$activity.a2|default:0}}';
-    var o3 = '{{$activity.a3|default:0}}';
-    var o4 = '{{$activity.a4|default:0}}';
-    var o5 = '{{$activity.a5|default:0}}';
+    var o1 = '{{$activity.b1|default:0}}';
+    var o2 = '{{$activity.b2|default:0}}';
+    var o3 = '{{$activity.b3|default:0}}';
+    var o4 = '{{$activity.b4|default:0}}';
+    var o5 = '{{$activity.b5|default:0}}';
     $('.add-select-items').SelectSimu({
         width : 135,
         zIndex : 999,
