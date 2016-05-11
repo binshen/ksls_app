@@ -125,6 +125,53 @@ class Activity extends MY_Controller {
         $this->assign('activity_type_list', json_encode($activity_type_list));
 
         $activity = $this->activity_model->get_activity_by_id($id);
+        $status = $activity['status'];
+        if($status == 1) {
+            $activity['b1'] = $activity['a1'];
+            $activity['b1s'] = $activity['a1s'];
+            $activity['b1n'] = $activity['a1n'];
+            $activity['b1m'] = '';
+            $activity['b2'] = $activity['a2'];
+            $activity['b2s'] = $activity['a2s'];
+            $activity['b2n'] = $activity['a2n'];
+            $activity['b2m'] = '';
+            $activity['b3'] = $activity['a3'];
+            $activity['b3s'] = $activity['a3s'];
+            $activity['b3n'] = $activity['a3n'];
+            $activity['b3m'] = '';
+            $activity['b4'] = $activity['a4'];
+            $activity['b4s'] = $activity['a4s'];
+            $activity['b4n'] = $activity['a4n'];
+            $activity['b4m'] = '';
+            $activity['b5'] = $activity['a5'];
+            $activity['b5s'] = $activity['a5s'];
+            $activity['b5n'] = $activity['a5n'];
+            $activity['b5m'] = '';
+        }
+
+        $activity['a1t'] = $activity['a1n'] * $activity['a1s'];
+        $activity['a2t'] = $activity['a2n'] * $activity['a2s'];
+        $activity['a3t'] = $activity['a3n'] * $activity['a3s'];
+        $activity['a4t'] = $activity['a4n'] * $activity['a4s'];
+        $activity['a5t'] = $activity['a5n'] * $activity['a5s'];
+        $activity['att'] = $activity['a1t'] + $activity['a2t'] + $activity['a3t'] + $activity['a4t'] + $activity['a5t'];
+
+        $activity['b1t'] = $activity['b1n'] * $activity['b1s'];
+        $activity['b2t'] = $activity['b2n'] * $activity['b2s'];
+        $activity['b3t'] = $activity['b3n'] * $activity['b3s'];
+        $activity['b4t'] = $activity['b4n'] * $activity['b4s'];
+        $activity['b5t'] = $activity['b5n'] * $activity['b5s'];
+        $activity['btt'] = $activity['b1t'] + $activity['b2t'] + $activity['b3t'] + $activity['b4t'] + $activity['b5t'];
+        $this->assign('activity', $activity);
+
+        $this->display('inspect_activity.html');
+    }
+
+    public function review_activity($id) {
+        $activity_type_list = $this->activity_model->get_activity_type_list();
+        $this->assign('activity_type_list', json_encode($activity_type_list));
+
+        $activity = $this->activity_model->get_activity_by_id($id);
 
         $activity['a1t'] = $activity['a1n'] * $activity['a1s'];
         $activity['a2t'] = $activity['a2n'] * $activity['a2s'];
@@ -134,15 +181,17 @@ class Activity extends MY_Controller {
         $activity['att'] = $activity['a1t'] + $activity['a2t'] + $activity['a3t'] + $activity['a4t'] + $activity['a5t'];
         $this->assign('activity', $activity);
 
-        $this->display('inspect_activity.html');
-    }
-
-    public function review_activity() {
         $this->display('review_activity.html');
     }
 
     public function save_activity() {
         $this->activity_model->add_activity();
+
+        redirect(site_url('activity/list_activity'));
+    }
+
+    public function assess_activity() {
+        $this->activity_model->assess_activity();
 
         redirect(site_url('activity/list_activity'));
     }

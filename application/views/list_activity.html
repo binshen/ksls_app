@@ -77,23 +77,17 @@
                         <li class="time wid92">{{$item->date}}</li>
                         <li class="bor-separate"></li>
                         <li class="items wid103">
-                            <!--<span class="item-icon item-icon-1"></span>-->
-                            <!--<ul>-->
-                            <!--<li class="i-plan">{{$item->a1n|default:'&#45;&#45;'}}{{$item->t1u}}</li>-->
-                            <!--<li class="i-reality">{{$item->b1n|default:'&#45;&#45;'}}{{$item->t1u}}</li>-->
-                            <!--<li class="i-verify">{{$item->c1n|default:'&#45;&#45;'}}{{$item->t1u}}</li>-->
-                            <!--</ul>-->
                             <ul>
                                 <li>
-                                    <span class="item-icon item-icon-1-plan"></span>
+                                    <span class="item-icon item-icon-{{$item->t1c|default:0}}-plan"></span>
                                     <span class="span-num-text i-plan">{{$item->a1n|default:'&#45;&#45;'}}{{$item->t1u}}</span>
                                 </li>
                                 <li>
-                                    <span class="item-icon item-icon-1-reality"></span>
+                                    <span class="item-icon item-icon-{{$item->t1c|default:0}}-reality"></span>
                                     <span class="span-num-text i-reality">{{$item->b1n|default:'&#45;&#45;'}}{{$item->t1u}}</span>
                                 </li>
                                 <li>
-                                    <span class="item-icon item-icon-1-review"></span>
+                                    <span class="item-icon item-icon-{{$item->t1c|default:0}}-review"></span>
                                     <span class="span-num-text i-review">{{$item->c1n|default:'&#45;&#45;'}}{{$item->t1u}}</span>
                                 </li>
                             </ul>
@@ -102,15 +96,15 @@
                         <li class="items wid103">
                             <ul>
                                 <li>
-                                    <span class="item-icon item-icon-2-plan"></span>
+                                    <span class="item-icon item-icon-{{$item->t2c|default:0}}-plan"></span>
                                     <span class="span-num-text i-plan">{{$item->a2n|default:'&#45;&#45;'}}{{$item->t2u}}</span>
                                 </li>
                                 <li>
-                                    <span class="item-icon item-icon-2-reality"></span>
+                                    <span class="item-icon item-icon-{{$item->t2c|default:0}}-reality"></span>
                                     <span class="span-num-text i-reality">{{$item->b2n|default:'&#45;&#45;'}}{{$item->t2u}}</span>
                                 </li>
                                 <li>
-                                    <span class="item-icon item-icon-2-review"></span>
+                                    <span class="item-icon item-icon-{{$item->t2c|default:0}}-review"></span>
                                     <span class="span-num-text i-review">{{$item->c2n|default:'&#45;&#45;'}}{{$item->t2u}}</span>
                                 </li>
                             </ul>
@@ -119,15 +113,15 @@
                         <li class="items wid103">
                             <ul>
                                 <li>
-                                    <span class="item-icon item-icon-3-plan"></span>
+                                    <span class="item-icon item-icon-{{$item->t3c|default:0}}-plan"></span>
                                     <span class="span-num-text i-plan">{{$item->a3n|default:'--'}}{{$item->t3u}}</span>
                                 </li>
                                 <li>
-                                    <span class="item-icon item-icon-3-reality"></span>
+                                    <span class="item-icon item-icon-{{$item->t3c|default:0}}-reality"></span>
                                     <span class="span-num-text i-reality">{{$item->b3n|default:'--'}}{{$item->t3u}}</span>
                                 </li>
                                 <li>
-                                    <span class="item-icon item-icon-3-review"></span>
+                                    <span class="item-icon item-icon-{{$item->t3c|default:0}}-review"></span>
                                     <span class="span-num-text i-review">{{$item->c3n|default:'--'}}{{$item->t3u}}</span>
                                 </li>
                             </ul>
@@ -136,15 +130,15 @@
                         <li class="items wid103">
                             <ul>
                                 <li>
-                                    <span class="item-icon item-icon-4-plan"></span>
+                                    <span class="item-icon item-icon-{{$item->t4c|default:0}}-plan"></span>
                                     <span class="span-num-text i-plan">{{$item->a4n|default:'--'}}{{$item->t4u}}</span>
                                 </li>
                                 <li>
-                                    <span class="item-icon item-icon-4-reality"></span>
+                                    <span class="item-icon item-icon-{{$item->t4c|default:0}}-reality"></span>
                                     <span class="span-num-text i-reality">{{$item->b4n|default:'--'}}{{$item->t4u}}</span>
                                 </li>
                                 <li>
-                                    <span class="item-icon item-icon-4-review"></span>
+                                    <span class="item-icon item-icon-{{$item->t4c|default:0}}-review"></span>
                                     <span class="span-num-text i-review">{{$item->c4n|default:'--'}}{{$item->t4u}}</span>
                                 </li>
                             </ul>
@@ -153,15 +147,15 @@
                         <li class="items wid103">
                             <ul>
                                 <li>
-                                    <span class="item-icon item-icon-5-plan"></span>
+                                    <span class="item-icon item-icon-{{$item->t5c|default:0}}-plan"></span>
                                     <span class="span-num-text i-plan">{{$item->a5n|default:'--'}}{{$item->t5u}}</span>
                                 </li>
                                 <li>
-                                    <span class="item-icon item-icon-5-reality"></span>
+                                    <span class="item-icon item-icon-{{$item->t5c|default:0}}-reality"></span>
                                     <span class="span-num-text i-reality">{{$item->b5n|default:'--'}}{{$item->t5u}}</span>
                                 </li>
                                 <li>
-                                    <span class="item-icon item-icon-5-review"></span>
+                                    <span class="item-icon item-icon-{{$item->t5c|default:0}}-review"></span>
                                     <span class="span-num-text i-review">{{$item->c5n|default:'--'}}{{$item->t5u}}</span>
                                 </li>
                             </ul>
