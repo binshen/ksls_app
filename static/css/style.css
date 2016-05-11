@@ -17,7 +17,19 @@ body{background: #fff; font-family: "Microsoft YaHei";}
 .wraper{ background: #2a3542;}
 .logo{display: block;height:45px;}
 /*-------首页---------*/
-.index {background: url() no-repeat;}
+.index {background: url(/static/images/index/index_bg.jpg) no-repeat;}
+.index .header-wrap{color:#fff;background:rgba(255,255,255,0.3);border:none;filter:progid:DXImageTransform.Microsoft.gradient(startcolorstr=#CCFFFFFF,endcolorstr=#CCFFFFFF);}
+.index .moreoperation{color:#fff;}
+.index .header-in-wrap{width:1000px;}
+.index .wraper{padding:60px 0;width:1000px;}
+.index_logo{width:253px; margin:0 auto 30px; }
+.index .index-nav{width:105px; height:475px; float:left; background: #000; color:#aeaeae; font-size:16px; text-align:center;margin-right:5px;}
+.index .index-nav li{height:50px; line-height: 50px;}
+.index .index-nav .current{background: #404042;}
+.index .content{padding:52px 0 0 52px;width:838px;float: left; background: #cbcec7; height:423px; overflow: hidden;}
+.index .content .a-btns{ float:left;margin:0 0 30px 30px;}
+.index .wraper{background: none;}
+.copyright{ text-align: center; color:#fff; clear:both; padding-top:14px;}
 .wrap-left{padding-top:25px;width:130px; float:left; background: #fff; }
 .wrap-right{padding-top:25px;width:990px; float:left; background: #fff;}
 .nav-left{ background: #2a3542;}
@@ -82,7 +94,8 @@ body{background: #fff; font-family: "Microsoft YaHei";}
 .schedule-list .items li{margin-bottom:2px; height:18px; line-height: 18px;}
 .schedule-list .items .span-num-text{width: 42px;height:18px; line-height: 18px; background:#f3f5f6;border-radius: 3px; float: left;}
 .schedule-list .items .item-icon{width:18px; height:18px; float:left; margin:0 15px;background:url(/static/images/list_icon.png) no-repeat; }
-/*电call*/
+.schedule-list .items .item-icon-0{background: none;}
+    /*电call*/
 .schedule-list .items .item-icon-1-plan{ background-position: 0 0;}
 .schedule-list .items .item-icon-1-reality{ background-position: -26px 0;}
 .schedule-list .items .item-icon-1-review{ background-position: -52px 0;}
