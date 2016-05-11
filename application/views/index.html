@@ -17,19 +17,72 @@
                     <p>昆山 5月03日 周二 11：16</p>
                 </div>
                 <div class="login-info">
-                    <a href="javascript:" id="Jmoreoperation" class="moreoperation"><span class="logo-head-pic"><img src="/static/images/user_photo.gif" alt="" width="26" height="26" /> </span>
-                        郑法明<em class="up-icon"></em></a>
-                        <div class="more-operation" style="display:none;">
-                            <a href=""><em class="a-em1"></em>完善资料</a>
-                            <a href=""><em class="a-em2"></em>修改密码</a>
-                        </div>| 退出
+                    <a href="javascript:" class="login-out" id="Jloginout">登录</a>
+                    <!--<div class="login-in">-->
+                        <!--<a href="javascript:" id="Jmoreoperation" class="moreoperation"><span class="logo-head-pic"><img src="/static/images/user_photo.gif" alt="" width="26" height="26" /> </span>-->
+                            <!--郑法明<em class="up-icon"></em></a>-->
+                            <!--<div class="more-operation" style="display:none;">-->
+                                <!--<a href=""><em class="a-em1"></em>完善资料</a>-->
+                                <!--<a href=""><em class="a-em2"></em>修改密码</a>-->
+                            <!--</div>| 退出-->
+                    <!--</div>-->
                 </div>
             </div>
         </div>
         <div class="wraper clearfix">
-
+            <div class="index_logo"><a href=""><img src="/static/images/index/index_logo.png" alt=""></a></div>
+            <ul class="index-nav">
+                <li class="current">导航</li>
+                <li>工具</li>
+                <li>银行</li>
+                <li>资讯</li>
+                <li>端口</li>
+                <li>经纪</li>
+                <li>办事易</li>
+            </ul>
+            <div class="content">
+                <a href="" class="a-btns"><img src="/static/images/index/index_nav1.gif" alt=""></a>
+                <a href="" class="a-btns"><img src="/static/images/index/index_nav2.gif" alt=""></a>
+                <a href="" class="a-btns"><img src="/static/images/index/index_nav3.gif" alt=""></a>
+                <a href="" class="a-btns"><img src="/static/images/index/index_nav4.gif" alt=""></a>
+                <a href="" class="a-btns"><img src="/static/images/index/index_nav5.gif" alt=""></a>
+                <a href="" class="a-btns"><img src="/static/images/index/index_nav6.gif" alt=""></a>
+                <a href="" class="a-btns"><img src="/static/images/index/index_nav7.gif" alt=""></a>
+            </div>
+            <p class="copyright">@2016 funmal.com</p>
         </div>
     </div>
-
+    <div class="login-div" id="Jloginpop" style="display:none; cursor: default">
+        <a href="javascript:" class="pop-close-btn"></a>
+        <p class="p-txt">欢迎登录</p>
+        <form action="">
+            <div class="input-div">
+                <span><em class="input-icon input-tel"></em>| 手机号</span><input type="text" name="username" />
+            </div>
+            <div class="input-div">
+                <span><em class="input-icon input-pwd"></em>| 密码</span><input type="text" name="password" />
+            </div>
+            <a href="" class="sub-btn">登 录</a>
+            <p class="tips"><em></em>手机或密码不对，请重新输入！</p>
+        </form>
+    </div>
+    <script type="text/javascript" src="/static/js/jquery-1.9.0.js"></script>
+    <script type="text/javascript" src="/static/js/jquery.blockUI.min.js"></script>
+    <script type="text/javascript">
+        $("#Jmoreoperation").click(function(){
+            $(".more-operation").toggle();
+            $(this).parent().mouseleave(function(){$(".more-operation").hide()});
+        });
+        $("#Jloginout").click(function(){
+            $.blockUI({ message: $('#Jloginpop') ,
+                css:{ background: 'none',top:'100px', border: 'none',width:'410px', height:'410px'},
+                overlayCSS: {cursor:'default'}});
+        });
+        //关闭弹框
+        $(".pop-close-btn").click(function(){
+            $("body").removeClass("modal-active");
+            $.unblockUI();
+        });
+     </script>
 </body>
 </html>
