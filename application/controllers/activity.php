@@ -236,6 +236,12 @@ class Activity extends MY_Controller {
 
         redirect(site_url('activity/list_review'));
     }
+
+
+    public function list_ranking() {
+
+        $this->display('list_ranking.html');
+    }
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     public function get_subsidiary_list($company_id) {
 

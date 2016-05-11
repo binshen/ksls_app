@@ -30,4 +30,9 @@ class Index extends MY_Controller {
     public function logout() {
 
     }
+
+    public function check_login() {
+        echo $this->session->userdata('login_user_id') ? 1 : 0;
+        die;
+    }
 }
