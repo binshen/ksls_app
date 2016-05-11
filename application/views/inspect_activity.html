@@ -54,7 +54,7 @@
                 <div class="outer-list-div">
                     <ul class="add-schedule-list">
                         <li class="wid110">9:00-10:30</li>
-                        <li class="wid135 add-items"><span class="item-icon item-icon-1"></span>{{$activity.t1n|default:''}}</li>
+                        <li class="wid135 add-items"><span class="item-icon item-icon-{{$activity.t1c|default:0}}"></span>{{$activity.t1n|default:''}}</li>
                         <li class="wid85 single-score">
                             {{$activity.a1s|default:0}}
                         </li>
@@ -68,7 +68,7 @@
                 <div class="outer-list-div">
                     <ul class="add-schedule-list">
                         <li class="wid110">10:30-12:00</li>
-                        <li class="wid135 add-items"><span class="item-icon item-icon-2"></span>{{$activity.t2n|default:''}}</li>
+                        <li class="wid135 add-items"><span class="item-icon item-icon-{{$activity.t2c|default:0}}"></span>{{$activity.t2n|default:''}}</li>
                         <li class="wid85 single-score">
                             {{$activity.a2s|default:0}}
                         </li>
@@ -82,7 +82,7 @@
                 <div class="outer-list-div">
                     <ul class="add-schedule-list">
                         <li class="wid110">13:30-15:00</li>
-                        <li class="wid135 add-items"><span class="item-icon item-icon-3"></span>{{$activity.t3n|default:''}}</li>
+                        <li class="wid135 add-items"><span class="item-icon item-icon-{{$activity.t3c|default:0}}"></span>{{$activity.t3n|default:''}}</li>
                         <li class="wid85 single-score">
                             {{$activity.a3s|default:0}}
                         </li>
@@ -96,7 +96,7 @@
                 <div class="outer-list-div">
                     <ul class="add-schedule-list">
                         <li class="wid110">15:00-16:30</li>
-                        <li class="wid135 add-items"><span class="item-icon item-icon-4"></span>{{$activity.t4n|default:''}}</li>
+                        <li class="wid135 add-items"><span class="item-icon item-icon-{{$activity.t4c|default:0}}"></span>{{$activity.t4n|default:''}}</li>
                         <li class="wid85 single-score">
                             {{$activity.a4s|default:0}}
                         </li>
@@ -110,7 +110,7 @@
                 <div class="outer-list-div">
                     <ul class="add-schedule-list">
                         <li class="wid110">16:30-18:00</li>
-                        <li class="wid135 add-items"><span class="item-icon item-icon-5"></span>{{$activity.t5n|default:''}}</li>
+                        <li class="wid135 add-items"><span class="item-icon item-icon-{{$activity.t5c|default:0}}"></span>{{$activity.t5n|default:''}}</li>
                         <li class="wid85 single-score">
                             {{$activity.a5s|default:0}}
                         </li>

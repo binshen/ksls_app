@@ -230,6 +230,12 @@ class Activity extends MY_Controller {
 
         redirect(site_url('activity/list_activity'));
     }
+
+    public function confirm_activity() {
+        $this->activity_model->assess_activity();
+
+        redirect(site_url('activity/list_review'));
+    }
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     public function get_subsidiary_list($company_id) {
 

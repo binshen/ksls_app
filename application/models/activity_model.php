@@ -239,7 +239,10 @@ class Activity_model extends MY_Model
             'c5' => $this->input->post('c5'),
             'c5s' => $this->input->post('c5s'),
             'c5n' => $this->input->post('c5n'),
-            'c5m' => $this->input->post('c5m')
+            'c5m' => $this->input->post('c5m'),
+            'op' => $this->input->post('op'),
+            'float' => $this->input->post('float'),
+            'total' => $this->input->post('total')
         );
         $this->db->trans_start();//--------开始事务
 
