@@ -213,7 +213,7 @@ class Activity extends MY_Controller {
         $activity['c3t'] = $activity['c3n'] * $activity['c3s'];
         $activity['c4t'] = $activity['c4n'] * $activity['c4s'];
         $activity['c5t'] = $activity['c5n'] * $activity['c5s'];
-        $activity['ctt'] = $activity['c1t'] + $activity['c2t'] + $activity['c3t'] + $activity['c4t'] + $activity['c5t'];
+        $activity['ctt'] = $activity['total'];//$activity['c1t'] + $activity['c2t'] + $activity['c3t'] + $activity['c4t'] + $activity['c5t'] + $activity['op'] * $activity['float'];
         $this->assign('activity', $activity);
 
         $this->display('review_activity.html');
@@ -232,7 +232,7 @@ class Activity extends MY_Controller {
     }
 
     public function confirm_activity() {
-        $this->activity_model->assess_activity();
+        $this->activity_model->review_activity();
 
         redirect(site_url('activity/list_review'));
     }

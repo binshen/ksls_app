@@ -198,7 +198,7 @@
                         <li class="bor-separate bor-separate1 bor-separate-none"></li>
                         <li class="wid64 score-plan">{{$item->a1t|default:'0.0'}}分</li>
                         <li class="wid64 score-reality">{{$item->b1t|default:'0.0'}}分</li>
-                        <li class="wid64 score-review">{{$item->c1t|default:'0.0'}}分</li>
+                        <li class="wid64 score-review">{{$item->total|default:'0.0'}}分</li>
                         <li class="wid75">
                             <a href="/activity/review_activity/{{$item->id}}" class="operation-btn">审核</a>
                         </li>

@@ -317,12 +317,13 @@
                     <div class="other-score">
                         <span class="other-span other-span1">浮动分数项</span>
                         <span class="other-span other-span2">
-                            <label><input type="radio" name="op" value="-1" class="specradio">加分</label>
-                            <label><input type="radio" name="op" value="1" class="specradio">减分</label>
+                            <label><input type="radio" name="op" value="1" class="specradio" {{if $activity.op > 0}}checked{{/if}}>加分</label>
+                            <label><input type="radio" name="op" value="-1" class="specradio" {{if $activity.op < 0}}checked{{/if}}>减分</label>
                         </span>
-                        <span class="other-span other-span3"><input type="text" name="float" class="sc-num" /> 分</span>
-                        <span class="other-span other-span4">+1000分</span>
-                        <span class="other-span other-span5"><textarea rows="2" cols="3" class="sce-remarks" placeholder="说明加分减分理由"></textarea></span>
+                        <span class="other-span other-span3"><input type="text" name="float" class="sc-num" id="float_num" value="{{$activity.float|default:0}}"/> 分</span>
+                        <span class="other-span other-span4">
+                            <span id="float_score">{{$activity.float|default:0}}</span>分</span>
+                        <span class="other-span other-span5"><textarea name="mark" rows="2" cols="3" class="sce-remarks" placeholder="说明加分减分理由">{{$activity.mark|default:''}}</textarea></span>
                         <input type="hidden" name="total" id="total">
                     </div>
                     <div class="statistics-score">
@@ -378,19 +379,46 @@
         if($.trim(score) == '--') score = 0;
         $(this).parent().parent().find('.fz14').text(parseFloat(score * num).toFixed(1));
 
-        caculateTotal();
+        calculateTotal();
     });
 
     $(".confirm-btn").click(function() {
         $("#activityForm").submit();
     });
 
-    function caculateTotal() {
+    $(".specradio").click(function(){
+        var op = $(this).val();
+        var num = $("#float_num").val() | 0;
+        if(op > 0) {
+            $("#float_score").text("+" + num);
+        } else {
+            $("#float_score").text("-" + num);
+        }
+
+        calculateTotal();
+    });
+
+    $("#float_num").change(function() {
+        var num = $(this).val();
+        var op = $('.specradio:checked').val();
+        $("#float_score").text(op * num);
+
+        calculateTotal();
+    });
+
+    function calculateTotal() {
         var total = 0;
         $("#activityForm").find('.fz14').each(function() {
             total += parseFloat($(this).text());
         });
+
+        var num = $("#float_num").val();
+        var op = $('.specradio:checked').val();
+        var float = op * num;
+        total += float;
         $(".review_score").text(total);
+        $("#total").val(total);
     }
+
 </script>
 </body>
