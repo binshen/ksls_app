@@ -22,9 +22,8 @@ class Index extends MY_Controller {
     }
 
     public function login() {
-        if($this->user_model->check_login()){
-
-        }
+        echo $this->user_model->check_login() ? 1 : 0;
+        die;
     }
 
     public function logout() {

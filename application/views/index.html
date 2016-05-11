@@ -57,31 +57,47 @@
         <p class="p-txt">欢迎登录</p>
         <form action="">
             <div class="input-div">
-                <span><em class="input-icon input-tel"></em>| 手机号</span><input type="text" name="username" />
+                <span><em class="input-icon input-tel"></em>| 手机号</span><input type="text" name="username" id="username" />
             </div>
             <div class="input-div">
-                <span><em class="input-icon input-pwd"></em>| 密码</span><input type="text" name="password" />
+                <span><em class="input-icon input-pwd"></em>| 密码</span><input type="text" name="password" id="password" />
             </div>
-            <a href="" class="sub-btn">登 录</a>
-            <p class="tips"><em></em>手机或密码不对，请重新输入！</p>
+            <a href="javascript:void(0);" class="sub-btn" id="btn_login">登 录</a>
+            <p class="tips" id="login_error" style="display:none"><em></em>手机或密码不对，请重新输入！</p>
         </form>
     </div>
     <script type="text/javascript" src="/static/js/jquery-1.9.0.js"></script>
     <script type="text/javascript" src="/static/js/jquery.blockUI.min.js"></script>
     <script type="text/javascript">
+        var gotokey = 0;
+
         $("#Jmoreoperation").click(function(){
             $(".more-operation").toggle();
             $(this).parent().mouseleave(function(){$(".more-operation").hide()});
         });
+
         $("#Jloginout").click(function(){
-            $.blockUI({ message: $('#Jloginpop') ,
-                css:{ background: 'none',top:'100px', border: 'none',width:'410px', height:'410px'},
-                overlayCSS: {cursor:'default'}});
+            $.blockUI({ message: $('#Jloginpop'), css:{ background: 'none',top:'100px', border: 'none',width:'410px', height:'410px'}, overlayCSS: {cursor:'default'}});
         });
+
         //关闭弹框
         $(".pop-close-btn").click(function(){
             $("body").removeClass("modal-active");
             $.unblockUI();
+        });
+
+        $("#btn_login").click(function() {
+            var username = $("#username").val();
+            var password = $("#password").val();
+            $.post('/index/login', {username: username, password: password}, function(data) {
+                if(data > 0) {
+                    if(gotokey == 1) {
+                        window.location = '/activity/list_activity';
+                    }
+                } else {
+                    $("#login_error").show();
+                }
+            });
         });
 
         function checkAuth() {
@@ -94,6 +110,7 @@
         $("#btn_activity").click(function(){
             var result = checkAuth();
             if(result < 1) {
+                gotokey = 1;
                 $.blockUI({ message: $('#Jloginpop'), css:{ background: 'none',top:'100px', border: 'none',width:'410px', height:'410px'}, overlayCSS: {cursor:'default'}});
             } else {
                 window.location = '/activity/list_activity';
