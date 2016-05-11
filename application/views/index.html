@@ -93,6 +93,10 @@
                 if(data > 0) {
                     if(gotokey == 1) {
                         window.location = '/activity/list_activity';
+                    } else if(gotokey == 1) {
+                        window.location = '/activity/list_ranking';
+                    } else {
+                        //TODO
                     }
                 } else {
                     $("#login_error").show();
@@ -120,6 +124,7 @@
         $("#btn_ranking").click(function(){
             var result = checkAuth();
             if(result < 1) {
+                gotokey = 2;
                 $.blockUI({ message: $('#Jloginpop'), css:{ background: 'none',top:'100px', border: 'none',width:'410px', height:'410px'}, overlayCSS: {cursor:'default'}});
             } else {
                 window.location = '/activity/list_ranking';
