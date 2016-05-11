@@ -262,6 +262,7 @@
             obj.find('.sc_score').val(score);
             var num = obj.find('.sc-num').val();
             if(num > 0) {
+                if($.trim(score) == '--') score = 0;
                 obj.find('.fz14').text(score * num);
             } else {
                 obj.find('.fz14').text(0);
