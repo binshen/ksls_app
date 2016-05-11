@@ -75,6 +75,7 @@ class Activity_model extends MY_Model
         $this->db->select('a.*, b.rel_name AS u_name');
         $this->db->select('t1.name AS t1n, t2.name AS t2n, t3.name AS t3n, t4.name AS t4n, t5.name AS t5n');
         $this->db->select('t1.unit AS t1u, t2.unit AS t2u, t3.unit AS t3u, t4.unit AS t4u, t5.unit AS t5u');
+        $this->db->select('t1.icon AS t1c, t2.icon AS t2c, t3.icon AS t3c, t4.icon AS t4c, t5.icon AS t5c');
         $this->db->select('ROUND(a.a1s*a1n+a.a2s*a2n+a.a3s*a3n+a.a4s*a4n+a.a5s*a5n, 1) AS a1t', false);
         $this->db->select('ROUND(a.b1s*b1n+a.b2s*b2n+a.b3s*b3n+a.b4s*b4n+a.b5s*b5n, 1) AS b1t', false);
         $this->db->select('ROUND(a.c1s*c1n+a.c2s*c2n+a.c3s*c3n+a.c4s*c4n+a.c5s*c5n, 1) AS c1t', false);
@@ -244,6 +245,7 @@ class Activity_model extends MY_Model
         $this->db->select('a.*');
         $this->db->select('t1.name AS t1n, t2.name AS t2n, t3.name AS t3n, t4.name AS t4n, t5.name AS t5n');
         $this->db->select('t1.unit AS t1u, t2.unit AS t2u, t3.unit AS t3u, t4.unit AS t4u, t5.unit AS t5u');
+        $this->db->select('t1.icon AS t1c, t2.icon AS t2c, t3.icon AS t3c, t4.icon AS t4c, t5.icon AS t5c');
         $this->db->select('ROUND(a.a1s*a1n+a.a2s*a2n+a.a3s*a3n+a.a4s*a4n+a.a5s*a5n, 1) AS a1t', false);
         $this->db->select('ROUND(a.b1s*b1n+a.b2s*b2n+a.b3s*b3n+a.b4s*b4n+a.b5s*b5n, 1) AS b1t', false);
         $this->db->select('ROUND(a.c1s*c1n+a.c2s*c2n+a.c3s*c3n+a.c4s*c4n+a.c5s*c5n, 1) AS c1t', false);
