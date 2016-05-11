@@ -194,7 +194,7 @@
             obj.find('.sc_score').val(score);
             var num = obj.find('.sc-num').val();
             if(num > 0) {
-                obj.find('.fz14').text(score * num);
+                obj.find('.fz14').text(parseFloat(score * num).toFixed(1));
             } else {
                 obj.find('.fz14').text(0);
             }
@@ -206,7 +206,7 @@
         var num = $(this).val();
         var score = $(this).parent().parent().find('.single-score').text();
         if($.trim(score) == '--') score = 0;
-        $(this).parent().parent().find('.fz14').text(score * num);
+        $(this).parent().parent().find('.fz14').text(parseFloat(score * num).toFixed(1));
 
         caculateTotal();
     });
