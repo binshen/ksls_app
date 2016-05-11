@@ -120,10 +120,20 @@ class Activity extends MY_Controller {
         $this->display('add_activity.html');
     }
 
-    public function inspect_activity() {
+    public function inspect_activity($id) {
         $activity_type_list = $this->activity_model->get_activity_type_list();
         $this->assign('activity_type_list', json_encode($activity_type_list));
-        
+
+        $activity = $this->activity_model->get_activity_by_id($id);
+
+        $activity['a1t'] = $activity['a1n'] * $activity['a1s'];
+        $activity['a2t'] = $activity['a2n'] * $activity['a2s'];
+        $activity['a3t'] = $activity['a3n'] * $activity['a3s'];
+        $activity['a4t'] = $activity['a4n'] * $activity['a4s'];
+        $activity['a5t'] = $activity['a5n'] * $activity['a5s'];
+        $activity['att'] = $activity['a1t'] + $activity['a2t'] + $activity['a3t'] + $activity['a4t'] + $activity['a5t'];
+        $this->assign('activity', $activity);
+
         $this->display('inspect_activity.html');
     }
 
