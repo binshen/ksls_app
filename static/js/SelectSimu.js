@@ -38,7 +38,7 @@
 				selectStr += '<li value="' + (_this.opts.data[i].id.toString() ? _this.opts.data[i].id.toString() : "" ) + '" data-score="'+ _this.opts.data[i].score+'" data-unit="'+ _this.opts.data[i].unit+'"><a href="javascript:"><span></span>' + (_this.opts.data[i].name ? _this.opts.data[i].name : "") + '</a></li>'
 			}
 			else{
-				selectStr += '<li value="' + (_this.opts.data[i].id.toString() ? _this.opts.data[i].id.toString() : "") + '" data-score="'+ _this.opts.data[i].score+'" data-unit="'+ _this.opts.data[i].unit+'"><a href="javascript:"><span class="item-icon item-icon-' + i + '"></span>' + (_this.opts.data[i].name ? _this.opts.data[i].name : "") + '</a></li>'
+				selectStr += '<li value="' + (_this.opts.data[i].id.toString() ? _this.opts.data[i].id.toString() : "") + '" data-score="'+ _this.opts.data[i].score+'" data-unit="'+ _this.opts.data[i].unit+'"><a href="javascript:"><span class="item-icon item-icon-' + _this.opts.data[i].icon + '"></span>' + (_this.opts.data[i].name ? _this.opts.data[i].name : "") + '</a></li>'
 			}
 
 			}
