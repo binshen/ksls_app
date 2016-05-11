@@ -74,8 +74,14 @@ class Activity_model extends MY_Model
         //list
         $this->db->select('a.*, b.rel_name AS u_name');
         $this->db->select('t1.name AS t1n, t2.name AS t2n, t3.name AS t3n, t4.name AS t4n, t5.name AS t5n');
+        $this->db->select('t6.name AS t6n, t7.name AS t7n, t8.name AS t8n, t9.name AS t9n, t10.name AS t10n');
+        $this->db->select('t11.name AS t11n, t12.name AS t12n, t13.name AS t13n, t14.name AS t14n, t15.name AS t15n');
         $this->db->select('t1.unit AS t1u, t2.unit AS t2u, t3.unit AS t3u, t4.unit AS t4u, t5.unit AS t5u');
+        $this->db->select('t6.unit AS t6u, t7.unit AS t7u, t8.unit AS t8u, t9.unit AS t9u, t10.unit AS t10u');
+        $this->db->select('t11.unit AS t11u, t12.unit AS t12u, t13.unit AS t13u, t14.unit AS t14u, t15.unit AS t15u');
         $this->db->select('t1.icon AS t1c, t2.icon AS t2c, t3.icon AS t3c, t4.icon AS t4c, t5.icon AS t5c');
+        $this->db->select('t6.icon AS t6c, t7.icon AS t7c, t8.icon AS t8c, t9.icon AS t9c, t10.icon AS t10c');
+        $this->db->select('t11.icon AS t11c, t12.icon AS t12c, t13.icon AS t13c, t14.icon AS t14c, t15.icon AS t15c');
         $this->db->select('ROUND(a.a1s*a1n+a.a2s*a2n+a.a3s*a3n+a.a4s*a4n+a.a5s*a5n, 1) AS a1t', false);
         $this->db->select('ROUND(a.b1s*b1n+a.b2s*b2n+a.b3s*b3n+a.b4s*b4n+a.b5s*b5n, 1) AS b1t', false);
         $this->db->select('ROUND(a.c1s*c1n+a.c2s*c2n+a.c3s*c3n+a.c4s*c4n+a.c5s*c5n, 1) AS c1t', false);
@@ -86,6 +92,17 @@ class Activity_model extends MY_Model
         $this->db->join('activity_type t3', 'a.a3 = t3.id', 'left');
         $this->db->join('activity_type t4', 'a.a4 = t4.id', 'left');
         $this->db->join('activity_type t5', 'a.a5 = t5.id', 'left');
+        $this->db->join('activity_type t6', 'a.b1 = t6.id', 'left');
+        $this->db->join('activity_type t7', 'a.b2 = t7.id', 'left');
+        $this->db->join('activity_type t8', 'a.b3 = t8.id', 'left');
+        $this->db->join('activity_type t9', 'a.b4 = t9.id', 'left');
+        $this->db->join('activity_type t10','a.b5 = t10.id', 'left');
+        $this->db->join('activity_type t11','a.c1 = t11.id', 'left');
+        $this->db->join('activity_type t12','a.c2 = t12.id', 'left');
+        $this->db->join('activity_type t13','a.c3 = t13.id', 'left');
+        $this->db->join('activity_type t14','a.c4 = t14.id', 'left');
+        $this->db->join('activity_type t15','a.c5 = t15.id', 'left');
+
         $this->db->where_in('a.status', $status);
         if($this->input->POST('company')) {
             $this->db->where('b.company_id', $this->input->POST('company'));
@@ -244,8 +261,14 @@ class Activity_model extends MY_Model
 
         $this->db->select('a.*');
         $this->db->select('t1.name AS t1n, t2.name AS t2n, t3.name AS t3n, t4.name AS t4n, t5.name AS t5n');
+        $this->db->select('t6.name AS t6n, t7.name AS t7n, t8.name AS t8n, t9.name AS t9n, t10.name AS t10n');
+        $this->db->select('t11.name AS t11n, t12.name AS t12n, t13.name AS t13n, t14.name AS t14n, t15.name AS t15n');
         $this->db->select('t1.unit AS t1u, t2.unit AS t2u, t3.unit AS t3u, t4.unit AS t4u, t5.unit AS t5u');
+        $this->db->select('t6.unit AS t6u, t7.unit AS t7u, t8.unit AS t8u, t9.unit AS t9u, t10.unit AS t10u');
+        $this->db->select('t11.unit AS t11u, t12.unit AS t12u, t13.unit AS t13u, t14.unit AS t14u, t15.unit AS t15u');
         $this->db->select('t1.icon AS t1c, t2.icon AS t2c, t3.icon AS t3c, t4.icon AS t4c, t5.icon AS t5c');
+        $this->db->select('t6.icon AS t6c, t7.icon AS t7c, t8.icon AS t8c, t9.icon AS t9c, t10.icon AS t10c');
+        $this->db->select('t11.icon AS t11c, t12.icon AS t12c, t13.icon AS t13c, t14.icon AS t14c, t15.icon AS t15c');
         $this->db->select('ROUND(a.a1s*a1n+a.a2s*a2n+a.a3s*a3n+a.a4s*a4n+a.a5s*a5n, 1) AS a1t', false);
         $this->db->select('ROUND(a.b1s*b1n+a.b2s*b2n+a.b3s*b3n+a.b4s*b4n+a.b5s*b5n, 1) AS b1t', false);
         $this->db->select('ROUND(a.c1s*c1n+a.c2s*c2n+a.c3s*c3n+a.c4s*c4n+a.c5s*c5n, 1) AS c1t', false);
@@ -255,6 +278,16 @@ class Activity_model extends MY_Model
         $this->db->join('activity_type t3', 'a.a3 = t3.id', 'left');
         $this->db->join('activity_type t4', 'a.a4 = t4.id', 'left');
         $this->db->join('activity_type t5', 'a.a5 = t5.id', 'left');
+        $this->db->join('activity_type t6', 'a.b1 = t6.id', 'left');
+        $this->db->join('activity_type t7', 'a.b2 = t7.id', 'left');
+        $this->db->join('activity_type t8', 'a.b3 = t8.id', 'left');
+        $this->db->join('activity_type t9', 'a.b4 = t9.id', 'left');
+        $this->db->join('activity_type t10','a.b5 = t10.id', 'left');
+        $this->db->join('activity_type t11','a.c1 = t11.id', 'left');
+        $this->db->join('activity_type t12','a.c2 = t12.id', 'left');
+        $this->db->join('activity_type t13','a.c3 = t13.id', 'left');
+        $this->db->join('activity_type t14','a.c4 = t14.id', 'left');
+        $this->db->join('activity_type t15','a.c5 = t15.id', 'left');
         $this->db->where('a.id', $id);
         return $this->db->get()->row_array();
         //return $this->db->get_where('activity', array('id' => $id))->row_array();
