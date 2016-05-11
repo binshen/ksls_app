@@ -248,7 +248,7 @@
     $("#Jmoreoperation").click(function(){
         $(".more-operation").toggle();
         $(this).parent().mouseleave(function(){$(".more-operation").hide()});
-    })
+    });
 
     var activity_type_list = JSON.parse('{{$activity_type_list}}');
     activity_type_list.unshift({id:0, name:'选择行程事项',score:'--',unit:'组'});
@@ -268,7 +268,7 @@
                 obj.find('.fz14').text(0);
             }
 
-            caculateTotal();
+            calculateTotal();
         }
     });
 
@@ -278,14 +278,14 @@
         if($.trim(score) == '--') score = 0;
         $(this).parent().parent().find('.fz14').text(score * num);
 
-        caculateTotal();
+        calculateTotal();
     });
 
     $(".confirm-btn").click(function() {
         $("#activityForm").submit();
     });
 
-    function caculateTotal() {
+    function calculateTotal() {
         var total = 0;
         $("#activityForm").find('.fz14').each(function() {
             total += parseFloat($(this).text());

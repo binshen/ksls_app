@@ -194,7 +194,7 @@
                 obj.find('.fz14').text(0);
             }
 
-            caculateTotal();
+            calculateTotal();
         }
     });
 
@@ -204,14 +204,14 @@
         if($.trim(score) == '--') score = 0;
         $(this).parent().parent().find('.fz14').text(score * num);
 
-        caculateTotal();
+        calculateTotal();
     });
 
     $(".confirm-btn").click(function() {
         $("#activityForm").submit();
     });
 
-    function caculateTotal() {
+    function calculateTotal() {
         var total = 0;
         $("#activityForm").find('.fz14').each(function() {
             total += parseFloat($(this).text());
