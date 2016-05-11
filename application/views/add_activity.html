@@ -68,7 +68,7 @@
                             <li class="wid365">
                                 <input type="hidden" name="a1" class="sc_type" value="{{$activity.a1|default:''}}">
                                 <input type="hidden" name="a1s" class="sc_score" value="{{$activity.a1s|default:''}}">
-                                <textarea name="a1m" rows="2" cols="3" class="sce-remarks">{{$activity.a1m|default:''}}</textarea>
+                                <textarea name="a1m" rows="2" cols="3" class="sce-remarks" placeholder="点击输入备注">{{$activity.a1m|default:''}}</textarea>
                             </li>
                         </ul>
                         <!--选择行程事项-->
@@ -88,7 +88,7 @@
                             <li class="wid365">
                                 <input type="hidden" name="a2" class="sc_type" value="{{$activity.a2|default:''}}">
                                 <input type="hidden" name="a2s" class="sc_score" value="{{$activity.a2s|default:''}}">
-                                <textarea name="a2m" rows="2" cols="3" class="sce-remarks">{{$activity.a2m|default:''}}</textarea>
+                                <textarea name="a2m" rows="2" cols="3" class="sce-remarks" placeholder="点击输入备注">{{$activity.a2m|default:''}}</textarea>
                             </li>
                         </ul>
                         <!--选择行程事项-->
@@ -108,7 +108,7 @@
                             <li class="wid365">
                                 <input type="hidden" name="a3" class="sc_type" value="{{$activity.a3|default:''}}">
                                 <input type="hidden" name="a3s" class="sc_score" value="{{$activity.a3s|default:''}}">
-                                <textarea name="a3m" rows="2" cols="3" class="sce-remarks">{{$activity.a3m|default:''}}</textarea>
+                                <textarea name="a3m" rows="2" cols="3" class="sce-remarks" placeholder="点击输入备注">{{$activity.a3m|default:''}}</textarea>
                             </li>
                         </ul>
                         <!--选择行程事项-->
@@ -128,7 +128,7 @@
                             <li class="wid365">
                                 <input type="hidden" name="a4" class="sc_type" value="{{$activity.a4|default:''}}">
                                 <input type="hidden" name="a4s" class="sc_score" value="{{$activity.a4s|default:''}}">
-                                <textarea name="a4m" rows="2" cols="3" class="sce-remarks">{{$activity.a4m|default:''}}</textarea>
+                                <textarea name="a4m" rows="2" cols="3" class="sce-remarks" placeholder="点击输入备注">{{$activity.a4m|default:''}}</textarea>
                             </li>
                         </ul>
                         <!--选择行程事项-->
@@ -148,7 +148,7 @@
                             <li class="wid365">
                                 <input type="hidden" name="a5" class="sc_type" value="{{$activity.a5|default:''}}">
                                 <input type="hidden" name="a5s" class="sc_score" value="{{$activity.a5s|default:''}}">
-                                <textarea name="a5m" rows="2" cols="3" class="sce-remarks">{{$activity.a5m|default:''}}</textarea>
+                                <textarea name="a5m" rows="2" cols="3" class="sce-remarks" placeholder="点击输入备注">{{$activity.a5m|default:''}}</textarea>
                             </li>
                         </ul>
                         <!--选择行程事项-->
@@ -178,11 +178,11 @@
 
     var activity_type_list = JSON.parse('{{$activity_type_list}}');
     activity_type_list.unshift({id:0, name:'选择行程事项',score:'--',unit:'组'});
-    var o1 = '{{$activity.a1|default:""}}';
-    var o2 = '{{$activity.a2|default:""}}';
-    var o3 = '{{$activity.a3|default:""}}';
-    var o4 = '{{$activity.a4|default:""}}';
-    var o5 = '{{$activity.a5|default:""}}';
+    var o1 = '{{$activity.a1|default:0}}';
+    var o2 = '{{$activity.a2|default:0}}';
+    var o3 = '{{$activity.a3|default:0}}';
+    var o4 = '{{$activity.a4|default:0}}';
+    var o5 = '{{$activity.a5|default:0}}';
     $('.add-select-items').SelectSimu({
         width : 135,
         zIndex : 999,
