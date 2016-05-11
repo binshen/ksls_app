@@ -253,7 +253,8 @@ class Activity_model extends MY_Model
         $this->db->join('activity_type t3', 'a.a3 = t3.id', 'left');
         $this->db->join('activity_type t4', 'a.a4 = t4.id', 'left');
         $this->db->join('activity_type t5', 'a.a5 = t5.id', 'left');
-        return $this->db->get()->result();
+        $this->db->where('a.id', $id);
+        return $this->db->get()->row_array();
         //return $this->db->get_where('activity', array('id' => $id))->row_array();
     }
 }
