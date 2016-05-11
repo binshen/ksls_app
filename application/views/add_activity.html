@@ -178,11 +178,16 @@
 
     var activity_type_list = JSON.parse('{{$activity_type_list}}');
     activity_type_list.unshift({id:0, name:'选择行程事项',score:'--',unit:'组'});
+    var o1 = '{{$activity.a1|default:""}}';
+    var o2 = '{{$activity.a2|default:""}}';
+    var o3 = '{{$activity.a3|default:""}}';
+    var o4 = '{{$activity.a4|default:""}}';
+    var o5 = '{{$activity.a5|default:""}}';
     $('.add-select-items').SelectSimu({
         width : 135,
         zIndex : 999,
         listNum : 8,
-        defaultValue :[7,1,6,5,3],//defaultValue :'',
+        defaultValue :[o1,o2,o3,o4,o5],
         data: activity_type_list,
         change: function(obj, type, score) {
             obj.find('.sc_type').val(type);
