@@ -174,7 +174,6 @@ border-top:none; background: #f5f5f5; }
 .select-list li  a{color:#5a5a5a;display: block;}
 .select-list li  a:hover{background: #1abc9c; color:#fff;}
 .sc-num{border:1px solid #1abc9c; font-size:14px; color:#5a5a5a; width:40px; height:34px; line-height: 34px; border-radius: 3px; text-align: center;}
-
 .unit-sel{border:1px solid #fff;}
 .sce-remarks{margin:2px 0;width:355px; background:#fcf2b0; border:1px solid #c4cbd4; height: 25px; color:#c4c2ac; font-size:16px;font-family: "Microsoft YaHei";
 padding:5px;}
