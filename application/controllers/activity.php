@@ -173,12 +173,47 @@ class Activity extends MY_Controller {
 
         $activity = $this->activity_model->get_activity_by_id($id);
 
+        $activity['c1'] = $activity['b1'];
+        $activity['c1s'] = $activity['b1s'];
+        $activity['c1n'] = $activity['b1n'];
+        $activity['c1m'] = '';
+        $activity['c2'] = $activity['b2'];
+        $activity['c2s'] = $activity['b2s'];
+        $activity['c2n'] = $activity['b2n'];
+        $activity['c2m'] = '';
+        $activity['c3'] = $activity['b3'];
+        $activity['c3s'] = $activity['b3s'];
+        $activity['c3n'] = $activity['b3n'];
+        $activity['c3m'] = '';
+        $activity['c4'] = $activity['b4'];
+        $activity['c4s'] = $activity['b4s'];
+        $activity['c4n'] = $activity['b4n'];
+        $activity['c4m'] = '';
+        $activity['c5'] = $activity['b5'];
+        $activity['c5s'] = $activity['b5s'];
+        $activity['c5n'] = $activity['b5n'];
+        $activity['c5m'] = '';
+
         $activity['a1t'] = $activity['a1n'] * $activity['a1s'];
         $activity['a2t'] = $activity['a2n'] * $activity['a2s'];
         $activity['a3t'] = $activity['a3n'] * $activity['a3s'];
         $activity['a4t'] = $activity['a4n'] * $activity['a4s'];
         $activity['a5t'] = $activity['a5n'] * $activity['a5s'];
         $activity['att'] = $activity['a1t'] + $activity['a2t'] + $activity['a3t'] + $activity['a4t'] + $activity['a5t'];
+
+        $activity['b1t'] = $activity['b1n'] * $activity['b1s'];
+        $activity['b2t'] = $activity['b2n'] * $activity['b2s'];
+        $activity['b3t'] = $activity['b3n'] * $activity['b3s'];
+        $activity['b4t'] = $activity['b4n'] * $activity['b4s'];
+        $activity['b5t'] = $activity['b5n'] * $activity['b5s'];
+        $activity['btt'] = $activity['b1t'] + $activity['b2t'] + $activity['b3t'] + $activity['b4t'] + $activity['b5t'];
+
+        $activity['c1t'] = $activity['c1n'] * $activity['c1s'];
+        $activity['c2t'] = $activity['c2n'] * $activity['c2s'];
+        $activity['c3t'] = $activity['c3n'] * $activity['c3s'];
+        $activity['c4t'] = $activity['c4n'] * $activity['c4s'];
+        $activity['c5t'] = $activity['c5n'] * $activity['c5s'];
+        $activity['ctt'] = $activity['c1t'] + $activity['c2t'] + $activity['c3t'] + $activity['c4t'] + $activity['c5t'];
         $this->assign('activity', $activity);
 
         $this->display('review_activity.html');
