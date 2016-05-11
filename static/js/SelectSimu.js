@@ -24,11 +24,17 @@
 		'</style>';
 	//css插入页面
 	_this.$e.before(cssStr);
-			//alert(_this.opts.data[0].name);
 	//html代码导入
+	var defaultStr = '';
+	if(!_this.opts.defaultValue){
+		defaultStr = '<input type="hidden" name="selectInput" value="'+_this.opts.data[0].name +'" />'+'<p>'+ _this.opts.data[0].name +'</p>';
+	}
+	else {
+		defaultStr ='<input type="hidden" name="selectInput" value="'+ _this.opts.data[_this.opts.defaultValue[this.index]].name+'" />'+
+		'<p><a href="javascript:"><span class="item-icon item-icon-' + _this.opts.data[_this.opts.defaultValue[this.index]].icon + '"></span>'+ _this.opts.data[_this.opts.defaultValue[this.index]].name+'</a></p>';
+	}
 	var	selectStr = '<div class="selectInput">'+
-		'<input type="hidden" name="selectInput" value="'+(_this.opts.data[0].id.toString() ? _this.opts.data[0].name : "")+'" />'+
-		'<p>'+(_this.opts.data[0].id.toString() ? _this.opts.data[0].name : "")+'</p>'+
+		defaultStr+
 		'<i></i>'+
 		'</div>'+
 		'<div class="select-list">'+
@@ -51,6 +57,7 @@
 				var _this = this;
 				_this.$e.on('click','.selectInput',function(e){
 					e.stopPropagation();
+					$(document).find('.select-list').hide();
 					_this.$e.find('.select-list').toggle();
 				});
 				$(document).click(function(){
