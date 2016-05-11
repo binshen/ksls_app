@@ -137,12 +137,31 @@ class Activity extends MY_Controller {
         $this->display('inspect_activity.html');
     }
 
-    public function review_activity() {
+    public function review_activity($id) {
+        $activity_type_list = $this->activity_model->get_activity_type_list();
+        $this->assign('activity_type_list', json_encode($activity_type_list));
+
+        $activity = $this->activity_model->get_activity_by_id($id);
+
+        $activity['a1t'] = $activity['a1n'] * $activity['a1s'];
+        $activity['a2t'] = $activity['a2n'] * $activity['a2s'];
+        $activity['a3t'] = $activity['a3n'] * $activity['a3s'];
+        $activity['a4t'] = $activity['a4n'] * $activity['a4s'];
+        $activity['a5t'] = $activity['a5n'] * $activity['a5s'];
+        $activity['att'] = $activity['a1t'] + $activity['a2t'] + $activity['a3t'] + $activity['a4t'] + $activity['a5t'];
+        $this->assign('activity', $activity);
+        
         $this->display('review_activity.html');
     }
 
     public function save_activity() {
         $this->activity_model->add_activity();
+
+        redirect(site_url('activity/list_activity'));
+    }
+
+    public function assess_activity() {
+        $this->activity_model->assess_activity();
 
         redirect(site_url('activity/list_activity'));
     }
