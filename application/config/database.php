@@ -48,9 +48,9 @@
 $active_group = 'default';
 $active_record = TRUE;
 
-$db['default']['hostname'] = '127.0.0.1';
+$db['default']['hostname'] = '121.40.97.183';
 $db['default']['username'] = 'root';
-$db['default']['password'] = '';
+$db['default']['password'] = 'k2s0l1s6qwe123!@#';
 $db['default']['database'] = 'kskw_db';
 $db['default']['dbdriver'] = 'mysql';
 $db['default']['dbprefix'] = '';
