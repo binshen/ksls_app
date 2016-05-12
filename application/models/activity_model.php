@@ -296,4 +296,21 @@ class Activity_model extends MY_Model
         return $this->db->get()->row_array();
         //return $this->db->get_where('activity', array('id' => $id))->row_array();
     }
+
+    public function get_total_top_list() {
+
+        $this->db->select('b.rel_name AS u_name, c.name AS c_name, d.name AS s_name, SUM(a.total) AS total');
+        $this->db->from('activity a');
+        $this->db->join('user b', 'a.user_id = b.id', 'inner');
+        $this->db->join('company c', 'b.company_id = c.id', 'inner');
+        $this->db->join('subsidiary d', 'b.subsidiary_id = d.id', 'inner');
+        $this->db->where('YEAR(a.date)', 2016);
+        $this->db->where('MONTH(a.date)', 5);
+        $this->db->where('b.company_id', 1);
+        $this->db->where('b.subsidiary_id', 2);
+        $this->db->group_by('b.id');
+        $this->db->limit(20);
+        $this->db->order_by('total', 'desc');
+        return $this->db->get()->result();
+    }
 }
