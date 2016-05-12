@@ -39,12 +39,12 @@
         <div class="wrap-right">
             <div class="search-wrap search-wrap1">
                  <span class="user-name"><em class="user-pic-icon"></em> 郑法明</span>
-                 <span class="span-date"><em class="em-lock"></em> {{$activity.date|default:'2016-05-11'}}</span>
+                 <span class="span-date"><em class="em-lock"></em> {{$activity.date|default:$tomorrow}}</span>
             </div>
             <div class="schedule-wrap">
                 <form id="activityForm" method="post" action="/activity/save_activity">
                     <input type="hidden" name="id" value="{{$activity.id|default:''}}">
-                    <input type="hidden" name="date" value="{{$activity.date|default:'2016-05-11'}}">
+                    <input type="hidden" name="date" value="{{$activity.date|default:$tomorrow}}">
                     <div class="schedule-tit plan-tit"><em></em>计划行程</div>
                     <ul class="add-schedule-ul">
                         <li class="wid110">时间</li>

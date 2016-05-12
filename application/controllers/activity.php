@@ -100,6 +100,8 @@ class Activity extends MY_Controller {
         $activity_type_list = $this->activity_model->get_activity_type_list();
         $this->assign('activity_type_list', json_encode($activity_type_list));
 
+        $this->assign('tomorrow', date("Y-m-d",strtotime("+1 day")));
+
         $this->display('add_activity.html');
     }
 
