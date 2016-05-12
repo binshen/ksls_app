@@ -41,7 +41,7 @@
         <div class="wrap-right">
             <div class="search-wrap search-wrap1">
                 <span class="user-name"><em class="user-pic-icon"></em> 郑法明</span>
-                <span class="span-date"><em class="em-lock"></em> 2016-5-10</span>
+                <span class="span-date"><em class="em-lock"></em> {{$activity.date|default:''}}</span>
             </div>
             <div class="schedule-wrap">
                 <div class="schedule-tit plan-tit"><em></em>计划行程</div>
@@ -343,6 +343,7 @@
 </div>
 <script type="text/javascript" src="/static/js/jquery-1.9.0.js"></script>
 <script type="text/javascript" src="/static/js/SelectSimu.js"></script>
+<script type="text/javascript" src="/static/js/layer/layer.js"></script>
 <script>
     $("#Jmoreoperation").click(function(){
         $(".more-operation").toggle();
@@ -385,7 +386,12 @@
     });
 
     $(".confirm-btn").click(function() {
-        $("#activityForm").submit();
+        layer.confirm('确定要保存实际行程信息？', {
+            btn: ['确定','取消']
+        }, function(){
+            $("#activityForm").submit();
+        }, function(){
+        });
     });
 
     $(".specradio").click(function(){

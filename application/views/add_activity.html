@@ -39,21 +39,24 @@
             </div>
         </div>
         <div class="wrap-right">
-            <div class="search-wrap search-wrap1">
-                 <span class="user-name"><em class="user-pic-icon"></em> 郑法明</span>
-                 <span class="span-date">
-                    <em class="em-lock"></em>
-                     <input type="text" name="start_date" id="J_DepDate" value="" class="sel-time" style="margin:0;"  />
-                 </span>
-                 <!--<span class="span-date"><em class="em-lock"></em> {{$activity.date|default:'2016-05-11'}}</span>-->
-                <span class="span-date">
+            <form id="activityForm" method="post" action="/activity/save_activity">
+                <div class="search-wrap search-wrap1">
+                    {{if empty($activity.id) }}
+                         <span class="user-name"><em class="user-pic-icon"></em> 郑法明</span>
+                         <span class="span-date">
+                            <em class="em-lock"></em>
+                             <input type="text" name="date" id="J_DepDate" value="{{$tomorrow}}" class="sel-time" style="margin:0;"  />
+                         </span>
+                    {{else}}
+                        <span class="span-date"><em class="em-lock"></em> {{$activity.date|default:''}}</span>
+                        <input type="hidden" name="date" value="{{$activity.date|default:''}}">
+                    {{/if}}
+                    <span class="span-date">
 
-                </span>
-            </div>
-            <div class="schedule-wrap">
-                <form id="activityForm" method="post" action="/activity/save_activity">
+                    </span>
+                </div>
+                <div class="schedule-wrap">
                     <input type="hidden" name="id" value="{{$activity.id|default:''}}">
-                    <input type="hidden" name="date" value="{{$activity.date|default:'2016-05-11'}}">
                     <div class="schedule-tit plan-tit"><em></em>计划行程</div>
                     <ul class="add-schedule-ul">
                         <li class="wid110">时间</li>
@@ -171,8 +174,8 @@
                     </div>
                     <div class="clear"></div>
                     <p class="p-btn"><a href="javascript:" class="confirm-btn">确认</a></p>
-                </form>
-            </div>
+                </div>
+            </form>
         </div>
         <div class="clear"></div>
     </div>
@@ -180,6 +183,7 @@
 <script type="text/javascript" src="/static/js/jquery-1.9.0.js"></script>
 <script type="text/javascript" src="/static/js/yui-min.js"></script>
 <script type="text/javascript" src="/static/js/SelectSimu.js"></script>
+<script type="text/javascript" src="/static/js/layer/layer.js"></script>
 <script>
     $("#Jmoreoperation").click(function(){
         $(".more-operation").toggle();
@@ -243,7 +247,12 @@
     });
 
     $(".confirm-btn").click(function() {
-        $("#activityForm").submit();
+        layer.confirm('确定要保存计划行程信息？', {
+            btn: ['确定','取消'] //按钮
+        }, function(){
+            $("#activityForm").submit();
+        }, function(){
+        });
     });
 
     function caculateTotal() {
