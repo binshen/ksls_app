@@ -242,6 +242,12 @@ class Activity extends MY_Controller {
 
     public function list_ranking() {
 
+        $company_list = $this->activity_model->get_company_list();
+        $this->assign('company_list', $company_list);
+
+        $subsidiary_list = $this->activity_model->get_subsidiary_list(NULL, NULL);
+        $this->assign('subsidiary_list', $subsidiary_list);
+
         $top_list = $this->activity_model->get_total_top_list();
         $this->assign('top_list', $top_list);
 
