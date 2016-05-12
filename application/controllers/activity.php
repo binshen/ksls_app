@@ -16,13 +16,13 @@ class Activity extends MY_Controller {
 
         //////////////
         //for test only
-        $user_info['login_user_id'] = 5;
-        $user_info['login_username'] = 'test';
-        $user_info['login_rel_name'] = 'Test';
-        $user_info['login_role_id'] = 1;
-        $user_info['login_company_id'] = 1;
-        $user_info['login_subsidiary_id'] = 2;
-        $this->session->set_userdata($user_info);
+//        $user_info['login_user_id'] = 5;
+//        $user_info['login_username'] = 'test';
+//        $user_info['login_rel_name'] = 'Test';
+//        $user_info['login_role_id'] = 1;
+//        $user_info['login_company_id'] = 1;
+//        $user_info['login_subsidiary_id'] = 2;
+//        $this->session->set_userdata($user_info);
         //////////////
 
         $this->load->model('activity_model');
