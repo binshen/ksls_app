@@ -18,7 +18,7 @@ class Index extends MY_Controller {
     }
 
     public function index() {
-        $this->load->view('index.html');
+        $this->display('index.html');
     }
 
     public function login() {
@@ -27,7 +27,8 @@ class Index extends MY_Controller {
     }
 
     public function logout() {
-
+        $this->session->sess_destroy();
+        redirect(site_url('/'));
     }
 
     public function check_login() {
