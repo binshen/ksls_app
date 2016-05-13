@@ -43,7 +43,7 @@
                 <span><em class="input-icon input-tel"></em>| 手机号</span><input type="text" name="username" id="username" />
             </div>
             <div class="input-div">
-                <span><em class="input-icon input-pwd"></em>| 密码</span><input type="text" name="password" id="password" />
+                <span><em class="input-icon input-pwd"></em>| 密码</span><input type="password" name="password" id="password" />
             </div>
             <a href="javascript:void(0);" class="sub-btn" id="btn_login">登 录</a>
             <p class="tips" id="login_error" style="display:none"><em></em>手机或密码不对，请重新输入！</p>
@@ -97,7 +97,10 @@
                 window.location = '/activity/list_ranking';
             }
         });
-
+        //关闭弹框
+        $(".pop-close-btn").click(function(){
+            $.unblockUI();
+        });
      </script>
 </body>
 </html>
