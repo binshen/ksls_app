@@ -302,8 +302,8 @@ class Activity_model extends MY_Model
         $this->db->select('b.rel_name AS u_name, c.name AS c_name, d.name AS s_name, SUM(a.total) AS total');
         $this->db->from('activity a');
         $this->db->join('user b', 'a.user_id = b.id', 'inner');
-        $this->db->join('company c', 'b.company_id = c.id', 'inner');
-        $this->db->join('subsidiary d', 'b.subsidiary_id = d.id', 'inner');
+        $this->db->join('company c', 'b.company_id = c.id', 'left');
+        $this->db->join('subsidiary d', 'b.subsidiary_id = d.id', 'left');
         $this->db->where('YEAR(a.date)', 2016);
         $this->db->where('MONTH(a.date)', 5);
         $this->db->where('b.company_id', 1);
@@ -314,27 +314,37 @@ class Activity_model extends MY_Model
         return $this->db->get()->result();
     }
 
-    public function get_op1_top_list() {
+    public function get_top_list_by_op($op = 1) {
 
-/*
-  a1   a1s * a1n
-  a2   a2s * a2n
-  a3   a3s * a3n
-  a4   a4s * a4n
-  a5   a5s * a5n
-*/
-
-        $this->db->select('b.rel_name AS u_name, c.name AS c_name, d.name AS s_name, SUM(a.c1s) AS total');
-        $this->db->from('activity a');
-        $this->db->join('user b', 'a.user_id = b.id', 'inner');
-        $this->db->join('company c', 'b.company_id = c.id', 'inner');
-        $this->db->join('subsidiary d', 'b.subsidiary_id = d.id', 'inner');
-        $this->db->where('YEAR(a.date)', 2016);
-        $this->db->where('MONTH(a.date)', 5);
-        $this->db->where('b.company_id', 1);
-        $this->db->where('b.subsidiary_id', 2);
-        $this->db->group_by('b.id');
-        $this->db->limit(20);
-        $this->db->order_by('total', 'desc');
+        $sql = "
+            SELECT
+              b.rel_name AS u_name, 
+              c.name AS c_name, 
+              d.name AS s_name,
+              SUM(a.total) AS total
+            FROM
+              (
+                SELECT user_id, date, a1s * a1n as total from activity where a1 = $op
+                UNION
+                SELECT user_id, date, a2s * a2n as total from activity where a2 = $op
+                UNION
+                SELECT user_id, date, a3s * a3n as total from activity where a3 = $op
+                UNION
+                SELECT user_id, date, a4s * a4n as total from activity where a4 = $op
+                UNION
+                SELECT user_id, date, a5s * a5n as total from activity where a5 = $op
+            ) AS a
+            JOIN user b ON b.id = a.user_id
+            LEFT JOIN company c ON b.company_id = c.id
+            LEFT JOIN subsidiary d ON b.subsidiary_id = d.id
+            WHERE YEAR(a.date) = 2016
+            AND MONTH(a.date) = 5
+            AND b.company_id = 1
+            AND b.subsidiary_id = 2
+            GROUP BY b.id
+            ORDER BY a.total
+            LIMIT 20
+        ";
+        return $this->db->query($sql)->result();
     }
 }

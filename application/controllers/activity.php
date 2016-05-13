@@ -240,7 +240,7 @@ class Activity extends MY_Controller {
     }
 
 
-    public function list_ranking() {
+    public function list_ranking($op = 0) {
 
         $company_list = $this->activity_model->get_company_list();
         $this->assign('company_list', $company_list);
@@ -248,17 +248,35 @@ class Activity extends MY_Controller {
         $subsidiary_list = $this->activity_model->get_subsidiary_list(NULL, NULL);
         $this->assign('subsidiary_list', $subsidiary_list);
 
-        $top_list = $this->activity_model->get_total_top_list();
+        $top_list = $this->activity_model->get_total_top_list($op);
         $this->assign('top_list', $top_list);
 
-        $class_key = array('fist', 'second', 'third');
-        $this->assign('class_key', $class_key);
+        $top_list_1 = $this->activity_model->get_top_list_by_op(1);
+        $this->assign('top_list_1', $top_list_1);
+
+        $top_list_2 = $this->activity_model->get_top_list_by_op(2);
+        $this->assign('top_list_2', $top_list_2);
+
+        $top_list_3 = $this->activity_model->get_top_list_by_op(3);
+        $this->assign('top_list_3', $top_list_3);
+
+        $top_list_4 = $this->activity_model->get_top_list_by_op(4);
+        $this->assign('top_list_4', $top_list_4);
+
+        $top_list_5 = $this->activity_model->get_top_list_by_op(5);
+        $this->assign('top_list_5', $top_list_5);
+
+        $top_list_6 = $this->activity_model->get_top_list_by_op(6);
+        $this->assign('top_list_6', $top_list_6);
+
+        $top_list_7 = $this->activity_model->get_top_list_by_op(7);
+        $this->assign('top_list_7', $top_list_7);
 
         $this->display('list_ranking.html');
     }
 
     public function test() {
-        $data = $this->activity_model->get_total_top_list();
+        $data = $this->activity_model->get_top_list_by_op();
         var_dump($data);
         die;
     }
