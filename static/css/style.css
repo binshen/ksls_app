@@ -28,7 +28,7 @@ body{background: #fff; font-family: "Microsoft YaHei";}
 .index .index-nav{width:105px; height:475px; float:left; background: #000; color:#aeaeae; font-size:16px; text-align:center;margin-right:5px;}
 .index .index-nav li{height:50px; line-height: 50px;}
 .index .index-nav .current{background: #404042;}
-.index .content{padding:52px 0 0 52px;width:838px;float: left; background: #cbcec7; height:423px; overflow: hidden;}
+.index .content{padding:52px 0 0 0;width:838px;float: left; background: #cbcec7; height:423px; overflow: hidden;}
 .index .content .a-btns{ float:left;margin:0 0 30px 30px;}
 .index .wraper{background: none;}
 .copyright{ text-align: center; color:#fff; clear:both; padding-top:14px;}
@@ -226,9 +226,9 @@ padding:5px;}
 .condiv-ul{margin:0 11px; height:52px; background: #fff;margin-top:15px;}
 .condiv-ul li{float:left;width:330px;}
 .condiv-ul .rank-num{margin:10px auto;width:30px; height:30px;background:#eaeaea; display: block;font-size:16px; line-height: 30px; text-align: center; color:#757575;border-radius: 15px; }
-.condiv-ul .num-fist,.condiv-ul .num-second,.condiv-ul .num-third{width:34px; height:42px;background: url(/static/images/rank_icon.png) no-repeat;}
-.condiv-ul .num-second{ background-position: 0 -61px;}
-.condiv-ul .num-third{ background-position: 0 -125px;}
+.condiv-ul .num-0,.condiv-ul .num-1,.condiv-ul .num-2{width:34px; height:42px;background: url(/static/images/rank_icon.png) no-repeat;}
+.condiv-ul .num-1{ background-position: 0 -61px;}
+.condiv-ul .num-2{ background-position: 0 -125px;}
 .condiv-ul .s-head-pic{margin:5px 15px 0 0; float: left;}.condiv-ul .s-head-pic img{border-radius: 21px;}
 .condiv-ul .nameandcom{width:350px;}
 .condiv-ul .nameandcom p{padding:4px 0; color:#b2b1b1;}
