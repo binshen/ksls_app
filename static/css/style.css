@@ -6,7 +6,7 @@ body{background: #fff; font-family: "Microsoft YaHei";}
 .header-left{ float: left; height:36px;position:relative;}
 .login-info{width:200px;float: right;position: relative; text-align: right; }
 .login-info .login-out{color:#fff;}
-.login-info .login-in{text-align:left;}
+.login-info .login-in{text-align:left;} .login-info .login-in a{color:#fff;}
 .moreoperation{color:#6c6c6c;}
 .logo-head-pic{margin:5px 10px 0;float:left; height:26px; overflow: hidden;}
 .logo-head-pic img{border-radius: 13px;}
