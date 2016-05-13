@@ -1,7 +1,13 @@
 <div class="header-wrap">
     <div class="header-in-wrap">
         <div class="header-left">
-            <p>昆山 5月03日 周二 11：16</p>
+            <!--<p>昆山 5月03日 周二 11：16</p>-->
+            <span class="location">昆山</span>
+            <div class="weather" id="Jweather">
+                <!--<span class="w-img"><img src="http://api.k780.com:88/upload/weather/d/2.gif" width="28" height="20" /></span>晴 12~1℃-->
+                <ul class="ulWeather" id="JulWeather">
+                </ul>
+            </div>
         </div>
         <div class="login-info">
             {{if $login_user_id }}
@@ -10,8 +16,8 @@
                         <span class="logo-head-pic"><img src="/static/images/user_photo.gif" alt="" width="26" height="26" /> </span>
                         {{$login_user_name}}<em class="up-icon"></em></a>
                     <div class="more-operation" style="display:none;">
-                        <a href=""><em class="a-em1"></em>完善资料</a>
-                        <a href=""><em class="a-em2"></em>修改密码</a>
+                        <a href="javascript:" id="JperfectBtn"><em class="a-em1"></em>完善资料</a>
+                        <a href="javascript:" id="JreviseBtn"><em class="a-em2"></em>修改密码</a>
                     </div>| <a href="/index/logout">退出</a>
                 </div>
             {{else}}
@@ -20,3 +26,80 @@
         </div>
     </div>
 </div>
+<!--------修改密码------>
+<div class="revise-div" id="Jrevise-div" style="display: none; cursor: default">
+    <a href="javascript:" class="pop-close-btn" style="top:0;right:0;"></a>
+    <div class="pop-tit">修改密码</div>
+    <form action="">
+        <table  cellpadding="0" cellspacing="0" class="action-table">
+            <tr>
+                <th>当前登录密码：</th>
+                <td colspan="2"><input type="text" name="" class="input-txt"></td>
+            </tr>
+            <tr>
+                <th>新的登录密码：</th>
+                <td colspan="2"><input type="text" name="" class="input-txt"></td>
+            </tr>
+            <tr>
+                <th>确认新的登录密码：</th>
+                <td><input type="text" name="" class="input-txt"></td>
+                <td><p class="newpwdtips"><em></em>两次输入的密码不一样</p></td>
+            </tr>
+            <tr>
+                <th></th>
+                <td><a href="" class="confirm-btn">确认</a> </td>
+                <td></td>
+            </tr>
+        </table>
+    </form>
+</div>
+<!----完善资料----->
+<div class="revise-div" id="Jperfect-div" style="display: none; cursor: default">
+    <a href="javascript:" class="pop-close-btn" style="top:0;right:0;"></a>
+    <div class="pop-tit">完善资料</div>
+    <form action="">
+       <dl>
+           <dt class="dt-pic"><img src="/static/images/user_photo.gif" alt="" width="80" height="80" /></dt>
+           <dd>
+              <span class="s01">
+               修改头像：<br/>
+               <input type="text" value="" class="input-txt"></span>
+               <a href="" class="confirm-btn upload-btn">浏览</a>
+           </dd>
+           <dt></dt>
+           <dd>
+               真实姓名：<br/>
+               <input type="text" value="" class="input-txt">
+           </dd>
+           <dt></dt>
+           <dd>
+               <a href="" class="confirm-btn">确认</a>
+           </dd>
+       </dl>
+    </form>
+</div>
+<script type="text/javascript" src="/static/js/jquery-1.9.0.js"></script>
+<script>
+    var weatherStr=ulHtml='';
+    $.getJSON("http://api.k780.com:88/?app=weather.future&weaid=1100&appkey=19326&sign=0007c0408974a63e576c48c264636337&format=json&json&jsoncallback=?", function(data){
+            $.each(data.result, function(i,item){
+                (i==0)?weatherStr +='<span class="w-img"><img src="'+item.weather_icon+'" width="28" height="20" /></span>'+item.weather+' '+item.temperature:'';
+                ulHtml += '<li> <span>'+item.week+'</span><span><img src="'+item.weather_icon+'" alt="" width="28" height="20" ></span><span>'+item.weather+'</span><span>'+item.temperature+'</span><span>'+item.wind+'</span></li>';
+            });
+           $("#Jweather").append(weatherStr);
+           $("#JulWeather").append(ulHtml);
+    });
+
+    $("#Jmoreoperation").click(function(){
+        $(".more-operation").toggle();
+        $(this).parent().mouseleave(function(){$(".more-operation").hide()});
+    });
+    //修改密码
+    $("#JreviseBtn").click(function(){
+        $.blockUI({ message: $('#Jrevise-div'), css:{ background: 'none',top:'100px',left:'50%',marginLeft:'-420px', border: 'none',width:'840px', height:'425px'}, overlayCSS: {cursor:'default'}});
+    });
+    //完善资料
+    $("#JperfectBtn").click(function(){
+        $.blockUI({ message: $('#Jperfect-div'), css:{ background: 'none',top:'100px',left:'50%',marginLeft:'-420px', border: 'none',width:'840px', height:'425px'}, overlayCSS: {cursor:'default'}});
+    });
+</script>
