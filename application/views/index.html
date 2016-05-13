@@ -49,27 +49,8 @@
             <p class="tips" id="login_error" style="display:none"><em></em>手机或密码不对，请重新输入！</p>
         </form>
     </div>
-
-
-
-    <script type="text/javascript" src="/static/js/jquery.blockUI.min.js"></script>
     <script type="text/javascript">
         var gotokey = 0;
-
-
-//
-//        $("#Jloginout").click(function(){
-//            $.blockUI({ message: $('#Jloginpop'), css:{ background: 'none',top:'100px', border: 'none',width:'410px', height:'410px'}, overlayCSS: {cursor:'default'}});
-//        });
-
-
-
-        //关闭弹框
-        $(".pop-close-btn").click(function(){
-            $("body").removeClass("modal-active");
-            $.unblockUI();
-        });
-
         $("#btn_login").click(function() {
             var username = $("#username").val();
             var password = $("#password").val();
