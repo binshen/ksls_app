@@ -16,13 +16,13 @@ class Activity extends MY_Controller {
 
         //////////////
         //for test only
-        $user_info['login_user_id'] = 5;
-        $user_info['login_username'] = 'test';
-        $user_info['login_rel_name'] = 'Test';
-        $user_info['login_role_id'] = 1;
-        $user_info['login_company_id'] = 1;
-        $user_info['login_subsidiary_id'] = 2;
-        $this->session->set_userdata($user_info);
+//        $user_info['login_user_id'] = 5;
+//        $user_info['login_username'] = 'test';
+//        $user_info['login_rel_name'] = 'Test';
+//        $user_info['login_role_id'] = 1;
+//        $user_info['login_company_id'] = 1;
+//        $user_info['login_subsidiary_id'] = 2;
+//        $this->session->set_userdata($user_info);
         //////////////
 
         $this->load->model('activity_model');
@@ -97,21 +97,173 @@ class Activity extends MY_Controller {
     }
 
     public function add_activity() {
+        $activity_type_list = $this->activity_model->get_activity_type_list();
+        $this->assign('activity_type_list', json_encode($activity_type_list));
+
+        $this->assign('tomorrow', date("Y-m-d",strtotime("+1 day")));
+
         $this->display('add_activity.html');
     }
 
-    public function edit_activity() {
+    public function edit_activity($id) {
+        $activity_type_list = $this->activity_model->get_activity_type_list();
+        $this->assign('activity_type_list', json_encode($activity_type_list));
+
+        $activity = $this->activity_model->get_activity_by_id($id);
+
+        $activity['a1t'] = $activity['a1n'] * $activity['a1s'];
+        $activity['a2t'] = $activity['a2n'] * $activity['a2s'];
+        $activity['a3t'] = $activity['a3n'] * $activity['a3s'];
+        $activity['a4t'] = $activity['a4n'] * $activity['a4s'];
+        $activity['a5t'] = $activity['a5n'] * $activity['a5s'];
+        $activity['att'] = $activity['a1t'] + $activity['a2t'] + $activity['a3t'] + $activity['a4t'] + $activity['a5t'];
+        $this->assign('activity', $activity);
+
         $this->display('add_activity.html');
     }
 
-    public function inspect_activity() {
-        $this->display('add_activity.html');
+    public function inspect_activity($id) {
+        $activity_type_list = $this->activity_model->get_activity_type_list();
+        $this->assign('activity_type_list', json_encode($activity_type_list));
+
+        $activity = $this->activity_model->get_activity_by_id($id);
+        $status = $activity['status'];
+        if($status == 1) {
+            $activity['b1'] = $activity['a1'];
+            $activity['b1s'] = $activity['a1s'];
+            $activity['b1n'] = $activity['a1n'];
+            $activity['b1m'] = '';
+            $activity['b2'] = $activity['a2'];
+            $activity['b2s'] = $activity['a2s'];
+            $activity['b2n'] = $activity['a2n'];
+            $activity['b2m'] = '';
+            $activity['b3'] = $activity['a3'];
+            $activity['b3s'] = $activity['a3s'];
+            $activity['b3n'] = $activity['a3n'];
+            $activity['b3m'] = '';
+            $activity['b4'] = $activity['a4'];
+            $activity['b4s'] = $activity['a4s'];
+            $activity['b4n'] = $activity['a4n'];
+            $activity['b4m'] = '';
+            $activity['b5'] = $activity['a5'];
+            $activity['b5s'] = $activity['a5s'];
+            $activity['b5n'] = $activity['a5n'];
+            $activity['b5m'] = '';
+        }
+
+        $activity['a1t'] = $activity['a1n'] * $activity['a1s'];
+        $activity['a2t'] = $activity['a2n'] * $activity['a2s'];
+        $activity['a3t'] = $activity['a3n'] * $activity['a3s'];
+        $activity['a4t'] = $activity['a4n'] * $activity['a4s'];
+        $activity['a5t'] = $activity['a5n'] * $activity['a5s'];
+        $activity['att'] = $activity['a1t'] + $activity['a2t'] + $activity['a3t'] + $activity['a4t'] + $activity['a5t'];
+
+        $activity['b1t'] = $activity['b1n'] * $activity['b1s'];
+        $activity['b2t'] = $activity['b2n'] * $activity['b2s'];
+        $activity['b3t'] = $activity['b3n'] * $activity['b3s'];
+        $activity['b4t'] = $activity['b4n'] * $activity['b4s'];
+        $activity['b5t'] = $activity['b5n'] * $activity['b5s'];
+        $activity['btt'] = $activity['b1t'] + $activity['b2t'] + $activity['b3t'] + $activity['b4t'] + $activity['b5t'];
+        $this->assign('activity', $activity);
+
+        $this->display('inspect_activity.html');
     }
 
-    public function review_activity() {
-        $this->display('add_activity.html');
+    public function review_activity($id) {
+        $activity_type_list = $this->activity_model->get_activity_type_list();
+        $this->assign('activity_type_list', json_encode($activity_type_list));
+
+        $activity = $this->activity_model->get_activity_by_id($id);
+
+        $activity['c1'] = $activity['b1'];
+        $activity['c1s'] = $activity['b1s'];
+        $activity['c1n'] = $activity['b1n'];
+        $activity['c1m'] = '';
+        $activity['c2'] = $activity['b2'];
+        $activity['c2s'] = $activity['b2s'];
+        $activity['c2n'] = $activity['b2n'];
+        $activity['c2m'] = '';
+        $activity['c3'] = $activity['b3'];
+        $activity['c3s'] = $activity['b3s'];
+        $activity['c3n'] = $activity['b3n'];
+        $activity['c3m'] = '';
+        $activity['c4'] = $activity['b4'];
+        $activity['c4s'] = $activity['b4s'];
+        $activity['c4n'] = $activity['b4n'];
+        $activity['c4m'] = '';
+        $activity['c5'] = $activity['b5'];
+        $activity['c5s'] = $activity['b5s'];
+        $activity['c5n'] = $activity['b5n'];
+        $activity['c5m'] = '';
+
+        $activity['a1t'] = $activity['a1n'] * $activity['a1s'];
+        $activity['a2t'] = $activity['a2n'] * $activity['a2s'];
+        $activity['a3t'] = $activity['a3n'] * $activity['a3s'];
+        $activity['a4t'] = $activity['a4n'] * $activity['a4s'];
+        $activity['a5t'] = $activity['a5n'] * $activity['a5s'];
+        $activity['att'] = $activity['a1t'] + $activity['a2t'] + $activity['a3t'] + $activity['a4t'] + $activity['a5t'];
+
+        $activity['b1t'] = $activity['b1n'] * $activity['b1s'];
+        $activity['b2t'] = $activity['b2n'] * $activity['b2s'];
+        $activity['b3t'] = $activity['b3n'] * $activity['b3s'];
+        $activity['b4t'] = $activity['b4n'] * $activity['b4s'];
+        $activity['b5t'] = $activity['b5n'] * $activity['b5s'];
+        $activity['btt'] = $activity['b1t'] + $activity['b2t'] + $activity['b3t'] + $activity['b4t'] + $activity['b5t'];
+
+        $activity['c1t'] = $activity['c1n'] * $activity['c1s'];
+        $activity['c2t'] = $activity['c2n'] * $activity['c2s'];
+        $activity['c3t'] = $activity['c3n'] * $activity['c3s'];
+        $activity['c4t'] = $activity['c4n'] * $activity['c4s'];
+        $activity['c5t'] = $activity['c5n'] * $activity['c5s'];
+        $activity['ctt'] = $activity['total'];//$activity['c1t'] + $activity['c2t'] + $activity['c3t'] + $activity['c4t'] + $activity['c5t'] + $activity['op'] * $activity['float'];
+        $this->assign('activity', $activity);
+
+        $this->display('review_activity.html');
     }
 
+    public function save_activity() {
+        $this->activity_model->add_activity();
+
+        redirect(site_url('activity/list_activity'));
+    }
+
+    public function assess_activity() {
+        $this->activity_model->assess_activity();
+
+        redirect(site_url('activity/list_activity'));
+    }
+
+    public function confirm_activity() {
+        $this->activity_model->review_activity();
+
+        redirect(site_url('activity/list_review'));
+    }
+
+
+    public function list_ranking() {
+
+        $company_list = $this->activity_model->get_company_list();
+        $this->assign('company_list', $company_list);
+
+        $subsidiary_list = $this->activity_model->get_subsidiary_list(NULL, NULL);
+        $this->assign('subsidiary_list', $subsidiary_list);
+
+        $top_list = $this->activity_model->get_total_top_list();
+        $this->assign('top_list', $top_list);
+
+        $class_key = array('fist', 'second', 'third');
+        $this->assign('class_key', $class_key);
+
+        $this->display('list_ranking.html');
+    }
+
+    public function test() {
+        $data = $this->activity_model->get_total_top_list();
+        var_dump($data);
+        die;
+    }
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     public function get_subsidiary_list($company_id) {
 
         $subsidiary_list = $this->activity_model->get_subsidiary_list($company_id);

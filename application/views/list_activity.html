@@ -7,26 +7,11 @@
     <meta name="description" content="房猫-行程管理-我的行程" />
     <link href="/static/css/reset.css" rel="stylesheet" type="text/css">
     <link href="/static/css/style.css" rel="stylesheet" type="text/css">
-    <!--[if IE 6]><script>document.execCommand("BackgroundImageCache", false, true)</script><![endif]-->
 </head>
 <body>
 <div class="doc">
-    <div class="header-wrap">
-        <div class="header-in-wrap">
-            <div class="header-left">
-                <p>昆山 5月03日 周二 11：16</p>
-            </div>
-            <div class="login-info">
-                <a href="javascript:" id="Jmoreoperation" class="moreoperation"><span class="logo-head-pic"><img src="/static/images/user-photo.gif" alt="" width="26" height="26" /> </span>
-                    郑法明<em class="up-icon"></em></a>
-                <div class="more-operation" style="display:none;">
-                    <a href=""><em class="a-em1"></em>完善资料</a>
-                    <a href=""><em class="a-em2"></em>修改密码</a>
-                </div>| 退出
-            </div>
-        </div>
-    </div>
-    <div class="wraper">
+    {{include file='header.html'}}
+    <div class="wraper clearfix">
         <div class="wrap-left">
             <span class="logo"><img src="/static/images/logo.jpg" alt="" width="130" height="35"></span>
             <div class="nav-left">
@@ -78,56 +63,100 @@
                         <li class="time wid92">{{$item->date}}</li>
                         <li class="bor-separate"></li>
                         <li class="items wid103">
-                            <span class="item-icon item-icon-1"></span>
                             <ul>
-                                <li class="i-plan">{{$item->a1n|default:'--'}}{{$item->t1u}}</li>
-                                <li class="i-reality">{{$item->b1n|default:'--'}}{{$item->t1u}}</li>
-                                <li class="i-verify">{{$item->c1n|default:'--'}}{{$item->t1u}}</li>
+                                <li>
+                                    <span class="item-icon item-icon-{{$item->t1c|default:0}}-plan"></span>
+                                    <span class="span-num-text i-plan">{{$item->a1n|default:'--'}}{{$item->t1u}}</span>
+                                </li>
+                                <li>
+                                    <span class="item-icon item-icon-{{$item->t6c|default:0}}-reality">{{if $item->status < 2}}--{{/if}}</span>
+                                    <span class="span-num-text i-reality">{{$item->b1n|default:'--'}}{{$item->t6u}}</span>
+                                </li>
+                                <li>
+                                    <span class="item-icon item-icon-{{$item->t11c|default:0}}-review">{{if $item->status < 3}}--{{/if}}</span>
+                                    <span class="span-num-text i-review">{{$item->c1n|default:'--'}}{{$item->t11u}}</span>
+                                </li>
                             </ul>
                         </li>
                         <li class="bor-separate bor-separate1"></li>
                         <li class="items wid103">
-                            <span class="item-icon item-icon-2"></span>
                             <ul>
-                                <li class="i-plan">{{$item->a2n|default:'--'}}{{$item->t2u}}</li>
-                                <li class="i-reality">{{$item->b2n|default:'--'}}{{$item->t2u}}</li>
-                                <li class="i-verify">{{$item->c2n|default:'--'}}{{$item->t2u}}</li>
+                                <li>
+                                    <span class="item-icon item-icon-{{$item->t2c|default:0}}-plan"></span>
+                                    <span class="span-num-text i-plan">{{$item->a2n|default:'--'}}{{$item->t2u}}</span>
+                                </li>
+                                <li>
+                                    <span class="item-icon item-icon-{{$item->t7c|default:0}}-reality">{{if $item->status < 2}}--{{/if}}</span>
+                                    <span class="span-num-text i-reality">{{$item->b2n|default:'--'}}{{$item->t7u}}</span>
+                                </li>
+                                <li>
+                                    <span class="item-icon item-icon-{{$item->t12c|default:0}}-review">{{if $item->status < 3}}--{{/if}}</span>
+                                    <span class="span-num-text i-review">{{$item->c2n|default:'--'}}{{$item->t12u}}</span>
+                                </li>
                             </ul>
                         </li>
                         <li class="bor-separate bor-separate1"></li>
                         <li class="items wid103">
-                            <span class="item-icon item-icon-3"></span>
                             <ul>
-                                <li class="i-plan">{{$item->a3n|default:'--'}}{{$item->t3u}}</li>
-                                <li class="i-reality">{{$item->b3n|default:'--'}}{{$item->t3u}}</li>
-                                <li class="i-verify">{{$item->c3n|default:'--'}}{{$item->t3u}}</li>
+                                <li>
+                                    <span class="item-icon item-icon-{{$item->t3c|default:0}}-plan"></span>
+                                    <span class="span-num-text i-plan">{{$item->a3n|default:'--'}}{{$item->t3u}}</span>
+                                </li>
+                                <li>
+                                    <span class="item-icon item-icon-{{$item->t8c|default:0}}-reality">{{if $item->status < 2}}--{{/if}}</span>
+                                    <span class="span-num-text i-reality">{{$item->b3n|default:'--'}}{{$item->t8u}}</span>
+                                </li>
+                                <li>
+                                    <span class="item-icon item-icon-{{$item->t13c|default:0}}-review">{{if $item->status < 3}}--{{/if}}</span>
+                                    <span class="span-num-text i-review">{{$item->c3n|default:'--'}}{{$item->t13u}}</span>
+                                </li>
                             </ul>
                         </li>
                         <li class="bor-separate bor-separate1"></li>
                         <li class="items wid103">
-                            <span class="item-icon item-icon-4"></span>
                             <ul>
-                                <li class="i-plan">{{$item->a4n|default:'--'}}{{$item->t4u}}</li>
-                                <li class="i-reality">{{$item->b4n|default:'--'}}{{$item->t4u}}</li>
-                                <li class="i-verify">{{$item->c4n|default:'--'}}{{$item->t4u}}</li>
+                                <li>
+                                    <span class="item-icon item-icon-{{$item->t4c|default:0}}-plan"></span>
+                                    <span class="span-num-text i-plan">{{$item->a4n|default:'--'}}{{$item->t4u}}</span>
+                                </li>
+                                <li>
+                                    <span class="item-icon item-icon-{{$item->t9c|default:0}}-reality">{{if $item->status < 2}}--{{/if}}</span>
+                                    <span class="span-num-text i-reality">{{$item->b4n|default:'--'}}{{$item->t9u}}</span>
+                                </li>
+                                <li>
+                                    <span class="item-icon item-icon-{{$item->t14c|default:0}}-review">{{if $item->status < 3}}--{{/if}}</span>
+                                    <span class="span-num-text i-review">{{$item->c4n|default:'--'}}{{$item->t14u}}</span>
+                                </li>
                             </ul>
                         </li>
                         <li class="bor-separate bor-separate1"></li>
                         <li class="items wid103">
-                            <span class="item-icon item-icon-5"></span>
                             <ul>
-                                <li class="i-plan">{{$item->a5n|default:'--'}}{{$item->t5u}}</li>
-                                <li class="i-reality">{{$item->b5n|default:'--'}}{{$item->t5u}}</li>
-                                <li class="i-verify">{{$item->c5n|default:'--'}}{{$item->t5u}}</li>
+                                <li>
+                                    <span class="item-icon item-icon-{{$item->t5c|default:0}}-plan"></span>
+                                    <span class="span-num-text i-plan">{{$item->a5n|default:'--'}}{{$item->t5u}}</span>
+                                </li>
+                                <li>
+                                    <span class="item-icon item-icon-{{$item->t10c|default:0}}-reality">{{if $item->status < 2}}--{{/if}}</span>
+                                    <span class="span-num-text i-reality">{{$item->b5n|default:'--'}}{{$item->t10u}}</span>
+                                </li>
+                                <li>
+                                    <span class="item-icon item-icon-{{$item->t15c|default:0}}-review">{{if $item->status < 3}}--{{/if}}</span>
+                                    <span class="span-num-text i-review">{{$item->c5n|default:'--'}}{{$item->t15u}}</span>
+                                </li>
                             </ul>
                         </li>
                         <li class="bor-separate bor-separate1 bor-separate-none"></li>
                         <li class="wid64 score-plan">{{$item->a1t|default:'0.0'}}分</li>
                         <li class="wid64 score-reality">{{$item->b1t|default:'0.0'}}分</li>
-                        <li class="wid64 score-verify">{{$item->c1t|default:'0.0'}}分</li>
+                        <li class="wid64 score-review">{{$item->total|default:'0.0'}}分</li>
                         <li class="wid138">
-                            <a href="" class="operation-btn">修改</a>
-                            <a href="" class="operation-btn">自评</a>
+                            {{if $item->status == 1 }}
+                                <a href="/activity/edit_activity/{{$item->id}}" class="operation-btn">修改</a>
+                            {{else}}
+                                <a href="javascript:void(0);" class="operation-btn operation-btn-no">修改</a>
+                            {{/if}}
+                            <a href="/activity/inspect_activity/{{$item->id}}" class="operation-btn">自评</a>
                         </li>
                     </ul>
                 {{/foreach}}

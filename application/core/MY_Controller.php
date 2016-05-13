@@ -18,6 +18,11 @@ class MY_Controller extends CI_Controller
         parent::__construct();
         ini_set('date.timezone','Asia/Shanghai');
         $this->cismarty->assign('base_url',base_url());//url路径
+
+		$login_user_id = $this->session->userdata('login_user_id');
+		$this->cismarty->assign('login_user_id', $login_user_id > 0 ? true : false);
+		$this->cismarty->assign('login_user_name', $this->session->userdata('login_rel_name'));
+		$this->cismarty->assign('login_user_pic', $this->session->userdata('login_user_pic'));
     }
     
 	//重载smarty方法assign

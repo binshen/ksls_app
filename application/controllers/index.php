@@ -18,16 +18,21 @@ class Index extends MY_Controller {
     }
 
     public function index() {
-        $this->load->view('index.html');
+        $this->display('index.html');
     }
 
     public function login() {
-        if($this->user_model->check_login()){
-
-        }
+        echo $this->user_model->check_login() ? 1 : 0;
+        die;
     }
 
     public function logout() {
+        $this->session->sess_destroy();
+        redirect(site_url('/'));
+    }
 
+    public function check_login() {
+        echo $this->session->userdata('login_user_id') ? 1 : 0;
+        die;
     }
 }

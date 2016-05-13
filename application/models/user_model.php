@@ -39,6 +39,7 @@ class User_model extends MY_Model
             $user_info['login_role_id'] = $res->role_id;
             $user_info['login_company_id'] = $res->company_id;
             $user_info['login_subsidiary_id'] = $res->subsidiary_id;
+            $user_info['login_user_pic'] = $res->pic;
             $this->session->set_userdata($user_info);
             return true;
         }
