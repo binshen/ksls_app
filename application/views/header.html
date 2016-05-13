@@ -79,6 +79,7 @@
     </form>
 </div>
 <script type="text/javascript" src="/static/js/jquery-1.9.0.js"></script>
+<script type="text/javascript" src="/static/js/jquery.blockUI.min.js"></script>
 <script>
     var weatherStr=ulHtml='';
     $.getJSON("http://api.k780.com:88/?app=weather.future&weaid=1100&appkey=19326&sign=0007c0408974a63e576c48c264636337&format=json&json&jsoncallback=?", function(data){
@@ -88,6 +89,10 @@
             });
            $("#Jweather").append(weatherStr);
            $("#JulWeather").append(ulHtml);
+    });
+
+    $("#Jloginout").click(function(){
+        $.blockUI({ message: $('#Jloginpop'), css:{ background: 'none',top:'100px', border: 'none',width:'410px', height:'410px'}, overlayCSS: {cursor:'default'}});
     });
 
     $("#Jmoreoperation").click(function(){
@@ -101,5 +106,10 @@
     //完善资料
     $("#JperfectBtn").click(function(){
         $.blockUI({ message: $('#Jperfect-div'), css:{ background: 'none',top:'100px',left:'50%',marginLeft:'-420px', border: 'none',width:'840px', height:'425px'}, overlayCSS: {cursor:'default'}});
+    });
+    //关闭弹框
+    $(".pop-close-btn").click(function(){
+        $("body").removeClass("modal-active");
+        $.unblockUI();
     });
 </script>
