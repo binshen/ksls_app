@@ -63,6 +63,8 @@ class User_model extends MY_Model
         $user_id = $this->session->userdata('login_user_id');
         $rs= $this->db->where('id', $user_id)->update('user', array('rel_name'=>$this->input->post('rel_name')));
         if ($rs) {
+            $user_info['login_rel_name'] = $this->input->post('rel_name');
+            $this->session->set_userdata($user_info);
             return 1;
         } else {
             return $rs;

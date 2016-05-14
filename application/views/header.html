@@ -156,6 +156,7 @@
     $("#btnUpdateUser").click(function() {
         $.post('/index/update_user', {rel_name: $("#rel_name").val()}, function(data) {
             $.unblockUI();
+            window.location.reload();
         });
     });
 
