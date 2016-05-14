@@ -48,7 +48,18 @@ class User_model extends MY_Model
     }
 
     public function update_password() {
-        $rs= $this->db->where('id', $this->session->userdata('login_user_id'))->update('user', array('password'=>sha1($this->input->post('password'))));
+        $user_id = $this->session->userdata('login_user_id');
+        $rs= $this->db->where('id', $user_id)->update('user', array('password'=>sha1($this->input->post('password'))));
+        if ($rs) {
+            return 1;
+        } else {
+            return $rs;
+        }
+    }
+
+    public function update_user() {
+        $user_id = $this->session->userdata('login_user_id');
+        $rs= $this->db->where('id', $user_id)->update('user', array('rel_name'=>$this->input->post('rel_name')));
         if ($rs) {
             return 1;
         } else {

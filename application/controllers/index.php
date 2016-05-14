@@ -47,7 +47,13 @@ class Index extends MY_Controller {
         die;
     }
 
-    public function update_user() {
+    public function upload_pic() {
+        var_dump($_FILES);
+        die;
+    }
 
+    public function update_user() {
+        echo $this->user_model->update_user();
+        die;
     }
 }
