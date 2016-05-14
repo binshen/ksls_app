@@ -23,6 +23,7 @@ class MY_Controller extends CI_Controller
 		$this->cismarty->assign('login_user_id', $login_user_id > 0 ? true : false);
 		$this->cismarty->assign('login_user_name', $this->session->userdata('login_rel_name'));
 		$this->cismarty->assign('login_user_pic', $this->session->userdata('login_user_pic'));
+		$this->cismarty->assign('login_rel_name', $this->session->userdata('login_rel_name'));
     }
     
 	//重载smarty方法assign

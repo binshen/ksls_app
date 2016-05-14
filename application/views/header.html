@@ -59,19 +59,20 @@
 <div class="revise-div" id="Jperfect-div" style="display: none; cursor: default">
     <a href="javascript:" class="pop-close-btn" style="top:0;right:0;"></a>
     <div class="pop-tit">完善资料</div>
-    <form action="">
+    <form action="/" method="post" enctype="multipart/form-data">
        <dl>
-           <dt class="dt-pic"><img src="/static/images/user_photo.gif" alt="" width="80" height="80" /></dt>
+           <dt class="dt-pic" id="headPic"><img src="/static/images/user_photo.gif" alt="" width="80" height="80" /></dt>
            <dd>
               <span class="s01">
                修改头像：<br/>
-               <input type="text" value="" class="input-txt"></span>
-               <a href="" class="confirm-btn upload-btn">浏览</a>
+               <input type="text" value="" class="input-txt" id="txt_head_pic"></span>
+               <input type="file" name="head_pic" style="display: none;" id="fileField" onchange="document.getElementById('textfield').value=this.value" />
+               <a href="javascript:void(0)" id="btnSelectPic" class="confirm-btn upload-btn">浏览</a>
            </dd>
            <dt></dt>
            <dd>
-               真实姓名：<br/>
-               <input type="text" value="" class="input-txt">
+               修改昵称：<br/>
+               <input type="text" value="" name="rel_name" value="{{$login_rel_name|default:''}}" class="input-txt">
            </dd>
            <dt></dt>
            <dd>
@@ -153,10 +154,35 @@
         alert("12314");
     });
 
+    $("#btnSelectPic").click(function() {
+        $("#fileField").click();
+    });
+
     function checkCurrentPass($old_pass) {
         return $.ajax({
             url: "/index/check_pass/" + $old_pass,
             async: false
         }).responseText;
+    }
+
+    $("#fileField").change(function(){
+        var objUrl = getObjectURL(this.files[0]);
+        if (objUrl) {
+            $("#txt_head_pic").val(objUrl);
+            html = '<img height="50px" width="50px" src="'+objUrl+'" />';
+            $("#headPic").html(html) ;
+        }
+    }) ;
+
+    function getObjectURL(file) {
+        var url = null ;
+        if (window.createObjectURL!=undefined) { // basic
+            url = window.createObjectURL(file) ;
+        } else if (window.URL!=undefined) { // mozilla(firefox)
+            url = window.URL.createObjectURL(file) ;
+        } else if (window.webkitURL!=undefined) { // webkit or chrome
+            url = window.webkitURL.createObjectURL(file) ;
+        }
+        return url ;
     }
 </script>

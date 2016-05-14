@@ -46,4 +46,8 @@ class Index extends MY_Controller {
         echo $this->user_model->update_password();
         die;
     }
+
+    public function update_user() {
+
+    }
 }
