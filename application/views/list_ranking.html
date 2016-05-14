@@ -93,6 +93,7 @@
                             <li class="li-score li-score-{{$key}}">{{$item->total}}</li>
                         </ul>
                         {{/foreach}}
+                        <br>
 <!--
                         <ul class="condiv-ul">
                             <li>
@@ -165,6 +166,7 @@
                             <li class="li-score li-score-{{$key}}">{{$item->total}}</li>
                         </ul>
                         {{/foreach}}
+                        <br>
                         <ul class="condiv-ul last-condiv-ul">
                             <li>
                                 <span class="spec-span"><em class="rank-num">10</em>我的排名</span>
@@ -191,6 +193,7 @@
                             <li class="li-score li-score-{{$key}}">{{$item->total}}</li>
                         </ul>
                         {{/foreach}}
+                        <br>
                         <ul class="condiv-ul last-condiv-ul">
                             <li>
                                 <span class="spec-span"><em class="rank-num">10</em>我的排名</span>
@@ -217,6 +220,7 @@
                             <li class="li-score li-score-{{$key}}">{{$item->total}}</li>
                         </ul>
                         {{/foreach}}
+                        <br>
                         <ul class="condiv-ul last-condiv-ul">
                             <li>
                                 <span class="spec-span"><em class="rank-num">10</em>我的排名</span>
@@ -243,6 +247,7 @@
                             <li class="li-score li-score-{{$key}}">{{$item->total}}</li>
                         </ul>
                         {{/foreach}}
+                        <br>
                         <ul class="condiv-ul last-condiv-ul">
                             <li>
                                 <span class="spec-span"><em class="rank-num">10</em>我的排名</span>
@@ -269,6 +274,7 @@
                             <li class="li-score li-score-{{$key}}">{{$item->total}}</li>
                         </ul>
                         {{/foreach}}
+                        <br>
                         <ul class="condiv-ul last-condiv-ul">
                             <li>
                                 <span class="spec-span"><em class="rank-num">10</em>我的排名</span>
@@ -295,6 +301,7 @@
                             <li class="li-score li-score-{{$key}}">{{$item->total}}</li>
                         </ul>
                         {{/foreach}}
+                        <br>
                         <ul class="condiv-ul last-condiv-ul">
                             <li>
                                 <span class="spec-span"><em class="rank-num">10</em>我的排名</span>
@@ -321,6 +328,7 @@
                             <li class="li-score li-score-{{$key}}">{{$item->total}}</li>
                         </ul>
                         {{/foreach}}
+                        <br>
                         <ul class="condiv-ul last-condiv-ul">
                             <li>
                                 <span class="spec-span"><em class="rank-num">10</em>我的排名</span>
@@ -349,27 +357,6 @@
         target: $('#slide01 .condiv' ),
         control: $('#slide01_control li' ),
         type:'click'
-        })
-    YUI({
-        modules: {
-            'trip-calendar': {
-                fullpath: '/static/js/calendar.js',
-                type    : 'js',
-                requires: ['trip-calendar-css']
-            },
-            'trip-calendar-css': {
-                fullpath: '/static/css/calendar.css',
-                type    : 'css'
-            }
-        }
-    }).use('trip-calendar', function(Y) {
-        new Y.TripCalendar({
-            triggerNode     : '#J_DepDate', //第一个触节点
-            finalTriggerNode: '#J_EndDate',  //最后一个触发节点
-            isHoliday:false,
-            isDateInfo:false,
-            count:1
-        });
-    });
+    })
  </script>
 </body>
