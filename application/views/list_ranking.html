@@ -26,11 +26,15 @@
                 <form id="formSearchActivity" method="POST" action="">
                     <select name="company" id="sel_company">
                         <option value="">选择公司</option>
-                        <option value="曼娜吉">曼娜吉</option>
+                        {{foreach from=$company_list key=key item=item}}
+                            <option value="{{$item.id}}">{{$item.name}}</option>
+                        {{/foreach}}
                     </select>
                     <select name="subsidiary" id="sel_subsidiary">
                         <option value="">选择分店</option>
-                        <option value="九杨店" selected>九杨店</option>
+                        {{foreach from=$subsidiary_list key=key item=item}}
+                            <option value="{{$item.id}}">{{$item.name}}</option>
+                        {{/foreach}}
                     </select>
                     <span>
                         <select name="year" id="year">
