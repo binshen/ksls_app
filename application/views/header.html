@@ -39,12 +39,13 @@
             </tr>
             <tr>
                 <th>新的登录密码：</th>
-                <td colspan="2"><input type="text" id="new_pass" name="password" class="input-txt"></td>
+                <td><input type="text" id="new_pass" name="password" class="input-txt"></td>
+                <td id="new_pass_error"></td>
             </tr>
             <tr>
                 <th>确认新的登录密码：</th>
                 <td><input type="text" id="re_new_pass" name="repassword" class="input-txt"></td>
-                <td id="cur_re_pass_error"></td>
+                <td id="re_new_pass_error"></td>
             </tr>
             <tr>
                 <th></th>
@@ -115,6 +116,10 @@
 
     $("#btnUpdatePSW").click(function() {
         var $old_pass = $("#old_pass").val();
+        if($.trim($old_pass) == "") {
+            $("#cur_pass_error").html('<p class="newpwdtips"><em></em>当前密码不能为空</p>');
+            return;
+        }
         var check = checkCurrentPass($old_pass);
         if(check < 1) {
             $("#cur_pass_error").html('<p class="newpwdtips"><em></em>当前密码输入不正确</p>');
@@ -122,15 +127,26 @@
         }
         $("#cur_pass_error").empty();
         var new_pass = $("#new_pass").val();
-        var re_new_pass = $("#re_new_pass").val();
-        if(new_pass != re_new_pass) {
-            $("#cur_re_pass_error").html('<p class="newpwdtips"><em></em>当前密码输入不正确</p>');
+        if($.trim(new_pass) == "") {
+            $("#new_pass_error").html('<p class="newpwdtips"><em></em>新密码不能为空</p>');
             return;
         }
-        //$("#updatePWDForm").submit();
+        $("#new_pass_error").empty();
+        var re_new_pass = $("#re_new_pass").val();
+        if(new_pass != re_new_pass) {
+            $("#re_new_pass_error").html('<p class="newpwdtips"><em></em>两次输入的密码不一致</p>');
+            return;
+        }
+        $("#re_new_pass_error").empty();
+
+
         $.post('/index/update_password', {password: new_pass}, function(data) {
+            $("#old_pass").val("");
+            $("#new_pass").val("");
+            $("#re_new_pass").val("");
             $.unblockUI();
         });
+        //$("#updatePWDForm").submit();
     });
 
     $("#btnUpdateUser").click(function() {
