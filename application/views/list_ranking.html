@@ -281,6 +281,58 @@
                             <li class="li-score">56</li>
                         </ul>
                     </div>
+                    <div class="condiv">
+                        {{foreach from=$top_list_6 key=key item=item}}
+                        <ul class="condiv-ul">
+                            <li>
+                                <em class="rank-num num-{{$key}}"></em>
+                            </li>
+                            <li class="nameandcom">
+                                <span class="s-head-pic"><img src="/static/images/user_photo.gif" alt="" width="42" height="42"></span>
+                                <p><span class="s-name-txt">{{$item->u_name}}</span><br /><span class="s-company">公司：{{$item->c_name}}</span>
+                                    <span lass="s-store">门店：{{$item->s_name}}</span></p>
+                            </li>
+                            <li class="li-score li-score-{{$key}}">{{$item->total}}</li>
+                        </ul>
+                        {{/foreach}}
+                        <ul class="condiv-ul last-condiv-ul">
+                            <li>
+                                <span class="spec-span"><em class="rank-num">10</em>我的排名</span>
+                            </li>
+                            <li class="nameandcom">
+                                <span class="s-head-pic"><img src="/static/images/user_photo.gif" alt="" width="70" height="70"></span>
+                                <p><span class="s-name-txt">邵雨</span><br /><span class="s-company">公司：曼娜吉信息有限公司</span>
+                                    <span lass="s-store">门店：科威久九杨店</span></p>
+                            </li>
+                            <li class="li-score">56</li>
+                        </ul>
+                    </div>
+                    <div class="condiv">
+                        {{foreach from=$top_list_7 key=key item=item}}
+                        <ul class="condiv-ul">
+                            <li>
+                                <em class="rank-num num-{{$key}}"></em>
+                            </li>
+                            <li class="nameandcom">
+                                <span class="s-head-pic"><img src="/static/images/user_photo.gif" alt="" width="42" height="42"></span>
+                                <p><span class="s-name-txt">{{$item->u_name}}</span><br /><span class="s-company">公司：{{$item->c_name}}</span>
+                                    <span lass="s-store">门店：{{$item->s_name}}</span></p>
+                            </li>
+                            <li class="li-score li-score-{{$key}}">{{$item->total}}</li>
+                        </ul>
+                        {{/foreach}}
+                        <ul class="condiv-ul last-condiv-ul">
+                            <li>
+                                <span class="spec-span"><em class="rank-num">10</em>我的排名</span>
+                            </li>
+                            <li class="nameandcom">
+                                <span class="s-head-pic"><img src="/static/images/user_photo.gif" alt="" width="70" height="70"></span>
+                                <p><span class="s-name-txt">邵雨</span><br /><span class="s-company">公司：曼娜吉信息有限公司</span>
+                                    <span lass="s-store">门店：科威久九杨店</span></p>
+                            </li>
+                            <li class="li-score">56</li>
+                        </ul>
+                    </div>
                  </div>
             </div>
     </div>
