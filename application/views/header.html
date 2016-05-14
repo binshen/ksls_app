@@ -116,10 +116,11 @@
     $("#btnUpdatePSW").click(function() {
         var $old_pass = $("#old_pass").val();
         var check = checkCurrentPass($old_pass);
-        if(check == 0) {
+        if(check < 1) {
             $("#cur_pass_error").html('<p class="newpwdtips"><em></em>当前密码输入不正确</p>');
             return;
         }
+        $("#cur_pass_error").empty();
         var new_pass = $("#new_pass").val();
         var re_new_pass = $("#re_new_pass").val();
         if(new_pass != re_new_pass) {
