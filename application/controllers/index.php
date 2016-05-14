@@ -35,4 +35,15 @@ class Index extends MY_Controller {
         echo $this->session->userdata('login_user_id') ? 1 : 0;
         die;
     }
+
+    public function check_pass($pass) {
+        $login_password = $this->session->userdata('login_password');
+        echo $login_password == sha1($pass) ? 1 : 0;
+        die;
+    }
+
+    public function update_password() {
+        echo $this->user_model->update_password();
+        die;
+    }
 }

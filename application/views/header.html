@@ -30,24 +30,25 @@
 <div class="revise-div" id="Jrevise-div" style="display: none; cursor: default">
     <a href="javascript:" class="pop-close-btn" style="top:0;right:0;"></a>
     <div class="pop-tit">修改密码</div>
-    <form action="">
+    <form action="/index/update_password" method="post" id="updatePWDForm">
         <table  cellpadding="0" cellspacing="0" class="action-table">
             <tr>
                 <th>当前登录密码：</th>
-                <td colspan="2"><input type="text" name="" class="input-txt"></td>
+                <td><input type="text" id="old_pass" name="oldpassword" class="input-txt"></td>
+                <td id="cur_pass_error"></td>
             </tr>
             <tr>
                 <th>新的登录密码：</th>
-                <td colspan="2"><input type="text" name="" class="input-txt"></td>
+                <td colspan="2"><input type="text" id="new_pass" name="password" class="input-txt"></td>
             </tr>
             <tr>
                 <th>确认新的登录密码：</th>
-                <td><input type="text" name="" class="input-txt"></td>
-                <td><p class="newpwdtips"><em></em>两次输入的密码不一样</p></td>
+                <td><input type="text" id="re_new_pass" name="repassword" class="input-txt"></td>
+                <td id="cur_re_pass_error"></td>
             </tr>
             <tr>
                 <th></th>
-                <td><a href="" class="confirm-btn">确认</a> </td>
+                <td><a href="javascript:void(0);" id="btnUpdatePSW" class="confirm-btn">确认</a></td>
                 <td></td>
             </tr>
         </table>
@@ -73,7 +74,7 @@
            </dd>
            <dt></dt>
            <dd>
-               <a href="" class="confirm-btn">确认</a>
+               <a href="javascript:void(0);" id="btnUpdateUser" class="confirm-btn">确认</a>
            </dd>
        </dl>
     </form>
@@ -111,4 +112,34 @@
     $(".pop-close-btn").click(function(){
         $.unblockUI();
     });
+
+    $("#btnUpdatePSW").click(function() {
+        var $old_pass = $("#old_pass").val();
+        var check = checkCurrentPass($old_pass);
+        if(check == 0) {
+            $("#cur_pass_error").html('<p class="newpwdtips"><em></em>当前密码输入不正确</p>');
+            return;
+        }
+        var new_pass = $("#new_pass").val();
+        var re_new_pass = $("#re_new_pass").val();
+        if(new_pass != re_new_pass) {
+            $("#cur_re_pass_error").html('<p class="newpwdtips"><em></em>当前密码输入不正确</p>');
+            return;
+        }
+        //$("#updatePWDForm").submit();
+        $.post('/index/update_password', {password: new_pass}, function(data) {
+            $.unblockUI();
+        });
+    });
+
+    $("#btnUpdateUser").click(function() {
+        alert("12314");
+    });
+
+    function checkCurrentPass($old_pass) {
+        return $.ajax({
+            url: "/index/check_pass/" + $old_pass,
+            async: false
+        }).responseText;
+    }
 </script>

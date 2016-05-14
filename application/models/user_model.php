@@ -35,6 +35,7 @@ class User_model extends MY_Model
             $res = $rs->row();
             $user_info['login_user_id'] = $res->id;
             $user_info['login_username'] = $username;
+            $user_info['login_password'] = $res->password;
             $user_info['login_rel_name'] = $res->rel_name;
             $user_info['login_role_id'] = $res->role_id;
             $user_info['login_company_id'] = $res->company_id;
@@ -44,5 +45,14 @@ class User_model extends MY_Model
             return true;
         }
         return false;
+    }
+
+    public function update_password() {
+        $rs= $this->db->where('id', $this->session->userdata('login_user_id'))->update('user', array('password'=>sha1($this->input->post('password'))));
+        if ($rs) {
+            return 1;
+        } else {
+            return $rs;
+        }
     }
 }
