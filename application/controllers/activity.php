@@ -149,6 +149,12 @@ class Activity extends MY_Controller {
             $activity['b5s'] = $activity['a5s'];
             $activity['b5n'] = $activity['a5n'];
             $activity['b5m'] = '';
+
+            $activity['t6u'] = $activity['t1u'];
+            $activity['t7u'] = $activity['t2u'];
+            $activity['t8u'] = $activity['t3u'];
+            $activity['t9u'] = $activity['t4u'];
+            $activity['t10u'] = $activity['t5u'];
         }
 
         $activity['a1t'] = $activity['a1n'] * $activity['a1s'];
@@ -196,6 +202,12 @@ class Activity extends MY_Controller {
             $activity['c5s'] = $activity['b5s'];
             $activity['c5n'] = $activity['b5n'];
             $activity['c5m'] = '';
+
+            $activity['t11u'] = $activity['t6u'];
+            $activity['t12u'] = $activity['t7u'];
+            $activity['t13u'] = $activity['t8u'];
+            $activity['t14u'] = $activity['t9u'];
+            $activity['t15u'] = $activity['t10u'];
         }
 
         $activity['a1t'] = $activity['a1n'] * $activity['a1s'];
@@ -217,10 +229,12 @@ class Activity extends MY_Controller {
         $activity['c3t'] = $activity['c3n'] * $activity['c3s'];
         $activity['c4t'] = $activity['c4n'] * $activity['c4s'];
         $activity['c5t'] = $activity['c5n'] * $activity['c5s'];
-        $activity['ctt'] = $activity['c1t'] + $activity['c2t'] + $activity['c3t'] + $activity['c4t'] + $activity['c5t'] + $activity['op'] * $activity['float'];
 
-
-
+        if($status == 2) {
+            $activity['ctt'] = $activity['c1t'] + $activity['c2t'] + $activity['c3t'] + $activity['c4t'] + $activity['c5t'] + $activity['op'] * $activity['float'];
+        } else {
+            $activity['ctt'] = $activity['total'];
+        }
         $this->assign('activity', $activity);
 
         $this->display('review_activity.html');
