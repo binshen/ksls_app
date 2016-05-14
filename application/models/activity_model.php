@@ -299,40 +299,42 @@ class Activity_model extends MY_Model
 
     public function get_total_top_list() {
 
-        $this->db->select('b.rel_name AS u_name, c.name AS c_name, d.name AS s_name, SUM(a.total) AS total');
+        $this->db->select('b.id AS u_id, b.rel_name AS u_name, c.name AS c_name, d.name AS s_name, SUM(a.total) AS total');
         $this->db->from('activity a');
         $this->db->join('user b', 'a.user_id = b.id', 'inner');
         $this->db->join('company c', 'b.company_id = c.id', 'left');
         $this->db->join('subsidiary d', 'b.subsidiary_id = d.id', 'left');
+        $this->db->where('a.status', 3);
         $this->db->where('YEAR(a.date)', 2016);
         $this->db->where('MONTH(a.date)', 5);
         $this->db->where('b.company_id', 1);
         $this->db->where('b.subsidiary_id', 2);
         $this->db->group_by('b.id');
-        $this->db->limit(20);
         $this->db->order_by('total', 'desc');
+        $this->db->distinct();
         return $this->db->get()->result();
     }
 
     public function get_top_list_by_op($op = 1) {
 
         $sql = "
-            SELECT
+            SELECT DISTINCT 
+              b.id AS u_id,
               b.rel_name AS u_name, 
               c.name AS c_name, 
               d.name AS s_name,
               SUM(a.total) AS total
             FROM
               (
-                SELECT user_id, date, a1s * a1n as total from activity where a1 = $op
+                SELECT user_id, date, c1s * c1n as total FROM activity WHERE status = 3 AND a1 = $op
                 UNION
-                SELECT user_id, date, a2s * a2n as total from activity where a2 = $op
+                SELECT user_id, date, c2s * c2n as total FROM activity WHERE status = 3 AND a2 = $op
                 UNION
-                SELECT user_id, date, a3s * a3n as total from activity where a3 = $op
+                SELECT user_id, date, c3s * c3n as total FROM activity WHERE status = 3 AND a3 = $op
                 UNION
-                SELECT user_id, date, a4s * a4n as total from activity where a4 = $op
+                SELECT user_id, date, c4s * c4n as total FROM activity WHERE status = 3 AND a4 = $op
                 UNION
-                SELECT user_id, date, a5s * a5n as total from activity where a5 = $op
+                SELECT user_id, date, c5s * c5n as total FROM activity WHERE status = 3 AND a5 = $op
             ) AS a
             JOIN user b ON b.id = a.user_id
             LEFT JOIN company c ON b.company_id = c.id
@@ -342,8 +344,7 @@ class Activity_model extends MY_Model
             AND b.company_id = 1
             AND b.subsidiary_id = 2
             GROUP BY b.id
-            ORDER BY a.total
-            LIMIT 20
+            ORDER BY a.total DESC
         ";
         return $this->db->query($sql)->result();
     }
