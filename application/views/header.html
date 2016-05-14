@@ -13,7 +13,7 @@
             {{if $login_user_id }}
                 <div class="login-in">
                     <a href="javascript:" id="Jmoreoperation" class="moreoperation">
-                        <span class="logo-head-pic"><img src="/static/images/user_photo.gif" alt="" width="26" height="26" /> </span>
+                        <span class="logo-head-pic"><img src="/uploadfiles/profile/{{$login_user_pic|default:'user_photo.gif'}}" alt="" width="26" height="26" /> </span>
                         {{$login_user_name}}<em class="up-icon"></em></a>
                     <div class="more-operation" style="display:none;">
                         <a href="javascript:" id="JperfectBtn"><em class="a-em1"></em>完善资料</a>
@@ -61,7 +61,7 @@
     <div class="pop-tit">完善资料</div>
     <form action="/" method="post" enctype="multipart/form-data">
        <dl>
-           <dt class="dt-pic" id="headPic"><img src="/static/images/user_photo.gif" alt="" width="80" height="80" /></dt>
+           <dt class="dt-pic" id="headPic"><img src="/uploadfiles/profile/{{$login_user_pic|default:'user_photo.gif'}}" alt="" width="80" height="80" /></dt>
            <dd>
               <span class="s01">
                修改头像：<br/>

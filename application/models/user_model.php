@@ -71,16 +71,22 @@ class User_model extends MY_Model
 
     public function update_user()
     {
+        $rel_name = $this->input->post('rel_name');
+        $user_info['login_rel_name'] = $this->input->post('rel_name');
+
         $user_id = $this->session->userdata('login_user_id');
         $user = $this->db->get_where('user', array('id' => $user_id))->row_array();
-        $rel_name = $this->input->post('rel_name');
-        $rs= $this->db->where('id', $user_id)->update('user', array(
-            'rel_name'=>$rel_name,
-            'pic'=>$user['tmp_pic'],
-            'tmp_pic'=>NULL
-        ));
+        if(!empty($user) && !empty($user['tmp_pic'])) {
+            $rs= $this->db->where('id', $user_id)->update('user', array(
+                'rel_name'=>$rel_name,
+                'pic'=>$user['tmp_pic'],
+                'tmp_pic'=>NULL
+            ));
+            $user_info['login_user_pic'] = $user['tmp_pic'];
+        } else {
+            $rs= $this->db->where('id', $user_id)->update('user', array('rel_name'=>$rel_name));
+        }
         if ($rs) {
-            $user_info['login_rel_name'] = $this->input->post('rel_name');
             $this->session->set_userdata($user_info);
             return 1;
         } else {
