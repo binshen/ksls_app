@@ -155,7 +155,6 @@
 
     $("#btnUpdateUser").click(function() {
         $.post('/index/update_user', {rel_name: $("#rel_name").val()}, function(data) {
-
             $.unblockUI();
         });
     });
@@ -179,8 +178,11 @@
         }
     }).fileupload({
         url: '/index/upload_pic',
-        dataType: 'json'
-    })
+        dataType: 'json',
+        done: function(e, data) {
+            alert(data);
+        }
+    });
 
     function getObjectURL(file) {
         var url = null ;

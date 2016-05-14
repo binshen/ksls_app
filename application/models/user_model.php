@@ -23,7 +23,7 @@ class User_model extends MY_Model
      *
      * @return boolean
      */
-    public function check_login ()
+    public function check_login()
     {
         $username = $this->input->post('username');
         $password = $this->input->post('password');
@@ -47,7 +47,8 @@ class User_model extends MY_Model
         return false;
     }
 
-    public function update_password() {
+    public function update_password()
+    {
         $user_id = $this->session->userdata('login_user_id');
         $rs= $this->db->where('id', $user_id)->update('user', array('password'=>sha1($this->input->post('password'))));
         if ($rs) {
@@ -57,7 +58,8 @@ class User_model extends MY_Model
         }
     }
 
-    public function update_user() {
+    public function update_user()
+    {
         $user_id = $this->session->userdata('login_user_id');
         $rs= $this->db->where('id', $user_id)->update('user', array('rel_name'=>$this->input->post('rel_name')));
         if ($rs) {
