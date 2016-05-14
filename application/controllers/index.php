@@ -48,7 +48,15 @@ class Index extends MY_Controller {
     }
 
     public function upload_pic() {
-        var_dump($_FILES);
+        $config['upload_path'] = './././uploadfiles/profile';
+        $config['allowed_types'] = 'gif|jpg|png|jpeg';
+        $config['max_size'] = '1000';
+        $config['encrypt_name'] = true;
+        $this->load->library('upload', $config);
+        if($this->upload->do_upload()) {
+            $img_info = $this->upload->data();
+            $this->user_model->update_tmp_pic($img_info['file_name']);
+        }
         die;
     }
 
