@@ -344,7 +344,7 @@ class Activity_model extends MY_Model
         return $this->db->get()->result();
     }
 
-    public function get_top_list_by_op($op = 1) {
+    public function get_top_list_by_op($op = 1, $company_id, $subsidiary_id, $year, $month) {
 
         $sql = "
             SELECT DISTINCT 
