@@ -277,9 +277,10 @@ class Activity extends MY_Controller {
         $subsidiary_list = $this->activity_model->get_subsidiary_list(NULL, NULL);
         $this->assign('subsidiary_list', $subsidiary_list);
 
-        $top_list = $this->activity_model->get_total_top_list($op);
-        $this->assign('top_list', $top_list);
 
+        $top_list = $this->activity_model->get_total_top_list();
+        $this->assign('top_list', $top_list);
+/*
         $top_list_1 = $this->activity_model->get_top_list_by_op(1);
         $this->assign('top_list_1', $top_list_1);
 
@@ -300,8 +301,12 @@ class Activity extends MY_Controller {
 
         $top_list_7 = $this->activity_model->get_top_list_by_op(7);
         $this->assign('top_list_7', $top_list_7);
-
+*/
         $this->display('list_ranking.html');
+    }
+
+    public function show_ranking($op = 0) {
+
     }
 
     public function test() {
