@@ -26,7 +26,7 @@
             <form id="activityForm" method="post" action="/activity/save_activity">
                 <div class="search-wrap search-wrap1">
                     {{if empty($activity.id) }}
-                         <span class="user-name"><em class="user-pic-icon"></em> 郑法明</span>
+                         <span class="user-name"><em class="user-pic-icon"></em> {{$login_user_name}}</span>
                          <span class="span-date">
                             <em class="em-lock"></em>
                              <input type="text" name="date" id="J_DepDate" value="{{$tomorrow}}" class="sel-time" style="margin:0;"  />

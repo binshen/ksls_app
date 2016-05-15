@@ -264,6 +264,7 @@ class Activity_model extends MY_Model
     public function get_activity_by_id($id) {
 
         $this->db->select('a.*');
+        $this->db->select('b.rel_name AS u_name');
         $this->db->select('t1.name AS t1n, t2.name AS t2n, t3.name AS t3n, t4.name AS t4n, t5.name AS t5n');
         $this->db->select('t6.name AS t6n, t7.name AS t7n, t8.name AS t8n, t9.name AS t9n, t10.name AS t10n');
         $this->db->select('t11.name AS t11n, t12.name AS t12n, t13.name AS t13n, t14.name AS t14n, t15.name AS t15n');
@@ -277,6 +278,7 @@ class Activity_model extends MY_Model
         $this->db->select('ROUND(a.b1s*b1n+a.b2s*b2n+a.b3s*b3n+a.b4s*b4n+a.b5s*b5n, 1) AS b1t', false);
         $this->db->select('ROUND(a.c1s*c1n+a.c2s*c2n+a.c3s*c3n+a.c4s*c4n+a.c5s*c5n, 1) AS c1t', false);
         $this->db->from('activity a');
+        $this->db->join('user b', 'a.user_id = b.id', 'inner');
         $this->db->join('activity_type t1', 'a.a1 = t1.id', 'left');
         $this->db->join('activity_type t2', 'a.a2 = t2.id', 'left');
         $this->db->join('activity_type t3', 'a.a3 = t3.id', 'left');
