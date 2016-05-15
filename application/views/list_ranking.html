@@ -25,25 +25,27 @@
             <div class="search-wrap search-wrap1 search-wrap2">
                 <form id="formSearchActivity" method="POST" action="">
                     {{if $role_id == 1}}
-                    <select name="company" id="sel_company" style="width:150px">
-                        <option value="0">选择公司</option>
-                        {{if $item.id == $company}}
-                            <option value="{{$item.id}}" selected>{{$item.name}}</option>
-                        {{else}}
-                            <option value="{{$item.id}}">{{$item.name}}</option>
-                        {{/if}}
-                    </select>
-                    {{/if}}
-                    <select name="subsidiary" id="sel_subsidiary" style="width:150px">
-                        <option value="0">选择分店</option>
-                        {{foreach from=$subsidiary_list key=key item=item}}
-                            {{if $item.id == $subsidiary}}
+                        <select name="company" id="sel_company" style="width:150px">
+                            <option value="0">选择公司</option>
+                            {{if $item.id == $company}}
                                 <option value="{{$item.id}}" selected>{{$item.name}}</option>
                             {{else}}
                                 <option value="{{$item.id}}">{{$item.name}}</option>
                             {{/if}}
-                        {{/foreach}}
-                    </select>
+                        </select>
+                    {{/if}}
+                    {{if $role_id < 3}}
+                        <select name="subsidiary" id="sel_subsidiary" style="width:150px">
+                            <option value="0">选择分店</option>
+                            {{foreach from=$subsidiary_list key=key item=item}}
+                                {{if $item.id == $subsidiary}}
+                                    <option value="{{$item.id}}" selected>{{$item.name}}</option>
+                                {{else}}
+                                    <option value="{{$item.id}}">{{$item.name}}</option>
+                                {{/if}}
+                            {{/foreach}}
+                        </select>
+                    {{/if}}
                     <span>
                         <select name="year" id="sel_year" style="width:80px">
                             {{foreach from=$year_list item=item}}
