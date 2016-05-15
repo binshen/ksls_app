@@ -301,7 +301,7 @@ class Activity_model extends MY_Model
 
     public function get_total_top_list() {
 
-        $this->db->select('b.id AS u_id, b.rel_name AS u_name, c.name AS c_name, d.name AS s_name, SUM(a.total) AS total');
+        $this->db->select('b.id AS u_id, b.pic AS u_pic, b.rel_name AS u_name, c.name AS c_name, d.name AS s_name, SUM(a.total) AS total');
         $this->db->from('activity a');
         $this->db->join('user b', 'a.user_id = b.id', 'inner');
         $this->db->join('company c', 'b.company_id = c.id', 'left');
@@ -322,6 +322,7 @@ class Activity_model extends MY_Model
         $sql = "
             SELECT DISTINCT 
               b.id AS u_id,
+              b.pic AS u_pic, 
               b.rel_name AS u_name, 
               c.name AS c_name, 
               d.name AS s_name,

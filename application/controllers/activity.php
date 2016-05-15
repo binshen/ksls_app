@@ -277,10 +277,10 @@ class Activity extends MY_Controller {
         $subsidiary_list = $this->activity_model->get_subsidiary_list(NULL, NULL);
         $this->assign('subsidiary_list', $subsidiary_list);
 
-
+/*
         $top_list = $this->activity_model->get_total_top_list();
         $this->assign('top_list', $top_list);
-/*
+
         $top_list_1 = $this->activity_model->get_top_list_by_op(1);
         $this->assign('top_list_1', $top_list_1);
 
@@ -305,8 +305,36 @@ class Activity extends MY_Controller {
         $this->display('list_ranking.html');
     }
 
-    public function show_ranking($op = 0) {
+    public function show_ranking() {
 
+        $op = $this->input->post('op');
+        if($op < 1) {
+            $rank_list = $this->activity_model->get_total_top_list();
+        } else {
+            $rank_list = $this->activity_model->get_top_list_by_op($op);
+        }
+
+        $rank = array();
+        $login_user_id = $this->session->userdata('login_user_id');
+        if(!empty($rank_list)) {
+            foreach ($rank_list as $idx => $user){
+                if($user->u_id == $login_user_id) {
+                    $rank['num'] = $idx+1;
+                    $rank['u_pic'] = $user->u_pic;
+                    $rank['u_name'] = $user->u_name;
+                    $rank['c_name'] = $user->c_name;
+                    $rank['s_name'] = $user->s_name;
+                    $rank['total'] = $user->total;
+                    break;
+                }
+            }
+        }
+
+        $result = array();
+        $result['list'] = array_slice($rank_list, 0, 20);
+        $result['rank'] = $rank;
+        echo json_encode($result);
+        die;
     }
 
     public function test() {
