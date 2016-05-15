@@ -24,20 +24,22 @@
         <div class="wrap-right">
             <div class="search-wrap search-wrap1 search-wrap2">
                 <form id="formSearchActivity" method="POST" action="">
-                    <select name="company" id="sel_company">
+                    {{if $role_id == 1}}
+                    <select name="company" id="sel_company" style="width:150px">
                         <option value="">选择公司</option>
                         {{foreach from=$company_list key=key item=item}}
                             <option value="{{$item.id}}">{{$item.name}}</option>
                         {{/foreach}}
                     </select>
-                    <select name="subsidiary" id="sel_subsidiary">
+                    {{/if}}
+                    <select name="subsidiary" id="sel_subsidiary" style="width:150px">
                         <option value="">选择分店</option>
                         {{foreach from=$subsidiary_list key=key item=item}}
                             <option value="{{$item.id}}">{{$item.name}}</option>
                         {{/foreach}}
                     </select>
                     <span>
-                        <select name="year" id="year">
+                        <select name="year" id="sel_year" style="width:80px">
                             {{foreach from=$year_list item=item}}
                                 <option value="{{$item}}" {{if $item==$year}}selected{{/if}}>{{$item}}</option>
                             {{/foreach}}
@@ -45,7 +47,7 @@
                         <i class="i-txt"> 年</i>
                     </span>
                     <span>
-                        <select name="month" id="month">
+                        <select name="month" id="sel_month" style="width:80px">
                             <option value="1" {{if $month==1}}selected{{/if}}>1</option>
                             <option value="2" {{if $month==2}}selected{{/if}}>2</option>
                             <option value="3" {{if $month==3}}selected{{/if}}>3</option>

@@ -261,7 +261,6 @@ class Activity extends MY_Controller {
 
     public function list_ranking($op = 0) {
 
-
         $year = date('Y');
         $this->assign('year', $year);
         $this->assign('month', date('m'));
@@ -271,37 +270,21 @@ class Activity extends MY_Controller {
         }
         $this->assign('year_list', $year_list);
 
-        $company_list = $this->activity_model->get_company_list();
-        $this->assign('company_list', $company_list);
+        $role_id = $this->session->userdata('login_role_id');
+        $this->assign('role_id', $role_id);
+        if($role_id == 1) {
+            $company_list = $this->activity_model->get_company_list();
+            $this->assign('company_list', $company_list);
+        } else {
+            $company_id = $this->session->userdata('login_company_id');
+            $subsidiary_id = NULL;
+            if($role_id > 4) {
+                $subsidiary_id = $this->session->userdata('login_subsidiary_id');
+            }
+            $subsidiary_list = $this->activity_model->get_subsidiary_list($company_id, $subsidiary_id);
+            $this->assign('subsidiary_list', $subsidiary_list);
+        }
 
-        $subsidiary_list = $this->activity_model->get_subsidiary_list(NULL, NULL);
-        $this->assign('subsidiary_list', $subsidiary_list);
-
-/*
-        $top_list = $this->activity_model->get_total_top_list();
-        $this->assign('top_list', $top_list);
-
-        $top_list_1 = $this->activity_model->get_top_list_by_op(1);
-        $this->assign('top_list_1', $top_list_1);
-
-        $top_list_2 = $this->activity_model->get_top_list_by_op(2);
-        $this->assign('top_list_2', $top_list_2);
-
-        $top_list_3 = $this->activity_model->get_top_list_by_op(3);
-        $this->assign('top_list_3', $top_list_3);
-
-        $top_list_4 = $this->activity_model->get_top_list_by_op(4);
-        $this->assign('top_list_4', $top_list_4);
-
-        $top_list_5 = $this->activity_model->get_top_list_by_op(5);
-        $this->assign('top_list_5', $top_list_5);
-
-        $top_list_6 = $this->activity_model->get_top_list_by_op(6);
-        $this->assign('top_list_6', $top_list_6);
-
-        $top_list_7 = $this->activity_model->get_top_list_by_op(7);
-        $this->assign('top_list_7', $top_list_7);
-*/
         $this->display('list_ranking.html');
     }
 
