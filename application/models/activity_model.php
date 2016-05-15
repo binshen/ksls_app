@@ -338,15 +338,15 @@ class Activity_model extends MY_Model
               SUM(a.total) AS total
             FROM
               (
-                SELECT user_id, date, c1s * c1n as total FROM activity WHERE status = 3 AND a1 = $op
+                SELECT user_id, date, c1s * c1n as total FROM activity WHERE status = 3 AND c1 = $op
                 UNION
-                SELECT user_id, date, c2s * c2n as total FROM activity WHERE status = 3 AND a2 = $op
+                SELECT user_id, date, c2s * c2n as total FROM activity WHERE status = 3 AND c2 = $op
                 UNION
-                SELECT user_id, date, c3s * c3n as total FROM activity WHERE status = 3 AND a3 = $op
+                SELECT user_id, date, c3s * c3n as total FROM activity WHERE status = 3 AND c3 = $op
                 UNION
-                SELECT user_id, date, c4s * c4n as total FROM activity WHERE status = 3 AND a4 = $op
+                SELECT user_id, date, c4s * c4n as total FROM activity WHERE status = 3 AND c4 = $op
                 UNION
-                SELECT user_id, date, c5s * c5n as total FROM activity WHERE status = 3 AND a5 = $op
+                SELECT user_id, date, c5s * c5n as total FROM activity WHERE status = 3 AND c5 = $op
             ) AS a
             JOIN user b ON b.id = a.user_id
             LEFT JOIN company c ON b.company_id = c.id
@@ -365,7 +365,7 @@ class Activity_model extends MY_Model
         if(!empty($subsidiary_id)) {
             $sql .= " AND b.subsidiary_id = " . $subsidiary_id;
         }
-        $sql .= " GROUP BY b.id ORDER BY a.total DESC ";
+        $sql .= " GROUP BY b.id ORDER BY total DESC ";
         return $this->db->query($sql)->result();
     }
 }
