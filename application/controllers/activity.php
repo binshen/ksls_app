@@ -313,6 +313,13 @@ class Activity extends MY_Controller {
         $subsidiary_id = $this->input->post('subsidiary_id');
         $year = $this->input->post('year');
         $month = $this->input->post('month');
+        $role_id = $this->session->userdata('login_role_id');
+        if($role_id > 1) {
+            $company_id = $this->session->userdata('login_company_id');
+        }
+        if($role_id >= 4) {
+            $subsidiary_id = $this->session->userdata('login_subsidiary_id');
+        }
 
         if($op < 1) {
             $rank_list = $this->activity_model->get_total_top_list($company_id, $subsidiary_id, $year, $month);
