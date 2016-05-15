@@ -151,7 +151,7 @@
                         <li class="wid64 score-reality">{{$item->b1t|default:'0.0'}}分</li>
                         <li class="wid64 score-review">{{$item->total|default:'0.0'}}分</li>
                         <li class="wid138">
-                            {{if $item->status == 1 && $item->date2 <= $tomorrow }}
+                            {{if $item->status == 1 && $item->date2 == $tomorrow }}
                                 <a href="/activity/edit_activity/{{$item->id}}" class="operation-btn">修改</a>
                             {{else}}
                                 <a href="javascript:void(0);" class="operation-btn operation-btn-no">修改</a>
