@@ -37,7 +37,7 @@ class Activity_model extends MY_Model
         return $this->db->get_where('user', array('subsidiary_id' => $subsidiary_id))->result_array();
     }
 
-    public function list_activity($page, $status, $user_id=NULL) {
+    public function list_activity($page, $status, $user_id=NULL, $subsidiary_id=NULL, $company_id=NULL) {
 
         // 每页显示的记录条数，默认20条
         $numPerPage = $this->input->post('numPerPage') ? $this->input->post('numPerPage') : 5;
@@ -65,6 +65,12 @@ class Activity_model extends MY_Model
         }
         if(!empty($user_id)) {
             $this->db->where('a.user_id', $user_id);
+        }
+        if(!empty($subsidiary_id)) {
+            $this->db->where('b.subsidiary_id', $subsidiary_id);
+        }
+        if(!empty($company_id)) {
+            $this->db->where('b.company_id', $company_id);
         }
 
         $rs_total = $this->db->get()->row();
@@ -123,7 +129,13 @@ class Activity_model extends MY_Model
         if(!empty($user_id)) {
             $this->db->where('a.user_id', $user_id);
         }
-
+        if(!empty($subsidiary_id)) {
+            $this->db->where('b.subsidiary_id', $subsidiary_id);
+        }
+        if(!empty($company_id)) {
+            $this->db->where('b.company_id', $company_id);
+        }
+        
         $this->db->limit($numPerPage, ($pageNum - 1) * $numPerPage );
         $this->db->order_by($this->input->post('orderField') ? $this->input->post('orderField') : 'a.id', $this->input->post('orderDirection') ? $this->input->post('orderDirection') : 'desc');
         $data['res_list'] = $this->db->get()->result();

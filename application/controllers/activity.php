@@ -89,7 +89,15 @@ class Activity extends MY_Controller {
             $this->assign('end_date', $this->input->POST('end_date'));
         }
 
-        $data = $this->activity_model->list_activity($page, array(2,3));
+        $company_id = NULL;
+        if($role_id > 1) {
+            $company_id = $this->session->userdata('login_company_id');
+        }
+        $subsidiary_id = NULL;
+        if($role_id >= 4) {
+            $subsidiary_id = $this->session->userdata('login_subsidiary_id');
+        }
+        $data = $this->activity_model->list_activity($page, array(2,3), NULL, $subsidiary_id, $company_id);
         $this->assign('activity_list', $data);
 
         $pager = $this->pagination->getPageLink('/activity/list_review', $data['countPage'], $data['numPerPage']);
