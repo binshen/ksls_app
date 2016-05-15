@@ -156,7 +156,11 @@
                             {{else}}
                                 <a href="javascript:void(0);" class="operation-btn operation-btn-no">修改</a>
                             {{/if}}
-                            <a href="/activity/inspect_activity/{{$item->id}}" class="operation-btn">自评</a>
+                            {{if $item->status < 3 }}
+                                <a href="/activity/inspect_activity/{{$item->id}}" class="operation-btn">自评</a>
+                            {{else}}
+                                <a href="javascript:void(0);" class="operation-btn operation-btn-no">自评</a>
+                            {{/if}}
                         </li>
                     </ul>
                 {{/foreach}}
