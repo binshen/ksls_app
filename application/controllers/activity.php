@@ -261,6 +261,16 @@ class Activity extends MY_Controller {
 
     public function list_ranking($op = 0) {
 
+
+        $year = date('Y');
+        $this->assign('year', $year);
+        $this->assign('month', date('m'));
+        $year_list = array();
+        for($i=0; $i<5; $i++) {
+            $year_list[] = $year-$i;
+        }
+        $this->assign('year_list', $year_list);
+
         $company_list = $this->activity_model->get_company_list();
         $this->assign('company_list', $company_list);
 

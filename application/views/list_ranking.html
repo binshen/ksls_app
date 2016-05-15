@@ -38,28 +38,26 @@
                     </select>
                     <span>
                         <select name="year" id="year">
-                            <option value="2016">2016</option>
-                            <option value="2016">2015</option>
-                            <option value="2016">2014</option>
-                            <option value="2016">2013</option>
-                            <option value="2016">2012</option>
+                            {{foreach from=$year_list item=item}}
+                                <option value="{{$item}}" {{if $item==$year}}selected{{/if}}>{{$item}}</option>
+                            {{/foreach}}
                         </select>
                         <i class="i-txt"> 年</i>
                     </span>
                     <span>
                         <select name="month" id="month">
-                            <option value="1">1</option>
-                            <option value="2">2</option>
-                            <option value="3">3</option>
-                            <option value="4">4</option>
-                            <option value="5">5</option>
-                            <option value="6">6</option>
-                            <option value="7">7</option>
-                            <option value="8">8</option>
-                            <option value="9">9</option>
-                            <option value="10">10</option>
-                            <option value="11">11</option>
-                            <option value="12">12</option>
+                            <option value="1" {{if $month==1}}selected{{/if}}>1</option>
+                            <option value="2" {{if $month==2}}selected{{/if}}>2</option>
+                            <option value="3" {{if $month==3}}selected{{/if}}>3</option>
+                            <option value="4" {{if $month==4}}selected{{/if}}>4</option>
+                            <option value="5" {{if $month==5}}selected{{/if}}>5</option>
+                            <option value="6" {{if $month==6}}selected{{/if}}>6</option>
+                            <option value="7" {{if $month==7}}selected{{/if}}>7</option>
+                            <option value="8" {{if $month==8}}selected{{/if}}>8</option>
+                            <option value="9" {{if $month==9}}selected{{/if}}>9</option>
+                            <option value="10" {{if $month==10}}selected{{/if}}>10</option>
+                            <option value="11" {{if $month==11}}selected{{/if}}>11</option>
+                            <option value="12" {{if $month==12}}selected{{/if}}>12</option>
                         </select>
                         <i class="i-txt">月</i>
                     </span>
