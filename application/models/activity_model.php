@@ -85,6 +85,7 @@ class Activity_model extends MY_Model
         $this->db->select('ROUND(a.a1s*a1n+a.a2s*a2n+a.a3s*a3n+a.a4s*a4n+a.a5s*a5n, 1) AS a1t', false);
         $this->db->select('ROUND(a.b1s*b1n+a.b2s*b2n+a.b3s*b3n+a.b4s*b4n+a.b5s*b5n, 1) AS b1t', false);
         $this->db->select('ROUND(a.c1s*c1n+a.c2s*c2n+a.c3s*c3n+a.c4s*c4n+a.c5s*c5n, 1) AS c1t', false);
+        $this->db->select('DATE_FORMAT(a.date, "%Y%m%d") AS date2', false);
         $this->db->from('activity a');
         $this->db->join('user b', 'a.user_id = b.id', 'inner');
         $this->db->join('activity_type t1', 'a.a1 = t1.id', 'left');
