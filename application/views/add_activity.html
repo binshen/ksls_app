@@ -226,7 +226,8 @@
     });
 
     $(".confirm-btn").click(function() {
-        $.post('/activity/check_activity', {date:"{{$tomorrow}}"}, function(data) {
+        var date = $("#J_DepDate").val();
+        $.post('/activity/check_activity', {date:date}, function(data) {
             if(data) {
                 layer.confirm('确定要保存计划行程信息？', {
                     btn: ['确定','取消'] //按钮
@@ -235,7 +236,7 @@
                 }, function(){
                 });
             } else {
-                layer.msg('你已经设置过 {{$tomorrow}} 的行程', {icon: 2});
+                layer.msg('你已经设置过 ' + date + ' 的行程', {icon: 2});
             }
         });
     });
