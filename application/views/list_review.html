@@ -29,7 +29,7 @@
             <div class="search-wrap">
                 <form id="formSearchActivity" method="POST" action="/activity/list_review">
                     {{if $role_id == 1}}
-                    <select name="company" id="sel_company">
+                    <select name="company" id="sel_company" style="width:150px">
                         <option value="">选择公司</option>
                         {{foreach from=$company_list key=key item=item}}
                             {{if $item.id == $company}}
@@ -40,7 +40,7 @@
                         {{/foreach}}
                     </select>
                     {{/if}}
-                    <select name="subsidiary" id="sel_subsidiary">
+                    <select name="subsidiary" id="sel_subsidiary" style="width:150px">
                         <option value="">选择分店</option>
                         {{foreach from=$subsidiary_list key=key item=item}}
                             {{if $item.id == $subsidiary}}
