@@ -280,6 +280,9 @@ class Activity extends MY_Controller {
             $subsidiary_id = NULL;
             if($role_id > 4) {
                 $subsidiary_id = $this->session->userdata('login_subsidiary_id');
+                $this->assign('subsidiary', $subsidiary_id);
+            } else {
+                $this->assign('company', $company_id);
             }
             $subsidiary_list = $this->activity_model->get_subsidiary_list($company_id, $subsidiary_id);
             $this->assign('subsidiary_list', $subsidiary_list);
