@@ -299,7 +299,7 @@ class Activity_model extends MY_Model
         //return $this->db->get_where('activity', array('id' => $id))->row_array();
     }
 
-    public function get_total_top_list() {
+    public function get_total_top_list($company_id, $subsidiary_id, $year, $month) {
 
         $this->db->select('b.id AS u_id, b.pic AS u_pic, b.rel_name AS u_name, c.name AS c_name, d.name AS s_name, SUM(a.total) AS total');
         $this->db->from('activity a');
@@ -307,10 +307,18 @@ class Activity_model extends MY_Model
         $this->db->join('company c', 'b.company_id = c.id', 'left');
         $this->db->join('subsidiary d', 'b.subsidiary_id = d.id', 'left');
         $this->db->where('a.status', 3);
-        $this->db->where('YEAR(a.date)', 2016);
-        $this->db->where('MONTH(a.date)', 5);
-        $this->db->where('b.company_id', 1);
-        $this->db->where('b.subsidiary_id', 2);
+        if(!empty($year)) {
+            $this->db->where('YEAR(a.date)', $year);
+        }
+        if(!empty($month)) {
+            $this->db->where('MONTH(a.date)', $month);
+        }
+        if(!empty($company_id)) {
+            $this->db->where('b.company_id', $company_id);
+        }
+        if(!empty($subsidiary_id)) {
+            $this->db->where('b.subsidiary_id', $subsidiary_id);
+        }
         $this->db->group_by('b.id');
         $this->db->order_by('total', 'desc');
         $this->db->distinct();
@@ -342,13 +350,21 @@ class Activity_model extends MY_Model
             JOIN user b ON b.id = a.user_id
             LEFT JOIN company c ON b.company_id = c.id
             LEFT JOIN subsidiary d ON b.subsidiary_id = d.id
-            WHERE YEAR(a.date) = 2016
-            AND MONTH(a.date) = 5
-            AND b.company_id = 1
-            AND b.subsidiary_id = 2
-            GROUP BY b.id
-            ORDER BY a.total DESC
+            WHERE 1 = 1
         ";
+        if(!empty($year)) {
+            $sql .= " AND YEAR(a.date) = " . $year;
+        }
+        if(!empty($month)) {
+            $sql .= " AND MONTH(a.date) = " . $month;
+        }
+        if(!empty($company_id)) {
+            $sql .= " AND b.company_id = " . $company_id;
+        }
+        if(!empty($subsidiary_id)) {
+            $sql .= " AND b.subsidiary_id = " . $subsidiary_id;
+        }
+        $sql .= " GROUP BY b.id ORDER BY a.total DESC ";
         return $this->db->query($sql)->result();
     }
 }

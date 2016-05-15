@@ -26,14 +26,14 @@
                 <form id="formSearchActivity" method="POST" action="">
                     {{if $role_id == 1}}
                     <select name="company" id="sel_company" style="width:150px">
-                        <option value="">选择公司</option>
+                        <option value="0">选择公司</option>
                         {{foreach from=$company_list key=key item=item}}
                             <option value="{{$item.id}}">{{$item.name}}</option>
                         {{/foreach}}
                     </select>
                     {{/if}}
                     <select name="subsidiary" id="sel_subsidiary" style="width:150px">
-                        <option value="">选择分店</option>
+                        <option value="0">选择分店</option>
                         {{foreach from=$subsidiary_list key=key item=item}}
                             <option value="{{$item.id}}">{{$item.name}}</option>
                         {{/foreach}}
@@ -114,9 +114,38 @@
         }
     });
 
+    $('#sel_company').change(function(){
+        var company_id = $(this).val();
+        $.get('/activity/get_subsidiary_list/' + $(this).val(), function(data) {
+            $("#sel_subsidiary").empty();
+            $("#sel_subsidiary").append('<option value="0">选择分店</option>');
+            var data = JSON.parse(data);
+            for(var i in data) {
+                $("#sel_subsidiary").append('<option value="'+data[i].id+'">'+data[i].name+'</option>');
+            }
+            show_ranking();
+        });
+    });
+
+    $('#sel_subsidiary').change(function(){
+        show_ranking();
+    });
+
+    $('#sel_year').change(function(){
+        show_ranking();
+    });
+
+    $('#sel_month').change(function(){
+        show_ranking();
+    });
+
     function show_ranking() {
         var op = $("#current_op").val();
-        $.post('/activity/show_ranking', {op:op}, function(data){
+        var company_id = $("#sel_company").val();
+        var subsidiary_id = $("#sel_subsidiary").val();
+        var year = $("#sel_year").val();
+        var month = $("#sel_month").val();
+        $.post('/activity/show_ranking', {op:op, company_id:company_id, subsidiary_id:subsidiary_id, year:year, month:month}, function(data){
             var data = JSON.parse(data);
             var html = "";
             var items = data.list;

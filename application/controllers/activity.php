@@ -291,10 +291,15 @@ class Activity extends MY_Controller {
     public function show_ranking() {
 
         $op = $this->input->post('op');
+        $company_id = $this->input->post('company_id');
+        $subsidiary_id = $this->input->post('subsidiary_id');
+        $year = $this->input->post('year');
+        $month = $this->input->post('month');
+
         if($op < 1) {
-            $rank_list = $this->activity_model->get_total_top_list();
+            $rank_list = $this->activity_model->get_total_top_list($company_id, $subsidiary_id, $year, $month);
         } else {
-            $rank_list = $this->activity_model->get_top_list_by_op($op);
+            $rank_list = $this->activity_model->get_top_list_by_op($op, $company_id, $subsidiary_id, $year, $month);
         }
 
         $rank = array();
