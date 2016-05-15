@@ -132,6 +132,12 @@ class Activity_model extends MY_Model
         return $data;
     }
 
+    public function check_activity() {
+        $user_id = $this->session->userdata('login_user_id');
+        $date = $this->input->post('date');
+        return $this->db->get_where('activity', array('user_id' => $user_id, 'date' => $date))->result_array();
+    }
+
     public function add_activity() {
         $data = array(
             'user_id' => $this->session->userdata('login_user_id'),

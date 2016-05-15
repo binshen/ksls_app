@@ -226,11 +226,17 @@
     });
 
     $(".confirm-btn").click(function() {
-        layer.confirm('确定要保存计划行程信息？', {
-            btn: ['确定','取消'] //按钮
-        }, function(){
-            $("#activityForm").submit();
-        }, function(){
+        $.post('/activity/check_activity', {date:"{{$tomorrow}}"}, function(data) {
+            if(data) {
+                layer.confirm('确定要保存计划行程信息？', {
+                    btn: ['确定','取消'] //按钮
+                }, function(){
+                    $("#activityForm").submit();
+                }, function(){
+                });
+            } else {
+                layer.msg('你已经设置过 {{$tomorrow}} 的行程', {icon: 2});
+            }
         });
     });
 

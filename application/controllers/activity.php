@@ -242,6 +242,12 @@ class Activity extends MY_Controller {
         $this->display('review_activity.html');
     }
 
+    public function check_activity() {
+        $activity_list = $this->activity_model->check_activity();
+        echo empty($activity_list) ? true : false;
+        die;
+    }
+
     public function save_activity() {
         $this->activity_model->add_activity();
 
@@ -259,7 +265,6 @@ class Activity extends MY_Controller {
 
         redirect(site_url('activity/list_review'));
     }
-
 
     public function list_ranking($op = 0) {
 
