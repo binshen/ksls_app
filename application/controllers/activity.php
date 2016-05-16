@@ -31,6 +31,8 @@ class Activity extends MY_Controller {
     function _remap($method,$params = array()) {
         if(!$this->session->userdata('login_user_id')) {
             redirect(site_url('/'));
+        } else {
+            return call_user_func_array(array($this, $method), $params);
         }
     }
 
