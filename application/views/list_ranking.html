@@ -157,13 +157,17 @@
                 var item = items[i];
                 html += '<ul class="condiv-ul">';
                 html += '<li>';
-                html += '<em class="rank-num num-' + i + '"></em>';
+                if(i<3) {
+                    html += '<em class="rank-num num-' + i + '"></em>';
+                } else {
+                    html += '<em class="rank-num num-' + i + '">' + (parseInt(i)+1) + '</em>';
+                }
                 html += '</li>';
                 html += '<li class="nameandcom">';
                 html += '<span class="s-head-pic"><img src="/uploadfiles/profile/' + (item.u_pic ? item.u_pic : "user_photo.gif") + '" alt="" width="42" height="42"></span>';
                 html += '<p><span class="s-name-txt">' + item.u_name + '</span><br />';
-                html += '<span class="s-company">公司:' + item.c_name + '</span>&nbsp;&nbsp;&nbsp;&nbsp;';
-                html += '<span lass="s-store">门店:' + item.s_name + '</span></p>';
+                html += '<span class="s-company">公司:' + (item.c_name == null ? '无': item.c_name) + '</span>&nbsp;&nbsp;&nbsp;&nbsp;';
+                html += '<span lass="s-store">门店:' + (item.s_name == null ? '无': item.s_name) + '</span></p>';
                 html += '</li>';
                 html += '<li class="li-score li-score-' + i + '">' + item.total + '</li>';
                 html += '</ul>';
