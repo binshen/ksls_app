@@ -137,7 +137,10 @@ class Activity_model extends MY_Model
         }
         
         $this->db->limit($numPerPage, ($pageNum - 1) * $numPerPage );
-        $this->db->order_by($this->input->post('orderField') ? $this->input->post('orderField') : 'a.id', $this->input->post('orderDirection') ? $this->input->post('orderDirection') : 'desc');
+        //$this->db->order_by($this->input->post('orderField') ? $this->input->post('orderField') : 'a.date', $this->input->post('orderDirection') ? $this->input->post('orderDirection') : 'desc');
+        $this->db->order_by('a.date', 'desc');
+        $this->db->order_by('a.user_id', 'desc');
+
         $data['res_list'] = $this->db->get()->result();
         $data['pageNum'] = $pageNum;
         $data['numPerPage'] = $numPerPage;
