@@ -28,6 +28,12 @@ class Activity extends MY_Controller {
         $this->load->model('activity_model');
     }
 
+    function _remap($method,$params = array()) {
+        if(!$this->session->userdata('login_user_id')) {
+            redirect(site_url('/'));
+        }
+    }
+
     public function list_activity($page=1) {
         $role_id = $this->session->userdata('login_role_id');
         $this->assign('role_id', $role_id);
