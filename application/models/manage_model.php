@@ -381,7 +381,7 @@ class Manage_model extends MY_Model
             'role_id' => $this->input->post('role_id')
         );
         if(!empty($pic)) {
-            $data['pic'] = '/uploadfiles/profile/' . $pic;
+            $data['pic'] = $pic;
         }
 
         $this->db->trans_start();//--------开始事务
