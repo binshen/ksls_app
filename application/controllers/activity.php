@@ -51,7 +51,7 @@ class Activity extends MY_Controller {
         $this->assign('activity_list', $data);
 
         $this->assign('tomorrow', date('Ymd', strtotime("+1 day")));
-
+        $this->assign('today', date('Ymd'));
         $pager = $this->pagination->getPageLink('/activity/list_activity', $data['countPage'], $data['numPerPage']);
         $this->assign('pager', $pager);
 

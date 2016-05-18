@@ -153,6 +153,8 @@
                         <li class="wid138">
                             {{if $item->status == 1 && $item->date2 == $tomorrow }}
                                 <a href="/activity/edit_activity/{{$item->id}}" class="operation-btn">修改</a>
+                            {{elseif $item->status == 1 && $item->date3 == $today}}
+                            <a href="/activity/edit_activity/{{$item->id}}" class="operation-btn">修改</a>
                             {{else}}
                                 <a href="javascript:void(0);" class="operation-btn operation-btn-no">修改</a>
                             {{/if}}
