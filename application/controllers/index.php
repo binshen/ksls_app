@@ -35,4 +35,33 @@ class Index extends MY_Controller {
         echo $this->session->userdata('login_user_id') ? 1 : 0;
         die;
     }
+
+    public function check_pass($pass) {
+        $login_password = $this->session->userdata('login_password');
+        echo $login_password == sha1($pass) ? 1 : 0;
+        die;
+    }
+
+    public function update_password() {
+        echo $this->user_model->update_password();
+        die;
+    }
+
+    public function upload_pic() {
+        $config['upload_path'] = './././uploadfiles/profile';
+        $config['allowed_types'] = 'gif|jpg|png|jpeg';
+        $config['max_size'] = '1000';
+        $config['encrypt_name'] = true;
+        $this->load->library('upload', $config);
+        if($this->upload->do_upload()) {
+            $img_info = $this->upload->data();
+            $this->user_model->update_tmp_pic($img_info['file_name']);
+        }
+        die;
+    }
+
+    public function update_user() {
+        echo $this->user_model->update_user();
+        die;
+    }
 }

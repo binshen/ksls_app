@@ -24,7 +24,7 @@
         </div>
         <div class="wrap-right">
             <div class="search-wrap search-wrap1">
-                <span class="user-name"><em class="user-pic-icon"></em> 郑法明</span>
+                <span class="user-name"><em class="user-pic-icon"></em> {{$activity.u_name}}</span>
                 <span class="span-date"><em class="em-lock"></em> {{$activity.date|default:''}}</span>
             </div>
             <div class="schedule-wrap">
@@ -310,13 +310,13 @@
                         <span class="other-span other-span4">
                             <span id="float_score">{{$activity.float|default:0}}</span>分</span>
                         <span class="other-span other-span5"><textarea name="mark" rows="2" cols="3" class="sce-remarks" placeholder="说明加分减分理由">{{$activity.mark|default:''}}</textarea></span>
-                        <input type="hidden" name="total" id="total" value="{{$activity.total|default:0}}">
+                        <input type="hidden" name="total" id="total" value="{{$activity.ctt|default:0}}">
                     </div>
                     <div class="statistics-score">
                         <ul>
                             <li class="plan-score">计划总分：<span class="plan_score">{{$activity.att|default:0}}</span>分</li>
                             <li class="reality-score">自评总分：<span class="reality_score">{{$activity.btt|default:0}}</span>分</li>
-                            <li class="review-score">实际总分：<span class="review_score">{{$activity.ctt|default:0}}</span></li>
+                            <li class="review-score">实际总分：<span class="review_score">{{$activity.ctt|default:0}}</span>分</li>
                         </ul>
                     </div>
                     <p class="p-btn"><a href="javascript:" class="confirm-btn">确认</a></p>
@@ -325,15 +325,9 @@
         </div>
     </div>
 </div>
-<script type="text/javascript" src="/static/js/jquery-1.9.0.js"></script>
 <script type="text/javascript" src="/static/js/SelectSimu.js"></script>
 <script type="text/javascript" src="/static/js/layer/layer.js"></script>
 <script>
-    $("#Jmoreoperation").click(function(){
-        $(".more-operation").toggle();
-        $(this).parent().mouseleave(function(){$(".more-operation").hide()});
-    });
-
     var activity_type_list = JSON.parse('{{$activity_type_list}}');
     activity_type_list.unshift({id:0, name:'选择行程事项',score:'--',unit:'组'});
     var o1 = '{{$activity.c1|default:0}}';

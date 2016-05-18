@@ -24,39 +24,50 @@
         <div class="wrap-right">
             <div class="search-wrap search-wrap1 search-wrap2">
                 <form id="formSearchActivity" method="POST" action="">
-                    <select name="company" id="sel_company">
-                        <option value="">选择公司</option>
-                        <option value="曼娜吉">曼娜吉</option>
-                    </select>
-                    <select name="subsidiary" id="sel_subsidiary">
-                        <option value="">选择分店</option>
-                        <option value="九杨店" selected>九杨店</option>
-                    </select>
+                    {{if $role_id == 1}}
+                        <select name="company" id="sel_company" style="width:150px">
+                            <option value="0">选择公司</option>
+                            {{if $item.id == $company}}
+                                <option value="{{$item.id}}" selected>{{$item.name}}</option>
+                            {{else}}
+                                <option value="{{$item.id}}">{{$item.name}}</option>
+                            {{/if}}
+                        </select>
+                    {{/if}}
+                    {{if $role_id < 3}}
+                        <select name="subsidiary" id="sel_subsidiary" style="width:150px">
+                            <option value="0">选择分店</option>
+                            {{foreach from=$subsidiary_list key=key item=item}}
+                                {{if $item.id == $subsidiary}}
+                                    <option value="{{$item.id}}" selected>{{$item.name}}</option>
+                                {{else}}
+                                    <option value="{{$item.id}}">{{$item.name}}</option>
+                                {{/if}}
+                            {{/foreach}}
+                        </select>
+                    {{/if}}
                     <span>
-                        <select name="year" id="year">
-                            <option value="2016">2016</option>
-                            <option value="2016">2015</option>
-                            <option value="2016">2014</option>
-                            <option value="2016">2013</option>
-                            <option value="2016">2012</option>
+                        <select name="year" id="sel_year" style="width:80px">
+                            {{foreach from=$year_list item=item}}
+                                <option value="{{$item}}" {{if $item==$year}}selected{{/if}}>{{$item}}</option>
+                            {{/foreach}}
                         </select>
                         <i class="i-txt"> 年</i>
                     </span>
                     <span>
-                        <select name="month" id="month">
-                        <option value="5">5</option>
-                            <option value="1">1</option>
-                            <option value="2">2</option>
-                            <option value="3">3</option>
-                            <option value="4">4</option>
-                            <option value="5">5</option>
-                            <option value="6">6</option>
-                            <option value="7">7</option>
-                            <option value="8">8</option>
-                            <option value="9">9</option>
-                            <option value="10">10</option>
-                            <option value="11">11</option>
-                            <option value="12">12</option>
+                        <select name="month" id="sel_month" style="width:80px">
+                            <option value="1" {{if $month==1}}selected{{/if}}>1</option>
+                            <option value="2" {{if $month==2}}selected{{/if}}>2</option>
+                            <option value="3" {{if $month==3}}selected{{/if}}>3</option>
+                            <option value="4" {{if $month==4}}selected{{/if}}>4</option>
+                            <option value="5" {{if $month==5}}selected{{/if}}>5</option>
+                            <option value="6" {{if $month==6}}selected{{/if}}>6</option>
+                            <option value="7" {{if $month==7}}selected{{/if}}>7</option>
+                            <option value="8" {{if $month==8}}selected{{/if}}>8</option>
+                            <option value="9" {{if $month==9}}selected{{/if}}>9</option>
+                            <option value="10" {{if $month==10}}selected{{/if}}>10</option>
+                            <option value="11" {{if $month==11}}selected{{/if}}>11</option>
+                            <option value="12" {{if $month==12}}selected{{/if}}>12</option>
                         </select>
                         <i class="i-txt">月</i>
                     </span>
@@ -66,12 +77,12 @@
                 <div class="rank-img"><img src="/static/images/rank.jpg" alt=""></div>
                 <ul class="control" id ="slide01_control">
                     <li><em class="item-icon item-icon-score"></em> 总分</li>
-                    <li><em class="item-icon item-icon-1"></em>电call</li>
                     <li><em class="item-icon item-icon-2"></em>带看</li>
-                    <li><em class="item-icon item-icon-3"></em>房源录入</li>
-                    <li><em class="item-icon item-icon-4"></em>客源录入</li>
-                    <li><em class="item-icon item-icon-5"></em>房源发布</li>
                     <li><em class="item-icon item-icon-6"></em>实勘</li>
+                    <li><em class="item-icon item-icon-3"></em>录入房源</li>
+                    <li><em class="item-icon item-icon-5"></em>房源发布</li>
+                    <li><em class="item-icon item-icon-1"></em>电call</li>
+                    <li><em class="item-icon item-icon-4"></em>新增客源</li>
                     <li><em class="item-icon item-icon-7"></em>驻守</li>
                 </ul>
                 <div class="content-txt">
@@ -80,1046 +91,107 @@
                     <span>分数</span>
                 </div>
                 <div class="main-inner" id="slide01">
-                    <div class="condiv">
-
-                        {{foreach from=$top_list key=key item=item}}
-                            <ul class="condiv-ul">
-                                <li>
-                                    <em class="rank-num num-{{$class_key[$key]}}"></em>
-                                </li>
-                                <li class="nameandcom">
-                                    <span class="s-head-pic"><img src="/static/images/user_photo.gif" alt="" width="42" height="42"></span>
-                                    <p><span class="s-name-txt">{{$item->u_name}}</span><br /><span class="s-company">公司：{{$item->c_name}}</span>
-                                        <span lass="s-store">门店：{{$item->s_name}}</span></p>
-                                </li>
-                                <li class="li-score li-score-first">{{$item->total}}</li>
-                            </ul>
-                        {{/foreach}}
-
-                        <!--
-                        <ul class="condiv-ul">
-                            <li>
-                                <em class="rank-num num-fist"></em>
-                            </li>
-                            <li class="nameandcom">
-                                <span class="s-head-pic"><img src="/static/images/user_photo.gif" alt="" width="42" height="42"></span>
-                                <p><span class="s-name-txt">邵雨</span><br /><span class="s-company">公司：曼娜吉信息有限公司</span>
-                                    <span lass="s-store">门店：科威久九杨店</span></p>
-                            </li>
-                            <li class="li-score li-score-first">90</li>
-                        </ul>
-                        <ul class="condiv-ul">
-                            <li>
-                                <em class="rank-num num-second"></em>
-                            </li>
-                            <li class="nameandcom">
-                                <span class="s-head-pic"><img src="/static/images/user_photo.gif" alt="" width="42" height="42"></span>
-                                <p><span class="s-name-txt">邵雨</span><br /><span class="s-company">公司：曼娜吉信息有限公司</span>
-                                    <span lass="s-store">门店：科威久九杨店</span></p>
-                            </li>
-                            <li class="li-score li-score-second">90</li>
-                        </ul>
-                        <ul class="condiv-ul">
-                            <li>
-                                <em class="rank-num num-third"></em>
-                            </li>
-                            <li class="nameandcom">
-                                <span class="s-head-pic"><img src="/static/images/user_photo.gif" alt="" width="42" height="42"></span>
-                                <p><span class="s-name-txt">邵雨</span><br /><span class="s-company">公司：曼娜吉信息有限公司</span>
-                                    <span lass="s-store">门店：科威久九杨店</span></p>
-                            </li>
-                            <li class="li-score li-score-third">90</li>
-                        </ul>
-                        <ul class="condiv-ul">
-                            <li>
-                                <em class="rank-num">4</em>
-                            </li>
-                            <li class="nameandcom">
-                                <span class="s-head-pic"><img src="/static/images/user_photo.gif" alt="" width="42" height="42"></span>
-                                <p><span class="s-name-txt">邵雨</span><br /><span class="s-company">公司：曼娜吉信息有限公司</span>
-                                    <span lass="s-store">门店：科威久九杨店</span></p>
-                            </li>
-                            <li class="li-score li-score-third">90</li>
-                        </ul>
-                        <ul class="condiv-ul">
-                            <li>
-                                <em class="rank-num">5</em>
-                            </li>
-                            <li class="nameandcom">
-                                <span class="s-head-pic"><img src="/static/images/user_photo.gif" alt="" width="42" height="42"></span>
-                                <p><span class="s-name-txt">邵雨</span><br /><span class="s-company">公司：曼娜吉信息有限公司</span>
-                                    <span lass="s-store">门店：科威久九杨店</span></p>
-                            </li>
-                            <li class="li-score li-score-third">90</li>
-                        </ul>
-                        <ul class="condiv-ul">
-                            <li>
-                                <em class="rank-num">6</em>
-                            </li>
-                            <li class="nameandcom">
-                                <span class="s-head-pic"><img src="/static/images/user_photo.gif" alt="" width="42" height="42"></span>
-                                <p><span class="s-name-txt">邵雨</span><br /><span class="s-company">公司：曼娜吉信息有限公司</span>
-                                    <span lass="s-store">门店：科威久九杨店</span></p>
-                            </li>
-                            <li class="li-score li-score-third">90</li>
-                        </ul>
-                        <ul class="condiv-ul">
-                            <li>
-                                <em class="rank-num">7</em>
-                            </li>
-                            <li class="nameandcom">
-                                <span class="s-head-pic"><img src="/static/images/user_photo.gif" alt="" width="42" height="42"></span>
-                                <p><span class="s-name-txt">邵雨</span><br /><span class="s-company">公司：曼娜吉信息有限公司</span>
-                                    <span lass="s-store">门店：科威久九杨店</span></p>
-                            </li>
-                            <li class="li-score li-score-third">90</li>
-                        </ul>
-                        <ul class="condiv-ul">
-                            <li>
-                                <em class="rank-num">8</em>
-                            </li>
-                            <li class="nameandcom">
-                                <span class="s-head-pic"><img src="/static/images/user_photo.gif" alt="" width="42" height="42"></span>
-                                <p><span class="s-name-txt">邵雨</span><br /><span class="s-company">公司：曼娜吉信息有限公司</span>
-                                    <span lass="s-store">门店：科威久九杨店</span></p>
-                            </li>
-                            <li class="li-score li-score-third">90</li>
-                        </ul>
-                        <ul class="condiv-ul">
-                            <li>
-                                <em class="rank-num">9</em>
-                            </li>
-                            <li class="nameandcom">
-                                <span class="s-head-pic"><img src="/static/images/user_photo.gif" alt="" width="42" height="42"></span>
-                                <p><span class="s-name-txt">邵雨</span><br /><span class="s-company">公司：曼娜吉信息有限公司</span>
-                                    <span lass="s-store">门店：科威久九杨店</span></p>
-                            </li>
-                            <li class="li-score li-score-third">90</li>
-                        </ul>
-                        <ul class="condiv-ul">
-                            <li>
-                                <em class="rank-num">10</em>
-                            </li>
-                            <li class="nameandcom">
-                                <span class="s-head-pic"><img src="/static/images/user_photo.gif" alt="" width="42" height="42"></span>
-                                <p><span class="s-name-txt">邵雨</span><br /><span class="s-company">公司：曼娜吉信息有限公司</span>
-                                    <span lass="s-store">门店：科威久九杨店</span></p>
-                            </li>
-                            <li class="li-score li-score-third">90</li>
-                        </ul>
-                        <ul class="condiv-ul last-condiv-ul">
-                            <li>
-                                <span class="spec-span"><em class="rank-num">10</em>我的排名</span>
-                            </li>
-                            <li class="nameandcom">
-                                <span class="s-head-pic"><img src="/static/images/user_photo.gif" alt="" width="70" height="70"></span>
-                                <p><span class="s-name-txt">邵雨</span><br /><span class="s-company">公司：曼娜吉信息有限公司</span>
-                                    <span lass="s-store">门店：科威久九杨店</span></p>
-                            </li>
-                            <li class="li-score">56</li>
-                        </ul>
-                        -->
-                    </div>
-
-                    <div class="condiv">
-                        <ul class="condiv-ul">
-                            <li>
-                                <em class="rank-num num-fist"></em>
-                            </li>
-                            <li class="nameandcom">
-                                <span class="s-head-pic"><img src="/static/images/user_photo.gif" alt="" width="42" height="42"></span>
-                                <p><span class="s-name-txt">邵雨</span><br /><span class="s-company">公司：曼娜吉信息有限公司</span>
-                                    <span lass="s-store">门店：科威久九杨店</span></p>
-                            </li>
-                            <li class="li-score li-score-first">90</li>
-                        </ul>
-                        <ul class="condiv-ul">
-                            <li>
-                                <em class="rank-num num-second"></em>
-                            </li>
-                            <li class="nameandcom">
-                                <span class="s-head-pic"><img src="/static/images/user_photo.gif" alt="" width="42" height="42"></span>
-                                <p><span class="s-name-txt">邵雨</span><br /><span class="s-company">公司：曼娜吉信息有限公司</span>
-                                    <span lass="s-store">门店：科威久九杨店</span></p>
-                            </li>
-                            <li class="li-score li-score-second">90</li>
-                        </ul>
-                        <ul class="condiv-ul">
-                            <li>
-                                <em class="rank-num num-third"></em>
-                            </li>
-                            <li class="nameandcom">
-                                <span class="s-head-pic"><img src="/static/images/user_photo.gif" alt="" width="42" height="42"></span>
-                                <p><span class="s-name-txt">邵雨</span><br /><span class="s-company">公司：曼娜吉信息有限公司</span>
-                                    <span lass="s-store">门店：科威久九杨店</span></p>
-                            </li>
-                            <li class="li-score li-score-third">90</li>
-                        </ul>
-                        <ul class="condiv-ul">
-                            <li>
-                                <em class="rank-num">4</em>
-                            </li>
-                            <li class="nameandcom">
-                                <span class="s-head-pic"><img src="/static/images/user_photo.gif" alt="" width="42" height="42"></span>
-                                <p><span class="s-name-txt">邵雨</span><br /><span class="s-company">公司：曼娜吉信息有限公司</span>
-                                    <span lass="s-store">门店：科威久九杨店</span></p>
-                            </li>
-                            <li class="li-score li-score-third">90</li>
-                        </ul>
-                        <ul class="condiv-ul">
-                            <li>
-                                <em class="rank-num">5</em>
-                            </li>
-                            <li class="nameandcom">
-                                <span class="s-head-pic"><img src="/static/images/user_photo.gif" alt="" width="42" height="42"></span>
-                                <p><span class="s-name-txt">邵雨</span><br /><span class="s-company">公司：曼娜吉信息有限公司</span>
-                                    <span lass="s-store">门店：科威久九杨店</span></p>
-                            </li>
-                            <li class="li-score li-score-third">90</li>
-                        </ul>
-                        <ul class="condiv-ul">
-                            <li>
-                                <em class="rank-num">6</em>
-                            </li>
-                            <li class="nameandcom">
-                                <span class="s-head-pic"><img src="/static/images/user_photo.gif" alt="" width="42" height="42"></span>
-                                <p><span class="s-name-txt">邵雨</span><br /><span class="s-company">公司：曼娜吉信息有限公司</span>
-                                    <span lass="s-store">门店：科威久九杨店</span></p>
-                            </li>
-                            <li class="li-score li-score-third">90</li>
-                        </ul>
-                        <ul class="condiv-ul">
-                            <li>
-                                <em class="rank-num">7</em>
-                            </li>
-                            <li class="nameandcom">
-                                <span class="s-head-pic"><img src="/static/images/user_photo.gif" alt="" width="42" height="42"></span>
-                                <p><span class="s-name-txt">邵雨</span><br /><span class="s-company">公司：曼娜吉信息有限公司</span>
-                                    <span lass="s-store">门店：科威久九杨店</span></p>
-                            </li>
-                            <li class="li-score li-score-third">90</li>
-                        </ul>
-                        <ul class="condiv-ul">
-                            <li>
-                                <em class="rank-num">8</em>
-                            </li>
-                            <li class="nameandcom">
-                                <span class="s-head-pic"><img src="/static/images/user_photo.gif" alt="" width="42" height="42"></span>
-                                <p><span class="s-name-txt">邵雨</span><br /><span class="s-company">公司：曼娜吉信息有限公司</span>
-                                    <span lass="s-store">门店：科威久九杨店</span></p>
-                            </li>
-                            <li class="li-score li-score-third">90</li>
-                        </ul>
-                        <ul class="condiv-ul">
-                            <li>
-                                <em class="rank-num">9</em>
-                            </li>
-                            <li class="nameandcom">
-                                <span class="s-head-pic"><img src="/static/images/user_photo.gif" alt="" width="42" height="42"></span>
-                                <p><span class="s-name-txt">邵雨</span><br /><span class="s-company">公司：曼娜吉信息有限公司</span>
-                                    <span lass="s-store">门店：科威久九杨店</span></p>
-                            </li>
-                            <li class="li-score li-score-third">90</li>
-                        </ul>
-                        <ul class="condiv-ul">
-                            <li>
-                                <em class="rank-num">10</em>
-                            </li>
-                            <li class="nameandcom">
-                                <span class="s-head-pic"><img src="/static/images/user_photo.gif" alt="" width="42" height="42"></span>
-                                <p><span class="s-name-txt">邵雨</span><br /><span class="s-company">公司：曼娜吉信息有限公司</span>
-                                    <span lass="s-store">门店：科威久九杨店</span></p>
-                            </li>
-                            <li class="li-score li-score-third">90</li>
-                        </ul>
-                        <ul class="condiv-ul last-condiv-ul">
-                            <li>
-                                <span class="spec-span"><em class="rank-num">10</em>我的排名</span>
-                            </li>
-                            <li class="nameandcom">
-                                <span class="s-head-pic"><img src="/static/images/user_photo.gif" alt="" width="70" height="70"></span>
-                                <p><span class="s-name-txt">邵雨</span><br /><span class="s-company">公司：曼娜吉信息有限公司</span>
-                                    <span lass="s-store">门店：科威久九杨店</span></p>
-                            </li>
-                            <li class="li-score">56</li>
-                        </ul>
-                    </div>
-                    <div class="condiv">
-                        <ul class="condiv-ul">
-                            <li>
-                                <em class="rank-num num-fist"></em>
-                            </li>
-                            <li class="nameandcom">
-                                <span class="s-head-pic"><img src="/static/images/user_photo.gif" alt="" width="42" height="42"></span>
-                                <p><span class="s-name-txt">邵雨</span><br /><span class="s-company">公司：曼娜吉信息有限公司</span>
-                                    <span lass="s-store">门店：科威久九杨店</span></p>
-                            </li>
-                            <li class="li-score li-score-first">90</li>
-                        </ul>
-                        <ul class="condiv-ul">
-                            <li>
-                                <em class="rank-num num-second"></em>
-                            </li>
-                            <li class="nameandcom">
-                                <span class="s-head-pic"><img src="/static/images/user_photo.gif" alt="" width="42" height="42"></span>
-                                <p><span class="s-name-txt">邵雨</span><br /><span class="s-company">公司：曼娜吉信息有限公司</span>
-                                    <span lass="s-store">门店：科威久九杨店</span></p>
-                            </li>
-                            <li class="li-score li-score-second">90</li>
-                        </ul>
-                        <ul class="condiv-ul">
-                            <li>
-                                <em class="rank-num num-third"></em>
-                            </li>
-                            <li class="nameandcom">
-                                <span class="s-head-pic"><img src="/static/images/user_photo.gif" alt="" width="42" height="42"></span>
-                                <p><span class="s-name-txt">邵雨</span><br /><span class="s-company">公司：曼娜吉信息有限公司</span>
-                                    <span lass="s-store">门店：科威久九杨店</span></p>
-                            </li>
-                            <li class="li-score li-score-third">90</li>
-                        </ul>
-                        <ul class="condiv-ul">
-                            <li>
-                                <em class="rank-num">4</em>
-                            </li>
-                            <li class="nameandcom">
-                                <span class="s-head-pic"><img src="/static/images/user_photo.gif" alt="" width="42" height="42"></span>
-                                <p><span class="s-name-txt">邵雨</span><br /><span class="s-company">公司：曼娜吉信息有限公司</span>
-                                    <span lass="s-store">门店：科威久九杨店</span></p>
-                            </li>
-                            <li class="li-score li-score-third">90</li>
-                        </ul>
-                        <ul class="condiv-ul">
-                            <li>
-                                <em class="rank-num">5</em>
-                            </li>
-                            <li class="nameandcom">
-                                <span class="s-head-pic"><img src="/static/images/user_photo.gif" alt="" width="42" height="42"></span>
-                                <p><span class="s-name-txt">邵雨</span><br /><span class="s-company">公司：曼娜吉信息有限公司</span>
-                                    <span lass="s-store">门店：科威久九杨店</span></p>
-                            </li>
-                            <li class="li-score li-score-third">90</li>
-                        </ul>
-                        <ul class="condiv-ul">
-                            <li>
-                                <em class="rank-num">6</em>
-                            </li>
-                            <li class="nameandcom">
-                                <span class="s-head-pic"><img src="/static/images/user_photo.gif" alt="" width="42" height="42"></span>
-                                <p><span class="s-name-txt">邵雨</span><br /><span class="s-company">公司：曼娜吉信息有限公司</span>
-                                    <span lass="s-store">门店：科威久九杨店</span></p>
-                            </li>
-                            <li class="li-score li-score-third">90</li>
-                        </ul>
-                        <ul class="condiv-ul">
-                            <li>
-                                <em class="rank-num">7</em>
-                            </li>
-                            <li class="nameandcom">
-                                <span class="s-head-pic"><img src="/static/images/user_photo.gif" alt="" width="42" height="42"></span>
-                                <p><span class="s-name-txt">邵雨</span><br /><span class="s-company">公司：曼娜吉信息有限公司</span>
-                                    <span lass="s-store">门店：科威久九杨店</span></p>
-                            </li>
-                            <li class="li-score li-score-third">90</li>
-                        </ul>
-                        <ul class="condiv-ul">
-                            <li>
-                                <em class="rank-num">8</em>
-                            </li>
-                            <li class="nameandcom">
-                                <span class="s-head-pic"><img src="/static/images/user_photo.gif" alt="" width="42" height="42"></span>
-                                <p><span class="s-name-txt">邵雨</span><br /><span class="s-company">公司：曼娜吉信息有限公司</span>
-                                    <span lass="s-store">门店：科威久九杨店</span></p>
-                            </li>
-                            <li class="li-score li-score-third">90</li>
-                        </ul>
-                        <ul class="condiv-ul">
-                            <li>
-                                <em class="rank-num">9</em>
-                            </li>
-                            <li class="nameandcom">
-                                <span class="s-head-pic"><img src="/static/images/user_photo.gif" alt="" width="42" height="42"></span>
-                                <p><span class="s-name-txt">邵雨</span><br /><span class="s-company">公司：曼娜吉信息有限公司</span>
-                                    <span lass="s-store">门店：科威久九杨店</span></p>
-                            </li>
-                            <li class="li-score li-score-third">90</li>
-                        </ul>
-                        <ul class="condiv-ul">
-                            <li>
-                                <em class="rank-num">10</em>
-                            </li>
-                            <li class="nameandcom">
-                                <span class="s-head-pic"><img src="/static/images/user_photo.gif" alt="" width="42" height="42"></span>
-                                <p><span class="s-name-txt">邵雨</span><br /><span class="s-company">公司：曼娜吉信息有限公司</span>
-                                    <span lass="s-store">门店：科威久九杨店</span></p>
-                            </li>
-                            <li class="li-score li-score-third">90</li>
-                        </ul>
-                        <ul class="condiv-ul last-condiv-ul">
-                            <li>
-                                <span class="spec-span"><em class="rank-num">10</em>我的排名</span>
-                            </li>
-                            <li class="nameandcom">
-                                <span class="s-head-pic"><img src="/static/images/user_photo.gif" alt="" width="70" height="70"></span>
-                                <p><span class="s-name-txt">邵雨</span><br /><span class="s-company">公司：曼娜吉信息有限公司</span>
-                                    <span lass="s-store">门店：科威久九杨店</span></p>
-                            </li>
-                            <li class="li-score">56</li>
-                        </ul>
-                    </div>
-                    <div class="condiv">
-                        <ul class="condiv-ul">
-                            <li>
-                                <em class="rank-num num-fist"></em>
-                            </li>
-                            <li class="nameandcom">
-                                <span class="s-head-pic"><img src="/static/images/user_photo.gif" alt="" width="42" height="42"></span>
-                                <p><span class="s-name-txt">邵雨</span><br /><span class="s-company">公司：曼娜吉信息有限公司</span>
-                                    <span lass="s-store">门店：科威久九杨店</span></p>
-                            </li>
-                            <li class="li-score li-score-first">90</li>
-                        </ul>
-                        <ul class="condiv-ul">
-                            <li>
-                                <em class="rank-num num-second"></em>
-                            </li>
-                            <li class="nameandcom">
-                                <span class="s-head-pic"><img src="/static/images/user_photo.gif" alt="" width="42" height="42"></span>
-                                <p><span class="s-name-txt">邵雨</span><br /><span class="s-company">公司：曼娜吉信息有限公司</span>
-                                    <span lass="s-store">门店：科威久九杨店</span></p>
-                            </li>
-                            <li class="li-score li-score-second">90</li>
-                        </ul>
-                        <ul class="condiv-ul">
-                            <li>
-                                <em class="rank-num num-third"></em>
-                            </li>
-                            <li class="nameandcom">
-                                <span class="s-head-pic"><img src="/static/images/user_photo.gif" alt="" width="42" height="42"></span>
-                                <p><span class="s-name-txt">邵雨</span><br /><span class="s-company">公司：曼娜吉信息有限公司</span>
-                                    <span lass="s-store">门店：科威久九杨店</span></p>
-                            </li>
-                            <li class="li-score li-score-third">90</li>
-                        </ul>
-                        <ul class="condiv-ul">
-                            <li>
-                                <em class="rank-num">4</em>
-                            </li>
-                            <li class="nameandcom">
-                                <span class="s-head-pic"><img src="/static/images/user_photo.gif" alt="" width="42" height="42"></span>
-                                <p><span class="s-name-txt">邵雨</span><br /><span class="s-company">公司：曼娜吉信息有限公司</span>
-                                    <span lass="s-store">门店：科威久九杨店</span></p>
-                            </li>
-                            <li class="li-score li-score-third">90</li>
-                        </ul>
-                        <ul class="condiv-ul">
-                            <li>
-                                <em class="rank-num">5</em>
-                            </li>
-                            <li class="nameandcom">
-                                <span class="s-head-pic"><img src="/static/images/user_photo.gif" alt="" width="42" height="42"></span>
-                                <p><span class="s-name-txt">邵雨</span><br /><span class="s-company">公司：曼娜吉信息有限公司</span>
-                                    <span lass="s-store">门店：科威久九杨店</span></p>
-                            </li>
-                            <li class="li-score li-score-third">90</li>
-                        </ul>
-                        <ul class="condiv-ul">
-                            <li>
-                                <em class="rank-num">6</em>
-                            </li>
-                            <li class="nameandcom">
-                                <span class="s-head-pic"><img src="/static/images/user_photo.gif" alt="" width="42" height="42"></span>
-                                <p><span class="s-name-txt">邵雨</span><br /><span class="s-company">公司：曼娜吉信息有限公司</span>
-                                    <span lass="s-store">门店：科威久九杨店</span></p>
-                            </li>
-                            <li class="li-score li-score-third">90</li>
-                        </ul>
-                        <ul class="condiv-ul">
-                            <li>
-                                <em class="rank-num">7</em>
-                            </li>
-                            <li class="nameandcom">
-                                <span class="s-head-pic"><img src="/static/images/user_photo.gif" alt="" width="42" height="42"></span>
-                                <p><span class="s-name-txt">邵雨</span><br /><span class="s-company">公司：曼娜吉信息有限公司</span>
-                                    <span lass="s-store">门店：科威久九杨店</span></p>
-                            </li>
-                            <li class="li-score li-score-third">90</li>
-                        </ul>
-                        <ul class="condiv-ul">
-                            <li>
-                                <em class="rank-num">8</em>
-                            </li>
-                            <li class="nameandcom">
-                                <span class="s-head-pic"><img src="/static/images/user_photo.gif" alt="" width="42" height="42"></span>
-                                <p><span class="s-name-txt">邵雨</span><br /><span class="s-company">公司：曼娜吉信息有限公司</span>
-                                    <span lass="s-store">门店：科威久九杨店</span></p>
-                            </li>
-                            <li class="li-score li-score-third">90</li>
-                        </ul>
-                        <ul class="condiv-ul">
-                            <li>
-                                <em class="rank-num">9</em>
-                            </li>
-                            <li class="nameandcom">
-                                <span class="s-head-pic"><img src="/static/images/user_photo.gif" alt="" width="42" height="42"></span>
-                                <p><span class="s-name-txt">邵雨</span><br /><span class="s-company">公司：曼娜吉信息有限公司</span>
-                                    <span lass="s-store">门店：科威久九杨店</span></p>
-                            </li>
-                            <li class="li-score li-score-third">90</li>
-                        </ul>
-                        <ul class="condiv-ul">
-                            <li>
-                                <em class="rank-num">10</em>
-                            </li>
-                            <li class="nameandcom">
-                                <span class="s-head-pic"><img src="/static/images/user_photo.gif" alt="" width="42" height="42"></span>
-                                <p><span class="s-name-txt">邵雨</span><br /><span class="s-company">公司：曼娜吉信息有限公司</span>
-                                    <span lass="s-store">门店：科威久九杨店</span></p>
-                            </li>
-                            <li class="li-score li-score-third">90</li>
-                        </ul>
-                        <ul class="condiv-ul last-condiv-ul">
-                            <li>
-                                <span class="spec-span"><em class="rank-num">10</em>我的排名</span>
-                            </li>
-                            <li class="nameandcom">
-                                <span class="s-head-pic"><img src="/static/images/user_photo.gif" alt="" width="70" height="70"></span>
-                                <p><span class="s-name-txt">邵雨</span><br /><span class="s-company">公司：曼娜吉信息有限公司</span>
-                                    <span lass="s-store">门店：科威久九杨店</span></p>
-                            </li>
-                            <li class="li-score">56</li>
-                        </ul>
-                    </div>
-                    <div class="condiv">
-                        <ul class="condiv-ul">
-                            <li>
-                                <em class="rank-num num-fist"></em>
-                            </li>
-                            <li class="nameandcom">
-                                <span class="s-head-pic"><img src="/static/images/user_photo.gif" alt="" width="42" height="42"></span>
-                                <p><span class="s-name-txt">邵雨</span><br /><span class="s-company">公司：曼娜吉信息有限公司</span>
-                                    <span lass="s-store">门店：科威久九杨店</span></p>
-                            </li>
-                            <li class="li-score li-score-first">90</li>
-                        </ul>
-                        <ul class="condiv-ul">
-                            <li>
-                                <em class="rank-num num-second"></em>
-                            </li>
-                            <li class="nameandcom">
-                                <span class="s-head-pic"><img src="/static/images/user_photo.gif" alt="" width="42" height="42"></span>
-                                <p><span class="s-name-txt">邵雨</span><br /><span class="s-company">公司：曼娜吉信息有限公司</span>
-                                    <span lass="s-store">门店：科威久九杨店</span></p>
-                            </li>
-                            <li class="li-score li-score-second">90</li>
-                        </ul>
-                        <ul class="condiv-ul">
-                            <li>
-                                <em class="rank-num num-third"></em>
-                            </li>
-                            <li class="nameandcom">
-                                <span class="s-head-pic"><img src="/static/images/user_photo.gif" alt="" width="42" height="42"></span>
-                                <p><span class="s-name-txt">邵雨</span><br /><span class="s-company">公司：曼娜吉信息有限公司</span>
-                                    <span lass="s-store">门店：科威久九杨店</span></p>
-                            </li>
-                            <li class="li-score li-score-third">90</li>
-                        </ul>
-                        <ul class="condiv-ul">
-                            <li>
-                                <em class="rank-num">4</em>
-                            </li>
-                            <li class="nameandcom">
-                                <span class="s-head-pic"><img src="/static/images/user_photo.gif" alt="" width="42" height="42"></span>
-                                <p><span class="s-name-txt">邵雨</span><br /><span class="s-company">公司：曼娜吉信息有限公司</span>
-                                    <span lass="s-store">门店：科威久九杨店</span></p>
-                            </li>
-                            <li class="li-score li-score-third">90</li>
-                        </ul>
-                        <ul class="condiv-ul">
-                            <li>
-                                <em class="rank-num">5</em>
-                            </li>
-                            <li class="nameandcom">
-                                <span class="s-head-pic"><img src="/static/images/user_photo.gif" alt="" width="42" height="42"></span>
-                                <p><span class="s-name-txt">邵雨</span><br /><span class="s-company">公司：曼娜吉信息有限公司</span>
-                                    <span lass="s-store">门店：科威久九杨店</span></p>
-                            </li>
-                            <li class="li-score li-score-third">90</li>
-                        </ul>
-                        <ul class="condiv-ul">
-                            <li>
-                                <em class="rank-num">6</em>
-                            </li>
-                            <li class="nameandcom">
-                                <span class="s-head-pic"><img src="/static/images/user_photo.gif" alt="" width="42" height="42"></span>
-                                <p><span class="s-name-txt">邵雨</span><br /><span class="s-company">公司：曼娜吉信息有限公司</span>
-                                    <span lass="s-store">门店：科威久九杨店</span></p>
-                            </li>
-                            <li class="li-score li-score-third">90</li>
-                        </ul>
-                        <ul class="condiv-ul">
-                            <li>
-                                <em class="rank-num">7</em>
-                            </li>
-                            <li class="nameandcom">
-                                <span class="s-head-pic"><img src="/static/images/user_photo.gif" alt="" width="42" height="42"></span>
-                                <p><span class="s-name-txt">邵雨</span><br /><span class="s-company">公司：曼娜吉信息有限公司</span>
-                                    <span lass="s-store">门店：科威久九杨店</span></p>
-                            </li>
-                            <li class="li-score li-score-third">90</li>
-                        </ul>
-                        <ul class="condiv-ul">
-                            <li>
-                                <em class="rank-num">8</em>
-                            </li>
-                            <li class="nameandcom">
-                                <span class="s-head-pic"><img src="/static/images/user_photo.gif" alt="" width="42" height="42"></span>
-                                <p><span class="s-name-txt">邵雨</span><br /><span class="s-company">公司：曼娜吉信息有限公司</span>
-                                    <span lass="s-store">门店：科威久九杨店</span></p>
-                            </li>
-                            <li class="li-score li-score-third">90</li>
-                        </ul>
-                        <ul class="condiv-ul">
-                            <li>
-                                <em class="rank-num">9</em>
-                            </li>
-                            <li class="nameandcom">
-                                <span class="s-head-pic"><img src="/static/images/user_photo.gif" alt="" width="42" height="42"></span>
-                                <p><span class="s-name-txt">邵雨</span><br /><span class="s-company">公司：曼娜吉信息有限公司</span>
-                                    <span lass="s-store">门店：科威久九杨店</span></p>
-                            </li>
-                            <li class="li-score li-score-third">90</li>
-                        </ul>
-                        <ul class="condiv-ul">
-                            <li>
-                                <em class="rank-num">10</em>
-                            </li>
-                            <li class="nameandcom">
-                                <span class="s-head-pic"><img src="/static/images/user_photo.gif" alt="" width="42" height="42"></span>
-                                <p><span class="s-name-txt">邵雨</span><br /><span class="s-company">公司：曼娜吉信息有限公司</span>
-                                    <span lass="s-store">门店：科威久九杨店</span></p>
-                            </li>
-                            <li class="li-score li-score-third">90</li>
-                        </ul>
-                        <ul class="condiv-ul last-condiv-ul">
-                            <li>
-                                <span class="spec-span"><em class="rank-num">10</em>我的排名</span>
-                            </li>
-                            <li class="nameandcom">
-                                <span class="s-head-pic"><img src="/static/images/user_photo.gif" alt="" width="70" height="70"></span>
-                                <p><span class="s-name-txt">邵雨</span><br /><span class="s-company">公司：曼娜吉信息有限公司</span>
-                                    <span lass="s-store">门店：科威久九杨店</span></p>
-                            </li>
-                            <li class="li-score">56</li>
-                        </ul>
-                    </div>
-                    <div class="condiv">
-                        <ul class="condiv-ul">
-                            <li>
-                                <em class="rank-num num-fist"></em>
-                            </li>
-                            <li class="nameandcom">
-                                <span class="s-head-pic"><img src="/static/images/user_photo.gif" alt="" width="42" height="42"></span>
-                                <p><span class="s-name-txt">邵雨</span><br /><span class="s-company">公司：曼娜吉信息有限公司</span>
-                                    <span lass="s-store">门店：科威久九杨店</span></p>
-                            </li>
-                            <li class="li-score li-score-first">90</li>
-                        </ul>
-                        <ul class="condiv-ul">
-                            <li>
-                                <em class="rank-num num-second"></em>
-                            </li>
-                            <li class="nameandcom">
-                                <span class="s-head-pic"><img src="/static/images/user_photo.gif" alt="" width="42" height="42"></span>
-                                <p><span class="s-name-txt">邵雨</span><br /><span class="s-company">公司：曼娜吉信息有限公司</span>
-                                    <span lass="s-store">门店：科威久九杨店</span></p>
-                            </li>
-                            <li class="li-score li-score-second">90</li>
-                        </ul>
-                        <ul class="condiv-ul">
-                            <li>
-                                <em class="rank-num num-third"></em>
-                            </li>
-                            <li class="nameandcom">
-                                <span class="s-head-pic"><img src="/static/images/user_photo.gif" alt="" width="42" height="42"></span>
-                                <p><span class="s-name-txt">邵雨</span><br /><span class="s-company">公司：曼娜吉信息有限公司</span>
-                                    <span lass="s-store">门店：科威久九杨店</span></p>
-                            </li>
-                            <li class="li-score li-score-third">90</li>
-                        </ul>
-                        <ul class="condiv-ul">
-                            <li>
-                                <em class="rank-num">4</em>
-                            </li>
-                            <li class="nameandcom">
-                                <span class="s-head-pic"><img src="/static/images/user_photo.gif" alt="" width="42" height="42"></span>
-                                <p><span class="s-name-txt">邵雨</span><br /><span class="s-company">公司：曼娜吉信息有限公司</span>
-                                    <span lass="s-store">门店：科威久九杨店</span></p>
-                            </li>
-                            <li class="li-score li-score-third">90</li>
-                        </ul>
-                        <ul class="condiv-ul">
-                            <li>
-                                <em class="rank-num">5</em>
-                            </li>
-                            <li class="nameandcom">
-                                <span class="s-head-pic"><img src="/static/images/user_photo.gif" alt="" width="42" height="42"></span>
-                                <p><span class="s-name-txt">邵雨</span><br /><span class="s-company">公司：曼娜吉信息有限公司</span>
-                                    <span lass="s-store">门店：科威久九杨店</span></p>
-                            </li>
-                            <li class="li-score li-score-third">90</li>
-                        </ul>
-                        <ul class="condiv-ul">
-                            <li>
-                                <em class="rank-num">6</em>
-                            </li>
-                            <li class="nameandcom">
-                                <span class="s-head-pic"><img src="/static/images/user_photo.gif" alt="" width="42" height="42"></span>
-                                <p><span class="s-name-txt">邵雨</span><br /><span class="s-company">公司：曼娜吉信息有限公司</span>
-                                    <span lass="s-store">门店：科威久九杨店</span></p>
-                            </li>
-                            <li class="li-score li-score-third">90</li>
-                        </ul>
-                        <ul class="condiv-ul">
-                            <li>
-                                <em class="rank-num">7</em>
-                            </li>
-                            <li class="nameandcom">
-                                <span class="s-head-pic"><img src="/static/images/user_photo.gif" alt="" width="42" height="42"></span>
-                                <p><span class="s-name-txt">邵雨</span><br /><span class="s-company">公司：曼娜吉信息有限公司</span>
-                                    <span lass="s-store">门店：科威久九杨店</span></p>
-                            </li>
-                            <li class="li-score li-score-third">90</li>
-                        </ul>
-                        <ul class="condiv-ul">
-                            <li>
-                                <em class="rank-num">8</em>
-                            </li>
-                            <li class="nameandcom">
-                                <span class="s-head-pic"><img src="/static/images/user_photo.gif" alt="" width="42" height="42"></span>
-                                <p><span class="s-name-txt">邵雨</span><br /><span class="s-company">公司：曼娜吉信息有限公司</span>
-                                    <span lass="s-store">门店：科威久九杨店</span></p>
-                            </li>
-                            <li class="li-score li-score-third">90</li>
-                        </ul>
-                        <ul class="condiv-ul">
-                            <li>
-                                <em class="rank-num">9</em>
-                            </li>
-                            <li class="nameandcom">
-                                <span class="s-head-pic"><img src="/static/images/user_photo.gif" alt="" width="42" height="42"></span>
-                                <p><span class="s-name-txt">邵雨</span><br /><span class="s-company">公司：曼娜吉信息有限公司</span>
-                                    <span lass="s-store">门店：科威久九杨店</span></p>
-                            </li>
-                            <li class="li-score li-score-third">90</li>
-                        </ul>
-                        <ul class="condiv-ul">
-                            <li>
-                                <em class="rank-num">10</em>
-                            </li>
-                            <li class="nameandcom">
-                                <span class="s-head-pic"><img src="/static/images/user_photo.gif" alt="" width="42" height="42"></span>
-                                <p><span class="s-name-txt">邵雨</span><br /><span class="s-company">公司：曼娜吉信息有限公司</span>
-                                    <span lass="s-store">门店：科威久九杨店</span></p>
-                            </li>
-                            <li class="li-score li-score-third">90</li>
-                        </ul>
-                        <ul class="condiv-ul last-condiv-ul">
-                            <li>
-                                <span class="spec-span"><em class="rank-num">10</em>我的排名</span>
-                            </li>
-                            <li class="nameandcom">
-                                <span class="s-head-pic"><img src="/static/images/user_photo.gif" alt="" width="70" height="70"></span>
-                                <p><span class="s-name-txt">邵雨</span><br /><span class="s-company">公司：曼娜吉信息有限公司</span>
-                                    <span lass="s-store">门店：科威久九杨店</span></p>
-                            </li>
-                            <li class="li-score">56</li>
-                        </ul>
-                    </div>
-                    <div class="condiv">
-                        <ul class="condiv-ul">
-                            <li>
-                                <em class="rank-num num-fist"></em>
-                            </li>
-                            <li class="nameandcom">
-                                <span class="s-head-pic"><img src="/static/images/user_photo.gif" alt="" width="42" height="42"></span>
-                                <p><span class="s-name-txt">邵雨</span><br /><span class="s-company">公司：曼娜吉信息有限公司</span>
-                                    <span lass="s-store">门店：科威久九杨店</span></p>
-                            </li>
-                            <li class="li-score li-score-first">90</li>
-                        </ul>
-                        <ul class="condiv-ul">
-                            <li>
-                                <em class="rank-num num-second"></em>
-                            </li>
-                            <li class="nameandcom">
-                                <span class="s-head-pic"><img src="/static/images/user_photo.gif" alt="" width="42" height="42"></span>
-                                <p><span class="s-name-txt">邵雨</span><br /><span class="s-company">公司：曼娜吉信息有限公司</span>
-                                    <span lass="s-store">门店：科威久九杨店</span></p>
-                            </li>
-                            <li class="li-score li-score-second">90</li>
-                        </ul>
-                        <ul class="condiv-ul">
-                            <li>
-                                <em class="rank-num num-third"></em>
-                            </li>
-                            <li class="nameandcom">
-                                <span class="s-head-pic"><img src="/static/images/user_photo.gif" alt="" width="42" height="42"></span>
-                                <p><span class="s-name-txt">邵雨</span><br /><span class="s-company">公司：曼娜吉信息有限公司</span>
-                                    <span lass="s-store">门店：科威久九杨店</span></p>
-                            </li>
-                            <li class="li-score li-score-third">90</li>
-                        </ul>
-                        <ul class="condiv-ul">
-                            <li>
-                                <em class="rank-num">4</em>
-                            </li>
-                            <li class="nameandcom">
-                                <span class="s-head-pic"><img src="/static/images/user_photo.gif" alt="" width="42" height="42"></span>
-                                <p><span class="s-name-txt">邵雨</span><br /><span class="s-company">公司：曼娜吉信息有限公司</span>
-                                    <span lass="s-store">门店：科威久九杨店</span></p>
-                            </li>
-                            <li class="li-score li-score-third">90</li>
-                        </ul>
-                        <ul class="condiv-ul">
-                            <li>
-                                <em class="rank-num">5</em>
-                            </li>
-                            <li class="nameandcom">
-                                <span class="s-head-pic"><img src="/static/images/user_photo.gif" alt="" width="42" height="42"></span>
-                                <p><span class="s-name-txt">邵雨</span><br /><span class="s-company">公司：曼娜吉信息有限公司</span>
-                                    <span lass="s-store">门店：科威久九杨店</span></p>
-                            </li>
-                            <li class="li-score li-score-third">90</li>
-                        </ul>
-                        <ul class="condiv-ul">
-                            <li>
-                                <em class="rank-num">6</em>
-                            </li>
-                            <li class="nameandcom">
-                                <span class="s-head-pic"><img src="/static/images/user_photo.gif" alt="" width="42" height="42"></span>
-                                <p><span class="s-name-txt">邵雨</span><br /><span class="s-company">公司：曼娜吉信息有限公司</span>
-                                    <span lass="s-store">门店：科威久九杨店</span></p>
-                            </li>
-                            <li class="li-score li-score-third">90</li>
-                        </ul>
-                        <ul class="condiv-ul">
-                            <li>
-                                <em class="rank-num">7</em>
-                            </li>
-                            <li class="nameandcom">
-                                <span class="s-head-pic"><img src="/static/images/user_photo.gif" alt="" width="42" height="42"></span>
-                                <p><span class="s-name-txt">邵雨</span><br /><span class="s-company">公司：曼娜吉信息有限公司</span>
-                                    <span lass="s-store">门店：科威久九杨店</span></p>
-                            </li>
-                            <li class="li-score li-score-third">90</li>
-                        </ul>
-                        <ul class="condiv-ul">
-                            <li>
-                                <em class="rank-num">8</em>
-                            </li>
-                            <li class="nameandcom">
-                                <span class="s-head-pic"><img src="/static/images/user_photo.gif" alt="" width="42" height="42"></span>
-                                <p><span class="s-name-txt">邵雨</span><br /><span class="s-company">公司：曼娜吉信息有限公司</span>
-                                    <span lass="s-store">门店：科威久九杨店</span></p>
-                            </li>
-                            <li class="li-score li-score-third">90</li>
-                        </ul>
-                        <ul class="condiv-ul">
-                            <li>
-                                <em class="rank-num">9</em>
-                            </li>
-                            <li class="nameandcom">
-                                <span class="s-head-pic"><img src="/static/images/user_photo.gif" alt="" width="42" height="42"></span>
-                                <p><span class="s-name-txt">邵雨</span><br /><span class="s-company">公司：曼娜吉信息有限公司</span>
-                                    <span lass="s-store">门店：科威久九杨店</span></p>
-                            </li>
-                            <li class="li-score li-score-third">90</li>
-                        </ul>
-                        <ul class="condiv-ul">
-                            <li>
-                                <em class="rank-num">10</em>
-                            </li>
-                            <li class="nameandcom">
-                                <span class="s-head-pic"><img src="/static/images/user_photo.gif" alt="" width="42" height="42"></span>
-                                <p><span class="s-name-txt">邵雨</span><br /><span class="s-company">公司：曼娜吉信息有限公司</span>
-                                    <span lass="s-store">门店：科威久九杨店</span></p>
-                            </li>
-                            <li class="li-score li-score-third">90</li>
-                        </ul>
-                        <ul class="condiv-ul last-condiv-ul">
-                            <li>
-                                <span class="spec-span"><em class="rank-num">10</em>我的排名</span>
-                            </li>
-                            <li class="nameandcom">
-                                <span class="s-head-pic"><img src="/static/images/user_photo.gif" alt="" width="70" height="70"></span>
-                                <p><span class="s-name-txt">邵雨</span><br /><span class="s-company">公司：曼娜吉信息有限公司</span>
-                                    <span lass="s-store">门店：科威久九杨店</span></p>
-                            </li>
-                            <li class="li-score">56</li>
-                        </ul>
-                    </div>
-                    <div class="condiv">
-                        <ul class="condiv-ul">
-                            <li>
-                                <em class="rank-num num-fist"></em>
-                            </li>
-                            <li class="nameandcom">
-                                <span class="s-head-pic"><img src="/static/images/user_photo.gif" alt="" width="42" height="42"></span>
-                                <p><span class="s-name-txt">邵雨</span><br /><span class="s-company">公司：曼娜吉信息有限公司</span>
-                                    <span lass="s-store">门店：科威久九杨店</span></p>
-                            </li>
-                            <li class="li-score li-score-first">90</li>
-                        </ul>
-                        <ul class="condiv-ul">
-                            <li>
-                                <em class="rank-num num-second"></em>
-                            </li>
-                            <li class="nameandcom">
-                                <span class="s-head-pic"><img src="/static/images/user_photo.gif" alt="" width="42" height="42"></span>
-                                <p><span class="s-name-txt">邵雨</span><br /><span class="s-company">公司：曼娜吉信息有限公司</span>
-                                    <span lass="s-store">门店：科威久九杨店</span></p>
-                            </li>
-                            <li class="li-score li-score-second">90</li>
-                        </ul>
-                        <ul class="condiv-ul">
-                            <li>
-                                <em class="rank-num num-third"></em>
-                            </li>
-                            <li class="nameandcom">
-                                <span class="s-head-pic"><img src="/static/images/user_photo.gif" alt="" width="42" height="42"></span>
-                                <p><span class="s-name-txt">邵雨</span><br /><span class="s-company">公司：曼娜吉信息有限公司</span>
-                                    <span lass="s-store">门店：科威久九杨店</span></p>
-                            </li>
-                            <li class="li-score li-score-third">90</li>
-                        </ul>
-                        <ul class="condiv-ul">
-                            <li>
-                                <em class="rank-num">4</em>
-                            </li>
-                            <li class="nameandcom">
-                                <span class="s-head-pic"><img src="/static/images/user_photo.gif" alt="" width="42" height="42"></span>
-                                <p><span class="s-name-txt">邵雨</span><br /><span class="s-company">公司：曼娜吉信息有限公司</span>
-                                    <span lass="s-store">门店：科威久九杨店</span></p>
-                            </li>
-                            <li class="li-score li-score-third">90</li>
-                        </ul>
-                        <ul class="condiv-ul">
-                            <li>
-                                <em class="rank-num">5</em>
-                            </li>
-                            <li class="nameandcom">
-                                <span class="s-head-pic"><img src="/static/images/user_photo.gif" alt="" width="42" height="42"></span>
-                                <p><span class="s-name-txt">邵雨</span><br /><span class="s-company">公司：曼娜吉信息有限公司</span>
-                                    <span lass="s-store">门店：科威久九杨店</span></p>
-                            </li>
-                            <li class="li-score li-score-third">90</li>
-                        </ul>
-                        <ul class="condiv-ul">
-                            <li>
-                                <em class="rank-num">6</em>
-                            </li>
-                            <li class="nameandcom">
-                                <span class="s-head-pic"><img src="/static/images/user_photo.gif" alt="" width="42" height="42"></span>
-                                <p><span class="s-name-txt">邵雨</span><br /><span class="s-company">公司：曼娜吉信息有限公司</span>
-                                    <span lass="s-store">门店：科威久九杨店</span></p>
-                            </li>
-                            <li class="li-score li-score-third">90</li>
-                        </ul>
-                        <ul class="condiv-ul">
-                            <li>
-                                <em class="rank-num">7</em>
-                            </li>
-                            <li class="nameandcom">
-                                <span class="s-head-pic"><img src="/static/images/user_photo.gif" alt="" width="42" height="42"></span>
-                                <p><span class="s-name-txt">邵雨</span><br /><span class="s-company">公司：曼娜吉信息有限公司</span>
-                                    <span lass="s-store">门店：科威久九杨店</span></p>
-                            </li>
-                            <li class="li-score li-score-third">90</li>
-                        </ul>
-                        <ul class="condiv-ul">
-                            <li>
-                                <em class="rank-num">8</em>
-                            </li>
-                            <li class="nameandcom">
-                                <span class="s-head-pic"><img src="/static/images/user_photo.gif" alt="" width="42" height="42"></span>
-                                <p><span class="s-name-txt">邵雨</span><br /><span class="s-company">公司：曼娜吉信息有限公司</span>
-                                    <span lass="s-store">门店：科威久九杨店</span></p>
-                            </li>
-                            <li class="li-score li-score-third">90</li>
-                        </ul>
-                        <ul class="condiv-ul">
-                            <li>
-                                <em class="rank-num">9</em>
-                            </li>
-                            <li class="nameandcom">
-                                <span class="s-head-pic"><img src="/static/images/user_photo.gif" alt="" width="42" height="42"></span>
-                                <p><span class="s-name-txt">邵雨</span><br /><span class="s-company">公司：曼娜吉信息有限公司</span>
-                                    <span lass="s-store">门店：科威久九杨店</span></p>
-                            </li>
-                            <li class="li-score li-score-third">90</li>
-                        </ul>
-                        <ul class="condiv-ul">
-                            <li>
-                                <em class="rank-num">10</em>
-                            </li>
-                            <li class="nameandcom">
-                                <span class="s-head-pic"><img src="/static/images/user_photo.gif" alt="" width="42" height="42"></span>
-                                <p><span class="s-name-txt">邵雨</span><br /><span class="s-company">公司：曼娜吉信息有限公司</span>
-                                    <span lass="s-store">门店：科威久九杨店</span></p>
-                            </li>
-                            <li class="li-score li-score-third">90</li>
-                        </ul>
-                        <ul class="condiv-ul last-condiv-ul">
-                            <li>
-                                <span class="spec-span"><em class="rank-num">10</em>我的排名</span>
-                            </li>
-                            <li class="nameandcom">
-                                <span class="s-head-pic"><img src="/static/images/user_photo.gif" alt="" width="70" height="70"></span>
-                                <p><span class="s-name-txt">邵雨</span><br /><span class="s-company">公司：曼娜吉信息有限公司</span>
-                                    <span lass="s-store">门店：科威久九杨店</span></p>
-                            </li>
-                            <li class="li-score">56</li>
-                        </ul>
-                    </div>
+                    <div class="condiv" id="rank_0"></div>
+                    <div class="condiv" id="rank_1"></div>
+                    <div class="condiv" id="rank_2"></div>
+                    <div class="condiv" id="rank_3"></div>
+                    <div class="condiv" id="rank_4"></div>
+                    <div class="condiv" id="rank_5"></div>
+                    <div class="condiv" id="rank_6"></div>
+                    <div class="condiv" id="rank_7"></div>
                  </div>
             </div>
     </div>
   </div>
 </div>
-<p class="copyright" style="color:#2a3542;">@2016 funmal.com</p>
-<script type="text/javascript" src="/static/js/jquery-1.9.0.js"></script>
+<input type="hidden" id="current_op" value="0">
+{{include file='footer.html' style='color:#2a3542;'}}
 <script type="text/javascript" src="/static/js/dpl-jquery.slide.js"></script>
 <script type="text/javascript">
-    $("#Jmoreoperation").click(function(){
-        $(".more-operation").toggle();
-        $(this).parent().mouseleave(function(){$(".more-operation").hide()});
-    });
     new Slide({
         target: $('#slide01 .condiv' ),
         control: $('#slide01_control li' ),
-        type:'click'
-        })
-    YUI({
-        modules: {
-            'trip-calendar': {
-                fullpath: '/static/js/calendar.js',
-                type    : 'js',
-                requires: ['trip-calendar-css']
-            },
-            'trip-calendar-css': {
-                fullpath: '/static/css/calendar.css',
-                type    : 'css'
-            }
+        type:'click',
+        onchange: function() {
+            $("#current_op").val(this.curPage);
+            show_ranking();
         }
-    }).use('trip-calendar', function(Y) {
-        new Y.TripCalendar({
-            triggerNode     : '#J_DepDate', //第一个触节点
-            finalTriggerNode: '#J_EndDate',  //最后一个触发节点
-            isHoliday:false,
-            isDateInfo:false,
-            count:1
+    });
+
+    $('#sel_company').change(function(){
+        var company_id = $(this).val();
+        $.get('/activity/get_subsidiary_list/' + $(this).val(), function(data) {
+            $("#sel_subsidiary").empty();
+            $("#sel_subsidiary").append('<option value="0">选择分店</option>');
+            var data = JSON.parse(data);
+            for(var i in data) {
+                $("#sel_subsidiary").append('<option value="'+data[i].id+'">'+data[i].name+'</option>');
+            }
+            show_ranking();
         });
     });
+
+    $('#sel_subsidiary').change(function(){
+        show_ranking();
+    });
+
+    $('#sel_year').change(function(){
+        show_ranking();
+    });
+
+    $('#sel_month').change(function(){
+        show_ranking();
+    });
+
+    function show_ranking() {
+        var op = $("#current_op").val();
+        var company_id = $("#sel_company").val();
+        var subsidiary_id = $("#sel_subsidiary").val();
+        var year = $("#sel_year").val();
+        var month = $("#sel_month").val();
+        $.post('/activity/show_ranking', {op:op, company_id:company_id, subsidiary_id:subsidiary_id, year:year, month:month}, function(data){
+            var data = JSON.parse(data);
+            var html = "";
+            var items = data.list;
+            for(var i in items) {
+                var item = items[i];
+                html += '<ul class="condiv-ul">';
+                html += '<li>';
+                if(i<3) {
+                    html += '<em class="rank-num num-' + i + '"></em>';
+                } else {
+                    html += '<em class="rank-num num-' + i + '">' + (parseInt(i)+1) + '</em>';
+                }
+                html += '</li>';
+                html += '<li class="nameandcom">';
+                html += '<span class="s-head-pic"><img src="/uploadfiles/profile/' + (item.u_pic ? item.u_pic : "user_photo.gif") + '" alt="" width="42" height="42"></span>';
+                html += '<p><span class="s-name-txt">' + item.u_name + '</span><br />';
+                html += '<span class="s-company">公司:' + (item.c_name == null ? '无': item.c_name) + '</span>&nbsp;&nbsp;&nbsp;&nbsp;';
+                html += '<span lass="s-store">门店:' + (item.s_name == null ? '无': item.s_name) + '</span></p>';
+                html += '</li>';
+                html += '<li class="li-score li-score-' + i + '">' + item.total + '</li>';
+                html += '</ul>';
+            }
+            var rank = data.rank;
+            if(rank && rank.num > 0) {
+                html += '<br>';
+                html += '<ul class="condiv-ul last-condiv-ul">';
+                html += '<li>';
+                html += '<span class="spec-span"><em class="rank-num">' + rank.num + '</em>我的排名</span>';
+                html += '</li>';
+                html += '<li class="nameandcom">';
+                html += '<span class="s-head-pic"><img src="/uploadfiles/profile/' + (rank.u_pic ? rank.u_pic : "user_photo.gif") + '" alt="" width="70" height="70"></span>';
+                html += '<p><span class="s-name-txt">' + rank.u_name + '</span><br />';
+                html += '<span class="s-company">公司:' + rank.c_name + '</span>&nbsp;&nbsp;&nbsp;&nbsp;';
+                html += '<span lass="s-store">门店:' + rank.s_name + '</span></p>';
+                html += '</li>';
+                html += '<li class="li-score">' + rank.total + '</li>';
+                html += '</ul>';
+            }
+
+            $('#rank_' + op).empty();
+            $('#rank_' + op).html(html);
+        });
+    }
  </script>
 </body>

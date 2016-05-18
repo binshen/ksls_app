@@ -23,7 +23,7 @@ class User_model extends MY_Model
      *
      * @return boolean
      */
-    public function check_login ()
+    public function check_login()
     {
         $username = $this->input->post('username');
         $password = $this->input->post('password');
@@ -35,6 +35,7 @@ class User_model extends MY_Model
             $res = $rs->row();
             $user_info['login_user_id'] = $res->id;
             $user_info['login_username'] = $username;
+            $user_info['login_password'] = $res->password;
             $user_info['login_rel_name'] = $res->rel_name;
             $user_info['login_role_id'] = $res->role_id;
             $user_info['login_company_id'] = $res->company_id;
@@ -44,5 +45,52 @@ class User_model extends MY_Model
             return true;
         }
         return false;
+    }
+
+    public function update_password()
+    {
+        $user_id = $this->session->userdata('login_user_id');
+        $rs= $this->db->where('id', $user_id)->update('user', array('password'=>sha1($this->input->post('password'))));
+        if ($rs) {
+            return 1;
+        } else {
+            return $rs;
+        }
+    }
+
+    public function update_tmp_pic($file_pic)
+    {
+        $user_id = $this->session->userdata('login_user_id');
+        $rs= $this->db->where('id', $user_id)->update('user', array('tmp_pic'=>$file_pic));
+        if ($rs) {
+            return 1;
+        } else {
+            return $rs;
+        }
+    }
+
+    public function update_user()
+    {
+        $rel_name = $this->input->post('rel_name');
+        $user_info['login_rel_name'] = $this->input->post('rel_name');
+
+        $user_id = $this->session->userdata('login_user_id');
+        $user = $this->db->get_where('user', array('id' => $user_id))->row_array();
+        if(!empty($user) && !empty($user['tmp_pic'])) {
+            $rs= $this->db->where('id', $user_id)->update('user', array(
+                'rel_name'=>$rel_name,
+                'pic'=>$user['tmp_pic'],
+                'tmp_pic'=>NULL
+            ));
+            $user_info['login_user_pic'] = $user['tmp_pic'];
+        } else {
+            $rs= $this->db->where('id', $user_id)->update('user', array('rel_name'=>$rel_name));
+        }
+        if ($rs) {
+            $this->session->set_userdata($user_info);
+            return 1;
+        } else {
+            return $rs;
+        }
     }
 }

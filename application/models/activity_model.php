@@ -37,7 +37,7 @@ class Activity_model extends MY_Model
         return $this->db->get_where('user', array('subsidiary_id' => $subsidiary_id))->result_array();
     }
 
-    public function list_activity($page, $status, $user_id=NULL) {
+    public function list_activity($page, $status, $user_id=NULL, $subsidiary_id=NULL, $company_id=NULL) {
 
         // 每页显示的记录条数，默认20条
         $numPerPage = $this->input->post('numPerPage') ? $this->input->post('numPerPage') : 5;
@@ -66,6 +66,12 @@ class Activity_model extends MY_Model
         if(!empty($user_id)) {
             $this->db->where('a.user_id', $user_id);
         }
+        if(!empty($subsidiary_id)) {
+            $this->db->where('b.subsidiary_id', $subsidiary_id);
+        }
+        if(!empty($company_id)) {
+            $this->db->where('b.company_id', $company_id);
+        }
 
         $rs_total = $this->db->get()->row();
         //总记录数
@@ -85,6 +91,7 @@ class Activity_model extends MY_Model
         $this->db->select('ROUND(a.a1s*a1n+a.a2s*a2n+a.a3s*a3n+a.a4s*a4n+a.a5s*a5n, 1) AS a1t', false);
         $this->db->select('ROUND(a.b1s*b1n+a.b2s*b2n+a.b3s*b3n+a.b4s*b4n+a.b5s*b5n, 1) AS b1t', false);
         $this->db->select('ROUND(a.c1s*c1n+a.c2s*c2n+a.c3s*c3n+a.c4s*c4n+a.c5s*c5n, 1) AS c1t', false);
+        $this->db->select('DATE_FORMAT(a.date, "%Y%m%d") AS date2', false);
         $this->db->from('activity a');
         $this->db->join('user b', 'a.user_id = b.id', 'inner');
         $this->db->join('activity_type t1', 'a.a1 = t1.id', 'left');
@@ -122,13 +129,28 @@ class Activity_model extends MY_Model
         if(!empty($user_id)) {
             $this->db->where('a.user_id', $user_id);
         }
-
+        if(!empty($subsidiary_id)) {
+            $this->db->where('b.subsidiary_id', $subsidiary_id);
+        }
+        if(!empty($company_id)) {
+            $this->db->where('b.company_id', $company_id);
+        }
+        
         $this->db->limit($numPerPage, ($pageNum - 1) * $numPerPage );
-        $this->db->order_by($this->input->post('orderField') ? $this->input->post('orderField') : 'a.id', $this->input->post('orderDirection') ? $this->input->post('orderDirection') : 'desc');
+        //$this->db->order_by($this->input->post('orderField') ? $this->input->post('orderField') : 'a.date', $this->input->post('orderDirection') ? $this->input->post('orderDirection') : 'desc');
+        $this->db->order_by('a.date', 'desc');
+        $this->db->order_by('a.user_id', 'desc');
+
         $data['res_list'] = $this->db->get()->result();
         $data['pageNum'] = $pageNum;
         $data['numPerPage'] = $numPerPage;
         return $data;
+    }
+
+    public function check_activity() {
+        $user_id = $this->session->userdata('login_user_id');
+        $date = $this->input->post('date');
+        return $this->db->get_where('activity', array('user_id' => $user_id, 'date' => $date))->result_array();
     }
 
     public function add_activity() {
@@ -264,6 +286,7 @@ class Activity_model extends MY_Model
     public function get_activity_by_id($id) {
 
         $this->db->select('a.*');
+        $this->db->select('b.rel_name AS u_name');
         $this->db->select('t1.name AS t1n, t2.name AS t2n, t3.name AS t3n, t4.name AS t4n, t5.name AS t5n');
         $this->db->select('t6.name AS t6n, t7.name AS t7n, t8.name AS t8n, t9.name AS t9n, t10.name AS t10n');
         $this->db->select('t11.name AS t11n, t12.name AS t12n, t13.name AS t13n, t14.name AS t14n, t15.name AS t15n');
@@ -277,6 +300,7 @@ class Activity_model extends MY_Model
         $this->db->select('ROUND(a.b1s*b1n+a.b2s*b2n+a.b3s*b3n+a.b4s*b4n+a.b5s*b5n, 1) AS b1t', false);
         $this->db->select('ROUND(a.c1s*c1n+a.c2s*c2n+a.c3s*c3n+a.c4s*c4n+a.c5s*c5n, 1) AS c1t', false);
         $this->db->from('activity a');
+        $this->db->join('user b', 'a.user_id = b.id', 'inner');
         $this->db->join('activity_type t1', 'a.a1 = t1.id', 'left');
         $this->db->join('activity_type t2', 'a.a2 = t2.id', 'left');
         $this->db->join('activity_type t3', 'a.a3 = t3.id', 'left');
@@ -297,20 +321,72 @@ class Activity_model extends MY_Model
         //return $this->db->get_where('activity', array('id' => $id))->row_array();
     }
 
-    public function get_total_top_list() {
+    public function get_total_top_list($company_id, $subsidiary_id, $year, $month) {
 
-        $this->db->select('b.rel_name AS u_name, c.name AS c_name, d.name AS s_name, SUM(a.total) AS total');
+        $this->db->select('b.id AS u_id, b.pic AS u_pic, b.rel_name AS u_name, c.name AS c_name, d.name AS s_name, SUM(a.total) AS total');
         $this->db->from('activity a');
         $this->db->join('user b', 'a.user_id = b.id', 'inner');
-        $this->db->join('company c', 'b.company_id = c.id', 'inner');
-        $this->db->join('subsidiary d', 'b.subsidiary_id = d.id', 'inner');
-        $this->db->where('YEAR(a.date)', 2016);
-        $this->db->where('MONTH(a.date)', 5);
-        $this->db->where('b.company_id', 1);
-        $this->db->where('b.subsidiary_id', 2);
+        $this->db->join('company c', 'b.company_id = c.id', 'left');
+        $this->db->join('subsidiary d', 'b.subsidiary_id = d.id', 'left');
+        $this->db->where('a.status', 3);
+        if(!empty($year)) {
+            $this->db->where('YEAR(a.date)', $year);
+        }
+        if(!empty($month)) {
+            $this->db->where('MONTH(a.date)', $month);
+        }
+        if(!empty($company_id)) {
+            $this->db->where('b.company_id', $company_id);
+        }
+        if(!empty($subsidiary_id)) {
+            $this->db->where('b.subsidiary_id', $subsidiary_id);
+        }
         $this->db->group_by('b.id');
-        $this->db->limit(20);
         $this->db->order_by('total', 'desc');
+        $this->db->distinct();
         return $this->db->get()->result();
+    }
+
+    public function get_top_list_by_op($op = 1, $company_id, $subsidiary_id, $year, $month) {
+
+        $sql = "
+            SELECT DISTINCT 
+              b.id AS u_id,
+              b.pic AS u_pic, 
+              b.rel_name AS u_name, 
+              c.name AS c_name, 
+              d.name AS s_name,
+              SUM(a.total) AS total
+            FROM
+              (
+                SELECT user_id, date, c1s * c1n as total FROM activity WHERE status = 3 AND c1 = $op
+                UNION
+                SELECT user_id, date, c2s * c2n as total FROM activity WHERE status = 3 AND c2 = $op
+                UNION
+                SELECT user_id, date, c3s * c3n as total FROM activity WHERE status = 3 AND c3 = $op
+                UNION
+                SELECT user_id, date, c4s * c4n as total FROM activity WHERE status = 3 AND c4 = $op
+                UNION
+                SELECT user_id, date, c5s * c5n as total FROM activity WHERE status = 3 AND c5 = $op
+            ) AS a
+            JOIN user b ON b.id = a.user_id
+            LEFT JOIN company c ON b.company_id = c.id
+            LEFT JOIN subsidiary d ON b.subsidiary_id = d.id
+            WHERE 1 = 1
+        ";
+        if(!empty($year)) {
+            $sql .= " AND YEAR(a.date) = " . $year;
+        }
+        if(!empty($month)) {
+            $sql .= " AND MONTH(a.date) = " . $month;
+        }
+        if(!empty($company_id)) {
+            $sql .= " AND b.company_id = " . $company_id;
+        }
+        if(!empty($subsidiary_id)) {
+            $sql .= " AND b.subsidiary_id = " . $subsidiary_id;
+        }
+        $sql .= " GROUP BY b.id ORDER BY total DESC ";
+        return $this->db->query($sql)->result();
     }
 }

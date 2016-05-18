@@ -28,6 +28,14 @@ class Activity extends MY_Controller {
         $this->load->model('activity_model');
     }
 
+    function _remap($method,$params = array()) {
+        if(!$this->session->userdata('login_user_id')) {
+            redirect(site_url('/'));
+        } else {
+            return call_user_func_array(array($this, $method), $params);
+        }
+    }
+
     public function list_activity($page=1) {
         $role_id = $this->session->userdata('login_role_id');
         $this->assign('role_id', $role_id);
@@ -39,8 +47,10 @@ class Activity extends MY_Controller {
             $this->assign('end_date', $this->input->POST('end_date'));
         }
 
-        $data = $this->activity_model->list_activity($page, array(1,2,3), $role_id > 4 ? $this->session->userdata('login_user_id') : NULL);
+        $data = $this->activity_model->list_activity($page, array(1,2,3), $this->session->userdata('login_user_id'));
         $this->assign('activity_list', $data);
+
+        $this->assign('tomorrow', date('Ymd', strtotime("+1 day")));
 
         $pager = $this->pagination->getPageLink('/activity/list_activity', $data['countPage'], $data['numPerPage']);
         $this->assign('pager', $pager);
@@ -87,7 +97,15 @@ class Activity extends MY_Controller {
             $this->assign('end_date', $this->input->POST('end_date'));
         }
 
-        $data = $this->activity_model->list_activity($page, array(2,3));
+        $company_id = NULL;
+        if($role_id > 1) {
+            $company_id = $this->session->userdata('login_company_id');
+        }
+        $subsidiary_id = NULL;
+        if($role_id >= 4) {
+            $subsidiary_id = $this->session->userdata('login_subsidiary_id');
+        }
+        $data = $this->activity_model->list_activity($page, array(2,3), NULL, $subsidiary_id, $company_id);
         $this->assign('activity_list', $data);
 
         $pager = $this->pagination->getPageLink('/activity/list_review', $data['countPage'], $data['numPerPage']);
@@ -149,6 +167,12 @@ class Activity extends MY_Controller {
             $activity['b5s'] = $activity['a5s'];
             $activity['b5n'] = $activity['a5n'];
             $activity['b5m'] = '';
+
+            $activity['t6u'] = $activity['t1u'];
+            $activity['t7u'] = $activity['t2u'];
+            $activity['t8u'] = $activity['t3u'];
+            $activity['t9u'] = $activity['t4u'];
+            $activity['t10u'] = $activity['t5u'];
         }
 
         $activity['a1t'] = $activity['a1n'] * $activity['a1s'];
@@ -174,27 +198,35 @@ class Activity extends MY_Controller {
         $this->assign('activity_type_list', json_encode($activity_type_list));
 
         $activity = $this->activity_model->get_activity_by_id($id);
+        $status = $activity['status'];
+        if($status == 2) {
+            $activity['c1'] = $activity['b1'];
+            $activity['c1s'] = $activity['b1s'];
+            $activity['c1n'] = $activity['b1n'];
+            $activity['c1m'] = '';
+            $activity['c2'] = $activity['b2'];
+            $activity['c2s'] = $activity['b2s'];
+            $activity['c2n'] = $activity['b2n'];
+            $activity['c2m'] = '';
+            $activity['c3'] = $activity['b3'];
+            $activity['c3s'] = $activity['b3s'];
+            $activity['c3n'] = $activity['b3n'];
+            $activity['c3m'] = '';
+            $activity['c4'] = $activity['b4'];
+            $activity['c4s'] = $activity['b4s'];
+            $activity['c4n'] = $activity['b4n'];
+            $activity['c4m'] = '';
+            $activity['c5'] = $activity['b5'];
+            $activity['c5s'] = $activity['b5s'];
+            $activity['c5n'] = $activity['b5n'];
+            $activity['c5m'] = '';
 
-        $activity['c1'] = $activity['b1'];
-        $activity['c1s'] = $activity['b1s'];
-        $activity['c1n'] = $activity['b1n'];
-        $activity['c1m'] = '';
-        $activity['c2'] = $activity['b2'];
-        $activity['c2s'] = $activity['b2s'];
-        $activity['c2n'] = $activity['b2n'];
-        $activity['c2m'] = '';
-        $activity['c3'] = $activity['b3'];
-        $activity['c3s'] = $activity['b3s'];
-        $activity['c3n'] = $activity['b3n'];
-        $activity['c3m'] = '';
-        $activity['c4'] = $activity['b4'];
-        $activity['c4s'] = $activity['b4s'];
-        $activity['c4n'] = $activity['b4n'];
-        $activity['c4m'] = '';
-        $activity['c5'] = $activity['b5'];
-        $activity['c5s'] = $activity['b5s'];
-        $activity['c5n'] = $activity['b5n'];
-        $activity['c5m'] = '';
+            $activity['t11u'] = $activity['t6u'];
+            $activity['t12u'] = $activity['t7u'];
+            $activity['t13u'] = $activity['t8u'];
+            $activity['t14u'] = $activity['t9u'];
+            $activity['t15u'] = $activity['t10u'];
+        }
 
         $activity['a1t'] = $activity['a1n'] * $activity['a1s'];
         $activity['a2t'] = $activity['a2n'] * $activity['a2s'];
@@ -215,10 +247,21 @@ class Activity extends MY_Controller {
         $activity['c3t'] = $activity['c3n'] * $activity['c3s'];
         $activity['c4t'] = $activity['c4n'] * $activity['c4s'];
         $activity['c5t'] = $activity['c5n'] * $activity['c5s'];
-        $activity['ctt'] = $activity['total'];//$activity['c1t'] + $activity['c2t'] + $activity['c3t'] + $activity['c4t'] + $activity['c5t'] + $activity['op'] * $activity['float'];
+
+        if($status == 2) {
+            $activity['ctt'] = $activity['c1t'] + $activity['c2t'] + $activity['c3t'] + $activity['c4t'] + $activity['c5t'] + $activity['op'] * $activity['float'];
+        } else {
+            $activity['ctt'] = $activity['total'];
+        }
         $this->assign('activity', $activity);
 
         $this->display('review_activity.html');
+    }
+
+    public function check_activity() {
+        $activity_list = $this->activity_model->check_activity();
+        echo empty($activity_list) ? true : false;
+        die;
     }
 
     public function save_activity() {
@@ -239,26 +282,84 @@ class Activity extends MY_Controller {
         redirect(site_url('activity/list_review'));
     }
 
+    public function list_ranking($op = 0) {
 
-    public function list_ranking() {
+        $year = date('Y');
+        $this->assign('year', $year);
+        $this->assign('month', date('m'));
+        $year_list = array();
+        for($i=0; $i<5; $i++) {
+            $year_list[] = $year-$i;
+        }
+        $this->assign('year_list', $year_list);
 
-        $company_list = $this->activity_model->get_company_list();
-        $this->assign('company_list', $company_list);
-
-        $subsidiary_list = $this->activity_model->get_subsidiary_list(NULL, NULL);
-        $this->assign('subsidiary_list', $subsidiary_list);
-
-        $top_list = $this->activity_model->get_total_top_list();
-        $this->assign('top_list', $top_list);
-
-        $class_key = array('fist', 'second', 'third');
-        $this->assign('class_key', $class_key);
+        $role_id = $this->session->userdata('login_role_id');
+        $this->assign('role_id', $role_id);
+        if($role_id == 1) {
+            $company_list = $this->activity_model->get_company_list();
+            $this->assign('company_list', $company_list);
+        } else {
+            $company_id = $this->session->userdata('login_company_id');
+            $subsidiary_id = NULL;
+            if($role_id > 4) {
+                $subsidiary_id = $this->session->userdata('login_subsidiary_id');
+                $this->assign('subsidiary', $subsidiary_id);
+            } else {
+                $this->assign('company', $company_id);
+            }
+            $subsidiary_list = $this->activity_model->get_subsidiary_list($company_id, $subsidiary_id);
+            $this->assign('subsidiary_list', $subsidiary_list);
+        }
 
         $this->display('list_ranking.html');
     }
 
+    public function show_ranking() {
+
+        $op = $this->input->post('op');
+        $company_id = $this->input->post('company_id');
+        $subsidiary_id = $this->input->post('subsidiary_id');
+        $year = $this->input->post('year');
+        $month = $this->input->post('month');
+        $role_id = $this->session->userdata('login_role_id');
+        if($role_id > 1) {
+            $company_id = $this->session->userdata('login_company_id');
+        }
+        if($role_id >= 4) {
+            $subsidiary_id = $this->session->userdata('login_subsidiary_id');
+        }
+
+        if($op < 1) {
+            $rank_list = $this->activity_model->get_total_top_list($company_id, $subsidiary_id, $year, $month);
+        } else {
+            $rank_list = $this->activity_model->get_top_list_by_op($op, $company_id, $subsidiary_id, $year, $month);
+        }
+
+        $rank = array();
+        $login_user_id = $this->session->userdata('login_user_id');
+        if(!empty($rank_list)) {
+            foreach ($rank_list as $idx => $user){
+                if($user->u_id == $login_user_id) {
+                    $rank['num'] = $idx+1;
+                    $rank['u_pic'] = $user->u_pic;
+                    $rank['u_name'] = $user->u_name;
+                    $rank['c_name'] = $user->c_name;
+                    $rank['s_name'] = $user->s_name;
+                    $rank['total'] = $user->total;
+                    break;
+                }
+            }
+        }
+
+        $result = array();
+        $result['list'] = array_slice($rank_list, 0, 20);
+        $result['rank'] = $rank;
+        echo json_encode($result);
+        die;
+    }
+
     public function test() {
-        $data = $this->activity_model->get_total_top_list();
+        $data = $this->activity_model->get_top_list_by_op();
         var_dump($data);
         die;
     }

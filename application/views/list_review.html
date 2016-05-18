@@ -29,27 +29,29 @@
             <div class="search-wrap">
                 <form id="formSearchActivity" method="POST" action="/activity/list_review">
                     {{if $role_id == 1}}
-                    <select name="company" id="sel_company">
-                        <option value="">选择公司</option>
-                        {{foreach from=$company_list key=key item=item}}
-                            {{if $item.id == $company}}
-                                <option value="{{$item.id}}" selected>{{$item.name}}</option>
-                            {{else}}
-                                <option value="{{$item.id}}">{{$item.name}}</option>
-                            {{/if}}
-                        {{/foreach}}
-                    </select>
+                        <select name="company" id="sel_company" style="width:150px">
+                            <option value="">选择公司</option>
+                            {{foreach from=$company_list key=key item=item}}
+                                {{if $item.id == $company}}
+                                    <option value="{{$item.id}}" selected>{{$item.name}}</option>
+                                {{else}}
+                                    <option value="{{$item.id}}">{{$item.name}}</option>
+                                {{/if}}
+                            {{/foreach}}
+                        </select>
                     {{/if}}
-                    <select name="subsidiary" id="sel_subsidiary">
-                        <option value="">选择分店</option>
-                        {{foreach from=$subsidiary_list key=key item=item}}
-                            {{if $item.id == $subsidiary}}
-                                <option value="{{$item.id}}" selected>{{$item.name}}</option>
-                            {{else}}
-                                <option value="{{$item.id}}">{{$item.name}}</option>
-                            {{/if}}
-                        {{/foreach}}
-                    </select>
+                    {{if $role_id < 3}}
+                        <select name="subsidiary" id="sel_subsidiary" style="width:150px">
+                            <option value="">选择分店</option>
+                            {{foreach from=$subsidiary_list key=key item=item}}
+                                {{if $item.id == $subsidiary}}
+                                    <option value="{{$item.id}}" selected>{{$item.name}}</option>
+                                {{else}}
+                                    <option value="{{$item.id}}">{{$item.name}}</option>
+                                {{/if}}
+                            {{/foreach}}
+                        </select>
+                    {{/if}}
                     <select name="user" id="sel_user">
                         <option value="">选择员工</option>
                         {{foreach from=$user_list key=key item=item}}
@@ -209,12 +211,7 @@
     </div>
 </div>
 <script type="text/javascript" src="/static/js/yui-min.js"></script>
-<script type="text/javascript" src="/static/js/jquery-1.9.0.js"></script>
 <script type="text/javascript">
-    $("#Jmoreoperation").click(function(){
-        $(".more-operation").toggle();
-        $(this).parent().mouseleave(function(){$(".more-operation").hide()});
-    });
     YUI({
         modules: {
             'trip-calendar': {

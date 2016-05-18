@@ -32,7 +32,7 @@
                 <a href="javascript:void(0);" class="a-btns"><img src="/static/images/index/index_nav6.gif" alt=""></a>
                 <a href="javascript:void(0);" class="a-btns"><img src="/static/images/index/index_nav7.gif" alt=""></a>
             </div>
-            <p class="copyright">@2016 funmal.com</p>
+            {{include file='footer.html'}}
         </div>
     </div>
     <div class="login-div" id="Jloginpop" style="display:none; cursor: default">
@@ -43,32 +43,14 @@
                 <span><em class="input-icon input-tel"></em>| 手机号</span><input type="text" name="username" id="username" />
             </div>
             <div class="input-div">
-                <span><em class="input-icon input-pwd"></em>| 密码</span><input type="text" name="password" id="password" />
+                <span><em class="input-icon input-pwd"></em>| 密码</span><input type="password" name="password" id="password" />
             </div>
             <a href="javascript:void(0);" class="sub-btn" id="btn_login">登 录</a>
             <p class="tips" id="login_error" style="display:none"><em></em>手机或密码不对，请重新输入！</p>
         </form>
     </div>
-    <script type="text/javascript" src="/static/js/jquery-1.9.0.js"></script>
-    <script type="text/javascript" src="/static/js/jquery.blockUI.min.js"></script>
     <script type="text/javascript">
         var gotokey = 0;
-
-        $("#Jmoreoperation").click(function(){
-            $(".more-operation").toggle();
-            $(this).parent().mouseleave(function(){$(".more-operation").hide()});
-        });
-
-        $("#Jloginout").click(function(){
-            $.blockUI({ message: $('#Jloginpop'), css:{ background: 'none',top:'100px', border: 'none',width:'410px', height:'410px'}, overlayCSS: {cursor:'default'}});
-        });
-
-        //关闭弹框
-        $(".pop-close-btn").click(function(){
-            $("body").removeClass("modal-active");
-            $.unblockUI();
-        });
-
         $("#btn_login").click(function() {
             var username = $("#username").val();
             var password = $("#password").val();
@@ -115,7 +97,10 @@
                 window.location = '/activity/list_ranking';
             }
         });
-
+        //关闭弹框
+        $(".pop-close-btn").click(function(){
+            $.unblockUI();
+        });
      </script>
 </body>
 </html>

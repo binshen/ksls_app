@@ -151,12 +151,16 @@
                         <li class="wid64 score-reality">{{$item->b1t|default:'0.0'}}分</li>
                         <li class="wid64 score-review">{{$item->total|default:'0.0'}}分</li>
                         <li class="wid138">
-                            {{if $item->status == 1 }}
+                            {{if $item->status == 1 && $item->date2 == $tomorrow }}
                                 <a href="/activity/edit_activity/{{$item->id}}" class="operation-btn">修改</a>
                             {{else}}
                                 <a href="javascript:void(0);" class="operation-btn operation-btn-no">修改</a>
                             {{/if}}
-                            <a href="/activity/inspect_activity/{{$item->id}}" class="operation-btn">自评</a>
+                            {{if $item->status < 3 }}
+                                <a href="/activity/inspect_activity/{{$item->id}}" class="operation-btn">自评</a>
+                            {{else}}
+                                <a href="javascript:void(0);" class="operation-btn operation-btn-no">自评</a>
+                            {{/if}}
                         </li>
                     </ul>
                 {{/foreach}}
@@ -180,12 +184,7 @@
     </div>
 </div>
 <script type="text/javascript" src="/static/js/yui-min.js"></script>
-<script type="text/javascript" src="/static/js/jquery-1.9.0.js"></script>
 <script type="text/javascript">
-    $("#Jmoreoperation").click(function(){
-        $(".more-operation").toggle();
-        $(this).parent().mouseleave(function(){$(".more-operation").hide()});
-    })
     YUI({
         modules: {
             'trip-calendar': {
