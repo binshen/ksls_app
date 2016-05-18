@@ -1,12 +1,16 @@
+
 <div class="header-wrap">
     <div class="header-in-wrap">
         <div class="header-left">
             <!--<p>昆山 5月03日 周二 11：16</p>-->
             <span class="location">昆山</span>
             <div class="weather" id="Jweather">
-                <!--<span class="w-img"><img src="http://api.k780.com:88/upload/weather/d/2.gif" width="28" height="20" /></span>晴 12~1℃-->
                 <ul class="ulWeather" id="JulWeather">
                 </ul>
+            </div>
+            <div class="currentTime">
+                <div id="Jtime"></div>
+                <div id='calendar'></div>
             </div>
         </div>
         <div class="login-info">
@@ -82,6 +86,7 @@
     </form>
 </div>
 <script type="text/javascript" src="/static/js/jquery-1.9.0.js"></script>
+<script type="text/javascript" src='/static/js/fullcalendar.js'></script>
 <script type="text/javascript" src="/static/js/jquery.blockUI.min.js"></script>
 <script type="text/javascript" src="/static/js/store.min.js"></script>
 <script type="text/javascript" src="/static/js/jquery.ui.widget.js"></script>
@@ -94,7 +99,37 @@
     }).mouseleave(function(){
         $("#JulWeather").hide();
 
+    })
+    var flag = false;
+    $(".currentTime").mousemove(function(){
+        if(!flag){
+            $('#calendar').fullCalendar({
+                header: {
+                    left: 'prev,next today',
+                    center: 'title',
+                    right: 'month,agendaWeek,agendaDay'
+                },
+                editable: true,
+                dragOpacity: {
+                    agenda: .5,
+                    '':.6
+                },
+                selectable: true
+            });
+        }
+        flag =true;
+        $("#calendar").show();
+    }).mouseleave(function(){
+        $("#calendar").hide();
+
     });
+
+
+
+    var d = new Date();
+    var date = d.getFullYear() + "年" +(d.getMonth() + 1) + "月" + d.getDate() + "日"+d.getHours()+"时"+d.getMinutes()+"分";
+   $("#Jtime").html(date);
+
     var weatherStr=ulHtml='';
     var storeWithExpiration = {
         set: function(key, val, exp) {
@@ -125,6 +160,7 @@
     });
 
     $("#Jmoreoperation").click(function(){
+
         $(".more-operation").toggle();
         $(this).parent().mouseleave(function(){$(".more-operation").hide()});
     });
