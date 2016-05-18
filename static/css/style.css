@@ -315,8 +315,9 @@ html .fc,
 }
 
 .fc-header-left {
-    width: 25%;
+    width: 0%;
     text-align: left;
+    display: none;
 }
 
 .fc-header-center {
@@ -324,15 +325,16 @@ html .fc,
 }
 
 .fc-header-right {
-    width: 25%;
+    width: 0%;
     text-align: right;
     display: none;
 }
 
 .fc-header-title {
+    width: 100%;
     display: inline-block;
     vertical-align: top;
-    padding-left:50px;
+    text-align: center;
 }
 
 .fc-header-title h2 {
