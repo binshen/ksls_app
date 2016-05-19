@@ -153,6 +153,8 @@
                         <li class="wid138">
                             {{if $item->status == 1 && $item->date2 == $tomorrow }}
                                 <a href="/activity/edit_activity/{{$item->id}}" class="operation-btn">修改</a>
+                            {{elseif $item->status == 1 && $item->date3 == $today}}
+                            <a href="/activity/edit_activity/{{$item->id}}" class="operation-btn">修改</a>
                             {{else}}
                                 <a href="javascript:void(0);" class="operation-btn operation-btn-no">修改</a>
                             {{/if}}
@@ -166,17 +168,6 @@
                 {{/foreach}}
 
                 <div class="pages">
-                    <!--
-                    <a href="" class="prev">上一页</a>
-                    <span class="current">1</span>
-                    <a href="">2</a>
-                    <a href="">3</a>
-                    <a href="">4</a>
-                    <a href="">5</a>
-                    <span>......</span>
-                    <a href="">20</a>
-                    <a href="" class="next">下一页</a>
-                    -->
                     {{$pager}}
                 </div>
             </div>
@@ -202,7 +193,7 @@
             // minDate         : new Date,     //最小时间限制
             triggerNode     : '#J_DepDate', //第一个触节点
             finalTriggerNode: '#J_EndDate',  //最后一个触发节点
-            isHoliday:false,
+            isHoliday:true,
             isDateInfo:false,
             count:1
         });
