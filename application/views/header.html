@@ -8,6 +8,8 @@
                 <ul class="ulWeather" id="JulWeather">
                 </ul>
             </div>
+            <div style="float:left">|</div>
+
             <div class="currentTime">
                 <div id="Jtime"></div>
                 <div id='calendar'></div>
@@ -127,7 +129,7 @@
 
 
     var d = new Date();
-    var date = d.getFullYear() + "年" +(d.getMonth() + 1) + "月" + d.getDate() + "日"+d.getHours()+"时"+d.getMinutes()+"分";
+    var date = d.getFullYear() + "年" +(d.getMonth() + 1) + "月" + d.getDate() + "日";
    $("#Jtime").html(date);
 
     var weatherStr=ulHtml='';
