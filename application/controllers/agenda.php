@@ -51,4 +51,8 @@ class Agenda extends MY_Controller
     public function add_agenda() {
         $this->display('add_agenda.html');
     }
+
+    public function view_agenda() {
+        $this->display('view_agenda.html');
+    }
 }
