@@ -19,6 +19,8 @@ class Agenda extends MY_Controller
     }
 
     public function list_agenda($page=1) {
+        $course_list = $this->agenda_model->get_course();
+        $this->assign('course_list', $course_list);
         if($this->input->POST('status')) {
             $this->assign('status', $this->input->POST('status'));
         }
