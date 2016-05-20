@@ -48,7 +48,11 @@ class Agenda_model extends MY_Model
             $this->db->where('a.user_id',$user_id);
         }
         if($this->input->post('status')){
-            $this->db->where('a.status',$this->input->post('status'));
+            if($this->input->post('status')==2){
+                $this->db->where_in('a.status',array(2,3));
+            }else{
+                $this->db->where('a.status',$this->input->post('status'));
+            }
         }
         if($this->input->post('course')){
             $this->db->where('a.course',$this->input->post('course'));

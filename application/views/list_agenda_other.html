@@ -18,30 +18,57 @@
             <div class="nav-left">
                 <ul class="nav-left-ul">
                     <li><a href="/"><em class="home"></em>回到首页</a></li>
-                    <li class="on"><a href="/activity/list_activity"><em class="myagenda"></em>我的代办</a></li>
-                    <li><a href="/activity/list_review"><em class="allagenda"></em>代办事项</a></li>
+                    <li><a href="/agenda/list_agenda"><em class="myagenda"></em>我的代办</a></li>
+                    <li class="on"><a href="/agenda/list_agenda_other"><em class="allagenda"></em>代办事项</a></li>
                 </ul>
             </div>
         </div>
         <div class="wrap-right">
             <div class="search-wrap">
-                <form id="formSearchActivity" method="POST" action="/agenda/list_agenda">
+                <form id="formSearchActivity" method="POST" action="/agenda/list_agenda_other">
+                    {{if $role_id == 1}}
+                    <select name="company" id="sel_company" style="width:150px">
+                        <option value="">选择公司</option>
+                        {{foreach from=$company_list key=key item=item}}
+                        {{if $item.id == $company}}
+                        <option value="{{$item.id}}" selected>{{$item.name}}</option>
+                        {{else}}
+                        <option value="{{$item.id}}">{{$item.name}}</option>
+                        {{/if}}
+                        {{/foreach}}
+                    </select>
+                    {{/if}}
+                    {{if $role_id < 3}}
+                    <select name="subsidiary" id="sel_subsidiary" style="width:150px">
+                        <option value="">选择分店</option>
+                        {{foreach from=$subsidiary_list key=key item=item}}
+                        {{if $item.id == $subsidiary}}
+                        <option value="{{$item.id}}" selected>{{$item.name}}</option>
+                        {{else}}
+                        <option value="{{$item.id}}">{{$item.name}}</option>
+                        {{/if}}
+                        {{/foreach}}
+                    </select>
+                    {{/if}}
                     <select name="user" id="sel_user">
                         <option value="">选择员工</option>
-                        <option value="郑法明">郑法明</option>
+                        {{foreach from=$user_list key=key item=item}}
+                        {{if $item.id == $user}}
+                        <option value="{{$item.id}}" selected>{{$item.rel_name}}</option>
+                        {{else}}
+                        <option value="{{$item.id}}">{{$item.rel_name}}</option>
+                        {{/if}}
+                        {{/foreach}}
                     </select>
                     <select name="course" id="sel_course">
                         <option value="">进程选择</option>
-                        <option value="1">审核中</option>
-                        <option value="2">审核通过</option>
-                        <option value="3">评估中</option>
-                        <option value="4">评估通过</option>
-                        <option value="5">过户中</option>
-                        <option value="6">过户通过</option>
-                        <option value="7">按揭中</option>
-                        <option value="8">按揭通过</option>
-                        <option value="9">按揭房款中</option>
-                        <option value="10">按揭房款完成</option>
+                        {{foreach from=$course_list item=doo}}
+                        {{if $doo['code']==$course}}
+                        <option value="{{$doo['code']}}" selected>{{$doo['name']}}</option>
+                        {{else}}
+                        <option value="{{$doo['code']}}">{{$doo['name']}}</option>
+                        {{/if}}
+                        {{/foreach}}
                     </select>
                     <select name="status" id="sel_status">
                         <option value="">选择状态</option>
@@ -67,7 +94,40 @@
                     <li class="wid138">操作</li>
                 </ul>
                 {{foreach from=$agenda_list.res_list item=item}}
-                <ul class="schedule-list dosth-list">
+                {{if $item->status==3}}
+
+                <ul class="schedule-list dosth-list dosth-successful">
+                    <li class="time wid103">{{$item->num}}</li>
+                    <li class="bor-separate"></li>
+                    <li class="items wid103">{{$item->xq_name}}</li>
+                    <li class="bor-separate"></li>
+                    <li class="items wid103">{{$item->customer_name}}</li>
+                    <li class="bor-separate"></li>
+                    <li class="items wid103">{{$item->landlord_name}}</li>
+                    <li class="bor-separate"></li>
+                    <li class="items wid103">{{$item->acreage}} ㎡</li>
+                    <li class="bor-separate"></li>
+                    <li class="items wid80">{{$item->customer_income}}万</li>
+                    <li class="bor-separate bor-separate-none"></li>
+                    <li class="wid82 score-reality bgno">
+                        {{if $item->course==1}}审核中{{/if}}
+                        {{if $item->course==2}}审核通过{{/if}}
+                        {{if $item->course==3}}评估中{{/if}}
+                        {{if $item->course==4}}评估通过{{/if}}
+                        {{if $item->course==5}}过户中{{/if}}
+                        {{if $item->course==6}}过户通过{{/if}}
+                        {{if $item->course==7}}按揭中{{/if}}
+                        {{if $item->course==8}}按揭通过{{/if}}
+                        {{if $item->course==9}}按揭房款中{{/if}}
+                        {{if $item->course==10}}按揭房款完成{{/if}}
+                    </li>
+                    <li class="wid82 score-plan bgno">正常</li>
+                    <li class="wid138" style="width:138px;">
+                        完成
+                    </li>
+                </ul>
+                {{else}}
+                <ul class="schedule-list dosth-list ">
                     <li class="time wid103">{{$item->num}}</li>
                     <li class="bor-separate"></li>
                     <li class="items wid103">{{$item->xq_name}}</li>
@@ -98,174 +158,16 @@
                     {{/if}}
                     {{if $item->status==2}}
                     <li class="wid82 score-plan ing-error">
-                        <em class="tips-ok tips-error"></em>异常
-                        <div class="error-explain"><p>身份上传模糊，请重新上传！</p><p>身份上传模糊，请重新上传！</p></div>
+                        <em class="tips-ok tips-error"></em>异常<div class="error-explain"><p>{{$item->errtext}}</p></div>
                     </li>
                     {{/if}}
-
                     <li class="wid138" style="width:138px;">
                         <a href="javascript:void(0);" class="operation-btn">修改</a>
                     </li>
                 </ul>
+                {{/if}}
                 {{/foreach}}
 
-                <ul class="schedule-list dosth-list">
-                    <li class="time wid103">D0010001</li>
-                    <li class="bor-separate"></li>
-                    <li class="items wid103">江南明珠苑</li>
-                    <li class="bor-separate"></li>
-                    <li class="items wid103">王某某</li>
-                    <li class="bor-separate"></li>
-                    <li class="items wid103">李某某</li>
-                    <li class="bor-separate"></li>
-                    <li class="items wid103">125 ㎡</li>
-                    <li class="bor-separate"></li>
-                    <li class="items wid80">130万</li>
-                    <li class="bor-separate bor-separate-none"></li>
-                    <li class="wid82 score-reality">按揭通过</li>
-                    <li class="wid82 score-plan ing-error">
-                        <em class="tips-ok tips-error"></em>异常
-                        <div class="error-explain"><p>身份上传模糊，请重新上传！</p><p>身份上传模糊，请重新上传！</p></div>
-                    </li>
-                    <li class="wid138" style="width:138px;">
-                        <a href="javascript:void(0);" class="operation-btn operation-btn-no">修改</a>
-                    </li>
-                </ul>
-                <ul class="schedule-list dosth-list dosth-successful">
-                    <li class="time wid103">D0010001</li>
-                    <li class="bor-separate"></li>
-                    <li class="items wid103">江南明珠苑</li>
-                    <li class="bor-separate"></li>
-                    <li class="items wid103">王某某</li>
-                    <li class="bor-separate"></li>
-                    <li class="items wid103">李某某</li>
-                    <li class="bor-separate"></li>
-                    <li class="items wid103">125 ㎡</li>
-                    <li class="bor-separate"></li>
-                    <li class="items wid80">130万</li>
-                    <li class="bor-separate bor-separate"></li>
-                    <li class="wid80 score-reality bgno">服务完成</li>
-                    <li class="bor-separate"></li>
-                    <li class="wid80 score-plan bgno">正常</li>
-                    <li class="bor-separate"></li>
-                    <li class="wid138" style="width:138px;">
-                        完成
-                    </li>
-                </ul>
-                <ul class="schedule-list dosth-list">
-                    <li class="time wid103">D0010001</li>
-                    <li class="bor-separate"></li>
-                    <li class="items wid103">江南明珠苑</li>
-                    <li class="bor-separate"></li>
-                    <li class="items wid103">王某某</li>
-                    <li class="bor-separate"></li>
-                    <li class="items wid103">李某某</li>
-                    <li class="bor-separate"></li>
-                    <li class="items wid103">125 ㎡</li>
-                    <li class="bor-separate"></li>
-                    <li class="items wid80">130万</li>
-                    <li class="bor-separate bor-separate-none"></li>
-                    <li class="wid82 score-reality">按揭通过</li>
-                    <li class="wid82 score-plan"><em class="tips-ok"></em>正常</li>
-                    <li class="wid138" style="width:138px;">
-                        <a href="javascript:void(0);" class="operation-btn">修改</a>
-                    </li>
-                </ul>
-                <ul class="schedule-list dosth-list">
-                    <li class="time wid103">D0010001</li>
-                    <li class="bor-separate"></li>
-                    <li class="items wid103">江南明珠苑</li>
-                    <li class="bor-separate"></li>
-                    <li class="items wid103">王某某</li>
-                    <li class="bor-separate"></li>
-                    <li class="items wid103">李某某</li>
-                    <li class="bor-separate"></li>
-                    <li class="items wid103">125 ㎡</li>
-                    <li class="bor-separate"></li>
-                    <li class="items wid80">130万</li>
-                    <li class="bor-separate bor-separate-none"></li>
-                    <li class="wid82 score-reality">按揭通过</li>
-                    <li class="wid82 score-plan"><em class="tips-ok"></em>正常</li>
-                    <li class="wid138" style="width:138px;">
-                        <a href="javascript:void(0);" class="operation-btn">修改</a>
-                    </li>
-                </ul>
-                <ul class="schedule-list dosth-list">
-                    <li class="time wid103">D0010001</li>
-                    <li class="bor-separate"></li>
-                    <li class="items wid103">江南明珠苑</li>
-                    <li class="bor-separate"></li>
-                    <li class="items wid103">王某某</li>
-                    <li class="bor-separate"></li>
-                    <li class="items wid103">李某某</li>
-                    <li class="bor-separate"></li>
-                    <li class="items wid103">125 ㎡</li>
-                    <li class="bor-separate"></li>
-                    <li class="items wid80">130万</li>
-                    <li class="bor-separate bor-separate-none"></li>
-                    <li class="wid82 score-reality">按揭通过</li>
-                    <li class="wid82 score-plan"><em class="tips-ok"></em>正常</li>
-                    <li class="wid138" style="width:138px;">
-                        <a href="javascript:void(0);" class="operation-btn">修改</a>
-                    </li>
-                </ul>
-                <ul class="schedule-list dosth-list">
-                    <li class="time wid103">D0010001</li>
-                    <li class="bor-separate"></li>
-                    <li class="items wid103">江南明珠苑</li>
-                    <li class="bor-separate"></li>
-                    <li class="items wid103">王某某</li>
-                    <li class="bor-separate"></li>
-                    <li class="items wid103">李某某</li>
-                    <li class="bor-separate"></li>
-                    <li class="items wid103">125 ㎡</li>
-                    <li class="bor-separate"></li>
-                    <li class="items wid80">130万</li>
-                    <li class="bor-separate bor-separate-none"></li>
-                    <li class="wid82 score-reality">按揭通过</li>
-                    <li class="wid82 score-plan"><em class="tips-ok"></em>正常</li>
-                    <li class="wid138" style="width:138px;">
-                        <a href="javascript:void(0);" class="operation-btn">修改</a>
-                    </li>
-                </ul>
-                <ul class="schedule-list dosth-list">
-                    <li class="time wid103">D0010001</li>
-                    <li class="bor-separate"></li>
-                    <li class="items wid103">江南明珠苑</li>
-                    <li class="bor-separate"></li>
-                    <li class="items wid103">王某某</li>
-                    <li class="bor-separate"></li>
-                    <li class="items wid103">李某某</li>
-                    <li class="bor-separate"></li>
-                    <li class="items wid103">125 ㎡</li>
-                    <li class="bor-separate"></li>
-                    <li class="items wid80">130万</li>
-                    <li class="bor-separate bor-separate-none"></li>
-                    <li class="wid82 score-reality">按揭通过</li>
-                    <li class="wid82 score-plan"><em class="tips-ok"></em>正常</li>
-                    <li class="wid138" style="width:138px;">
-                        <a href="javascript:void(0);" class="operation-btn">修改</a>
-                    </li>
-                </ul>
-                <ul class="schedule-list dosth-list">
-                    <li class="time wid103">D0010001</li>
-                    <li class="bor-separate"></li>
-                    <li class="items wid103">江南明珠苑</li>
-                    <li class="bor-separate"></li>
-                    <li class="items wid103">王某某</li>
-                    <li class="bor-separate"></li>
-                    <li class="items wid103">李某某</li>
-                    <li class="bor-separate"></li>
-                    <li class="items wid103">125 ㎡</li>
-                    <li class="bor-separate"></li>
-                    <li class="items wid80">130万</li>
-                    <li class="bor-separate bor-separate-none"></li>
-                    <li class="wid82 score-reality">按揭通过</li>
-                    <li class="wid82 score-plan"><em class="tips-ok"></em>正常</li>
-                    <li class="wid138" style="width:138px;">
-                        <a href="javascript:void(0);" class="operation-btn">修改</a>
-                    </li>
-                </ul>
                 <div class="pages">
                     {{$pager}}
                 </div>
@@ -283,9 +185,29 @@
     });
 
     $(function(){
-        $("#sel_course").val("{{$course|default:''}}");
         $("#sel_status").val("{{$status|default:''}}");
     })
+    $('#sel_company').change(function(){
+        var company_id = $(this).val();
+        $.get('/activity/get_subsidiary_list/' + $(this).val(), function(data) {
+            $("#sel_subsidiary").empty();
+            $("#sel_subsidiary").append('<option value="">选择分店</option>');
+            var data = JSON.parse(data);
+            for(var i in data) {
+                $("#sel_subsidiary").append('<option value="'+data[i].id+'">'+data[i].name+'</option>');
+            }
+        });
+    });
+    $('#sel_subsidiary').change(function(){
+        $.get('/activity/get_subsidiary_user_list/' + $(this).val(), function(data) {
+            $("#sel_user").empty();
+            $("#sel_user").append('<option value="">选择员工</option>');
+            var data = JSON.parse(data);
+            for(var i in data) {
+                $("#sel_user").append('<option value="'+data[i].id+'">'+data[i].rel_name+'</option>');
+            }
+        });
+    });
 </script>
 </body>
 </html>
