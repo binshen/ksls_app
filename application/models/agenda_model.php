@@ -109,7 +109,7 @@ class Agenda_model extends MY_Model
         if(!empty($company_id)) {
             $this->db->where('b.company_id', $company_id);
         }
-
+        //die(var_dump($this->db->last_query()));
         $this->db->limit($numPerPage, ($pageNum - 1) * $numPerPage );
         $this->db->order_by('a.cdate', 'desc');
         $this->db->order_by('a.user_id', 'desc');

@@ -83,7 +83,7 @@ class Agenda extends MY_Controller
         if($this->input->POST('course')) {
             $this->assign('course', $this->input->POST('course'));
         }
-        $data = $this->agenda_model->list_agenda($page,null, $this->session->userdata('login_user_id'),$subsidiary_id,$company_id);
+        $data = $this->agenda_model->list_agenda($page,null,$subsidiary_id,$company_id);
         $this->assign('agenda_list', $data);
 
         $pager = $this->pagination->getPageLink('/agenda/list_agenda_other', $data['countPage'], $data['numPerPage']);
