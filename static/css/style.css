@@ -166,7 +166,7 @@ body{background: #fff; font-family: "Microsoft YaHei";}
 .dosth-list li.score-plan .tips-error{ background-position:0 -16px;}
 .dosth-list li.ing-error{background: #ff6c60; cursor: pointer; position:relative;border:1px solid #ebebeb;}
 .dosth-list .error-explain{padding:10px; position: absolute;top:40px;left:-50px; color:#000; line-height: 18px; font-size:12px;
-    display: none;width:200px;border-radius: 3px;background:rgba(255,255,255,0.8);border:none;filter:progid:DXImageTransform.Microsoft.gradient(startcolorstr=#CCFFFFFF,endcolorstr=#CCFFFFFF);}
+    display: none;width:200px;border-radius: 3px;z-index: 9999;background:rgba(255,255,255,0.8);border:none;filter:progid:DXImageTransform.Microsoft.gradient(startcolorstr=#CCFFFFFF,endcolorstr=#CCFFFFFF);}
 .dosth-successful{background:#60b282;}.dosth-successful li{color:#fff;}
 
 .schedule-list li.score-reality{background:#59ace2;}
