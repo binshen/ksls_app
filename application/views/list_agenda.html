@@ -18,18 +18,14 @@
             <div class="nav-left">
                 <ul class="nav-left-ul">
                     <li><a href="/"><em class="home"></em>回到首页</a></li>
-                    <li class="on"><a href="/activity/list_activity"><em class="myagenda"></em>我的代办</a></li>
-                    <li><a href="/activity/list_review"><em class="allagenda"></em>代办事项</a></li>
+                    <li class="on"><a href="/activity/list_agenda"><em class="myagenda"></em>我的代办</a></li>
+                    <li><a href="/activity/list_agenda_other"><em class="allagenda"></em>代办事项</a></li>
                 </ul>
             </div>
         </div>
         <div class="wrap-right">
             <div class="search-wrap">
                 <form id="formSearchActivity" method="POST" action="/agenda/list_agenda">
-                    <select name="user" id="sel_user">
-                        <option value="">选择员工</option>
-                        <option value="郑法明">郑法明</option>
-                    </select>
                     <select name="course" id="sel_course">
                         <option value="">进程选择</option>
                         <option value="1">审核中</option>
@@ -67,7 +63,48 @@
                     <li class="wid138">操作</li>
                 </ul>
                 {{foreach from=$agenda_list.res_list item=item}}
-                <ul class="schedule-list dosth-list">
+                {{if $item->status==1 && in_array($item->course,array(2,4,6,8,10))}}
+
+                <ul class="schedule-list dosth-list dosth-successful">
+                    <li class="time wid103">{{$item->num}}</li>
+                    <li class="bor-separate"></li>
+                    <li class="items wid103">{{$item->xq_name}}</li>
+                    <li class="bor-separate"></li>
+                    <li class="items wid103">{{$item->customer_name}}</li>
+                    <li class="bor-separate"></li>
+                    <li class="items wid103">{{$item->landlord_name}}</li>
+                    <li class="bor-separate"></li>
+                    <li class="items wid103">{{$item->acreage}} ㎡</li>
+                    <li class="bor-separate"></li>
+                    <li class="items wid80">{{$item->customer_income}}万</li>
+                    <li class="bor-separate bor-separate-none"></li>
+                    <li class="wid82 score-reality bgno">
+                        {{if $item->course==1}}审核中{{/if}}
+                        {{if $item->course==2}}审核通过{{/if}}
+                        {{if $item->course==3}}评估中{{/if}}
+                        {{if $item->course==4}}评估通过{{/if}}
+                        {{if $item->course==5}}过户中{{/if}}
+                        {{if $item->course==6}}过户通过{{/if}}
+                        {{if $item->course==7}}按揭中{{/if}}
+                        {{if $item->course==8}}按揭通过{{/if}}
+                        {{if $item->course==9}}按揭房款中{{/if}}
+                        {{if $item->course==10}}按揭房款完成{{/if}}
+                    </li>
+
+                    {{if $item->status==1}}
+                    <li class="wid82 score-plan bgno">正常</li>
+                    {{/if}}
+                    {{if $item->status==2}}
+                    <li class="wid82 score-plan ing-error">
+                        <em class="tips-ok tips-error"></em>异常<div class="error-explain"><p>{{$item->errtext}}</p></div>
+                    </li>
+                    {{/if}}
+                    <li class="wid138" style="width:138px;">
+                        完成
+                    </li>
+                </ul>
+                {{else}}
+                <ul class="schedule-list dosth-list ">
                     <li class="time wid103">{{$item->num}}</li>
                     <li class="bor-separate"></li>
                     <li class="items wid103">{{$item->xq_name}}</li>
@@ -98,178 +135,18 @@
                     {{/if}}
                     {{if $item->status==2}}
                     <li class="wid82 score-plan ing-error">
-                        <em class="tips-ok tips-error"></em>异常
-                        <div class="error-explain"><p>身份上传模糊，请重新上传！</p><p>身份上传模糊，请重新上传！</p></div>
+                        <em class="tips-ok tips-error"></em>异常<div class="error-explain"><p>{{$item->errtext}}</p></div>
                     </li>
                     {{/if}}
-
                     <li class="wid138" style="width:138px;">
                         <a href="javascript:void(0);" class="operation-btn">修改</a>
                     </li>
                 </ul>
+                {{/if}}
                 {{/foreach}}
-
-                <ul class="schedule-list dosth-list">
-                    <li class="time wid103">D0010001</li>
-                    <li class="bor-separate"></li>
-                    <li class="items wid103">江南明珠苑</li>
-                    <li class="bor-separate"></li>
-                    <li class="items wid103">王某某</li>
-                    <li class="bor-separate"></li>
-                    <li class="items wid103">李某某</li>
-                    <li class="bor-separate"></li>
-                    <li class="items wid103">125 ㎡</li>
-                    <li class="bor-separate"></li>
-                    <li class="items wid80">130万</li>
-                    <li class="bor-separate bor-separate-none"></li>
-                    <li class="wid82 score-reality">按揭通过</li>
-                    <li class="wid82 score-plan ing-error">
-                        <em class="tips-ok tips-error"></em>异常
-                        <div class="error-explain"><p>身份上传模糊，请重新上传！</p><p>身份上传模糊，请重新上传！</p></div>
-                    </li>
-                    <li class="wid138" style="width:138px;">
-                        <a href="javascript:void(0);" class="operation-btn operation-btn-no">修改</a>
-                    </li>
-                </ul>
-                <ul class="schedule-list dosth-list dosth-successful">
-                    <li class="time wid103">D0010001</li>
-                    <li class="bor-separate"></li>
-                    <li class="items wid103">江南明珠苑</li>
-                    <li class="bor-separate"></li>
-                    <li class="items wid103">王某某</li>
-                    <li class="bor-separate"></li>
-                    <li class="items wid103">李某某</li>
-                    <li class="bor-separate"></li>
-                    <li class="items wid103">125 ㎡</li>
-                    <li class="bor-separate"></li>
-                    <li class="items wid80">130万</li>
-                    <li class="bor-separate bor-separate"></li>
-                    <li class="wid80 score-reality bgno">服务完成</li>
-                    <li class="bor-separate"></li>
-                    <li class="wid80 score-plan bgno">正常</li>
-                    <li class="bor-separate"></li>
-                    <li class="wid138" style="width:138px;">
-                        完成
-                    </li>
-                </ul>
-                <ul class="schedule-list dosth-list">
-                    <li class="time wid103">D0010001</li>
-                    <li class="bor-separate"></li>
-                    <li class="items wid103">江南明珠苑</li>
-                    <li class="bor-separate"></li>
-                    <li class="items wid103">王某某</li>
-                    <li class="bor-separate"></li>
-                    <li class="items wid103">李某某</li>
-                    <li class="bor-separate"></li>
-                    <li class="items wid103">125 ㎡</li>
-                    <li class="bor-separate"></li>
-                    <li class="items wid80">130万</li>
-                    <li class="bor-separate bor-separate-none"></li>
-                    <li class="wid82 score-reality">按揭通过</li>
-                    <li class="wid82 score-plan"><em class="tips-ok"></em>正常</li>
-                    <li class="wid138" style="width:138px;">
-                        <a href="javascript:void(0);" class="operation-btn">修改</a>
-                    </li>
-                </ul>
-                <ul class="schedule-list dosth-list">
-                    <li class="time wid103">D0010001</li>
-                    <li class="bor-separate"></li>
-                    <li class="items wid103">江南明珠苑</li>
-                    <li class="bor-separate"></li>
-                    <li class="items wid103">王某某</li>
-                    <li class="bor-separate"></li>
-                    <li class="items wid103">李某某</li>
-                    <li class="bor-separate"></li>
-                    <li class="items wid103">125 ㎡</li>
-                    <li class="bor-separate"></li>
-                    <li class="items wid80">130万</li>
-                    <li class="bor-separate bor-separate-none"></li>
-                    <li class="wid82 score-reality">按揭通过</li>
-                    <li class="wid82 score-plan"><em class="tips-ok"></em>正常</li>
-                    <li class="wid138" style="width:138px;">
-                        <a href="javascript:void(0);" class="operation-btn">修改</a>
-                    </li>
-                </ul>
-                <ul class="schedule-list dosth-list">
-                    <li class="time wid103">D0010001</li>
-                    <li class="bor-separate"></li>
-                    <li class="items wid103">江南明珠苑</li>
-                    <li class="bor-separate"></li>
-                    <li class="items wid103">王某某</li>
-                    <li class="bor-separate"></li>
-                    <li class="items wid103">李某某</li>
-                    <li class="bor-separate"></li>
-                    <li class="items wid103">125 ㎡</li>
-                    <li class="bor-separate"></li>
-                    <li class="items wid80">130万</li>
-                    <li class="bor-separate bor-separate-none"></li>
-                    <li class="wid82 score-reality">按揭通过</li>
-                    <li class="wid82 score-plan"><em class="tips-ok"></em>正常</li>
-                    <li class="wid138" style="width:138px;">
-                        <a href="javascript:void(0);" class="operation-btn">修改</a>
-                    </li>
-                </ul>
-                <ul class="schedule-list dosth-list">
-                    <li class="time wid103">D0010001</li>
-                    <li class="bor-separate"></li>
-                    <li class="items wid103">江南明珠苑</li>
-                    <li class="bor-separate"></li>
-                    <li class="items wid103">王某某</li>
-                    <li class="bor-separate"></li>
-                    <li class="items wid103">李某某</li>
-                    <li class="bor-separate"></li>
-                    <li class="items wid103">125 ㎡</li>
-                    <li class="bor-separate"></li>
-                    <li class="items wid80">130万</li>
-                    <li class="bor-separate bor-separate-none"></li>
-                    <li class="wid82 score-reality">按揭通过</li>
-                    <li class="wid82 score-plan"><em class="tips-ok"></em>正常</li>
-                    <li class="wid138" style="width:138px;">
-                        <a href="javascript:void(0);" class="operation-btn">修改</a>
-                    </li>
-                </ul>
-                <ul class="schedule-list dosth-list">
-                    <li class="time wid103">D0010001</li>
-                    <li class="bor-separate"></li>
-                    <li class="items wid103">江南明珠苑</li>
-                    <li class="bor-separate"></li>
-                    <li class="items wid103">王某某</li>
-                    <li class="bor-separate"></li>
-                    <li class="items wid103">李某某</li>
-                    <li class="bor-separate"></li>
-                    <li class="items wid103">125 ㎡</li>
-                    <li class="bor-separate"></li>
-                    <li class="items wid80">130万</li>
-                    <li class="bor-separate bor-separate-none"></li>
-                    <li class="wid82 score-reality">按揭通过</li>
-                    <li class="wid82 score-plan"><em class="tips-ok"></em>正常</li>
-                    <li class="wid138" style="width:138px;">
-                        <a href="javascript:void(0);" class="operation-btn">修改</a>
-                    </li>
-                </ul>
-                <ul class="schedule-list dosth-list">
-                    <li class="time wid103">D0010001</li>
-                    <li class="bor-separate"></li>
-                    <li class="items wid103">江南明珠苑</li>
-                    <li class="bor-separate"></li>
-                    <li class="items wid103">王某某</li>
-                    <li class="bor-separate"></li>
-                    <li class="items wid103">李某某</li>
-                    <li class="bor-separate"></li>
-                    <li class="items wid103">125 ㎡</li>
-                    <li class="bor-separate"></li>
-                    <li class="items wid80">130万</li>
-                    <li class="bor-separate bor-separate-none"></li>
-                    <li class="wid82 score-reality">按揭通过</li>
-                    <li class="wid82 score-plan"><em class="tips-ok"></em>正常</li>
-                    <li class="wid138" style="width:138px;">
-                        <a href="javascript:void(0);" class="operation-btn">修改</a>
-                    </li>
-                </ul>
-                <div class="pages">
+                <div class="pages" id="agenda_pages">
                     {{$pager}}
                 </div>
-
             </div>
         </div>
     </div>
@@ -285,6 +162,13 @@
     $(function(){
         $("#sel_course").val("{{$course|default:''}}");
         $("#sel_status").val("{{$status|default:''}}");
+
+        $("#agenda_pages").find('a').click(function(){
+            var path = $(this).attr('href');
+            $("#formSearchActivity").attr("action",path);
+            $("#formSearchActivity").submit();
+            return false;
+        })
     })
 </script>
 </body>

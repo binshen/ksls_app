@@ -32,4 +32,19 @@ class Agenda extends MY_Controller
         $this->assign('pager', $pager);
         $this->display('list_agenda.html');
     }
+
+    function list_agenda_other($page=1){
+        if($this->input->POST('status')) {
+            $this->assign('status', $this->input->POST('status'));
+        }
+        if($this->input->POST('course')) {
+            $this->assign('course', $this->input->POST('course'));
+        }
+        $data = $this->agenda_model->list_agenda($page, $this->session->userdata('login_user_id'));
+        $this->assign('agenda_list', $data);
+
+        $pager = $this->pagination->getPageLink('/agenda/list_agenda', $data['countPage'], $data['numPerPage']);
+        $this->assign('pager', $pager);
+        $this->display('list_agenda.html');
+    }
 }
