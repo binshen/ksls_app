@@ -32,4 +32,9 @@ class Agenda extends MY_Controller
         $this->assign('pager', $pager);
         $this->display('list_agenda.html');
     }
+
+    public function add_agenda() {
+
+        $this->display('add_agenda.html');
+    }
 }
