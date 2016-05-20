@@ -226,6 +226,11 @@
     });
 
     $(".confirm-btn").click(function() {
+        var score = $(".plan_score").text();
+        if(score < 100) {
+            layer.msg('你计划的行程为满100分!', {icon: 2});
+            return;
+        }
         var date = $("#J_DepDate").val();
         $.post('/activity/check_activity', {date:date}, function(data) {
             if(data) {
