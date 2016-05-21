@@ -117,6 +117,15 @@
                         {{if $item->course==8}}按揭通过{{/if}}
                         {{if $item->course==9}}按揭房款中{{/if}}
                         {{if $item->course==10}}按揭房款完成{{/if}}
+                        <div class="error-explain">
+                            {{if $agenda_list.detail!=1}}
+                            {{foreach from=$agenda_list.detail item=foo}}
+                            {{if $foo['a_id']==$item->id}}
+                            <p>{{$foo['name']}}--{{$foo['created']}}</p>
+                            {{/if}}
+                            {{/foreach}}
+                            {{/if}}
+                        </div>
                     </li>
 
                     {{if $item->status==1}}

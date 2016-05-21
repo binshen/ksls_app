@@ -18,6 +18,14 @@ class Agenda extends MY_Controller
         $this->load->model('agenda_model');
     }
 
+    function _remap($method,$params = array()) {
+        if(!$this->session->userdata('login_user_id')) {
+            redirect(site_url('/'));
+        } else {
+            return call_user_func_array(array($this, $method), $params);
+        }
+    }
+
     public function list_agenda($page=1) {
         $course_list = $this->agenda_model->get_course();
         $this->assign('course_list', $course_list);

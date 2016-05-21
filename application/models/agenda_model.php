@@ -48,8 +48,8 @@ class Agenda_model extends MY_Model
             $this->db->where('a.user_id',$user_id);
         }
         if($this->input->post('status')){
-            if($this->input->post('status')==2){
-                $this->db->where_in('a.status',array(2,3));
+            if($this->input->post('status')==1){
+                $this->db->where_in('a.status',array(1,3));
             }else{
                 $this->db->where('a.status',$this->input->post('status'));
             }
@@ -84,8 +84,8 @@ class Agenda_model extends MY_Model
             $this->db->where('a.user_id',$user_id);
         }
         if($this->input->post('status')){
-            if($this->input->post('status')==2){
-                $this->db->where_in('a.status',array(2,3));
+            if($this->input->post('status')==1){
+                $this->db->where_in('a.status',array(1,3));
             }else{
                 $this->db->where('a.status',$this->input->post('status'));
             }
@@ -114,6 +114,22 @@ class Agenda_model extends MY_Model
         $this->db->order_by('a.cdate', 'desc');
         $this->db->order_by('a.user_id', 'desc');
         $data['res_list'] = $this->db->get()->result();
+        $data['detail'] = 1;
+        if(!$data['res_list']){
+            foreach($data['res_list'] as $v){
+                $ids[] = $v['id'];
+            }
+            if (isset($ids)){
+                $this->db->select('b.a_id,b.created,c.name')->from('agenda a');
+                $this->db->join('agenda_course b','a.id = b.a_id','left');
+                $this->db->join('course c','c.id = b.c_id','left');
+                $this->db->where_in('a.id',$ids);
+                $agenda_detail = $this->db->get()->result_array();
+                if ($agenda_detail){
+                    $data['detail'] = $agenda_detail;
+                }
+            }
+        }
         $data['pageNum'] = $pageNum;
         $data['numPerPage'] = $numPerPage;
         return $data;
