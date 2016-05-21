@@ -110,4 +110,11 @@ class Agenda extends MY_Controller
 
         $this->display('view_agenda.html');
     }
+
+    public function save_agenda() {
+
+        $this->agenda_model->save_agenda();
+
+        redirect(site_url('agenda/list_agenda'));
+    }
 }

@@ -148,4 +148,39 @@ class Agenda_model extends MY_Model
     public function get_agenda($id) {
         return $this->db->get_where('agenda', array('id' => $id))->row();
     }
+
+    public function save_agenda() {
+        $data = array(
+            'user_id' => $this->session->userdata('login_user_id'),
+            'xq_name' => $this->input->post('xq_name'),
+            'landlord_name' => $this->input->post('landlord_name'),
+            'customer_name' => $this->input->post('customer_name'),
+            'customer_income' => $this->input->post('customer_income'),
+            'acreage' => $this->input->post('acreage'),
+            'two_year_flag' => $this->input->post('two_year_flag'),
+            'amount' => $this->input->post('amount'),
+            'rest_load' => $this->input->post('rest_load'),
+            'payment_method' => $this->input->post('payment_method'),
+            'down_payment' => $this->input->post('down_payment'),
+            'mortgage' => $this->input->post('mortgage'),
+            'style' => $this->input->post('style'),
+            'payment_node' => $this->input->post('payment_node'),
+            'mark' => $this->input->post('mark'),
+            'status' => 1,
+            'course' => 1,
+            'cdate' => date('Y-m-d H:i:s'),
+            'num' => 'D0010001',
+            'errtext' => ''
+        );
+        $this->db->trans_start();//--------开始事务
+
+        $this->db->where('id', $this->input->post('id'));
+        $this->db->update('agenda', $data);
+        $this->db->trans_complete();//------结束事务
+        if ($this->db->trans_status() === FALSE) {
+            return -1;
+        } else {
+            return 1;
+        }
+    }
 }
