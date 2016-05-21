@@ -103,7 +103,11 @@ class Agenda extends MY_Controller
         $this->display('add_agenda.html');
     }
 
-    public function view_agenda() {
+    public function view_agenda($id) {
+
+        $agenda = $this->agenda_model->get_agenda($id);
+        $this->assign('agenda', $agenda);
+
         $this->display('view_agenda.html');
     }
 }

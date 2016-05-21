@@ -144,4 +144,8 @@ class Agenda_model extends MY_Model
             return $res;
         }
     }
+
+    public function get_agenda($id) {
+        return $this->db->get_where('agenda', array('id' => $id))->row();
+    }
 }
