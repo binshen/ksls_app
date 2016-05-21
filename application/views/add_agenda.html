@@ -23,30 +23,30 @@
             </div>
         </div>
         <div class="wrap-right">
-            <div class="search-wrap">
-                <div class="t-tit">代办买卖二手房服务Agent Housing Services</div>
-            </div>
-            <div class="div-th"><em></em>基本信息</div>
-            <div class="div-bd">
-                <form>
+            <form>
+                <div class="search-wrap">
+                    <div class="t-tit">代办买卖二手房服务Agent Housing Services</div>
+                </div>
+                <div class="div-th"><em></em>基本信息</div>
+                <div class="div-bd">
                     <table cellpadding="0" cellsapcing="0" class="add-data-table">
                         <tr>
                             <td>
                                 <dl>
                                     <dt class="wid115">小区名称：</dt>
-                                    <dd><input type="text" name="" class="add-txt" /></dd>
+                                    <dd><input type="text" name="xq_name" class="add-txt" /></dd>
                                 </dl>
                             </td>
                             <td><dl><dt class="wid115">房屋面积：</dt>
-                                <dd><input type="text" name="" class="add-txt" /><em>平方米</em></dd></dl></td>
+                                <dd><input type="text" name="acreage" class="add-txt" /><em>平方米</em></dd></dl></td>
                         </tr>
                         <tr>
-                            <td><dl><dt class="wid115">房东姓名：</dt><dd><input type="text" name="" class="add-txt" /></dd></dl></td>
+                            <td><dl><dt class="wid115">房东姓名：</dt><dd><input type="text" name="landlord_name" class="add-txt" /></dd></dl></td>
                             <td>
                                 <dl>
                                     <dt>产证是否满两年：</dt>
-                                    <dd><label><input type="radio" name="radio1" class="radio-choose" />是 </label>
-                                        <label><input type="radio" name="radio1" class="radio-choose" />否</label></dd>
+                                    <dd><label><input type="radio" name="two_year_flag" class="radio-choose" value="1" />是 </label>
+                                        <label><input type="radio" name="two_year_flag" class="radio-choose" value="2" />否</label></dd>
                                 </dl>
                             </td>
                         </tr>
@@ -54,19 +54,19 @@
                             <td>
                                 <dl>
                                     <dt class="wid115">客户姓名：</dt>
-                                    <dd><input type="text" name="" class="add-txt" /></dd>
+                                    <dd><input type="text" name="customer_name" class="add-txt" /></dd>
                                 </dl>
                             </td>
                             <td><dl><dt class="wid115">合同金额：</dt>
-                                <dd><input type="text" name="" class="add-txt" /><em>万</em></dd></dl></td>
+                                <dd><input type="text" name="amount" class="add-txt" /><em>万</em></dd></dl></td>
                         </tr>
                         <tr>
-                            <td><dl><dt class="wid115">房东剩余贷款：</dt><dd><input type="text" name="" class="add-txt" /><em>万</em></dd></dl></td>
+                            <td><dl><dt class="wid115">房东剩余贷款：</dt><dd><input type="text" name="rest_load" class="add-txt" /><em>万</em></dd></dl></td>
                             <td>
                                 <dl>
                                     <dt>客户付款方式：</dt>
-                                    <dd><label><input type="radio" name="radio2" class="radio-choose" />全额</label>
-                                        <label><input type="radio" name="radio2" class="radio-choose" />按揭</label></dd>
+                                    <dd><label><input type="radio" name="payment_method" class="radio-choose" value="1" />全额</label>
+                                        <label><input type="radio" name="payment_method" class="radio-choose" value="2" />按揭</label></dd>
                                 </dl>
                             </td>
                         </tr>
@@ -74,29 +74,36 @@
                             <td>
                                 <dl>
                                     <dt class="wid115">客户收入情况：</dt>
-                                    <dd><input type="text" name="" class="add-txt" /><em>元/月</em></dd>
+                                    <dd><input type="text" name="customer_income" class="add-txt" /><em>元/月</em></dd>
                                 </dl>
                             </td>
-                            <td class="twodl"><dl><dt class="wid58">首付：</dt>
-                                <dd><input type="text" name="" class="add-txt input-wid85" /><em>万</em></dd></dl>
-                                <dl><dt class="wid58">按揭：</dt>
-                                    <dd><input type="text" name="" class="add-txt input-wid85" /><em>万</em></dd></dl>
+                            <td class="twodl">
+                                <dl>
+                                    <dt class="wid58">首付：</dt>
+                                    <dd><input type="text" name="down_payment" class="add-txt input-wid85" /><em>万</em></dd></dl>
+                                    <dl><dt class="wid58">按揭：</dt>
+                                    <dd><input type="text" name="mortgage" class="add-txt input-wid85" /><em>万</em></dd>
+                                </dl>
                             </td>
                         </tr>
                         <tr>
                             <td>
                                 <dl>
                                     <dt>购房性质：</dt>
-                                    <dd><label><input type="radio" name="radio3" class="radio-choose" />首付房 </label>
-                                        <label><input type="radio" name="radio3" class="radio-choose" />二手房</label>
-                                        <label><input type="radio" name="radio3" class="radio-choose" />二套以上</label></dd>
+                                    <dd>
+                                        <label><input type="radio" name="style" class="radio-choose" value="1" />首付房 </label>
+                                        <label><input type="radio" name="style" class="radio-choose" value="2" />二手房</label>
+                                        <label><input type="radio" name="style" class="radio-choose" value="3" />二套以上</label>
+                                    </dd>
                                 </dl>
                             </td>
                             <td>
                                 <dl>
                                     <dt>收佣节点：</dt>
-                                    <dd><label><input type="radio" name="radio4" class="radio-choose" />过户前 </label>
-                                        <label><input type="radio" name="radio4" class="radio-choose" />过户后</label></dd>
+                                    <dd>
+                                        <label><input type="radio" name="payment_node" class="radio-choose" value="1" />过户前 </label>
+                                        <label><input type="radio" name="payment_node" class="radio-choose" value="2" />过户后</label>
+                                    </dd>
                                 </dl>
                             </td>
                         </tr>
@@ -105,172 +112,172 @@
                                 <dl>
                                     <dt>备注：</dt>
                                     <dd>
-                                        <textarea name="c1m" rows="2" cols="3" class="sce-remarks" placeholder="如有其他情况请备注"></textarea>
+                                        <textarea name="mark" rows="2" cols="3" class="sce-remarks" placeholder="如有其他情况请备注"></textarea>
                                     </dd>
                                 </dl>
                             </td>
                         </tr>
                     </table>
-            </div>
-            <div class="div-th div-th1"><em></em>上传资料</div>
-            <div class="div-bd div-bd1">
-                <table cellpadding="0" cellsapcing="0" class="add-data-table add-data-table1">
-                    <tr>
-                        <td class="td-tit">卖房相关证件</td>
-                        <td class="td-tit">买房相关证件</td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <p class="p-tips">身份证：<em>（请上传清晰的身份证正面和反面）</em></p>
-                            <dl class="uploadInformation">
-                                <dt>
-                                    <a href="javascript:" class="aClickUpload"></a>
-                                </dt>
-                                <dd>
-                                    <ul>
-                                        <li><img src="/static/images/photo.jpg" alert="" width="85" height="65" />
-                                            <span class="delete-this">
-                                                <i></i>
-                                            </span>
-                                        </li>
-                                        <li><img src="/static/images/photo.jpg" alert="" width="85" height="65" /></li>
-                                        <li><img src="/static/images/photo.jpg" alert="" width="85" height="65" /></li>
-                                        <li><img src="/static/images/photo.jpg" alert="" width="85" height="65" /></li>
-                                        <li><img src="/static/images/photo.jpg" alert="" width="85" height="65" /></li>
-                                        <li><img src="/static/images/photo.jpg" alert="" width="85" height="65" /></li>
-                                        <li><img src="/static/images/photo.jpg" alert="" width="85" height="65" /></li>
-                                        <li><img src="/static/images/photo.jpg" alert="" width="85" height="65" /></li>
-                                    </ul>
-                                </dd>
-                            </dl>
-                        </td>
-                        <td>
-                            <p class="p-tips">身份证：<em>（请上传清晰的身份证正面和反面）</em></p>
-                            <dl class="uploadInformation">
-                                <dt>
-                                    <a href="javascript:" class="aClickUpload"></a>
-                                </dt>
-                                <dd>
-                                    <ul>
-                                        <li><img src="/static/images/photo.jpg" alert="" width="85" height="65" />
-                                            <span class="delete-this">
-                                                <i></i>
-                                            </span>
-                                        </li>
-                                        <li><img src="/static/images/photo.jpg" alert="" width="85" height="65" /></li>
-                                        <li><img src="/static/images/photo.jpg" alert="" width="85" height="65" /></li>
-                                        <li><img src="/static/images/photo.jpg" alert="" width="85" height="65" /></li>
-                                        <li><img src="/static/images/photo.jpg" alert="" width="85" height="65" /></li>
-                                        <li><img src="/static/images/photo.jpg" alert="" width="85" height="65" /></li>
-                                        <li><img src="/static/images/photo.jpg" alert="" width="85" height="65" /></li>
-                                        <li><img src="/static/images/photo.jpg" alert="" width="85" height="65" /></li>
-                                    </ul>
-                                </dd>
-                            </dl>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <p class="p-tips">户口本 | 房产证 | 土地证：<em>（请上传清晰的照片）</em></p>
-                            <dl class="uploadInformation">
-                                <dt>
-                                    <a href="javascript:" class="aClickUpload"></a>
-                                </dt>
-                                <dd>
-                                    <ul>
-                                        <li><img src="/static/images/photo.jpg" alert="" width="85" height="65" />
-                                            <span class="delete-this">
-                                                <i></i>
-                                            </span>
-                                        </li>
-                                        <li><img src="/static/images/photo.jpg" alert="" width="85" height="65" /></li>
-                                        <li><img src="/static/images/photo.jpg" alert="" width="85" height="65" /></li>
-                                        <li><img src="/static/images/photo.jpg" alert="" width="85" height="65" /></li>
-                                        <li><img src="/static/images/photo.jpg" alert="" width="85" height="65" /></li>
-                                        <li><img src="/static/images/photo.jpg" alert="" width="85" height="65" /></li>
-                                        <li><img src="/static/images/photo.jpg" alert="" width="85" height="65" /></li>
-                                        <li><img src="/static/images/photo.jpg" alert="" width="85" height="65" /></li>
-                                    </ul>
-                                </dd>
-                            </dl>
-                        </td>
-                        <td>
-                            <p class="p-tips">户口本：<em>（请上传清晰的照片）</em></p>
-                            <dl class="uploadInformation">
-                                <dt>
-                                    <a href="javascript:" class="aClickUpload"></a>
-                                </dt>
-                                <dd>
-                                    <ul>
-                                        <li><img src="/static/images/photo.jpg" alert="" width="85" height="65" />
-                                            <span class="delete-this">
-                                                <i></i>
-                                            </span>
-                                        </li>
-                                        <li><img src="/static/images/photo.jpg" alert="" width="85" height="65" /></li>
-                                        <li><img src="/static/images/photo.jpg" alert="" width="85" height="65" /></li>
-                                        <li><img src="/static/images/photo.jpg" alert="" width="85" height="65" /></li>
-                                        <li><img src="/static/images/photo.jpg" alert="" width="85" height="65" /></li>
-                                        <li><img src="/static/images/photo.jpg" alert="" width="85" height="65" /></li>
-                                        <li><img src="/static/images/photo.jpg" alert="" width="85" height="65" /></li>
-                                        <li><img src="/static/images/photo.jpg" alert="" width="85" height="65" /></li>
-                                    </ul>
-                                </dd>
-                            </dl>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <p class="p-tips">婚姻证明：<em>（请上传清晰的照片）</em></p>
-                            <dl class="uploadInformation">
-                                <dt>
-                                    <a href="javascript:" class="aClickUpload"></a>
-                                </dt>
-                                <dd>
-                                    <ul>
-                                        <li><img src="/static/images/photo.jpg" alert="" width="85" height="65" />
-                                            <span class="delete-this">
-                                                <i></i>
-                                            </span>
-                                        </li>
-                                        <li><img src="/static/images/photo.jpg" alert="" width="85" height="65" /></li>
-                                        <li><img src="/static/images/photo.jpg" alert="" width="85" height="65" /></li>
-                                        <li><img src="/static/images/photo.jpg" alert="" width="85" height="65" /></li>
-                                        <li><img src="/static/images/photo.jpg" alert="" width="85" height="65" /></li>
-                                        <li><img src="/static/images/photo.jpg" alert="" width="85" height="65" /></li>
-                                        <li><img src="/static/images/photo.jpg" alert="" width="85" height="65" /></li>
-                                        <li><img src="/static/images/photo.jpg" alert="" width="85" height="65" /></li>
-                                    </ul>
-                                </dd>
-                            </dl>
-                        </td>
-                        <td>
-                            <p class="p-tips">婚姻证明：<em>（请上传清晰的照片）</em></p>
-                            <dl class="uploadInformation">
-                                <dt>
-                                    <a href="javascript:" class="aClickUpload"></a>
-                                </dt>
-                                <dd>
-                                    <ul>
-                                        <li><img src="/static/images/photo.jpg" alert="" width="85" height="65" />
-                                            <span class="delete-this">
-                                                <i></i>
-                                            </span>
-                                        </li>
-                                        <li><img src="/static/images/photo.jpg" alert="" width="85" height="65" /></li>
-                                        <li><img src="/static/images/photo.jpg" alert="" width="85" height="65" /></li>
-                                        <li><img src="/static/images/photo.jpg" alert="" width="85" height="65" /></li>
-                                    </ul>
-                                </dd>
-                            </dl>
-                        </td>
-                    </tr>
-                </table>
-            </div>
-            <p class="p-btns">
-                <a href="" class="sub-btn">提交</a>
-                <a href="" class="sub-btn reset-btn">重置</a>
-            </p>
+                </div>
+                <div class="div-th div-th1"><em></em>上传资料</div>
+                <div class="div-bd div-bd1">
+                    <table cellpadding="0" cellsapcing="0" class="add-data-table add-data-table1">
+                        <tr>
+                            <td class="td-tit">卖房相关证件</td>
+                            <td class="td-tit">买房相关证件</td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <p class="p-tips">身份证：<em>（请上传清晰的身份证正面和反面）</em></p>
+                                <dl class="uploadInformation">
+                                    <dt>
+                                        <a href="javascript:" class="aClickUpload"></a>
+                                    </dt>
+                                    <dd>
+                                        <ul>
+                                            <li><img src="/static/images/photo.jpg" alert="" width="85" height="65" />
+                                                <span class="delete-this">
+                                                    <i></i>
+                                                </span>
+                                            </li>
+                                            <li><img src="/static/images/photo.jpg" alert="" width="85" height="65" /></li>
+                                            <li><img src="/static/images/photo.jpg" alert="" width="85" height="65" /></li>
+                                            <li><img src="/static/images/photo.jpg" alert="" width="85" height="65" /></li>
+                                            <li><img src="/static/images/photo.jpg" alert="" width="85" height="65" /></li>
+                                            <li><img src="/static/images/photo.jpg" alert="" width="85" height="65" /></li>
+                                            <li><img src="/static/images/photo.jpg" alert="" width="85" height="65" /></li>
+                                            <li><img src="/static/images/photo.jpg" alert="" width="85" height="65" /></li>
+                                        </ul>
+                                    </dd>
+                                </dl>
+                            </td>
+                            <td>
+                                <p class="p-tips">身份证：<em>（请上传清晰的身份证正面和反面）</em></p>
+                                <dl class="uploadInformation">
+                                    <dt>
+                                        <a href="javascript:" class="aClickUpload"></a>
+                                    </dt>
+                                    <dd>
+                                        <ul>
+                                            <li><img src="/static/images/photo.jpg" alert="" width="85" height="65" />
+                                                <span class="delete-this">
+                                                    <i></i>
+                                                </span>
+                                            </li>
+                                            <li><img src="/static/images/photo.jpg" alert="" width="85" height="65" /></li>
+                                            <li><img src="/static/images/photo.jpg" alert="" width="85" height="65" /></li>
+                                            <li><img src="/static/images/photo.jpg" alert="" width="85" height="65" /></li>
+                                            <li><img src="/static/images/photo.jpg" alert="" width="85" height="65" /></li>
+                                            <li><img src="/static/images/photo.jpg" alert="" width="85" height="65" /></li>
+                                            <li><img src="/static/images/photo.jpg" alert="" width="85" height="65" /></li>
+                                            <li><img src="/static/images/photo.jpg" alert="" width="85" height="65" /></li>
+                                        </ul>
+                                    </dd>
+                                </dl>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <p class="p-tips">户口本 | 房产证 | 土地证：<em>（请上传清晰的照片）</em></p>
+                                <dl class="uploadInformation">
+                                    <dt>
+                                        <a href="javascript:" class="aClickUpload"></a>
+                                    </dt>
+                                    <dd>
+                                        <ul>
+                                            <li><img src="/static/images/photo.jpg" alert="" width="85" height="65" />
+                                                <span class="delete-this">
+                                                    <i></i>
+                                                </span>
+                                            </li>
+                                            <li><img src="/static/images/photo.jpg" alert="" width="85" height="65" /></li>
+                                            <li><img src="/static/images/photo.jpg" alert="" width="85" height="65" /></li>
+                                            <li><img src="/static/images/photo.jpg" alert="" width="85" height="65" /></li>
+                                            <li><img src="/static/images/photo.jpg" alert="" width="85" height="65" /></li>
+                                            <li><img src="/static/images/photo.jpg" alert="" width="85" height="65" /></li>
+                                            <li><img src="/static/images/photo.jpg" alert="" width="85" height="65" /></li>
+                                            <li><img src="/static/images/photo.jpg" alert="" width="85" height="65" /></li>
+                                        </ul>
+                                    </dd>
+                                </dl>
+                            </td>
+                            <td>
+                                <p class="p-tips">户口本：<em>（请上传清晰的照片）</em></p>
+                                <dl class="uploadInformation">
+                                    <dt>
+                                        <a href="javascript:" class="aClickUpload"></a>
+                                    </dt>
+                                    <dd>
+                                        <ul>
+                                            <li><img src="/static/images/photo.jpg" alert="" width="85" height="65" />
+                                                <span class="delete-this">
+                                                    <i></i>
+                                                </span>
+                                            </li>
+                                            <li><img src="/static/images/photo.jpg" alert="" width="85" height="65" /></li>
+                                            <li><img src="/static/images/photo.jpg" alert="" width="85" height="65" /></li>
+                                            <li><img src="/static/images/photo.jpg" alert="" width="85" height="65" /></li>
+                                            <li><img src="/static/images/photo.jpg" alert="" width="85" height="65" /></li>
+                                            <li><img src="/static/images/photo.jpg" alert="" width="85" height="65" /></li>
+                                            <li><img src="/static/images/photo.jpg" alert="" width="85" height="65" /></li>
+                                            <li><img src="/static/images/photo.jpg" alert="" width="85" height="65" /></li>
+                                        </ul>
+                                    </dd>
+                                </dl>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <p class="p-tips">婚姻证明：<em>（请上传清晰的照片）</em></p>
+                                <dl class="uploadInformation">
+                                    <dt>
+                                        <a href="javascript:" class="aClickUpload"></a>
+                                    </dt>
+                                    <dd>
+                                        <ul>
+                                            <li><img src="/static/images/photo.jpg" alert="" width="85" height="65" />
+                                                <span class="delete-this">
+                                                    <i></i>
+                                                </span>
+                                            </li>
+                                            <li><img src="/static/images/photo.jpg" alert="" width="85" height="65" /></li>
+                                            <li><img src="/static/images/photo.jpg" alert="" width="85" height="65" /></li>
+                                            <li><img src="/static/images/photo.jpg" alert="" width="85" height="65" /></li>
+                                            <li><img src="/static/images/photo.jpg" alert="" width="85" height="65" /></li>
+                                            <li><img src="/static/images/photo.jpg" alert="" width="85" height="65" /></li>
+                                            <li><img src="/static/images/photo.jpg" alert="" width="85" height="65" /></li>
+                                            <li><img src="/static/images/photo.jpg" alert="" width="85" height="65" /></li>
+                                        </ul>
+                                    </dd>
+                                </dl>
+                            </td>
+                            <td>
+                                <p class="p-tips">婚姻证明：<em>（请上传清晰的照片）</em></p>
+                                <dl class="uploadInformation">
+                                    <dt>
+                                        <a href="javascript:" class="aClickUpload"></a>
+                                    </dt>
+                                    <dd>
+                                        <ul>
+                                            <li><img src="/static/images/photo.jpg" alert="" width="85" height="65" />
+                                                <span class="delete-this">
+                                                    <i></i>
+                                                </span>
+                                            </li>
+                                            <li><img src="/static/images/photo.jpg" alert="" width="85" height="65" /></li>
+                                            <li><img src="/static/images/photo.jpg" alert="" width="85" height="65" /></li>
+                                            <li><img src="/static/images/photo.jpg" alert="" width="85" height="65" /></li>
+                                        </ul>
+                                    </dd>
+                                </dl>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                <p class="p-btns">
+                    <a href="" class="sub-btn">提交</a>
+                    <a href="" class="sub-btn reset-btn">重置</a>
+                </p>
             </form>
         </div>
     </div>
