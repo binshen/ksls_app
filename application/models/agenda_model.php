@@ -174,8 +174,7 @@ class Agenda_model extends MY_Model
         );
         $this->db->trans_start();//--------开始事务
 
-        $this->db->where('id', $this->input->post('id'));
-        $this->db->update('agenda', $data);
+        $this->db->insert('agenda', $data);
         $this->db->trans_complete();//------结束事务
         if ($this->db->trans_status() === FALSE) {
             return -1;

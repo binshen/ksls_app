@@ -23,7 +23,7 @@
             </div>
         </div>
         <div class="wrap-right">
-            <form>
+            <form id="agendaForm" method="post" action="/agenda/save_agenda">
                 <div class="search-wrap">
                     <div class="t-tit">代办买卖二手房服务Agent Housing Services</div>
                 </div>
@@ -275,8 +275,8 @@
                     </table>
                 </div>
                 <p class="p-btns">
-                    <a href="" class="sub-btn">提交</a>
-                    <a href="" class="sub-btn reset-btn">重置</a>
+                    <a href="javascript:void(0);" class="sub-btn" id="btnSubmit">提交</a>
+                    <a href="javascript:void(0);" class="sub-btn reset-btn">重置</a>
                 </p>
             </form>
         </div>
@@ -285,9 +285,16 @@
 <script type="text/javascript">
     $(".ing-error").mouseover(function(){
         $(this).children(".error-explain").toggle();
-    }).mouseout(function(){ $(this).children(".error-explain").hide();});
+    }).mouseout(function(){
+        $(this).children(".error-explain").hide();
+    });
+
     $("#btn_search").click(function() {
         $('#formSearchActivity').submit();
+    });
+
+    $("#btnSubmit").click(function() {
+        $("#agendaForm").submit();
     });
 </script>
 </body>
