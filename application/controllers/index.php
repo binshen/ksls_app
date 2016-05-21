@@ -64,4 +64,18 @@ class Index extends MY_Controller {
         echo $this->user_model->update_user();
         die;
     }
+
+    public function test() {
+
+        $response = array();
+        $username = $_POST['username'];
+        $password = $_POST['password'];
+        if($username == '13913913999') {
+            $response['success'] = true;
+        } else {
+            $response['success'] = false;
+        }
+        echo json_encode($response);
+        die;
+    }
 }
