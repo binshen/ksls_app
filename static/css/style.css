@@ -4,7 +4,8 @@ body{background: #fff; font-family: "Microsoft YaHei";}
 .header-wrap{background: #f5f5f5;height:36px; border-bottom: 1px solid #eee; line-height:36px;}
 .header-in-wrap,.wraper{margin:0 auto; width:1120px;}
 .header-left{ float: left; height:36px;position:relative;}
-.login-info{width:130px;float: right;position: relative; text-align: right; }
+.h-bor{float: left;margin-right:10px;}
+.login-info{float: right;position: relative; }
 .login-info .login-out{color:#fff;}
 .login-info .login-in{text-align:left;} .login-info .login-in a{color:#6c6c6c;}
 /*.index .login-info .login-in a{color:#fff;}*/
@@ -47,23 +48,24 @@ body{background: #fff; font-family: "Microsoft YaHei";}
 .nav-left-ul li .schedule{ background-position:0 -28px; }
 .nav-left-ul li .verify{ background-position:0 -56px; }
 .nav-left-ul li .performance{ background-position:0 -88px; }
-.nav-left-ul li .myagenda{ background-position:0 -155px; }
-.nav-left-ul li .allagenda{ background-position:0 -178px; }
+.nav-left-ul li .myagenda{ background-position:0 -153px; }
+.nav-left-ul li .allagenda{ background-position:0 -180px; }
 
 .nav-left-ul li.on a{color:#fff;}
 .nav-left-ul li.on .schedule{background-position:-29px 2px;}
 .nav-left-ul li.on .schedule{ background-position:-30px -28px; }
 .nav-left-ul li.on .verify{ background-position:-30px -56px; }
 .nav-left-ul li.on .performance{ background-position:-29px -88px; }
-.nav-left-ul li.on .myagenda{ background-position:-30px -155px; }
-.nav-left-ul li.on .allagenda{ background-position:-30px -178px; }
+.nav-left-ul li.on .myagenda{ background-position:-30px -153px; }
+.nav-left-ul li.on .allagenda{ background-position:-26px -180px; }
 
 .nav-left-ul li a:hover .home{ background-position:-29px 2px; }
 .nav-left-ul li a:hover .schedule{ background-position:-30px -28px; }
 .nav-left-ul li a:hover .verify{ background-position:-30px -56px; }
 .nav-left-ul li a:hover .performance{ background-position:-29px -88px; }
-.nav-left-ul li a:hover .myagenda{ background-position:-30px -155px;}
-.nav-left-ul li a:hover .allagenda{ background-position:-30px -178px;}
+.nav-left-ul li a:hover .myagenda{ background-position:-30px -153px;}
+.nav-left-ul li a:hover .allagenda{ background-position:-26px -180px;}
+
 /*-----登录------*/
 .login-div{ background: #fff;width:410px; height:410px; border-radius: 5px; position:relative;}
 .pop-close-btn{background: url(/static/images/index/close.png) no-repeat; width:41px; height:41px; display: block; position: absolute;top:-20px; right:-20px;}
@@ -76,22 +78,22 @@ body{background: #fff; font-family: "Microsoft YaHei";}
 .login-div .sub-btn{width:205px; height:54px; margin:0 auto 30px;  background: #ed581e; display: block;border-radius: 3px; color:#fff;font-size:24px; line-height: 54px; text-align: center;}
 .login-div .tips{padding-left:30px; background: #f76e7d; height:50px; font-size:14px; color:#fff; line-height: 50px;border-radius: 3px; text-align:left;}
 .login-div .tips em{width:31px; height:26px; float:left; background: url(/static/images/index/tips.png) no-repeat; float: left;margin:10px 10px 0 0;}
-.search-wrap{overflow:hidden; zoom:1;height:45px; line-height:30px;}
+.search-wrap{overflow:hidden; zoom:1;height:45px;}
 /*.search-wrap1{padding-top:10px;}*/
-.search-wrap1 span{float:left; margin:5px 0 0 20px;font-size:16px; color:#8192a4;
+.search-wrap1 span{float:left; margin:10px 0 0 20px;font-size:16px; color:#8192a4;
 }
 .search-wrap2 span{margin:0;}
 .search-wrap .i-txt{margin-left:5px;}
 .search-wrap1 span em{margin-right:5px; width:17px; height:20px; float:left;background: url(/static/images/logo_in.png) no-repeat;}
-.search-wrap1 .user-pic-icon{background-position: -76px 2px;margin-top:5px;}
-.search-wrap1 .em-lock{width:25px;background:url(/static/images/items_icon.png) no-repeat 0 3px;margin-top:3px;}
+.search-wrap1 .user-pic-icon{background-position: -76px 5px;margin-top:5px;}
+.search-wrap1 .em-lock{width:25px;background:url(/static/images/items_icon.png) no-repeat 0 3px;}
 .search-wrap input{width: 150px;}
 .search-wrap select,.search-wrap input{margin-left:10px;padding:4px 10px; width:100px;font-size:14px; color:#aeb2b7;font-family: "Microsoft YaHei";background: none;border:1px solid #d9d9d9;border-radius: 5px;float: left; display: inline-block;}
 
 .search-wrap .sel-end-time{margin:0;}
 .add-schedule-btn{ background: #fdb322; width:95px; height: 30px; float:right;border-radius: 3px; font-size:16px; color:#fff; text-align: center; line-height: 30px;}
 /*.add-schedule-btn em{font-size: 26px;}*/
-.search-btn{ margin-left:15px;height:28px;width:22px;float:left; background: url(/static/images/left_nav.png) no-repeat -15px -120px;}
+.search-btn{ margin-left:15px;height:28px;width:22px;float:left; background: url(/staticimages/left_nav.png) no-repeat -15px -120px;}
 .schedule-ul{padding:15px 0 0 10px;overflow:hidden;zoom:1;}
 .schedule-ul li{ background: #fff; border-radius: 3px; float: left; height:50px; text-align: center; font-size: 16px; line-height: 50px;margin-right:4px;}
 .schedule-ul li:last-child{margin-right:0;}
@@ -161,12 +163,13 @@ body{background: #fff; font-family: "Microsoft YaHei";}
 
 .schedule-list .items .i-plan{color:#a9d86e;}.schedule-list .items .i-reality{color:#59ace2;}.schedule-list .items .i-review{color:#ff6c60;}
 .schedule-list li.score-plan,.schedule-list li.score-reality,.schedule-list li.score-review{ color:#fff;font-size:14px;}
-.schedule-list li.score-plan{background:#a9d86e; text-align: left;}
+.schedule-list li.score-plan{background:#a9d86e; text-align: center;}
+.dosth-list li.score-plan{text-align:left;}
 .dosth-list li.score-plan .tips-ok{margin:18px 5px 0 15px;width:14px; height:12px; float:left; background: url(/static/images/tips_icon.png) no-repeat;}
 .dosth-list li.score-plan .tips-error{ background-position:0 -16px;}
 .dosth-list li.ing-error{background: #ff6c60; cursor: pointer; position:relative;border:1px solid #ebebeb;}
-.dosth-list .error-explain{padding:10px; position: absolute;top:40px;left:-50px; color:#000; line-height: 18px; font-size:12px;
-    display: none;width:200px;border-radius: 3px;z-index: 9999;background:rgba(255,255,255,0.8);border:none;filter:progid:DXImageTransform.Microsoft.gradient(startcolorstr=#CCFFFFFF,endcolorstr=#CCFFFFFF);}
+.dosth-list .error-explain{padding:10px; position: absolute;top:40px;left:-50px; color:#000; line-height: 18px; font-size:12px;z-index: 9999;
+    display: none;width:200px;border-radius: 3px;background:rgba(255,255,255,0.8);border:none;filter:progid:DXImageTransform.Microsoft.gradient(startcolorstr=#CCFFFFFF,endcolorstr=#CCFFFFFF);}
 .dosth-successful{background:#60b282;}.dosth-successful li{color:#fff;}
 
 .schedule-list li.score-reality{background:#59ace2;}
@@ -294,7 +297,7 @@ body{background: #fff; font-family: "Microsoft YaHei";}
 .revise-div dd{height:85px; font-size:18px; color:#575555; margin-bottom: 10px;}
 
 .revise-div dd .s01{width:315px; float:left;}
-.revise-div dd .upload-btn{width:90px; height:45px;margin:28px 0 0 10px; font-size:18px;}
+.revise-div dd .upload-btn{width:90px; height:45px;margin:28px 0 0 10px;}
 .revise-div .dt-pic{}.revise-div .dt-pic img{padding-right:14px;border-right:1px solid #e6e7ec;}
 /*------天气预报---------*/
 
@@ -305,595 +308,59 @@ body{background: #fff; font-family: "Microsoft YaHei";}
 .ulWeather li{float: left; width:88px; margin:0 0 30px 30px; color:#000;}
 .ulWeather li span{float: left;width:88px; line-height: 24px; text-align: center;}
 
-.currentTime{float: left;margin-left:8px;
+.currentTime{float: left;
     position: relative; width: 138px; height: 36px;}
-#calendar{ position: absolute;top:40px;width:350px;z-index: 9999;}
-.fc {
-    direction: ltr;
-    text-align: left;
-}
-
-.fc table {
-    border-collapse: collapse;
-    border-spacing: 0;
-}
-
-html .fc,
-.fc table {
-    font-size: 1em;
-    background:#f2f3f5;
-}
-
-.fc td,
-.fc th {
-    padding: 0;
-    vertical-align: top;
-}
-
-
-
-/* Header
-------------------------------------------------------------------------*/
-.fc .fc-header{background: none;}
-.fc-header td {
-    white-space: nowrap;
-    line-height: 20px;
-    color:#000;
-}
-
-.fc-header-left {
-    width: 0%;
-    text-align: left;
-    display: none;
-}
-
-.fc-header-center {
-
-}
-
-.fc-header-right {
-    width: 0%;
-    text-align: right;
-    display: none;
-}
-
-.fc-header-title {
-    width: 100%;
-    display: inline-block;
-    vertical-align: top;
-    text-align: center;
-}
-
-.fc-header-title h2 {
-    margin-top: 0; font-size:16px;
-    white-space: nowrap;
-}
-
-.fc .fc-header-space {
-    padding-left: 10px;
-}
-
-.fc-header .fc-button {
-    margin-bottom: 1em;
-    vertical-align: top;
-}
-
-/* buttons edges butting together */
-
-.fc-header .fc-button {
-    margin-right: -1px;
-}
-
-.fc-header .fc-corner-right,  /* non-theme */
-.fc-header .ui-corner-right { /* theme */
-    margin-right: 0; /* back to normal */
-}
-
-/* button layering (for border precedence) */
-
-.fc-header .fc-state-hover,
-.fc-header .ui-state-hover {
-    z-index: 2;
-}
-
-.fc-header .fc-state-down {
-    z-index: 3;
-}
-
-.fc-header .fc-state-active,
-.fc-header .ui-state-active {
-    z-index: 4;
-}
-
-
-
-/* Content
-------------------------------------------------------------------------*/
-
-.fc-content {
-    clear: both;
-}
-
-.fc-view {
-    width: 100%; /* needed for view switching (when view is absolute) */
-    overflow: hidden;
-}
-
-
-
-/* Cell Styles
-------------------------------------------------------------------------*/
-
-.fc-widget-header,    /* <th>, usually */
-.fc-widget-content {  /* <td>, usually */
-    border: 1px solid #ddd;
-}
-
-/*.fc-widget-header{background:#f7f7f7}*/
-
-.fc-state-highlight { /* <td> today cell */ /* TODO: add .fc-today to <th> */
-    background: #fcf8e3;
-}
-
-.fc-cell-overlay { /* semi-transparent rectangle while dragging */
-    background: #bce8f1;
-    opacity: .3;
-    filter: alpha(opacity=30); /* for IE */
-}
-
-
-
-/* Buttons
-------------------------------------------------------------------------*/
-
-.fc-button {
-    position: relative;
-    display: inline-block;
-    padding: 0 .6em;
-    overflow: hidden;
-    height: 1.9em;
-    line-height: 1.9em;
-    white-space: nowrap;
-    cursor: pointer;
-}
-
-.fc-state-default { /* non-theme */
-    border: 1px solid;
-}
-
-.fc-state-default.fc-corner-left { /* non-theme */
-    border-top-left-radius: 4px;
-    border-bottom-left-radius: 4px;
-}
-
-.fc-state-default.fc-corner-right { /* non-theme */
-    border-top-right-radius: 4px;
-    border-bottom-right-radius: 4px;
-}
-
-/*
-	Our default prev/next buttons use HTML entities like &lsaquo; &rsaquo; &laquo; &raquo;
-	and we'll try to make them look good cross-browser.
-*/
-
-.fc-text-arrow {
-    margin: 0 .1em;
-    font-size: 2em;
-    font-family: "Courier New", Courier, monospace;
-    vertical-align: baseline; /* for IE7 */
-}
-
-.fc-button-prev .fc-text-arrow,
-.fc-button-next .fc-text-arrow { /* for &lsaquo; &rsaquo; */
-    font-weight: bold;
-}
-
-/* icon (for jquery ui) */
-
-.fc-button .fc-icon-wrap {
-    position: relative;
-    float: left;
-    top: 50%;
-}
-
-.fc-button .ui-icon {
-    position: relative;
-    float: left;
-    margin-top: -50%;
-    *margin-top: 0;
-    *top: -50%;
-}
-
-/*
-  button states
-  borrowed from twitter bootstrap (http://twitter.github.com/bootstrap/)
-*/
-
-.fc-state-default {
-    background-color: #f5f5f5;
-    background-image: -moz-linear-gradient(top, #ffffff, #e6e6e6);
-    background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#ffffff), to(#e6e6e6));
-    background-image: -webkit-linear-gradient(top, #ffffff, #e6e6e6);
-    background-image: -o-linear-gradient(top, #ffffff, #e6e6e6);
-    background-image: linear-gradient(to bottom, #ffffff, #e6e6e6);
-    background-repeat: repeat-x;
-    border-color: #e6e6e6 #e6e6e6 #bfbfbf;
-    border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
-    color: #333;
-    text-shadow: 0 1px 1px rgba(255, 255, 255, 0.75);
-    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.05);
-}
-
-.fc-state-hover,
-.fc-state-down,
-.fc-state-active,
-.fc-state-disabled {
-    color: #333333;
-    background-color: #e6e6e6;
-}
-
-.fc-state-hover {
-    color: #333333;
-    text-decoration: none;
-    background-position: 0 -15px;
-    -webkit-transition: background-position 0.1s linear;
-    -moz-transition: background-position 0.1s linear;
-    -o-transition: background-position 0.1s linear;
-    transition: background-position 0.1s linear;
-}
-
-.fc-state-down,
-.fc-state-active {
-    background-color: #cccccc;
-    background-image: none;
-    outline: 0;
-    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.15), 0 1px 2px rgba(0, 0, 0, 0.05);
-}
-
-.fc-state-disabled {
-    cursor: default;
-    background-image: none;
-    opacity: 0.65;
-    filter: alpha(opacity=65);
-    box-shadow: none;
-}
-
-
-
-/* Global Event Styles
-------------------------------------------------------------------------*/
-
-.fc-event {
-    border: 1px solid #3a87ad; /* default BORDER color */
-    background-color: #3a87ad; /* default BACKGROUND color */
-    color: #fff;               /* default TEXT color */
-    text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
-    font-size: .85em;
-    cursor: default;
-}
-
-a.fc-event {
-    text-decoration: none;
-}
-
-a.fc-event,
-.fc-event-draggable {
-    cursor: pointer;
-}
-
-.fc-rtl .fc-event {
-    text-align: right;
-}
-
-.fc-event-inner {
-    width: 100%;
-    overflow: hidden;
-}
-
-.fc-event-time,
-.fc-event-title {
-    padding: 0 1px;
-}
-
-.fc .ui-resizable-handle {
-    display: block;
-    position: absolute;
-    z-index: 99999;
-    overflow: hidden; /* hacky spaces (IE6/7) */
-    font-size: 300%;  /* */
-    line-height: 50%; /* */
-}
-
-
-
-/* Horizontal Events
-------------------------------------------------------------------------*/
-
-.fc-event-hori {
-    border-width: 1px 0;
-    margin-bottom: 1px;
-}
-
-.fc-ltr .fc-event-hori.fc-event-start,
-.fc-rtl .fc-event-hori.fc-event-end {
-    border-left-width: 1px;
-    border-top-left-radius: 3px;
-    border-bottom-left-radius: 3px;
-}
-
-.fc-ltr .fc-event-hori.fc-event-end,
-.fc-rtl .fc-event-hori.fc-event-start {
-    border-right-width: 1px;
-    border-top-right-radius: 3px;
-    border-bottom-right-radius: 3px;
-}
-
-/* resizable */
-
-.fc-event-hori .ui-resizable-e {
-    top: 0           !important; /* importants override pre jquery ui 1.7 styles */
-    right: -3px      !important;
-    width: 7px       !important;
-    height: 100%     !important;
-    cursor: e-resize;
-}
-
-.fc-event-hori .ui-resizable-w {
-    top: 0           !important;
-    left: -3px       !important;
-    width: 7px       !important;
-    height: 100%     !important;
-    cursor: w-resize;
-}
-
-.fc-event-hori .ui-resizable-handle {
-    _padding-bottom: 14px; /* IE6 had 0 height */
-}
-
-
-
-/* Reusable Separate-border Table
-------------------------------------------------------------*/
-
-table.fc-border-separate {
-    border-collapse: separate;
-}
-
-.fc-border-separate th,
-.fc-border-separate td {
-    border-width: 1px 0 0 1px;
-    line-height: 22px;
-}
-
-.fc-border-separate th.fc-last,
-.fc-border-separate td.fc-last {
-    border-right-width: 1px;
-}
-
-.fc-border-separate tr.fc-last th,
-.fc-border-separate tr.fc-last td {
-    border-bottom-width: 1px;
-    color:#000;
-}
-
-.fc-border-separate tbody tr.fc-first td,
-.fc-border-separate tbody tr.fc-first th {
-    padding:2px 0;
-    border-top-width: 0;
-}
-
-
-
-/* Month View, Basic Week View, Basic Day View
-------------------------------------------------------------------------*/
-
-.fc-grid th {
-    text-align: center;
-}
-
-.fc .fc-week-number {
-    width: 22px;
-    text-align: center;
-}
-
-.fc .fc-week-number div {
-    padding: 0 2px;
-}
-
-.fc-grid .fc-day-number {
-    /*float: right;*/
-
-    position:relative;
-    display:block;
-    text-align: center;
-    color:#000;
-}
-.fc-grid .fc-day-number span.solarday{color:#999;}
-.fc-grid .fc-day-number span.holiday{position:absolute; left:40%}
-
-.fc-grid .fc-other-month .fc-day-number {
-    color:#ddd;
-    /*opacity: 0.3;*/
-    /*filter: alpha(opacity=30); !* for IE *!*/
-    /* opacity with small font can sometimes look too faded
-       might want to set the 'color' property instead
-       making day-numbers bold also fixes the problem */
-}
-
-.fc-grid .fc-day-content {
-    clear: both;
-    padding: 2px 2px 1px; /* distance between events and day edges */
-}
-
-/* event styles */
-
-.fc-grid .fc-event-time {
-    font-weight: bold;
-}
-
-/* right-to-left */
-
-.fc-rtl .fc-grid .fc-day-number {
-    float: left;
-}
-
-.fc-rtl .fc-grid .fc-event-time {
-    float: right;
-}
-
-
-
-/* Agenda Week View, Agenda Day View
-------------------------------------------------------------------------*/
-
-.fc-agenda table {
-    border-collapse: separate;
-}
-
-.fc-agenda-days th {
-    text-align: center;
-}
-
-.fc-agenda .fc-agenda-axis {
-    width: 50px;
-    padding: 0 4px;
-    vertical-align: middle;
-    text-align: right;
-    white-space: nowrap;
-    font-weight: normal;
-}
-
-.fc-agenda .fc-week-number {
-    font-weight: bold;
-}
-
-.fc-agenda .fc-day-content {
-    padding: 2px 2px 1px;
-}
-
-/* make axis border take precedence */
-
-.fc-agenda-days .fc-agenda-axis {
-    border-right-width: 1px;
-}
-
-.fc-agenda-days .fc-col0 {
-    border-left-width: 0;
-}
-
-/* all-day area */
-
-.fc-agenda-allday th {
-    border-width: 0 1px;
-}
-
-.fc-agenda-allday .fc-day-content {
-    min-height: 34px; /* TODO: doesnt work well in quirksmode */
-    _height: 34px;
-}
-
-/* divider (between all-day and slots) */
-
-.fc-agenda-divider-inner {
-    height: 2px;
-    overflow: hidden;
-}
-
-.fc-widget-header .fc-agenda-divider-inner {
-    background: #eee;
-}
-
-/* slot rows */
-
-.fc-agenda-slots th {
-    border-width: 1px 1px 0;
-}
-
-.fc-agenda-slots td {
-    border-width: 1px 0 0;
-    background: none;
-}
-
-.fc-agenda-slots td div {
-    height: 20px;
-}
-
-.fc-agenda-slots tr.fc-slot0 th,
-.fc-agenda-slots tr.fc-slot0 td {
-    border-top-width: 0;
-}
-
-.fc-agenda-slots tr.fc-minor th,
-.fc-agenda-slots tr.fc-minor td {
-    border-top-style: dotted;
-}
-
-.fc-agenda-slots tr.fc-minor th.ui-widget-header {
-    *border-top-style: solid; /* doesn't work with background in IE6/7 */
-}
-
-
-
-/* Vertical Events
-------------------------------------------------------------------------*/
-
-.fc-event-vert {
-    border-width: 0 1px;
-}
-
-.fc-event-vert.fc-event-start {
-    border-top-width: 1px;
-    border-top-left-radius: 3px;
-    border-top-right-radius: 3px;
-}
-
-.fc-event-vert.fc-event-end {
-    border-bottom-width: 1px;
-    border-bottom-left-radius: 3px;
-    border-bottom-right-radius: 3px;
-}
-
-.fc-event-vert .fc-event-time {
-    white-space: nowrap;
-    font-size: 10px;
-}
-
-.fc-event-vert .fc-event-inner {
-    position: relative;
-    z-index: 2;
-}
-
-.fc-event-vert .fc-event-bg { /* makes the event lighter w/ a semi-transparent overlay  */
-    position: absolute;
-    z-index: 1;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: #fff;
-    opacity: .3;
-    filter: alpha(opacity=30);
-}
-
-.fc .ui-draggable-dragging .fc-event-bg, /* TODO: something nicer like .fc-opacity */
-.fc-select-helper .fc-event-bg {
-    display: none\9; /* for IE6/7/8. nested opacity filters while dragging don't work */
-}
-
-/* resizable */
-
-.fc-event-vert .ui-resizable-s {
-    bottom: 0        !important; /* importants override pre jquery ui 1.7 styles */
-    width: 100%      !important;
-    height: 8px      !important;
-    overflow: hidden !important;
-    line-height: 8px !important;
-    font-size: 11px  !important;
-    font-family: monospace;
-    text-align: center;
-    cursor: s-resize;
-}
-
-.fc-agenda .ui-resizable-resizing { /* TODO: better selector */
-    _overflow: hidden;
-}
+#calendar{ position: absolute;top:40px;width:350px; z-index: 9999;}
+.fc{direction:ltr;text-align:left}.fc table{border-collapse:collapse;border-spacing:0}html .fc,.fc table{font-size:1em;background:#f2f3f5}.fc td,.fc th{padding:0;vertical-align:top}.fc .fc-header{background:0}.fc-header td{white-space:nowrap;line-height:20px;color:#000}.fc-header-left{width:0;text-align:left;display:none}.fc-header-right{width:0;text-align:right;display:none}.fc-header-title{width:100%;display:inline-block;vertical-align:top;text-align:center}.fc-header-title h2{margin-top:0;font-size:16px;white-space:nowrap}.fc .fc-header-space{padding-left:10px}.fc-header .fc-button{margin-bottom:1em;vertical-align:top}.fc-header .fc-button{margin-right:-1px}.fc-header .fc-corner-right,.fc-header .ui-corner-right{margin-right:0}.fc-header .fc-state-hover,.fc-header .ui-state-hover{z-index:2}.fc-header .fc-state-down{z-index:3}.fc-header .fc-state-active,.fc-header .ui-state-active{z-index:4}.fc-content{clear:both}.fc-view{width:100%;overflow:hidden}.fc-widget-header,.fc-widget-content{border:1px solid #ddd}.fc-state-highlight{background:#fcf8e3}.fc-cell-overlay{background:#bce8f1;opacity:.3;filter:alpha(opacity=30)}.fc-button{position:relative;display:inline-block;padding:0 .6em;overflow:hidden;height:1.9em;line-height:1.9em;white-space:nowrap;cursor:pointer}.fc-state-default{border:1px solid}.fc-state-default.fc-corner-left{border-top-left-radius:4px;border-bottom-left-radius:4px}.fc-state-default.fc-corner-right{border-top-right-radius:4px;border-bottom-right-radius:4px}.fc-text-arrow{margin:0 .1em;font-size:2em;font-family:"Courier New",Courier,monospace;vertical-align:baseline}.fc-button-prev .fc-text-arrow,.fc-button-next .fc-text-arrow{font-weight:bold}.fc-button .fc-icon-wrap{position:relative;float:left;top:50%}.fc-button .ui-icon{position:relative;float:left;margin-top:-50%;*margin-top:0;*top:-50%}.fc-state-default{background-color:#f5f5f5;background-image:-moz-linear-gradient(top,#fff,#e6e6e6);background-image:-webkit-gradient(linear,0 0,0 100%,from(#fff),to(#e6e6e6));background-image:-webkit-linear-gradient(top,#fff,#e6e6e6);background-image:-o-linear-gradient(top,#fff,#e6e6e6);background-image:linear-gradient(to bottom,#fff,#e6e6e6);background-repeat:repeat-x;border-color:#e6e6e6 #e6e6e6 #bfbfbf;border-color:rgba(0,0,0,0.1) rgba(0,0,0,0.1) rgba(0,0,0,0.25);color:#333;text-shadow:0 1px 1px rgba(255,255,255,0.75);box-shadow:inset 0 1px 0 rgba(255,255,255,0.2),0 1px 2px rgba(0,0,0,0.05)}.fc-state-hover,.fc-state-down,.fc-state-active,.fc-state-disabled{color:#333;background-color:#e6e6e6}.fc-state-hover{color:#333;text-decoration:none;background-position:0 -15px;-webkit-transition:background-position .1s linear;-moz-transition:background-position .1s linear;-o-transition:background-position .1s linear;transition:background-position .1s linear}.fc-state-down,.fc-state-active{background-color:#ccc;background-image:none;outline:0;box-shadow:inset 0 2px 4px rgba(0,0,0,0.15),0 1px 2px rgba(0,0,0,0.05)}.fc-state-disabled{cursor:default;background-image:none;opacity:.65;filter:alpha(opacity=65);box-shadow:none}.fc-event{border:1px solid #3a87ad;background-color:#3a87ad;color:#fff;text-shadow:0 -1px 0 rgba(0,0,0,0.25);font-size:.85em;cursor:default}a.fc-event{text-decoration:none}a.fc-event,.fc-event-draggable{cursor:pointer}.fc-rtl .fc-event{text-align:right}.fc-event-inner{width:100%;overflow:hidden}.fc-event-time,.fc-event-title{padding:0 1px}.fc .ui-resizable-handle{display:block;position:absolute;z-index:99999;overflow:hidden;font-size:300%;line-height:50%}.fc-event-hori{border-width:1px 0;margin-bottom:1px}.fc-ltr .fc-event-hori.fc-event-start,.fc-rtl .fc-event-hori.fc-event-end{border-left-width:1px;border-top-left-radius:3px;border-bottom-left-radius:3px}.fc-ltr .fc-event-hori.fc-event-end,.fc-rtl .fc-event-hori.fc-event-start{border-right-width:1px;border-top-right-radius:3px;border-bottom-right-radius:3px}.fc-event-hori .ui-resizable-e{top:0!important;right:-3px!important;width:7px!important;height:100%!important;cursor:e-resize}.fc-event-hori .ui-resizable-w{top:0!important;left:-3px!important;width:7px!important;height:100%!important;cursor:w-resize}.fc-event-hori .ui-resizable-handle{_padding-bottom:14px}table.fc-border-separate{border-collapse:separate}.fc-border-separate th,.fc-border-separate td{border-width:1px 0 0 1px;line-height:22px}.fc-border-separate th.fc-last,.fc-border-separate td.fc-last{border-right-width:1px}.fc-border-separate tr.fc-last th,.fc-border-separate tr.fc-last td{border-bottom-width:1px;color:#000}.fc-border-separate tbody tr.fc-first td,.fc-border-separate tbody tr.fc-first th{padding:2px 0;border-top-width:0}.fc-grid th{text-align:center}.fc .fc-week-number{width:22px;text-align:center}.fc .fc-week-number div{padding:0 2px}.fc-grid .fc-day-number{position:relative;display:block;text-align:center;color:#000}.fc-grid .fc-day-number span.solarday{color:#999}.fc-grid .fc-day-number span.holiday{position:absolute;left:40%}.fc-grid .fc-other-month .fc-day-number{color:#ddd}
+.fc-grid .fc-day-content{clear:both;padding:2px 2px 1px}.fc-grid .fc-event-time{font-weight:bold}.fc-rtl .fc-grid .fc-day-number{float:left}.fc-rtl .fc-grid .fc-event-time{float:right}.fc-agenda table{border-collapse:separate}.fc-agenda-days th{text-align:center}.fc-agenda .fc-agenda-axis{width:50px;padding:0 4px;vertical-align:middle;text-align:right;white-space:nowrap;font-weight:normal}.fc-agenda .fc-week-number{font-weight:bold}.fc-agenda .fc-day-content{padding:2px 2px 1px}.fc-agenda-days .fc-agenda-axis{border-right-width:1px}.fc-agenda-days .fc-col0{border-left-width:0}.fc-agenda-allday th{border-width:0 1px}.fc-agenda-allday .fc-day-content{min-height:34px;_height:34px}.fc-agenda-divider-inner{height:2px;overflow:hidden}.fc-widget-header .fc-agenda-divider-inner{background:#eee}.fc-agenda-slots th{border-width:1px 1px 0}.fc-agenda-slots td{border-width:1px 0 0;background:0}.fc-agenda-slots td div{height:20px}.fc-agenda-slots tr.fc-slot0 th,.fc-agenda-slots tr.fc-slot0 td{border-top-width:0}.fc-agenda-slots tr.fc-minor th,.fc-agenda-slots tr.fc-minor td{border-top-style:dotted}.fc-agenda-slots tr.fc-minor th.ui-widget-header{*border-top-style:solid}.fc-event-vert{border-width:0 1px}.fc-event-vert.fc-event-start{border-top-width:1px;border-top-left-radius:3px;border-top-right-radius:3px}.fc-event-vert.fc-event-end{border-bottom-width:1px;border-bottom-left-radius:3px;border-bottom-right-radius:3px}.fc-event-vert .fc-event-time{white-space:nowrap;font-size:10px}.fc-event-vert .fc-event-inner{position:relative;z-index:2}.fc-event-vert .fc-event-bg{position:absolute;z-index:1;top:0;left:0;width:100%;height:100%;background:#fff;opacity:.3;filter:alpha(opacity=30)}.fc .ui-draggable-dragging .fc-event-bg,.fc-select-helper .fc-event-bg{display:none\9}.fc-event-vert .ui-resizable-s{bottom:0!important;width:100%!important;height:8px!important;overflow:hidden!important;line-height:8px!important;font-size:11px!important;font-family:monospace;text-align:center;cursor:s-resize}.fc-agenda .ui-resizable-resizing{_overflow:hidden}
+
+/*添加代办服务*/
+.t-tit{ text-align: center; font-size:20px;}
+.div-th{margin-left:10px;height: 36px; background: #60b282; color:#fff; font-size:18px; line-height:36px; }
+.div-th em{margin:10px 10px 0 15px;background: url(/static/images/logo_in.png) no-repeat -107px 0; width:13px;height:16px; float: left;}
+.div-th1{background: #4d8df8;}.div-th2{background: #df4a05;}
+.div-bd{margin-left:10px;margin-bottom:20px;border:1px solid #77e588; border-top:none; }
+.div-bd1{border:1px solid #4d8df8;}.div-bd2{padding:10px 15px;border:1px solid #df4a05; overflow: hidden;zoom:1;}
+.add-data-table{border-collapse: collapse;width:100%;}
+.add-data-table td{border:1px solid #efefef; width:50%; vertical-align: top; }
+.add-data-table .twodl dl{float:left;}
+.add-data-table td dl{padding: 12px 33px;overflow: hidden;zoom:1;}
+.add-data-table td dt{float:left; font-size:14px; color:#333;}
+.add-data-table td .wid115{width:115px;}.add-data-table td .wid58{width:58px;}
+.add-data-table td dd { position: relative; float: left;line-height: 26px; font-size:16px;}
+.add-data-table td dd em{ position: absolute;right:10px; font-size: 14px; color: #999;}
+.add-data-table td dd .add-txt{font-size:16px;border:1px solid #e5e5e5; background: #f9f9f9; padding:0 10px;width:150px; height: 26px; line-height: 26px;
+    font-family: "Microsoft YaHei";}
+.add-data-table td dd .input-wid85{width:85px;}
+.add-data-table td dd .radio-choose{margin:0 5px 0 10px; vertical-align:middle; }
+.add-data-table td dd .sce-remarks{margin:0;padding:5px;width:820px; height:68px;border:1px solid #e5e5e5;font-family: "Microsoft YaHei"; background: none;}
+.add-data-table .td-tit{padding: 10px 0; text-align: center; font-size:16px; color:#333;}
+.add-data-table .p-tips{padding:10px 0 0 33px;}
+.add-data-table .p-tips em{color:#979595;font-size:12px;}
+.aClickUpload{width:55px; height:70px;border:1px solid #efefef; display: block; background: url(/static/images/upload.png) no-repeat 20px 30px;
+}
+.uploadInformation  dt{width:65px;}
+.add-data-table1 td dl{padding:12px 25px;}
+.add-data-table1 td dd{width:370px;}
+
+.add-data-table1 td dd li{margin:0 3px 3px 0;border:1px solid #f1f1f1;padding:1px; width:85px;height:65px; float: left; position: relative;}
+.add-data-table1 td dd .delete-this{width:85px; height: 20px; background: #000;filter:alpha(opacity=60);opacity: 0.6; display: block;
+    top:0; position: absolute;}
+.add-data-table1 td dd .delete-this i{padding:0 5px;width:10px; height:20px; background: url(/static/images/logo_in.png) no-repeat -123px 2px; display: block; float: right;margin-right:10px; cursor: pointer;}
+
+.p-btns{width:200px; margin: 0 auto 10px; height: 35px;}
+.p-btns a{width:95px; height:35px; display: block; text-align: center; float: left; line-height: 35px; font-size:14px; color: #fff;}
+.p-btns .sub-btn{ background: #ff6c60; margin-right: 10px;}
+.p-btns .reset-btn{background: #d8d8d8; color: #333;margin:0;}
+
+.history{padding:10px;width:190px; float: left;border-right:1px solid #efefef;}
+.his-tit{margin-bottom:10px; display: block; font-size:14px;}
+.ul-his{color:#bfbfbf;}
+.ul-his .date{width:84px; display: inline-block;}
+.ul-his .process{width:70px; display: inline-block;}
+.ul-his .current{color:#747474;}
+.ul-his .close-his{width:13px; height:15px; display:inline-block;background: url(/static/images/logo_in.png) no-repeat -154px 0;}
+.editor-process{padding:10px 0; overflow: hidden;zoom:1; height: auto; width:308px; float: left; }
+.editor-process select{margin:0; color:#333;}.div-process{margin-left:35px; float: left;overflow: hidden;zoom:1;}
+.describe-process{width:360px; float: left;}
+.process-remarks{background: none;width:360px; height:80px;}
