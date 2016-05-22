@@ -150,7 +150,11 @@ class Agenda_model extends MY_Model
     }
 
     public function save_agenda() {
-        $data = array(
+
+        $now = date('Y-m-d H:i:s');
+        $this->db->trans_start();//--------开始事务
+
+        $agenda = array(
             'user_id' => $this->session->userdata('login_user_id'),
             'xq_name' => $this->input->post('xq_name'),
             'landlord_name' => $this->input->post('landlord_name'),
@@ -168,13 +172,20 @@ class Agenda_model extends MY_Model
             'mark' => $this->input->post('mark'),
             'status' => 1,
             'course' => 1,
-            'cdate' => date('Y-m-d H:i:s'),
+            'cdate' => $now,
             'num' => 'D0010001',
             'errtext' => ''
         );
-        $this->db->trans_start();//--------开始事务
+        $this->db->insert('agenda', $agenda);
+        $a_id = $this->db->insert_id();
 
-        $this->db->insert('agenda', $data);
+        $agenda_course = array(
+            'a_id' => $a_id,
+            'c_id' => 1,
+            'created' => $now
+        );
+        $this->db->insert('agenda_course', $agenda_course);
+
         $this->db->trans_complete();//------结束事务
         if ($this->db->trans_status() === FALSE) {
             return -1;
