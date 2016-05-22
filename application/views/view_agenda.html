@@ -134,17 +134,11 @@
                                 </dt>
                                 <dd>
                                     <ul>
-                                        <li><img src="/static/images/photo.jpg" alert="" width="85" height="65" /></li>
-                                        <li><img src="/static/images/photo.jpg" alert="" width="85" height="65" /></li>
-                                        <li><img src="/static/images/photo.jpg" alert="" width="85" height="65" /></li>
-                                        <li><img src="/static/images/photo.jpg" alert="" width="85" height="65" /></li>
-                                        <li><img src="/static/images/photo.jpg" alert="" width="85" height="65" /></li>
-                                        <li><img src="/static/images/photo.jpg" alert="" width="85" height="65" /></li>
-                                        <li><img src="/static/images/photo.jpg" alert="" width="85" height="65" /></li>
-                                        <li><img src="/static/images/photo.jpg" alert="" width="85" height="65" /></li>
-                                        <li><img src="/static/images/photo.jpg" alert="" width="85" height="65" /></li>
-                                        <li><img src="/static/images/photo.jpg" alert="" width="85" height="65" /></li>
-                                        <li><img src="/static/images/photo.jpg" alert="" width="85" height="65" /></li>
+                                        {{if !empty($agenda_images[1]) }}
+                                            {{foreach from=$agenda_images[1] item=item}}
+                                                <li><img src="{{$base_url}}uploadfiles/agenda/{{$item->folder}}/{{$item->style}}/{{$item->pic_short}}" alert="" width="85" height="65" /></li>
+                                            {{/foreach}}
+                                        {{/if}}
                                     </ul>
                                 </dd>
                             </dl>
@@ -157,10 +151,11 @@
                                 </dt>
                                 <dd>
                                     <ul>
-                                        <li><img src="/static/images/photo.jpg" alert="" width="85" height="65" /></li>
-                                        <li><img src="/static/images/photo.jpg" alert="" width="85" height="65" /></li>
-                                        <li><img src="/static/images/photo.jpg" alert="" width="85" height="65" /></li>
-                                        <li><img src="/static/images/photo.jpg" alert="" width="85" height="65" /></li>
+                                        {{if !empty($agenda_images[4]) }}
+                                            {{foreach from=$agenda_images[4] item=item}}
+                                                <li><img src="{{$base_url}}uploadfiles/agenda/{{$item->folder}}/{{$item->style}}/{{$item->pic_short}}" alert="" width="85" height="65" /></li>
+                                            {{/foreach}}
+                                        {{/if}}
                                     </ul>
                                 </dd>
                             </dl>
@@ -175,12 +170,11 @@
                                 </dt>
                                 <dd>
                                     <ul>
-                                        <li><img src="/static/images/photo.jpg" alert="" width="85" height="65" /></li>
-                                        <li><img src="/static/images/photo.jpg" alert="" width="85" height="65" /></li>
-                                        <li><img src="/static/images/photo.jpg" alert="" width="85" height="65" /></li>
-                                        <li><img src="/static/images/photo.jpg" alert="" width="85" height="65" /></li>
-                                        <li><img src="/static/images/photo.jpg" alert="" width="85" height="65" /></li>
-                                        <li><img src="/static/images/photo.jpg" alert="" width="85" height="65" /></li>
+                                        {{if !empty($agenda_images[2]) }}
+                                            {{foreach from=$agenda_images[2] item=item}}
+                                                <li><img src="{{$base_url}}uploadfiles/agenda/{{$item->folder}}/{{$item->style}}/{{$item->pic_short}}" alert="" width="85" height="65" /></li>
+                                            {{/foreach}}
+                                        {{/if}}
                                     </ul>
                                 </dd>
                             </dl>
@@ -193,14 +187,11 @@
                                 </dt>
                                 <dd>
                                     <ul>
-                                        <li><img src="/static/images/photo.jpg" alert="" width="85" height="65" /></li>
-                                        <li><img src="/static/images/photo.jpg" alert="" width="85" height="65" /></li>
-                                        <li><img src="/static/images/photo.jpg" alert="" width="85" height="65" /></li>
-                                        <li><img src="/static/images/photo.jpg" alert="" width="85" height="65" /></li>
-                                        <li><img src="/static/images/photo.jpg" alert="" width="85" height="65" /></li>
-                                        <li><img src="/static/images/photo.jpg" alert="" width="85" height="65" /></li>
-                                        <li><img src="/static/images/photo.jpg" alert="" width="85" height="65" /></li>
-                                        <li><img src="/static/images/photo.jpg" alert="" width="85" height="65" /></li>
+                                        {{if !empty($agenda_images[5]) }}
+                                            {{foreach from=$agenda_images[5] item=item}}
+                                                <li><img src="{{$base_url}}uploadfiles/agenda/{{$item->folder}}/{{$item->style}}/{{$item->pic_short}}" alert="" width="85" height="65" /></li>
+                                            {{/foreach}}
+                                        {{/if}}
                                     </ul>
                                 </dd>
                             </dl>
@@ -215,14 +206,11 @@
                                 </dt>
                                 <dd>
                                     <ul>
-                                        <li><img src="/static/images/photo.jpg" alert="" width="85" height="65" /></li>
-                                        <li><img src="/static/images/photo.jpg" alert="" width="85" height="65" /></li>
-                                        <li><img src="/static/images/photo.jpg" alert="" width="85" height="65" /></li>
-                                        <li><img src="/static/images/photo.jpg" alert="" width="85" height="65" /></li>
-                                        <li><img src="/static/images/photo.jpg" alert="" width="85" height="65" /></li>
-                                        <li><img src="/static/images/photo.jpg" alert="" width="85" height="65" /></li>
-                                        <li><img src="/static/images/photo.jpg" alert="" width="85" height="65" /></li>
-                                        <li><img src="/static/images/photo.jpg" alert="" width="85" height="65" /></li>
+                                        {{if !empty($agenda_images[3]) }}
+                                            {{foreach from=$agenda_images[3] item=item}}
+                                                <li><img src="{{$base_url}}uploadfiles/agenda/{{$item->folder}}/{{$item->style}}/{{$item->pic_short}}" alert="" width="85" height="65" /></li>
+                                            {{/foreach}}
+                                        {{/if}}
                                     </ul>
                                 </dd>
                             </dl>
@@ -235,14 +223,11 @@
                                 </dt>
                                 <dd>
                                     <ul>
-                                        <li><img src="/static/images/photo.jpg" alert="" width="85" height="65" /></li>
-                                        <li><img src="/static/images/photo.jpg" alert="" width="85" height="65" /></li>
-                                        <li><img src="/static/images/photo.jpg" alert="" width="85" height="65" /></li>
-                                        <li><img src="/static/images/photo.jpg" alert="" width="85" height="65" /></li>
-                                        <li><img src="/static/images/photo.jpg" alert="" width="85" height="65" /></li>
-                                        <li><img src="/static/images/photo.jpg" alert="" width="85" height="65" /></li>
-                                        <li><img src="/static/images/photo.jpg" alert="" width="85" height="65" /></li>
-                                        <li><img src="/static/images/photo.jpg" alert="" width="85" height="65" /></li>
+                                        {{if !empty($agenda_images[6]) }}
+                                            {{foreach from=$agenda_images[6] item=item}}
+                                                <li><img src="{{$base_url}}uploadfiles/agenda/{{$item->folder}}/{{$item->style}}/{{$item->pic_short}}" alert="" width="85" height="65" /></li>
+                                            {{/foreach}}
+                                        {{/if}}
                                     </ul>
                                 </dd>
                             </dl>

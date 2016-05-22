@@ -113,6 +113,18 @@ class Agenda extends MY_Controller
         $agenda = $this->agenda_model->get_agenda($id);
         $this->assign('agenda', $agenda);
 
+        $agenda_course = $this->agenda_model->get_agenda_course($id);
+        $this->assign('agenda_course', $agenda_course);
+
+
+        $agenda_image = $this->agenda_model->get_agenda_image($id);
+
+        $agenda_images = array();
+        foreach ($agenda_image as $img) {
+            $agenda_images[$img->style][] = $img;
+        }
+        $this->assign('agenda_images', $agenda_images);
+
         $this->display('view_agenda.html');
     }
 

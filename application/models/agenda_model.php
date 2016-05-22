@@ -149,6 +149,14 @@ class Agenda_model extends MY_Model
         return $this->db->get_where('agenda', array('id' => $id))->row();
     }
 
+    public function get_agenda_course($a_id) {
+        return $this->db->get_where('agenda_course', array('a_id' => $a_id))->result();
+    }
+
+    public function get_agenda_image($a_id) {
+        return $this->db->get_where('agenda_image', array('a_id' => $a_id))->result();
+    }
+
     public function save_agenda() {
 
         $now = date('Y-m-d H:i:s');
