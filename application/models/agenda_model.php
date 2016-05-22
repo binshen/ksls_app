@@ -38,7 +38,7 @@ class Agenda_model extends MY_Model
 
     function list_agenda($page,$user_id = null,$subsidiary_id=null,$company_id=null){
         // 每页显示的记录条数，默认20条
-        $numPerPage = $this->input->post('numPerPage') ? $this->input->post('numPerPage') : 1;
+        $numPerPage = $this->input->post('numPerPage') ? $this->input->post('numPerPage') : 10;
         $pageNum = $this->input->post('pageNum') ? $this->input->post('pageNum') : $page;
 
         $this->db->select('count(1) as num');
@@ -113,20 +113,21 @@ class Agenda_model extends MY_Model
         $this->db->limit($numPerPage, ($pageNum - 1) * $numPerPage );
         $this->db->order_by('a.cdate', 'desc');
         $this->db->order_by('a.user_id', 'desc');
-        $data['res_list'] = $this->db->get()->result();
+        $data['res_list'] = $this->db->get()->result_array();
         $data['detail'] = 1;
-        if(!$data['res_list']){
+        if($data['res_list']){
             foreach($data['res_list'] as $v){
                 $ids[] = $v['id'];
             }
             if (isset($ids)){
                 $this->db->select('b.a_id,b.created,c.name')->from('agenda a');
                 $this->db->join('agenda_course b','a.id = b.a_id','left');
-                $this->db->join('course c','c.id = b.c_id','left');
+                $this->db->join('course c','b.c_id = c.id','left');
                 $this->db->where_in('a.id',$ids);
                 $agenda_detail = $this->db->get()->result_array();
                 if ($agenda_detail){
                     $data['detail'] = $agenda_detail;
+                    //die(var_dump($agenda_detail));
                 }
             }
         }

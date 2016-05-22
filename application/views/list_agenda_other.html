@@ -93,34 +93,34 @@
                     <li class="wid138">操作</li>
                 </ul>
                 {{foreach from=$agenda_list.res_list item=item}}
-                {{if $item->status==3}}
+                {{if $item.status==3}}
 
                 <ul class="schedule-list dosth-list dosth-successful">
-                    <li class="time wid103">{{$item->rel_name}}</li>
+                    <li class="time wid103">{{$item.rel_name}}</li>
                     <li class="bor-separate"></li>
-                    <li class="time wid103">{{$item->num}}</li>
+                    <li class="time wid103">{{$item.num}}</li>
                     <li class="bor-separate"></li>
-                    <li class="items wid103">{{$item->xq_name}}</li>
+                    <li class="items wid103">{{$item.xq_name}}</li>
                     <li class="bor-separate"></li>
-                    <li class="items wid103">{{$item->customer_name}}</li>
+                    <li class="items wid103">{{$item.customer_name}}</li>
                     <li class="bor-separate"></li>
-                    <li class="items wid103">{{$item->landlord_name}}</li>
+                    <li class="items wid103">{{$item.landlord_name}}</li>
                     <li class="bor-separate"></li>
-                    <li class="items wid103">{{$item->acreage}} ㎡</li>
+                    <li class="items wid103">{{$item.acreage}} ㎡</li>
                     <li class="bor-separate"></li>
-                    <li class="items wid80">{{$item->customer_income}}万</li>
+                    <li class="items wid80">{{$item.customer_income}}万</li>
                     <li class="bor-separate bor-separate-none"></li>
                     <li class="wid82 score-reality bgno">
-                        {{if $item->course==1}}审核中{{/if}}
-                        {{if $item->course==2}}审核通过{{/if}}
-                        {{if $item->course==3}}评估中{{/if}}
-                        {{if $item->course==4}}评估通过{{/if}}
-                        {{if $item->course==5}}过户中{{/if}}
-                        {{if $item->course==6}}过户通过{{/if}}
-                        {{if $item->course==7}}按揭中{{/if}}
-                        {{if $item->course==8}}按揭通过{{/if}}
-                        {{if $item->course==9}}按揭房款中{{/if}}
-                        {{if $item->course==10}}按揭房款完成{{/if}}
+                        {{if $item.course==1}}审核中{{/if}}
+                        {{if $item.course==2}}审核通过{{/if}}
+                        {{if $item.course==3}}评估中{{/if}}
+                        {{if $item.course==4}}评估通过{{/if}}
+                        {{if $item.course==5}}过户中{{/if}}
+                        {{if $item.course==6}}过户通过{{/if}}
+                        {{if $item.course==7}}按揭中{{/if}}
+                        {{if $item.course==8}}按揭通过{{/if}}
+                        {{if $item.course==9}}按揭房款中{{/if}}
+                        {{if $item.course==10}}按揭房款完成{{/if}}
                     </li>
                     <li class="wid82 score-plan bgno">正常</li>
                     <li class="wid138" style="width:138px;">
@@ -129,39 +129,39 @@
                 </ul>
                 {{else}}
                 <ul class="schedule-list dosth-list ">
-                    <li class="time wid103">{{$item->rel_name}}</li>
+                    <li class="time wid103">{{$item.rel_name}}</li>
                     <li class="bor-separate"></li>
-                    <li class="time wid103">{{$item->num}}</li>
+                    <li class="time wid103">{{$item.num}}</li>
                     <li class="bor-separate"></li>
-                    <li class="items wid103">{{$item->xq_name}}</li>
+                    <li class="items wid103">{{$item.xq_name}}</li>
                     <li class="bor-separate"></li>
-                    <li class="items wid103">{{$item->customer_name}}</li>
+                    <li class="items wid103">{{$item.customer_name}}</li>
                     <li class="bor-separate"></li>
-                    <li class="items wid103">{{$item->landlord_name}}</li>
+                    <li class="items wid103">{{$item.landlord_name}}</li>
                     <li class="bor-separate"></li>
-                    <li class="items wid103">{{$item->acreage}} ㎡</li>
+                    <li class="items wid103">{{$item.acreage}} ㎡</li>
                     <li class="bor-separate"></li>
-                    <li class="items wid80">{{$item->customer_income}}万</li>
+                    <li class="items wid80">{{$item.customer_income}}万</li>
                     <li class="bor-separate bor-separate-none"></li>
                     <li class="wid82 score-reality">
-                        {{if $item->course==1}}审核中{{/if}}
-                        {{if $item->course==2}}审核通过{{/if}}
-                        {{if $item->course==3}}评估中{{/if}}
-                        {{if $item->course==4}}评估通过{{/if}}
-                        {{if $item->course==5}}过户中{{/if}}
-                        {{if $item->course==6}}过户通过{{/if}}
-                        {{if $item->course==7}}按揭中{{/if}}
-                        {{if $item->course==8}}按揭通过{{/if}}
-                        {{if $item->course==9}}按揭房款中{{/if}}
-                        {{if $item->course==10}}按揭房款完成{{/if}}
+                        {{if $item.course==1}}审核中{{/if}}
+                        {{if $item.course==2}}审核通过{{/if}}
+                        {{if $item.course==3}}评估中{{/if}}
+                        {{if $item.course==4}}评估通过{{/if}}
+                        {{if $item.course==5}}过户中{{/if}}
+                        {{if $item.course==6}}过户通过{{/if}}
+                        {{if $item.course==7}}按揭中{{/if}}
+                        {{if $item.course==8}}按揭通过{{/if}}
+                        {{if $item.course==9}}按揭房款中{{/if}}
+                        {{if $item.course==10}}按揭房款完成{{/if}}
                     </li>
 
-                    {{if $item->status==1}}
+                    {{if $item.status==1}}
                     <li class="wid82 score-plan"><em class="tips-ok"></em>正常</li>
                     {{/if}}
-                    {{if $item->status==2}}
+                    {{if $item.status==2}}
                     <li class="wid82 score-plan ing-error">
-                        <em class="tips-ok tips-error"></em>异常<div class="error-explain"><p>{{$item->errtext}}</p></div>
+                        <em class="tips-ok tips-error"></em>异常<div class="error-explain"><p>{{$item.errtext}}</p></div>
                     </li>
                     {{/if}}
                     <li class="wid138" style="width:138px;">
