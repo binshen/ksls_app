@@ -118,7 +118,11 @@ class Agenda extends MY_Controller
 
     public function save_agenda() {
 
-        $this->agenda_model->save_agenda();
+        var_dump($_POST);
+        var_dump($_FILES);
+        die;
+        
+        //$this->agenda_model->save_agenda();
 
         redirect(site_url('agenda/list_agenda'));
     }

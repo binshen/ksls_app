@@ -192,9 +192,18 @@ class Agenda_model extends MY_Model
         $this->db->insert('agenda', $agenda);
         $a_id = $this->db->insert_id();
 
-        $agenda_image = array(
-
-        );
+        for($i=1; $i<=6; $i++) {
+            $pic_short = $this->input->post('pic_short_' . $i);
+            foreach($pic_short as $idx => $pic) {
+                $agenda_image = array(
+                    'a_id' => $a_id,
+                    'style' => $i,
+                    'pic' => str_replace('_thumb', '', $pic),
+                    'pic_short' => $pic
+                );
+                $this->db->insert('agenda_image', $agenda_image);
+            }
+        }
 
         $agenda_course = array(
             'a_id' => $a_id,

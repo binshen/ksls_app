@@ -242,7 +242,6 @@
     });
 
     function triggerFileUpload(style) {
-        alert(style)
         var html = '<div id="uploader" style="width:550px;"><p>Your browser doesn\'t have Flash, Silverlight or HTML5 support.</p></div>';
 
         var layerIndex = layer.confirm(html, {
@@ -299,7 +298,7 @@
                     if($.inArray(item, now_pic) < 0){
                         html+='<li><img src="'+path+'" alert="" width="85" height="65" />';
                         html+='<span class="delete-this" onclick="del_pic(this, '+style+');"><i></i></span>';
-                        html+='<input type="hidden" name="pic_short[]" class="pic_short" value="'+item+'">';
+                        html+='<input type="hidden" name="pic_short_' + style + '[]" class="pic_short" value="'+item+'">';
                         html+='</li>';
                     }
                 });
