@@ -74,7 +74,7 @@ class Activity extends MY_Controller {
             $company_id = $this->session->userdata('login_company_id');
             if($role_id < 4) {
                 $subsidiary_list = $this->activity_model->get_subsidiary_list($company_id, NULL);
-            } else if($role_id == 4) {
+            } else if($role_id < 7) {
                 $subsidiary_id = $this->session->userdata('login_subsidiary_id');
                 $subsidiary_list = $this->activity_model->get_subsidiary_list($company_id, $subsidiary_id);
             }
@@ -102,7 +102,7 @@ class Activity extends MY_Controller {
             $company_id = $this->session->userdata('login_company_id');
         }
         $subsidiary_id = NULL;
-        if($role_id >= 4) {
+        if($role_id >= 7) {
             $subsidiary_id = $this->session->userdata('login_subsidiary_id');
         }
         $data = $this->activity_model->list_activity($page, array(2,3), NULL, $subsidiary_id, $company_id);
@@ -301,7 +301,7 @@ class Activity extends MY_Controller {
         } else {
             $company_id = $this->session->userdata('login_company_id');
             $subsidiary_id = NULL;
-            if($role_id > 4) {
+            if($role_id > 7) {
                 $subsidiary_id = $this->session->userdata('login_subsidiary_id');
                 $this->assign('subsidiary', $subsidiary_id);
             } else {
@@ -325,7 +325,7 @@ class Activity extends MY_Controller {
         if($role_id > 1) {
             $company_id = $this->session->userdata('login_company_id');
         }
-        if($role_id >= 4) {
+        if($role_id >= 7) {
             $subsidiary_id = $this->session->userdata('login_subsidiary_id');
         }
 

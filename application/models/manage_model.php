@@ -212,7 +212,7 @@ class Manage_model extends MY_Model
     }
 
     public function get_subsidiary_list_by_company($id) {
-        if($this->session->userdata('role_id') < 4) {
+        if($this->session->userdata('role_id') < 6) {
             return $this->db->get_where('subsidiary', array('company_id' => $id))->result_array();
         } else {
             return $this->db->get_where('subsidiary', array('company_id' => $id, 'id' => $this->session->userdata('subsidiary_id')))->result_array();
