@@ -152,6 +152,17 @@ class Agenda_model extends MY_Model
     public function save_agenda() {
 
         $now = date('Y-m-d H:i:s');
+
+        $company_id = $this->session->userdata('login_company_id');
+
+        $this->db->select_max('max_num');
+        $result = $this->db->get_where('agenda', array('company_id' => $company_id))->row();
+        $max_num = 1;
+        if(!empty($max_num['max_num'])) {
+            $max_num += $max_num['max_num'];
+        }
+        $num = 'D' . str_pad($company_id, 3, "0", STR_PAD_LEFT) . str_pad($max_num, 4, "0", STR_PAD_LEFT);
+
         $this->db->trans_start();//--------开始事务
 
         $agenda = array(
@@ -173,11 +184,17 @@ class Agenda_model extends MY_Model
             'status' => 1,
             'course' => 1,
             'cdate' => $now,
-            'num' => 'D0010001',
-            'errtext' => ''
+            'num' => $num,
+            'errtext' => '',
+            'company_id' => $company_id,
+            'max_num' => $max_num
         );
         $this->db->insert('agenda', $agenda);
         $a_id = $this->db->insert_id();
+
+        $agenda_image = array(
+
+        );
 
         $agenda_course = array(
             'a_id' => $a_id,
