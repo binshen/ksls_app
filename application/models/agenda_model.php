@@ -210,4 +210,22 @@ class Agenda_model extends MY_Model
             return 1;
         }
     }
+
+
+    ////////////////////////////////////////////////////////////////////////////////
+    //ajax删除图片
+    public function del_pic($folder,$style,$pic,$id){
+        //echo $id;die;
+        if($id){
+            $this->db->where('pic_short',$pic);
+            $this->db->delete('agenda_image');
+        }
+        @unlink('./././uploadfiles/agenda/'.$folder.'/'.$style.'/'.$pic);
+        @unlink('./././uploadfiles/agenda/'.$folder.'/'.$style.'/'.str_replace('_thumb', '', $pic));
+        $data = array(
+            'flag'=>1,
+            'pic'=>$pic
+        );
+        return $data;
+    }
 }

@@ -16,6 +16,9 @@ class Agenda extends MY_Controller
         parent::__construct();
 
         $this->load->model('agenda_model');
+
+        $this->load->library('image_lib');
+        $this->load->helper('directory');
     }
 
     function _remap($method,$params = array()) {
@@ -100,6 +103,8 @@ class Agenda extends MY_Controller
     }
 
     public function add_agenda() {
+
+        $this->assign('time', date('YmdHis'));
         $this->display('add_agenda.html');
     }
 
@@ -112,9 +117,76 @@ class Agenda extends MY_Controller
     }
 
     public function save_agenda() {
-        
+
         $this->agenda_model->save_agenda();
 
         redirect(site_url('agenda/list_agenda'));
+    }
+
+
+    ///////////////////////////////////////////////////////////////////
+    public function save_pics($time, $style){
+        if (is_readable('./././uploadfiles/agenda') == false) {
+            mkdir('./././uploadfiles/agenda');
+        }
+        if (is_readable('./././uploadfiles/agenda/'.$time) == false) {
+            mkdir('./././uploadfiles/agenda/'.$time);
+        }
+
+        if (is_readable('./././uploadfiles/agenda/'.$time.'/'.$style) == false) {
+            mkdir('./././uploadfiles/agenda/'.$time.'/'.$style);
+        }
+
+        $path = './././uploadfiles/agenda/'.$time.'/'.$style;
+
+        //设置缩小图片属性
+        $config_small['image_library'] = 'gd2';
+        $config_small['create_thumb'] = TRUE;
+        $config_small['quality'] = 80;
+        $config_small['maintain_ratio'] = TRUE; //保持图片比例
+        $config_small['new_image'] = $path;
+        $config_small['width'] = 300;
+        $config_small['height'] = 190;
+
+        //设置原图限制
+        $config['upload_path'] = $path;
+        $config['allowed_types'] = 'gif|jpg|png|jpeg';
+        $config['max_size'] = '10000';
+        $config['encrypt_name'] = true;
+        $this->load->library('upload', $config);
+
+        if($this->upload->do_upload()){
+            $data = $this->upload->data();//返回上传文件的所有相关信息的数组
+            $config_small['source_image'] = $data['full_path']; //文件路径带文件名
+            $this->image_lib->initialize($config_small);
+            $this->image_lib->resize();
+
+            echo 1;
+        }else{
+            echo -1;
+        }
+        exit;
+    }
+
+    //ajax获取图片信息
+    public function get_pics($time, $style){
+        $path = './././uploadfiles/agenda/'.$time.'/'.$style;
+        $map = directory_map($path);
+        $data = array();
+        //整理图片名字，取缩略图片
+        foreach($map as $v){
+            if(substr(substr($v,0,strrpos($v,'.')),-5) == 'thumb'){
+                $data['img'][] = $v;
+            }
+        }
+        $data['time'] = $time;
+        $data['style'] = $style;
+        echo json_encode($data);
+    }
+
+    //ajax删除图片
+    public function del_pic($folder,$style,$pic,$id=null){
+        $data = $this->agenda_model->del_pic($folder,$style,$pic,$id);
+        echo json_encode($data);
     }
 }
