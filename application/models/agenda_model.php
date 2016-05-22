@@ -151,11 +151,19 @@ class Agenda_model extends MY_Model
     }
 
     public function get_agenda_course($a_id) {
-        return $this->db->get_where('agenda_course', array('a_id' => $a_id))->result();
+        $this->db->select('a.*, b.name as course_name');
+        $this->db->from('agenda_course a');
+        $this->db->join('course b','a.c_id = b.id','left');
+        $this->db->where('a.a_id', $a_id);
+        return $this->db->get()->result();
     }
 
     public function get_agenda_image($a_id) {
         return $this->db->get_where('agenda_image', array('a_id' => $a_id))->result();
+    }
+
+    public function get_course_list() {
+        return $this->db->get('course')->result();
     }
 
     public function save_agenda() {

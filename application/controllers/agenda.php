@@ -125,6 +125,9 @@ class Agenda extends MY_Controller
         }
         $this->assign('agenda_images', $agenda_images);
 
+        $course_list = $this->agenda_model->get_course_list();
+        $this->assign('course_list', $course_list);
+
         $this->display('view_agenda.html');
     }
 

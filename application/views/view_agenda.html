@@ -240,22 +240,28 @@
                 <div class="history">
                     <div class="his-tit">历史进程</div>
                     <ul class="ul-his">
+                        {{if !empty($agenda_course) }}
+                            {{foreach from=$agenda_course item=item}}
+                                <li><i class="date">{{$item->created|date_format:"%Y-%m-%d"}}</i><i class="process">{{$item->course_name}}</i><a href="" class="close-his"></a></li>
+                            {{/foreach}}
+                        {{/if}}
+                        <!--
                         <li><i class="date">2016-05-08</i><i class="process">审核中</i><a href="" class="close-his"></a></li>
                         <li><i class="date">2016-05-08</i><i class="process">审核中</i><a href="" class="close-his"></a></li>
                         <li><i class="date">2016-05-08</i><i class="process">审核中</i><a href="" class="close-his"></a></li>
                         <li><i class="date">2016-05-08</i><i class="process">审核中</i><a href="" class="close-his"></a></li>
                         <li class="current"><i class="date">2016-05-08</i><i class="process">审核中</i><a href="" class="close-his"></a></li>
-                        <ul>
+                        -->
+                    </ul>
                 </div>
                 <div class="editor-process search-wrap">
                     <div class="div-process">
                         <div class="his-tit">进程审核</div>
                         <select>
-                            <option value="审核完成">审核完成</option>
-                            <option value="评估中">评估中</option>
-                            <option value="评估通过">评估通过</option>
-                            <option value="按揭中">按揭中</option>
-                            <option value="按揭通过">按揭通过</option>
+                            <option value="">请选择进度</option>
+                            {{foreach from=$course_list item=item}}
+                                <option value="{{$item->id}}">{{$item->name}}</option>
+                            {{/foreach}}
                         </select>
                     </div>
                     <div class="div-process">
@@ -284,7 +290,10 @@
 <script type="text/javascript">
     $(".ing-error").mouseover(function(){
         $(this).children(".error-explain").toggle();
-    }).mouseout(function(){ $(this).children(".error-explain").hide();});
+    }).mouseout(function(){
+        $(this).children(".error-explain").hide();
+    });
+
     $("#btn_search").click(function() {
         $('#formSearchActivity').submit();
     });
