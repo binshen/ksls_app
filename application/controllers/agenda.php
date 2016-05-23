@@ -145,6 +145,12 @@ class Agenda extends MY_Controller
         $course_list = $this->agenda_model->get_course_list();
         $this->assign('course_list', $course_list);
 
+        $role_id = $this->session->userdata('login_role_id');
+        $this->assign('role_id', $role_id);
+
+        $position_id = $this->session->userdata('login_position_id');
+        $this->assign('position_id', $position_id);
+
         $this->display('view_agenda.html');
     }
 
