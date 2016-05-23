@@ -102,7 +102,19 @@ class Agenda extends MY_Controller
         $this->display('list_agenda_other.html');
     }
 
-    public function add_agenda() {
+    public function add_agenda($id=NULL) {
+
+        if(!empty($id)) {
+            $agenda = $this->agenda_model->get_agenda($id);
+            $this->assign('agenda', $agenda);
+
+            $agenda_image = $this->agenda_model->get_agenda_image($id);
+            $agenda_images = array();
+            foreach ($agenda_image as $img) {
+                $agenda_images[$img->style][] = $img;
+            }
+            $this->assign('agenda_images', $agenda_images);
+        }
 
         $this->assign('time', date('YmdHis'));
         $this->display('add_agenda.html');
@@ -118,7 +130,6 @@ class Agenda extends MY_Controller
 
 
         $agenda_image = $this->agenda_model->get_agenda_image($id);
-
         $agenda_images = array();
         foreach ($agenda_image as $img) {
             $agenda_images[$img->style][] = $img;
