@@ -367,8 +367,8 @@ body{background: #fff; font-family: "Microsoft YaHei";}
 .history{padding:10px;width:190px; float: left;border-right:1px solid #efefef;}
 .his-tit{margin-bottom:10px; display: block; font-size:14px;}
 .ul-his{color:#bfbfbf;}
-.ul-his .date{width:84px; display: inline-block;}
-.ul-his .process{width:70px; display: inline-block;}
+.ul-his .date{width:75px; display: inline-block;}
+.ul-his .process{width:100px; display: inline-block;}
 .ul-his .current{color:#747474;}
 .ul-his .close-his{width:13px; height:15px; display:inline-block;background: url(/static/images/logo_in.png) no-repeat -154px 0;}
 .editor-process{padding:10px 0; overflow: hidden;zoom:1; height: auto; width:308px; float: left; }
