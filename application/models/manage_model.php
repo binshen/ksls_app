@@ -419,25 +419,25 @@ class Manage_model extends MY_Model
     }
 
     /**
-     * 获取人才招聘列表
+     * 获取职务列表
      */
-    public function list_zhaopin(){
+    public function list_position(){
         // 每页显示的记录条数，默认20条
         $numPerPage = $this->input->post('numPerPage') ? $this->input->post('numPerPage') : 20;
         $pageNum = $this->input->post('pageNum') ? $this->input->post('pageNum') : 1;
 
         //获得总记录数
         $this->db->select('count(1) as num');
-        $this->db->from('zhaopin');
+        $this->db->from('position');
         $rs_total = $this->db->get()->row();
         //总记录数
         $data['countPage'] = $rs_total->num;
 
         //list
         $this->db->select('*');
-        $this->db->from('zhaopin');
+        $this->db->from('position');
         $this->db->limit($numPerPage, ($pageNum - 1) * $numPerPage );
-        $this->db->order_by($this->input->post('orderField') ? $this->input->post('orderField') : 'cdate', $this->input->post('orderDirection') ? $this->input->post('orderDirection') : 'asc');
+        $this->db->order_by($this->input->post('orderField') ? $this->input->post('orderField') : 'id', $this->input->post('orderDirection') ? $this->input->post('orderDirection') : 'asc');
         $data['res_list'] = $this->db->get()->result();
         $data['pageNum'] = $pageNum;
         $data['numPerPage'] = $numPerPage;
@@ -445,17 +445,16 @@ class Manage_model extends MY_Model
     }
 
     /**
-     * 保存人才招聘
+     * 保存职务
      */
-    public function save_zhaopin(){
+    public function save_position(){
         $this->db->trans_start();
         if($this->input->post('id')){//修改
             $this->db->where('id', $this->input->post('id'));
-            $this->db->update('zhaopin', $this->input->post());
+            $this->db->update('position', $this->input->post());
         }else{//新增
             $data = $this->input->post();
-            $data['cdate'] = date('Y-m-d H:i:s',time());
-            $this->db->insert('zhaopin', $data);
+            $this->db->insert('position', $data);
         }
         $this->db->trans_complete();
         if ($this->db->trans_status() === FALSE) {
@@ -466,10 +465,10 @@ class Manage_model extends MY_Model
     }
 
     /**
-     * 删除人才招聘
+     * 删除职务
      */
-    public function delete_zhaopin($id){
-        $rs = $this->db->delete('zhaopin', array('id' => $id));
+    public function delete_position($id){
+        $rs = $this->db->delete('position', array('id' => $id));
         if($rs){
             return 1;
         }else{
@@ -478,10 +477,10 @@ class Manage_model extends MY_Model
     }
 
     /**
-     * 获取人才招聘详情
+     * 获取职务详情
      */
-    public function get_zhaopin($id){
-        $this->db->select('*')->from('zhaopin')->where('id', $id);
+    public function get_position($id){
+        $this->db->select('*')->from('position')->where('id', $id);
         $data = $this->db->get()->row();
         return $data;
     }

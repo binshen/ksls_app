@@ -144,6 +144,7 @@
                                                         <img src="{{$base_url}}uploadfiles/agenda/{{$item->folder}}/{{$item->style}}/{{$item->pic_short}}" alert="" width="85" height="65" />
                                                         <span class="delete-this" onclick="del_pic(this, '1');"><i></i></span>
                                                         <input type="hidden" name="pic_short_1[]" class="pic_short" value="{{$item->pic_short}}">
+                                                        <input type="hidden" name="folder_1[]" value="{{$item->folder}}">
                                                     </li>
                                                 {{/foreach}}
                                             {{/if}}
@@ -165,6 +166,7 @@
                                                         <img src="{{$base_url}}uploadfiles/agenda/{{$item->folder}}/{{$item->style}}/{{$item->pic_short}}" alert="" width="85" height="65" />
                                                         <span class="delete-this" onclick="del_pic(this, '4');"><i></i></span>
                                                         <input type="hidden" name="pic_short_4[]" class="pic_short" value="{{$item->pic_short}}">
+                                                        <input type="hidden" name="folder_4[]" value="{{$item->folder}}">
                                                     </li>
                                                 {{/foreach}}
                                             {{/if}}
@@ -188,6 +190,7 @@
                                                         <img src="{{$base_url}}uploadfiles/agenda/{{$item->folder}}/{{$item->style}}/{{$item->pic_short}}" alert="" width="85" height="65" />
                                                         <span class="delete-this" onclick="del_pic(this, '2');"><i></i></span>
                                                         <input type="hidden" name="pic_short_2[]" class="pic_short" value="{{$item->pic_short}}">
+                                                        <input type="hidden" name="folder_2[]" value="{{$item->folder}}">
                                                     </li>
                                                 {{/foreach}}
                                             {{/if}}
@@ -209,6 +212,7 @@
                                                         <img src="{{$base_url}}uploadfiles/agenda/{{$item->folder}}/{{$item->style}}/{{$item->pic_short}}" alert="" width="85" height="65" />
                                                         <span class="delete-this" onclick="del_pic(this, '5');"><i></i></span>
                                                         <input type="hidden" name="pic_short_5[]" class="pic_short" value="{{$item->pic_short}}">
+                                                        <input type="hidden" name="folder_5[]" value="{{$item->folder}}">
                                                     </li>
                                                 {{/foreach}}
                                             {{/if}}
@@ -232,6 +236,7 @@
                                                         <img src="{{$base_url}}uploadfiles/agenda/{{$item->folder}}/{{$item->style}}/{{$item->pic_short}}" alert="" width="85" height="65" />
                                                         <span class="delete-this" onclick="del_pic(this, '3');"><i></i></span>
                                                         <input type="hidden" name="pic_short_3[]" class="pic_short" value="{{$item->pic_short}}">
+                                                        <input type="hidden" name="folder_3[]" value="{{$item->folder}}">
                                                     </li>
                                                 {{/foreach}}
                                             {{/if}}
@@ -253,6 +258,7 @@
                                                         <img src="{{$base_url}}uploadfiles/agenda/{{$item->folder}}/{{$item->style}}/{{$item->pic_short}}" alert="" width="85" height="65" />
                                                         <span class="delete-this" onclick="del_pic(this, '6');"><i></i></span>
                                                         <input type="hidden" name="pic_short_6[]" class="pic_short" value="{{$item->pic_short}}">
+                                                        <input type="hidden" name="folder_6[]" value="{{$item->folder}}">
                                                     </li>
                                                 {{/foreach}}
                                             {{/if}}
@@ -265,10 +271,10 @@
                 </div>
                 <p class="p-btns">
                     <a href="javascript:void(0);" class="sub-btn" id="btnSubmit">提交</a>
-                    <a href="javascript:void(0);" class="sub-btn reset-btn">重置</a>
+                    <!-- <a href="javascript:void(0);" class="sub-btn reset-btn">重置</a> -->
                 </p>
-                <input type="hidden" name="folder" value="{{$time}}" id="folder">
             </form>
+            <input type="hidden" name="folder" value="{{$time}}" id="folder">
         </div>
     </div>
 </div>
@@ -363,6 +369,7 @@
                         html+='<li><img src="'+path+'" alert="" width="85" height="65" />';
                         html+='<span class="delete-this" onclick="del_pic(this, '+style+');"><i></i></span>';
                         html+='<input type="hidden" name="pic_short_' + style + '[]" class="pic_short" value="'+item+'">';
+                        html+='<input type="hidden" name="folder_' + style + '[]" value="'+ $("#folder").val() +'">';
                         html+='</li>';
                     }
                 });

@@ -4,12 +4,12 @@
     .file{ position:absolute; top:0; right:80px; height:24px; filter:alpha(opacity:0);opacity: 0;width:300px }
 </style>
 <div class="pageContent">
-    <form method="post" enctype="multipart/form-data" action="<?php echo site_url('manage/save_role');?>" class="pageForm required-validate" onsubmit="return validateCallback(this, dialogAjaxDone);">
+    <form method="post" enctype="multipart/form-data" action="<?php echo site_url('manage/save_position');?>" class="pageForm required-validate" onsubmit="return validateCallback(this, dialogAjaxDone);">
         <div class="pageFormContent" layoutH="55">
             <fieldset>
-                <legend>职级信息</legend>
+                <legend>职务信息</legend>
                 <dl>
-                    <dt>职级名称：</dt>
+                    <dt>职务名称：</dt>
                     <dd>
                         <input type="hidden" name="id" value="<?php if(!empty($id)) echo $id;?>">
                         <input name="name" type="text" class="required" value="<?php if(!empty($name)) echo $name;?>" />
