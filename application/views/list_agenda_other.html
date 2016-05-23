@@ -109,7 +109,7 @@
                     <li class="items wid80">{{$item.acreage}} ㎡</li>
                     <li class="bor-separate"></li>
                     <li class="items wid80">{{$item.customer_income}}万</li>
-                    <li class="bor-separate bor-separate-none"></li>
+                    <li class="bor-separate"></li>
                     <li class="wid80 score-reality bgno">
                         {{if $item.course==1}}审核中{{/if}}
                         {{if $item.course==2}}审核通过{{/if}}
@@ -122,7 +122,9 @@
                         {{if $item.course==9}}按揭房款中{{/if}}
                         {{if $item.course==10}}按揭房款完成{{/if}}
                     </li>
+                    <li class="bor-separate"></li>
                     <li class="wid80 score-plan bgno">正常</li>
+                    <li class="bor-separate"></li>
                     <li class="wid103">
                         完成
                     </li>
@@ -143,7 +145,7 @@
                     <li class="bor-separate"></li>
                     <li class="items wid80">{{$item.customer_income}}万</li>
                     <li class="bor-separate bor-separate-none"></li>
-                    <li class="wid80 score-reality">
+                    <li class="wid82 score-reality history-show">
                         {{if $item.course==1}}审核中{{/if}}
                         {{if $item.course==2}}审核通过{{/if}}
                         {{if $item.course==3}}评估中{{/if}}
@@ -154,6 +156,21 @@
                         {{if $item.course==8}}按揭通过{{/if}}
                         {{if $item.course==9}}按揭房款中{{/if}}
                         {{if $item.course==10}}按揭房款完成{{/if}}
+                        <div class="history-list">
+                            <em class="triangle"></em>
+                            <div class="history-list-inner">
+                                <p class="history-list-tit">历史进程</p>
+                                <p class="new">
+                                    <span class="his-item-icon">·</span>
+                                    <span class="his-item-txt">按揭中<br />2016-05-23  23:18:15</span></p>
+                                <p><span class="his-item-icon">·</span>
+                                    <span class="his-item-txt">评估通过<br />2016-05-23  23:18:15</span></p>
+                                <p><span class="his-item-icon">·</span>
+                                    <span class="his-item-txt">按揭中<br />2016-05-23  23:18:15</span></p>
+                                <p><span class="his-item-icon">·</span>
+                                    <span class="his-item-txt">按揭中<br />2016-05-23  23:18:15</span></p>
+                            </div>
+                        </div>
                     </li>
                     <li class="bor-separate bor-separate-none"></li>
                     {{if $item.status==1}}
@@ -161,7 +178,16 @@
                     {{/if}}
                     {{if $item.status==2}}
                     <li class="wid80 score-plan ing-error">
-                        <em class="tips-ok tips-error"></em>异常<div class="error-explain"><p>{{$item.errtext}}</p></div>
+                        <em class="tips-ok tips-error"></em>异常<div class="error-explain">
+                        <em class="triangle"></em>
+                        <div class="error-explain-inner"><p>{{$item.errtext}}</p>
+                            {{if $agenda_list.detail!=1}}
+                            {{foreach from=$agenda_list.detail item=foo}}
+                            {{if $foo['a_id']==$item.id}}
+                            <p>{{$foo['name']}}--{{$foo['created']}}</p>
+                            {{/if}}
+                            {{/foreach}}
+                            {{/if}}</div></div>
                     </li>
                     {{/if}}
                     <li class="wid103">
@@ -181,14 +207,17 @@
     </div>
 </div>
 <script type="text/javascript">
-    $(".ing-error").mouseover(function(){
-        $(this).children(".error-explain").toggle();
-    }).mouseout(function(){ $(this).children(".error-explain").hide();});
-    $("#btn_search").click(function() {
-        $('#formSearchActivity').submit();
-    });
 
     $(function(){
+        $(".ing-error").mouseover(function(){
+            $(this).children(".error-explain").toggle();
+        }).mouseout(function(){ $(this).children(".error-explain").hide();});
+        $(".history-show").mouseover(function(){
+            $(this).children(".history-list").toggle();
+        }).mouseout(function(){ $(this).children(".history-list").hide();});
+        $("#btn_search").click(function() {
+            $('#formSearchActivity').submit();
+        });
         $("#sel_status").val("{{$status|default:''}}");
     })
     $('#sel_company').change(function(){
