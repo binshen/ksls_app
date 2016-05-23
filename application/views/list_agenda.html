@@ -137,11 +137,11 @@
                     {{/if}}
                     <li class="wid103">
                         {{if $item.course==1}}
-                        <a href="javascript:void(0);" class="operation-btn">修改</a>
+                        <a href="/agenda/add_agenda/{{$item.id}}" class="operation-btn">修改</a>
                         {{else}}
                         <a href="javascript:void(0);" class="operation-btn operation-btn-no">修改</a>
                         {{/if}}
-                        <a href="javascript:void(0);" class="operation-btn">查看</a>
+                        <a href="/agenda/view_agenda/{{$item.id}}" class="operation-btn">查看</a>
 
                     </li>
                 </ul>
