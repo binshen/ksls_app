@@ -63,7 +63,7 @@ class Agenda extends MY_Controller
             $company_id = $this->session->userdata('login_company_id');
             if($role_id < 4) {
                 $subsidiary_list = $this->agenda_model->get_subsidiary_list($company_id, NULL);
-            } else if($role_id == 4) {
+            } else if($role_id < 7) {
                 $subsidiary_id = $this->session->userdata('login_subsidiary_id');
                 $subsidiary_list = $this->agenda_model->get_subsidiary_list($company_id, $subsidiary_id);
             }
