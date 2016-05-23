@@ -68,8 +68,8 @@ class Index extends MY_Controller {
     public function test() {
 
         $response = array();
-        $username = $_POST['username'];
-        $password = $_POST['password'];
+        $username = @$_POST['username'];
+        $password = @$_POST['password'];
         if($username == '13913913999') {
             $response['success'] = true;
         } else {
@@ -77,6 +77,8 @@ class Index extends MY_Controller {
         }
         header("Content-type: application/json; charset=utf-8");
         //header("Content-type: text/html;charset=utf-8");
+
+        $response['success'] = true;
         echo json_encode($response);
         die;
     }
