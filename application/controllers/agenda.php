@@ -30,6 +30,8 @@ class Agenda extends MY_Controller
     }
 
     public function list_agenda($page=1) {
+        $role_id = $this->session->userdata('login_role_id');
+        $this->assign('role_id', $role_id);
         $course_list = $this->agenda_model->get_course();
         $this->assign('course_list', $course_list);
         if($this->input->POST('status')) {
@@ -71,6 +73,10 @@ class Agenda extends MY_Controller
             $this->assign('subsidiary', $this->input->POST('subsidiary'));
 
             $user_list = $this->agenda_model->get_subsidiary_user_list($this->input->POST('subsidiary'));
+            $this->assign('user_list', $user_list);
+        }elseif(!$this->input->post('subsidiary') && $role_id < 7){
+            $this->assign('subsidiary', $this->session->userdata('login_subsidiary_id'));
+            $user_list = $this->activity_model->get_subsidiary_user_list($this->session->userdata('login_subsidiary_id'));
             $this->assign('user_list', $user_list);
         }
         if($this->input->POST('user')) {
