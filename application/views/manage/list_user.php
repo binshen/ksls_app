@@ -25,7 +25,8 @@
                 <th>电话</th>
                 <th>所在公司</th>
                 <th>所属分店</th>
-                <th>角色</th>
+                <th>职级</th>
+                <th>职务</th>
             </tr>
             </thead>
             <tbody>
@@ -40,6 +41,7 @@
                         <td><?php echo $row->company_name;?></td>
                         <td><?php echo $row->subsidiary_name;?></td>
                         <td><?php echo $row->role_name;?></td>
+                        <td><?php echo $row->position_name;?></td>
                     </tr>
             <?php
                     endforeach;

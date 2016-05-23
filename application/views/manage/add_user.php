@@ -56,13 +56,31 @@
                     </dd>
                 </dl>
                 <dl>
-                    <dt>角色：</dt>
+                    <dt>职级：</dt>
                     <dd>
                         <select name="role_id" class="combox" id="selectRole">
                             <?php
                             if (!empty($role_list)):
                                 foreach ($role_list as $row):
                                     $selected = !empty($role_id) && $row['id'] == $role_id ? "selected" : "";
+                                    ?>
+                                    <option value="<?php echo $row['id']; ?>" <?php echo $selected; ?>><?php echo $row['name']; ?></option>
+                                    <?php
+                                endforeach;
+                            endif;
+                            ?>
+                        </select>
+                    </dd>
+                </dl>
+                <dl>
+                    <dt>职务：</dt>
+                    <dd>
+                        <select name="position_id" class="combox" id="selectPosition">
+
+                            <?php
+                            if (!empty($position_list)):
+                                foreach ($position_list as $row):
+                                    $selected = !empty($position_id) && $row['id'] == $position_id ? "selected" : "";
                                     ?>
                                     <option value="<?php echo $row['id']; ?>" <?php echo $selected; ?>><?php echo $row['name']; ?></option>
                                     <?php
