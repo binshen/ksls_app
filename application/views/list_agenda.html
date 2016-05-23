@@ -118,7 +118,7 @@
                         {{if $item.course==9}}按揭房款中{{/if}}
                         {{if $item.course==10}}按揭房款完成{{/if}}
                     </li>
-
+                    <li class="bor-separate bor-separate-none"></li>
                     {{if $item.status==1}}
                     <li class="wid82 score-plan"><em class="tips-ok"></em>正常</li>
                     {{/if}}
@@ -136,8 +136,13 @@
                     </li>
                     {{/if}}
                     <li class="wid103">
-                        <a href="javascript:void(0);" class="operation-btn">修改</a>
-                        <a href="javascript:void(0);" class="operation-btn">查看</a>
+                        {{if $item.course==1}}
+                        <a href="/agenda/add_agenda/{{$item.id}}" class="operation-btn">修改</a>
+                        {{else}}
+                        <a href="javascript:void(0);" class="operation-btn operation-btn-no">修改</a>
+                        {{/if}}
+                        <a href="/agenda/view_agenda/{{$item.id}}" class="operation-btn">查看</a>
+
                     </li>
                 </ul>
                 {{/if}}
