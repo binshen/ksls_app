@@ -261,16 +261,16 @@
                         <div class="div-process">
                             <div class="his-tit">状态</div>
                             <select name="status">
-                                <option value="1">正常</option>
-                                <option value="2">异常</option>
-                                <option value="3">服务完成</option>
+                                <option value="1" {{if $agenda->status == 1}}selected{{/if}}>正常</option>
+                                <option value="2" {{if $agenda->status == 2}}selected{{/if}}>异常</option>
+                                <option value="3" {{if $agenda->status == 3}}selected{{/if}}>服务完成</option>
                             </select>
                         </div>
 
                     </div>
                     <div class="describe-process">
                         <div class="his-tit">状态描述</div>
-                        <textarea name="errtext" rows="2" cols="3" class="sce-remarks process-remarks" placeholder="如有其他情况请备注"></textarea>
+                        <textarea name="errtext" rows="2" cols="3" class="sce-remarks process-remarks" placeholder="如有其他情况请备注">{{$agenda->errtext}}</textarea>
                     </div>
                 </div>
             </form>
