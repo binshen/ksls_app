@@ -249,6 +249,41 @@ class Agenda_model extends MY_Model
         }
     }
 
+    public function confirm_agenda() {
+        $id = $this->input->post('id');
+        if(empty($id)) return;
+
+        $now = date('Y-m-d H:i:s');
+
+        $this->db->trans_start();//--------开始事务
+
+        $agenda = array(
+            'status' => $this->input->post('status'),
+            'errtext' => $this->input->post('errtext')
+        );
+
+        $courses = $this->input->post('course');
+        if(!empty($courses)) {
+            foreach ($courses as $course) {
+                $agenda_course = array(
+                    'a_id' => $id,
+                    'c_id' => $course,
+                    'created' => $now
+                );
+                $this->db->insert('agenda_course', $agenda_course);
+            }
+            $agenda['course'] = end($courses);
+        }
+        $this->db->where('id', $id);
+        $this->db->update('agenda', $agenda);
+
+        $this->db->trans_complete();//------结束事务
+        if ($this->db->trans_status() === FALSE) {
+            return -1;
+        } else {
+            return 1;
+        }
+    }
 
     ////////////////////////////////////////////////////////////////////////////////
     //ajax删除图片

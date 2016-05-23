@@ -155,6 +155,12 @@ class Agenda extends MY_Controller
         redirect(site_url('agenda/list_agenda'));
     }
 
+    public function confirm_agenda() {
+
+        $this->agenda_model->confirm_agenda();
+
+        redirect(site_url('agenda/list_agenda_other'));
+    }
 
     ///////////////////////////////////////////////////////////////////
     public function save_pics($time, $style){

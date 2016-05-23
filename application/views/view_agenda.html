@@ -29,94 +29,93 @@
             </div>
             <div class="div-th"><em></em>基本信息</div>
             <div class="div-bd">
-                <form>
-                    <table cellpadding="0" cellsapcing="0" class="add-data-table">
-                        <tr>
-                            <td>
-                                <dl>
-                                    <dt class="wid115">小区名称：</dt>
-                                    <dd>{{$agenda->xq_name}}</dd>
-                                </dl>
-                            </td>
-                            <td><dl><dt class="wid115">房屋面积：</dt>
-                                <dd>{{$agenda->acreage}}平方米</dd></dl></td>
-                        </tr>
-                        <tr>
-                            <td><dl><dt class="wid115">房东姓名：</dt><dd>{{$agenda->landlord_name}}</dd></dl></td>
-                            <td>
-                                <dl>
-                                    <dt>产证是否满两年：</dt>
-                                    <dd>{{if $agenda->two_year_flag == 1}}是{{else}}否{{/if}}</dd>
-                                </dl>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <dl>
-                                    <dt class="wid115">客户姓名：</dt>
-                                    <dd>{{$agenda->customer_name}}</dd>
-                                </dl>
-                            </td>
-                            <td><dl><dt class="wid115">合同金额：</dt>
-                                <dd>{{$agenda->amount}}万</dd></dl></td>
-                        </tr>
-                        <tr>
-                            <td><dl><dt class="wid115">房东剩余贷款：</dt><dd>{{$agenda->rest_load}}万</dd></dl></td>
-                            <td>
-                                <dl>
-                                    <dt>客户付款方式：</dt>
-                                    <dd>{{if $agenda->payment_method == 1}}全款{{else}}按揭{{/if}}</dd>
-                                </dl>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <dl>
-                                    <dt class="wid115">客户收入情况：</dt>
-                                    <dd>{{$agenda->customer_income}}元/月</dd>
-                                </dl>
-                            </td>
-                            <td class="twodl"><dl><dt class="wid58">首付：</dt>
-                                <dd>{{$agenda->down_payment}}万</dd></dl>
-                                <dl>
-                                    <dt class="wid58">按揭：</dt>
-                                    <dd>{{$agenda->mortgage}}万</dd>
-                                </dl>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <dl>
-                                    <dt>购房性质：</dt>
-                                    <dd>
-                                        {{if $agenda->style == 1}}
-                                            首套房
-                                        {{else if $agenda->style == 2}}
-                                            二套房
-                                        {{else}}
-                                            二套以上
-                                        {{/if}}
-                                    </dd>
-                                </dl>
-                            </td>
-                            <td>
-                                <dl>
-                                    <dt>收佣节点：</dt>
-                                    <dd>{{if $agenda->payment_node == 1}}过户前{{else}}过户后{{/if}}</dd>
-                                </dl>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td colspan="2">
-                                <dl>
-                                    <dt>备注：</dt>
-                                    <dd>
-                                        {{$agenda->mark}}
-                                    </dd>
-                                </dl>
-                            </td>
-                        </tr>
-                    </table>
+                <table cellpadding="0" cellsapcing="0" class="add-data-table">
+                    <tr>
+                        <td>
+                            <dl>
+                                <dt class="wid115">小区名称：</dt>
+                                <dd>{{$agenda->xq_name}}</dd>
+                            </dl>
+                        </td>
+                        <td><dl><dt class="wid115">房屋面积：</dt>
+                            <dd>{{$agenda->acreage}}平方米</dd></dl></td>
+                    </tr>
+                    <tr>
+                        <td><dl><dt class="wid115">房东姓名：</dt><dd>{{$agenda->landlord_name}}</dd></dl></td>
+                        <td>
+                            <dl>
+                                <dt>产证是否满两年：</dt>
+                                <dd>{{if $agenda->two_year_flag == 1}}是{{else}}否{{/if}}</dd>
+                            </dl>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <dl>
+                                <dt class="wid115">客户姓名：</dt>
+                                <dd>{{$agenda->customer_name}}</dd>
+                            </dl>
+                        </td>
+                        <td><dl><dt class="wid115">合同金额：</dt>
+                            <dd>{{$agenda->amount}}万</dd></dl></td>
+                    </tr>
+                    <tr>
+                        <td><dl><dt class="wid115">房东剩余贷款：</dt><dd>{{$agenda->rest_load}}万</dd></dl></td>
+                        <td>
+                            <dl>
+                                <dt>客户付款方式：</dt>
+                                <dd>{{if $agenda->payment_method == 1}}全款{{else}}按揭{{/if}}</dd>
+                            </dl>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <dl>
+                                <dt class="wid115">客户收入情况：</dt>
+                                <dd>{{$agenda->customer_income}}元/月</dd>
+                            </dl>
+                        </td>
+                        <td class="twodl"><dl><dt class="wid58">首付：</dt>
+                            <dd>{{$agenda->down_payment}}万</dd></dl>
+                            <dl>
+                                <dt class="wid58">按揭：</dt>
+                                <dd>{{$agenda->mortgage}}万</dd>
+                            </dl>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <dl>
+                                <dt>购房性质：</dt>
+                                <dd>
+                                    {{if $agenda->style == 1}}
+                                        首套房
+                                    {{else if $agenda->style == 2}}
+                                        二套房
+                                    {{else}}
+                                        二套以上
+                                    {{/if}}
+                                </dd>
+                            </dl>
+                        </td>
+                        <td>
+                            <dl>
+                                <dt>收佣节点：</dt>
+                                <dd>{{if $agenda->payment_node == 1}}过户前{{else}}过户后{{/if}}</dd>
+                            </dl>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">
+                            <dl>
+                                <dt>备注：</dt>
+                                <dd>
+                                    {{$agenda->mark}}
+                                </dd>
+                            </dl>
+                        </td>
+                    </tr>
+                </table>
             </div>
             <div class="div-th div-th1"><em></em>上传资料</div>
             <div class="div-bd div-bd1">
@@ -235,58 +234,54 @@
                     </tr>
                 </table>
             </div>
-            <div class="div-th div-th2"><em></em>权证信息</div>
-            <div class="div-bd div-bd2">
-                <div class="history">
-                    <div class="his-tit">历史进程</div>
-                    <ul class="ul-his" id="pHistory">
-                        {{if !empty($agenda_course) }}
-                            {{foreach from=$agenda_course item=item}}
-                                <li><i class="date">{{$item->created|date_format:"%Y-%m-%d"}}</i><i class="process">{{$item->course_name}}</i><a href="javascript:void(0)" class="close-his" onclick="removeLine(this)"></a></li>
-                            {{/foreach}}
-                        {{/if}}
-                        <!--
-                        <li><i class="date">2016-05-08</i><i class="process">审核中</i><a href="" class="close-his"></a></li>
-                        <li><i class="date">2016-05-08</i><i class="process">审核中</i><a href="" class="close-his"></a></li>
-                        <li><i class="date">2016-05-08</i><i class="process">审核中</i><a href="" class="close-his"></a></li>
-                        <li><i class="date">2016-05-08</i><i class="process">审核中</i><a href="" class="close-his"></a></li>
-                        <li class="current"><i class="date">2016-05-08</i><i class="process">审核中</i><a href="" class="close-his"></a></li>
-                        -->
-                    </ul>
-                </div>
-                <div class="editor-process search-wrap">
-                    <div class="div-process">
-                        <div class="his-tit">进程审核</div>
-                        <select id="pSelect">
-                            <option value="">请选择进度</option>
-                            {{foreach from=$course_list item=item}}
-                                <option value="{{$item->id}}">{{$item->name}}</option>
-                            {{/foreach}}
-                        </select>
+            <form id="agendaForm" method="post" action="/agenda/confirm_agenda">
+                <input type="hidden" name="id" value="{{$agenda->id}}">
+                <div class="div-th div-th2"><em></em>权证信息</div>
+                <div class="div-bd div-bd2">
+                    <div class="history">
+                        <div class="his-tit">历史进程</div>
+                        <ul class="ul-his" id="pHistory">
+                            {{if !empty($agenda_course) }}
+                                {{foreach from=$agenda_course item=item}}
+                                    <li><i class="date">{{$item->created|date_format:"%Y-%m-%d"}}</i><i class="process">{{$item->course_name}}</i><a href="javascript:void(0)" class="close-his" onclick="removeLine(this)"></a></li>
+                                {{/foreach}}
+                            {{/if}}
+                        </ul>
                     </div>
-                    <div class="div-process">
-                        <div class="his-tit">状态</div>
-                        <select name="status">
-                            <option value="1">正常</option>
-                            <option value="2">异常</option>
-                            <option value="3">服务完成</option>
-                        </select>
-                    </div>
+                    <div class="editor-process search-wrap">
+                        <div class="div-process">
+                            <div class="his-tit">进程审核</div>
+                            <select id="pSelect">
+                                <option value="">请选择进度</option>
+                                {{foreach from=$course_list item=item}}
+                                    <option value="{{$item->id}}">{{$item->name}}</option>
+                                {{/foreach}}
+                            </select>
+                        </div>
+                        <div class="div-process">
+                            <div class="his-tit">状态</div>
+                            <select name="status">
+                                <option value="1">正常</option>
+                                <option value="2">异常</option>
+                                <option value="3">服务完成</option>
+                            </select>
+                        </div>
 
+                    </div>
+                    <div class="describe-process">
+                        <div class="his-tit">状态描述</div>
+                        <textarea name="errtext" rows="2" cols="3" class="sce-remarks process-remarks" placeholder="如有其他情况请备注"></textarea>
+                    </div>
                 </div>
-                <div class="describe-process">
-                    <div class="his-tit">状态描述</div>
-                    <textarea name="errtext" rows="2" cols="3" class="sce-remarks process-remarks" placeholder="如有其他情况请备注"></textarea>
-                </div>
-            </div>
+            </form>
             <p class="p-btns">
-                <a href="" class="sub-btn">提交</a>
+                <a href="javascript:void(0);" class="sub-btn" id="btnSubmit">提交</a>
                 <!-- <a href="" class="sub-btn reset-btn">重置</a> -->
             </p>
-            </form>
         </div>
     </div>
 </div>
+<script type="text/javascript" src="/static/js/layer/layer.js"></script>
 <script type="text/javascript">
     $(".ing-error").mouseover(function(){
         $(this).children(".error-explain").toggle();
@@ -315,7 +310,7 @@
         $(obj).parent().remove()
     }
 
-    Date.prototype.format =function(format) {
+    Date.prototype.format = function(format) {
         var o = {
             "M+" : this.getMonth()+1, //month
             "d+" : this.getDate(), //day
@@ -328,11 +323,18 @@
         if(/(y+)/.test(format)) format=format.replace(RegExp.$1,
                 (this.getFullYear()+"").substr(4- RegExp.$1.length));
         for(var k in o)if(new RegExp("("+ k +")").test(format))
-            format = format.replace(RegExp.$1,
-                    RegExp.$1.length==1? o[k] :
-                            ("00"+ o[k]).substr((""+ o[k]).length));
+            format = format.replace(RegExp.$1, RegExp.$1.length==1? o[k] : ("00"+ o[k]).substr((""+ o[k]).length));
         return format;
-    }
+    };
+
+    $("#btnSubmit").click(function() {
+        layer.confirm('确定要保存代办服务信息？', {
+            btn: ['确定','取消'] //按钮
+        }, function(){
+            $("#agendaForm").submit();
+        }, function(){
+        });
+    });
 </script>
 </body>
 </html>
