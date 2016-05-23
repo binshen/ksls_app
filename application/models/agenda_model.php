@@ -124,6 +124,7 @@ class Agenda_model extends MY_Model
                 $this->db->join('agenda_course b','a.id = b.a_id','left');
                 $this->db->join('course c','b.c_id = c.id','left');
                 $this->db->where_in('a.id',$ids);
+                $this->db->order_by('b.created','desc');
                 $agenda_detail = $this->db->get()->result_array();
                 if ($agenda_detail){
                     $data['detail'] = $agenda_detail;

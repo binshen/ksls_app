@@ -126,14 +126,16 @@
                             <div class="history-list-inner">
                                 <p class="history-list-tit">历史进程</p>
                                 {{if $agenda_list.detail!=1}}
+                                <p class="new">
                                 {{foreach from=$agenda_list.detail item=foo}}
                                 {{if $foo['a_id']==$item.id}}
-
-                                <p>{{$foo['name']}}--{{$foo['created']}}</p>
+                                <span class="his-item-icon">·</span>
+                                <span class="his-item-txt">{{$foo['name']}}<br />{{$foo['created']}}</span></p><p>
                                 {{/if}}
                                 {{/foreach}}
+                                </p>
                                 {{/if}}
-                                <p class="new">
+                               <!-- <p class="new">
                                     <span class="his-item-icon">·</span>
                                     <span class="his-item-txt">按揭中<br />2016-05-23  23:18:15</span></p>
                                 <p><span class="his-item-icon">·</span>
@@ -141,7 +143,7 @@
                                 <p><span class="his-item-icon">·</span>
                                     <span class="his-item-txt">按揭中<br />2016-05-23  23:18:15</span></p>
                                 <p><span class="his-item-icon">·</span>
-                                    <span class="his-item-txt">按揭中<br />2016-05-23  23:18:15</span></p>
+                                    <span class="his-item-txt">按揭中<br />2016-05-23  23:18:15</span></p>-->
                             </div>
                         </div>
                     </li>
