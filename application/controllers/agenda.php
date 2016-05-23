@@ -76,7 +76,7 @@ class Agenda extends MY_Controller
             $this->assign('user_list', $user_list);
         }elseif(!$this->input->post('subsidiary') && $role_id < 7){
             $this->assign('subsidiary', $this->session->userdata('login_subsidiary_id'));
-            $user_list = $this->activity_model->get_subsidiary_user_list($this->session->userdata('login_subsidiary_id'));
+            $user_list = $this->agenda_model->get_subsidiary_user_list($this->session->userdata('login_subsidiary_id'));
             $this->assign('user_list', $user_list);
         }
         if($this->input->POST('user')) {
