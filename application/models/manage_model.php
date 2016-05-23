@@ -417,4 +417,72 @@ class Manage_model extends MY_Model
     public function get_role_list() {
         return $this->db->get_where('role', array('id >' => 1))->result_array();
     }
+
+    /**
+     * 获取人才招聘列表
+     */
+    public function list_zhaopin(){
+        // 每页显示的记录条数，默认20条
+        $numPerPage = $this->input->post('numPerPage') ? $this->input->post('numPerPage') : 20;
+        $pageNum = $this->input->post('pageNum') ? $this->input->post('pageNum') : 1;
+
+        //获得总记录数
+        $this->db->select('count(1) as num');
+        $this->db->from('zhaopin');
+        $rs_total = $this->db->get()->row();
+        //总记录数
+        $data['countPage'] = $rs_total->num;
+
+        //list
+        $this->db->select('*');
+        $this->db->from('zhaopin');
+        $this->db->limit($numPerPage, ($pageNum - 1) * $numPerPage );
+        $this->db->order_by($this->input->post('orderField') ? $this->input->post('orderField') : 'cdate', $this->input->post('orderDirection') ? $this->input->post('orderDirection') : 'asc');
+        $data['res_list'] = $this->db->get()->result();
+        $data['pageNum'] = $pageNum;
+        $data['numPerPage'] = $numPerPage;
+        return $data;
+    }
+
+    /**
+     * 保存人才招聘
+     */
+    public function save_zhaopin(){
+        $this->db->trans_start();
+        if($this->input->post('id')){//修改
+            $this->db->where('id', $this->input->post('id'));
+            $this->db->update('zhaopin', $this->input->post());
+        }else{//新增
+            $data = $this->input->post();
+            $data['cdate'] = date('Y-m-d H:i:s',time());
+            $this->db->insert('zhaopin', $data);
+        }
+        $this->db->trans_complete();
+        if ($this->db->trans_status() === FALSE) {
+            return $this->db_error;
+        } else {
+            return 1;
+        }
+    }
+
+    /**
+     * 删除人才招聘
+     */
+    public function delete_zhaopin($id){
+        $rs = $this->db->delete('zhaopin', array('id' => $id));
+        if($rs){
+            return 1;
+        }else{
+            return $this->db_error;
+        }
+    }
+
+    /**
+     * 获取人才招聘详情
+     */
+    public function get_zhaopin($id){
+        $this->db->select('*')->from('zhaopin')->where('id', $id);
+        $data = $this->db->get()->row();
+        return $data;
+    }
 }

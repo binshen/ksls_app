@@ -270,4 +270,41 @@ class Manage extends MY_Controller {
 		echo json_encode($subSidiary);
 		die;
 	}
+	/**
+	 *
+	 * ***************************************以下为职务列表*******************************************************************
+	 */
+
+	public function list_position()
+	{
+		$data = $this->manage_model->list_position();
+		$this->load->view('manage/list_position.php',$data);
+	}
+
+	public function add_position(){
+		$this->load->view('manage/add_position.php');
+	}
+
+	public function save_position(){
+		$rs = $this->manage_model->save_position();
+		if ($rs === 1) {
+			form_submit_json("200", "操作成功", "list_position");
+		} else {
+			form_submit_json("300", $rs);
+		}
+	}
+
+	public function delete_position($id){
+		$rs = $this->manage_model->delete_position($id);
+		if ($rs === 1) {
+			form_submit_json("200", "操作成功", "list_position", "", "");
+		} else {
+			form_submit_json("300", $rs);
+		}
+	}
+
+	public function edit_position($id){
+		$data = $this->manage_model->get_position($id);
+		$this->load->view('manage/add_position.php',$data);
+	}
 }
