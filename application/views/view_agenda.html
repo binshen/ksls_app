@@ -239,10 +239,10 @@
             <div class="div-bd div-bd2">
                 <div class="history">
                     <div class="his-tit">历史进程</div>
-                    <ul class="ul-his">
+                    <ul class="ul-his" id="pHistory">
                         {{if !empty($agenda_course) }}
                             {{foreach from=$agenda_course item=item}}
-                                <li><i class="date">{{$item->created|date_format:"%Y-%m-%d"}}</i><i class="process">{{$item->course_name}}</i><a href="" class="close-his"></a></li>
+                                <li><i class="date">{{$item->created|date_format:"%Y-%m-%d"}}</i><i class="process">{{$item->course_name}}</i><a href="javascript:void(0)" class="close-his" onclick="removeLine(this)"></a></li>
                             {{/foreach}}
                         {{/if}}
                         <!--
@@ -257,7 +257,7 @@
                 <div class="editor-process search-wrap">
                     <div class="div-process">
                         <div class="his-tit">进程审核</div>
-                        <select>
+                        <select id="pSelect">
                             <option value="">请选择进度</option>
                             {{foreach from=$course_list item=item}}
                                 <option value="{{$item->id}}">{{$item->name}}</option>
@@ -266,17 +266,17 @@
                     </div>
                     <div class="div-process">
                         <div class="his-tit">状态</div>
-                        <select>
-                            <option value="正常">正常</option>
-                            <option value="异常">异常</option>
-                            <option value="服务完成">服务完成</option>
+                        <select name="status">
+                            <option value="1">正常</option>
+                            <option value="2">异常</option>
+                            <option value="3">服务完成</option>
                         </select>
                     </div>
 
                 </div>
                 <div class="describe-process">
                     <div class="his-tit">状态描述</div>
-                    <textarea name="c1m" rows="2" cols="3" class="sce-remarks process-remarks" placeholder="如有其他情况请备注"></textarea>
+                    <textarea name="errtext" rows="2" cols="3" class="sce-remarks process-remarks" placeholder="如有其他情况请备注"></textarea>
                 </div>
             </div>
             <p class="p-btns">
@@ -297,6 +297,42 @@
     $("#btn_search").click(function() {
         $('#formSearchActivity').submit();
     });
+
+    $("#pSelect").change(function() {
+        var val = $(this).val();
+        var text = $(this).find("option:selected").text();
+        if(val != "") {
+            var html = '<li class="current">';
+            html += '<i class="date">'+new Date().format('yyyy-MM-dd')+'</i>';
+            html += '<i class="process">'+text+'</i><a href="javascript:void(0)" class="close-his" onclick="removeLine(this)"></a>';
+            html += '<input type="hidden" name="course[]" value="'+val+'">';
+            html += '</li>';
+            $("#pHistory").append(html)
+        }
+    });
+
+    function removeLine(obj) {
+        $(obj).parent().remove()
+    }
+
+    Date.prototype.format =function(format) {
+        var o = {
+            "M+" : this.getMonth()+1, //month
+            "d+" : this.getDate(), //day
+            "h+" : this.getHours(), //hour
+            "m+" : this.getMinutes(), //minute
+            "s+" : this.getSeconds(), //second
+            "q+" : Math.floor((this.getMonth()+3)/3), //quarter
+            "S" : this.getMilliseconds() //millisecond
+        }
+        if(/(y+)/.test(format)) format=format.replace(RegExp.$1,
+                (this.getFullYear()+"").substr(4- RegExp.$1.length));
+        for(var k in o)if(new RegExp("("+ k +")").test(format))
+            format = format.replace(RegExp.$1,
+                    RegExp.$1.length==1? o[k] :
+                            ("00"+ o[k]).substr((""+ o[k]).length));
+        return format;
+    }
 </script>
 </body>
 </html>
