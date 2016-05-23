@@ -86,17 +86,17 @@
                     <li class="wid103">小区</li>
                     <li class="wid103">客户姓名</li>
                     <li class="wid103">房东姓名</li>
-                    <li class="wid103">面积</li>
+                    <li class="wid80">面积</li>
                     <li class="wid80">总价</li>
                     <li class="wid80">进程</li>
                     <li class="wid80">状态</li>
-                    <li class="wid138">操作</li>
+                    <li class="wid103">操作</li>
                 </ul>
                 {{foreach from=$agenda_list.res_list item=item}}
                 {{if $item.status==3}}
 
                 <ul class="schedule-list dosth-list dosth-successful">
-                    <li class="time wid103">{{$item.rel_name}}</li>
+                    <li class="time wid92">{{$item.rel_name}}</li>
                     <li class="bor-separate"></li>
                     <li class="time wid103">{{$item.num}}</li>
                     <li class="bor-separate"></li>
@@ -106,7 +106,7 @@
                     <li class="bor-separate"></li>
                     <li class="items wid103">{{$item.landlord_name}}</li>
                     <li class="bor-separate"></li>
-                    <li class="items wid103">{{$item.acreage}} ㎡</li>
+                    <li class="items wid80">{{$item.acreage}} ㎡</li>
                     <li class="bor-separate"></li>
                     <li class="items wid80">{{$item.customer_income}}万</li>
                     <li class="bor-separate bor-separate-none"></li>
@@ -123,13 +123,13 @@
                         {{if $item.course==10}}按揭房款完成{{/if}}
                     </li>
                     <li class="wid82 score-plan bgno">正常</li>
-                    <li class="wid138" style="width:138px;">
+                    <li class="wid103">
                         完成
                     </li>
                 </ul>
                 {{else}}
                 <ul class="schedule-list dosth-list ">
-                    <li class="time wid103">{{$item.rel_name}}</li>
+                    <li class="time wid92">{{$item.rel_name}}</li>
                     <li class="bor-separate"></li>
                     <li class="time wid103">{{$item.num}}</li>
                     <li class="bor-separate"></li>
@@ -139,7 +139,7 @@
                     <li class="bor-separate"></li>
                     <li class="items wid103">{{$item.landlord_name}}</li>
                     <li class="bor-separate"></li>
-                    <li class="items wid103">{{$item.acreage}} ㎡</li>
+                    <li class="items wid80">{{$item.acreage}} ㎡</li>
                     <li class="bor-separate"></li>
                     <li class="items wid80">{{$item.customer_income}}万</li>
                     <li class="bor-separate bor-separate-none"></li>
@@ -164,8 +164,9 @@
                         <em class="tips-ok tips-error"></em>异常<div class="error-explain"><p>{{$item.errtext}}</p></div>
                     </li>
                     {{/if}}
-                    <li class="wid138" style="width:138px;">
+                    <li class="wid103">
                         <a href="javascript:void(0);" class="operation-btn">修改</a>
+                        <a href="javascript:void(0);" class="operation-btn">查看</a>
                     </li>
                 </ul>
                 {{/if}}

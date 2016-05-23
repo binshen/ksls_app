@@ -113,7 +113,7 @@ body{background: #fff; font-family: "Microsoft YaHei";}
 .schedule-list .bor-separate{width:2px; background: #dae1e8;height:20px; display: block;margin:0 1px;margin-top:30px; }.schedule-list .bor-separate1{margin-top:18px;width: 2px;height: 45px;}
 .schedule-list .bor-separate-none{background:#fff;}
 .schedule-list .em-lock{width:13px; height:13px; display:inline-block;margin-right:5px;background: url(/static/images/items_icon.png) no-repeat -6px 0;}
-.dosth-list{height:45px;margin-right:55px;}
+.dosth-list{height:45px;}
 .dosth-list>li{font-size:14px;height:45px;line-height: 45px;}
 .dosth-list>li.wid103{line-height: 45px;}
 .dosth-list .bor-separate{margin-top:12px; height: 20px;width:1px; margin:12px 1px 0 2px;}
@@ -167,7 +167,7 @@ body{background: #fff; font-family: "Microsoft YaHei";}
 .dosth-list li.score-plan{text-align:left;}
 .dosth-list li.score-plan .tips-ok{margin:18px 5px 0 15px;width:14px; height:12px; float:left; background: url(/static/images/tips_icon.png) no-repeat;}
 .dosth-list li.score-plan .tips-error{ background-position:0 -16px;}
-.dosth-list li.ing-error{background: #ff6c60; cursor: pointer; position:relative;border:1px solid #ebebeb;}
+.dosth-list li.ing-error{background: #ff6c60; cursor: pointer; position:relative;}
 .dosth-list .error-explain{padding:10px; position: absolute;top:40px;left:-50px; color:#000; line-height: 18px; font-size:12px;z-index: 9999;
     display: none;width:200px;border-radius: 3px;background:rgba(255,255,255,0.8);border:none;filter:progid:DXImageTransform.Microsoft.gradient(startcolorstr=#CCFFFFFF,endcolorstr=#CCFFFFFF);}
 .dosth-successful{background:#60b282;}.dosth-successful li{color:#fff;}
@@ -177,7 +177,7 @@ body{background: #fff; font-family: "Microsoft YaHei";}
 .dosth-successful li.bgno{background: none; text-align:center;}
 
 .schedule-list .operation-btn{width: 45px; height: 25px; display:block; background: #34474f; line-height: 25px; color:#fff;margin:28px 0 0 15px;border-radius: 3px; float: left;}
-.dosth-list .operation-btn{margin:10px 0 0 50px;}
+.dosth-list .operation-btn{margin:10px 0 0 5px;}
 .schedule-list .operation-btn-no{background: #b4b8bc;}
 .pages{ text-align: center;margin-top:10px;}
 .pages a,.pages .current{border:1px solid #e4e7e9; background: #fff; height: 28px; width:28px; line-height: 28px; display: inline-block; text-align: center;}
