@@ -77,8 +77,8 @@ class Index extends MY_Controller {
         }
         header("Content-type: application/json; charset=utf-8");
         //header("Content-type: text/html;charset=utf-8");
-
-        $response['success'] = true;
+        //$response['success'] = true;
+        
         echo json_encode($response);
         die;
     }
