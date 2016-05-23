@@ -206,8 +206,24 @@ class Agenda_model extends MY_Model
             'company_id' => $company_id,
             'max_num' => $max_num
         );
-        $this->db->insert('agenda', $agenda);
-        $a_id = $this->db->insert_id();
+
+        if($this->input->post('id')){//修改
+            $this->db->where('id', $this->input->post('id'));
+            $this->db->update('agenda', $agenda);
+            $a_id = $this->input->post('id');
+
+            $this->db->delete('agenda_image', array('a_id' => $a_id));
+        } else {
+            $this->db->insert('agenda', $agenda);
+            $a_id = $this->db->insert_id();
+
+            $agenda_course = array(
+                'a_id' => $a_id,
+                'c_id' => 1,
+                'created' => $now
+            );
+            $this->db->insert('agenda_course', $agenda_course);
+        }
 
         $folder = $this->input->post('folder');
         for($i=1; $i<=6; $i++) {
@@ -223,13 +239,6 @@ class Agenda_model extends MY_Model
                 $this->db->insert('agenda_image', $agenda_image);
             }
         }
-
-        $agenda_course = array(
-            'a_id' => $a_id,
-            'c_id' => 1,
-            'created' => $now
-        );
-        $this->db->insert('agenda_course', $agenda_course);
 
         $this->db->trans_complete();//------结束事务
         if ($this->db->trans_status() === FALSE) {

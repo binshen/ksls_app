@@ -24,6 +24,7 @@
         </div>
         <div class="wrap-right">
             <form id="agendaForm" method="post" action="/agenda/save_agenda">
+                <input type="hidden" name="id" value="{{$agenda->id|default:''}}">
                 <div class="search-wrap">
                     <div class="t-tit">代办买卖二手房服务Agent Housing Services</div>
                 </div>
