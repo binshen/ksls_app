@@ -110,7 +110,7 @@
                     <li class="bor-separate"></li>
                     <li class="items wid80">{{$item.customer_income}}万</li>
                     <li class="bor-separate bor-separate-none"></li>
-                    <li class="wid82 score-reality bgno">
+                    <li class="wid80 score-reality bgno">
                         {{if $item.course==1}}审核中{{/if}}
                         {{if $item.course==2}}审核通过{{/if}}
                         {{if $item.course==3}}评估中{{/if}}
@@ -122,7 +122,7 @@
                         {{if $item.course==9}}按揭房款中{{/if}}
                         {{if $item.course==10}}按揭房款完成{{/if}}
                     </li>
-                    <li class="wid82 score-plan bgno">正常</li>
+                    <li class="wid80 score-plan bgno">正常</li>
                     <li class="wid103">
                         完成
                     </li>
@@ -143,7 +143,7 @@
                     <li class="bor-separate"></li>
                     <li class="items wid80">{{$item.customer_income}}万</li>
                     <li class="bor-separate bor-separate-none"></li>
-                    <li class="wid82 score-reality">
+                    <li class="wid80 score-reality">
                         {{if $item.course==1}}审核中{{/if}}
                         {{if $item.course==2}}审核通过{{/if}}
                         {{if $item.course==3}}评估中{{/if}}
@@ -155,12 +155,12 @@
                         {{if $item.course==9}}按揭房款中{{/if}}
                         {{if $item.course==10}}按揭房款完成{{/if}}
                     </li>
-
+                    <li class="bor-separate bor-separate-none"></li>
                     {{if $item.status==1}}
-                    <li class="wid82 score-plan"><em class="tips-ok"></em>正常</li>
+                    <li class="wid80 score-plan"><em class="tips-ok"></em>正常</li>
                     {{/if}}
                     {{if $item.status==2}}
-                    <li class="wid82 score-plan ing-error">
+                    <li class="wid80 score-plan ing-error">
                         <em class="tips-ok tips-error"></em>异常<div class="error-explain"><p>{{$item.errtext}}</p></div>
                     </li>
                     {{/if}}
