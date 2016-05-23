@@ -30,6 +30,8 @@ class Agenda extends MY_Controller
     }
 
     public function list_agenda($page=1) {
+        $role_id = $this->session->userdata('login_role_id');
+        $this->assign('role_id', $role_id);
         $course_list = $this->agenda_model->get_course();
         $this->assign('course_list', $course_list);
         if($this->input->POST('status')) {
@@ -72,6 +74,10 @@ class Agenda extends MY_Controller
 
             $user_list = $this->agenda_model->get_subsidiary_user_list($this->input->POST('subsidiary'));
             $this->assign('user_list', $user_list);
+        }elseif(!$this->input->post('subsidiary') && $role_id < 7){
+            $this->assign('subsidiary', $this->session->userdata('login_subsidiary_id'));
+            $user_list = $this->activity_model->get_subsidiary_user_list($this->session->userdata('login_subsidiary_id'));
+            $this->assign('user_list', $user_list);
         }
         if($this->input->POST('user')) {
             $this->assign('user', $this->input->POST('user'));
@@ -102,7 +108,19 @@ class Agenda extends MY_Controller
         $this->display('list_agenda_other.html');
     }
 
-    public function add_agenda() {
+    public function add_agenda($id=NULL) {
+
+        if(!empty($id)) {
+            $agenda = $this->agenda_model->get_agenda($id);
+            $this->assign('agenda', $agenda);
+
+            $agenda_image = $this->agenda_model->get_agenda_image($id);
+            $agenda_images = array();
+            foreach ($agenda_image as $img) {
+                $agenda_images[$img->style][] = $img;
+            }
+            $this->assign('agenda_images', $agenda_images);
+        }
 
         $this->assign('time', date('YmdHis'));
         $this->display('add_agenda.html');
@@ -118,7 +136,6 @@ class Agenda extends MY_Controller
 
 
         $agenda_image = $this->agenda_model->get_agenda_image($id);
-
         $agenda_images = array();
         foreach ($agenda_image as $img) {
             $agenda_images[$img->style][] = $img;

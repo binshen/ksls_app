@@ -34,19 +34,19 @@
                             <td>
                                 <dl>
                                     <dt class="wid115">小区名称：</dt>
-                                    <dd><input type="text" name="xq_name" class="add-txt" /></dd>
+                                    <dd><input type="text" name="xq_name" class="add-txt" value="{{$agenda->xq_name|default:''}}" /></dd>
                                 </dl>
                             </td>
                             <td><dl><dt class="wid115">房屋面积：</dt>
-                                <dd><input type="text" name="acreage" class="add-txt" /><em>平方米</em></dd></dl></td>
+                                <dd><input type="text" name="acreage" class="add-txt" value="{{$agenda->acreage|default:''}}" /><em>平方米</em></dd></dl></td>
                         </tr>
                         <tr>
-                            <td><dl><dt class="wid115">房东姓名：</dt><dd><input type="text" name="landlord_name" class="add-txt" /></dd></dl></td>
+                            <td><dl><dt class="wid115">房东姓名：</dt><dd><input type="text" name="landlord_name" class="add-txt" value="{{$agenda->landlord_name|default:''}}" /></dd></dl></td>
                             <td>
                                 <dl>
                                     <dt>产证是否满两年：</dt>
-                                    <dd><label><input type="radio" name="two_year_flag" class="radio-choose" value="1" />是 </label>
-                                        <label><input type="radio" name="two_year_flag" class="radio-choose" value="2" />否</label></dd>
+                                    <dd><label><input type="radio" name="two_year_flag" class="radio-choose" value="1" {{if $agenda->two_year_flag|default:1 == 1 }}checked{{/if}} />是 </label>
+                                        <label><input type="radio" name="two_year_flag" class="radio-choose" value="2" {{if $agenda->two_year_flag|default:1 == 2 }}checked{{/if}} />否</label></dd>
                                 </dl>
                             </td>
                         </tr>
@@ -54,19 +54,21 @@
                             <td>
                                 <dl>
                                     <dt class="wid115">客户姓名：</dt>
-                                    <dd><input type="text" name="customer_name" class="add-txt" /></dd>
+                                    <dd><input type="text" name="customer_name" class="add-txt" value="{{$agenda->customer_name|default:''}}" /></dd>
                                 </dl>
                             </td>
                             <td><dl><dt class="wid115">合同金额：</dt>
-                                <dd><input type="text" name="amount" class="add-txt" /><em>万</em></dd></dl></td>
+                                <dd><input type="text" name="amount" class="add-txt" value="{{$agenda->amount|default:''}}" /><em>万</em></dd></dl></td>
                         </tr>
                         <tr>
-                            <td><dl><dt class="wid115">房东剩余贷款：</dt><dd><input type="text" name="rest_load" class="add-txt" /><em>万</em></dd></dl></td>
+                            <td><dl><dt class="wid115">房东剩余贷款：</dt><dd><input type="text" name="rest_load" class="add-txt" value="{{$agenda->rest_load|default:''}}" /><em>万</em></dd></dl></td>
                             <td>
                                 <dl>
                                     <dt>客户付款方式：</dt>
-                                    <dd><label><input type="radio" name="payment_method" class="radio-choose" value="1" />全额</label>
-                                        <label><input type="radio" name="payment_method" class="radio-choose" value="2" />按揭</label></dd>
+                                    <dd>
+                                        <label><input type="radio" name="payment_method" class="radio-choose" value="1" {{if $agenda->payment_method|default:1 == 1 }}checked{{/if}} />全额</label>
+                                        <label><input type="radio" name="payment_method" class="radio-choose" value="2" {{if $agenda->payment_method|default:1 == 2 }}checked{{/if}} />按揭</label>
+                                    </dd>
                                 </dl>
                             </td>
                         </tr>
@@ -74,15 +76,15 @@
                             <td>
                                 <dl>
                                     <dt class="wid115">客户收入情况：</dt>
-                                    <dd><input type="text" name="customer_income" class="add-txt" /><em>元/月</em></dd>
+                                    <dd><input type="text" name="customer_income" class="add-txt" value="{{$agenda->acreage|default:''}}" /><em>元/月</em></dd>
                                 </dl>
                             </td>
                             <td class="twodl">
                                 <dl>
                                     <dt class="wid58">首付：</dt>
-                                    <dd><input type="text" name="down_payment" class="add-txt input-wid85" /><em>万</em></dd></dl>
+                                    <dd><input type="text" name="down_payment" class="add-txt input-wid85" value="{{$agenda->down_payment|default:''}}" /><em>万</em></dd></dl>
                                     <dl><dt class="wid58">按揭：</dt>
-                                    <dd><input type="text" name="mortgage" class="add-txt input-wid85" /><em>万</em></dd>
+                                    <dd><input type="text" name="mortgage" class="add-txt input-wid85" value="{{$agenda->mortgage|default:''}}" /><em>万</em></dd>
                                 </dl>
                             </td>
                         </tr>
@@ -91,9 +93,9 @@
                                 <dl>
                                     <dt>购房性质：</dt>
                                     <dd>
-                                        <label><input type="radio" name="style" class="radio-choose" value="1" />首付房 </label>
-                                        <label><input type="radio" name="style" class="radio-choose" value="2" />二手房</label>
-                                        <label><input type="radio" name="style" class="radio-choose" value="3" />二套以上</label>
+                                        <label><input type="radio" name="style" class="radio-choose" value="1" {{if $agenda->style|default:1 == 1 }}checked{{/if}} />首付房 </label>
+                                        <label><input type="radio" name="style" class="radio-choose" value="2" {{if $agenda->style|default:1 == 2 }}checked{{/if}} />二手房</label>
+                                        <label><input type="radio" name="style" class="radio-choose" value="3" {{if $agenda->style|default:1 == 3 }}checked{{/if}} />二套以上</label>
                                     </dd>
                                 </dl>
                             </td>
@@ -101,8 +103,8 @@
                                 <dl>
                                     <dt>收佣节点：</dt>
                                     <dd>
-                                        <label><input type="radio" name="payment_node" class="radio-choose" value="1" />过户前 </label>
-                                        <label><input type="radio" name="payment_node" class="radio-choose" value="2" />过户后</label>
+                                        <label><input type="radio" name="payment_node" class="radio-choose" value="1" {{if $agenda->payment_node|default:1 == 1 }}checked{{/if}} />过户前 </label>
+                                        <label><input type="radio" name="payment_node" class="radio-choose" value="2" {{if $agenda->payment_node|default:1 == 2 }}checked{{/if}} />过户后</label>
                                     </dd>
                                 </dl>
                             </td>
@@ -112,7 +114,7 @@
                                 <dl>
                                     <dt>备注：</dt>
                                     <dd>
-                                        <textarea name="mark" rows="2" cols="3" class="sce-remarks" placeholder="如有其他情况请备注"></textarea>
+                                        <textarea name="mark" rows="2" cols="3" class="sce-remarks" placeholder="如有其他情况请备注">{{$agenda->mark|default:''}}</textarea>
                                     </dd>
                                 </dl>
                             </td>
