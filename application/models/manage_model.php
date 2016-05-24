@@ -352,11 +352,12 @@ class Manage_model extends MY_Model
 
         $data['rel_name'] = null;
         //list
-        $this->db->select('a.*, b.name AS company_name, c.name AS subsidiary_name, d.name AS role_name');
+        $this->db->select('a.*, b.name AS company_name, c.name AS subsidiary_name, d.name AS role_name,e.name position_name');
         $this->db->from('user a');
         $this->db->join('company b', 'a.company_id = b.id', 'left');
         $this->db->join('subsidiary c', 'a.subsidiary_id = c.id', 'left');
         $this->db->join('role d', 'a.role_id = d.id', 'left');
+        $this->db->join('position e', 'a.position_id = e.id', 'left');
         if($this->session->userdata('role_id') == 2) {
             $this->db->where('a.company_id', $this->session->userdata('company_id'));
         } else if($this->session->userdata('role_id') > 2) {
@@ -378,7 +379,8 @@ class Manage_model extends MY_Model
             'company_id' => $this->input->post('company_id'),
             'subsidiary_id' => $this->input->post('subsidiary_id'),
             'rel_name' => $this->input->post('rel_name'),
-            'role_id' => $this->input->post('role_id')
+            'role_id' => $this->input->post('role_id'),
+            'position_id' => $this->input->post('position_id')
         );
         if(!empty($pic)) {
             $data['pic'] = $pic;
@@ -418,6 +420,9 @@ class Manage_model extends MY_Model
         return $this->db->get_where('role', array('id >' => 1))->result_array();
     }
 
+    public function get_position_list() {
+        return $this->db->get_where('position', array('id >=' => 1))->result_array();
+    }
     /**
      * 获取职务列表
      */

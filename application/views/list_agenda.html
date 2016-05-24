@@ -18,8 +18,10 @@
             <div class="nav-left">
                 <ul class="nav-left-ul">
                     <li><a href="/"><em class="home"></em>回到首页</a></li>
+                    {{if $position_id != 2}}
                     <li class="on"><a href="/agenda/list_agenda"><em class="myagenda"></em>我的代办</a></li>
-                    {{if $role_id < 7 }}
+                    {{/if}}
+                    {{if $role_id < 7 || $position_id == 2}}
                     <li><a href="/agenda/list_agenda_other"><em class="allagenda"></em>代办事项</a></li>
                     {{/if}}
                 </ul>
@@ -126,14 +128,16 @@
                             <div class="history-list-inner">
                                 <p class="history-list-tit">历史进程</p>
                                 {{if $agenda_list.detail!=1}}
+                                <p class="new">
                                 {{foreach from=$agenda_list.detail item=foo}}
                                 {{if $foo['a_id']==$item.id}}
-
-                                <p>{{$foo['name']}}--{{$foo['created']}}</p>
+                                <span class="his-item-icon">·</span>
+                                <span class="his-item-txt">{{$foo['name']}}<br />{{$foo['created']}}</span></p><p>
                                 {{/if}}
                                 {{/foreach}}
+                                </p>
                                 {{/if}}
-                                <p class="new">
+                               <!-- <p class="new">
                                     <span class="his-item-icon">·</span>
                                     <span class="his-item-txt">按揭中<br />2016-05-23  23:18:15</span></p>
                                 <p><span class="his-item-icon">·</span>
@@ -141,7 +145,7 @@
                                 <p><span class="his-item-icon">·</span>
                                     <span class="his-item-txt">按揭中<br />2016-05-23  23:18:15</span></p>
                                 <p><span class="his-item-icon">·</span>
-                                    <span class="his-item-txt">按揭中<br />2016-05-23  23:18:15</span></p>
+                                    <span class="his-item-txt">按揭中<br />2016-05-23  23:18:15</span></p>-->
                             </div>
                         </div>
                     </li>
@@ -153,13 +157,7 @@
                         <em class="tips-ok tips-error"></em>异常 <div class="error-explain">
                         <em class="triangle"></em>
                         <div class="error-explain-inner"><p>{{$item.errtext}}</p>
-                            {{if $agenda_list.detail!=1}}
-                            {{foreach from=$agenda_list.detail item=foo}}
-                            {{if $foo['a_id']==$item.id}}
-                            <p>{{$foo['name']}}--{{$foo['created']}}</p>
-                            {{/if}}
-                            {{/foreach}}
-                            {{/if}}</div>
+                         </div>
                     </div>
                     </li>
                     {{/if}}
