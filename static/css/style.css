@@ -353,7 +353,6 @@ body{background: #fff; font-family: "Microsoft YaHei";}
 .uploadInformation  dt{width:65px;}
 .add-data-table1 td dl{padding:12px 25px;}
 .add-data-table1 td dd{width:370px;}
-
 .add-data-table1 td dd li{margin:0 3px 3px 0;border:1px solid #f1f1f1;padding:1px; width:85px;height:65px; float: left; position: relative;}
 .add-data-table1 td dd .delete-this{width:85px; height: 20px; background: #000;filter:alpha(opacity=60);opacity: 0.6; display: block;
     top:0; position: absolute;}
@@ -374,4 +373,3 @@ body{background: #fff; font-family: "Microsoft YaHei";}
 .editor-process select{margin:0; color:#333;}.div-process{margin-left:35px; float: left;overflow: hidden;zoom:1;}
 .describe-process{width:360px; float: left;}
 .process-remarks{background: none;width:360px; height:80px;}
-
