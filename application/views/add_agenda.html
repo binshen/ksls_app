@@ -59,7 +59,7 @@
                                 </dl>
                             </td>
                             <td><dl><dt class="wid115">合同金额：</dt>
-                                <dd><input type="text" name="amount" class="add-txt" value="{{$agenda->amount|default:''}}" /><em>万</em></dd></dl></td>
+                                <dd><input id="contract_amount" type="text" name="amount" class="add-txt" value="{{$agenda->amount|default:''}}" /><em>万</em></dd></dl></td>
                         </tr>
                         <tr>
                             <td><dl><dt class="wid115">房东剩余贷款：</dt><dd><input type="text" name="rest_load" class="add-txt" value="{{$agenda->rest_load|default:''}}" /><em>万</em></dd></dl></td>
@@ -83,9 +83,19 @@
                             <td class="twodl">
                                 <dl>
                                     <dt class="wid58">首付：</dt>
-                                    <dd><input type="text" name="down_payment" class="add-txt input-wid85" value="{{$agenda->down_payment|default:''}}" /><em>万</em></dd></dl>
-                                    <dl><dt class="wid58">按揭：</dt>
-                                    <dd><input type="text" name="mortgage" class="add-txt input-wid85" value="{{$agenda->mortgage|default:''}}" /><em>万</em></dd>
+                                    <dd id="dd_down_payment_1">
+                                        <span id="span_down_payment">{{$agenda->down_payment|default:0}}</span>万
+                                    </dd>
+                                    <dd id="dd_down_payment_2" style="display: none">
+                                        <input id="down_payment" type="text" name="down_payment" class="add-txt input-wid85" value="{{$agenda->down_payment|default:''}}" /><em>万</em>
+                                    </dd>
+                                </dl>
+                                <dl>
+                                    <dt class="wid58">按揭：</dt>
+                                    <dd id="dd_mortgage">
+                                        <input id="hid_mortgage" type="hidden" name="mortgage" class="add-txt input-wid85" value="{{$agenda->mortgage|default:0}}" />
+                                        <span id="span_mortgage">{{$agenda->mortgage|default:0}}</span>万
+                                    </dd>
                                 </dl>
                             </td>
                         </tr>
@@ -389,6 +399,54 @@
             }
         });
     }
+
+    $("#contract_amount").change(function() {
+        var amount = parseFloat($(this).val());
+        var payment_method = $("input[name='payment_method']:checked").val();
+        if(payment_method == 1) {
+            $("#down_payment").val(amount);
+            $("#span_down_payment").text(amount);
+        } else {
+            var down_payment = parseFloat($("#down_payment").val());
+            if(down_payment > 0 && amount >= down_payment) {
+                $("#hid_mortgage").val(amount - down_payment);
+                $("#span_mortgage").text(amount - down_payment);
+            }
+        }
+    });
+
+    $("input[name='payment_method']").click(function() {
+        var payment_method = $(this).val();
+        if(payment_method == 1) {
+            $("#dd_down_payment_1").show();
+            $("#dd_down_payment_2").hide();
+            var amount = parseFloat($("#contract_amount").val());
+            if(amount > 0) {
+                $("#down_payment").val(amount);
+                $("#span_down_payment").text(amount);
+            }
+            $("#hid_mortgage").val(0);
+            $("#span_mortgage").text(0);
+        } else {
+            $("#dd_down_payment_1").hide();
+            $("#dd_down_payment_2").show();
+        }
+    });
+
+    $("#down_payment").change(function() {
+        var down_payment = parseFloat($(this).val());
+        var amount = parseFloat($("#contract_amount").val());
+
+        if(down_payment > amount) {
+            layer.msg('首付金额不能大于合同金额', {icon: 2});
+            return;
+        }
+        var payment_method = $("input[name='payment_method']:checked").val();
+        if(payment_method == 2 && amount > 0) {
+            $("#hid_mortgage").val(amount - down_payment);
+            $("#span_mortgage").text(amount - down_payment);
+        }
+    });
 </script>
 </body>
 </html>
