@@ -39,7 +39,7 @@
                                 </dl>
                             </td>
                             <td><dl><dt class="wid115">房屋面积：</dt>
-                                <dd><input type="text" name="acreage" class="add-txt" value="{{$agenda->acreage|default:''}}" /><em>平方米</em></dd></dl></td>
+                                <dd><input type="text" name="acreage" class="add-txt number" value="{{$agenda->acreage|default:''}}" /><em>平方米</em></dd></dl></td>
                         </tr>
                         <tr>
                             <td><dl><dt class="wid115">房东姓名：</dt><dd><input type="text" name="landlord_name" class="add-txt" value="{{$agenda->landlord_name|default:''}}" /></dd></dl></td>
@@ -59,10 +59,10 @@
                                 </dl>
                             </td>
                             <td><dl><dt class="wid115">合同金额：</dt>
-                                <dd><input id="contract_amount" type="text" name="amount" class="add-txt" value="{{$agenda->amount|default:''}}" /><em>万</em></dd></dl></td>
+                                <dd><input id="contract_amount" type="text" name="amount" class="add-txt number" value="{{$agenda->amount|default:''}}" /><em>万</em></dd></dl></td>
                         </tr>
                         <tr>
-                            <td><dl><dt class="wid115">房东剩余贷款：</dt><dd><input type="text" name="rest_load" class="add-txt" value="{{$agenda->rest_load|default:''}}" /><em>万</em></dd></dl></td>
+                            <td><dl><dt class="wid115">房东剩余贷款：</dt><dd><input type="text" name="rest_load" class="add-txt number" value="{{$agenda->rest_load|default:''}}" /><em>万</em></dd></dl></td>
                             <td>
                                 <dl>
                                     <dt>客户付款方式：</dt>
@@ -77,7 +77,7 @@
                             <td>
                                 <dl>
                                     <dt class="wid115">客户收入情况：</dt>
-                                    <dd><input type="text" name="customer_income" class="add-txt" value="{{$agenda->acreage|default:''}}" /><em>元/月</em></dd>
+                                    <dd><input type="text" name="customer_income" class="add-txt number" value="{{$agenda->acreage|default:''}}" /><em>元/月</em></dd>
                                 </dl>
                             </td>
                             <td class="twodl">
@@ -87,13 +87,13 @@
                                         <span id="span_down_payment">{{$agenda->down_payment|default:0}}</span>万
                                     </dd>
                                     <dd id="dd_down_payment_2" style="display: none">
-                                        <input id="down_payment" type="text" name="down_payment" class="add-txt input-wid85" value="{{$agenda->down_payment|default:''}}" /><em>万</em>
+                                        <input id="down_payment" type="text" name="down_payment" class="add-txt input-wid85 number" value="{{$agenda->down_payment|default:''}}" /><em>万</em>
                                     </dd>
                                 </dl>
                                 <dl>
                                     <dt class="wid58">按揭：</dt>
                                     <dd id="dd_mortgage">
-                                        <input id="hid_mortgage" type="hidden" name="mortgage" class="add-txt input-wid85" value="{{$agenda->mortgage|default:0}}" />
+                                        <input id="hid_mortgage" type="hidden" name="mortgage" value="{{$agenda->mortgage|default:0}}" />
                                         <span id="span_mortgage">{{$agenda->mortgage|default:0}}</span>万
                                     </dd>
                                 </dl>
@@ -449,6 +449,12 @@
             $("#span_mortgage").text(amount - down_payment);
         }
     });
+
+    $(".number").keyup(function(){
+        $(this).val($(this).val().replace(/[^0-9.]/g,''));
+    }).bind("paste",function(){  //CTR+V事件处理
+        $(this).val($(this).val().replace(/[^0-9.]/g,''));
+    }).css("ime-mode", "disabled");
 </script>
 </body>
 </html>
