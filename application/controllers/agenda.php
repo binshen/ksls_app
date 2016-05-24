@@ -144,6 +144,12 @@ class Agenda extends MY_Controller
         if($this->input->POST('course')) {
             $this->assign('course', $this->input->POST('course'));
         }
+        if($this->input->POST('company')) {
+            $this->assign('company', $this->input->POST('company'));
+        }
+        if($this->input->POST('subsidiary')) {
+            $this->assign('subsidiary', $this->input->POST('subsidiary'));
+        }
         $data = $this->agenda_model->list_agenda($page,null,$subsidiary_id,$company_id);
         $this->assign('agenda_list', $data);
 
