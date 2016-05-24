@@ -32,6 +32,8 @@ class Agenda extends MY_Controller
     public function list_agenda($page=1) {
         $role_id = $this->session->userdata('login_role_id');
         $this->assign('role_id', $role_id);
+        $position_id = $this->session->userdata('login_position_id');
+        $this->assign('position_id', $position_id);
         $course_list = $this->agenda_model->get_course();
         $this->assign('course_list', $course_list);
         if($this->input->POST('status')) {
@@ -51,46 +53,83 @@ class Agenda extends MY_Controller
     function list_agenda_other($page=1){
         $role_id = $this->session->userdata('login_role_id');
         $this->assign('role_id', $role_id);
-        if($role_id == 1) {
+        $position_id = $this->session->userdata('login_position_id');
+        $this->assign('position_id', $position_id);
+
+
+        if($position_id==2){
+            //如果是 权证人员
             $company_list = $this->agenda_model->get_company_list();
             $this->assign('company_list', $company_list);
-        }
-
-        if($this->input->POST('company')) {
-            $this->assign('company', $this->input->POST('company'));
-            $subsidiary_list = $this->agenda_model->get_subsidiary_list($this->input->POST('company'), NULL);
-        } else {
-            $company_id = $this->session->userdata('login_company_id');
-            if($role_id < 4) {
+            if($this->input->POST('company')) {
+                $this->assign('company', $this->input->POST('company'));
+                $subsidiary_list = $this->agenda_model->get_subsidiary_list($this->input->POST('company'), NULL);
+            } else {
+                $company_id = null;
                 $subsidiary_list = $this->agenda_model->get_subsidiary_list($company_id, NULL);
-            } else if($role_id < 7) {
-                $subsidiary_id = $this->session->userdata('login_subsidiary_id');
-                $subsidiary_list = $this->agenda_model->get_subsidiary_list($company_id, $subsidiary_id);
+
             }
-        }
-        $this->assign('subsidiary_list', $subsidiary_list);
-        if($this->input->POST('subsidiary')) {
-            $this->assign('subsidiary', $this->input->POST('subsidiary'));
+            $this->assign('subsidiary_list', $subsidiary_list);
+            if($this->input->POST('subsidiary')) {
+                $this->assign('subsidiary', $this->input->POST('subsidiary'));
 
-            $user_list = $this->agenda_model->get_subsidiary_user_list($this->input->POST('subsidiary'));
-            $this->assign('user_list', $user_list);
-        }elseif(!$this->input->post('subsidiary') && $role_id < 7){
-            $this->assign('subsidiary', $this->session->userdata('login_subsidiary_id'));
-            $user_list = $this->agenda_model->get_subsidiary_user_list($this->session->userdata('login_subsidiary_id'));
-            $this->assign('user_list', $user_list);
-        }
-        if($this->input->POST('user')) {
-            $this->assign('user', $this->input->POST('user'));
+                $user_list = $this->agenda_model->get_subsidiary_user_list($this->input->POST('subsidiary'));
+                $this->assign('user_list', $user_list);
+            }
+            if($this->input->POST('user')) {
+                $this->assign('user', $this->input->POST('user'));
+            }
+
+            $company_id = NULL;
+
+            $subsidiary_id = NULL;
+
+
+        }else{
+            ///这里不是权证人员 就安装自己的职级来判断
+            if($role_id == 1) {
+                $company_list = $this->agenda_model->get_company_list();
+                $this->assign('company_list', $company_list);
+            }
+
+            if($this->input->POST('company')) {
+                $this->assign('company', $this->input->POST('company'));
+                $subsidiary_list = $this->agenda_model->get_subsidiary_list($this->input->POST('company'), NULL);
+            } else {
+                $company_id = $this->session->userdata('login_company_id');
+                if($role_id < 4) {
+                    $subsidiary_list = $this->agenda_model->get_subsidiary_list($company_id, NULL);
+                } else if($role_id < 7) {
+                    $subsidiary_id = $this->session->userdata('login_subsidiary_id');
+                    $subsidiary_list = $this->agenda_model->get_subsidiary_list($company_id, $subsidiary_id);
+                }
+            }
+            $this->assign('subsidiary_list', $subsidiary_list);
+            if($this->input->POST('subsidiary')) {
+                $this->assign('subsidiary', $this->input->POST('subsidiary'));
+
+                $user_list = $this->agenda_model->get_subsidiary_user_list($this->input->POST('subsidiary'));
+                $this->assign('user_list', $user_list);
+            }elseif(!$this->input->post('subsidiary') && $role_id < 7){
+                $this->assign('subsidiary', $this->session->userdata('login_subsidiary_id'));
+                $user_list = $this->agenda_model->get_subsidiary_user_list($this->session->userdata('login_subsidiary_id'));
+                $this->assign('user_list', $user_list);
+            }
+            if($this->input->POST('user')) {
+                $this->assign('user', $this->input->POST('user'));
+            }
+
+            $company_id = NULL;
+            if($role_id > 1) {
+                $company_id = $this->session->userdata('login_company_id');
+            }
+            $subsidiary_id = NULL;
+            if($role_id >= 4) {
+                $subsidiary_id = $this->session->userdata('login_subsidiary_id');
+            }
+
         }
 
-        $company_id = NULL;
-        if($role_id > 1) {
-            $company_id = $this->session->userdata('login_company_id');
-        }
-        $subsidiary_id = NULL;
-        if($role_id >= 4) {
-            $subsidiary_id = $this->session->userdata('login_subsidiary_id');
-        }
 
         $course_list = $this->agenda_model->get_course();
         $this->assign('course_list',$course_list);
