@@ -192,7 +192,7 @@
                         </li>
                     </ul>
                 {{/foreach}}
-                <div class="pages">
+                <div id="activity_page" class="pages">
                     <!--
                     <a href="" class="prev">上一页</a>
                     <span class="current">1</span>
@@ -243,6 +243,8 @@
                 $("#sel_subsidiary").append('<option value="'+data[i].id+'">'+data[i].name+'</option>');
             }
         });
+        $("#sel_user").empty();
+        $("#sel_user").append('<option value="">选择员工</option>');
     });
     $('#sel_subsidiary').change(function(){
         $.get('/activity/get_subsidiary_user_list/' + $(this).val(), function(data) {
@@ -257,6 +259,12 @@
     $("#btn_search").click(function() {
         $('#formSearchActivity').submit();
     });
+    $("#activity_page").find('a').click(function(){
+        var path = $(this).attr('href');
+        $("#formSearchActivity").attr("action",path);
+        $("#formSearchActivity").submit();
+        return false;
+    })
 </script>
 </body>
 </html>
