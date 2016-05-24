@@ -230,6 +230,8 @@
                 $("#sel_subsidiary").append('<option value="'+data[i].id+'">'+data[i].name+'</option>');
             }
         });
+        $("#sel_user").empty();
+        $("#sel_user").append('<option value="">选择员工</option>');
     });
     $('#sel_subsidiary').change(function(){
         $.get('/activity/get_subsidiary_user_list/' + $(this).val(), function(data) {
