@@ -25,6 +25,11 @@ class Agenda extends MY_Controller
         if(!$this->session->userdata('login_user_id')) {
             redirect(site_url('/'));
         } else {
+            if($this->session->userdata('login_position_id') == 2){
+                if($method == 'list_agenda'){
+                    return call_user_func_array(array($this, 'list_agenda_other'), $params);
+                }
+            }
             return call_user_func_array(array($this, $method), $params);
         }
     }
