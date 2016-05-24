@@ -40,7 +40,7 @@ class Activity_model extends MY_Model
     public function list_activity($page, $status, $user_id=NULL, $subsidiary_id=NULL, $company_id=NULL) {
 
         // 每页显示的记录条数，默认20条
-        $numPerPage = $this->input->post('numPerPage') ? $this->input->post('numPerPage') : 1;
+        $numPerPage = $this->input->post('numPerPage') ? $this->input->post('numPerPage') : 5;
         $pageNum = $this->input->post('pageNum') ? $this->input->post('pageNum') : $page;
 
         //获得总记录数
