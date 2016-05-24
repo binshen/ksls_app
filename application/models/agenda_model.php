@@ -38,7 +38,7 @@ class Agenda_model extends MY_Model
 
     function list_agenda($page,$user_id = null,$subsidiary_id=null,$company_id=null){
         // 每页显示的记录条数，默认20条
-        $numPerPage = $this->input->post('numPerPage') ? $this->input->post('numPerPage') : 2;
+        $numPerPage = $this->input->post('numPerPage') ? $this->input->post('numPerPage') : 10;
         $pageNum = $this->input->post('pageNum') ? $this->input->post('pageNum') : $page;
 
         $this->db->select('count(1) as num');
