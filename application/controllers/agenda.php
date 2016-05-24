@@ -176,14 +176,13 @@ class Agenda extends MY_Controller
         $this->display('add_agenda.html');
     }
 
-    public function view_agenda($id) {
+    public function view_agenda($id, $style=1) {
 
         $agenda = $this->agenda_model->get_agenda($id);
         $this->assign('agenda', $agenda);
 
         $agenda_course = $this->agenda_model->get_agenda_course($id);
         $this->assign('agenda_course', $agenda_course);
-
 
         $agenda_image = $this->agenda_model->get_agenda_image($id);
         $agenda_images = array();
@@ -200,6 +199,8 @@ class Agenda extends MY_Controller
 
         $position_id = $this->session->userdata('login_position_id');
         $this->assign('position_id', $position_id);
+
+        $this->assign('style', $style);
 
         $this->display('view_agenda.html');
     }
