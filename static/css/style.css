@@ -188,7 +188,7 @@ body{background: #fff; font-family: "Microsoft YaHei";}
 .dosth-successful li.bgno{background: none; text-align:center;}
 
 .schedule-list .operation-btn{width: 45px; height: 25px; display:block; background: #34474f; line-height: 25px; color:#fff;margin:28px 0 0 15px;border-radius: 3px; float: left;}
-.dosth-list .operation-btn{margin:10px 0 0 5px;}
+.dosth-list .operation-btn{margin:10px 0 0 5px;}.dosth-list .operation-btn1{margin:10px 0 0 25px;}
 .schedule-list .operation-btn-no{background: #b4b8bc;}
 .pages{ text-align: center;margin-top:10px;}
 .pages a,.pages .current{border:1px solid #e4e7e9; background: #fff; height: 28px; width:28px; line-height: 28px; display: inline-block; text-align: center;}
@@ -353,22 +353,20 @@ body{background: #fff; font-family: "Microsoft YaHei";}
 .uploadInformation  dt{width:65px;}
 .add-data-table1 td dl{padding:12px 25px;}
 .add-data-table1 td dd{width:370px;}
-
 .add-data-table1 td dd li{margin:0 3px 3px 0;border:1px solid #f1f1f1;padding:1px; width:85px;height:65px; float: left; position: relative;}
 .add-data-table1 td dd .delete-this{width:85px; height: 20px; background: #000;filter:alpha(opacity=60);opacity: 0.6; display: block;
     top:0; position: absolute;}
 .add-data-table1 td dd .delete-this i{padding:0 5px;width:10px; height:20px; background: url(/static/images/logo_in.png) no-repeat -123px 2px; display: block; float: right;margin-right:10px; cursor: pointer;}
 
-.p-btns{width:200px; margin: 0 auto 10px; height: 35px;}
+.p-btns{width:95px; margin: 0 auto; height: 35px;}
 .p-btns a{width:95px; height:35px; display: block; text-align: center; float: left; line-height: 35px; font-size:14px; color: #fff;}
 .p-btns .sub-btn{ background: #ff6c60; margin-right: 10px;}
 .p-btns .reset-btn{background: #d8d8d8; color: #333;margin:0;}
-
 .history{padding:10px;width:190px; float: left;border-right:1px solid #efefef;}
 .his-tit{margin-bottom:10px; display: block; font-size:14px;}
 .ul-his{color:#bfbfbf;}
-.ul-his .date{width:84px; display: inline-block;}
-.ul-his .process{width:70px; display: inline-block;}
+.ul-his .date{width:75px; display: inline-block;}
+.ul-his .process{width:100px; display: inline-block;}
 .ul-his .current{color:#747474;}
 .ul-his .close-his{width:13px; height:15px; display:inline-block;background: url(/static/images/logo_in.png) no-repeat -154px 0;}
 .editor-process{padding:10px 0; overflow: hidden;zoom:1; height: auto; width:308px; float: left; }
