@@ -192,7 +192,7 @@
                         </li>
                     </ul>
                 {{/foreach}}
-                <div class="pages">
+                <div id="activity_page" class="pages">
                     <!--
                     <a href="" class="prev">上一页</a>
                     <span class="current">1</span>
@@ -257,6 +257,12 @@
     $("#btn_search").click(function() {
         $('#formSearchActivity').submit();
     });
+    $("#activity_page").find('a').click(function(){
+        var path = $(this).attr('href');
+        $("#formSearchActivity").attr("action",path);
+        $("#formSearchActivity").submit();
+        return false;
+    })
 </script>
 </body>
 </html>

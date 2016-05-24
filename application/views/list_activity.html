@@ -167,7 +167,7 @@
                     </ul>
                 {{/foreach}}
 
-                <div class="pages">
+                <div id="activity_page" class="pages">
                     {{$pager}}
                 </div>
             </div>
@@ -201,6 +201,12 @@
     $("#btn_search").click(function() {
         $('#formSearchActivity').submit();
     });
+    $("#activity_page").find('a').click(function(){
+        var path = $(this).attr('href');
+        $("#formSearchActivity").attr("action",path);
+        $("#formSearchActivity").submit();
+        return false;
+    })
 </script>
 </body>
 </html>
