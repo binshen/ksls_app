@@ -406,6 +406,8 @@
         if(payment_method == 1) {
             $("#down_payment").val(amount);
             $("#span_down_payment").text(amount);
+            $("#hid_mortgage").val(0);
+            $("#span_mortgage").text(0);
         } else {
             var down_payment = parseFloat($("#down_payment").val());
             if(down_payment > 0 && amount >= down_payment) {
