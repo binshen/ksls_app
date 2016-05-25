@@ -27,17 +27,17 @@ class Agenda extends MY_Controller
         } else {
             if($this->session->userdata('login_position_id') == 2){
                 if($method == 'list_agenda'){
-                    redirect(site_url('/activity/list_agenda_other'));
+                    redirect(site_url('/agenda/list_agenda_other'));
                     exit();
                 }
                 if($method == 'add_agenda'){
-                    redirect(site_url('/activity/list_agenda_other'));
+                    redirect(site_url('/agenda/list_agenda_other'));
                     exit();
                 }
             }else{
                 if($this->session->userdata('login_user_id') > 6 ){
                     if($method == 'list_agenda_other'){
-                        redirect(site_url('/activity/list_agenda'));
+                        redirect(site_url('/agenda/list_agenda'));
                         exit();
                     }
                 }
@@ -179,7 +179,7 @@ class Agenda extends MY_Controller
         if(!empty($id)) {
             $agenda = $this->agenda_model->get_agenda($id);
             if($agenda->course !=1){
-                redirect(site_url('/activity/list_agenda'));
+                redirect(site_url('/agenda/list_agenda'));
                 exit();
             }
             $this->assign('agenda', $agenda);
