@@ -161,6 +161,8 @@ class Agenda extends MY_Controller
     public function add_agenda($id=NULL) {
         $role_id = $this->session->userdata('login_role_id');
         $this->assign('role_id', $role_id);
+        $position_id = $this->session->userdata('login_position_id');
+        $this->assign('position_id', $position_id);
         if(!empty($id)) {
             $agenda = $this->agenda_model->get_agenda($id);
             $this->assign('agenda', $agenda);
