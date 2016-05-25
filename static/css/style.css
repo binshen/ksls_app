@@ -35,7 +35,7 @@ body{background: #fff; font-family: "Microsoft YaHei";}
 .index .wraper{background: none;}
 .copyright{ text-align: center; color:#fff; clear:both; padding-top:14px;}
 .wrap-left{padding-top:25px;width:130px; float:left; background: #fff; }
-.wrap-right{padding-top:25px;width:990px; float:left; background: #fff;}
+.wrap-right{padding:25px 0;width:990px; float:left; background: #fff;}
 .nav-left{ background: #2a3542;}
 .schedule-wrap{ background: #f2f2f0;min-height:540px;}
 .nav-left-ul{padding:18px 10px;}
