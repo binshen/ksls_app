@@ -142,7 +142,7 @@ class Activity extends MY_Controller {
 
     public function edit_activity($id) {
         $activity = $this->activity_model->get_activity_by_id($id);
-        if($activity['status'] != 1 || $this->session->userdata('login_user_id') != $activity['id']){
+        if($activity['status'] != 1 || $this->session->userdata('login_user_id') != $activity['user_id']){
             redirect(site_url('/activity/list_activity'));
             exit();
         }
