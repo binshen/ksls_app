@@ -27,9 +27,22 @@ class Agenda extends MY_Controller
         } else {
             if($this->session->userdata('login_position_id') == 2){
                 if($method == 'list_agenda'){
-                    return call_user_func_array(array($this, 'list_agenda_other'), $params);
+                    redirect(site_url('/activity/list_agenda_other'));
+                    exit();
+                }
+                if($method == 'add_agenda'){
+                    redirect(site_url('/activity/list_agenda_other'));
+                    exit();
+                }
+            }else{
+                if($this->session->userdata('login_user_id') > 6 ){
+                    if($method == 'list_agenda_other'){
+                        redirect(site_url('/activity/list_agenda'));
+                        exit();
+                    }
                 }
             }
+
             return call_user_func_array(array($this, $method), $params);
         }
     }
@@ -165,6 +178,10 @@ class Agenda extends MY_Controller
         $this->assign('position_id', $position_id);
         if(!empty($id)) {
             $agenda = $this->agenda_model->get_agenda($id);
+            if($agenda->course !=1){
+                redirect(site_url('/activity/list_agenda'));
+                exit();
+            }
             $this->assign('agenda', $agenda);
 
             $agenda_image = $this->agenda_model->get_agenda_image($id);
