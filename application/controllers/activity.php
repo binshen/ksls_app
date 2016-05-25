@@ -32,6 +32,16 @@ class Activity extends MY_Controller {
         if(!$this->session->userdata('login_user_id')) {
             redirect(site_url('/'));
         } else {
+            if($this->session->userdata('login_user_id') > 6){
+                if($method == 'list_review'){
+                    redirect(site_url('/activity/list_activity'));
+                    exit();
+                }
+                if($method == 'review_activity'){
+                    redirect(site_url('/activity/list_activity'));
+                    exit();
+                }
+            }
             return call_user_func_array(array($this, $method), $params);
         }
     }
@@ -131,10 +141,17 @@ class Activity extends MY_Controller {
     }
 
     public function edit_activity($id) {
+        $activity = $this->activity_model->get_activity_by_id($id);
+        if($activity['status'] != 1){
+            redirect(site_url('/activity/list_activity'));
+            exit();
+        }
+        $role_id = $this->session->userdata('login_role_id');
+        $this->assign('role_id', $role_id);
         $activity_type_list = $this->activity_model->get_activity_type_list();
         $this->assign('activity_type_list', json_encode($activity_type_list));
 
-        $activity = $this->activity_model->get_activity_by_id($id);
+
 
         $activity['a1t'] = $activity['a1n'] * $activity['a1s'];
         $activity['a2t'] = $activity['a2n'] * $activity['a2s'];
@@ -148,10 +165,17 @@ class Activity extends MY_Controller {
     }
 
     public function inspect_activity($id) {
+        $activity = $this->activity_model->get_activity_by_id($id);
+        if(!in_array($activity['status'],array(1,2))){
+            redirect(site_url('/activity/list_activity'));
+            exit();
+        }
+        $role_id = $this->session->userdata('login_role_id');
+        $this->assign('role_id', $role_id);
         $activity_type_list = $this->activity_model->get_activity_type_list();
         $this->assign('activity_type_list', json_encode($activity_type_list));
 
-        $activity = $this->activity_model->get_activity_by_id($id);
+
         $status = $activity['status'];
         if($status == 1) {
             $activity['b1'] = $activity['a1'];
