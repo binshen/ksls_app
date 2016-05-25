@@ -159,7 +159,8 @@ class Agenda extends MY_Controller
     }
 
     public function add_agenda($id=NULL) {
-
+        $role_id = $this->session->userdata('login_role_id');
+        $this->assign('role_id', $role_id);
         if(!empty($id)) {
             $agenda = $this->agenda_model->get_agenda($id);
             $this->assign('agenda', $agenda);
@@ -177,7 +178,6 @@ class Agenda extends MY_Controller
     }
 
     public function view_agenda($id, $style=1) {
-
         $agenda = $this->agenda_model->get_agenda($id);
         $this->assign('agenda', $agenda);
 
