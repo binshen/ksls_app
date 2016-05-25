@@ -120,8 +120,8 @@ class Activity extends MY_Controller {
     }
 
     public function add_activity() {
-        $role_id = $this->session->userdata('login_role_id');
-        $this->assign('role_id', $role_id);
+       /* $role_id = $this->session->userdata('login_role_id');
+        $this->assign('role_id', $role_id);*/
         $activity_type_list = $this->activity_model->get_activity_type_list();
         $this->assign('activity_type_list', json_encode($activity_type_list));
 
