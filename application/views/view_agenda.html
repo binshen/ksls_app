@@ -19,7 +19,9 @@
                 <ul class="nav-left-ul">
                     <li><a href="/"><em class="home"></em>回到首页</a></li>
                     <li {{if $style == 1}}class="on"{{/if}}><a href="/agenda/list_agenda"><em class="myagenda"></em>我的代办</a></li>
+                    {{if $role_id < 7 || $position_id == 2}}
                     <li {{if $style == 2}}class="on"{{/if}}><a href="/agenda/list_agenda_other"><em class="allagenda"></em>代办事项</a></li>
+                    {{/if}}
                 </ul>
             </div>
         </div>
