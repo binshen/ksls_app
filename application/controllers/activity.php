@@ -166,7 +166,7 @@ class Activity extends MY_Controller {
 
     public function inspect_activity($id) {
         $activity = $this->activity_model->get_activity_by_id($id);
-        if(!in_array($activity['status'],array(1,2))){
+        if(!in_array($activity['status'],array(1,2)) || $this->session->userdata('login_user_id') != $activity['user_id']){
             redirect(site_url('/activity/list_activity'));
             exit();
         }
