@@ -72,7 +72,7 @@ body{background: #fff; font-family: "Microsoft YaHei";}
 .login-div .p-txt{padding:40px 0; font-size:40px; text-align:center; }
 .login-div .input-div{margin:0 50px;padding:0 10px; width:290px; background: #f0f0f0; color:#bcbcbc;height:50px; line-height: 50px; border-radius:3px;margin-bottom:18px; font-size:18px;}
 .login-div .input-div span{float:left; margin-right:5px;}
-.login-div .input-div input{margin-top:10px;padding:5px; background: #f0f0f0; font-size:18px; float: left;width:178px;border:none;}
+.login-div .input-div input{margin-top:10px;padding:5px; background: #f0f0f0; font-size:18px; float: left;width:220px;border:none;}
 .login-div .input-icon{margin:12px 8px 0 0;width:18px; height:28px; float:left; background:url(/static/images/index/index_login.png) no-repeat;}
 .login-div .input-pwd{background-position: 0 -39px;}
 .login-div .sub-btn{width:205px; height:54px; margin:0 auto 30px;  background: #ed581e; display: block;border-radius: 3px; color:#fff;font-size:24px; line-height: 54px; text-align: center;}
@@ -232,7 +232,7 @@ body{background: #fff; font-family: "Microsoft YaHei";}
 .select-list li  a:hover{background: #1abc9c; color:#fff;}
 .sc-num{border:1px solid #1abc9c; font-size:14px; color:#5a5a5a; width:40px; height:34px; line-height: 34px; border-radius: 3px; text-align: center;}
 .unit-sel{border:1px solid #fff;}
-.sce-remarks{margin:2px 0;width:355px; background:#fcf2b0; border:1px solid #c4cbd4; height: 25px; color:#c4c2ac; font-size:16px;font-family: "Microsoft YaHei";
+.sce-remarks{margin:2px 0;width:355px; background:#fcf2b0; border:1px solid #c4cbd4; height: 25px; color:#c4c2ac; font-size:14px;font-family: "Microsoft YaHei";
     padding:5px;}
 .statistics-score{margin-top:15px;height:50px; overflow: hidden;zoom: 1;}
 .statistics-score ul{float: right;}
@@ -373,3 +373,5 @@ body{background: #fff; font-family: "Microsoft YaHei";}
 .editor-process select{margin:0; color:#333;}.div-process{margin-left:35px; float: left;overflow: hidden;zoom:1;}
 .describe-process{width:360px; float: left;}
 .process-remarks{background: none;width:360px; height:80px;}
+
+
