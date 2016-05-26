@@ -14,63 +14,27 @@
     {{include file='header.html'}}
     <div class="wraper clearfix">
         <div class="wrap-left">
-            <span class="logo"><img src="images/logo.jpg" alt="" width="130" height="35"></span>
+            <span class="logo"><img src="/static/images/logo.jpg" alt="" width="130" height="35"></span>
             <div class="nav-left">
                 <ul class="nav-left-ul">
                     <li><a href="/"><em class="home"></em>回到首页</a></li>
-                    <li class="on"><a href="/activity/list_activity"><em class="myagenda"></em>我的代办</a></li>
-                    <li><a href="/activity/list_review"><em class="allagenda"></em>代办事项</a></li>
+                    <li class="on"><a href="/activity/list_activity"><em class="myagenda"></em>预约场地</a></li>
                 </ul>
             </div>
         </div>
         <div class="wrap-right">
-            <div class="search-wrap">
-                <form id="formSearchActivity" method="POST" action="/activity/list_activity">
-                       <select name="user" id="sel_user">
-                        <option value="">选择员工</option>
-                        <option value="郑法明">郑法明</option>
-                       </select>
-                       <select name="subsidiary">
-                        <option value="">进程选择</option>
-                        <option value="">审核中</option>
-                        <option value="">审核通过</option>
-                        <option value="">评估中</option>
-                        <option value="">评估通过</option>
-                        <option value="">过户中</option>
-                        <option value="">过户通过</option>
-                        <option value="">按揭中</option>
-                        <option value="">按揭通过</option>
-                        <option value="">按揭房款中</option>
-                        <option value="">按揭房款完成</option>
-                      </select>
-                      <select name="user">
-                        <option value="">选择状态</option>
-                        <option value="正常">正常</option>
-                        <option value="异常">异常</option>
-                       </select>
-                    <a href="javascript:void(0);" class="search-btn" id="btn_search"></a>
-                    <a href="/activity/add_activity" class="add-schedule-btn">+新增行程</a>
-                </form>
-            </div>
+            <div class="search-wrap"></div>
             <div class="schedule-wrap book-wrap">
                 <table cellpadding="0" colspadding="0" border="0" class="book-table">
                     <thead>
                         <tr>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <!-- <td rows="2">中心会议室在线预约</td> -->
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
+                            <td colspan="8">中心会议室在线预约</td>
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
                             <th width="12.5%"></th>
-                            <th width="12.5%">今天（05/23）</th>
+                            <th width="12.5%" class="today">今天（05/23）</th>
                             <th width="12.5%">周二（05/24）</th>
                             <th width="12.5%">周三（05/25）</th>
                             <th width="12.5%">周四（05/26）</th>
@@ -81,8 +45,7 @@
                          <tr>
                              <td>9:00-10:00</td>
                              <td>
-                                <em class="roomtips-unbook-pos"></em>
-                                <a href="javascript:" class="unbook-btn" style="cursor:pointer;">预约</a>
+                                <a href="javascript:" class="unbook-btn">预约</a>
                                 
                              </td>
                              <td>
@@ -104,13 +67,13 @@
                         </tr>
                         <tr>
                              <td>10:00-11:00</td>
-                             <td><em class="roomtips-unbook-pos"></em>
+                             <td>
                                 <a href="javascript:" class="unbook-btn">预约</a></td>
                              <td><em class="roomtips-book-pos"></em>
                                 <a href="javascript:" class="book-btn">预约</a></td>
                              <td><em class="roomtips-book-pos"></em>
                                 <a href="javascript:" class="book-btn">预约</a></td>
-                             <td><em class="roomtips-unbook-pos"></em>
+                             <td>
                                 <a href="javascript:" class="unbook-btn">预约</a></td>
                              <td><em class="roomtips-book-pos"></em>
                                 <a href="javascript:" class="book-btn">预约</a></td>
@@ -121,13 +84,13 @@
                         </tr>
                          <tr>
                              <td>11:00-12:00</td>
-                             <td><em class="roomtips-unbook-pos"></em>
+                             <td>
                                 <a href="javascript:" class="unbook-btn">预约</a></td>
                              <td><em class="roomtips-book-pos"></em>
                                 <a href="javascript:" class="book-btn">预约</a></td>
                              <td><em class="roomtips-book-pos"></em>
                                 <a href="javascript:" class="book-btn">预约</a></td>
-                             <td><em class="roomtips-unbook-pos"></em>
+                             <td>
                                 <a href="javascript:" class="unbook-btn">预约</a></td>
                              <td><em class="roomtips-book-pos"></em>
                                 <a href="javascript:" class="book-btn">预约</a></td>
@@ -138,7 +101,7 @@
                         </tr>
                          <tr>
                              <td>12:00-13:00</td>
-                           <td><em class="roomtips-unbook-pos"></em>
+                           <td>
                                 <a href="javascript:" class="unbook-btn">预约</a></td>
                              <td><em class="roomtips-book-pos"></em>
                                 <a href="javascript:" class="book-btn">预约</a></td>
@@ -155,13 +118,13 @@
                         </tr>
                          <tr>
                              <td>13:00-14:00</td>
-                            <td><em class="roomtips-unbook-pos"></em>
+                            <td>
                                 <a href="javascript:" class="unbook-btn">预约</a></td>
                              <td><em class="roomtips-book-pos"></em>
                                 <a href="javascript:" class="book-btn">预约</a></td>
                              <td><em class="roomtips-book-pos"></em>
                                 <a href="javascript:" class="book-btn">预约</a></td>
-                             <td><em class="roomtips-unbook-pos"></em>
+                             <td>
                                 <a href="javascript:" class="unbook-btn">预约</a></td>
                              <td><em class="roomtips-book-pos"></em>
                                 <a href="javascript:" class="book-btn">预约</a></td>
@@ -172,13 +135,13 @@
                         </tr>
                          <tr>
                              <td>14:00-15:00</td>
-                            <td><em class="roomtips-unbook-pos"></em>
+                            <td>
                                 <a href="javascript:" class="unbook-btn">预约</a></td>
                              <td><em class="roomtips-book-pos"></em>
                                 <a href="javascript:" class="book-btn">预约</a></td>
                              <td><em class="roomtips-book-pos"></em>
                                 <a href="javascript:" class="book-btn">预约</a></td>
-                             <td><em class="roomtips-unbook-pos"></em>
+                             <td>
                                 <a href="javascript:" class="unbook-btn">预约</a></td>
                              <td><em class="roomtips-book-pos"></em>
                                 <a href="javascript:" class="book-btn">预约</a></td>
@@ -189,13 +152,13 @@
                         </tr>
                          <tr>
                              <td>15:00-16:00</td>
-                             <td><em class="roomtips-unbook-pos"></em>
+                             <td>
                                 <a href="javascript:" class="unbook-btn">预约</a></td>
                              <td><em class="roomtips-book-pos"></em>
                                 <a href="javascript:" class="book-btn">预约</a></td>
                              <td><em class="roomtips-book-pos"></em>
                                 <a href="javascript:" class="book-btn">预约</a></td>
-                             <td><em class="roomtips-unbook-pos"></em>
+                             <td>
                                 <a href="javascript:" class="unbook-btn">预约</a></td>
                              <td><em class="roomtips-book-pos"></em>
                                 <a href="javascript:" class="book-btn">预约</a></td>
@@ -206,13 +169,13 @@
                         </tr>
                          <tr>
                              <td>16:00-17:00</td>
-                             <td><em class="roomtips-unbook-pos"></em>
+                             <td>
                                 <a href="javascript:" class="unbook-btn">预约</a></td>
                              <td><em class="roomtips-book-pos"></em>
                                 <a href="javascript:" class="book-btn">预约</a></td>
                              <td><em class="roomtips-book-pos"></em>
                                 <a href="javascript:" class="book-btn">预约</a></td>
-                             <td><em class="roomtips-unbook-pos"></em>
+                             <td>
                                 <a href="javascript:" class="unbook-btn">预约</a></td>
                              <td><em class="roomtips-book-pos"></em>
                                 <a href="javascript:" class="book-btn">预约</a></td>
@@ -223,13 +186,13 @@
                         </tr>
                          <tr>
                              <td>17:00-18:00</td>
-                            <td><em class="roomtips-unbook-pos"></em>
+                            <td>
                                 <a href="javascript:" class="unbook-btn">预约</a></td>
                              <td><em class="roomtips-book-pos"></em>
                                 <a href="javascript:" class="book-btn">预约</a></td>
                              <td><em class="roomtips-book-pos"></em>
                                 <a href="javascript:" class="book-btn">预约</a></td>
-                             <td><em class="roomtips-unbook-pos"></em>
+                             <td>
                                 <a href="javascript:" class="unbook-btn">预约</a></td>
                              <td><em class="roomtips-book-pos"></em>
                                 <a href="javascript:" class="book-btn">预约</a></td>
@@ -286,51 +249,15 @@
         <a href="javascript:" class="book-submit-btn">确定预约</a>
     </div>
 
-<!-- 管理员查看会议室预订 -->
 
-    <div class="manage-showroom">
-        <dl class="vip1">
-        <dt></dt>
-        <dd><span>中心会议室VIP00A</span><br />2016/05/23 北区房屋  青阳店<br/>邵羽 13451691016</dd>
-        </dl>
-        <dl class="vip2">
-        <dt></dt>
-        <dd><span>中心会议室VIP00A</span><br />2016/05/23 北区房屋  青阳店<br/>邵羽 13451691016</dd>
-        </dl>
-        <dl class="vip3">
-        <dt></dt>
-        <dd><span>中心会议室VIP00A</span><br />2016/05/23 北区房屋  青阳店<br/>邵羽 13451691016</dd>
-        </dl>
-        <dl class="vip4">
-        <dt></dt>
-        <dd><span>中心会议室VIP00A</span><br />2016/05/23 北区房屋  青阳店<br/>邵羽 13451691016</dd>
-        </dl>
-    </div>
 
 <script type="text/javascript" src="/static/js/jquery.poshytip.min.js"></script>
 <script type="text/javascript">
 $(function(){
-     $('.unbook-btn').click(function(e){
-         $('.roomtips-unbook-pos').poshytip('hide');
-        // $('.roomtips-book-pos').poshytip('hide');
-         $(this).siblings('.roomtips-unbook-pos').poshytip('show');
-          e.stopPropagation();
-
-     });
-     $('.roomtips-unbook-pos').poshytip({
-            className: 'manage-showroom',
-            content:$('.manage-showroom').html(),
-            showOn:'none',
-            alignTo:'target',
-            alignX:'center',
-            offsetY:30            
-        });
-       $('.book-btn').click(function(e){
+      $('.book-btn').click(function(e){
          $('.roomtips-book-pos').poshytip('hide');
-        // $('.roomtips-unbook-pos').poshytip('hide');
          $(this).siblings('.roomtips-book-pos').poshytip('show');
           e.stopPropagation();
-
      });
      $('.roomtips-book-pos').poshytip({
             className: 'choose-bookroom',
@@ -338,11 +265,12 @@ $(function(){
             showOn:'none',
             alignTo:'target',
             alignX:'center',
-            offsetY:30            
+            offsetY:30
         });
-     $(document).click(function(){
-        $('.roomtips-book-pos').poshytip('hide');$('.roomtips-unbook-pos').poshytip('hide');
-     });
+//     $(document).click(function(){
+//        $('.roomtips-book-pos').poshytip('hide');
+//         e.stopPropagation();
+//     });
      //预约
      // $(".book-btn").click(function(){
      //    $(this).siblings(".choose-bookroom").slideDown();

@@ -385,7 +385,7 @@ body{background: #fff; font-family: "Microsoft YaHei";}
     color:#fff; text-align: center; line-height: 25px; position: absolute; top:12px;left:35px;}
 .book-table tbody .roomtips-unbook-pos,.book-table tbody .roomtips-book-pos{ position: absolute;top:12px;left:45px;}
 
-.book-table tbody .unbook-btn{background: #e8e8e8; /*cursor: not-allowed;*/}
+.book-table tbody .unbook-btn{background: #e8e8e8; cursor: not-allowed;}
 .choose-bookroom{ text-align: left;padding:10px 15px; position: absolute;top:-150px;left:-20px; z-index:9990;width:130px; height:175px; background: #fff;border:1px solid #ccc; font-size:12px;}
 .choose-bookroom.r-tit{color: #0a0a0a; line-height: 26px;}
 .choose-bookroom .s-bor{border-bottom: 2px solid #e5e5e5;width:35px; display: block;}
