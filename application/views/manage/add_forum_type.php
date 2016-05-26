@@ -7,12 +7,21 @@
     <form method="post" enctype="multipart/form-data" action="<?php echo site_url('manage/save_forum_type');?>" class="pageForm required-validate" onsubmit="return validateCallback(this, dialogAjaxDone);">
         <div class="pageFormContent" layoutH="55">
             <fieldset>
-                <legend>职务信息</legend>
+                <legend>资料类别信息</legend>
                 <dl>
-                    <dt>职务名称：</dt>
+                    <dt>类别名称：</dt>
                     <dd>
                         <input type="hidden" name="id" value="<?php if(!empty($id)) echo $id;?>">
                         <input name="name" type="text" class="required" value="<?php if(!empty($name)) echo $name;?>" />
+                    </dd>
+                </dl>
+                <dl>
+                    <dt>状态：</dt>
+                    <dd>
+                        <select name="flag" class="combox" id="selectFlag">
+                            <option value="1" <?php if(!empty($flag)){if($flag==1){echo 'selected';}}else{echo 'selected';}?>>使用</option>
+                            <option value="2" <?php if(!empty($flag)){if($flag==2){echo 'selected';}}?>>禁用</option>
+                        </select>
                     </dd>
                 </dl>
             </fieldset>

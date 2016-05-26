@@ -355,7 +355,9 @@ class Manage extends MY_Controller {
 
 	public function list_forum_type()
 	{
+
 		$data = $this->manage_model->list_forum_type();
+		//die(var_dump($data));
 		$this->load->view('manage/list_forum_type.php',$data);
 	}
 

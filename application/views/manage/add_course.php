@@ -7,9 +7,9 @@
     <form method="post" enctype="multipart/form-data" action="<?php echo site_url('manage/save_course');?>" class="pageForm required-validate" onsubmit="return validateCallback(this, dialogAjaxDone);">
         <div class="pageFormContent" layoutH="55">
             <fieldset>
-                <legend>职务信息</legend>
+                <legend>进程信息</legend>
                 <dl>
-                    <dt>职务名称：</dt>
+                    <dt>进程名称：</dt>
                     <dd>
                         <input type="hidden" name="id" value="<?php if(!empty($id)) echo $id;?>">
                         <input name="name" type="text" class="required" value="<?php if(!empty($name)) echo $name;?>" />
