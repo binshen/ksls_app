@@ -176,8 +176,8 @@ class Agenda_model extends MY_Model
         $this->db->select_max('max_num');
         $result = $this->db->get_where('agenda', array('company_id' => $company_id))->row();
         $max_num = 1;
-        if(!empty($max_num['max_num'])) {
-            $max_num += $max_num['max_num'];
+        if(!empty($result['max_num'])) {
+            $max_num += $result['max_num'];
         }
         $num = 'D' . str_pad($company_id, 3, "0", STR_PAD_LEFT) . str_pad($max_num, 4, "0", STR_PAD_LEFT);
 
