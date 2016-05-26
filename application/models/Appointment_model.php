@@ -74,5 +74,40 @@ class Appointment_model extends MY_Model
 
     public function save_appointment() {
 
+        $this->db->where('date', $this->input->post('date'));
+        $this->db->where('time_frame_id', $this->input->post('time_frame_id'));
+        $this->db->where('room_id', $this->input->post('room_id'));
+        $data = $this->db->get('appointment')->row();
+        if(!empty($data)) {
+            return -2;
+        }
+        $data = array(
+            'user_id' => $this->input->post('user_id'),
+            'date' => $this->input->post('date'),
+            'time_frame_id' => $this->input->post('time_frame_id'),
+            'room_id' => $this->input->post('room_id')
+        );
+        $this->db->trans_start();//--------开始事务
+        $this->db->insert('appointment', $data);
+        $this->db->trans_complete();//------结束事务
+
+        if ($this->db->trans_status() === FALSE) {
+            return -1;
+        } else {
+            return 1;
+        }
+    }
+
+    public function check_room($date, $user_id) {
+        $this->db->where('date', $date);
+        $this->db->where('user_id', $user_id);
+        return $this->db->get('appointment')->result();
+    }
+
+    public function unbook_room($date, $tf_id, $user_id) {
+        $this->db->where('user_id', $user_id);
+        $this->db->where('date', $date);
+        $this->db->where('time_frame_id', $tf_id);
+        return $this->db->delete('appointment');
     }
 }
