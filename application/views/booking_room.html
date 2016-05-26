@@ -47,7 +47,7 @@
                             <td>{{$item->name}}</td>
                             {{foreach from=$dates key=key item=date}}
                                 {{if !empty($my_result[$item->id][$date])}}
-                                    <td class="successful-td"><a href="javascript:" class="book-btn book-successful-btn"><em></em>预约成功</a></td>
+                                    <td class="successful-td"><a href="javascript:" class="book-btn book-successful-btn" x="{{$item->id}}" y="{{$date}}"><em></em>预约成功</a></td>
                                 {{else if empty($result[$item->id][$date])}}
                                     <td><em class="roomtips-book-pos"></em><a href="javascript:" class="book-btn" x="{{$item->id}}" y="{{$date}}">预约</a></td>
                                 {{else}}
@@ -62,9 +62,11 @@
         </div>
     </div>
 </div>
-<div class="choose-bookroom">
-
-</div>
+<div class="choose-bookroom"></div>
+<form method="post" action="/appointment/unbook_room" id="unBookForm">
+    <input type="hidden" name="time_frame_id" value="" id="unbook_tf_id">
+    <input type="hidden" name="date" value="" id="unbook_date">
+</form>
 <!-- 经纪人预定会议室 -->
 <script type="text/javascript" src="/static/js/jquery.poshytip.min.js"></script>
 <script type="text/javascript">
@@ -80,18 +82,32 @@
             content:function(updateCallback) {
                 var x = $(this).parent().find(".book-btn").attr('x');
                 var y = $(this).parent().find(".book-btn").attr('y');
-                return $.ajax({
+                var result = $.ajax({
                     url : '/appointment/popup_room',
                     data: { x: x, y: y },
                     cache : false,
                     async : false,
                     type : "POST"
                 }).responseText;
+                if(result < 0) {
+                    alert("每天最多可以预约2个时间段");
+                    return false;
+                } else {
+                    return result;
+                }
             },
             showOn:'none',
             alignTo:'target',
             alignX:'center',
             offsetY:30
+        });
+
+        $('.book-successful-btn').click(function() {
+            var x = $(this).attr('x');
+            var y = $(this).attr('y');
+            $("#unbook_tf_id").val(x);
+            $("#unbook_date").val(y);
+            $("#unBookForm").submit();
         });
     })
 </script>

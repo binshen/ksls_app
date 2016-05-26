@@ -113,6 +113,13 @@ class Appointment extends MY_Controller
 
         $tf_id = $_POST['x'];
         $date  = $_POST['y'];
+
+        $rooms = $this->appointment_model->check_room($date, $this->session->userdata('login_user_id'));
+        if(!empty($rooms) && count($rooms) >= 2) {
+            echo -1;
+            die;
+        }
+
         $appointments = $this->appointment_model->get_appointment_info($date, $tf_id);
         $this->assign('appointments', $appointments);
 
@@ -126,6 +133,12 @@ class Appointment extends MY_Controller
     function save_appointment() {
 
         $this->appointment_model->save_appointment();
+
+        redirect(site_url('/appointment/book_room'));
+    }
+
+    function unbook_room() {
+        $this->appointment_model->unbook_room($this->input->post('date'), $this->input->post('time_frame_id'), $this->session->userdata('login_user_id'));
 
         redirect(site_url('/appointment/book_room'));
     }
