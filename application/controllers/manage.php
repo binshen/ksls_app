@@ -309,4 +309,80 @@ class Manage extends MY_Controller {
 		$data = $this->manage_model->get_position($id);
 		$this->load->view('manage/add_position.php',$data);
 	}
+
+	/**
+	 *
+	 * ***************************************以下为代办进程列表*******************************************************************
+	 */
+
+	public function list_course()
+	{
+		$data = $this->manage_model->list_course();
+		$this->load->view('manage/list_course.php',$data);
+	}
+
+	public function add_course(){
+		$this->load->view('manage/add_course.php');
+	}
+
+	public function save_course(){
+		$rs = $this->manage_model->save_course();
+		if ($rs === 1) {
+			form_submit_json("200", "操作成功", "list_course");
+		} else {
+			form_submit_json("300", $rs);
+		}
+	}
+
+	public function delete_course($id){
+		$rs = $this->manage_model->delete_course($id);
+		if ($rs === 1) {
+			form_submit_json("200", "操作成功", "list_course", "", "");
+		} else {
+			form_submit_json("300", $rs);
+		}
+	}
+
+	public function edit_course($id){
+		$data = $this->manage_model->get_course($id);
+		$this->load->view('manage/add_course.php',$data);
+	}
+
+	/**
+	 *
+	 * ***************************************以下为职务列表*******************************************************************
+	 */
+
+	public function list_forum_type()
+	{
+		$data = $this->manage_model->list_forum_type();
+		$this->load->view('manage/list_forum_type.php',$data);
+	}
+
+	public function add_forum_type(){
+		$this->load->view('manage/add_forum_type.php');
+	}
+
+	public function save_forum_type(){
+		$rs = $this->manage_model->save_forum_type();
+		if ($rs === 1) {
+			form_submit_json("200", "操作成功", "list_forum_type");
+		} else {
+			form_submit_json("300", $rs);
+		}
+	}
+
+	public function delete_forum_type($id){
+		$rs = $this->manage_model->delete_forum_type($id);
+		if ($rs === 1) {
+			form_submit_json("200", "操作成功", "list_forum_type", "", "");
+		} else {
+			form_submit_json("300", $rs);
+		}
+	}
+
+	public function edit_forum_type($id){
+		$data = $this->manage_model->get_forum_type($id);
+		$this->load->view('manage/add_forum_type.php',$data);
+	}
 }
