@@ -138,7 +138,12 @@ class Appointment extends MY_Controller
     }
 
     function unbook_room() {
-        $this->appointment_model->unbook_room($this->input->post('date'), $this->input->post('time_frame_id'), $this->session->userdata('login_user_id'));
+        
+        $this->appointment_model->unbook_room(
+            $this->input->post('date'),
+            $this->input->post('time_frame_id'),
+            $this->session->userdata('login_user_id')
+        );
 
         redirect(site_url('/appointment/book_room'));
     }
