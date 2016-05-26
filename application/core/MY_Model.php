@@ -244,6 +244,43 @@ class MY_Model extends CI_Model{
     	$context = stream_context_create($options);
     	return file_get_contents($url, false, $context);
     }
+
+    public function issubordinates($parent_id,$subordinates_id){
+        if(!$parent_id || !$subordinates_id){
+            return 2;
+        }
+        $parent_row = $this->db->select()->from('user')->where('id',$parent_id)->get()->row_array();
+        $user_row = $this->db->select()->from('user')->where('id',$subordinates_id)->get()->row_array();
+        //这里判断是否有审核权限
+        if($parent_row['role_id'] > 6){
+            return 2;
+        }
+        //这里判断职级是否满足要求
+        /*if($parent_row['role_id'] < $user_row['role_id']){
+            return 2;
+        }*/
+        //如果是管理员直接通过
+        if(in_array($parent_row['role_id'],array(1))){
+            return 1;
+        }
+        //如果是总经理,判断是否是同一个公司
+        if(in_array($parent_row['role_id'],array(2))){
+            if($parent_row['company_id'] == $user_row['company_id']){
+                return 1;
+            }else{
+                return 2;
+            }
+        }
+        //如果是区域经理,店长,副店长,店秘 需要判断是否是同一个公司,同一个部门
+        if(in_array($parent_row['role_id'],array(3,4,5,6))){
+            if($parent_row['company_id'] == $user_row['company_id'] && $parent_row['subsidiary_id'] == $user_row['subsidiary_id']){
+                return 1;
+            }else{
+                return 2;
+            }
+        }
+
+    }
 }
 
 /* End of file MY_Model.php */

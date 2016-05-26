@@ -32,7 +32,7 @@ class Activity extends MY_Controller {
         if(!$this->session->userdata('login_user_id')) {
             redirect(site_url('/'));
         } else {
-            if($this->session->userdata('login_user_id') > 6){
+            if($this->session->userdata('login_role_id') > 6){
                 if($method == 'list_review'){
                     redirect(site_url('/activity/list_activity'));
                     exit();
@@ -225,10 +225,15 @@ class Activity extends MY_Controller {
     }
 
     public function review_activity($id) {
+        $activity = $this->activity_model->get_activity_by_id($id);
+        if($this->activity_model->issubordinates($this->session->userdata('login_user_id'),$activity['user_id']) !=1){
+            redirect(site_url('/activity/list_review'));
+            exit();
+        }
         $activity_type_list = $this->activity_model->get_activity_type_list();
         $this->assign('activity_type_list', json_encode($activity_type_list));
 
-        $activity = $this->activity_model->get_activity_by_id($id);
+
         $status = $activity['status'];
         if($status == 2) {
             $activity['c1'] = $activity['b1'];

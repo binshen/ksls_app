@@ -35,7 +35,7 @@ class Agenda extends MY_Controller
                     exit();
                 }
             }else{
-                if($this->session->userdata('login_user_id') > 6 ){
+                if($this->session->userdata('login_role_id') > 6 ){
                     if($method == 'list_agenda_other'){
                         redirect(site_url('/agenda/list_agenda'));
                         exit();
