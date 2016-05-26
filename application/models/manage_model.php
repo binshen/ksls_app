@@ -489,4 +489,138 @@ class Manage_model extends MY_Model
         $data = $this->db->get()->row();
         return $data;
     }
+
+    /**
+     * 获取代办进程列表
+     */
+    public function list_course(){
+        // 每页显示的记录条数，默认20条
+        $numPerPage = $this->input->post('numPerPage') ? $this->input->post('numPerPage') : 20;
+        $pageNum = $this->input->post('pageNum') ? $this->input->post('pageNum') : 1;
+
+        //获得总记录数
+        $this->db->select('count(1) as num');
+        $this->db->from('course');
+        $rs_total = $this->db->get()->row();
+        //总记录数
+        $data['countPage'] = $rs_total->num;
+
+        //list
+        $this->db->select('*');
+        $this->db->from('course');
+        $this->db->limit($numPerPage, ($pageNum - 1) * $numPerPage );
+        $this->db->order_by($this->input->post('orderField') ? $this->input->post('orderField') : 'id', $this->input->post('orderDirection') ? $this->input->post('orderDirection') : 'asc');
+        $data['res_list'] = $this->db->get()->result();
+        $data['pageNum'] = $pageNum;
+        $data['numPerPage'] = $numPerPage;
+        return $data;
+    }
+
+    /**
+     * 保存代办进程
+     */
+    public function save_course(){
+        $this->db->trans_start();
+        if($this->input->post('id')){//修改
+            $this->db->where('id', $this->input->post('id'));
+            $this->db->update('course', $this->input->post());
+        }else{//新增
+            $data = $this->input->post();
+            $this->db->insert('course', $data);
+        }
+        $this->db->trans_complete();
+        if ($this->db->trans_status() === FALSE) {
+            return $this->db_error;
+        } else {
+            return 1;
+        }
+    }
+
+    /**
+     * 删除代办进程
+     */
+    public function delete_course($id){
+        $rs = $this->db->delete('course', array('id' => $id));
+        if($rs){
+            return 1;
+        }else{
+            return $this->db_error;
+        }
+    }
+
+    /**
+     * 获取代办进程详情
+     */
+    public function get_course($id){
+        $this->db->select('*')->from('course')->where('id', $id);
+        $data = $this->db->get()->row();
+        return $data;
+    }
+
+    /**
+     * 获取资料类别列表
+     */
+    public function list_forum_type(){
+        // 每页显示的记录条数，默认20条
+        $numPerPage = $this->input->post('numPerPage') ? $this->input->post('numPerPage') : 20;
+        $pageNum = $this->input->post('pageNum') ? $this->input->post('pageNum') : 1;
+
+        //获得总记录数
+        $this->db->select('count(1) as num');
+        $this->db->from('forum_type');
+        $rs_total = $this->db->get()->row();
+        //总记录数
+        $data['countPage'] = $rs_total->num;
+
+        //list
+        $this->db->select('*');
+        $this->db->from('forum_type');
+        $this->db->limit($numPerPage, ($pageNum - 1) * $numPerPage );
+        $this->db->order_by($this->input->post('orderField') ? $this->input->post('orderField') : 'id', $this->input->post('orderDirection') ? $this->input->post('orderDirection') : 'asc');
+        $data['res_list'] = $this->db->get()->result();
+        $data['pageNum'] = $pageNum;
+        $data['numPerPage'] = $numPerPage;
+        return $data;
+    }
+
+    /**
+     * 保存资料类别
+     */
+    public function save_forum_type(){
+        $this->db->trans_start();
+        if($this->input->post('id')){//修改
+            $this->db->where('id', $this->input->post('id'));
+            $this->db->update('forum_type', $this->input->post());
+        }else{//新增
+            $data = $this->input->post();
+            $this->db->insert('forum_type', $data);
+        }
+        $this->db->trans_complete();
+        if ($this->db->trans_status() === FALSE) {
+            return $this->db_error;
+        } else {
+            return 1;
+        }
+    }
+
+    /**
+     * 删除资料类别
+     */
+    public function delete_forum_type($id){
+        $rs = $this->db->delete('forum_type', array('id' => $id));
+        if($rs){
+            return 1;
+        }else{
+            return $this->db_error;
+        }
+    }
+
+    /**
+     * 获取资料类别详情
+     */
+    public function get_forum_type($id){
+        $this->db->select('*')->from('forum_type')->where('id', $id);
+        $data = $this->db->get()->row();
+        return $data;
+    }
 }

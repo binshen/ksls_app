@@ -96,6 +96,8 @@ $(function(){
 							<li><a href="<?php echo site_url('manage/list_role');?>" target="navTab" rel="list_role">职级信息</a></li>
 							<li><a href="<?php echo site_url('manage/list_position');?>" target="navTab" rel="list_user">职务信息</a></li>
 							<li><a href="<?php echo site_url('manage/list_activity_type');?>" target="navTab" rel="list_activity_type">行程选项</a></li>
+							<li><a href="<?php echo site_url('manage/list_course');?>" target="navTab" rel="list_course">代办进程</a></li>
+							<li><a href="<?php echo site_url('manage/list_forum_type');?>" target="navTab" rel="list_forum_type">资料类别</a></li>
 						</ul>
 					</div>
 					<div class="accordionHeader">
