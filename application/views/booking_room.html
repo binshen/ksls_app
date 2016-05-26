@@ -34,258 +34,68 @@
                     <tbody>
                         <tr>
                             <th width="12.5%"></th>
-                            <th width="12.5%" class="today">今天（05/23）</th>
-                            <th width="12.5%">周二（05/24）</th>
-                            <th width="12.5%">周三（05/25）</th>
-                            <th width="12.5%">周四（05/26）</th>
-                            <th width="12.5%">周五（05/27）</th>
-                            <th width="12.5%">周六（05/28）</th>
-                            <th width="12.5%">周日（05/29）</th>
+                            <th width="12.5%" class="today">{{$date_0}}</th>
+                            <th width="12.5%">{{$date_1}}</th>
+                            <th width="12.5%">{{$date_2}}</th>
+                            <th width="12.5%">{{$date_3}}</th>
+                            <th width="12.5%">{{$date_4}}</th>
+                            <th width="12.5%">{{$date_5}}</th>
+                            <th width="12.5%">{{$date_6}}</th>
                         </tr>
-                         <tr>
-                             <td>9:00-10:00</td>
-                             <td>
-                                <a href="javascript:" class="unbook-btn">预约</a>
-                                
-                             </td>
-                             <td>
-                                <em class="roomtips-book-pos"></em>
-                                <a href="javascript:" class="book-btn">预约</a>
-                                
-                            </td>
-                             <td class="successful-td">
-                                <a href="javascript:" class="book-btn book-successful-btn"><em></em>预约成功</a>
-                            </td>
-                             <td><em class="roomtips-book-pos"></em>
-                                <a href="javascript:" class="book-btn">预约</a></td>
-                             <td><em class="roomtips-book-pos"></em>
-                                <a href="javascript:" class="book-btn">预约</a></td>
-                             <td><em class="roomtips-book-pos"></em>
-                                <a href="javascript:" class="book-btn">预约</a></td>
-                             <td><em class="roomtips-book-pos"></em>
-                                <a href="javascript:" class="book-btn">预约</a></td>
-                        </tr>
+                        {{foreach from=$time_frame_list item=item}}
                         <tr>
-                             <td>10:00-11:00</td>
-                             <td>
-                                <a href="javascript:" class="unbook-btn">预约</a></td>
-                             <td><em class="roomtips-book-pos"></em>
-                                <a href="javascript:" class="book-btn">预约</a></td>
-                             <td><em class="roomtips-book-pos"></em>
-                                <a href="javascript:" class="book-btn">预约</a></td>
-                             <td>
-                                <a href="javascript:" class="unbook-btn">预约</a></td>
-                             <td><em class="roomtips-book-pos"></em>
-                                <a href="javascript:" class="book-btn">预约</a></td>
-                             <td><em class="roomtips-book-pos"></em>
-                                <a href="javascript:" class="book-btn">预约</a></td>
-                             <td><em class="roomtips-book-pos"></em>
-                                <a href="javascript:" class="book-btn">预约</a></td>
+                            <td>{{$item->name}}</td>
+                            {{foreach from=$dates key=key item=date}}
+                                {{if !empty($my_result[$item->id][$date])}}
+                                    <td class="successful-td"><a href="javascript:" class="book-btn book-successful-btn"><em></em>预约成功</a></td>
+                                {{else if empty($result[$item->id][$date])}}
+                                    <td><em class="roomtips-book-pos"></em><a href="javascript:" class="book-btn" x="{{$item->id}}" y="{{$date}}">预约</a></td>
+                                {{else}}
+                                    <td><a href="javascript:" class="unbook-btn">预约</a></td>
+                                {{/if}}
+                            {{/foreach}}
                         </tr>
-                         <tr>
-                             <td>11:00-12:00</td>
-                             <td>
-                                <a href="javascript:" class="unbook-btn">预约</a></td>
-                             <td><em class="roomtips-book-pos"></em>
-                                <a href="javascript:" class="book-btn">预约</a></td>
-                             <td><em class="roomtips-book-pos"></em>
-                                <a href="javascript:" class="book-btn">预约</a></td>
-                             <td>
-                                <a href="javascript:" class="unbook-btn">预约</a></td>
-                             <td><em class="roomtips-book-pos"></em>
-                                <a href="javascript:" class="book-btn">预约</a></td>
-                             <td><em class="roomtips-book-pos"></em>
-                                <a href="javascript:" class="book-btn">预约</a></td>
-                             <td><em class="roomtips-book-pos"></em>
-                                <a href="javascript:" class="book-btn">预约</a></td>
-                        </tr>
-                         <tr>
-                             <td>12:00-13:00</td>
-                           <td>
-                                <a href="javascript:" class="unbook-btn">预约</a></td>
-                             <td><em class="roomtips-book-pos"></em>
-                                <a href="javascript:" class="book-btn">预约</a></td>
-                             <td><em class="roomtips-book-pos"></em>
-                                <a href="javascript:" class="book-btn">预约</a></td>
-                             <td><em class="roomtips-unbook-pos"></em>
-                                <a href="javascript:" class="unbook-btn">预约</a></td>
-                             <td><em class="roomtips-book-pos"></em>
-                                <a href="javascript:" class="book-btn">预约</a></td>
-                             <td><em class="roomtips-book-pos"></em>
-                                <a href="javascript:" class="book-btn">预约</a></td>
-                             <td><em class="roomtips-book-pos"></em>
-                                <a href="javascript:" class="book-btn">预约</a></td>
-                        </tr>
-                         <tr>
-                             <td>13:00-14:00</td>
-                            <td>
-                                <a href="javascript:" class="unbook-btn">预约</a></td>
-                             <td><em class="roomtips-book-pos"></em>
-                                <a href="javascript:" class="book-btn">预约</a></td>
-                             <td><em class="roomtips-book-pos"></em>
-                                <a href="javascript:" class="book-btn">预约</a></td>
-                             <td>
-                                <a href="javascript:" class="unbook-btn">预约</a></td>
-                             <td><em class="roomtips-book-pos"></em>
-                                <a href="javascript:" class="book-btn">预约</a></td>
-                             <td><em class="roomtips-book-pos"></em>
-                                <a href="javascript:" class="book-btn">预约</a></td>
-                             <td><em class="roomtips-book-pos"></em>
-                                <a href="javascript:" class="book-btn">预约</a></td>
-                        </tr>
-                         <tr>
-                             <td>14:00-15:00</td>
-                            <td>
-                                <a href="javascript:" class="unbook-btn">预约</a></td>
-                             <td><em class="roomtips-book-pos"></em>
-                                <a href="javascript:" class="book-btn">预约</a></td>
-                             <td><em class="roomtips-book-pos"></em>
-                                <a href="javascript:" class="book-btn">预约</a></td>
-                             <td>
-                                <a href="javascript:" class="unbook-btn">预约</a></td>
-                             <td><em class="roomtips-book-pos"></em>
-                                <a href="javascript:" class="book-btn">预约</a></td>
-                             <td><em class="roomtips-book-pos"></em>
-                                <a href="javascript:" class="book-btn">预约</a></td>
-                             <td><em class="roomtips-book-pos"></em>
-                                <a href="javascript:" class="book-btn">预约</a></td>
-                        </tr>
-                         <tr>
-                             <td>15:00-16:00</td>
-                             <td>
-                                <a href="javascript:" class="unbook-btn">预约</a></td>
-                             <td><em class="roomtips-book-pos"></em>
-                                <a href="javascript:" class="book-btn">预约</a></td>
-                             <td><em class="roomtips-book-pos"></em>
-                                <a href="javascript:" class="book-btn">预约</a></td>
-                             <td>
-                                <a href="javascript:" class="unbook-btn">预约</a></td>
-                             <td><em class="roomtips-book-pos"></em>
-                                <a href="javascript:" class="book-btn">预约</a></td>
-                             <td><em class="roomtips-book-pos"></em>
-                                <a href="javascript:" class="book-btn">预约</a></td>
-                             <td><em class="roomtips-book-pos"></em>
-                                <a href="javascript:" class="book-btn">预约</a></td>
-                        </tr>
-                         <tr>
-                             <td>16:00-17:00</td>
-                             <td>
-                                <a href="javascript:" class="unbook-btn">预约</a></td>
-                             <td><em class="roomtips-book-pos"></em>
-                                <a href="javascript:" class="book-btn">预约</a></td>
-                             <td><em class="roomtips-book-pos"></em>
-                                <a href="javascript:" class="book-btn">预约</a></td>
-                             <td>
-                                <a href="javascript:" class="unbook-btn">预约</a></td>
-                             <td><em class="roomtips-book-pos"></em>
-                                <a href="javascript:" class="book-btn">预约</a></td>
-                             <td><em class="roomtips-book-pos"></em>
-                                <a href="javascript:" class="book-btn">预约</a></td>
-                             <td><em class="roomtips-book-pos"></em>
-                                <a href="javascript:" class="book-btn">预约</a></td>
-                        </tr>
-                         <tr>
-                             <td>17:00-18:00</td>
-                            <td>
-                                <a href="javascript:" class="unbook-btn">预约</a></td>
-                             <td><em class="roomtips-book-pos"></em>
-                                <a href="javascript:" class="book-btn">预约</a></td>
-                             <td><em class="roomtips-book-pos"></em>
-                                <a href="javascript:" class="book-btn">预约</a></td>
-                             <td>
-                                <a href="javascript:" class="unbook-btn">预约</a></td>
-                             <td><em class="roomtips-book-pos"></em>
-                                <a href="javascript:" class="book-btn">预约</a></td>
-                             <td><em class="roomtips-book-pos"></em>
-                                <a href="javascript:" class="book-btn">预约</a></td>
-                             <td><em class="roomtips-book-pos"></em>
-                                <a href="javascript:" class="book-btn">预约</a></td>
-                        </tr>
-                         <tr>
-                             <td>18:00-19:00</td>
-                             <td></td>
-                             <td></td>
-                             <td></td>
-                             <td></td>
-                             <td></td>
-                             <td></td>
-                             <td></td>
-                        </tr>
-                         <tr>
-                             <td>19:00-20:00</td>
-                             <td></td>
-                             <td></td>
-                             <td></td>
-                             <td></td>
-                             <td></td>
-                             <td></td>
-                             <td></td>
-                        </tr>
-                         <tr>
-                             <td>20:00-21:00</td>
-                             <td></td>
-                             <td></td>
-                             <td></td>
-                             <td></td>
-                             <td></td>
-                             <td></td>
-                             <td></td>
-                        </tr>
+                        {{/foreach}}
                     </tbody>
                 </table>
             </div>
         </div>
     </div>
 </div>
+<div class="choose-bookroom">
+
+</div>
 <!-- 经纪人预定会议室 -->
- 
-    <div class="choose-bookroom">
-        <div class="r-tit">预约会议室<span class="s-bor"></span></div>
-        <p class="radio-p disabled-p"><label><input type="radio" name="radio1" value="中心会议室VIP001" disabled /> 中心会议室VIP001</label></p>
-        <p class="radio-p"><label><input type="radio" name="radio1" value="中心会议室VIP001" /> 中心会议室VIP001</label></p>
-        <p class="radio-p"><label><input type="radio" name="radio1" value="中心会议室VIP001" /> 中心会议室VIP001</label></p>
-        <p class="radio-p"><label><input type="radio" name="radio1" value="中心会议室VIP001" /> 中心会议室VIP001</label></p>
-        <p class="radio-tips">灰色表示已经有人预约</p>
-        <a href="javascript:" class="book-submit-btn">确定预约</a>
-    </div>
-
-
-
 <script type="text/javascript" src="/static/js/jquery.poshytip.min.js"></script>
 <script type="text/javascript">
-$(function(){
-      $('.book-btn').click(function(e){
-         $('.roomtips-book-pos').poshytip('hide');
-         $(this).siblings('.roomtips-book-pos').poshytip('show');
-          e.stopPropagation();
-     });
-     $('.roomtips-book-pos').poshytip({
+    $(function(){
+        $('.book-btn').click(function(e){
+            $('.roomtips-book-pos').poshytip('hide');
+            $(this).siblings('.roomtips-book-pos').poshytip('show');
+            e.stopPropagation();
+        });
+
+        $('.roomtips-book-pos').poshytip({
             className: 'choose-bookroom',
-            content:$('.choose-bookroom').html(),
+            content:function(updateCallback) {
+                var x = $(this).parent().find(".book-btn").attr('x');
+                alert(x)
+                var y = $(this).parent().find(".book-btn").attr('y');
+                alert(y)
+                return $.ajax({
+                    url : '/appointment/popup_room',
+                    data: { name: 1 },
+                    cache : false,
+                    async : false,
+                    type : "GET"
+                }).responseText;
+            },
             showOn:'none',
             alignTo:'target',
             alignX:'center',
             offsetY:30
         });
-//     $(document).click(function(){
-//        $('.roomtips-book-pos').poshytip('hide');
-//         e.stopPropagation();
-//     });
-     //预约
-     // $(".book-btn").click(function(){
-     //    $(this).siblings(".choose-bookroom").slideDown();
-     // });
-     $(".history-list").height();
-        $(".ing-error").mouseover(function(){
-            $(this).children(".error-explain").toggle();
-        }).mouseout(function(){ $(this).children(".error-explain").hide();});
-        $(".history-show").mouseover(function(){
-            $(this).children(".history-list").toggle();
-        }).mouseout(function(){ $(this).children(".history-list").hide();});
-        $("#btn_search").click(function() {
-            $('#formSearchActivity').submit();
-        });
-})
+    })
 </script>
 </body>
 </html>
