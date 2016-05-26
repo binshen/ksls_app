@@ -46,7 +46,11 @@
                     <tr>
                         <td>{{$item->name}}</td>
                         {{foreach from=$dates key=key item=date}}
-                            <td><em class="roomtips-book-pos"></em><a href="javascript:" class="book-btn" x="{{$item->id}}" y="{{$date}}">预约</a></td>
+                            {{if ($result[$item->id][$date] < 0)}}
+                                <td><a href="javascript:" class="unbook-btn">预约</a></td>
+                            {{else}}
+                                <td><em class="roomtips-book-pos"></em><a href="javascript:" class="book-btn" x="{{$item->id}}" y="{{$date}}">{{$result[$item->id][$date]}}</a></td>
+                            {{/if}}
                         {{/foreach}}
                     </tr>
                     {{/foreach}}

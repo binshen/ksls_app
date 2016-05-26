@@ -47,27 +47,32 @@ class Appointment extends MY_Controller
         $this->assign('time_frame_list', $time_frame_list);
         $this->assign('dates', $dates);
 
+
+        $room_data = $this->appointment_model->book_room(date('Y-m-d'), $date);
+        $data = array();
+        foreach ($room_data as $r1) {
+            if(empty($data[$r1->time_frame_id])) {
+                $data[$r1->time_frame_id] = array();
+            }
+            if(empty($data[$r1->time_frame_id][$r1->date])) {
+                $data[$r1->time_frame_id][$r1->date] = array();
+            }
+            $data[$r1->time_frame_id][$r1->date][$r1->room_id] = 1;
+        }
+
+        $result = array();
         if($position_id == 3) {
-
-
-
+            foreach ($time_frame_list as $tf0) {
+                $tf0_id = $tf0->id;
+                $result[$tf0_id] = array();
+                foreach ($dates as $d0) {
+                    $result[$tf0_id][$d0] = $tf0->open != 1 ? -1 : (!empty($data[$tf0_id]) && !empty($data[$tf0_id][$d0]) ? count($data[$tf0_id][$d0]) : 0);
+                }
+            }
+            $this->assign('result', $result);
             $this->display('review_room.html');
         } else {
             $room_list = $this->appointment_model->get_room_list();
-
-            $room_data = $this->appointment_model->book_room(date('Y-m-d'), $date);
-            $data = array();
-            foreach ($room_data as $r1) {
-                if(empty($data[$r1->time_frame_id])) {
-                    $data[$r1->time_frame_id] = array();
-                }
-                if(empty($data[$r1->time_frame_id][$r1->date])) {
-                    $data[$r1->time_frame_id][$r1->date] = array();
-                }
-                $data[$r1->time_frame_id][$r1->date][$r1->room_id] = 1;
-            }
-
-            $result = array();
             foreach ($time_frame_list as $tf1) {
                 $tf1_id = $tf1->id;
                 $result[$tf1_id] = array();
@@ -96,7 +101,6 @@ class Appointment extends MY_Controller
 
             $this->assign('result', $result);
             $this->assign('my_result', $my_result);
-
 
             $this->display('booking_room.html');
         }

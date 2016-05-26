@@ -41,12 +41,12 @@ class Appointment_model extends MY_Model
             SELECT 
               a.id, 
               a.name AS room_name,
-              e.user_id
+              b.user_id
             FROM room a
-            LEFT JOIN appointment e 
-            ON a.id = e.room_id
-            AND e.date = '$date'
-            AND e.time_frame_id = $tf_id
+            LEFT JOIN appointment b 
+            ON a.id = b.room_id
+            AND b.date = '$date'
+            AND b.time_frame_id = $tf_id
             WHERE a.open = 1
         ";
         return $this->db->query($sql)->result();
@@ -54,20 +54,20 @@ class Appointment_model extends MY_Model
 
     public function get_appointment_detail($date, $tf_id) {
         $sql = "
-            SELECT 
-              a.*, 
-              b.rel_name AS user_name,
-              b.tel,
-              c.name AS company_name,
-              d.name AS subsidiary_name, 
-              e.name AS room_name
-            FROM appointment a
-            JOIN user b ON a.user_id = b.id
-            LEFT JOIN company c ON b.company_id = c.id
-            LEFT JOIN subsidiary d ON b.subsidiary_id = d.id
-            LEFT JOIN room e ON a.room_id = e.id
-            WHERE a.date = '$date' 
-            AND a.time_frame_id = $tf_id
+            SELECT
+              a.name AS room_name,
+              a.clz,
+              b.date,
+              c.rel_name AS user_name,
+              c.tel,
+              d.name AS company_name,
+              e.name AS subsidiary_name
+            FROM room a
+            LEFT JOIN appointment b ON a.id = b.room_id AND b.date = '$date' AND b.time_frame_id = $tf_id
+            LEFT JOIN user c ON b.user_id = c.id
+            LEFT JOIN company d ON c.company_id = d.id
+            LEFT JOIN subsidiary e ON c.subsidiary_id = e.id
+            WHERE a.open = 1
         ";
         return $this->db->query($sql)->result();
     }
