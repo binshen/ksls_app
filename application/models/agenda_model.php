@@ -174,7 +174,7 @@ class Agenda_model extends MY_Model
         $company_id = $this->session->userdata('login_company_id');
 
         $this->db->select_max('max_num');
-        $result = $this->db->get_where('agenda', array('company_id' => $company_id))->row();
+        $result = $this->db->get_where('agenda', array('company_id' => $company_id))->row_array();
         $max_num = 1;
         if(!empty($result['max_num'])) {
             $max_num += $result['max_num'];
@@ -210,6 +210,8 @@ class Agenda_model extends MY_Model
 
         if($this->input->post('id')){//修改
             $this->db->where('id', $this->input->post('id'));
+            unset($agenda['num']);
+            unset($agenda['max_num']);
             $this->db->update('agenda', $agenda);
             $a_id = $this->input->post('id');
 
