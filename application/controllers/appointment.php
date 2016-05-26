@@ -67,7 +67,7 @@ class Appointment extends MY_Controller
             }
         }
 
-        $my_room_data = $this->appointment_model->book_room(date('Y-m-d'), $date, 6);
+        $my_room_data = $this->appointment_model->book_room(date('Y-m-d'), $date, $this->session->userdata('login_user_id'));
         $my_data = array();
         foreach ($my_room_data as $r2) {
             if(empty($data[$r2->time_frame_id])) {
@@ -109,12 +109,24 @@ class Appointment extends MY_Controller
         die;
     }
 
-    function save_appointment() {
-
-    }
-
     function popup_room() {
 
+        $tf_id = $_POST['x'];
+        $date  = $_POST['y'];
+        $appointments = $this->appointment_model->get_appointment_info($date, $tf_id);
+        $this->assign('appointments', $appointments);
+
+        $this->assign('time_frame_id', $tf_id);
+        $this->assign('date', $date);
+        $this->assign('user_id', $this->session->userdata('login_user_id'));
+
         $this->display('popup_room.html');
+    }
+
+    function save_appointment() {
+
+        $this->appointment_model->save_appointment();
+
+        redirect(site_url('/appointment/book_room'));
     }
 }

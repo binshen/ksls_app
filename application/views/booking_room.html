@@ -79,15 +79,13 @@
             className: 'choose-bookroom',
             content:function(updateCallback) {
                 var x = $(this).parent().find(".book-btn").attr('x');
-                alert(x)
                 var y = $(this).parent().find(".book-btn").attr('y');
-                alert(y)
                 return $.ajax({
                     url : '/appointment/popup_room',
-                    data: { name: 1 },
+                    data: { x: x, y: y },
                     cache : false,
                     async : false,
-                    type : "GET"
+                    type : "POST"
                 }).responseText;
             },
             showOn:'none',

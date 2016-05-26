@@ -1,7 +1,20 @@
+<form method="post" action="/appointment/save_appointment" id="appointmentForm">
 <div class="r-tit">预约会议室<span class="s-bor"></span></div>
-<p class="radio-p disabled-p"><label><input type="radio" name="radio1" value="中心会议室VIP001" disabled /> 中心会议室VIP001</label></p>
-<p class="radio-p"><label><input type="radio" name="radio1" value="中心会议室VIP001" /> 中心会议室VIP001</label></p>
-<p class="radio-p"><label><input type="radio" name="radio1" value="中心会议室VIP001" /> 中心会议室VIP001</label></p>
-<p class="radio-p"><label><input type="radio" name="radio1" value="中心会议室VIP001" /> 中心会议室VIP001</label></p>
+{{foreach from=$appointments item=item}}
+    {{if !empty($item->user_id)}}
+        <p class="radio-p disabled-p"><label><input type="radio" value="{{$item->id}}" disabled /> {{$item->room_name}}</label></p>
+    {{else}}
+        <p class="radio-p"><label><input type="radio" name="room_id" value="{{$item->id}}" /> {{$item->room_name}}</label></p>
+    {{/if}}
+{{/foreach}}
 <p class="radio-tips">灰色表示已经有人预约</p>
-<a href="javascript:" class="book-submit-btn">确定预约</a>
+<a href="javascript:" class="book-submit-btn" id="btnSubmit">确定预约</a>
+<input type="hidden" name="time_frame_id" value="{{$time_frame_id}}">
+<input type="hidden" name="date" value="{{$date}}">
+<input type="hidden" name="user_id" value="{{$user_id}}">
+</form>
+<script>
+    $("#btnSubmit").click(function() {
+        $("#appointmentForm").submit();
+    });
+</script>
