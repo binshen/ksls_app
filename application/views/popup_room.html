@@ -17,7 +17,7 @@
     $("#btnSubmit").click(function() {
         var room_id = $("input[name='room_id']:checked").val();
         if(room_id == undefined) {
-            alert("请先选中一个会议室.");
+            layer.msg("请先选中一个会议室.", {icon: 2});
         } else {
             $("#appointmentForm").submit();
         }

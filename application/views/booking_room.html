@@ -69,6 +69,7 @@
 </form>
 <!-- 经纪人预定会议室 -->
 <script type="text/javascript" src="/static/js/jquery.poshytip.min.js"></script>
+<script type="text/javascript" src="/static/js/layer/layer.js"></script>
 <script type="text/javascript">
     $(function(){
         $('.book-btn').click(function(e){
@@ -90,7 +91,7 @@
                     type : "POST"
                 }).responseText;
                 if(result < 0) {
-                    alert("每天最多可以预约2个时间段");
+                    layer.msg("每天最多可预约2个时间段", {icon: 2});
                     return false;
                 } else {
                     return result;
