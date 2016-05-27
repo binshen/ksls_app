@@ -25,10 +25,10 @@
             </ul>
             <div class="content">
                 <div class="convenient-btns">
-                    <a href="javascript:void(0);" class="a-btns" id="btn_activity"><img src="/static/images/index/s_index_nav1.gif" alt=""></a>
-                    <a href="javascript:void(0);" class="a-btns" id="btn_ranking"><img src="/static/images/index/s_index_nav2.gif" alt=""></a>
-                    <a href="javascript:void(0);" class="a-btns"><img src="/static/images/index/s_index_nav3.gif" alt=""></a>
-                    <a href="javascript:void(0);" class="a-btns"><img src="/static/images/index/s_index_nav4.gif" alt=""></a>
+                    <a href="javascript:void(0);" class="a-btns" url="/activity/list_activity"><img src="/static/images/index/s_index_nav1.gif" alt=""></a>
+                    <a href="javascript:void(0);" class="a-btns" url="/activity/list_ranking"><img src="/static/images/index/s_index_nav2.gif" alt=""></a>
+                    <a href="javascript:void(0);" class="a-btns" url="/agenda/list_agenda"><img src="/static/images/index/s_index_nav3.gif" alt=""></a>
+                    <a href="javascript:void(0);" class="a-btns" url="/appointment/book_room"><img src="/static/images/index/s_index_nav4.gif" alt=""></a>
                     <a href="javascript:void(0);" class="a-btns"><img src="/static/images/index/s_index_nav5.gif" alt=""></a>
                     <a href="javascript:void(0);" class="a-btns"><img src="/static/images/index/s_index_nav6.gif" alt=""></a>
                 </div>
@@ -92,19 +92,13 @@
         </form>
     </div>
     <script type="text/javascript">
-        var gotokey = 0;
+        var redirect_url = "/";
         $("#btn_login").click(function() {
             var username = $("#username").val();
             var password = $("#password").val();
             $.post('/index/login', {username: username, password: password}, function(data) {
                 if(data > 0) {
-                    if(gotokey == 1) {
-                        window.location = '/activity/list_activity';
-                    } else if(gotokey == 2) {
-                        window.location = '/activity/list_ranking';
-                    } else {
-                        window.location = '/';
-                    }
+                    window.location = redirect_url;
                 } else {
                     $("#login_error").show();
                     $("#username").val("");
@@ -120,25 +114,16 @@
             }).responseText;
         }
 
-        $("#btn_activity").click(function(){
+        $(".a-btns").click(function() {
+            redirect_url = $(this).attr('url');
             var result = checkAuth();
             if(result < 1) {
-                gotokey = 1;
                 $.blockUI({ message: $('#Jloginpop'), css:{ background: 'none',top:'100px', border: 'none',width:'410px', height:'410px'}, overlayCSS: {cursor:'default'}});
             } else {
-                window.location = '/activity/list_activity';
+                window.location = redirect_url;
             }
         });
 
-        $("#btn_ranking").click(function(){
-            var result = checkAuth();
-            if(result < 1) {
-                gotokey = 2;
-                $.blockUI({ message: $('#Jloginpop'), css:{ background: 'none',top:'100px', border: 'none',width:'410px', height:'410px'}, overlayCSS: {cursor:'default'}});
-            } else {
-                window.location = '/activity/list_ranking';
-            }
-        });
         //关闭弹框
         $(".pop-close-btn").click(function(){
             $.unblockUI();
