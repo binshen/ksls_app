@@ -90,7 +90,10 @@
                     async : false,
                     type : "POST"
                 }).responseText;
-                if(result < 0) {
+                if(result == -1) {
+                    layer.msg("至少需要提前2小时才能预约", {icon: 2});
+                    return false;
+                } else if(result == -1) {
                     layer.msg("每天最多可预约2个时间段", {icon: 2});
                     return false;
                 } else {

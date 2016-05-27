@@ -124,9 +124,21 @@ class Appointment extends MY_Controller
         $tf_id = $_POST['x'];
         $date  = $_POST['y'];
 
+        if($date == date("Y-m-d")) {
+            $time_frame = $this->appointment_model->get_time_frame($tf_id);
+            $tf_name = $time_frame->name;
+            $times = explode('-', $tf_name);
+            $hours = explode(':', $times[0]);
+            $hour = $hours[0];
+            if($hour - 2 <= date("H")) {
+                echo -1;
+                die;
+            }
+        }
+
         $rooms = $this->appointment_model->check_room($date, $this->session->userdata('login_user_id'));
         if(!empty($rooms) && count($rooms) >= 2) {
-            echo -1;
+            echo -2;
             die;
         }
 
