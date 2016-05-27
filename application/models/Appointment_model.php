@@ -110,4 +110,9 @@ class Appointment_model extends MY_Model
         $this->db->where('time_frame_id', $tf_id);
         return $this->db->delete('appointment');
     }
+
+    public function get_time_frame($id) {
+        $this->db->where('id', $id);
+        return $this->db->get('time_frame')->row();
+    }
 }
