@@ -1,5 +1,5 @@
 /*头部*/
-body{background: #fff; font-family: "Microsoft YaHei";}
+body{background: #fff; font-family: "Microsoft YaHei"; }
 .fz14{font-size: 14px;}
 .header-wrap{background: #f5f5f5;height:36px; border-bottom: 1px solid #eee; line-height:36px;}
 .header-in-wrap,.wraper{margin:0 auto; width:1120px;}
@@ -27,22 +27,22 @@ body{background: #fff; font-family: "Microsoft YaHei";}
 .index .header-in-wrap{width:1000px;}
 .index .wraper{padding:60px 0;width:1000px;}
 .index_logo{width:253px; margin:0 auto 30px; }
-.index .index-nav{width:105px; height:475px; float:left; background: #000; color:#aeaeae; font-size:16px; text-align:center;margin-right:5px;}
-.index .index-nav li{height:50px; line-height: 50px;}
+.index .index-nav{width:105px; height:605px; float:left; background: #000; color:#aeaeae; font-size:16px; text-align:center;margin-right:5px;}
+.index .index-nav li{height:60px; line-height: 60px;}
 .index .index-nav .current{background: #404042;}
-.index .content{padding:52px 0 0 0;width:838px;float: left; background: #cbcec7; height:423px; overflow: hidden;}
-.index .content .a-btns{ float:left;margin:0 0 30px 30px;}
+.index .content{padding:20px 0;width:838px;float: left; background: #cbcec7;overflow: hidden;}
+.index .content .a-btns{ float:left;margin-right:15px;}
 .index .wraper{background: none;}
 .copyright{ text-align: center; color:#fff; clear:both; padding-top:14px;}
 .wrap-left{padding-top:25px;width:130px; float:left; background: #fff; }
-.wrap-right{padding:25px 0;width:990px; float:left; background: #fff;}
+.wrap-right{padding-top:25px;width:990px; float:left; background: #fff;}
 .nav-left{ background: #2a3542;}
 .schedule-wrap{ background: #f2f2f0;min-height:540px;}
 .nav-left-ul{padding:18px 10px;}
 .nav-left-ul li{width:110px; height:42px; line-height: 42px; background: #35404d;margin-bottom:12px; border-radius: 2px; font-size: 14px;}
 .nav-left-ul li a{ color:#aeb2b7;font-weight:bold; width:110px; height:42px; display: block;}
 .nav-left-ul li a:hover{ color:#fff; text-decoration: none;}
-.nav-left-ul li em{margin:10px 2px 10px 10px;float:left;height:25px; width:25px; background: url(/static/images/left_nav.png) no-repeat;
+.nav-left-ul li em{margin:10px 2px 10px 10px;float:left;height:25px; width:25px; background: url(../images/left_nav.png) no-repeat;
 }
 .nav-left-ul li .home{ background-position:0 2px; }
 .nav-left-ul li .schedule{ background-position:0 -28px; }
@@ -50,6 +50,7 @@ body{background: #fff; font-family: "Microsoft YaHei";}
 .nav-left-ul li .performance{ background-position:0 -88px; }
 .nav-left-ul li .myagenda{ background-position:0 -153px; }
 .nav-left-ul li .allagenda{ background-position:0 -180px; }
+.nav-left-ul li .bookroom{ background-position:0 -199px; }
 
 .nav-left-ul li.on a{color:#fff;}
 .nav-left-ul li.on .schedule{background-position:-29px 2px;}
@@ -58,6 +59,7 @@ body{background: #fff; font-family: "Microsoft YaHei";}
 .nav-left-ul li.on .performance{ background-position:-29px -88px; }
 .nav-left-ul li.on .myagenda{ background-position:-30px -153px; }
 .nav-left-ul li.on .allagenda{ background-position:-26px -180px; }
+.nav-left-ul li.on .bookroom{ background-position:-28px -199px; }
 
 .nav-left-ul li a:hover .home{ background-position:-29px 2px; }
 .nav-left-ul li a:hover .schedule{ background-position:-30px -28px; }
@@ -66,6 +68,15 @@ body{background: #fff; font-family: "Microsoft YaHei";}
 .nav-left-ul li a:hover .myagenda{ background-position:-30px -153px;}
 .nav-left-ul li a:hover .allagenda{ background-position:-26px -180px;}
 
+.index .convenient-btns{width:765px; margin:0 auto;overflow: hidden;zoom:1; margin-bottom: 27px;}
+.index .convenient-btns a:last-child{margin: 0;}
+.news-th{padding-left:20px;height:50px; line-height: 50px; font-size:20px; color: #fff; background: #e15616; margin:0 35px;}
+.new-tb{padding:0 8px 16px; background: #fff; margin: 0 35px;overflow: hidden;zoom:1;}
+.new-box{margin-top:20px;overflow: hidden;zoom:1; width:370px;padding-bottom:25px;border-bottom: 1px dashed #a5a5a5;}
+.new-box dt{float: left;width:155px; float: left;}
+.new-box dd{padding-left:10px; width:205px;float: left;}
+.new-box dd .s-tit{font-size:14px; color:#555;}
+.new-box dd p{ color:#929292;}
 /*-----登录------*/
 .login-div{ background: #fff;width:410px; height:410px; border-radius: 5px; position:relative;}
 .pop-close-btn{background: url(/static/images/index/close.png) no-repeat; width:41px; height:41px; display: block; position: absolute;top:-20px; right:-20px;}
@@ -358,7 +369,7 @@ body{background: #fff; font-family: "Microsoft YaHei";}
     top:0; position: absolute;}
 .add-data-table1 td dd .delete-this i{padding:0 5px;width:10px; height:20px; background: url(/static/images/logo_in.png) no-repeat -123px 2px; display: block; float: right;margin-right:10px; cursor: pointer;}
 
-.p-btns{width:95px; margin: 0 auto; height: 35px;}
+.p-btns{width:95px; margin: 0 auto 20px; height: 35px;}
 .p-btns a{width:95px; height:35px; display: block; text-align: center; float: left; line-height: 35px; font-size:14px; color: #fff;}
 .p-btns .sub-btn{ background: #ff6c60; margin-right: 10px;}
 .p-btns .reset-btn{background: #d8d8d8; color: #333;margin:0;}
@@ -377,25 +388,30 @@ body{background: #fff; font-family: "Microsoft YaHei";}
 /*-------------会议室预约--------------------*/
 .book-wrap{width:980px;padding-left:10px; background: #f2f2f0;}
 .book-table{width:100%;border:1px solid #ececec; background: #fff;border-collapse: collapse;}
-.book-table thead td{padding:3px 0; text-align: center; font-size: 20px; color:#6e6e6e;}
-.book-table tbody th{font-size:14px; color:#6e6e6e; font-weight: normal;padding:10px 0; text-align: center;}
+.book-table tbody .today span{background: #e2af09; color:#fff;border-radius: 10px;padding:5px;}
+.book-table tbody .weekend { color: #f55555;}
+.book-table tbody th{font-size:14px; color:#6e6e6e; font-weight: normal;padding:20px 0; text-align: center;}
 .book-table tbody td{font-size:14px; border:1px solid #ececec;/*padding:12px 0; */text-align: center;
-    background: #f5fdf2; position: relative;height:45px;}
+    background: #f5fdf2; position: relative;height:48px;}
+.book-table tbody .closed td{background: #f1f1f3;}
 .book-table tbody .book-btn,.book-table tbody .unbook-btn{width:45px; height:25px; display: block; border-radius: 3px; background: #52debc;font-size:12px;
     color:#fff; text-align: center; line-height: 25px; position: absolute; top:12px;left:35px;}
-.book-table tbody .roomtips-unbook-pos,.book-table tbody .roomtips-book-pos{ position: absolute;top:12px;left:45px;}
+.book-table tbody .on{background: #60b282;}
+.book-table tbody .roomtips-unbook-pos,.book-table tbody .roomtips-book-pos{ position: absolute;top:12px;left:35px;
+    display: block; width:45px; height:25px;}
 
 .book-table tbody .unbook-btn{background: #e8e8e8; cursor: not-allowed;}
-.choose-bookroom{ text-align: left;padding:10px 15px; position: absolute;top:-150px;left:-20px; z-index:9990;width:130px; height:175px; background: #fff;border:1px solid #ccc; font-size:12px;}
-.choose-bookroom.r-tit{color: #0a0a0a; line-height: 26px;}
+.choose-bookroom{text-align: left;padding:10px 15px; position: absolute;top:-150px;left:-20px; z-index:9990;width:130px; height:175px; background: #fff;border:1px solid #ccc; font-size:12px;}
+.choose-bookroom .r-tit{color: #0a0a0a; line-height: 26px;}
 .choose-bookroom .s-bor{border-bottom: 2px solid #e5e5e5;width:35px; display: block;}
-.choose-bookroom .radio-p{padding-top:5px;} .choose-bookroom input{vertical-align: -2px;}
+.choose-bookroom .r-tit{ font-size: 12px; margin-bottom: 10px;}
+.choose-bookroom .radio-p{margin-bottom:5px; transform:scale(0.9);} .choose-bookroom input{vertical-align: -2px;}
 .choose-bookroom .disabled-p{color:#3e3d3d;color:#999;}
-.choose-bookroom .radio-tips{color:#999;padding-top:5px;}
+.choose-bookroom .radio-tips{color:#999;padding-top:5px;transform:scale(0.9);}
 .book-submit-btn{width:128px; height:20px; line-height: 20px; display: block; margin:5px auto 0; background: #60b282; color:#fff; text-align: center;line-height: 20px; border-radius: 3px; }
 .book-table tbody .successful-td{background: #59ace2;}
 .book-table tbody .successful-td .book-successful-btn{width:108px;margin:0;background:#59ace2; font-size:16px;left:2px; }
-.book-table tbody .successful-td .book-successful-btn em{margin-left:10px;width:30px; height: 15px; display:inline-block; background: url(/static/images/add_icon.png) no-repeat 0 -101px;}
+.book-table tbody .successful-td .book-successful-btn em{margin-left:10px;width:30px; height: 15px; display:inline-block; background: url(../images/add_icon.png) no-repeat 0 -101px;}
 
 
 .manage-showroom{border:1px solid #ccc;padding:5px 15px; font-size:12px; text-align:left;width:200px; background: #fff;
@@ -412,5 +428,3 @@ body{background: #fff; font-family: "Microsoft YaHei";}
 .manage-showroom .vip3 dd span{ color:#ff6b6b; }
 .manage-showroom .vip4 dt{background:#45b3b0; }
 .manage-showroom .vip4 dd span{ color:#45b3b0; }
-
-
