@@ -27,6 +27,7 @@
                 <th>所属分店</th>
                 <th>职级</th>
                 <th>职务</th>
+                <th>状态</th>
             </tr>
             </thead>
             <tbody>
@@ -42,6 +43,12 @@
                         <td><?php echo $row->subsidiary_name;?></td>
                         <td><?php echo $row->role_name;?></td>
                         <td><?php echo $row->position_name;?></td>
+                        <td><?php
+                            if($row->flag == 1){
+                                echo '在职';
+                            }else{
+                                echo '离职';
+                            }?></td>
                     </tr>
             <?php
                     endforeach;
