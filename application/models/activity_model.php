@@ -59,9 +59,19 @@ class Activity_model extends MY_Model
         }
         if($this->input->POST('start_date')) {
             $this->db->where('a.date >=', $this->input->POST('start_date'));
+        }else{
+            if(!in_array(1,$status)){
+                //只有在我的审核中,才不会显示状态为1的数据
+                $this->db->where('a.date >=', date('Ymd', strtotime("-1 day")));
+            }
         }
         if($this->input->POST('end_date')) {
             $this->db->where('a.date <=', $this->input->POST('end_date'));
+        }else{
+            if(!in_array(1,$status)){
+                //只有在我的审核中,才不会显示状态为1的数据
+                $this->db->where('a.date <=', date('Ymd', strtotime("-1 day")));
+            }
         }
         if(!empty($user_id)) {
             $this->db->where('a.user_id', $user_id);
@@ -123,9 +133,19 @@ class Activity_model extends MY_Model
         }
         if($this->input->POST('start_date')) {
             $this->db->where('a.date >=', $this->input->POST('start_date'));
+        }else{
+            if(!in_array(1,$status)){
+                //只有在我的审核中,才不会显示状态为1的数据
+                $this->db->where('a.date >=', date('Ymd', strtotime("-1 day")));
+            }
         }
         if($this->input->POST('end_date')) {
             $this->db->where('a.date <=', $this->input->POST('end_date'));
+        }else{
+            if(!in_array(1,$status)){
+                //只有在我的审核中,才不会显示状态为1的数据
+                $this->db->where('a.date <=', date('Ymd', strtotime("-1 day")));
+            }
         }
         if(!empty($user_id)) {
             $this->db->where('a.user_id', $user_id);
@@ -136,7 +156,10 @@ class Activity_model extends MY_Model
         if(!empty($company_id)) {
             $this->db->where('b.company_id', $company_id);
         }
-        
+        if(!in_array(1,$status)){
+            //只有在我的审核中,才不会显示状态为1的数据
+            //$this->db->where('a.date <=',date('Ymd', strtotime("-1 day")));
+        }
         $this->db->limit($numPerPage, ($pageNum - 1) * $numPerPage );
         //$this->db->order_by($this->input->post('orderField') ? $this->input->post('orderField') : 'a.date', $this->input->post('orderDirection') ? $this->input->post('orderDirection') : 'desc');
         $this->db->order_by('a.date', 'desc');

@@ -111,7 +111,7 @@ class Activity extends MY_Controller {
         if($this->input->POST('end_date')) {
             $this->assign('end_date', $this->input->POST('end_date'));
         }
-
+        $this->assign('yesterday', date('Y-m-d', strtotime("-1 day")));
         $company_id = NULL;
         if($role_id > 1) {
             $company_id = $this->session->userdata('login_company_id');
