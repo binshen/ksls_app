@@ -32,23 +32,15 @@
                         <select name="company" id="sel_company" style="width:150px">
                             <option value="">选择公司</option>
                             {{foreach from=$company_list key=key item=item}}
-                                {{if $item.id == $company}}
-                                    <option value="{{$item.id}}" selected>{{$item.name}}</option>
-                                {{else}}
-                                    <option value="{{$item.id}}">{{$item.name}}</option>
-                                {{/if}}
+                                <option value="{{$item.id}}">{{$item.name}}</option>
                             {{/foreach}}
                         </select>
                     {{/if}}
-                    {{if $role_id < 3}}
+                    {{if $role_id == 2}}
                         <select name="subsidiary" id="sel_subsidiary" style="width:150px">
                             <option value="">选择分店</option>
                             {{foreach from=$subsidiary_list key=key item=item}}
-                                {{if $item.id == $subsidiary}}
-                                    <option value="{{$item.id}}" selected>{{$item.name}}</option>
-                                {{else}}
-                                    <option value="{{$item.id}}">{{$item.name}}</option>
-                                {{/if}}
+                                <option value="{{$item.id}}">{{$item.name}}</option>
                             {{/foreach}}
                         </select>
                     {{/if}}
