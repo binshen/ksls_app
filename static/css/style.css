@@ -51,6 +51,8 @@ body{background: #fff; font-family: "Microsoft YaHei";}
 .nav-left-ul li .myagenda{ background-position:0 -153px; }
 .nav-left-ul li .allagenda{ background-position:0 -180px; }
 .nav-left-ul li .bookroom{ background-position:0 -199px; }
+.nav-left-ul li .onlineclass{ background-position:0 -220px; }
+.nav-left-ul li .documentdata{ background-position:3px -245px; }
 
 .nav-left-ul li.on a{color:#fff;}
 .nav-left-ul li.on .schedule{background-position:-29px 2px;}
@@ -60,6 +62,9 @@ body{background: #fff; font-family: "Microsoft YaHei";}
 .nav-left-ul li.on .myagenda{ background-position:-30px -153px; }
 .nav-left-ul li.on .allagenda{ background-position:-26px -180px; }
 .nav-left-ul li.on .bookroom{ background-position:-28px -199px; }
+.nav-left-ul li.on .onlineclass{ background-position:-28px -220px; }
+.nav-left-ul li.on .documentdata{ background-position:-25px -245px; }
+
 
 .nav-left-ul li a:hover .home{ background-position:-29px 2px; }
 .nav-left-ul li a:hover .schedule{ background-position:-30px -28px; }
@@ -67,6 +72,8 @@ body{background: #fff; font-family: "Microsoft YaHei";}
 .nav-left-ul li a:hover .performance{ background-position:-29px -88px; }
 .nav-left-ul li a:hover .myagenda{ background-position:-30px -153px;}
 .nav-left-ul li a:hover .allagenda{ background-position:-26px -180px;}
+.nav-left-ul li a:hover .onlineclass{ background-position:-28px -220px; }
+.nav-left-ul li a:hover .documentdata{ background-position:-25px -245px; }
 
 .index .convenient-btns{width:765px; margin:0 auto;overflow: hidden;zoom:1; margin-bottom: 27px;}
 .index .convenient-btns a:last-child{margin: 0;}
@@ -273,6 +280,10 @@ body{background: #fff; font-family: "Microsoft YaHei";}
 .control .current .item-icon-2{ background-position:-34px -60px; }.control .current .item-icon-3{background-position:-34px -97px;}
 .control .current .item-icon-4{background-position:-34px -132px;}.control .current .item-icon-5{background-position:-34px -165px;}
 .control .current .item-icon-6{background-position:-34px -198px;}.control .current .item-icon-7{background-position:-34px -232px;}
+.online-class-wrap{padding:10px 10px 20px;}
+.online-class-control{ background: none;margin: 0;}
+.online-class-control li{border-radius:5px;width:90px; height:40px; margin-right: 20px;border:none; background: #fff; text-align: center;}
+
 .content-txt{margin:0 11px; height:32px;}
 .content-txt span{width:305px; height:32px; line-height: 32px; text-align: center; float: left;margin-right:24px; font-size:16px; background: #fff;}
 .content-txt span:last-child{margin:0;}
@@ -428,3 +439,47 @@ body{background: #fff; font-family: "Microsoft YaHei";}
 .manage-showroom .vip3 dd span{ color:#ff6b6b; }
 .manage-showroom .vip4 dt{background:#45b3b0; }
 .manage-showroom .vip4 dd span{ color:#45b3b0; }
+
+/*在线学院*/
+.fz16{font-size:16px;}.fz14{font-size:14px;}
+.tab-tit{font-size:16px;padding:10px 20px;}
+.search-wrap .search-input{width:370px;}
+.ul-video{overflow: hidden;zoom:1;margin-bottom: 12px;}
+.ul-video li{width:315px; height:235px; float: left; position: relative;margin-right:10px;}
+.ul-video :last-child{margin: 0;}
+.ul-video .video-txt{padding:5px 15px;width:285px;height: 75px; position: absolute;bottom:0;background:rgba(0,0,0,0.6); display: none;}
+.ul-video li a{color: #fff;}
+.ul-video .play-btn{ cursor: pointer; width:65px; height:25px; display: block; background:#2fb3ff; color: #fff;  line-height: 25px; text-align: center;margin-top:5px;
+    border-radius: 3px;}
+.ul-video1{height:175px; overflow: hidden;}
+.ul-video1 li{width:185px; float: left;margin-right:10px;}
+.ul-video1 li p{padding-top:8px;color:#444; line-height: 16px; }
+.ul-video1 li p .playnum{color:#999;margin:3px 20px 0 0; display: inline-block;}
+.ul-video1 li p .zannum{color:#999;margin-top:3px; display: inline-block;}
+.ul-video1 :last-child{margin-right: 0;}
+.ul-video1 li .video-icon{width:75px; height: 75px; display: none; position: absolute;top:15px;left:45px;
+    background: url(../images/video_icon.png) no-repeat;}
+.online-class-wrap .pages{text-align: right;}
+
+/*视频播放*/
+.a-nav {padding:10px 0;}
+.a-nav a{ color: #0863c0;}
+.div-bor{border:1px solid #d7d7d7; background: #fff;padding:5px 10px; overflow: hidden;zoom:1;}
+.div-bor .p-tit{ color:#333; font-size: 24px; margin-bottom: 10px;}
+
+.video-play{width:625px;height:380px; background: #000; float: left;}
+.video-info{float: left;padding-left:25px;width:258px; float: left;}
+.video-tit{ font-size:18px; color:#333;margin-bottom: 10px;}
+.p-opration{font-size:14px; }.p-opration i{float: left;margin-right: 20px;}
+.p-opration .collect,.p-opration .zan{ margin-right: 5px; width:20px; height:22px; float: left;background: url(../images/add_icon.png) no-repeat 0 -135px; font-size:14px; color:#555;}
+.p-opration .zan{background: url(../images/add_icon.png) no-repeat 0 -169px;}
+.information-txt{clear: both; font-size:14px; color: #555;padding-top: 20px; line-height: 24px;}
+.relate-tit{font-size: 16px; color: #555;padding:10px 0;}
+.div-bor .ul-video  li{margin-right: 4px;}.div-bor1{padding:5px 13px;}.div-bor .ul-video  li:last-child{margin: 0;}
+
+.document-list-control li{margin-right: 15px;}
+.document_list li{margin-bottom: 5px; padding:0 15px;height: 42px; background: #fff; line-height: 42px;font-size: 16px; color:#333;}
+.document_list li a{color:#333;}
+.document_list .document-tit{padding-left:25px;float: left; background: url(../images/add_icon.png) no-repeat 0 -190px;}
+.document_list .operation-span{float: right; font-size:14px; color: #999;}
+.document_list .operation-span em{margin-right: 20px;}
