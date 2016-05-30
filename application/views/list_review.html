@@ -54,9 +54,9 @@
                             {{/if}}
                         {{/foreach}}
                     </select>
-                    <input type="text" name="start_date" id="J_DepDate" value="{{$start_date|default:''}}" class="sel-begin-time" />
+                    <input type="text" name="start_date" id="J_DepDate" value="{{$start_date|default:$yesterday}}" class="sel-begin-time" />
                     <span class="time-break"> </span>
-                    <input type="text" name="end_date" id="J_EndDate" value="{{$end_date|default:''}}" class="sel-end-time" />
+                    <input type="text" name="end_date" id="J_EndDate" value="{{$end_date|default:$yesterday}}" class="sel-end-time" />
                     <a href="javascript:void(0);" class="search-btn" id="btn_search"></a>
                 </form>
             </div>
