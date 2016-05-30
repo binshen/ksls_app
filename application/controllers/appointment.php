@@ -41,6 +41,7 @@ class Appointment extends MY_Controller
             } else {
                 $this->assign('date_' . $i, '周' . $week[date("w", strtotime($date))] . ' (' . date("m/d", strtotime($date)) . ')');
             }
+            $this->assign('week_' . $i, date("w", strtotime($date)) == 0 || date("w", strtotime($date)) == 6);
         }
 
         $time_frame_list = $this->appointment_model->get_time_frame_list();
