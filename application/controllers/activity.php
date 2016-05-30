@@ -41,6 +41,10 @@ class Activity extends MY_Controller {
                     redirect(site_url('/activity/list_activity'));
                     exit();
                 }
+                if($method == 'list_noplan'){
+                    redirect(site_url('/activity/list_activity'));
+                    exit();
+                }
             }
             return call_user_func_array(array($this, $method), $params);
         }
