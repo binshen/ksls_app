@@ -68,7 +68,8 @@ class Activity extends MY_Controller {
         $this->display('list_activity.html');
     }
 
-    public function list_review($page=1) {
+    public function list_review($page=1,$flag=null) {
+
 
         $role_id = $this->session->userdata('login_role_id');
         $this->assign('role_id', $role_id);
@@ -112,6 +113,7 @@ class Activity extends MY_Controller {
             $this->assign('end_date', $this->input->POST('end_date'));
         }
         $this->assign('yesterday', date('Y-m-d', strtotime("-1 day")));
+        $this->assign('flag', $flag);
         $company_id = NULL;
         if($role_id > 1) {
             $company_id = $this->session->userdata('login_company_id');
@@ -120,13 +122,14 @@ class Activity extends MY_Controller {
         if($role_id >= 7) {
             $subsidiary_id = $this->session->userdata('login_subsidiary_id');
         }
-        $data = $this->activity_model->list_activity($page, array(2,3), NULL, $subsidiary_id, $company_id);
+        $data = $this->activity_model->list_activity($page, array(2,3), NULL, $subsidiary_id, $company_id,$flag);
         $this->assign('activity_list', $data);
 
         $pager = $this->pagination->getPageLink('/activity/list_review', $data['countPage'], $data['numPerPage']);
         $this->assign('pager', $pager);
 
         $this->display('list_review.html');
+
     }
 
     public function add_activity() {

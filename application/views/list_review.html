@@ -20,7 +20,7 @@
                     <li><a href="/"><em class="home"></em>回到首页</a></li>
                     <li><a href="/activity/list_activity"><em class="schedule"></em>我的行程</a></li>
                     {{if $role_id < 7 }}
-                        <li class="on"><a href="/activity/list_review"><em class="verify"></em>我的审核</a></li>
+                        <li class="on"><a href="/activity/list_review/1/1"><em class="verify"></em>我的审核</a></li>
                     {{/if}}
                 </ul>
             </div>
@@ -36,7 +36,7 @@
                             {{/foreach}}
                         </select>
                     {{/if}}
-                    {{if $role_id == 2}}
+                    {{if $role_id <= 2}}
                         <select name="subsidiary" id="sel_subsidiary" style="width:150px">
                             <option value="">选择分店</option>
                             {{foreach from=$subsidiary_list key=key item=item}}
@@ -54,9 +54,9 @@
                             {{/if}}
                         {{/foreach}}
                     </select>
-                    <input type="text" name="start_date" id="J_DepDate" value="{{$start_date|default:$yesterday}}" class="sel-begin-time" />
+                    <input type="text" name="start_date" id="J_DepDate" value="{{if $flag==1}}{{$yesterday}}{{else}}{{$start_date|default:''}}{{/if}}" class="sel-begin-time" />
                     <span class="time-break"> </span>
-                    <input type="text" name="end_date" id="J_EndDate" value="{{$end_date|default:$yesterday}}" class="sel-end-time" />
+                    <input type="text" name="end_date" id="J_EndDate" value="{{if $flag==1}}{{$yesterday}}{{else}}{{$end_date|default:''}}{{/if}}" class="sel-end-time" />
                     <a href="javascript:void(0);" class="search-btn" id="btn_search"></a>
                 </form>
             </div>

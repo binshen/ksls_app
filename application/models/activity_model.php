@@ -37,7 +37,7 @@ class Activity_model extends MY_Model
         return $this->db->get_where('user', array('subsidiary_id' => $subsidiary_id))->result_array();
     }
 
-    public function list_activity($page, $status, $user_id=NULL, $subsidiary_id=NULL, $company_id=NULL) {
+    public function list_activity($page, $status, $user_id=NULL, $subsidiary_id=NULL, $company_id=NULL,$flag=null) {
 
         // 每页显示的记录条数，默认20条
         $numPerPage = $this->input->post('numPerPage') ? $this->input->post('numPerPage') : 10;
@@ -60,7 +60,7 @@ class Activity_model extends MY_Model
         if($this->input->POST('start_date')) {
             $this->db->where('a.date >=', $this->input->POST('start_date'));
         }else{
-            if(!in_array(1,$status)){
+            if($flag==1){
                 //只有在我的审核中,才不会显示状态为1的数据
                 $this->db->where('a.date >=', date('Ymd', strtotime("-1 day")));
             }
@@ -68,7 +68,7 @@ class Activity_model extends MY_Model
         if($this->input->POST('end_date')) {
             $this->db->where('a.date <=', $this->input->POST('end_date'));
         }else{
-            if(!in_array(1,$status)){
+            if($flag==1){
                 //只有在我的审核中,才不会显示状态为1的数据
                 $this->db->where('a.date <=', date('Ymd', strtotime("-1 day")));
             }
@@ -134,7 +134,7 @@ class Activity_model extends MY_Model
         if($this->input->POST('start_date')) {
             $this->db->where('a.date >=', $this->input->POST('start_date'));
         }else{
-            if(!in_array(1,$status)){
+            if($flag==1){
                 //只有在我的审核中,才不会显示状态为1的数据
                 $this->db->where('a.date >=', date('Ymd', strtotime("-1 day")));
             }
@@ -142,7 +142,7 @@ class Activity_model extends MY_Model
         if($this->input->POST('end_date')) {
             $this->db->where('a.date <=', $this->input->POST('end_date'));
         }else{
-            if(!in_array(1,$status)){
+            if($flag==1){
                 //只有在我的审核中,才不会显示状态为1的数据
                 $this->db->where('a.date <=', date('Ymd', strtotime("-1 day")));
             }
