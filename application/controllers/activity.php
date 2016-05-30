@@ -88,8 +88,6 @@ class Activity extends MY_Controller {
             } else if($role_id < 7) {
                 $subsidiary_id = $this->session->userdata('login_subsidiary_id');
                 $subsidiary_list = $this->activity_model->get_subsidiary_list($company_id, $subsidiary_id);
-
-
             }
         }
         $this->assign('subsidiary_list', $subsidiary_list);
@@ -98,7 +96,7 @@ class Activity extends MY_Controller {
             $this->assign('subsidiary', $this->input->POST('subsidiary'));
             $user_list = $this->activity_model->get_subsidiary_user_list($this->input->POST('subsidiary'));
             $this->assign('user_list', $user_list);
-        }elseif(!$this->input->post('subsidiary') && $role_id < 7){
+        }elseif(!$this->input->post('subsidiary') && $role_id < 7 && $role_id > 2){
             $this->assign('subsidiary', $this->session->userdata('login_subsidiary_id'));
             $user_list = $this->activity_model->get_subsidiary_user_list($this->session->userdata('login_subsidiary_id'));
             $this->assign('user_list', $user_list);
