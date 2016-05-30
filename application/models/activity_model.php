@@ -414,4 +414,126 @@ class Activity_model extends MY_Model
         $sql .= " GROUP BY b.id ORDER BY total DESC ";
         return $this->db->query($sql)->result();
     }
+
+    public function list_onplan($page, $subsidiary_id=NULL, $company_id=NULL,$flag=null) {
+
+        // 每页显示的记录条数，默认20条
+        $numPerPage = $this->input->post('numPerPage') ? $this->input->post('numPerPage') : 10;
+        $pageNum = $this->input->post('pageNum') ? $this->input->post('pageNum') : $page;
+
+        //获得总记录数
+        $this->db->select('count(1) as num');
+        $this->db->from('activity a');
+        $this->db->join('user b', 'a.user_id = b.id', 'inner');
+
+        if($this->input->POST('company')) {
+            $this->db->where('b.company_id', $this->input->POST('company'));
+        }
+        if($this->input->POST('subsidiary')) {
+            $this->db->where('b.subsidiary_id', $this->input->POST('subsidiary'));
+        }
+        if($this->input->POST('user')) {
+            $this->db->where('b.id', $this->input->POST('user'));
+        }
+        if($this->input->POST('date')) {
+            $this->db->where('a.date', $this->input->POST('date'));
+        }else{
+            if($flag==1){
+                $this->db->where('a.date',date('Y-m-d', strtotime("-1 day")));
+            }
+        }
+        if(!empty($subsidiary_id)) {
+            $this->db->where('b.subsidiary_id', $subsidiary_id);
+        }
+        if(!empty($company_id)) {
+            $this->db->where('b.company_id', $company_id);
+        }
+
+        $rs_total_plan = $this->db->get()->row();
+
+        $this->db->select('count(1) as num');
+        $this->db->from('user b');
+        if($this->input->POST('company')) {
+            $this->db->where('b.company_id', $this->input->POST('company'));
+        }
+        if($this->input->POST('subsidiary')) {
+            $this->db->where('b.subsidiary_id', $this->input->POST('subsidiary'));
+        }
+        if($this->input->POST('user')) {
+            $this->db->where('b.id', $this->input->POST('user'));
+        }
+        if(!empty($subsidiary_id)) {
+            $this->db->where('b.subsidiary_id', $subsidiary_id);
+        }
+        if(!empty($company_id)) {
+            $this->db->where('b.company_id', $company_id);
+        }
+        $this->db->where('b.flag', 1);
+        $rs_total = $this->db->get()->row();
+        //总记录数
+        $data['countPage'] =  $rs_total->num -$rs_total_plan->num;
+
+        //list
+        $this->db->select('b.id');
+        $this->db->from('activity a');
+        $this->db->join('user b', 'a.user_id = b.id', 'inner');
+
+        if($this->input->POST('company')) {
+            $this->db->where('b.company_id', $this->input->POST('company'));
+        }
+        if($this->input->POST('subsidiary')) {
+            $this->db->where('b.subsidiary_id', $this->input->POST('subsidiary'));
+        }
+        if($this->input->POST('user')) {
+            $this->db->where('b.id', $this->input->POST('user'));
+        }
+        if($this->input->POST('date')) {
+            $this->db->where('a.date', $this->input->POST('date'));
+        }else{
+            if($flag==1){
+                $this->db->where('a.date',date('Y-m-d', strtotime("-1 day")));
+            }
+        }
+        if(!empty($subsidiary_id)) {
+            $this->db->where('b.subsidiary_id', $subsidiary_id);
+        }
+        if(!empty($company_id)) {
+            $this->db->where('b.company_id', $company_id);
+        }
+        $ids[]=0;
+        $plan_userid = $this->db->get()->result_array();
+        if($plan_userid){
+            foreach($plan_userid as $item){
+                $ids[]=$item['id'];
+            }
+        }
+
+        $this->db->select();
+        $this->db->from('user b');
+        if($this->input->POST('company')) {
+            $this->db->where('b.company_id', $this->input->POST('company'));
+        }
+        if($this->input->POST('subsidiary')) {
+            $this->db->where('b.subsidiary_id', $this->input->POST('subsidiary'));
+        }
+        if($this->input->POST('user')) {
+            $this->db->where('b.id', $this->input->POST('user'));
+        }
+        if(!empty($subsidiary_id)) {
+            $this->db->where('b.subsidiary_id', $subsidiary_id);
+        }
+        if(!empty($company_id)) {
+            $this->db->where('b.company_id', $company_id);
+        }
+        $this->db->where('b.flag', 1);
+        $this->db->where_not_in('b.id',$ids);
+        $this->db->limit($numPerPage, ($pageNum - 1) * $numPerPage );
+        //$this->db->order_by($this->input->post('orderField') ? $this->input->post('orderField') : 'a.date', $this->input->post('orderDirection') ? $this->input->post('orderDirection') : 'desc');
+
+
+        $data['res_list'] = $this->db->get()->result();
+        $data['pageNum'] = $pageNum;
+        $data['numPerPage'] = $numPerPage;
+        return $data;
+    }
 }

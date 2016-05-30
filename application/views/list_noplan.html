@@ -20,17 +20,17 @@
                     <li><a href="/"><em class="home"></em>回到首页</a></li>
                     <li><a href="/activity/list_activity"><em class="schedule"></em>我的行程</a></li>
                     {{if $role_id < 7 }}
-                        <li class="on"><a href="/activity/list_review/1/1"><em class="verify"></em>我的审核</a></li>
+                        <li><a href="/activity/list_review/1/1"><em class="verify"></em>我的审核</a></li>
                     {{/if}}
                     {{if $role_id < 7 }}
-                    <li><a href="/activity/list_noplan/1/1"><em class="verify"></em>未计划</a></li>
+                    <li class="on"><a href="/activity/list_noplan/1/1"><em class="verify"></em>未计划</a></li>
                     {{/if}}
                 </ul>
             </div>
         </div>
         <div class="wrap-right">
             <div class="search-wrap">
-                <form id="formSearchActivity" method="POST" action="/activity/list_review">
+                <form id="formSearchActivity" method="POST" action="/activity/list_noplan">
                     {{if $role_id == 1}}
                         <select name="company" id="sel_company" style="width:150px">
                             <option value="">选择公司</option>
@@ -65,9 +65,7 @@
                             {{/if}}
                         {{/foreach}}
                     </select>
-                    <input type="text" name="start_date" id="J_DepDate" value="{{if $flag==1}}{{$yesterday}}{{else}}{{$start_date|default:''}}{{/if}}" class="sel-begin-time" />
-                    <span class="time-break"> </span>
-                    <input type="text" name="end_date" id="J_EndDate" value="{{if $flag==1}}{{$yesterday}}{{else}}{{$end_date|default:''}}{{/if}}" class="sel-end-time" />
+                    <input type="text" name="date" id="J_DepDate" value="{{if $flag==1}}{{$yesterday}}{{else}}{{$date|default:''}}{{/if}}" class="sel-begin-time" />
                     <a href="javascript:void(0);" class="search-btn" id="btn_search"></a>
                 </form>
             </div>
@@ -96,42 +94,25 @@
                     <li class="wid75">操作</li>
                 </ul>
 
-                {{foreach from=$activity_list.res_list item=item}}
+                {{foreach from=$noplan_list.res_list item=item}}
                     <ul class="schedule-list">
-                        <li class="name wid60">{{$item->u_name}}</li>
+                        <li class="name wid60">{{$item->rel_name}}</li>
                         <li class="bor-separate"></li>
-                        <li class="time wid92">{{$item->date}}</li>
+                        <li class="time wid92">{{$date}}</li>
                         <li class="bor-separate"></li>
                         <li class="items wid103">
                             <ul>
                                 <li>
-                                    <span class="item-icon item-icon-{{$item->t1c|default:0}}-plan"></span>
-                                    <span class="span-num-text i-plan">{{$item->a1n|default:'--'}}{{$item->t1u}}</span>
+                                    <span class="item-icon item-icon-0-plan"></span>
+                                    <span class="span-num-text i-plan">--</span>
                                 </li>
                                 <li>
-                                    <span class="item-icon item-icon-{{$item->t6c|default:0}}-reality"></span>
-                                    <span class="span-num-text i-reality">{{$item->b1n|default:'--'}}{{$item->t6u}}</span>
+                                    <span class="item-icon item-icon-0-reality"></span>
+                                    <span class="span-num-text i-reality">--</span>
                                 </li>
                                 <li>
-                                    <span class="item-icon item-icon-{{$item->t11c|default:0}}-review">{{if $item->status < 3}}--{{/if}}</span>
-                                    <span class="span-num-text i-review">{{$item->c1n|default:'--'}}{{$item->t11u}}</span>
-                                </li>
-                            </ul>
-                        </li>
-                        <li class="bor-separate bor-separate1"></li>
-                        <li class="items wid103">
-                            <ul>
-                                <li>
-                                    <span class="item-icon item-icon-{{$item->t2c|default:0}}-plan"></span>
-                                    <span class="span-num-text i-plan">{{$item->a2n|default:'--'}}{{$item->t2u}}</span>
-                                </li>
-                                <li>
-                                    <span class="item-icon item-icon-{{$item->t7c|default:0}}-reality"></span>
-                                    <span class="span-num-text i-reality">{{$item->b2n|default:'--'}}{{$item->t7u}}</span>
-                                </li>
-                                <li>
-                                    <span class="item-icon item-icon-{{$item->t12c|default:0}}-review">{{if $item->status < 3}}--{{/if}}</span>
-                                    <span class="span-num-text i-review">{{$item->c2n|default:'--'}}{{$item->t12u}}</span>
+                                    <span class="item-icon item-icon-0-review">--</span>
+                                    <span class="span-num-text i-review">--</span>
                                 </li>
                             </ul>
                         </li>
@@ -139,33 +120,16 @@
                         <li class="items wid103">
                             <ul>
                                 <li>
-                                    <span class="item-icon item-icon-{{$item->t3c|default:0}}-plan"></span>
-                                    <span class="span-num-text i-plan">{{$item->a3n|default:'--'}}{{$item->t3u}}</span>
+                                    <span class="item-icon item-icon-0-plan"></span>
+                                    <span class="span-num-text i-plan">--</span>
                                 </li>
                                 <li>
-                                    <span class="item-icon item-icon-{{$item->t8c|default:0}}-reality"></span>
-                                    <span class="span-num-text i-reality">{{$item->b3n|default:'--'}}{{$item->t8u}}</span>
+                                    <span class="item-icon item-icon-0-reality"></span>
+                                    <span class="span-num-text i-reality">--</span>
                                 </li>
                                 <li>
-                                    <span class="item-icon item-icon-{{$item->t13c|default:0}}-review">{{if $item->status < 3}}--{{/if}}</span>
-                                    <span class="span-num-text i-review">{{$item->c3n|default:'--'}}{{$item->t13u}}</span>
-                                </li>
-                            </ul>
-                        </li>
-                        <li class="bor-separate bor-separate1"></li>
-                        <li class="items wid103">
-                            <ul>
-                                <li>
-                                    <span class="item-icon item-icon-{{$item->t4c|default:0}}-plan"></span>
-                                    <span class="span-num-text i-plan">{{$item->a4n|default:'--'}}{{$item->t4u}}</span>
-                                </li>
-                                <li>
-                                    <span class="item-icon item-icon-{{$item->t9c|default:0}}-reality"></span>
-                                    <span class="span-num-text i-reality">{{$item->b4n|default:'--'}}{{$item->t9u}}</span>
-                                </li>
-                                <li>
-                                    <span class="item-icon item-icon-{{$item->t14c|default:0}}-review">{{if $item->status < 3}}--{{/if}}</span>
-                                    <span class="span-num-text i-review">{{$item->c4n|default:'--'}}{{$item->t14u}}</span>
+                                    <span class="item-icon item-icon-0-review">--</span>
+                                    <span class="span-num-text i-review">--</span>
                                 </li>
                             </ul>
                         </li>
@@ -173,23 +137,57 @@
                         <li class="items wid103">
                             <ul>
                                 <li>
-                                    <span class="item-icon item-icon-{{$item->t5c|default:0}}-plan"></span>
-                                    <span class="span-num-text i-plan">{{$item->a5n|default:'--'}}{{$item->t5u}}</span>
+                                    <span class="item-icon item-icon-0-plan"></span>
+                                    <span class="span-num-text i-plan">--</span>
                                 </li>
                                 <li>
-                                    <span class="item-icon item-icon-{{$item->t10c|default:0}}-reality"></span>
-                                    <span class="span-num-text i-reality">{{$item->b5n|default:'--'}}{{$item->t10u}}</span>
+                                    <span class="item-icon item-icon-0-reality"></span>
+                                    <span class="span-num-text i-reality">--</span>
                                 </li>
                                 <li>
-                                    <span class="item-icon item-icon-{{$item->t15c|default:0}}-review">{{if $item->status < 3}}--{{/if}}</span>
-                                    <span class="span-num-text i-review">{{$item->c5n|default:'--'}}{{$item->t15u}}</span>
+                                    <span class="item-icon item-icon-0-review">--</span>
+                                    <span class="span-num-text i-review">--</span>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="bor-separate bor-separate1"></li>
+                        <li class="items wid103">
+                            <ul>
+                                <li>
+                                    <span class="item-icon item-icon-0-plan"></span>
+                                    <span class="span-num-text i-plan">--</span>
+                                </li>
+                                <li>
+                                    <span class="item-icon item-icon-0-reality"></span>
+                                    <span class="span-num-text i-reality">--</span>
+                                </li>
+                                <li>
+                                    <span class="item-icon item-icon-0-review">--</span>
+                                    <span class="span-num-text i-review">--</span>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="bor-separate bor-separate1"></li>
+                        <li class="items wid103">
+                            <ul>
+                                <li>
+                                    <span class="item-icon item-icon-0-plan"></span>
+                                    <span class="span-num-text i-plan">--</span>
+                                </li>
+                                <li>
+                                    <span class="item-icon item-icon-0-reality"></span>
+                                    <span class="span-num-text i-reality">--</span>
+                                </li>
+                                <li>
+                                    <span class="item-icon item-icon-0-review">--</span>
+                                    <span class="span-num-text i-review">--</span>
                                 </li>
                             </ul>
                         </li>
                         <li class="bor-separate bor-separate1 bor-separate-none"></li>
-                        <li class="wid64 score-plan">{{$item->a1t|default:'0.0'}}分</li>
-                        <li class="wid64 score-reality">{{$item->b1t|default:'0.0'}}分</li>
-                        <li class="wid64 score-review">{{$item->total|default:'0.0'}}分</li>
+                        <li class="wid64 score-plan">0分</li>
+                        <li class="wid64 score-reality">0分</li>
+                        <li class="wid64 score-review">0分</li>
                         <li class="wid75">
                             <a href="/activity/review_activity/{{$item->id}}" class="operation-btn">审核</a>
                         </li>
