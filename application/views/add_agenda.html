@@ -37,14 +37,15 @@
                             <td>
                                 <dl>
                                     <dt class="wid115">小区名称：</dt>
-                                    <dd><input type="text" name="xq_name" class="add-txt" value="{{$agenda->xq_name|default:''}}" /></dd>
+                                    <dd><input type="text" id="xq_name" name="xq_name" class="add-txt" value="{{$agenda->xq_name|default:''}}" /></dd>
                                 </dl>
                             </td>
                             <td><dl><dt class="wid115">房屋面积：</dt>
-                                <dd><input type="text" name="acreage" class="add-txt number" value="{{$agenda->acreage|default:''}}" /><em>平方米</em></dd></dl></td>
+                                <dd><input type="text" id="acreage" name="acreage" class="add-txt number" value="{{$agenda->acreage|default:''}}" /><em>平方米</em></dd></dl></td>
                         </tr>
                         <tr>
-                            <td><dl><dt class="wid115">房东姓名：</dt><dd><input type="text" name="landlord_name" class="add-txt" value="{{$agenda->landlord_name|default:''}}" /></dd></dl></td>
+                            <td><dl><dt class="wid115">房东姓名：</dt>
+                                <dd><input type="text" id="landlord_name" name="landlord_name" class="add-txt" value="{{$agenda->landlord_name|default:''}}" /></dd></dl></td>
                             <td>
                                 <dl>
                                     <dt>产证是否满两年：</dt>
@@ -57,14 +58,15 @@
                             <td>
                                 <dl>
                                     <dt class="wid115">客户姓名：</dt>
-                                    <dd><input type="text" name="customer_name" class="add-txt" value="{{$agenda->customer_name|default:''}}" /></dd>
+                                    <dd><input type="text" id="customer_name" name="customer_name" class="add-txt" value="{{$agenda->customer_name|default:''}}" /></dd>
                                 </dl>
                             </td>
                             <td><dl><dt class="wid115">合同金额：</dt>
                                 <dd><input id="contract_amount" type="text" name="amount" class="add-txt number" value="{{$agenda->amount|default:''}}" /><em>万</em></dd></dl></td>
                         </tr>
                         <tr>
-                            <td><dl><dt class="wid115">房东剩余贷款：</dt><dd><input type="text" name="rest_load" class="add-txt number" value="{{$agenda->rest_load|default:''}}" /><em>万</em></dd></dl></td>
+                            <td><dl><dt class="wid115">房东剩余贷款：</dt>
+                                <dd><input type="text" id="rest_load" name="rest_load" class="add-txt number" value="{{$agenda->rest_load|default:''}}" /><em>万</em></dd></dl></td>
                             <td>
                                 <dl>
                                     <dt>客户付款方式：</dt>
@@ -79,7 +81,7 @@
                             <td>
                                 <dl>
                                     <dt class="wid115">客户收入情况：</dt>
-                                    <dd><input type="text" name="customer_income" class="add-txt number" value="{{$agenda->acreage|default:''}}" /><em>元/月</em></dd>
+                                    <dd><input type="text" id="customer_income" name="customer_income" class="add-txt number" value="{{$agenda->acreage|default:''}}" /><em>元/月</em></dd>
                                 </dl>
                             </td>
                             <td class="twodl">
@@ -314,6 +316,48 @@
     });
 
     $("#btnSubmit").click(function() {
+        var xq_name = $("#xq_name").val();
+        if(xq_name == "") {
+            layer.msg('请输入小区名称', {icon: 2});
+            return;
+        }
+
+        var acreage = $("#acreage").val();
+        if(acreage == "") {
+            layer.msg('请输入房屋面积', {icon: 2});
+            return;
+        }
+
+        var landlord_name = $("#landlord_name").val();
+        if(landlord_name == "") {
+            layer.msg('请输入房东姓名', {icon: 2});
+            return;
+        }
+
+        var customer_name = $("#customer_name").val();
+        if(customer_name == "") {
+            layer.msg('请输入客户姓名', {icon: 2});
+            return;
+        }
+
+        var contract_amount = $("#contract_amount").val();
+        if(contract_amount == "") {
+            layer.msg('请输入合同金额', {icon: 2});
+            return;
+        }
+
+        var rest_load = $("#rest_load").val();
+        if(rest_load == "") {
+            layer.msg('请输入房东剩余贷款', {icon: 2});
+            return;
+        }
+
+        var customer_income = $("#customer_income").val();
+        if(customer_income == "") {
+            layer.msg('请输入客户收入情况', {icon: 2});
+            return;
+        }
+
         layer.confirm('确定要保存代办服务信息？', {
             btn: ['确定','取消'] //按钮
         }, function(){
