@@ -60,66 +60,20 @@
                             {{/foreach}}
                         </ul>
                         <ul class="ul-video ul-video1">
+                            {{foreach from=$top_video_list item=item}}
                             <li>
                                 <a href="/video/view_video">
                                     <video width="185" height="110">
-                                        <source src="http://saas.funmall.com.cn/uploadfiles/video/small.ogv" type="video/mp4">
-                                        Your browser does not support the video tag.
+                                        <source src="{{$item.url}}" type="{{item.type}}">
+                                        Your browser does not support thEe video tag.
                                     </video>
                                     <em class="video-icon"></em>
-                                    <p>[公开课]如你所见-身处O2O时代的房产经纪如何应对挑战<br />
-                                        <i class="playnum">1000次播放</i><i class="zannum">5次点赞</i>
+                                    <p>[公开课]{{item.title}}<br />
+                                        <i class="playnum">{{item.dep[t}}次播放</i><i class="zannum">5次点赞</i>
                                     </p>                                
                                 </a>
                             </li>
-                            <li>
-                                <a href="/video/view_video">
-                                    <video width="185" height="110">
-                                        <source src="http://saas.funmall.com.cn/uploadfiles/video/small.ogv" type="video/mp4">
-                                        Your browser does not support the video tag.
-                                    </video>
-                                    <em class="video-icon"></em>
-                                    <p>[公开课]如你所见-身处O2O时代的房产经纪如何应对挑战<br />
-                                        <i class="playnum">1000次播放</i><i class="zannum">5次点赞</i>
-                                    </p>                                
-                                </a>
-                            </li>
-                            <li>
-                                <a href="/video/view_video">
-                                    <video width="185" height="110">
-                                        <source src="http://saas.funmall.com.cn/uploadfiles/video/small.ogv" type="video/mp4">
-                                        Your browser does not support the video tag.
-                                    </video>
-                                    <em class="video-icon"></em>
-                                    <p>[公开课]如你所见-身处O2O时代的房产经纪如何应对挑战<br />
-                                        <i class="playnum">1000次播放</i><i class="zannum">5次点赞</i>
-                                    </p>                                
-                                </a>
-                            </li>
-                            <li>
-                                <a href="/video/view_video">
-                                    <video width="185" height="110">
-                                        <source src="http://saas.funmall.com.cn/uploadfiles/video/small.ogv" type="video/mp4">
-                                        Your browser does not support the video tag.
-                                    </video>
-                                    <em class="video-icon"></em>
-                                    <p>[公开课]如你所见-身处O2O时代的房产经纪如何应对挑战<br />
-                                        <i class="playnum">1000次播放</i><i class="zannum">5次点赞</i>
-                                    </p>                                
-                                </a>
-                            </li>
-                            <li>
-                                <a href="/video/view_video">
-                                    <video width="185" height="110">
-                                        <source src="http://saas.funmall.com.cn/uploadfiles/video/small.ogv" type="video/mp4">
-                                        Your browser does not support the video tag.
-                                    </video>
-                                    <em class="video-icon"></em>
-                                    <p>[公开课]如你所见-身处O2O时代的房产经纪如何应对挑战<br />
-                                        <i class="playnum">1000次播放</i><i class="zannum">5次点赞</i>
-                                    </p>                                
-                                </a>
-                            </li>
+                            {{/foreach}}
                         </ul>
                           <div class="pages">
                         <span class="current">1</span><a href="/activity/list_review/2">2</a><a href="/activity/list_review/3">3</a><a href="/activity/list_review/4">4</a><a href="/activity/list_review/5">5</a><a href="/activity/list_review/2" class="prev">下一页</a>

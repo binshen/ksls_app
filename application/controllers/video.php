@@ -16,7 +16,7 @@ class Video extends MY_Controller
         $this->load->model('video_model');
     }
 
-    public function list_video() {
+    public function list_video($type=NULL) {
 
         $video_type_list = $this->video_model->get_video_type_list();
         $this->assign('video_type_list', $video_type_list);
@@ -24,7 +24,8 @@ class Video extends MY_Controller
         $top_video_list = $this->video_model->get_top_video_list();
         $this->assign('top_video_list', $top_video_list);
 
-
+        $video_list = $this->video_model->get_video_list(1);
+        var_dump($video_list);
 
         $this->display('online_class.html');
     }
