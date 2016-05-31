@@ -7,6 +7,8 @@
     <meta name="description" content="会议室预约" />
     <link href="/static/css/reset.css" rel="stylesheet" type="text/css">
     <link href="/static/css/style.css" rel="stylesheet" type="text/css">
+    <link href="/static/js/video/video-js.css" rel="stylesheet">
+    <script src="/static/js/video/video.js"></script>
 </head>
 <body>
 <div class="doc">
@@ -35,9 +37,8 @@
                       <div class="div-bor">
                       <p class="p-tit">突破业绩成长五大瓶颈</p>
                           <div class="video-play">
-                              <video width="625" height="380" controls>
-                                  <source src="{{$video.url}}" type="video/mp4">
-                                  Your browser does not support the video tag.
+                              <video width="625" height="380" class="video-js vjs-default-skin" controls preload="auto" data-setup='{}'>
+                                  <source src="{{$video.url}}" type='{{$video.type}}'>
                               </video>
                           </div>
                           <div class="video-info">
