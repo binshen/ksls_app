@@ -82,12 +82,6 @@
                             ?>
                         </select>
                     </td>
-
-                </tr>
-                <tr>
-
-                </tr>
-                <tr>
                     <td><label>状态：</label>
                         <select class="combox" name="flag">
                             <option value="">请选择状态</option>
@@ -117,7 +111,7 @@
         </ul>
     </div>
 
-    <div layoutH="54" id="list_warehouse_in_print">
+    <div layoutH="167" id="list_warehouse_in_print">
         <table class="list" width="100%" targetType="navTab" asc="asc" desc="desc">
             <thead>
             <tr>
@@ -185,23 +179,5 @@
             }
         });
     });
-
-    $(function(){
-        $('#sel_com').change(function(){
-            var path = "/manage/get_subsidiary_list/"+$("#sel_com").val();
-
-         $.getJSON(path,function(data){
-
-                html = "<option value=''>请选择分店</option>"
-                    data.forEach(function(item){
-
-                        html += "<option value='"+item[0]+"'>"+item[1]+"</option>"
-                    })
-
-                $("#sel_sub").html("");
-
-            })
-        })
-    })
 
 </script>
