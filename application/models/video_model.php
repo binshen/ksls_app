@@ -33,6 +33,20 @@ class Video_model extends MY_Model
         return $this->db->get('video')->result_array();
     }
 
+    public function get_video($id) {
+        $this->db->select('a.*, b.name as type_name');
+        $this->db->from('video a');
+        $this->db->join('video_type b', 'a.type_id = b.id', 'inner');
+        $this->db->where('a.id', $id);
+        $this->db->order_by('a.created', 'desc');
+        $this->db->distinct();
+        return $this->db->get('video')->row_array();
+    }
+
+    public function get_like_count($id) {
+        return $this->db->select("count(1) AS count")->get_where('video_like', array('video_id' => $id))->result();
+    }
+
     public function get_video_list($type_id) {
         return $this->db->get_where('video', array('type_id' => $type_id))->order_by('created', 'desc')->result_array();
     }

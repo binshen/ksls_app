@@ -31,20 +31,20 @@
             </div>
             <div class="schedule-wrap online-class-wrap">
                 <div class="main-inner" id="slide01">
-                      <div class="a-nav"><a href="/video/list_video">在线课程</a> &gt 微课程</div>
+                      <div class="a-nav"><a href="/video/list_video">在线课程</a> &gt {{$video.type_name}}</div>
                       <div class="div-bor">
                       <p class="p-tit">突破业绩成长五大瓶颈</p>
                           <div class="video-play">
                               <video width="625" height="380" controls>
-                                  <source src="http://clips.vorwaerts-gmbh.de/big_buck_bunny.mp4" type="video/mp4">
+                                  <source src="{{$video.url}}" type="video/mp4">
                                   Your browser does not support the video tag.
                               </video>
                           </div>
                           <div class="video-info">
-                              <p class="video-tit">突破业绩成长五大瓶颈</p>
-                              <p class="p-opration"><i><em class="collect"></em>收藏课程</i><i><em class="zan"></em>21</i></p>
-                              <p class="information-txt">课程类型:  微课程<br />
-课程介绍:  2016年也可谓为房产中介行业的转型元年、变局之年，房地产市场再度进入调整期，市场整合大势所趋，行业大事件层出不穷，全面搅动业界神经。</p>
+                              <p class="video-tit">{{$video.title}}</p>
+                              <p class="p-opration"><i><em class="collect"></em>收藏课程</i><i><em class="zan"></em>{{$like_count|default:"0"}}</i></p>
+                              <p class="information-txt">课程类型:  {{$video.type_name}}<br />
+                                  {{$video.content}}</p>
                           </div>
                       </div>
                       <p class="relate-tit">相关课程</p>

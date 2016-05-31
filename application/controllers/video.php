@@ -24,12 +24,18 @@ class Video extends MY_Controller
         $top_video_list = $this->video_model->get_top_video_list();
         $this->assign('top_video_list', $top_video_list);
 
-        
+
 
         $this->display('online_class.html');
     }
 
     public function view_video($id) {
+
+        $video = $this->video_model->get_video($id);
+        $this->assign('video', $video);
+
+        $like_count = $this->video_model->get_like_count($id);
+        $this->assign('like_count', $like_count['count']);
 
         $this->display('video_play.html');
     }
