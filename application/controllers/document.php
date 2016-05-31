@@ -3,14 +3,6 @@
  * Created by PhpStorm.
  * User: bin.shen
  * Date: 5/31/16
- * Time: 16:53
- */
-
-<?php
-/**
- * Created by PhpStorm.
- * User: bin.shen
- * Date: 5/31/16
  * Time: 16:23
  */
 
