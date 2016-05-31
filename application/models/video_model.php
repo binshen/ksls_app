@@ -47,7 +47,11 @@ class Video_model extends MY_Model
         return $this->db->select("count(1) AS count")->get_where('video_like', array('video_id' => $id))->result();
     }
 
+    public function get_related_video_list($type_id) {
+        return $this->db->order_by('is_top', 'desc')->order_by('created', 'desc')->limit(5)->get_where('video', array('type_id' => $type_id))->result_array();
+    }
+
     public function get_video_list($type_id) {
-        return $this->db->get_where('video', array('type_id' => $type_id))->order_by('created', 'desc')->result_array();
+        return $this->db->order_by('created', 'desc')->get_where('video', array('type_id' => $type_id))->result_array();
     }
 }

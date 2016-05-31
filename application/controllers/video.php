@@ -37,6 +37,9 @@ class Video extends MY_Controller
         $like_count = $this->video_model->get_like_count($id);
         $this->assign('like_count', $like_count[0]->count);
 
+        $related_video_list = $this->video_model->get_related_video_list($video['type_id']);
+        $this->assign('related_video_list', $related_video_list);
+
         $this->display('video_play.html');
     }
 }
