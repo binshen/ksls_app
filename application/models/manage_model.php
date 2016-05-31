@@ -380,7 +380,8 @@ class Manage_model extends MY_Model
             'subsidiary_id' => $this->input->post('subsidiary_id'),
             'rel_name' => $this->input->post('rel_name'),
             'role_id' => $this->input->post('role_id'),
-            'position_id' => $this->input->post('position_id')
+            'position_id' => $this->input->post('position_id'),
+            'flag'=>$this->input->post('flag')
         );
         if(!empty($pic)) {
             $data['pic'] = $pic;

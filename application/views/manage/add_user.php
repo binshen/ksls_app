@@ -91,6 +91,15 @@
                     </dd>
                 </dl>
                 <dl>
+                    <dt>状态：</dt>
+                    <dd>
+                        <select name="flag" class="combox" id="selectFlag">
+                            <option value="1" <?php if(!empty($flag)){if($flag==1){echo 'selected';}}else{echo 'selected';}?>>在职</option>
+                            <option value="2" <?php if(!empty($flag)){if($flag==2){echo 'selected';}}?>>离职</option>
+                        </select>
+                    </dd>
+                </dl>
+                <dl>
                     <dt>头像：</dt>
                     <dd>
                         <div class="file-box">
