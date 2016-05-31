@@ -32,56 +32,30 @@
             </div>
             <div class="schedule-wrap online-class-wrap">
                  <ul class="control online-class-control" id ="slide01_control">
-                    <li>全部</li>
-                    <li>微课程</li>
-                    <li>公开课</li>
-                    <li>行业视角</li>
-                    <li>新人培训</li>
-                    <li>销售技巧</li>
+                     <li>全部</li>
+                     {{foreach from=$video_type_list item=item}}
+                        <li>{{$item.name}}</li>
+                     {{/foreach}}
                 </ul>
                 <div class="main-inner" id="slide01">
                     <div class="condiv" id="rank_0">
                         <div class="tab-tit">全部课程</div>
                         <ul class="ul-video">
+                            {{foreach from=$top_video_list item=item}}
                             <li>
-                                <a href="/video/view_video">
+                                <a href="/video/view_video/{{$item.id}}">
                                     <video width="315" height="234">
-                                        <source src="http://clips.vorwaerts-gmbh.de/big_buck_bunny.mp4" type="video/mp4">
+                                        <source src="{{$item.url}}" type="video/mp4">
                                         Your browser does not support the video tag.
                                     </video>
                                     <p class="video-txt">
-                                        <i class="fz16">[微课程]突破业绩成长五大瓶颈</i><br />
-                                        <i class="fz12">98.3万次播放</i><br />
-                                        <i href="" class="play-btn">立即播放</i>
+                                        <i class="fz16">[{{$item.type_name}}]{{$item.title}}</i><br />
+                                        <i class="fz12">{{$item.played}}次播放</i><br />
+                                        <i href="javascript:void(0)" class="play-btn">立即播放</i>
                                     </p>
                                 </a>
                             </li>
-                            <li>
-                                <a href="/video/view_video">
-                                    <video width="315" height="234">
-                                        <source src="http://saas.funmall.com.cn/uploadfiles/video/test.mp4" type="video/mp4">
-                                        Your browser does not support the video tag.
-                                    </video>
-                                    <p class="video-txt">
-                                        <i class="fz16">[微课程]突破业绩成长五大瓶颈</i><br />
-                                        <i class="fz12">98.3万次播放</i><br />
-                                        <i href="" class="play-btn">立即播放</i>
-                                    </p>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="/video/view_video">
-                                    <video width="315" height="234">
-                                        <source src="http://saas.funmall.com.cn/uploadfiles/video/small.ogv" type="video/mp4">
-                                        Your browser does not support the video tag.
-                                    </video>
-                                    <p class="video-txt">
-                                        <i class="fz16">[微课程]突破业绩成长五大瓶颈</i><br />
-                                        <i class="fz12">98.3万次播放</i><br />
-                                        <i href="" class="play-btn">立即播放</i>
-                                    </p>
-                                </a>
-                            </li>
+                            {{/foreach}}
                         </ul>
                         <ul class="ul-video ul-video1">
                             <li>
