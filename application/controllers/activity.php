@@ -41,6 +41,10 @@ class Activity extends MY_Controller {
                     redirect(site_url('/activity/list_activity'));
                     exit();
                 }
+                if($method == 'list_noplan'){
+                    redirect(site_url('/activity/list_activity'));
+                    exit();
+                }
             }
             return call_user_func_array(array($this, $method), $params);
         }
@@ -414,5 +418,68 @@ class Activity extends MY_Controller {
         $subsidiary_user_list = $this->activity_model->get_subsidiary_user_list($subsidiary_id);
         echo json_encode($subsidiary_user_list);
         die;
+        die;
+    }
+
+    public function list_noplan($page=1,$flag=null){
+        $role_id = $this->session->userdata('login_role_id');
+        $this->assign('flag', $flag);
+        $this->assign('role_id', $role_id);
+        if($role_id == 1) {
+            $company_list = $this->activity_model->get_company_list();
+            $this->assign('company_list', $company_list);
+        }
+
+        if($this->input->POST('company')) {
+            $this->assign('company', $this->input->POST('company'));
+            $subsidiary_list = $this->activity_model->get_subsidiary_list($this->input->POST('company'), NULL);
+        } else {
+            $company_id = $this->session->userdata('login_company_id');
+            if($role_id < 3) {
+                $subsidiary_list = $this->activity_model->get_subsidiary_list($company_id, NULL);
+            } else if($role_id < 7) {
+                $subsidiary_id = $this->session->userdata('login_subsidiary_id');
+                $subsidiary_list = $this->activity_model->get_subsidiary_list($company_id, $subsidiary_id);
+            }
+        }
+        $this->assign('subsidiary_list', $subsidiary_list);
+
+        if($this->input->POST('subsidiary')) {
+            $this->assign('subsidiary', $this->input->POST('subsidiary'));
+            $user_list = $this->activity_model->get_subsidiary_user_list($this->input->POST('subsidiary'));
+            $this->assign('user_list', $user_list);
+        }elseif(!$this->input->post('subsidiary') && $role_id < 7 && $role_id > 2){
+            $this->assign('subsidiary', $this->session->userdata('login_subsidiary_id'));
+            $user_list = $this->activity_model->get_subsidiary_user_list($this->session->userdata('login_subsidiary_id'));
+            $this->assign('user_list', $user_list);
+        }
+        if($this->input->POST('user')) {
+            $this->assign('user', $this->input->POST('user'));
+        }
+        if($this->input->POST('date')) {
+            $this->assign('date', $this->input->POST('date'));
+        }else{
+            if($flag==1){
+                $this->assign('date', date('Y-m-d', strtotime("-1 day")));
+            }
+        }
+
+        $this->assign('yesterday', date('Y-m-d', strtotime("-1 day")));
+
+        $company_id = NULL;
+        if($role_id > 1) {
+            $company_id = $this->session->userdata('login_company_id');
+        }
+        $subsidiary_id = NULL;
+        if($role_id >= 7) {
+            $subsidiary_id = $this->session->userdata('login_subsidiary_id');
+        }
+        $data = $this->activity_model->list_onplan($page, $subsidiary_id, $company_id,$flag);
+        $this->assign('noplan_list', $data);
+
+        $pager = $this->pagination->getPageLink('/activity/list_noplan', $data['countPage'], $data['numPerPage']);
+        $this->assign('pager', $pager);
+
+        $this->display('list_noplan.html');
     }
 }
