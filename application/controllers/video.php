@@ -20,7 +20,7 @@ class Video extends MY_Controller
         $this->display('online_class.html');
     }
 
-    public function add_video() {
+    public function view_video() {
 
         $this->display('video_play.html');
     }
