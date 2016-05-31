@@ -30,12 +30,12 @@
                         <tr>
                             <th width="12.5%"></th>
                             <th width="12.5%" class="today"><span>{{$date_0}}</span></th>
-                            <th width="12.5%">{{$date_1}}</th>
-                            <th width="12.5%">{{$date_2}}</th>
-                            <th width="12.5%">{{$date_3}}</th>
-                            <th width="12.5%">{{$date_4}}</th>
-                            <th width="12.5%" class="weekend">{{$date_5}}</th>
-                            <th width="12.5%" class="weekend">{{$date_6}}</th>
+                            <th width="12.5%" {{if $week_1}}class="weekend"{{/if}}>{{$date_1}}</th>
+                            <th width="12.5%" {{if $week_2}}class="weekend"{{/if}}>{{$date_2}}</th>
+                            <th width="12.5%" {{if $week_3}}class="weekend"{{/if}}>{{$date_3}}</th>
+                            <th width="12.5%" {{if $week_4}}class="weekend"{{/if}}>{{$date_4}}</th>
+                            <th width="12.5%" {{if $week_5}}class="weekend"{{/if}}>{{$date_5}}</th>
+                            <th width="12.5%" {{if $week_6}}class="weekend"{{/if}}>{{$date_6}}</th>
                         </tr>
                         {{foreach from=$time_frame_list item=item}}
                         <tr>
