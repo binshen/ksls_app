@@ -345,9 +345,29 @@ class Manage_model extends MY_Model
         } else if($this->session->userdata('role_id') > 2) {
             $this->db->where('subsidiary_id', $this->session->userdata('subsidiary_id'));
         }
-
+        if($this->input->post('rel_name'))
+            $this->db->like('rel_name',$this->input->post('rel_name'));
+        if($this->input->post('tel'))
+            $this->db->like('tel',$this->input->post('tel'));
+        if($this->input->post('flag'))
+            $this->db->where('flag',$this->input->post('flag'));
+        if($this->input->post('position_id'))
+            $this->db->where('position_id',$this->input->post('position_id'));
+        if($this->input->post('role_id'))
+            $this->db->where('role_id',$this->input->post('role_id'));
+        if($this->input->post('company_id'))
+            $this->db->where('company_id',$this->input->post('company_id'));
+        if($this->input->post('subsidiary_id'))
+            $this->db->where('subsidiary_id',$this->input->post('subsidiary_id'));
         $rs_total = $this->db->get()->row();
         //总记录数
+        $data['relname'] = $this->input->post('rel_name')?$this->input->post('rel_name'):null;
+        $data['tel'] = $this->input->post('tel')?$this->input->post('tel'):null;
+        $data['flag'] = $this->input->post('flag')?$this->input->post('flag'):null;
+        $data['positionid'] = $this->input->post('position_id')?$this->input->post('position_id'):null;
+        $data['roleid'] = $this->input->post('role_id')?$this->input->post('role_id'):null;
+        $data['companyid'] = $this->input->post('company_id')?$this->input->post('company_id'):null;
+        $data['subsidiaryid'] = $this->input->post('subsidiary_id')?$this->input->post('subsidiary_id'):null;
         $data['countPage'] = $rs_total->num;
 
         $data['rel_name'] = null;
@@ -363,6 +383,20 @@ class Manage_model extends MY_Model
         } else if($this->session->userdata('role_id') > 2) {
             $this->db->where('a.subsidiary_id', $this->session->userdata('subsidiary_id'));
         }
+        if($this->input->post('rel_name'))
+            $this->db->like('a.rel_name',$this->input->post('rel_name'));
+        if($this->input->post('tel'))
+            $this->db->like('a.tel',$this->input->post('tel'));
+        if($this->input->post('flag'))
+            $this->db->where('a.flag',$this->input->post('flag'));
+        if($this->input->post('position_id'))
+            $this->db->where('a.position_id',$this->input->post('position_id'));
+        if($this->input->post('role_id'))
+            $this->db->where('a.role_id',$this->input->post('role_id'));
+        if($this->input->post('company_id'))
+            $this->db->where('a.company_id',$this->input->post('company_id'));
+        if($this->input->post('subsidiary_id'))
+            $this->db->where('a.subsidiary_id',$this->input->post('subsidiary_id'));
         $this->db->limit($numPerPage, ($pageNum - 1) * $numPerPage );
         $this->db->order_by($this->input->post('orderField') ? $this->input->post('orderField') : 'id', $this->input->post('orderDirection') ? $this->input->post('orderDirection') : 'desc');
         $data['res_list'] = $this->db->get()->result();

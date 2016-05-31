@@ -1,10 +1,111 @@
 <form id="pagerForm" method="post" action="<?php echo site_url('manage/list_user')?>">
     <input type="hidden" name="pageNum" value="<?php echo $pageNum;?>" />
     <input type="hidden" name="numPerPage" value="<?php echo $numPerPage;?>" />
+    <input type="hidden" name="tel" value="<?php echo $tel;?>" />
+    <input type="hidden" name="rel_name" value="<?php echo $relname;?>" />
+    <input type="hidden" name="flag" value="<?php echo $flag;?>" />
+    <input type="hidden" name="position_id" value="<?php echo $positionid;?>" />
+    <input type="hidden" name="role_id" value="<?php echo $roleid;?>" />
+    <input type="hidden" name="company_id" value="<?php echo $companyid;?>" />
+    <input type="hidden" name="subsidiary_id" value="<?php echo $subsidiaryid;?>" />
     <input type="hidden" name="orderField" value="<?php echo $this->input->post('orderField');?>" />
     <input type="hidden" name="orderDirection" value="<?php echo $this->input->post('orderDirection');?>" />
 </form>
+<div class="pageHeader">
+    <form onsubmit="return navTabSearch(this);" action="<?php site_url('manage/list_user')?>" method="post">
+        <div class="searchBar">
+            <table class="searchContent" id="search_purchase_order">
+                <tr>
+                    <td><label>员工名称：</label><input type="text" size="16" name="rel_name" value="<?php echo $relname;?>" /></td>
+                    <td><label>员工手机：</label><input type="text" size="16" name="tel" value="<?php echo $tel;?>" /></td>
+                </tr>
+                <tr>
+                    <td><label>所属公司：</label>
+                        <select name="company_id" class="combox"  id="sel_com" ref="sel_sub" refUrl="/manage/get_subsidiary_list_2/{value}" >
+                            <option value="">请选择公司</option>
+                            <?php
+                            if (!empty($company_list)):
+                                foreach ($company_list as $row):
+                                    $selected = !empty($companyid) && $row->id == $companyid ? "selected" : "";
+                                    ?>
+                                    <option value="<?php echo $row->id; ?>" <?php echo $selected; ?>><?php echo $row->name; ?></option>
+                                    <?php
+                                endforeach;
+                            endif;
+                            ?>
+                        </select>
+                    </td>
+                    <td><label>所属分店：</label>
+                        <select name="subsidiary_id" class="combox" id="sel_sub">
+                            <option id="ope1" value="">请选择分店</option>
+                            <?php
+                            if (!empty($subsidiary_list)):
+                                foreach ($subsidiary_list as $row):
+                                    $selected = !empty($subsidiaryid) && $row['id'] == $subsidiaryid ? "selected" : "";
+                                    ?>
+                                    <option value="<?php echo $row['id']; ?>" <?php echo $selected; ?>><?php echo $row['name']; ?></option>
+                                    <?php
+                                endforeach;
+                            endif;
+                            ?>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td><label>职级：</label>
+                        <select name="role_id" class="combox">
+                            <option value="">请选择职级</option>
+                            <?php
+                            if (!empty($role_list)):
+                                foreach ($role_list as $row):
+                                    $selected = !empty($roleid) && $row['id'] == $roleid ? "selected" : "";
+                                    ?>
+                                    <option value="<?php echo $row['id']; ?>" <?php echo $selected; ?>><?php echo $row['name']; ?></option>
+                                    <?php
+                                endforeach;
+                            endif;
+                            ?>
+                        </select>
+                    </td>
+                    <td><label>职务：</label>
+                        <select name="position_id" class="combox">
+                            <option value="">请选择职务</option>
+                            <?php
+                            if (!empty($position_list)):
+                                foreach ($position_list as $row):
+                                    $selected = !empty($positionid) && $row['id'] == $positionid ? "selected" : "";
+                                    ?>
+                                    <option value="<?php echo $row['id']; ?>" <?php echo $selected; ?>><?php echo $row['name']; ?></option>
+                                    <?php
+                                endforeach;
+                            endif;
+                            ?>
+                        </select>
+                    </td>
 
+                </tr>
+                <tr>
+
+                </tr>
+                <tr>
+                    <td><label>状态：</label>
+                        <select class="combox" name="flag">
+                            <option value="">请选择状态</option>
+                            <option value="1" <?php if($flag == 1) echo 'selected="selected"'?>>在职</option>
+                            <option value="2" <?php if($flag == 2) echo 'selected="selected"'?>>离职</option>
+                        </select>
+                    </td>
+                </tr>
+            </table>
+            <div class="subBar">
+                <ul>
+                    <li><div class="button"><div class="buttonContent"><button id="clear_search">清除查询</button></div></div></li>
+                    <li><div class="buttonActive"><div class="buttonContent"><button type="submit">执行查询</button></div></div></li>
+                </ul>
+            </div>
+        </div>
+    </form>
+</div>
 <div class="pageContent">
     <div class="panelBar">
         <ul class="toolBar">
@@ -71,3 +172,36 @@
         <div class="pagination" targetType="navTab" totalCount="<?php echo $countPage;?>" numPerPage="<?php echo $numPerPage;?>" pageNumShown="10" currentPage="<?php echo $pageNum;?>"></div>
     </div>
 </div>
+<script>
+    //清除查询
+    $('#clear_search',navTab.getCurrentPanel()).click(function(){
+        $(".searchBar",navTab.getCurrentPanel()).find("input").each(function(){
+            $(this).val("");
+        });
+        $(".searchBar",navTab.getCurrentPanel()).find("select option").each(function(index){
+            if($(this).val() == "")
+            {
+                $(this).attr("selected","selected");
+            }
+        });
+    });
+
+    $(function(){
+        $('#sel_com').change(function(){
+            var path = "/manage/get_subsidiary_list/"+$("#sel_com").val();
+
+         $.getJSON(path,function(data){
+
+                html = "<option value=''>请选择分店</option>"
+                    data.forEach(function(item){
+
+                        html += "<option value='"+item[0]+"'>"+item[1]+"</option>"
+                    })
+
+                $("#sel_sub").html("");
+
+            })
+        })
+    })
+
+</script>

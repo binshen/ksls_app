@@ -190,6 +190,11 @@ class Manage extends MY_Controller {
 	 */
 	public function list_user() {
 		$data = $this->manage_model->list_user();
+		$data['company_list'] = $this->manage_model->get_company_list();
+		if($this->input->post('company_id'))
+			$data['subsidiary_list'] = $this->manage_model->get_subsidiary_list_by_company($this->input->post('company_id'));
+		$data['position_list'] = $this->manage_model->get_position_list();
+		$data['role_list'] = $this->manage_model->get_role_list();
 		$this->load->view('manage/list_user.php', $data);
 	}
 
@@ -266,6 +271,17 @@ class Manage extends MY_Controller {
 	public function get_subsidiary_list($id) {
 		$data = $this->manage_model->get_subsidiary_list_by_company($id);
 		$subSidiary = array();
+		foreach ($data as $s) {
+			$subSidiary[] = array($s['id'], $s['name']);
+		}
+		echo json_encode($subSidiary);
+		die;
+	}
+
+	public function get_subsidiary_list_2($id) {
+		$data = $this->manage_model->get_subsidiary_list_by_company($id);
+		$subSidiary = array();
+		$subSidiary[] = array('','请选择分店');
 		foreach ($data as $s) {
 			$subSidiary[] = array($s['id'], $s['name']);
 		}
