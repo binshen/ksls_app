@@ -69,8 +69,8 @@
                         <ul class="ul-video ul-video1">
                             {{foreach from=$video_list.res_list item=item}}
                             <li>
-                                <a href="/video/view_video">
-                                    <video width="185" height="110">
+                                <a href="/video/view_video/{{$item.id}}">
+                                    <video width="185" height="110" poster="http://cdn.duitang.com/uploads/item/201112/27/20111227143751_TtLkL.jpg" preload="none" data-setup="{}">
                                         <source src="{{$item.url}}" type="{{$item.type}}">
                                         Your browser does not support thEe video tag.
                                     </video>
@@ -82,10 +82,14 @@
                             </li>
                             {{/foreach}}
                         </ul>
-                          <div class="pages">
-                        <span class="current">1</span><a href="/activity/list_review/2">2</a><a href="/activity/list_review/3">3</a><a href="/activity/list_review/4">4</a><a href="/activity/list_review/5">5</a><a href="/activity/list_review/2" class="prev">下一页</a>
+                        <div class="pages">
+                            <span class="current">1</span>
+                            <a href="/activity/list_review/2">2</a>
+                            <a href="/activity/list_review/3">3</a>
+                            <a href="/activity/list_review/4">4</a>
+                            <a href="/activity/list_review/5">5</a>
+                            <a href="/activity/list_review/2" class="prev">下一页</a>
                         </div>
-
                     </div>
                     <div class="condiv" id="rank_1"> <div class="tab-tit">微课程</div></div>
                     <div class="condiv" id="rank_2"> <div class="tab-tit">公开课</div></div>
