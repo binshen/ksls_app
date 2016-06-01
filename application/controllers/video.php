@@ -23,12 +23,14 @@ class Video extends MY_Controller
 
         $top_video_list = $this->video_model->get_top_video_list();
         $this->assign('top_video_list', $top_video_list);
-        
-        $data = $this->video_model->get_video_list($page);
+
+        $data = $this->video_model->get_video_list($page, $type);
         $pager = $this->pagination->getPageLink('/document/list_doc', $data['countPage'], $data['numPerPage']);
         $this->assign('pager', $pager);
 
         $this->assign('video_list', $data);
+
+        $this->assign('video_type_id', $type);
 
         $this->display('online_class.html');
     }

@@ -41,9 +41,9 @@
             </div>
             <div class="schedule-wrap online-class-wrap">
                  <ul class="control online-class-control" id ="slide01_control">
-                     <li>全部</li>
+                     <li><a href="{{site_url url='video/list_video'}}/1" {{if empty($video_type_id)}}class="current"{{/if}}>全部</a></li>
                      {{foreach from=$video_type_list item=item}}
-                        <li>{{$item.name}}</li>
+                        <li><a href="{{site_url url='video/list_video'}}/1/{{$item.id}}" {{if $video_type_id == $item.id}}class="current"{{/if}}>{{$item.name}}</a></li>
                      {{/foreach}}
                 </ul>
                 <div class="main-inner" id="slide01">
@@ -86,11 +86,13 @@
                             {{$pager}}
                         </div>
                     </div>
+                    <!--
                     <div class="condiv" id="rank_1"> <div class="tab-tit">微课程</div></div>
                     <div class="condiv" id="rank_2"> <div class="tab-tit">公开课</div></div>
                     <div class="condiv" id="rank_3"> <div class="tab-tit">行业视角</div></div>
                     <div class="condiv" id="rank_4"> <div class="tab-tit">新人培训</div></div>
                     <div class="condiv" id="rank_5"> <div class="tab-tit">销售技巧</div></div>
+                    -->
                  </div>
             </div>
         </div>
@@ -108,8 +110,8 @@
         if($(this).children('.video-icon')){
              $(this).children('.video-icon').hide();
         }
-        })
-
+    });
+    /*
     new Slide({
         target: $('#slide01 .condiv' ),
         control: $('#slide01_control li' ),
@@ -117,7 +119,7 @@
         onchange: function() {
         }
     });
-
+    */
 </script>
 </body>
 </html>
