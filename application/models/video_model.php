@@ -58,23 +58,25 @@ class Video_model extends MY_Model
 
         //获得总记录数
         $this->db->select('count(1) as num');
-        $this->db->from('video');
+        $this->db->from('video a');
+        $this->db->join('video_type b', 'a.type_id = b.id', 'inner');
         if(!empty($type_id)) {
-            $this->db->where('type_id', $type_id);
+            $this->db->where('a.type_id', $type_id);
         }
         $rs_total = $this->db->get()->row();
         //总记录数
         $data['countPage'] = $rs_total->num;
 
         //list
-        $this->db->select('*');
-        $this->db->from('video');
+        $this->db->select('a.*, b.name as type_name');
+        $this->db->from('video a');
+        $this->db->join('video_type b', 'a.type_id = b.id', 'inner');
         if(!empty($type_id)) {
-            $this->db->where('type_id', $type_id);
+            $this->db->where('a.type_id', $type_id);
         }
 
         $this->db->limit($numPerPage, ($pageNum - 1) * $numPerPage );
-        $this->db->order_by('created', 'desc');
+        $this->db->order_by('a.created', 'desc');
         $data['res_list'] = $this->db->get()->result_array();
         //die(var_dump($this->db->last_query()));
         $data['pageNum'] = $pageNum;

@@ -67,16 +67,16 @@
                             {{/foreach}}
                         </ul>
                         <ul class="ul-video ul-video1">
-                            {{foreach from=$top_video_list item=item}}
+                            {{foreach from=$video_list.res_list item=item}}
                             <li>
                                 <a href="/video/view_video">
                                     <video width="185" height="110">
-                                        <source src="{{$item.url}}" type="{{item.type}}">
+                                        <source src="{{$item.url}}" type="{{$item.type}}">
                                         Your browser does not support thEe video tag.
                                     </video>
                                     <em class="video-icon"></em>
-                                    <p>[公开课]{{item.title}}<br />
-                                        <i class="playnum">{{item.dep[t}}次播放</i><i class="zannum">5次点赞</i>
+                                    <p>[{{$item.type_name}}]{{$item.title}}<br />
+                                        <i class="playnum">{{$item.played}}次播放</i><i class="zannum">5次点赞</i>
                                     </p>                                
                                 </a>
                             </li>

@@ -25,7 +25,7 @@ class Video extends MY_Controller
         $this->assign('top_video_list', $top_video_list);
 
         $video_list = $this->video_model->get_video_list(1);
-        var_dump($video_list);
+        $this->assign('video_list', $video_list);
 
         $this->display('online_class.html');
     }
