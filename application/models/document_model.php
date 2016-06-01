@@ -31,10 +31,38 @@ class Document_model extends MY_Model
         // 每页显示的记录条数，默认20条
         $numPerPage = $this->input->post('numPerPage') ? $this->input->post('numPerPage') : 10;
         $pageNum = $this->input->post('pageNum') ? $this->input->post('pageNum') : $page;
+
+        if(($typeid && $typeid ==-1) || ($this->input->post('type') && $this->input->post('type') == -1)){
+            $this->db->select('count(1) as num');
+            $this->db->from('ticket_house a');
+            $this->db->join('ticket b','a.doc_id = b.id','inner');
+            $this->db->join('forum_type c','b.type = c.id','inner');
+            if($this->input->post('title'))
+                $this->db->like('b.title',$this->input->post('title'));
+
+                $this->db->where('c.flag',1);
+            $row = $this->db->get()->row_array();
+            //总记录数
+            $data['countPage'] = $row['num'];
+            //list
+            $this->db->select('b.*');
+            $this->db->from('ticket_house a');
+            $this->db->join('ticket b','a.doc_id = b.id','inner');
+            $this->db->join('forum_type c','b.type = c.id','inner');
+            if($this->input->post('title'))
+                $this->db->like('b.title',$this->input->post('title'));
+
+            $this->db->where('c.flag',1);
+            $this->db->limit($numPerPage, ($pageNum - 1) * $numPerPage );
+            $this->db->order_by('a.cdate', 'desc');
+            $data['res_list'] = $this->db->get()->result_array();
+            $data['pageNum'] = $pageNum;
+            $data['numPerPage'] = $numPerPage;
+            return $data;
+        }
         $this->db->select('count(1) as num');
         $this->db->from('ticket a');
         $this->db->join('forum_type b','a.type = b.id','inner');
-
         if($typeid && $typeid > 0)
             $this->db->where('a.type',$typeid);
         if($this->input->post('type') && $this->input->post('type') > 0)
@@ -47,10 +75,8 @@ class Document_model extends MY_Model
             $this->db->where('b.flag',1);
         }
         $row = $this->db->get()->row_array();
-
         //总记录数
         $data['countPage'] = $row['num'];
-
         //list
         $this->db->select('a.*');
         $this->db->from('ticket a');
@@ -68,6 +94,7 @@ class Document_model extends MY_Model
         }
         $this->db->limit($numPerPage, ($pageNum - 1) * $numPerPage );
         $this->db->order_by('a.cdate', 'desc');
+
 
         $data['res_list'] = $this->db->get()->result_array();
         $data['pageNum'] = $pageNum;
@@ -96,6 +123,42 @@ class Document_model extends MY_Model
         return $data;
     }
 
+    public function recomment_doc(){
+        $this->db->select('a.*')->from('ticket a');
+        $this->db->join('forum_type b','a.type = b.id','inner');
+        $this->db->where('b.flag',1);
+        $this->db->limit(0, 6);
+        $data = $this->db->order_by('a.cdate','desc')->get()->result_array();
+        if(!$data){
+            return 1;
+        }
+        return $data;
+    }
+
+    public function house_likes($id){
+        $likes = $this->db->select()->from('ticket_likes')
+            ->where(array(
+                'doc_id'=>$id,
+                'user_id'=>$this->session->userdata('login_user_id')
+            ))->get()->row_array();
+        if($likes){
+            $data['likes']=1;
+        }else{
+            $data['likes']=2;
+        }
+        $house = $this->db->select()->from('ticket_house')
+            ->where(array(
+                'doc_id'=>$id,
+                'user_id'=>$this->session->userdata('login_user_id')
+            ))->get()->row_array();
+        if($house){
+            $data['house']=1;
+        }else{
+            $data['house']=2;
+        }
+        return $data;
+    }
+
     public function look_doc_one_time($id){
         $this->db->set('look','look + 1',false);
         $this->db->where('id',$id);
@@ -103,9 +166,35 @@ class Document_model extends MY_Model
     }
 
     public function likes_doc_one_time($id){
-        $this->db->set('likes','likes + 1',false);
-        $this->db->where('id',$id);
-        $this->db->update('ticket');
+
+        $res = $this->db->select()->from('ticket_likes')
+            ->where(array(
+                'doc_id'=>$id,
+                'user_id'=>$this->session->userdata('login_user_id')
+            ))->get()->row_array();
+        if($res){
+            $this->db->set('likes','likes - 1',false);
+            $this->db->where('id',$id);
+            $this->db->where('likes <',1);
+            $this->db->update('ticket');
+
+            $this->db->delete('ticket_likes',array(
+                'doc_id'=>$id,
+                'user_id'=>$this->session->userdata('login_user_id'),
+            ));
+            return 2;
+        }else{
+            $this->db->set('likes','likes + 1',false);
+            $this->db->where('id',$id);
+            $this->db->update('ticket');
+
+            $this->db->insert('ticket_likes',array(
+                'doc_id'=>$id,
+                'user_id'=>$this->session->userdata('login_user_id'),
+                'cdate' => date('Y-m-d H:i:s')
+            ));
+            return 1;
+        }
     }
 
     public function house_doc_one_time($id){
@@ -115,6 +204,15 @@ class Document_model extends MY_Model
                 'user_id'=>$this->session->userdata('login_user_id')
             ))->get()->row_array();
         if($res){
+            $this->db->set('house','house - 1',false);
+            $this->db->where('id',$id);
+            $this->db->where('house <',1);
+            $this->db->update('ticket');
+
+            $this->db->delete('ticket_house',array(
+                'doc_id'=>$id,
+                'user_id'=>$this->session->userdata('login_user_id'),
+            ));
             return 2;
         }else{
             $this->db->set('house','house + 1',false);

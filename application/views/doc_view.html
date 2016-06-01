@@ -42,8 +42,8 @@
                     <div class="article-content">
                         {{$data['content']}}
                         <div class="p-opration artical-opration">
-                            <a href="javascript:void(0);" id="likes_btn"><em class="num">+<likes>{{$data['likes']}}</likes></em><em class="zan on"></em>点赞</a>
-                            <a href="javascript:void(0);" id="house_btn"><em class="num">{{$data['house']}}</em><em class="collect on"></em>收藏文章</a>
+                            <a href="javascript:void(0);" id="likes_btn"><em class="num">+<likes>{{$data['likes']}}</likes></em><em class="zan"></em>点赞</a>
+                            <a href="javascript:void(0);" id="house_btn"><em class="num">{{$data['house']}}</em><em class="collect"></em>收藏文章</a>
                         </div>
                     </div>
                     <div class="relation-artical">
@@ -76,24 +76,37 @@
     });
 
     $("#likes_btn").click(function(data){
-        var likes = $(this).find('likes').eq(0).html();
-        likes = parseInt(likes) + 1;
-        $(this).find('likes').eq(0).html(likes);
+        var _em =$(this).find('em')
+        var likes = $(this).find('likes').eq(0);
         $.getJSON("{{site_url url='document/likes_one_time'}}/{{$data['id']}}",function(data){
-
+            if(data==1){
+                var _likes = likes.html();
+                _likes = parseInt(_likes) + 1;
+                likes.html(_likes);
+                _em.eq(1).addClass("on");
+            }else{
+                var _likes = likes.html();
+                _likes = parseInt(_likes) - 1;
+                likes.html(_likes);
+                _em.eq(1).removeClass("on");
+            }
         })
 
     })
 
     $("#house_btn").click(function(data){
-        var _em =$(this).find('em').eq(0)
+        var _em =$(this).find('em')
         $.getJSON("{{site_url url='document/house_one_time'}}/{{$data['id']}}",function(data){
             if(data==1){
-                var _house = _em.html();
+                var _house = _em.eq(0).html();
                 _house = parseInt(_house) + 1;
-                _em.html(_house);
+                _em.eq(0).html(_house);
+                _em.eq(1).addClass("on");
             }else{
-                alert('已收藏');
+                var _house = _em.eq(0).html();
+                _house = parseInt(_house) - 1;
+                _em.eq(0).html(_house);
+                _em.eq(1).removeClass("on");
             }
         })
 

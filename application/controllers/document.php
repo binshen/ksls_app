@@ -39,6 +39,10 @@ class Document extends MY_Controller
 
     public function view_doc($id) {
         $data = $this->document_model->view_doc($id);
+        $recommend = $this->document_model->recomment_doc();  //推荐的文档
+        $house_likes = $this->document_model->house_likes($id);
+        $this->assign('recommend', $recommend);
+        $this->assign('house_likes', $house_likes);
         $this->assign('data', $data);
         $this->display('doc_view.html');
     }
@@ -60,7 +64,7 @@ class Document extends MY_Controller
 
     public function likes_one_time($id){
         $res = $this->document_model->likes_doc_one_time($id);
-
+        echo json_encode($res);
     }
 
     public function house_one_time($id){
