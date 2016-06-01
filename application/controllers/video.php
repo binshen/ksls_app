@@ -16,16 +16,19 @@ class Video extends MY_Controller
         $this->load->model('video_model');
     }
 
-    public function list_video($type=NULL) {
+    public function list_video($page=1, $type=NULL) {
 
         $video_type_list = $this->video_model->get_video_type_list();
         $this->assign('video_type_list', $video_type_list);
 
         $top_video_list = $this->video_model->get_top_video_list();
         $this->assign('top_video_list', $top_video_list);
+        
+        $data = $this->video_model->get_video_list($page);
+        $pager = $this->pagination->getPageLink('/document/list_doc', $data['countPage'], $data['numPerPage']);
+        $this->assign('pager', $pager);
 
-        $video_list = $this->video_model->get_video_list(1);
-        $this->assign('video_list', $video_list);
+        $this->assign('video_list', $data);
 
         $this->display('online_class.html');
     }
