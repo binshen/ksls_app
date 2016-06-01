@@ -34,8 +34,9 @@
         </div>
         <div class="wrap-right">
              <div class="search-wrap">
-                <form id="formSearchActivity" method="POST" action="/agenda/list_agenda">
-                    <input type="text" name="search" class="search-input" placeholder="你不懂的搜一搜" >
+                <form id="formSearchVideo" method="POST" action="/video/list_video">
+                    <input type="text" name="title" value="{{$title|default:''}}" class="search-input" placeholder="你不懂的搜一搜" >
+                    <input type="hidden" name="type" value="{{$video_type_id|default:''}}">
                     <a href="javascript:void(0);" class="search-btn" id="btn_search"></a>
                 </form>
             </div>
@@ -53,7 +54,7 @@
                             {{foreach from=$top_video_list item=item}}
                             <li>
                                 <a href="/video/view_video/{{$item.id}}">
-                                    <video width="315" height="234">
+                                    <video width="315" height="234" class="video-js vjs-default-skin" data-setup="{}">
                                         <source src="{{$item.url}}" type="video/mp4">
                                         Your browser does not support the video tag.
                                     </video>
@@ -70,7 +71,7 @@
                             {{foreach from=$video_list.res_list item=item}}
                             <li>
                                 <a href="/video/view_video/{{$item.id}}">
-                                    <video width="185" height="110" poster="http://cdn.duitang.com/uploads/item/201112/27/20111227143751_TtLkL.jpg" preload="none" data-setup="{}">
+                                    <video width="185" height="110" class="video-js vjs-default-skin" poster="http://cdn.duitang.com/uploads/item/201112/27/20111227143751_TtLkL.jpg" data-setup="{}">
                                         <source src="{{$item.url}}" type="{{$item.type}}">
                                         Your browser does not support thEe video tag.
                                     </video>
@@ -82,7 +83,7 @@
                             </li>
                             {{/foreach}}
                         </ul>
-                        <div class="pages">
+                        <div id="video_page" class="pages">
                             {{$pager}}
                         </div>
                     </div>
@@ -120,6 +121,16 @@
         }
     });
     */
+
+    $("#video_page").find('a').click(function(){
+        var path = $(this).attr('href');
+        $("#formSearchVideo").attr("action",path);
+        $("#formSearchVideo").submit();
+        return false;
+    })
+    $("#btn_search").click(function(){
+        $("#formSearchVideo").submit();
+    })
 </script>
 </body>
 </html>

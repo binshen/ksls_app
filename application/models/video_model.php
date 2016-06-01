@@ -53,7 +53,7 @@ class Video_model extends MY_Model
 
     public function get_video_list($page, $type_id=NULL) {
         // 每页显示的记录条数，默认20条
-        $numPerPage = $this->input->post('numPerPage') ? $this->input->post('numPerPage') : 10;
+        $numPerPage = $this->input->post('numPerPage') ? $this->input->post('numPerPage') : 5;
         $pageNum = $this->input->post('pageNum') ? $this->input->post('pageNum') : $page;
 
         //获得总记录数
@@ -62,6 +62,9 @@ class Video_model extends MY_Model
         $this->db->join('video_type b', 'a.type_id = b.id', 'inner');
         if(!empty($type_id)) {
             $this->db->where('a.type_id', $type_id);
+        }
+        if($this->input->post('title')) {
+            $this->db->like('a.title',$this->input->post('title'));
         }
         $rs_total = $this->db->get()->row();
         //总记录数
@@ -74,11 +77,13 @@ class Video_model extends MY_Model
         if(!empty($type_id)) {
             $this->db->where('a.type_id', $type_id);
         }
-
+        if($this->input->post('title')) {
+            $this->db->like('a.title',$this->input->post('title'));
+        }
         $this->db->limit($numPerPage, ($pageNum - 1) * $numPerPage );
         $this->db->order_by('a.created', 'desc');
         $data['res_list'] = $this->db->get()->result_array();
-        //die(var_dump($this->db->last_query()));
+        //var_dump($this->db->last_query());
         $data['pageNum'] = $pageNum;
         $data['numPerPage'] = $numPerPage;
         return $data;
