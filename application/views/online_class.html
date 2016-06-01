@@ -54,7 +54,7 @@
                             {{foreach from=$top_video_list item=item}}
                             <li>
                                 <a href="/video/view_video/{{$item.id}}">
-                                    <video width="315" height="234" class="video-js vjs-default-skin" data-setup="{}">
+                                    <video width="315" height="234" class="video-js vjs-default-skin" preload="auto" data-setup="{}">
                                         <source src="{{$item.url}}" type="video/mp4">
                                         Your browser does not support the video tag.
                                     </video>
@@ -71,7 +71,7 @@
                             {{foreach from=$video_list.res_list item=item}}
                             <li>
                                 <a href="/video/view_video/{{$item.id}}">
-                                    <video width="185" height="110" class="video-js vjs-default-skin" poster="http://cdn.duitang.com/uploads/item/201112/27/20111227143751_TtLkL.jpg" data-setup="{}">
+                                    <video width="185" height="110" class="video-js vjs-default-skin" preload="auto" data-setup="{}">
                                         <source src="{{$item.url}}" type="{{$item.type}}">
                                         Your browser does not support thEe video tag.
                                     </video>
