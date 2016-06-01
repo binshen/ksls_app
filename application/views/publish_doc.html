@@ -35,15 +35,20 @@
             <div class="schedule-wrap upload-document-wrap">
                 <p class="tab-tit">发布文档</p>
                 <div class="publish-document-main">
-                        <form>
-                            <select class="pub-select">
+                        <form id="save_form" method="post" action="{{site_url url='document/save_ticket'}}">
+                            <select name="type" class="pub-select">
                                 <option value="">选择文档</option>
+                                {{if $type_list!=1}}
+                                {{foreach from=$type_list item=item}}
+                                <option value="{{$item.id}}">{{$item.name}}</option>
+                                {{/foreach}}
+                                {{/if}}
                             </select>
-                            <input type="text" name="" class="input-txt" placeholder="标题" />
+                            <input type="text" name="title" class="input-txt" placeholder="标题" />
                             <div class="editor-box">
                                 <textarea id="elm1" name="elm1" class="xheditor" rows="30" cols="80" style="width: 100%"></textarea>
                             </div>
-                            <p class="p-btn"><a href="" class="publish-btn">发布</a></p>
+                            <p class="p-btn"><a href="javascript:void(0);" id="save_btn" class="publish-btn">发布</a></p>
                         </form>
                 </div>
             </div>
@@ -52,5 +57,10 @@
 </div>
 <script type="text/javascript" src="/static/js/xheditor-1.2.2.min.js"></script>
 <script type="text/javascript" src="/static/js/zh-cn.js"></script>
+<script>
+    $("#save_btn").click(function(){
+        $("#save_form").submit();
+    })
+</script>
 </body>
 </html>
