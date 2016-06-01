@@ -24,4 +24,11 @@ class Document extends MY_Controller
 
         $this->display('doc_view.html');
     }
+    public function publish_doc() {
+
+            $this->display('publish_doc.html');
+    }
+    public function upload_data(){
+        $this->display('upload_data.html');
+    }
 }

@@ -1,0 +1,97 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>会议室预约</title>
+    <meta name="keywords" content="会议室预约" />
+    <meta name="description" content="会议室预约" />
+    <link href="/static/css/reset.css" rel="stylesheet" type="text/css">
+    <link href="/static/css/style.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="doc">
+    {{include file='header.html'}}
+    <div class="wraper clearfix">
+        <div class="wrap-left">
+            <span class="logo"><img src="/static/images/logo.jpg" alt="" width="130" height="35"></span>
+            <div class="nav-left">
+                <ul class="nav-left-ul">
+                    <li><a href="/"><em class="home"></em>回到首页</a></li>
+                    <li><a href="/activity/list_activity"><em class="onlineclass"></em>在线课程</a></li>
+                    <li class="on">
+                        <a href="/activity/list_activity"><em class="documentdata"></em>文档资料</a>
+                        <span class="document-nav-list">
+                            <a href="/document/list_doc">文档列表</a><br />
+                            <a href="/document/publish_doc">上传文档</a><br />
+                            <a href="/document/upload_data" class="on">上传资料</a>
+                        </span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="wrap-right">
+             <div class="search-wrap">
+               
+            </div>
+            <div class="schedule-wrap upload-document-wrap">
+                <p class="tab-tit">上传资料</p>
+                <div class="upload-document-main">
+                    <div class="document-main-fl">
+                        <form>
+                            <table cellspadding="0" width="358"> 
+                                <tr>
+                                    <th width="70" class="upload-icon"><em></em></th>
+                                    <td>
+                                        <span class="upload">选择上传文档</span>    
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th><em class="red">*</em> 标题</th>
+                                    <td><input type="text" name="tit" class="input-txt" /></td>
+                                </tr>
+                                <tr>
+                                    <th><em class="red">*</em> 分类</th>
+                                    <td><select class="doc-sel">
+                                        <option value="">选择分类</option>
+                                    </select></td>
+                                </tr>
+                                <tr>
+                                    <th></th>
+                                    <td><input type="button" value="确认上传" class="sub-btn" /></td>
+                                </tr>   
+                            </table>
+                        </form>
+                    </div>
+                    <div class="document-main-fr">
+                    <p class="tab-tit">上传文件时的注意事项： </p>
+                    <em class="orange">上传前须知：</em>
+                    <p class="doc-p">上传文件的大小最好是小于20M，如果超过20M，可将其拆分成两个甚至是多个进行上传，每次最多上传10个文档。</p>
+<em class="orange">上传中：</em>
+<p class="doc-p">文档标题默认为上传的附件的名称，自己可以进行修改，文档标题不能为空，最长可以输入20个汉字。 
+      对文档进行简要的介绍，能够方便其他用户快速了解文档中所包含的主要内容。文档介绍不能为空，最长可以输入100个汉字。 
+       每一份文档都有所属的正确分类，我们应该为自己的文档选择合适的分类，这能够让我们的文档得到更多的浏览和下载。</p>
+                    </div>
+                </div>
+               
+            
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script type="text/javascript" src="js/jquery.poshytip.min.js"></script>
+<script type="text/javascript" src="js/dpl-jquery.slide.js"></script>
+<script type="text/javascript"> 
+    new Slide({
+        target: $('#slide01 .condiv' ),
+        control: $('#slide01_control li' ),
+        type:'click',
+        onchange: function() {
+        }
+    });
+
+</script>
+</body>
+</html>

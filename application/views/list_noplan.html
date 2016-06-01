@@ -24,7 +24,7 @@
                         <li><a href="/activity/list_review/1/1"><em class="verify"></em>我的审核</a></li>
                     {{/if}}
                     {{if $role_id < 7 }}
-                    <li class="on"><a href="/activity/list_noplan/1/1"><em class="verify"></em>未计划</a></li>
+                    <li class="on"><a href="/activity/list_noplan/1/1"><em class="noplan"></em>未计划</a></li>
                     {{/if}}
                 </ul>
             </div>
@@ -72,7 +72,7 @@
             </div>
             <div class="schedule-wrap">
                 <ul class="schedule-ul">
-                    <li class="wid60">姓名</li>
+                    <li class="wid92">姓名</li>
                     <li class="wid92">时间/行程</li>
                     <li class="wid103">9:00-10:30<span class="time-bor"></span>
                         <em class="fz14">事件</em>&nbsp&nbsp<em class="fz14">工作量</em>
@@ -96,8 +96,8 @@
                 </ul>
 
                 {{foreach from=$noplan_list.res_list item=item}}
-                    <ul class="schedule-list" style="margin-right:92px">
-                        <li class="name wid60">{{$item->rel_name}}</li>
+                    <ul class="schedule-list" style="margin-right:60px">
+                        <li class="name wid92">{{$item->rel_name}}</li>
                         <li class="bor-separate"></li>
                         <li class="time wid92">{{$date|default:''}}</li>
                         <li class="bor-separate"></li>
