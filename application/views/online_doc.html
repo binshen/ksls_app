@@ -40,7 +40,7 @@
             </div>
             <div class="schedule-wrap online-class-wrap">
                 <ul class="control online-class-control document-list-control" id ="slide01_control">
-                    <li><a href="{{site_url url='document/list_doc'}}">全部</a> </li>
+                    <li><a href="{{site_url url='document/list_doc'}}" class="current">全部</a> </li>
                     {{if $type_list!=1}}
                     {{foreach from=$type_list item=item}}
                     <li><a href="{{site_url url='document/list_doc'}}/1/{{$item.id}}">{{$item.name}}</a></li>
