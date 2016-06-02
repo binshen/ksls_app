@@ -110,9 +110,14 @@
         $('.book-successful-btn').click(function() {
             var x = $(this).attr('x');
             var y = $(this).attr('y');
-            $("#unbook_tf_id").val(x);
-            $("#unbook_date").val(y);
-            $("#unBookForm").submit();
+            layer.confirm('确定要取消预约吗？', {
+                btn: ['确定','取消'] //按钮
+            }, function(){
+                $("#unbook_tf_id").val(x);
+                $("#unbook_date").val(y);
+                $("#unBookForm").submit();
+            }, function(){
+            });
         });
     })
 </script>

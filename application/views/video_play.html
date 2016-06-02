@@ -19,8 +19,8 @@
             <div class="nav-left">
                 <ul class="nav-left-ul">
                     <li><a href="/"><em class="home"></em>回到首页</a></li>
-                    <li><a href="/document/list_doc"><em class="documentdata"></em>文档资料</a></li>
                     <li class="on"><a href="/video/list_video"><em class="onlineclass"></em>在线课程</a></li>
+                    <li><a href="/document/list_doc"><em class="documentdata"></em>文档资料</a></li>
                 </ul>
             </div>
         </div>
@@ -35,7 +35,7 @@
                 <div class="main-inner" id="slide01">
                       <div class="a-nav"><a href="/video/list_video">在线课程</a> &gt {{$video.type_name}}</div>
                       <div class="div-bor">
-                      <p class="p-tit">突破业绩成长五大瓶颈</p>
+                      <p class="p-tit">{{$video.title}}</p>
                           <div class="video-play">
                               <video width="625" height="380" class="video-js vjs-default-skin" controls preload="auto" data-setup='{}'>
                                   <source src="{{$video.url}}" type='{{$video.type}}'>
@@ -43,7 +43,10 @@
                           </div>
                           <div class="video-info">
                               <p class="video-tit">{{$video.title}}</p>
-                              <p class="p-opration"><i><em class="collect"></em>收藏课程</i><i><em class="zan"></em>{{$like_count|default:"0"}}</i></p>
+                              <p class="p-opration">
+                                  <i id="btnCollect" onclick="clickCollect({{$video.id}}, '{{$video.collectCount}}')"><em id="emCollect" class="collect{{if $video.collectCount}} on{{/if}}"></em>收藏课程</i>
+                                  <i id="btnLike" onclick="clickLike({{$video.id}}, '{{$video.likeCount}}')"><em id="emLike" class="zan{{if $video.likeCount}} on{{/if}}"></em>{{$video.likes|default:"0"}}</i>
+                              </p>
                               <p class="information-txt">课程类型:  {{$video.type_name}}<br />
                                   {{$video.content}}</p>
                           </div>
@@ -54,13 +57,13 @@
                           {{foreach from=$related_video_list item=item}}
                             <li>
                                 <a href="/video/view_video/{{$item.id}}">
-                                    <video width="185" height="110">
+                                    <video width="185" height="110" class="video-js vjs-default-skin" preload="auto" data-setup="{}">
                                         <source src="{{$item.url}}" type="{{$item.type}}">
                                         Your browser does not support the video tag.
                                     </video>
                                     <em class="video-icon"></em>
                                     <p>[{{$video.type_name}}]{{$item.title}}<br />
-                                        <i class="playnum">{{$item.played}}次播放</i><i class="zannum">5次点赞</i>
+                                        <i class="playnum">{{$item.played|default:0}}次播放</i><i class="zannum">{{$item.likes|default:0}}次点赞</i>
                                     </p>                                
                                 </a>
                             </li>
@@ -69,19 +72,43 @@
                       </div>
                  </div>
             </div>
-       
-
     </div>
      </div>
 </div>
-
-
 <script type="text/javascript" src="/static/js/jquery.poshytip.min.js"></script>
 <script type="text/javascript" src="/static/js/dpl-jquery.slide.js"></script>
 <script type="text/javascript"> 
     $('.ul-video li a').mouseover(function(){
          $(this).children('.video-icon').show();
     }).mouseout(function(){  $(this).children('.video-icon').hide(); })
+
+    function clickCollect(id, on) {
+        if($("#emCollect").hasClass('on')) {
+            $.get('/video/uncollect_video/' + id, function(data) {
+                //$("#emCollect").removeClass("on");
+                window.location.reload();
+            });
+        } else {
+            $.get('/video/collect_video/' + id, function(data) {
+                //$("#emCollect").addClass("on");
+                window.location.reload();
+            });
+        }
+    }
+
+    function clickLike(id, on) {
+        if($("#emLike").hasClass('on')) {
+            $.get('/video/unlike_video/' + id, function(data) {
+                //$("#emLike").removeClass("on");
+                window.location.reload();
+            });
+        } else {
+            $.get('/video/like_video/' + id, function(data) {
+                //$("#emLike").addClass("on");
+                window.location.reload();
+            });
+        }
+    }
 </script>
 </body>
 </html>

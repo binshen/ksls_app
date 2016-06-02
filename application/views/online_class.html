@@ -21,77 +21,74 @@
                 <ul class="nav-left-ul">
                     <li><a href="/"><em class="home"></em>回到首页</a></li>
                     <li class="on"><a href="/video/list_video"><em class="onlineclass"></em>在线课程</a></li>
-                    <li>
-                        <a href="/document/list_doc"><em class="documentdata"></em>文档资料</a>
-                        <span class="document-nav-list">
-                            <a href="/" class="on">文档列表</a><br />
-                            <a href="">上传文档</a><br />
-                            <a href="">上传资料</a>
-                        </span>
-                    </li>
+                    <li><a href="/document/list_doc"><em class="documentdata"></em>文档资料</a></li>
                 </ul>
             </div>
         </div>
         <div class="wrap-right">
              <div class="search-wrap">
-                <form id="formSearchActivity" method="POST" action="/agenda/list_agenda">
-                    <input type="text" name="search" class="search-input" placeholder="你不懂的搜一搜" >
+                <form id="formSearchVideo" method="POST" action="/video/list_video">
+                    <input type="text" name="title" value="{{$title|default:''}}" class="search-input" placeholder="你不懂的搜一搜" >
+                    <input type="hidden" name="type" value="{{$video_type_id|default:''}}">
                     <a href="javascript:void(0);" class="search-btn" id="btn_search"></a>
                 </form>
             </div>
             <div class="schedule-wrap online-class-wrap">
                  <ul class="control online-class-control" id ="slide01_control">
-                     <li>全部</li>
+                     <li><a href="{{site_url url='video/list_video'}}/1" {{if empty($video_type_id)}}class="current"{{/if}}>全部</a></li>
                      {{foreach from=$video_type_list item=item}}
-                        <li>{{$item.name}}</li>
+                        <li><a href="{{site_url url='video/list_video'}}/1/{{$item.id}}" {{if $video_type_id == $item.id}}class="current"{{/if}}>{{$item.name}}</a></li>
                      {{/foreach}}
                 </ul>
                 <div class="main-inner" id="slide01">
                     <div class="condiv" id="rank_0">
                         <div class="tab-tit">全部课程</div>
-                        <ul class="ul-video">
-                            {{foreach from=$top_video_list item=item}}
+                        {{if empty($video_type_id)}}
+                            <ul class="ul-video">
+                                {{foreach from=$top_video_list item=item}}
+                                <li>
+                                    <a href="/video/view_video/{{$item.id}}">
+                                        <video width="315" height="234" class="video-js vjs-default-skin" preload="auto" data-setup="{}">
+                                            <source src="{{$item.url}}" type="{{$item.type}}">
+                                            Your browser does not support the video tag.
+                                        </video>
+                                        <p class="video-txt">
+                                            <i class="fz16">[{{$item.type_name}}]{{$item.title}}</i><br />
+                                            <i class="fz12">{{$item.played}}次播放</i><br />
+                                            <i href="javascript:void(0)" class="play-btn">立即播放</i>
+                                        </p>
+                                    </a>
+                                </li>
+                                {{/foreach}}
+                            </ul>
+                        {{/if}}
+                        <ul class="ul-video ul-video1">
+                            {{foreach from=$video_list.res_list item=item}}
                             <li>
                                 <a href="/video/view_video/{{$item.id}}">
-                                    <video width="315" height="234">
-                                        <source src="{{$item.url}}" type="video/mp4">
-                                        Your browser does not support the video tag.
-                                    </video>
-                                    <p class="video-txt">
-                                        <i class="fz16">[{{$item.type_name}}]{{$item.title}}</i><br />
-                                        <i class="fz12">{{$item.played}}次播放</i><br />
-                                        <i href="javascript:void(0)" class="play-btn">立即播放</i>
-                                    </p>
-                                </a>
-                            </li>
-                            {{/foreach}}
-                        </ul>
-                        <ul class="ul-video ul-video1">
-                            {{foreach from=$top_video_list item=item}}
-                            <li>
-                                <a href="/video/view_video">
-                                    <video width="185" height="110">
-                                        <source src="{{$item.url}}" type="{{item.type}}">
+                                    <video width="185" height="110" class="video-js vjs-default-skin" preload="auto" data-setup="{}">
+                                        <source src="{{$item.url}}" type="{{$item.type}}">
                                         Your browser does not support thEe video tag.
                                     </video>
                                     <em class="video-icon"></em>
-                                    <p>[公开课]{{item.title}}<br />
-                                        <i class="playnum">{{item.dep[t}}次播放</i><i class="zannum">5次点赞</i>
+                                    <p>[{{$item.type_name}}]{{$item.title}}<br />
+                                        <i class="playnum">{{$item.played|default:0}}次播放</i><i class="zannum">{{$item.likes|default:0}}次点赞</i>
                                     </p>                                
                                 </a>
                             </li>
                             {{/foreach}}
                         </ul>
-                          <div class="pages">
-                        <span class="current">1</span><a href="/activity/list_review/2">2</a><a href="/activity/list_review/3">3</a><a href="/activity/list_review/4">4</a><a href="/activity/list_review/5">5</a><a href="/activity/list_review/2" class="prev">下一页</a>
+                        <div id="video_page" class="pages">
+                            {{$pager}}
                         </div>
-
                     </div>
+                    <!--
                     <div class="condiv" id="rank_1"> <div class="tab-tit">微课程</div></div>
                     <div class="condiv" id="rank_2"> <div class="tab-tit">公开课</div></div>
                     <div class="condiv" id="rank_3"> <div class="tab-tit">行业视角</div></div>
                     <div class="condiv" id="rank_4"> <div class="tab-tit">新人培训</div></div>
                     <div class="condiv" id="rank_5"> <div class="tab-tit">销售技巧</div></div>
+                    -->
                  </div>
             </div>
         </div>
@@ -109,8 +106,8 @@
         if($(this).children('.video-icon')){
              $(this).children('.video-icon').hide();
         }
-        })
-
+    });
+    /*
     new Slide({
         target: $('#slide01 .condiv' ),
         control: $('#slide01_control li' ),
@@ -118,7 +115,17 @@
         onchange: function() {
         }
     });
+    */
 
+    $("#video_page").find('a').click(function(){
+        var path = $(this).attr('href');
+        $("#formSearchVideo").attr("action",path);
+        $("#formSearchVideo").submit();
+        return false;
+    })
+    $("#btn_search").click(function(){
+        $("#formSearchVideo").submit();
+    })
 </script>
 </body>
 </html>

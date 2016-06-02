@@ -20,11 +20,11 @@
                     <li><a href="/"><em class="home"></em>回到首页</a></li>
                     <li class="on"><a href="/video/list_video"><em class="onlineclass"></em>在线课程</a></li>
                     <li>
-                        <a href="javascript："><em class="documentdata"></em>文档资料</a>
+                        <a href="/document/list_doc"><em class="documentdata"></em>文档资料</a>
                         <span class="document-nav-list">
                             <a href="/document/list_doc" class="on">文档列表</a><br />
-                            <a href="/doc/list_doc">上传文档</a><br />
-                            <a href="">上传资料</a>
+                            <a href="/document/publish_doc">上传文档</a><br />
+                            <a href="/document/upload_data">上传资料</a>
                         </span>
                     </li>
                 </ul>
@@ -34,7 +34,7 @@
             <div class="search-wrap">
             </div>
             <div class="schedule-wrap upload-document-wrap">
-                <div class="a-nav"><a href="">文档资料</a> &gt {{$data['type_name']}}</div>
+                <div class="a-nav"><a href="{{site_url url='document/list_doc'}}">文档资料</a> &gt {{$data['type_name']}}</div>
                 <div class="publish-document-main">
                     <p class="article-tit">{{$data['title']}}</p>
                     <p class="article-author">
@@ -42,18 +42,18 @@
                     <div class="article-content">
                         {{$data['content']}}
                         <div class="p-opration artical-opration">
-                            <a href="javascript:void(0);" id="likes_btn"><em class="num">+<likes>{{$data['likes']}}</likes></em><em class="zan on"></em>点赞</a>
-                            <a href="javascript:void(0);" id="house_btn"><em class="num">{{$data['house']}}</em><em class="collect on"></em>收藏文章</a>
+                            <a href="javascript:void(0);" id="likes_btn"><em class="num">+<likes>{{$data['likes']}}</likes></em><em class="zan {{$house_likes['likes']|default:''}}"></em>点赞</a>
+                            <a href="javascript:void(0);" id="house_btn"><em class="num">{{$data['house']}}</em><em class="collect {{$house_likes['house']|default:''}}"></em>收藏文章</a>
                         </div>
                     </div>
                     <div class="relation-artical">
                         <span class="rel-tit">相关推荐</span>
                         <ul class="relation-list">
-                            <li><a href="">[房产学院] 房产精英授课 针对近万移动互联化</a></li>
-                            <li><a href="">[新人上路] 城市发展路线图 不再建封闭住宅</a></li>
-                            <li><a href="">[房产学院] 税政为楼市去库存注入强心剂 首季将</a></li>
-                            <li><a href="">[精英进阶] 地价涨过房价 价值洼地恕不</a></li>
-                            <li><a href="">[房产学院] 现在起做个有“趣”的房产</a></li>
+                            {{if $recommend!=1}}
+                            {{foreach from=$recommend item=item}}
+                            <li><a href="{{site_url url='document/view_doc'}}/{{$item.id}}">[{{$item['type_name']}}] {{$item['title']}}</a></li>
+                            {{/foreach}}
+                            {{/if}}
                         </ul>
                     </div>
                     <div class="clear"></div>
@@ -76,24 +76,37 @@
     });
 
     $("#likes_btn").click(function(data){
-        var likes = $(this).find('likes').eq(0).html();
-        likes = parseInt(likes) + 1;
-        $(this).find('likes').eq(0).html(likes);
+        var _em =$(this).find('em')
+        var likes = $(this).find('likes').eq(0);
         $.getJSON("{{site_url url='document/likes_one_time'}}/{{$data['id']}}",function(data){
-
+            if(data==1){
+                var _likes = likes.html();
+                _likes = parseInt(_likes) + 1;
+                likes.html(_likes);
+                _em.eq(1).addClass("on");
+            }else{
+                var _likes = likes.html();
+                _likes = parseInt(_likes) - 1;
+                likes.html(_likes);
+                _em.eq(1).removeClass("on");
+            }
         })
 
     })
 
     $("#house_btn").click(function(data){
-        var _em =$(this).find('em').eq(0)
+        var _em =$(this).find('em')
         $.getJSON("{{site_url url='document/house_one_time'}}/{{$data['id']}}",function(data){
             if(data==1){
-                var _house = _em.html();
+                var _house = _em.eq(0).html();
                 _house = parseInt(_house) + 1;
-                _em.html(_house);
+                _em.eq(0).html(_house);
+                _em.eq(1).addClass("on");
             }else{
-                alert('已收藏');
+                var _house = _em.eq(0).html();
+                _house = parseInt(_house) - 1;
+                _em.eq(0).html(_house);
+                _em.eq(1).removeClass("on");
             }
         })
 

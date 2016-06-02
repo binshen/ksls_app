@@ -34,51 +34,105 @@ class Video_model extends MY_Model
     }
 
     public function get_video($id) {
-        $this->db->select('a.*, b.name as type_name');
+        $user_id = $this->session->userdata('login_user_id');
+        $this->db->select('a.*, b.name as type_name, c.id as likeCount, d.id as collectCount');
         $this->db->from('video a');
         $this->db->join('video_type b', 'a.type_id = b.id', 'inner');
+        $this->db->join('video_likes c', "a.id = c.video_id and c.user_id = $user_id", 'left');
+        $this->db->join('video_collect d', "a.id = d.video_id and d.user_id = $user_id", 'left');
         $this->db->where('a.id', $id);
         $this->db->order_by('a.created', 'desc');
         $this->db->distinct();
         return $this->db->get('video')->row_array();
     }
 
-    public function get_like_count($id) {
-        return $this->db->select("count(1) AS count")->get_where('video_like', array('video_id' => $id))->result();
-    }
-
     public function get_related_video_list($type_id) {
         return $this->db->order_by('is_top', 'desc')->order_by('created', 'desc')->limit(5)->get_where('video', array('type_id' => $type_id))->result_array();
     }
 
-    public function get_video_list($page, $type_id=NULL) {
-        // 每页显示的记录条数，默认20条
-        $numPerPage = $this->input->post('numPerPage') ? $this->input->post('numPerPage') : 10;
+    public function get_video_list($page, $perPage, $type_id=NULL) {
+        $numPerPage = $this->input->post('numPerPage') ? $this->input->post('numPerPage') : $perPage;
         $pageNum = $this->input->post('pageNum') ? $this->input->post('pageNum') : $page;
 
         //获得总记录数
         $this->db->select('count(1) as num');
-        $this->db->from('video');
+        $this->db->from('video a');
+        $this->db->join('video_type b', 'a.type_id = b.id', 'inner');
         if(!empty($type_id)) {
-            $this->db->where('type_id', $type_id);
+            $this->db->where('a.type_id', $type_id);
+        }
+        if($this->input->post('title')) {
+            $this->db->like('a.title',$this->input->post('title'));
         }
         $rs_total = $this->db->get()->row();
         //总记录数
         $data['countPage'] = $rs_total->num;
 
         //list
-        $this->db->select('*');
-        $this->db->from('video');
+        $this->db->select('a.*, b.name as type_name');
+        $this->db->from('video a');
+        $this->db->join('video_type b', 'a.type_id = b.id', 'inner');
         if(!empty($type_id)) {
-            $this->db->where('type_id', $type_id);
+            $this->db->where('a.type_id', $type_id);
         }
-
+        if($this->input->post('title')) {
+            $this->db->like('a.title',$this->input->post('title'));
+        }
         $this->db->limit($numPerPage, ($pageNum - 1) * $numPerPage );
-        $this->db->order_by('created', 'desc');
+        $this->db->order_by('a.created', 'desc');
         $data['res_list'] = $this->db->get()->result_array();
-        //die(var_dump($this->db->last_query()));
+        //var_dump($this->db->last_query());
         $data['pageNum'] = $pageNum;
         $data['numPerPage'] = $numPerPage;
         return $data;
+    }
+
+    public function increase_data($id, $field, $table = NULL) {
+
+        $this->db->trans_start();//--------开始事务
+
+        if(!empty($table)) {
+            $user_id = $this->session->userdata('login_user_id');
+            $data = $this->db->get_where($table, array('user_id' => $user_id))->result_array();
+            if(empty($data)) {
+                $data = array(
+                    'video_id' => $id,
+                    'user_id' => $user_id
+                );
+                $this->db->insert($table, $data);
+            }
+        }
+
+        $this->db->set($field, "`$field` + 1", false);
+        $this->db->where('id', $id);
+        $this->db->update('video');
+
+        $this->db->trans_complete();//------结束事务
+        if ($this->db->trans_status() === FALSE) {
+            return -1;
+        } else {
+            return 1;
+        }
+    }
+
+    public function decrease_data($id, $field, $table = NULL) {
+
+        $this->db->trans_start();//--------开始事务
+
+        if(!empty($table)) {
+            $this->db->where('user_id', $this->session->userdata('login_user_id'));
+            $this->db->delete($table);
+        }
+
+        $this->db->set($field, "`$field` - 1", false);
+        $this->db->where('id', $id);
+        $this->db->update('video');
+
+        $this->db->trans_complete();//------结束事务
+        if ($this->db->trans_status() === FALSE) {
+            return -1;
+        } else {
+            return 1;
+        }
     }
 }

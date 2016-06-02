@@ -658,4 +658,74 @@ class Manage_model extends MY_Model
         $data = $this->db->get()->row();
         return $data;
     }
+
+    public function list_ticket(){
+        // 每页显示的记录条数，默认20条
+        $numPerPage = $this->input->post('numPerPage') ? $this->input->post('numPerPage') : 20;
+        $pageNum = $this->input->post('pageNum') ? $this->input->post('pageNum') : 1;
+
+        //获得总记录数
+        $this->db->select('count(1) as num');
+        $this->db->from('ticket');
+
+        if($this->input->post('title'))
+            $this->db->like('title',$this->input->post('title'));
+        if($this->input->post('type'))
+            $this->db->where('type',$this->input->post('type'));
+
+        $rs_total = $this->db->get()->row();
+        //总记录数
+        $data['countPage'] = $rs_total->num;
+
+        $data['title'] = $this->input->post('title')?$this->input->post('title'):null;
+        $data['type'] = $this->input->post('type')?$this->input->post('type'):null;
+        //list
+        $this->db->select("a.*,b.name type_name");
+        $this->db->from('ticket a');
+        $this->db->join('forum_type b','a.type = b.id','inner');
+        if($this->input->post('title'))
+            $this->db->like('a.title',$this->input->post('title'));
+        if($this->input->post('type'))
+            $this->db->where('a.type',$this->input->post('type'));
+
+        $this->db->limit($numPerPage, ($pageNum - 1) * $numPerPage );
+        $this->db->order_by($this->input->post('orderField') ? $this->input->post('orderField') : 'id', $this->input->post('orderDirection') ? $this->input->post('orderDirection') : 'desc');
+        $data['res_list'] = $this->db->get()->result();
+        $data['type_list'] = $this->db->from('forum_type')->get()->result();
+        $data['pageNum'] = $pageNum;
+        $data['numPerPage'] = $numPerPage;
+        return $data;
+    }
+
+    public function delete_ticket($id){
+        $rs = $this->db->delete('ticket', array('id' => $id));
+        if($rs){
+            return 1;
+        }else{
+            return $this->db_error;
+        }
+    }
+
+    public function get_ticket($id){
+        $this->db->select('a.*,b.name type_name,c.rel_name user_name')->from('ticket a');
+        $this->db->join('forum_type b','a.type = b.id','left');
+        $this->db->join('user c','c.id = a.user_id','left');
+        $this->db->where('a.id',$id);
+        $data['head'] = $this->db->get()->row();
+        $data['id'] = $id;
+        //die(var_dump($data));
+        return $data;
+    }
+
+    public function download($id){
+
+        $this->load->helper('download');
+        $this->load->helper('file');
+        $data=$this->db->select()->from('ticket')->where('id',$id)->get()->row_array();
+        if ($data){
+            $string = read_file('./uploadfiles/doc/'.$data['file']);
+            //   $file_name='./uploadfiles/'.$data['url'];//需要下载的文件
+            force_download($data['oldfile'],$string);
+        }
+    }
 }

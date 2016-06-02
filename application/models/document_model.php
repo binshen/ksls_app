@@ -31,10 +31,38 @@ class Document_model extends MY_Model
         // 每页显示的记录条数，默认20条
         $numPerPage = $this->input->post('numPerPage') ? $this->input->post('numPerPage') : 10;
         $pageNum = $this->input->post('pageNum') ? $this->input->post('pageNum') : $page;
+
+        if(($typeid && $typeid ==-1) || ($this->input->post('type') && $this->input->post('type') == -1)){
+            $this->db->select('count(1) as num');
+            $this->db->from('ticket_house a');
+            $this->db->join('ticket b','a.doc_id = b.id','inner');
+            $this->db->join('forum_type c','b.type = c.id','inner');
+            if($this->input->post('title'))
+                $this->db->like('b.title',$this->input->post('title'));
+
+                $this->db->where('c.flag',1);
+            $row = $this->db->get()->row_array();
+            //总记录数
+            $data['countPage'] = $row['num'];
+            //list
+            $this->db->select('b.*');
+            $this->db->from('ticket_house a');
+            $this->db->join('ticket b','a.doc_id = b.id','inner');
+            $this->db->join('forum_type c','b.type = c.id','inner');
+            if($this->input->post('title'))
+                $this->db->like('b.title',$this->input->post('title'));
+
+            $this->db->where('c.flag',1);
+            $this->db->limit($numPerPage, ($pageNum - 1) * $numPerPage );
+            $this->db->order_by('a.cdate', 'desc');
+            $data['res_list'] = $this->db->get()->result_array();
+            $data['pageNum'] = $pageNum;
+            $data['numPerPage'] = $numPerPage;
+            return $data;
+        }
         $this->db->select('count(1) as num');
         $this->db->from('ticket a');
         $this->db->join('forum_type b','a.type = b.id','inner');
-
         if($typeid && $typeid > 0)
             $this->db->where('a.type',$typeid);
         if($this->input->post('type') && $this->input->post('type') > 0)
@@ -47,10 +75,8 @@ class Document_model extends MY_Model
             $this->db->where('b.flag',1);
         }
         $row = $this->db->get()->row_array();
-
         //总记录数
         $data['countPage'] = $row['num'];
-
         //list
         $this->db->select('a.*');
         $this->db->from('ticket a');
@@ -68,6 +94,7 @@ class Document_model extends MY_Model
         }
         $this->db->limit($numPerPage, ($pageNum - 1) * $numPerPage );
         $this->db->order_by('a.cdate', 'desc');
+
 
         $data['res_list'] = $this->db->get()->result_array();
         $data['pageNum'] = $pageNum;
@@ -96,6 +123,42 @@ class Document_model extends MY_Model
         return $data;
     }
 
+    public function recomment_doc(){
+        $this->db->select('a.*,b.name type_name')->from('ticket a');
+        $this->db->join('forum_type b','a.type = b.id','inner');
+        $this->db->where('b.flag',1);
+        $this->db->limit(6, 0);
+        $data = $this->db->order_by('a.cdate','desc')->get()->result_array();
+        if(!$data){
+            return 1;
+        }
+        return $data;
+    }
+
+    public function house_likes($id){
+        $likes = $this->db->select()->from('ticket_likes')
+            ->where(array(
+                'doc_id'=>$id,
+                'user_id'=>$this->session->userdata('login_user_id')
+            ))->get()->row_array();
+        if($likes){
+            $data['likes']='on';
+        }else{
+            $data['likes']='';
+        }
+        $house = $this->db->select()->from('ticket_house')
+            ->where(array(
+                'doc_id'=>$id,
+                'user_id'=>$this->session->userdata('login_user_id')
+            ))->get()->row_array();
+        if($house){
+            $data['house']='on';
+        }else{
+            $data['house']='';
+        }
+        return $data;
+    }
+
     public function look_doc_one_time($id){
         $this->db->set('look','look + 1',false);
         $this->db->where('id',$id);
@@ -103,9 +166,35 @@ class Document_model extends MY_Model
     }
 
     public function likes_doc_one_time($id){
-        $this->db->set('likes','likes + 1',false);
-        $this->db->where('id',$id);
-        $this->db->update('ticket');
+
+        $res = $this->db->select()->from('ticket_likes')
+            ->where(array(
+                'doc_id'=>$id,
+                'user_id'=>$this->session->userdata('login_user_id')
+            ))->get()->row_array();
+        if($res){
+            $this->db->set('likes','likes - 1',false);
+            $this->db->where('id',$id);
+            $this->db->where('likes <',1);
+            $this->db->update('ticket');
+
+            $this->db->delete('ticket_likes',array(
+                'doc_id'=>$id,
+                'user_id'=>$this->session->userdata('login_user_id'),
+            ));
+            return 2;
+        }else{
+            $this->db->set('likes','likes + 1',false);
+            $this->db->where('id',$id);
+            $this->db->update('ticket');
+
+            $this->db->insert('ticket_likes',array(
+                'doc_id'=>$id,
+                'user_id'=>$this->session->userdata('login_user_id'),
+                'cdate' => date('Y-m-d H:i:s')
+            ));
+            return 1;
+        }
     }
 
     public function house_doc_one_time($id){
@@ -115,6 +204,15 @@ class Document_model extends MY_Model
                 'user_id'=>$this->session->userdata('login_user_id')
             ))->get()->row_array();
         if($res){
+            $this->db->set('house','house - 1',false);
+            $this->db->where('id',$id);
+            $this->db->where('house <',1);
+            $this->db->update('ticket');
+
+            $this->db->delete('ticket_house',array(
+                'doc_id'=>$id,
+                'user_id'=>$this->session->userdata('login_user_id'),
+            ));
             return 2;
         }else{
             $this->db->set('house','house + 1',false);
@@ -127,6 +225,72 @@ class Document_model extends MY_Model
                 'cdate' => date('Y-m-d H:i:s')
             ));
             return 1;
+        }
+    }
+
+    public function get_type_name($typeid){
+        if(!$typeid){
+            return '全部文档';
+        }
+        if($typeid == -1){
+            return '我的收藏';
+        }
+        if($typeid == -2){
+            return '我的发布';
+        }
+
+       $row = $this->db->select()->from('forum_type')->where('id',$typeid)->get()->row_array();
+        if($row){
+            return $row['name'];
+        }else{
+            return '未找到类别';
+        }
+    }
+
+    public function save_file(){
+        if (is_readable('./././uploadfiles/doc') == false) {
+            mkdir('./././uploadfiles/doc');
+        }
+
+        $config['upload_path']="./uploadfiles/doc";
+        $config['allowed_types']="jpg|gif|png|jpeg|doc|docx|pdf|xlsx|xls";
+        $config['encrypt_name'] = true;
+        $config['max_size'] = '20000';
+        //$config['encrypt_name']=true;
+        $this->load->library('upload',$config);
+        if( !$this->upload->do_upload('file')){
+           // die(var_dump($this->upload->display_errors()));
+            return 3;  //文件上传失败
+        }
+        $data=$this->upload->data();
+
+        $modeldata=array(
+            'title'=>$this->input->post('title'),
+            'type'=>$this->input->post('type'),
+            'file'=>$data['file_name'],
+            'oldfile'=>$data['client_name'],
+            'user_id'=>$this->session->userdata('login_user_id'),
+            'cdate'=>date("y-m-d H:i:s",time())
+        );
+        $res=$this->db->insert('ticket',$modeldata);
+        if ($res){
+            return 1;
+        }
+        else{
+            return 4;
+        }
+
+    }
+
+    public function download($id){
+
+        $this->load->helper('download');
+        $this->load->helper('file');
+        $data=$this->db->select()->from('ticket')->where('id',$id)->get()->row_array();
+        if ($data){
+            $string = read_file('./uploadfiles/doc/'.$data['file']);
+            //   $file_name='./uploadfiles/'.$data['url'];//需要下载的文件
+            force_download($data['oldfile'],$string);
         }
     }
     ////////////////////////////////////////////////////////////////////////////////
