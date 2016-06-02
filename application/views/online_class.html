@@ -43,23 +43,25 @@
                 <div class="main-inner" id="slide01">
                     <div class="condiv" id="rank_0">
                         <div class="tab-tit">全部课程</div>
-                        <ul class="ul-video">
-                            {{foreach from=$top_video_list item=item}}
-                            <li>
-                                <a href="/video/view_video/{{$item.id}}">
-                                    <video width="315" height="234" class="video-js vjs-default-skin" preload="auto" data-setup="{}">
-                                        <source src="{{$item.url}}" type="{{$item.type}}">
-                                        Your browser does not support the video tag.
-                                    </video>
-                                    <p class="video-txt">
-                                        <i class="fz16">[{{$item.type_name}}]{{$item.title}}</i><br />
-                                        <i class="fz12">{{$item.played}}次播放</i><br />
-                                        <i href="javascript:void(0)" class="play-btn">立即播放</i>
-                                    </p>
-                                </a>
-                            </li>
-                            {{/foreach}}
-                        </ul>
+                        {{if empty($video_type_id)}}
+                            <ul class="ul-video">
+                                {{foreach from=$top_video_list item=item}}
+                                <li>
+                                    <a href="/video/view_video/{{$item.id}}">
+                                        <video width="315" height="234" class="video-js vjs-default-skin" preload="auto" data-setup="{}">
+                                            <source src="{{$item.url}}" type="{{$item.type}}">
+                                            Your browser does not support the video tag.
+                                        </video>
+                                        <p class="video-txt">
+                                            <i class="fz16">[{{$item.type_name}}]{{$item.title}}</i><br />
+                                            <i class="fz12">{{$item.played}}次播放</i><br />
+                                            <i href="javascript:void(0)" class="play-btn">立即播放</i>
+                                        </p>
+                                    </a>
+                                </li>
+                                {{/foreach}}
+                            </ul>
+                        {{/if}}
                         <ul class="ul-video ul-video1">
                             {{foreach from=$video_list.res_list item=item}}
                             <li>
