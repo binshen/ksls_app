@@ -82,4 +82,7 @@ class Index extends MY_Controller {
         echo json_encode($response);
         die;
     }
+    public function publish_news(){
+        $this->display("publish_news.html");
+    }
 }

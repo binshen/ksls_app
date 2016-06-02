@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>上传文档</title>
+    <meta name="keywords" content="上传文档" />
+    <meta name="description" content="上传文档" />
+    <link href="/static/css/reset.css" rel="stylesheet" type="text/css">
+    <link href="/static/css/style.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="doc">
+    {{include file='header.html'}}
+    <div class="wraper clearfix">
+        <div class="wrap-left">
+            <span class="logo"><img src="/static/images/logo.jpg" alt="" width="130" height="35"></span>
+            <div class="nav-left">
+                <ul class="nav-left-ul">
+                    <li><a href="/"><em class="home"></em>回到首页</a></li>
+                    <li class="on"><a href=""><em class="onlineclass"></em>发布新闻</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="wrap-right">
+             <div class="search-wrap">
+            </div>
+            <div class="schedule-wrap upload-document-wrap">
+                <p class="tab-tit">发布新闻</p>
+                <div class="publish-document-main">
+                        <form id="save_form" method="post" action="{{site_url url='document/save_ticket'}}">
+                            <dl><dt>标题</dt><dd><input type="text" name="title" class="input-txt"  /></dd></dl>
+                            <dl><dt>封面</dt><dd>
+                                大图片建议尺寸：620像素 * 440像素
+                                <a href="javascript:" class="publish-news-btn">本地上传</a>
+                                <div class="newscoverpic">
+                                    <a href="javascript:">
+                                        <img src="http://dummyimage.com/155x110/ccc/fff" alt="" width="155" height="110">
+                                        <span class="delete"><em></em></span>
+                                    </a>
+
+                                </div>
+                                </dd></dl>
+                            <div class="editor-box">
+                                <textarea id="elm1" name="elm1" class="xheditor" rows="20" cols="80" style="width: 100%"></textarea>
+                            </div>
+                            <p class="p-btn"><a href="javascript:void(0);" id="save_btn" class="publish-btn">发布</a></p>
+                        </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript" src="/static/js/xheditor-1.2.2.min.js"></script>
+<script type="text/javascript" src="/static/js/zh-cn.js"></script>
+<script>
+    $("#save_btn").click(function(){
+        $("#save_form").submit();
+    })
+</script>
+</body>
+</html>
