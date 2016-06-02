@@ -124,10 +124,10 @@ class Document_model extends MY_Model
     }
 
     public function recomment_doc(){
-        $this->db->select('a.*')->from('ticket a');
+        $this->db->select('a.*,b.name type_name')->from('ticket a');
         $this->db->join('forum_type b','a.type = b.id','inner');
         $this->db->where('b.flag',1);
-        $this->db->limit(0, 6);
+        $this->db->limit(6, 0);
         $data = $this->db->order_by('a.cdate','desc')->get()->result_array();
         if(!$data){
             return 1;
@@ -142,9 +142,9 @@ class Document_model extends MY_Model
                 'user_id'=>$this->session->userdata('login_user_id')
             ))->get()->row_array();
         if($likes){
-            $data['likes']=1;
+            $data['likes']='on';
         }else{
-            $data['likes']=2;
+            $data['likes']='';
         }
         $house = $this->db->select()->from('ticket_house')
             ->where(array(
@@ -152,9 +152,9 @@ class Document_model extends MY_Model
                 'user_id'=>$this->session->userdata('login_user_id')
             ))->get()->row_array();
         if($house){
-            $data['house']=1;
+            $data['house']='on';
         }else{
-            $data['house']=2;
+            $data['house']='';
         }
         return $data;
     }
@@ -225,6 +225,25 @@ class Document_model extends MY_Model
                 'cdate' => date('Y-m-d H:i:s')
             ));
             return 1;
+        }
+    }
+
+    public function get_type_name($typeid){
+        if(!$typeid){
+            return '全部文档';
+        }
+        if($typeid == -1){
+            return '我的收藏';
+        }
+        if($typeid == -2){
+            return '我的发布';
+        }
+
+       $row = $this->db->select()->from('forum_type')->where('id',$typeid)->get()->row_array();
+        if($row){
+            return $row['name'];
+        }else{
+            return '未找到类别';
         }
     }
     ////////////////////////////////////////////////////////////////////////////////

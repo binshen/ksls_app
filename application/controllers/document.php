@@ -29,6 +29,8 @@ class Document extends MY_Controller
         $type = $this->document_model->get_forum_type();
         $data = $this->document_model->list_doc($page,$typeid);
         $this->assign('typeid', $typeid ? $typeid : $this->input->post('type'));
+        $type_name = $this->document_model->get_type_name($typeid ? $typeid : $this->input->post('type'));
+        $this->assign('type_name', $type_name);
         $this->assign('title', $this->input->post('title') ? $this->input->post('title') : null);
         $this->assign('list_doc', $data);
         $pager = $this->pagination->getPageLink('/document/list_doc', $data['countPage'], $data['numPerPage']);
