@@ -48,7 +48,7 @@
                             <li>
                                 <a href="/video/view_video/{{$item.id}}">
                                     <video width="315" height="234" class="video-js vjs-default-skin" preload="auto" data-setup="{}">
-                                        <source src="{{$item.url}}" type="video/mp4">
+                                        <source src="{{$item.url}}" type="{{$item.type}}">
                                         Your browser does not support the video tag.
                                     </video>
                                     <p class="video-txt">

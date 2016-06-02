@@ -43,7 +43,7 @@
                           </div>
                           <div class="video-info">
                               <p class="video-tit">{{$video.title}}</p>
-                              <p class="p-opration"><i><em class="collect"></em>收藏课程</i><i><em class="zan"></em>{{$like_count|default:"0"}}</i></p>
+                              <p class="p-opration"><i><em class="collect{{if $video.collectCount}} on{{/if}}"></em>收藏课程</i><i><em class="zan{{if $video.likeCount}} on{{/if}}"></em>{{$video.likes|default:"0"}}</i></p>
                               <p class="information-txt">课程类型:  {{$video.type_name}}<br />
                                   {{$video.content}}</p>
                           </div>

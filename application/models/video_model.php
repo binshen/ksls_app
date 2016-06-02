@@ -34,17 +34,16 @@ class Video_model extends MY_Model
     }
 
     public function get_video($id) {
-        $this->db->select('a.*, b.name as type_name');
+        $user_id = $this->session->userdata('login_user_id');
+        $this->db->select('a.*, b.name as type_name, c.id as likeCount, d.id as collectCount');
         $this->db->from('video a');
         $this->db->join('video_type b', 'a.type_id = b.id', 'inner');
+        $this->db->join('video_likes c', "a.id = c.video_id and c.user_id = $user_id", 'left');
+        $this->db->join('video_collect d', "a.id = d.video_id and d.user_id = $user_id", 'left');
         $this->db->where('a.id', $id);
         $this->db->order_by('a.created', 'desc');
         $this->db->distinct();
         return $this->db->get('video')->row_array();
-    }
-
-    public function get_like_count($id) {
-        return $this->db->select("count(1) AS count")->get_where('video_like', array('video_id' => $id))->result();
     }
 
     public function get_related_video_list($type_id) {
