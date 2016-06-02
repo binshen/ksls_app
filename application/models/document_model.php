@@ -253,13 +253,13 @@ class Document_model extends MY_Model
         }
 
         $config['upload_path']="./uploadfiles/doc";
-        $config['allowed_types']="jpg|gif|png|jpeg|doc|docx|pdf|xlsx";
+        $config['allowed_types']="jpg|gif|png|jpeg|doc|docx|pdf|xlsx|xls";
         $config['encrypt_name'] = true;
         $config['max_size'] = '10000';
         //$config['encrypt_name']=true;
         $this->load->library('upload',$config);
         if( !$this->upload->do_upload('file')){
-            die(var_dump($this->upload->display_errors()));
+           // die(var_dump($this->upload->display_errors()));
             return 3;  //文件上传失败
         }
         $data=$this->upload->data();

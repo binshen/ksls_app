@@ -101,9 +101,13 @@
     $("#file").change(function(){
         if($.trim($("#title").val())==""){
             var file_name = $("#file").val();
-            var new_f = file_name.replace(/^.+?\\([^\\]+?)(\.[^\.\\]*?)?$/gi,"$1").split(".")[0];
-
-           $("#title").val(new_f);
+           // var new_f = file_name.replace(/^.+?\\([^\\]+?)(\.[^\.\\]*?)?$/gi,"$1");
+          //  var new_f = file_name.replace(/.*\\\\([^\\.]+)\\..*/,"$1");
+            var path_arr = file_name.split("\\");
+            path_arr.forEach(function(e){
+                new_f = e;
+            })
+            $("#title").val(new_f);
         }
     })
 
