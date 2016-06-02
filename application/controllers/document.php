@@ -41,12 +41,17 @@ class Document extends MY_Controller
 
     public function view_doc($id) {
         $data = $this->document_model->view_doc($id);
-        $recommend = $this->document_model->recomment_doc();  //推荐的文档/
-        $house_likes = $this->document_model->house_likes($id);
-        $this->assign('recommend', $recommend);
-        $this->assign('house_likes', $house_likes);
-        $this->assign('data', $data);
-        $this->display('doc_view.html');
+        if($data['type']==6){
+            $this->document_model->download($id);
+        }else{
+            $recommend = $this->document_model->recomment_doc();  //推荐的文档/
+            $house_likes = $this->document_model->house_likes($id);
+            $this->assign('recommend', $recommend);
+            $this->assign('house_likes', $house_likes);
+            $this->assign('data', $data);
+            $this->display('doc_view.html');
+        }
+
     }
 
     public function publish_doc() {
@@ -56,6 +61,7 @@ class Document extends MY_Controller
     }
 
     public function upload_data(){
+
         $this->display('upload_data.html');
     }
 
@@ -72,5 +78,20 @@ class Document extends MY_Controller
     public function house_one_time($id){
         $res = $this->document_model->house_doc_one_time($id);
         echo json_encode($res);
+    }
+
+    public function save_file(){
+        $res = $this->document_model->save_file();
+        if($res == 3){
+            $type = $this->document_model->get_forum_type();
+            $this->assign('type_list', $type);
+            $this->assign('title', $this->input->post('title'));
+            $this->assign('type', $this->input->post('type'));
+            $this->display('upload_data.html');
+        }
+        else{
+            redirect(site_url('document/list_doc/1/-2'));
+        }
+
     }
 }

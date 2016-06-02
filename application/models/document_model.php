@@ -246,6 +246,53 @@ class Document_model extends MY_Model
             return '未找到类别';
         }
     }
+
+    public function save_file(){
+        if (is_readable('./././uploadfiles/doc') == false) {
+            mkdir('./././uploadfiles/doc');
+        }
+
+        $config['upload_path']="./uploadfiles/doc";
+        $config['allowed_types']="jpg|gif|png|jpeg|doc|docx|pdf|xlsx";
+        $config['encrypt_name'] = true;
+        $config['max_size'] = '10000';
+        //$config['encrypt_name']=true;
+        $this->load->library('upload',$config);
+        if( !$this->upload->do_upload('file')){
+            die(var_dump($this->upload->display_errors()));
+            return 3;  //文件上传失败
+        }
+        $data=$this->upload->data();
+
+        $modeldata=array(
+            'title'=>$this->input->post('title'),
+            'type'=>$this->input->post('type'),
+            'file'=>$data['file_name'],
+            'oldfile'=>$data['client_name'],
+            'user_id'=>$this->session->userdata('login_user_id'),
+            'cdate'=>date("y-m-d H:i:s",time())
+        );
+        $res=$this->db->insert('ticket',$modeldata);
+        if ($res){
+            return 1;
+        }
+        else{
+            return 4;
+        }
+
+    }
+
+    public function download($id){
+
+        $this->load->helper('download');
+        $this->load->helper('file');
+        $data=$this->db->select()->from('ticket')->where('id',$id)->get()->row_array();
+        if ($data){
+            $string = read_file('./uploadfiles/doc/'.$data['file']);
+            //   $file_name='./uploadfiles/'.$data['url'];//需要下载的文件
+            force_download($data['oldfile'],$string);
+        }
+    }
     ////////////////////////////////////////////////////////////////////////////////
     //ajax删除图片
     public function del_pic($folder,$style,$pic,$id){

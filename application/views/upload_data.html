@@ -37,27 +37,31 @@
                 <p class="tab-tit">上传资料</p>
                 <div class="upload-document-main">
                     <div class="document-main-fl">
-                        <form>
+                        <form id="save_form" method="post" enctype="multipart/form-data" action="{{site_url url='document/save_file'}}">
                             <table cellspadding="0" width="358"> 
                                 <tr>
                                     <th width="70" class="upload-icon"><em></em></th>
                                     <td>
-                                        <span class="upload">选择上传文档</span>    
+
+                                        <input name="file" class="upload" type="file">
+
                                     </td>
+
                                 </tr>
                                 <tr>
                                     <th><em class="red">*</em> 标题</th>
-                                    <td><input type="text" name="tit" class="input-txt" /></td>
+                                    <td><input id="title" type="text" value="{{$title|default:''}}" name="title" class="input-txt" /></td>
                                 </tr>
                                 <tr>
                                     <th><em class="red">*</em> 分类</th>
-                                    <td><select class="doc-sel">
+                                    <td><select id="type" name="type" class="doc-sel">
                                         <option value="">选择分类</option>
+                                        <option value="6" selected>下载中心</option>
                                     </select></td>
                                 </tr>
                                 <tr>
                                     <th></th>
-                                    <td><input type="button" value="确认上传" class="sub-btn" /></td>
+                                    <td><input id="save_btn" type="button" value="确认上传" class="sub-btn" /></td>
                                 </tr>   
                             </table>
                         </form>
@@ -82,15 +86,36 @@
 
 <script type="text/javascript" src="js/jquery.poshytip.min.js"></script>
 <script type="text/javascript" src="js/dpl-jquery.slide.js"></script>
+<!--plupload start--------------------------------------------------------------------------->
+<!-- Load plupload and all it's runtimes and finally the UI widget -->
+
+<!--plupload end---------------------------------------------------------------------------->
 <script type="text/javascript"> 
-    new Slide({
+  /*  new Slide({
         target: $('#slide01 .condiv' ),
         control: $('#slide01_control li' ),
         type:'click',
         onchange: function() {
         }
-    });
+    });*/
 
+    $("#save_btn").click(function () {
+        var files = $('input[name="file"]').prop('files');
+        if(files.length == 0){
+            alert('请选择文件');
+            return;
+        }
+        if($.trim($("#title").val())==""){
+            alert('标题不能为空')
+            return false;
+        }
+        if($.trim($("#type").val())==""){
+            alert('类别不能为空')
+            return false;
+        }
+        $("#save_form").submit();
+
+    })
 </script>
 </body>
 </html>
