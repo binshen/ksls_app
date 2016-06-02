@@ -100,7 +100,9 @@
     });*/
     $("#file").change(function(){
         if($.trim($("#title").val())==""){
-            $("#title").val($("#file").val());
+            var file_name = $("#file").val();
+            var new_f = "";
+           $("#title").val(file_name.replace(/^.+?\\([^\\]+?)(\.[^\.\\]*?)?$/gi,"$1"));
         }
     })
 
