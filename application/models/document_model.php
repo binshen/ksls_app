@@ -175,7 +175,7 @@ class Document_model extends MY_Model
         if($res){
             $this->db->set('likes','likes - 1',false);
             $this->db->where('id',$id);
-            $this->db->where('likes <',1);
+            $this->db->where('likes >',1);
             $this->db->update('ticket');
 
             $this->db->delete('ticket_likes',array(
@@ -206,7 +206,7 @@ class Document_model extends MY_Model
         if($res){
             $this->db->set('house','house - 1',false);
             $this->db->where('id',$id);
-            $this->db->where('house <',1);
+            $this->db->where('house >',1);
             $this->db->update('ticket');
 
             $this->db->delete('ticket_house',array(
