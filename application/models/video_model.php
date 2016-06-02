@@ -91,9 +91,10 @@ class Video_model extends MY_Model
 
         $this->db->trans_start();//--------开始事务
 
+        $count = 0;
         if(!empty($table)) {
             $user_id = $this->session->userdata('login_user_id');
-            $data = $this->db->get_where($table, array('user_id' => $user_id))->result_array();
+            $data = $this->db->get_where($table, array('user_id' => $user_id, 'video_id' => $id))->result_array();
             if(empty($data)) {
                 $data = array(
                     'video_id' => $id,
@@ -101,9 +102,16 @@ class Video_model extends MY_Model
                 );
                 $this->db->insert($table, $data);
             }
-        }
 
-        $this->db->set($field, "`$field` + 1", false);
+            $this->db->select('count(1) as num');
+            $this->db->from('video');
+            $result = $this->db->get()->row();
+            $count = $result->num;
+
+            $this->db->set($field, $count, false);
+        } else {
+            $this->db->set($field, "`$field` + 1", false);
+        }
         $this->db->where('id', $id);
         $this->db->update('video');
 
@@ -120,11 +128,19 @@ class Video_model extends MY_Model
         $this->db->trans_start();//--------开始事务
 
         if(!empty($table)) {
+            $this->db->where('video_id', $id);
             $this->db->where('user_id', $this->session->userdata('login_user_id'));
             $this->db->delete($table);
-        }
 
-        $this->db->set($field, "`$field` - 1", false);
+            $this->db->select('count(1) as num');
+            $this->db->from('video');
+            $result = $this->db->get()->row();
+            $count = $result->num;
+
+            $this->db->set($field, $count, false);
+        } else {
+            $this->db->set($field, "`$field` - 1", false);
+        }
         $this->db->where('id', $id);
         $this->db->update('video');
 
