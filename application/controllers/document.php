@@ -41,7 +41,7 @@ class Document extends MY_Controller
 
     public function view_doc($id) {
         $data = $this->document_model->view_doc($id);
-        $recommend = $this->document_model->recomment_doc();  //推荐的文档
+        $recommend = $this->document_model->recomment_doc();  //推荐的文档/
         $house_likes = $this->document_model->house_likes($id);
         $this->assign('recommend', $recommend);
         $this->assign('house_likes', $house_likes);
