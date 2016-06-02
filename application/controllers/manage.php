@@ -403,4 +403,38 @@ class Manage extends MY_Controller {
 		$data = $this->manage_model->get_forum_type($id);
 		$this->load->view('manage/add_forum_type.php',$data);
 	}
+
+	public function list_ticket(){
+		$data = $this->manage_model->list_ticket();
+		$this->load->view('manage/list_ticket.php',$data);
+	}
+
+	public function edit_ticket($id){
+
+		$data = $this->manage_model->get_ticket($id);
+		$this->load->view('manage/edit_ticket.php',$data);
+	}
+
+	public function downdoc($id){
+
+		$this->manage_model->download($id);
+	}
+
+	public function delete_ticket($id){
+		$rs = $this->manage_model->delete_ticket($id);
+		if ($rs === 1) {
+			form_submit_json("200", "操作成功", "list_ticket", "", "");
+		} else {
+			form_submit_json("300", $rs);
+		}
+	}
+
+	/*public function save_ticket(){
+		$rs = $this->manage_model->save_ticket();
+		if ($rs === 1) {
+			form_submit_json("200", "操作成功", "list_ticket");
+		} else {
+			form_submit_json("300", $rs);
+		}
+	}*/
 }

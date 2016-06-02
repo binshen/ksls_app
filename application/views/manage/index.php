@@ -97,7 +97,7 @@ $(function(){
 							<li><a href="<?php echo site_url('manage/list_position');?>" target="navTab" rel="list_user">职务信息</a></li>
 							<li><a href="<?php echo site_url('manage/list_activity_type');?>" target="navTab" rel="list_activity_type">行程选项</a></li>
 							<li><a href="<?php echo site_url('manage/list_course');?>" target="navTab" rel="list_course">代办进程</a></li>
-							<li><a href="<?php echo site_url('manage/list_forum_type');?>" target="navTab" rel="list_forum_type">资料类别</a></li>
+
 						</ul>
 					</div>
 					<div class="accordionHeader">
@@ -108,6 +108,15 @@ $(function(){
 							<li><a href="<?php echo site_url('manage/list_company');?>" target="navTab" rel="list_company">公司信息</a></li>
 							<li><a href="<?php echo site_url('manage/list_subsidiary');?>" target="navTab" rel="list_subsidiary">分店信息</a></li>
 							<li><a href="<?php echo site_url('manage/list_user');?>" target="navTab" rel="list_user">用户列表</a></li>
+						</ul>
+					</div>
+					<div class="accordionHeader">
+						<h2><span>Folder</span>论坛资料管理</h2>
+					</div>
+					<div class="accordionContent">
+						<ul class="tree">
+							<li><a href="<?php echo site_url('manage/list_forum_type');?>" target="navTab" rel="list_forum_type">资料类别</a></li>
+							<li><a href="<?php echo site_url('manage/list_ticket');?>" target="navTab" rel="list_ticket">资料列表</a></li>
 						</ul>
 					</div>
 				</div>
