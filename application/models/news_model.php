@@ -40,4 +40,14 @@ class News_model extends MY_Model
         $data['numPerPage'] = $numPerPage;
         return $data;
     }
+
+    public function view_news($id) {
+        return $this->db->get_where('news', array('id' => $id))->row_array();
+    }
+
+    public function increase_views($id) {
+        $this->db->set('viewed', "`viewed` + 1", false);
+        $this->db->where('id', $id);
+        $this->db->update('news');
+    }
 }

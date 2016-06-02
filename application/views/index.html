@@ -72,47 +72,10 @@
                         新闻与活动
                 </div>
                 <div class="new-tb">
-                    <!--
-                    <dl class="new-box fl">
-                        <dt><img src="/static/images/index/img1.jpg" /></dt>
-                        <dd><span class="s-tit">房猫学院为北区房屋成功实施《房企拓客营销》内训。</span>
-                            <p>2016年5月12日，房猫学院受北区房屋公
-                                司的邀请，深入企业，进行了为期一天的
-                                《房地产狼性冠军团队拓客营销及杀客成  </p>
-                        </dd>
-                    </dl>
-                    <dl class="new-box fr">
-                        <dt><img src="/static/images/index/img1.jpg" /></dt>
-                        <dd><span class="s-tit">房猫学院为北区房屋成功实施《房企拓客营销》内训。</span>
-                            <p>2016年5月12日，房猫学院受北区房屋公
-                                司的邀请，深入企业，进行了为期一天的
-                                《房地产狼性冠军团队拓客营销及杀客成  </p>
-                        </dd>
-                    </dl>
-                    <dl class="new-box fl">
-                        <dt><img src="/static/images/index/img1.jpg" /></dt>
-                        <dd><span class="s-tit">房猫学院为北区房屋成功实施《房企拓客营销》内训。</span>
-                            <p>2016年5月12日，房猫学院受北区房屋公
-                                司的邀请，深入企业，进行了为期一天的
-                                《房地产狼性冠军团队拓客营销及杀客成  </p>
-                        </dd>
-                    </dl>
-                    <dl class="new-box fr">
-                        <dt><img src="/static/images/index/img1.jpg" /></dt>
-                        <dd><span class="s-tit">房猫学院为北区房屋成功实施《房企拓客营销》内训。</span>
-                            <p>2016年5月12日，房猫学院受北区房屋公
-                                司的邀请，深入企业，进行了为期一天的
-                                《房地产狼性冠军团队拓客营销及杀客成  </p>
-                        </dd>
-                    </dl>
-                    -->
                     {{foreach from=$news_list.res_list key=key item=item}}
-                        <dl class="new-box {{if $key%2==0}}fl{{else}}fr{{/if}}">
+                        <dl n_id="{{$item.id}}" class="new-box {{if $key%2==0}}fl{{else}}fr{{/if}}">
                             <dt><img src="/static/images/index/img1.jpg" /></dt>
-                            <dd><span class="s-tit">{{$item.title}}</span>
-                                <p>
-                                    {{$item.content}}
-                                </p>
+                            <dd><span class="s-tit">{{$item.title}}</span><p>{{$item.content}}</p>
                             </dd>
                         </dl>
                     {{/foreach}}
@@ -122,7 +85,6 @@
                 </div>
             </div>
             {{include file='footer.html'}}
-
         </div>
     </div>
     <div class="login-div" id="Jloginpop" style="display:none; cursor: default">
@@ -142,38 +104,24 @@
     <!--新闻弹框-->
     <div class="newspop" id="newspop" style="display: none;">
         <a href="javascript:" class="pop-close-btn newspop-btn"></a>
-        <div class="popcontent">
-            <span class="news-tit">房猫学院为北区房屋成功实施《房企拓客营销》内训</span>
-            <span class="news-date"><i class="fl">2016-02-26</i><i class="fr">阅读数：208</i></span>
-            <div class="new-content">
-                <p>地产进入白银时代以来，市场持续低迷，房企库存压力增大，怎样更好的去化是每个房企需要关心的问题，，传统的营销模式已经不适应当今市场。</p>
-                <p>融创2013年逆势突围，销售业绩突破500亿，挤进一线房企阵营。从顺驰的失败到建立融 创重新发展，狂人孙宏斌用十年时间，创造了一个又一个的地产界传奇。融 创十年来是如何取得如此高速发展的，孙宏斌个人过往的经历及他激进冒险的性格又对融 创有着怎样的影响，对其他房企业绩及绩效又有哪些借鉴意义，这些，都值得我们同行业思考的。</p>
-                <p>2016年4月27日，房猫学院受昆山昆山北区房屋的邀请，深入门店，进行《融创拓客营销策略及经典案例解析》的主题交流培训。</p>
-                <p>本次房地产培训特邀高级顾问王老师，王老师曾任上海融创绿城营销总监，苏州融创绿城营销副总经理。资深房地产营销专家，十五年房地产实战操盘经验。中国房地产圈层营销第一人，6步致胜整合营销系统创始人， 4+2线下拓客模式发起</p>
-                <p>地产进入白银时代以来，市场持续低迷，房企库存压力增大，怎样更好的去化是每个房企需要关心的问题，，传统的营销模式已经不适应当今市场。</p>
-                <p>融创2013年逆势突围，销售业绩突破500亿，挤进一线房企阵营。从顺驰的失败到建立融 创重新发展，狂人孙宏斌用十年时间，创造了一个又一个的地产界传奇。融 创十年来是如何取得如此高速发展的，孙宏斌个人过往的经历及他激进冒险的性格又对融 创有着怎样的影响，对其他房企业绩及绩效又有哪些借鉴意义，这些，都值得我们同行业思考的。</p>
-                <p>2016年4月27日，房猫学院受昆山昆山北区房屋的邀请，深入门店，进行《融创拓客营销策略及经典案例解析》的主题交流培训。</p>
-                <p>本次房地产培训特邀高级顾问王老师，王老师曾任上海融创绿城营销总监，苏州融创绿城营销副总经理。资深房地产营销专家，十五年房地产实战操盘经验。中国房地产圈层营销第一人，6步致胜整合营销系统创始人， 4+2线下拓客模式发起</p>
-                <p>2016年4月27日，房猫学院受昆山昆山北区房屋的邀请，深入门店，进行《融创拓客营销策略及经典案例解析》的主题交流培训。</p>
-                <p>本次房地产培训特邀高级顾问王老师，王老师曾任上海融创绿城营销总监，苏州融创绿城营销副总经理。资深房地产营销专家，十五年房地产实战操盘经验。中国房地产圈层营销第一人，6步致胜整合营销系统创始人， 4+2线下拓客模式发起</p>
-                <p>2016年4月27日，房猫学院受昆山昆山北区房屋的邀请，深入门店，进行《融创拓客营销策略及经典案例解析》的主题交流培训。</p>
-                <p>本次房地产培训特邀高级顾问王老师，王老师曾任上海融创绿城营销总监，苏州融创绿城营销副总经理。资深房地产营销专家，十五年房地产实战操盘经验。中国房地产圈层营销第一人，6步致胜整合营销系统创始人， 4+2线下拓客模式发起</p>
-            </div>
-        </div>
+        <div class="popcontent"></div>
     </div>
     <script type="text/javascript" src="/static/js/jquery-ui/jquery-ui.js"></script>
     <script type="text/javascript">
         //新闻弹框
         $('.new-box').click(function(){
-            $.blockUI({ message: $('#newspop'),
-                css:{ background: 'none',
-                    top:'8%',left:'50%',
-                    border: 'none',
-                    marginLeft:'-500px',
-                    width:'1000px',
-                    position:'absolute',cursor:'default'},
-                overlayCSS: {cursor:'default'}});
-            $('.newspop-btn').css('right',parseInt((parseInt($(window).width())-1000)/2-$('.newspop-btn').width()));
+            $.get('/news/view_news/' + $(this).attr('n_id'), function(html) {
+                $('.popcontent').html(html);
+                $.blockUI({ message: $('#newspop'),
+                    css:{ background: 'none',
+                        top:'8%',left:'50%',
+                        border: 'none',
+                        marginLeft:'-500px',
+                        width:'1000px',
+                        position:'absolute',cursor:'default'},
+                    overlayCSS: {cursor:'default'}});
+                $('.newspop-btn').css('right',parseInt((parseInt($(window).width())-1000)/2-$('.newspop-btn').width()));
+            });
         });
 
         var redirect_url = "/";

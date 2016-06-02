@@ -19,4 +19,11 @@ class News extends MY_Controller
     public function publish_news(){
         $this->display("publish_news.html");
     }
+    
+    public function view_news($id) {
+        $this->news_model->increase_views($id);
+        $news = $this->news_model->view_news($id);
+        $this->assign('news', $news);
+        $this->display("popup_news.html");
+    }
 }

@@ -23,7 +23,6 @@ class Index extends MY_Controller {
         $data = $this->news_model->list_news($page);
         $pager = $this->pagination->getPageLink('/index/index', $data['countPage'], $data['numPerPage']);
         $this->assign('pager', $pager);
-
         $this->assign('news_list', $data);
 
         $this->display('index.html');
