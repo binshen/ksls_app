@@ -16,6 +16,14 @@ class Video extends MY_Controller
         $this->load->model('video_model');
     }
 
+    function _remap($method,$params = array()) {
+        if(!$this->session->userdata('login_user_id')) {
+            redirect(site_url('/'));
+        } else {
+            return call_user_func_array(array($this, $method), $params);
+        }
+    }
+
     public function list_video($page=1, $type=NULL) {
 
         $video_type_list = $this->video_model->get_video_type_list();
