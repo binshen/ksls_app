@@ -87,4 +87,53 @@ class Video_model extends MY_Model
         $data['numPerPage'] = $numPerPage;
         return $data;
     }
+
+    public function increase_data($id, $field, $table = NULL) {
+
+        $this->db->trans_start();//--------开始事务
+
+        if(!empty($table)) {
+            $user_id = $this->session->userdata('login_user_id');
+            $data = $this->db->get_where($table, array('user_id' => $user_id))->result_array();
+            if(empty($data)) {
+                $data = array(
+                    'video_id' => $id,
+                    'user_id' => $user_id
+                );
+                $this->db->insert($table, $data);
+            }
+        }
+
+        $this->db->set($field, "`$field` + 1", false);
+        $this->db->where('id', $id);
+        $this->db->update('video');
+
+        $this->db->trans_complete();//------结束事务
+        if ($this->db->trans_status() === FALSE) {
+            return -1;
+        } else {
+            return 1;
+        }
+    }
+
+    public function decrease_data($id, $field, $table = NULL) {
+
+        $this->db->trans_start();//--------开始事务
+
+        if(!empty($table)) {
+            $this->db->where('user_id', $this->session->userdata('login_user_id'));
+            $this->db->delete($table);
+        }
+
+        $this->db->set($field, "`$field` - 1", false);
+        $this->db->where('id', $id);
+        $this->db->update('video');
+
+        $this->db->trans_complete();//------结束事务
+        if ($this->db->trans_status() === FALSE) {
+            return -1;
+        } else {
+            return 1;
+        }
+    }
 }

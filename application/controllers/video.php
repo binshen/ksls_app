@@ -47,6 +47,31 @@ class Video extends MY_Controller
         $related_video_list = $this->video_model->get_related_video_list($video['type_id']);
         $this->assign('related_video_list', $related_video_list);
 
+        if(!empty($video)) {
+            $this->video_model->increase_data($video['id'], 'played');
+        }
+
         $this->display('video_play.html');
+    }
+
+    public function like_video($id) {
+
+        echo $this->video_model->increase_data($id, 'likes', 'video_likes');
+        die;
+    }
+
+    public function unlike_video($id) {
+        echo $this->video_model->decrease_data($id, 'likes', 'video_likes');
+        die;
+    }
+
+    public function collect_video($id) {
+        echo $this->video_model->increase_data($id, 'collects', 'video_collect');
+        die;
+    }
+
+    public function uncollect_video($id) {
+        echo $this->video_model->decrease_data($id, 'collects', 'video_collect');
+        die;
     }
 }
