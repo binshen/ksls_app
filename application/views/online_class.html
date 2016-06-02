@@ -70,7 +70,7 @@
                                     </video>
                                     <em class="video-icon"></em>
                                     <p>[{{$item.type_name}}]{{$item.title}}<br />
-                                        <i class="playnum">{{$item.played}}次播放</i><i class="zannum">5次点赞</i>
+                                        <i class="playnum">{{$item.played|default:0}}次播放</i><i class="zannum">{{$item.likes|default:0}}次点赞</i>
                                     </p>                                
                                 </a>
                             </li>
