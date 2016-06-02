@@ -43,7 +43,7 @@
                                     <th width="70" class="upload-icon"><em></em></th>
                                     <td>
 
-                                        <input name="file" class="upload" type="file">
+                                        <input id="file" name="file" class="upload" type="file">
 
                                     </td>
 
@@ -98,6 +98,11 @@
         onchange: function() {
         }
     });*/
+    $("#file").change(function(){
+        if($.trim($("#title").val())==""){
+            $("#title").val($("#file").val());
+        }
+    })
 
     $("#save_btn").click(function () {
         var files = $('input[name="file"]').prop('files');
