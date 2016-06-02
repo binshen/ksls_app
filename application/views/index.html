@@ -72,6 +72,7 @@
                         新闻与活动
                 </div>
                 <div class="new-tb">
+                    <!--
                     <dl class="new-box fl">
                         <dt><img src="/static/images/index/img1.jpg" /></dt>
                         <dd><span class="s-tit">房猫学院为北区房屋成功实施《房企拓客营销》内训。</span>
@@ -104,10 +105,20 @@
                                 《房地产狼性冠军团队拓客营销及杀客成  </p>
                         </dd>
                     </dl>
+                    -->
+                    {{foreach from=$news_list.res_list key=key item=item}}
+                        <dl class="new-box {{if $key%2==0}}fl{{else}}fr{{/if}}">
+                            <dt><img src="/static/images/index/img1.jpg" /></dt>
+                            <dd><span class="s-tit">{{$item.title}}</span>
+                                <p>
+                                    {{$item.content}}
+                                </p>
+                            </dd>
+                        </dl>
+                    {{/foreach}}
                     <div class="pages" style="float:right">
-                        <span class="current">1</span><a href="/activity/list_review/2">2</a><a href="/activity/list_review/3">3</a><a href="/activity/list_review/2" class="prev">下一页</a>
+                        {{$pager}}
                     </div>
-
                 </div>
             </div>
             {{include file='footer.html'}}
