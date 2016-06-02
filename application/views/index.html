@@ -74,7 +74,7 @@
                 <div class="new-tb">
                     {{foreach from=$news_list.res_list key=key item=item}}
                         <dl n_id="{{$item.id}}" class="new-box {{if $key%2==0}}fl{{else}}fr{{/if}}">
-                            <dt><img src="/static/images/index/img1.jpg" /></dt>
+                            <dt><img src="/uploadfiles/news/{{$item.pic}}" /></dt>
                             <dd><span class="s-tit">{{$item.title|truncate:25:"...":true}}</span><p>{{$item.content|truncate:60:"...":true}}</p>
                             </dd>
                         </dl>

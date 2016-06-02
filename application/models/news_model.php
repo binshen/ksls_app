@@ -50,4 +50,22 @@ class News_model extends MY_Model
         $this->db->where('id', $id);
         $this->db->update('news');
     }
+
+    public function save_user($pic) {
+        $data = array(
+            'title' => $this->input->post('title'),
+            'content' => $this->input->post('content'),
+            'pic' => $pic,
+            'viewed' => 0,
+            'created' => date("Y-m-d H:i:s")
+        );
+        $this->db->trans_start();//--------开始事务
+        $this->db->insert('news', $data);
+        $this->db->trans_complete();//------结束事务
+        if ($this->db->trans_status() === FALSE) {
+            return -1;
+        } else {
+            return 1;
+        }
+    }
 }
