@@ -104,7 +104,7 @@ class Video_model extends MY_Model
             }
 
             $this->db->select('count(1) as num');
-            $this->db->from('video');
+            $this->db->from($table);
             $result = $this->db->get()->row();
             $count = $result->num;
 
@@ -133,7 +133,7 @@ class Video_model extends MY_Model
             $this->db->delete($table);
 
             $this->db->select('count(1) as num');
-            $this->db->from('video');
+            $this->db->from($table);
             $result = $this->db->get()->row();
             $count = $result->num;
 
