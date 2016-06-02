@@ -27,8 +27,13 @@ class Video extends MY_Controller
         if($this->input->post('type')) {
             $type = $this->input->post('type');
         }
-        
-        $data = $this->video_model->get_video_list($page, $type);
+
+        $perPage = 10;
+        if(empty($type)) {
+            $perPage = 5;
+        }
+
+        $data = $this->video_model->get_video_list($page, $perPage, $type);
         $pager = $this->pagination->getPageLink('/video/list_video', $data['countPage'], $data['numPerPage']);
         $this->assign('pager', $pager);
 

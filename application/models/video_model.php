@@ -50,9 +50,8 @@ class Video_model extends MY_Model
         return $this->db->order_by('is_top', 'desc')->order_by('created', 'desc')->limit(5)->get_where('video', array('type_id' => $type_id))->result_array();
     }
 
-    public function get_video_list($page, $type_id=NULL) {
-        // 每页显示的记录条数，默认20条
-        $numPerPage = $this->input->post('numPerPage') ? $this->input->post('numPerPage') : 5;
+    public function get_video_list($page, $perPage, $type_id=NULL) {
+        $numPerPage = $this->input->post('numPerPage') ? $this->input->post('numPerPage') : $perPage;
         $pageNum = $this->input->post('pageNum') ? $this->input->post('pageNum') : $page;
 
         //获得总记录数
