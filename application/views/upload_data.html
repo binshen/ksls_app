@@ -69,7 +69,7 @@
                     <div class="document-main-fr">
                     <p class="tab-tit">上传文件时的注意事项： </p>
                     <em class="orange">上传前须知：</em>
-                    <p class="doc-p">上传文件的大小最好是小于20M，如果超过20M，可将其拆分成两个甚至是多个进行上传，每次最多上传10个文档。</p>
+                    <p class="doc-p">上传文件的大小最好是小于20M。</p>
 <em class="orange">上传中：</em>
 <p class="doc-p">文档标题默认为上传的附件的名称，自己可以进行修改，文档标题不能为空，最长可以输入20个汉字。 
       对文档进行简要的介绍，能够方便其他用户快速了解文档中所包含的主要内容。文档介绍不能为空，最长可以输入100个汉字。 
@@ -101,8 +101,9 @@
     $("#file").change(function(){
         if($.trim($("#title").val())==""){
             var file_name = $("#file").val();
-            var new_f = "";
-           $("#title").val(file_name.replace(/^.+?\\([^\\]+?)(\.[^\.\\]*?)?$/gi,"$1"));
+            var new_f = file_name.replace(/^.+?\\([^\\]+?)(\.[^\.\\]*?)?$/gi,"$1").split(".")[0];
+
+           $("#title").val(new_f);
         }
     })
 
