@@ -15,9 +15,13 @@ class Index extends MY_Controller {
     {
         parent::__construct();
         $this->load->model('user_model');
+        $this->load->model('news_model');
     }
 
     public function index() {
+
+
+
         $this->display('index.html');
     }
 
@@ -81,8 +85,5 @@ class Index extends MY_Controller {
         
         echo json_encode($response);
         die;
-    }
-    public function publish_news(){
-        $this->display("publish_news.html");
     }
 }
