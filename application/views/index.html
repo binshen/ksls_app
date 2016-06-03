@@ -7,6 +7,7 @@
     <meta name="description" content="房猫-前台-首页" />
     <link href="/static/css/reset.css" rel="stylesheet" type="text/css">
     <link href="/static/css/style.css" rel="stylesheet" type="text/css">
+    <link href="/static/js/jquery-ui/jquery-ui.css" rel="stylesheet" type="text/css">
     <!--[if IE 6]><script>document.execCommand("BackgroundImageCache", false, true)</script><![endif]-->
 </head>
 <body>
@@ -25,7 +26,7 @@
             </ul>
             <div class="content">
                 <div class="convenient-btns">
-                    <span class="settingbtn"></span>
+                    <a href="javascript:" class="settingbtn" id="Jsettingbtn"></a>
                     <div class="tableshortcut">
                         <a href="javascript:void(0);" class="a-btns" url="/activity/list_activity"><img src="/static/images/index/s_index_nav1.gif" alt=""></a>
                         <a href="javascript:void(0);" class="a-btns" url="/activity/list_ranking"><img src="/static/images/index/s_index_nav2.gif" alt=""></a>
@@ -34,37 +35,36 @@
                         <a href="javascript:void(0);" class="a-btns" url="/"><img src="/static/images/index/s_index_nav5.gif" alt=""></a>
                         <a href="javascript:void(0);" class="a-btns" url="/video/list_video"><img src="/static/images/index/s_index_nav6.gif" alt=""></a>
                    </div>
-                    <div class="s-cardsetting" style="display: none;">
+                    <div class="s-cardsetting" id="JsCardsetting" style="display: none;">
                         <div class="s-cardsetting-wrap">
-                            <div class="s-cardsetting-left">
+                            <div class="s-cardsetting-left" id="s-cardsetting-left">
                                 <h3>已添加板块</h3>
                                 <div style="float:left;width:78px;text-align:center;margin-top:18px;border:1px solid #cdcdcd;height:24px;line-height:24px;">我的桌面</div>
 
                                     <div class="s-cardsetting-content sui-componentWrap">
-                                        <div class="s-mod-item s-mod-music s-mod-undraggable" id="s_moditem_3" data-id="3" data-imgname="undefined" data-name="行程管理" data-daraggsort="0" style="left: 0px; top: 0px; position: absolute;">
+                                        <div class="s-mod-item ui-icon-trash">
                                             <div class="s-mod-icon"></div>
                                             <div class="s-mod-title">行程管理</div>
                                         </div>
-                                        <div class="s-mod-item " id="s_moditem_2" data-id="2" data-imgname="undefined" data-name="绩效排行" data-daraggsort="1" style="left: 75px; top: 0px; position: absolute;">
+                                        <div class="s-mod-item ui-icon-trash">
                                             <div class="s-mod-icon"></div><div class="s-mod-title">绩效排行</div>
-                                        </div><div class="s-mod-item " id="s_moditem_20" data-id="20" data-imgname="undefined" data-name="代办服务" data-daraggsort="2" style="left: 147px; top: 0px; position: absolute;">
+                                        </div>
+                                        <div class="s-mod-item ui-icon-trash">
                                         <div class="s-mod-icon"></div><div class="s-mod-title">代办服务</div></div>
-                                        <div class="s-mod-item " id="s_moditem_1" data-id="1" data-imgname="undefined" data-name="预约场地" data-daraggsort="3" style="left: 218px; top: 0px; position: absolute;"><div class="s-mod-icon"></div><div class="s-mod-title">预约场地</div>
-                                        </div><div class="noremove-tips">
-                                        <p>亲，就剩我老哥一个了，不能再删了~可以尝试点击右下角“<a class="tips-hide" href="javascript:void(0)">隐藏频道</a>”收起全部内容。</p>
-                                        <b class="close-icon" title="关闭"></b></div><div class="drag-tips" style="display: none;">
-                                        <p>拖动可以排序<a class="i" href="javascript:void(0)">我知道了</a></p><b></b></div>
-                                        <div class="sui-draggsort-collapse" style="height: 46px;"></div><div class="s-mod-tips" style="display: none;">拖动到这里可以取消订阅</div></div>
+                                        <div class="s-mod-item ui-icon-trash">
+                                            <div class="s-mod-icon"></div><div class="s-mod-title">预约场地</div>
+                                        </div>
+                                     </div>
                                 </div>
-                            <div class="s-cardsetting-right"><h3>未订阅频道</h3>
+                            <div class="s-cardsetting-right" id="s-cardsetting-right"><h3>未订阅频道</h3>
                                 <div class="s-cardsetting-content sui-componentWrap">
-                                    <div class="s-mod-item " id="s_moditem_15" data-id="15" data-imgname="undefined" data-name="视频" data-daraggsort="0" style="left: 0px; top: 0px; position: absolute;">
-                                        <div class="s-mod-icon"></div><div class="s-mod-title">经纪人学院</div></div>
-                                    <div class="s-mod-item " id="s_moditem_5" data-id="5" data-imgname="undefined" data-name="购物" data-daraggsort="1" style="left: 78px; top: 0px; position: absolute;">
-                                        <div class="s-mod-icon"></div><div class="s-mod-title">代办服务</div></div>
-                                    <div class="s-mod-item " id="s_moditem_23" data-id="23" data-imgname="undefined" data-name="体育" data-daraggsort="2" style="left: 156px; top: 0px; position: absolute;">
-                                        <div class="s-mod-icon"></div><div class="s-mod-title">房猫服务</div></div><div class="sui-draggsort-collapse" style="height: 46px;"></div>
-                                    <div class="s-mod-tips" style="display: none;"></div></div></div>
+                                    <div class="s-mod-item ui-icon-refresh">
+                                        <div class="s-mod-icon"></div><div class="s-mod-title">经纪学院</div></div>
+                                    <div class="s-mod-item ui-icon-refresh">
+                                        <div class="s-mod-icon"></div>
+                                        <div class="s-mod-title">房猫服务</div></div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -109,6 +109,71 @@
     </div>
     <script type="text/javascript" src="/static/js/jquery-ui/jquery-ui.js"></script>
     <script type="text/javascript">
+        $(function() {
+            //var shortcutItems =["","",""]
+            // there's the gallery and the trash
+            var $sCardsettingLeft = $("#s-cardsetting-left"),
+                    $sCardsettingRight = $("#s-cardsetting-right");
+
+            // let the gallery items be draggable
+            $(".s-mod-item", $sCardsettingLeft).draggable({
+              //  cancel: "a.ui-icon", // clicking an icon won't initiate dragging
+                revert: "invalid", // when not dropped, the item will revert back to its initial position
+                containment: ".s-cardsetting",
+                helper: "clone",
+                cursor: "move"
+            });
+            $sCardsettingRight.droppable({
+                accept: "#s-cardsetting-left .s-mod-item",
+                drop: function( event, ui ) {
+                    deleteItems( ui.draggable );
+                }
+            });
+            $(".s-mod-item", $sCardsettingRight).draggable({
+                //  cancel: "a.ui-icon", // clicking an icon won't initiate dragging
+                revert: "invalid", // when not dropped, the item will revert back to its initial position
+                containment: ".s-cardsetting",
+                helper: "clone",
+                cursor: "move"
+            });
+            $sCardsettingLeft.droppable({
+                accept: "#s-cardsetting-right .s-mod-item",
+               // activeClass: "custom-state-active",
+                drop: function( event, ui ) {
+                    recycleItems( ui.draggable );
+                }
+            });
+            function deleteItems( $item ) {
+                $item.fadeOut(function() {
+                    var $list = $( ".s-cardsetting-content", $sCardsettingRight ).length ?
+                            $( ".s-cardsetting-content", $sCardsettingRight ) :
+                            $( "<div class='s-cardsetting-content ui-helper-reset'/>" ).appendTo( $sCardsettingRight );
+                 $item.removeClass("ui-icon-trash").addClass("ui-icon-refresh");
+                  //  $item.find( "a.ui-icon-trash" ).remove();
+                    $item.appendTo( $list ).fadeIn();
+                });
+            }
+            function recycleItems( $item ) {
+                $item.fadeOut(function() {
+                    var $list = $( ".s-cardsetting-content", $sCardsettingLeft ).length ?
+                            $( ".s-cardsetting-content", $sCardsettingLeft ) :
+                            $( "<div class='s-cardsetting-content ui-helper-reset'/>" ).appendTo( $sCardsettingLeft );
+                    $item.removeClass("ui-icon-refresh").addClass("ui-icon-trash");
+                    $item.appendTo( $list ).fadeIn();
+                });
+            }
+            $( ".s-cardsetting-content > .s-mod-item" ).click(function( event ) {
+                var $item = $( this ), $target = $( event.target );
+                if ($item .is( ".ui-icon-trash" ) ) {
+                    deleteItems( $item );
+                } else if ( $item.is( ".ui-icon-refresh" ) ) {
+                    recycleItems( $item );
+                }
+                return false;
+            });
+            $("#Jsettingbtn").click(function(){$("#JsCardsetting").toggle();});
+
+        })
         //新闻弹框
         $('.new-box').click(function(){
             $.get('/news/view_news/' + $(this).attr('n_id'), function(html) {
