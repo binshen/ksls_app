@@ -53,6 +53,7 @@ class Document_model extends MY_Model
                 $this->db->like('b.title',$this->input->post('title'));
 
             $this->db->where('c.flag',1);
+            $this->db->where('b.pass',2);
             $this->db->limit($numPerPage, ($pageNum - 1) * $numPerPage );
             $this->db->order_by('a.cdate', 'desc');
             $data['res_list'] = $this->db->get()->result_array();
@@ -73,6 +74,7 @@ class Document_model extends MY_Model
             $this->db->where('user_id',$this->session->userdata('login_user_id'));
         }else{
             $this->db->where('b.flag',1);
+            $this->db->where('a.pass',2);
         }
         $row = $this->db->get()->row_array();
         //总记录数
@@ -91,6 +93,7 @@ class Document_model extends MY_Model
             $this->db->where('a.user_id',$this->session->userdata('login_user_id'));
         }else{
             $this->db->where('b.flag',1);
+            $this->db->where('a.pass',2);
         }
         $this->db->limit($numPerPage, ($pageNum - 1) * $numPerPage );
         $this->db->order_by('a.cdate', 'desc');
