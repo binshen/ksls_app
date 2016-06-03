@@ -97,6 +97,9 @@
             <div class="input-div">
                 <span><em class="input-icon input-pwd"></em>| </span><input type="password" name="password" id="password" placeholder="密码"  />
             </div>
+
+            <input type="checkbox" name="password" id="cb_pass">是否记住密码
+
             <a href="javascript:void(0);" class="sub-btn" id="btn_login">登 录</a>
             <p class="tips" id="login_error" style="display:none"><em></em>手机或密码不对，请重新输入！</p>
             <p class="tips" id="login_error2" style="display:none"><em></em>人员离职,账户停用</p>
@@ -189,13 +192,37 @@
                 $('.newspop-btn').css('right',parseInt((parseInt($(window).width())-1000)/2-$('.newspop-btn').width()));
             });
         });
-
+        var storeuser = {
+            set: function(key,user,val) {
+                store.set(key, { usern:user, passw:val, time:new Date().getTime() })
+            },
+            get: function(key) {
+                var info = store.get(key)
+                if (!info) { return null }
+                if (new Date().getTime() - info.time > 86400000) { return null }
+                return info
+            }
+        }
+        if(storeuser.get('user')){
+            var info = storeuser.get('user')
+            $("#username").val(info.usern);
+            $("#password").val(info.passw);
+        }else{
+            $("#username").val('');
+            $("#password").val('');
+            store.remove('user');
+        }
         var redirect_url = "/";
         $("#btn_login").click(function() {
             var username = $("#username").val();
             var password = $("#password").val();
             $.post('/index/login', {username: username, password: password}, function(data) {
                 if(data == 1) {
+                    if($("#cb_pass").is(':checked')){
+                        storeuser.set('user',username,password)
+                    }else{
+                        store.remove('user');
+                    }
                     window.location = redirect_url;
                 } else if(data == 2) {
                     $("#login_error").hide();
