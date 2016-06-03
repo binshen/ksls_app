@@ -27,42 +27,27 @@
             <div class="content">
                 <div class="convenient-btns">
                     <a href="javascript:" class="settingbtn" id="Jsettingbtn"></a>
-                    <div class="tableshortcut">
-                        <a href="javascript:void(0);" class="a-btns" url="/activity/list_activity"><img src="/static/images/index/s_index_nav1.gif" alt=""></a>
-                        <a href="javascript:void(0);" class="a-btns" url="/activity/list_ranking"><img src="/static/images/index/s_index_nav2.gif" alt=""></a>
-                        <a href="javascript:void(0);" class="a-btns" url="/agenda/list_agenda"><img src="/static/images/index/s_index_nav3.gif" alt=""></a>
-                        <a href="javascript:void(0);" class="a-btns" url="/appointment/book_room"><img src="/static/images/index/s_index_nav4.gif" alt=""></a>
-                        <a href="javascript:void(0);" class="a-btns" url="/"><img src="/static/images/index/s_index_nav5.gif" alt=""></a>
-                        <a href="javascript:void(0);" class="a-btns" url="/video/list_video"><img src="/static/images/index/s_index_nav6.gif" alt=""></a>
+                    <div class="tableshortcut" id="Jtableshortcut">
+                        <!--<a href="javascript:void(0);" data-rel="行程管理"  class="a-btns" url="/activity/list_activity"><img src="/static/images/index/s_index_nav1.gif" alt=""></a>-->
+                        <!--<a href="javascript:void(0);" data-rel="绩效排行" class="a-btns" url="/activity/list_ranking"><img src="/static/images/index/s_index_nav2.gif" alt=""></a>-->
+                        <!--<a href="javascript:void(0);" data-rel="代办服务" class="a-btns" url="/agenda/list_agenda"><img src="/static/images/index/s_index_nav3.gif" alt=""></a>-->
+                        <!--<a href="javascript:void(0);" data-rel="预约场地" class="a-btns" url="/appointment/book_room"><img src="/static/images/index/s_index_nav4.gif" alt=""></a>-->
+                        <!--<a href="javascript:void(0);" data-rel="房猫微店" class="a-btns" url="/"><img src="/static/images/index/s_index_nav5.gif" alt=""></a>-->
+                        <!--<a href="javascript:void(0);" data-rel="经纪学院" class="a-btns" url="/video/list_video"><img src="/static/images/index/s_index_nav6.gif" alt=""></a>-->
                    </div>
                     <div class="s-cardsetting" id="JsCardsetting" style="display: none;">
                         <div class="s-cardsetting-wrap">
-                            <div class="s-cardsetting-left" id="s-cardsetting-left">
+                            <div class="s-cardsetting-left" id="JsCardsettingLeft">
                                 <h3>已添加板块</h3>
                                 <div style="float:left;width:78px;text-align:center;margin-top:18px;border:1px solid #cdcdcd;height:24px;line-height:24px;">我的桌面</div>
 
                                     <div class="s-cardsetting-content sui-componentWrap">
-                                        <div class="s-mod-item ui-icon-trash">
-                                            <div class="s-mod-icon"></div>
-                                            <div class="s-mod-title">行程管理</div>
-                                        </div>
-                                        <div class="s-mod-item ui-icon-trash">
-                                            <div class="s-mod-icon"></div><div class="s-mod-title">绩效排行</div>
-                                        </div>
-                                        <div class="s-mod-item ui-icon-trash">
-                                        <div class="s-mod-icon"></div><div class="s-mod-title">代办服务</div></div>
-                                        <div class="s-mod-item ui-icon-trash">
-                                            <div class="s-mod-icon"></div><div class="s-mod-title">预约场地</div>
-                                        </div>
+
                                      </div>
                                 </div>
-                            <div class="s-cardsetting-right" id="s-cardsetting-right"><h3>未订阅频道</h3>
+                            <div class="s-cardsetting-right" id="JsCardsettingRight"><h3>未订阅频道</h3>
                                 <div class="s-cardsetting-content sui-componentWrap">
-                                    <div class="s-mod-item ui-icon-refresh">
-                                        <div class="s-mod-icon"></div><div class="s-mod-title">经纪学院</div></div>
-                                    <div class="s-mod-item ui-icon-refresh">
-                                        <div class="s-mod-icon"></div>
-                                        <div class="s-mod-title">房猫服务</div></div>
+
                                 </div>
                             </div>
                         </div>
@@ -113,46 +98,107 @@
     <script type="text/javascript" src="/static/js/jquery-ui/jquery-ui.js"></script>
     <script type="text/javascript">
         $(function() {
-            //var shortcutItems =["","",""]
-            // there's the gallery and the trash
-            var $sCardsettingLeft = $("#s-cardsetting-left"),
-                    $sCardsettingRight = $("#s-cardsetting-right");
+            //桌面快捷按钮初始化
+            var tableBtnsnum = 6;
+            var hasChooseBtns =[], leftHtmls = rightHtmls ="",
+                    prepareShortCutBtns= [{"name":"行程管理","img":"s_index_nav1.gif","url":"/activity/list_activity"}
+                        ,{"name":"绩效排行","img":"s_index_nav2.gif","url":"/activity/list_ranking"}
+                        ,{"name":"代办服务","img":"s_index_nav3.gif","url":"/agenda/list_agenda"}
+                    ,{"name":"预约场地","img":"s_index_nav4.gif","url":"/appointment/book_room"}
+                    ,{"name":"经纪学院","img":"s_index_nav5.gif","url":"/video/list_video"}
+                        ,{"name":"房猫微店","img":"s_index_nav6.gif","url":"/"}
+                        ,{"name":"考勤","img":"s_index_nav7.gif","url":"/"}
+                        ,{"name":"我的佣金","img":"s_index_nav8.gif","url":"/"}
+                    ];
+             //       ,prepareShortCutBtns = ["行程管理","绩效排行","代办服务","预约场地","经纪学院","房猫微店","考勤"];
+            var tableshortcut="";
+            for(var i=0;prepareShortCutBtns.length>tableBtnsnum?i<tableBtnsnum:i<prepareShortCutBtns.length;i++){
+                tableshortcut+='<a href="javascript:void(0);" data-rel="'+prepareShortCutBtns[i].name+'"  class="a-btns" url="'+prepareShortCutBtns[i].url+'"><img src="/static/images/index/'+prepareShortCutBtns[i].img+'" alt=""></a>';
+                leftHtmls+= '<div class="s-mod-item ui-icon-trash" data-id="'+i+'"> <div class="s-mod-icon"></div><div class="s-mod-title">'+prepareShortCutBtns[i].name+'</div></div>';
+            }
+            if(prepareShortCutBtns.length>tableBtnsnum){
+                for(var j=tableBtnsnum;j<prepareShortCutBtns.length;j++)
+                rightHtmls+= '<div class="s-mod-item ui-icon-refresh" data-id="'+j+'"> <div class="s-mod-icon"></div><div class="s-mod-title">'+prepareShortCutBtns[j].name+'</div></div>';
+            }
+            $("#Jtableshortcut").append(tableshortcut);
+            $("#JsCardsettingLeft .s-cardsetting-content").append(leftHtmls);
+            $("#JsCardsettingRight .s-cardsetting-content").append(rightHtmls);
+            actionDrag();
+            $("#Jsettingbtn").toggle(function(){
+                $("#JsCardsetting").show();
 
-            // let the gallery items be draggable
+            },function () {
+                $("#JsCardsetting").hide();
+                resetBtns();
+
+            });
+            //快捷方式设置完成，关闭弹框时
+            function resetBtns(){
+                var dataidId ="",
+                tableshortcut="";
+                for(var i=0; i<$("#JsCardsettingLeft .s-mod-item").length;i++)
+                {
+
+
+                 dataidId = $("#JsCardsettingLeft .s-mod-item").eq(i).attr("data-id");
+                    tableshortcut+='<a href="javascript:void(0);" data-rel="'+prepareShortCutBtns[dataidId].name+'"  class="a-btns" url="'+prepareShortCutBtns[dataidId].url+'"><img src="/static/images/index/'+prepareShortCutBtns[dataidId].img+'" alt=""></a>';
+
+                }
+
+                $("#Jtableshortcut").html(tableshortcut);
+            }
+        })
+
+//            for(var i=0;i<$(".tableshortcut a").length;i++){
+//
+//                leftHtmls+= '<div class="s-mod-item ui-icon-trash"> <div class="s-mod-icon"></div><div class="s-mod-title">'+$(".tableshortcut a").eq(i).attr("data-rel")+'</div></div>';
+//                prepareShortCutBtns.splice($.inArray($(".tableshortcut a").eq(i).attr("data-rel"),prepareShortCutBtns),1);
+//            }
+//
+//            if(prepareShortCutBtns.length >0){
+//                for(var j=0; j<prepareShortCutBtns.length;j++){
+//                    rightHtmls+= '<div class="s-mod-item ui-icon-refresh"> <div class="s-mod-icon"></div><div class="s-mod-title">'+prepareShortCutBtns[j]+'</div></div>';
+//                }
+//            }
+//            $("#JsCardsettingLeft .s-cardsetting-content").append(leftHtmls);
+//            $("#JsCardsettingRight .s-cardsetting-content").append(rightHtmls);
+        //按钮拖动
+         function actionDrag() {
+            var $sCardsettingLeft = $("#JsCardsettingLeft"),
+                    $sCardsettingRight = $("#JsCardsettingRight");
+
             $(".s-mod-item", $sCardsettingLeft).draggable({
-              //  cancel: "a.ui-icon", // clicking an icon won't initiate dragging
-                revert: "invalid", // when not dropped, the item will revert back to its initial position
+
+                revert: "invalid",
                 containment: ".s-cardsetting",
                 helper: "clone",
                 cursor: "move"
             });
             $sCardsettingRight.droppable({
-                accept: "#s-cardsetting-left .s-mod-item",
-                drop: function( event, ui ) {
-                    deleteItems( ui.draggable );
+                accept: "#JsCardsettingLeft .s-mod-item",
+                drop: function (event, ui) {
+                    deleteItems(ui.draggable);
                 }
             });
             $(".s-mod-item", $sCardsettingRight).draggable({
-                //  cancel: "a.ui-icon", // clicking an icon won't initiate dragging
-                revert: "invalid", // when not dropped, the item will revert back to its initial position
+                revert: "invalid",
                 containment: ".s-cardsetting",
                 helper: "clone",
                 cursor: "move"
             });
             $sCardsettingLeft.droppable({
-                accept: "#s-cardsetting-right .s-mod-item",
-               // activeClass: "custom-state-active",
-                drop: function( event, ui ) {
-                    recycleItems( ui.draggable );
+                accept: "#JsCardsettingRight .s-mod-item",
+                drop: function (event, ui) {
+                    recycleItems(ui.draggable);
                 }
             });
+
             function deleteItems( $item ) {
                 $item.fadeOut(function() {
                     var $list = $( ".s-cardsetting-content", $sCardsettingRight ).length ?
                             $( ".s-cardsetting-content", $sCardsettingRight ) :
                             $( "<div class='s-cardsetting-content ui-helper-reset'/>" ).appendTo( $sCardsettingRight );
                  $item.removeClass("ui-icon-trash").addClass("ui-icon-refresh");
-                  //  $item.find( "a.ui-icon-trash" ).remove();
                     $item.appendTo( $list ).fadeIn();
                 });
             }
@@ -174,9 +220,8 @@
                 }
                 return false;
             });
-            $("#Jsettingbtn").click(function(){$("#JsCardsetting").toggle();});
+        }
 
-        })
         //新闻弹框
         $('.new-box').click(function(){
             $.get('/news/view_news/' + $(this).attr('n_id'), function(html) {
