@@ -16,10 +16,24 @@ class MY_Controller extends CI_Controller
     public function __construct ()
     {
         parent::__construct();
+		$this->load->model('sys_model');
         ini_set('date.timezone','Asia/Shanghai');
         $this->cismarty->assign('base_url',base_url());//url路径
-
 		$login_user_id = $this->session->userdata('login_user_id');
+		if($login_user_id > 0){
+			$data = $this->sys_model->get_token($login_user_id);
+			if($data != -1){
+				if($data != $this->session->userdata('login_token')){
+					$this->session->unset_userdata('login_user_id');
+					$login_user_id = 0;
+					}
+			}
+		}
+		if ($login_user_id <=0){
+			if($this->uri->segment(2) == 'popup_room'){
+				die('账户已被他人登陆');
+			}
+		}
 		$this->cismarty->assign('login_user_id', $login_user_id > 0 ? true : false);
 		$this->cismarty->assign('login_user_name', $this->session->userdata('login_rel_name'));
 

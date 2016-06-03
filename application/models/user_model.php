@@ -36,6 +36,9 @@ class User_model extends MY_Model
             if($res->flag==2){
                 return 2;
             }
+            $token = uniqid();
+            $this->db->where('id',$res->id)->update('user',array('token'=>$token));
+            $user_info['login_token'] = $token;
             $user_info['login_user_id'] = $res->id;
             $user_info['login_username'] = $username;
             $user_info['login_password'] = $res->password;
