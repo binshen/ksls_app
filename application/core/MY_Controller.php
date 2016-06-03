@@ -29,8 +29,11 @@ class MY_Controller extends CI_Controller
 					}
 			}
 		}
-		if ($login_user_id <=0){
+		if ($login_user_id <=0 || !$this->session->userdata('login_user_id')){
 			if($this->uri->segment(2) == 'popup_room'){
+				die('账户已被他人登陆');
+			}
+			if($this->uri->segment(2) == 'show_room'){
 				die('账户已被他人登陆');
 			}
 		}
