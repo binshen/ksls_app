@@ -29,7 +29,7 @@ class Index extends MY_Controller {
     }
 
     public function login() {
-        echo $this->user_model->check_login() ? 1 : 0;
+        echo $this->user_model->check_login();
         die;
     }
 

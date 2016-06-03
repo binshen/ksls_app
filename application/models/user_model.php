@@ -33,6 +33,9 @@ class User_model extends MY_Model
         $rs = $this->db->get();
         if ($rs->num_rows() > 0) {
             $res = $rs->row();
+            if($res->flag==2){
+                return 2;
+            }
             $user_info['login_user_id'] = $res->id;
             $user_info['login_username'] = $username;
             $user_info['login_password'] = $res->password;
@@ -43,9 +46,9 @@ class User_model extends MY_Model
             $user_info['login_position_id'] = $res->position_id;
             $user_info['login_user_pic'] = $res->pic;
             $this->session->set_userdata($user_info);
-            return true;
+            return 1;
         }
-        return false;
+        return 0;
     }
 
     public function update_password()

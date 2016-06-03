@@ -99,6 +99,7 @@
             </div>
             <a href="javascript:void(0);" class="sub-btn" id="btn_login">登 录</a>
             <p class="tips" id="login_error" style="display:none"><em></em>手机或密码不对，请重新输入！</p>
+            <p class="tips" id="login_error2" style="display:none"><em></em>人员离职,账户停用</p>
         </form>
     </div>
     <!--新闻弹框-->
@@ -129,10 +130,16 @@
             var username = $("#username").val();
             var password = $("#password").val();
             $.post('/index/login', {username: username, password: password}, function(data) {
-                if(data > 0) {
+                if(data == 1) {
                     window.location = redirect_url;
-                } else {
+                } else if(data == 2) {
+                    $("#login_error").hide();
+                    $("#login_error2").show();
+                    $("#username").val("");
+                    $("#password").val("");
+                } else{
                     $("#login_error").show();
+                    $("#login_error2").hide();
                     $("#username").val("");
                     $("#password").val("");
                 }
