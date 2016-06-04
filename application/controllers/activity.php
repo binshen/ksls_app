@@ -124,7 +124,7 @@ class Activity extends MY_Controller {
         if($role_id >= 7) {
             $subsidiary_id = $this->session->userdata('login_subsidiary_id');
         }
-        $data = $this->activity_model->list_activity($page, array(2,3), NULL, $subsidiary_id, $company_id,$flag);
+        $data = $this->activity_model->list_activity($page, array(1,2,3), NULL, $subsidiary_id, $company_id,$flag);
         $this->assign('activity_list', $data);
 
         $pager = $this->pagination->getPageLink('/activity/list_review', $data['countPage'], $data['numPerPage']);
