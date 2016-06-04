@@ -147,7 +147,17 @@
 
                 $("#Jtableshortcut").html(tableshortcut);
             }
-        })
+
+            $(".a-btns").click(function() {
+                redirect_url = $(this).attr('url');
+                var result = checkAuth();
+                if(result < 1) {
+                    $.blockUI({ message: $('#Jloginpop'), css:{ background: 'none',top:'100px', border: 'none',width:'410px', height:'410px'}, overlayCSS: {cursor:'default'}});
+                } else {
+                    window.location = redirect_url;
+                }
+            });
+        });
 
 //            for(var i=0;i<$(".tableshortcut a").length;i++){
 //
@@ -289,16 +299,6 @@
                 async: false
             }).responseText;
         }
-
-        $(".a-btns").click(function() {
-            redirect_url = $(this).attr('url');
-            var result = checkAuth();
-            if(result < 1) {
-                $.blockUI({ message: $('#Jloginpop'), css:{ background: 'none',top:'100px', border: 'none',width:'410px', height:'410px'}, overlayCSS: {cursor:'default'}});
-            } else {
-                window.location = redirect_url;
-            }
-        });
 
         //关闭弹框
         $(".pop-close-btn").click(function(){
