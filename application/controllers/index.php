@@ -26,8 +26,14 @@ class Index extends MY_Controller {
         $this->assign('news_list', $data);
 
         $user_id = $this->session->userdata('login_user_id');
-        $icons = $this->user_model->get_icons(empty($user_id)? NULL : $user_id);
-        $icon_count = $this->user_model->get_icon_count(empty($user_id)? NULL : $user_id);
+        if(!empty($user_id)) {
+            $icons = $this->user_model->get_icons($user_id);
+            $icon_count = $this->user_model->get_icon_count($user_id);
+        } else {
+            $icons = $this->user_model->get_icons();
+            $icon_count = $this->user_model->get_icon_count();
+            if($icon_count > 6) $icon_count = 6;
+        }
         $this->assign('icon_data', json_encode($icons));
         $this->assign('icon_count', $icon_count);
 
