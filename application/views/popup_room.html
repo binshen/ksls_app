@@ -14,12 +14,14 @@
 <input type="hidden" name="user_id" value="{{$user_id}}">
 </form>
 <script>
-    $("#btnSubmit").click(function() {
-        var room_id = $("input[name='room_id']:checked").val();
-        if(room_id == undefined) {
-            layer.msg("请先选中一个会议室.", {icon: 2});
-        } else {
-            $("#appointmentForm").submit();
-        }
-    });
+    setTimeout(function() {
+        $("#btnSubmit").click(function() {
+            var room_id = $("input[name='room_id']:checked").val();
+            if(room_id == undefined) {
+                layer.msg("请先选中一个会议室.", {icon: 2});
+            } else {
+                $("#appointmentForm").submit();
+            }
+        });
+    }, 100);
 </script>
