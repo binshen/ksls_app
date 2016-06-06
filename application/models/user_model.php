@@ -116,7 +116,7 @@ class User_model extends MY_Model
         if(!empty($user_id)) {
             $this->db->order_by('b.user_id', "DESC");
         }
-        $this->db->order_by('b.icon_id', "ASC");
+        $this->db->order_by('b.id', "ASC");
         return $this->db->get()->result_array();
     }
 
