@@ -41,7 +41,7 @@
                             <td>{{$item->name}}</td>
                             {{foreach from=$dates key=key item=date}}
                                 {{if !empty($my_result[$item->id][$date])}}
-                                    <td class="successful-td"><a href="javascript:" class="book-btn book-successful-btn" x="{{$item->id}}" y="{{$date}}"><em></em>预约成功</a></td>
+                                    <td><a href="javascript:" class="book-btn book-successful-btn" x="{{$item->id}}" y="{{$date}}"><em></em>已预约</a></td>
                                 {{else if empty($result[$item->id][$date])}}
                                     <td><em class="roomtips-book-pos"></em><a href="javascript:" class="book-btn" x="{{$item->id}}" y="{{$date}}">预约</a></td>
                                 {{else}}
