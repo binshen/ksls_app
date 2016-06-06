@@ -108,4 +108,23 @@ class User_model extends MY_Model
             return $rs;
         }
     }
+
+    public function get_icons($user_id=NULL) {
+        $this->db->select('a.id, a.name, a.icon AS img, a.action AS url, b.user_id');
+        $this->db->from('icon a');
+        $this->db->join('icon_config b', 'a.id = b.icon_id', 'left');
+        if(!empty($user_id)) {
+            $this->db->order_by('b.user_id', "DESC");
+        }
+        $this->db->order_by('a.id', "ASC");
+        return $this->db->get()->result_array();
+    }
+
+    public function get_icon_count($user_id=NULL) {
+        if(!empty($user_id)) {
+            return $this->db->select('count(1) AS num')->where('user_id', $user_id)->get('icon_config')->row()->num;
+        } else {
+            return $this->db->select('count(1) AS num')->get('icon')->row()->num;
+        }
+    }
 }

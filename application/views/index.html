@@ -26,15 +26,10 @@
             </ul>
             <div class="content">
                 <div class="convenient-btns">
+                    {{if $login_user_id}}
                     <a href="javascript:" class="settingbtn" id="Jsettingbtn"></a>
-                    <div class="tableshortcut" id="Jtableshortcut">
-                        <!--<a href="javascript:void(0);" data-rel="行程管理"  class="a-btns" url="/activity/list_activity"><img src="/static/images/index/s_index_nav1.gif" alt=""></a>-->
-                        <!--<a href="javascript:void(0);" data-rel="绩效排行" class="a-btns" url="/activity/list_ranking"><img src="/static/images/index/s_index_nav2.gif" alt=""></a>-->
-                        <!--<a href="javascript:void(0);" data-rel="代办服务" class="a-btns" url="/agenda/list_agenda"><img src="/static/images/index/s_index_nav3.gif" alt=""></a>-->
-                        <!--<a href="javascript:void(0);" data-rel="预约场地" class="a-btns" url="/appointment/book_room"><img src="/static/images/index/s_index_nav4.gif" alt=""></a>-->
-                        <!--<a href="javascript:void(0);" data-rel="房猫微店" class="a-btns" url="/"><img src="/static/images/index/s_index_nav5.gif" alt=""></a>-->
-                        <!--<a href="javascript:void(0);" data-rel="经纪学院" class="a-btns" url="/video/list_video"><img src="/static/images/index/s_index_nav6.gif" alt=""></a>-->
-                   </div>
+                    {{/if}}
+                    <div class="tableshortcut" id="Jtableshortcut"></div>
                     <div class="s-cardsetting" id="JsCardsetting" style="display: none;">
                         <div class="s-cardsetting-wrap">
                             <div class="s-cardsetting-left" id="JsCardsettingLeft">
@@ -100,18 +95,8 @@
     <script type="text/javascript">
         $(function() {
             //桌面快捷按钮初始化
-            var tableBtnsnum = 6;
-            var hasChooseBtns =[], leftHtmls = rightHtmls ="",
-                    prepareShortCutBtns= [{"name":"行程管理","img":"s_index_nav1.gif","url":"/activity/list_activity"}
-                        ,{"name":"绩效排行","img":"s_index_nav2.gif","url":"/activity/list_ranking"}
-                        ,{"name":"代办服务","img":"s_index_nav3.gif","url":"/agenda/list_agenda"}
-                    ,{"name":"预约场地","img":"s_index_nav4.gif","url":"/appointment/book_room"}
-                    ,{"name":"经纪学院","img":"s_index_nav5.gif","url":"/video/list_video"}
-                        ,{"name":"房猫微店","img":"s_index_nav6.gif","url":"/"}
-                        ,{"name":"考勤","img":"s_index_nav7.gif","url":"/"}
-                        ,{"name":"我的佣金","img":"s_index_nav8.gif","url":"/"}
-                    ];
-             //       ,prepareShortCutBtns = ["行程管理","绩效排行","代办服务","预约场地","经纪学院","房猫微店","考勤"];
+            var tableBtnsnum = {{$icon_count|default:0}};
+            var hasChooseBtns = [], leftHtmls = rightHtmls = "", prepareShortCutBtns= JSON.parse('{{$icon_data}}');
             var tableshortcut="";
             for(var i=0;prepareShortCutBtns.length>tableBtnsnum?i<tableBtnsnum:i<prepareShortCutBtns.length;i++){
                 tableshortcut+='<a href="javascript:void(0);" data-rel="'+prepareShortCutBtns[i].name+'"  class="a-btns" url="'+prepareShortCutBtns[i].url+'"><img src="/static/images/index/'+prepareShortCutBtns[i].img+'" alt=""></a>';
@@ -119,7 +104,7 @@
             }
             if(prepareShortCutBtns.length>tableBtnsnum){
                 for(var j=tableBtnsnum;j<prepareShortCutBtns.length;j++)
-                rightHtmls+= '<div class="s-mod-item ui-icon-refresh" data-id="'+j+'"> <div class="s-mod-icon"></div><div class="s-mod-title">'+prepareShortCutBtns[j].name+'</div></div>';
+                    rightHtmls+= '<div class="s-mod-item ui-icon-refresh" data-id="'+j+'"> <div class="s-mod-icon"></div><div class="s-mod-title">'+prepareShortCutBtns[j].name+'</div></div>';
             }
             $("#Jtableshortcut").append(tableshortcut);
             $("#JsCardsettingLeft .s-cardsetting-content").append(leftHtmls);
@@ -127,24 +112,18 @@
             actionDrag();
             $("#Jsettingbtn").toggle(function(){
                 $("#JsCardsetting").show();
-
             },function () {
                 $("#JsCardsetting").hide();
                 resetBtns();
-
             });
             //快捷方式设置完成，关闭弹框时
             function resetBtns(){
                 var dataidId ="",
                 tableshortcut="";
-                for(var i=0; i<$("#JsCardsettingLeft .s-mod-item").length;i++)
-                {
-
-                 dataidId = $("#JsCardsettingLeft .s-mod-item").eq(i).attr("data-id");
+                for(var i=0; i<$("#JsCardsettingLeft .s-mod-item").length;i++) {
+                    dataidId = $("#JsCardsettingLeft .s-mod-item").eq(i).attr("data-id");
                     tableshortcut+='<a href="javascript:void(0);" data-rel="'+prepareShortCutBtns[dataidId].name+'"  class="a-btns" url="'+prepareShortCutBtns[dataidId].url+'"><img src="/static/images/index/'+prepareShortCutBtns[dataidId].img+'" alt=""></a>';
-
                 }
-
                 $("#Jtableshortcut").html(tableshortcut);
             }
 
@@ -159,26 +138,11 @@
             });
         });
 
-//            for(var i=0;i<$(".tableshortcut a").length;i++){
-//
-//                leftHtmls+= '<div class="s-mod-item ui-icon-trash"> <div class="s-mod-icon"></div><div class="s-mod-title">'+$(".tableshortcut a").eq(i).attr("data-rel")+'</div></div>';
-//                prepareShortCutBtns.splice($.inArray($(".tableshortcut a").eq(i).attr("data-rel"),prepareShortCutBtns),1);
-//            }
-//
-//            if(prepareShortCutBtns.length >0){
-//                for(var j=0; j<prepareShortCutBtns.length;j++){
-//                    rightHtmls+= '<div class="s-mod-item ui-icon-refresh"> <div class="s-mod-icon"></div><div class="s-mod-title">'+prepareShortCutBtns[j]+'</div></div>';
-//                }
-//            }
-//            $("#JsCardsettingLeft .s-cardsetting-content").append(leftHtmls);
-//            $("#JsCardsettingRight .s-cardsetting-content").append(rightHtmls);
         //按钮拖动
          function actionDrag() {
-            var $sCardsettingLeft = $("#JsCardsettingLeft"),
-                    $sCardsettingRight = $("#JsCardsettingRight");
+            var $sCardsettingLeft = $("#JsCardsettingLeft"), $sCardsettingRight = $("#JsCardsettingRight");
 
             $(".s-mod-item", $sCardsettingLeft).draggable({
-
                 revert: "invalid",
                 containment: ".s-cardsetting",
                 helper: "clone",
@@ -205,18 +169,14 @@
 
             function deleteItems( $item ) {
                 $item.fadeOut(function() {
-                    var $list = $( ".s-cardsetting-content", $sCardsettingRight ).length ?
-                            $( ".s-cardsetting-content", $sCardsettingRight ) :
-                            $( "<div class='s-cardsetting-content ui-helper-reset'/>" ).appendTo( $sCardsettingRight );
-                 $item.removeClass("ui-icon-trash").addClass("ui-icon-refresh");
+                    var $list = $( ".s-cardsetting-content", $sCardsettingRight ).length ? $( ".s-cardsetting-content", $sCardsettingRight ) : $( "<div class='s-cardsetting-content ui-helper-reset'/>" ).appendTo( $sCardsettingRight );
+                    $item.removeClass("ui-icon-trash").addClass("ui-icon-refresh");
                     $item.appendTo( $list ).fadeIn();
                 });
             }
             function recycleItems( $item ) {
                 $item.fadeOut(function() {
-                    var $list = $( ".s-cardsetting-content", $sCardsettingLeft ).length ?
-                            $( ".s-cardsetting-content", $sCardsettingLeft ) :
-                            $( "<div class='s-cardsetting-content ui-helper-reset'/>" ).appendTo( $sCardsettingLeft );
+                    var $list = $( ".s-cardsetting-content", $sCardsettingLeft ).length ? $( ".s-cardsetting-content", $sCardsettingLeft ) : $( "<div class='s-cardsetting-content ui-helper-reset'/>" ).appendTo( $sCardsettingLeft );
                     $item.removeClass("ui-icon-refresh").addClass("ui-icon-trash");
                     $item.appendTo( $list ).fadeIn();
                 });

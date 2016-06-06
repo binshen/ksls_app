@@ -24,6 +24,13 @@ class Index extends MY_Controller {
         $pager = $this->pagination->getPageLink('/index/index', $data['countPage'], $data['numPerPage']);
         $this->assign('pager', $pager);
         $this->assign('news_list', $data);
+        
+        $user_id = $this->session->userdata('login_user_id');
+        $icons = $this->user_model->get_icons(empty($user_id)? NULL : $user_id);
+        $icon_count = $this->user_model->get_icon_count(empty($user_id)? NULL : $user_id);
+        var_dump($icon_count);
+        $this->assign('icon_data', json_encode($icons));
+        $this->assign('icon_count', $icon_count);
 
         $this->display('index.html');
     }
