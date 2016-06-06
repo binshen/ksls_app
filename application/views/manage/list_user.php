@@ -107,7 +107,7 @@
                 <li><a class="add" href="<?php echo site_url('manage/add_user')?>" target="dialog" width="600" height="370" rel="add_user" title="新建"><span>新建</span></a></li>
                 <li><a class="delete" href="<?php echo site_url('manage/delete_user')?>/{id}" target="ajaxTodo"  title="确定要删除？" warn="请选择一条记录"><span>删除</span></a></li>
             <?php endif ?>
-            <li><a class="edit" href="<?php echo site_url('manage/edit_user/{id}')?>" target="dialog" width="600" height="370" rel="edit_user" warn="请选择一条记录" title="查看"><span>查看</span></a></li>
+            <li><a class="edit" href="<?php echo site_url('manage/edit_user/{id}')?>" target="dialog" rel="edit_user" warn="请选择一条记录" title="查看"><span>查看</span></a></li>
         </ul>
     </div>
 
@@ -115,14 +115,13 @@
         <table class="list" width="100%" targetType="navTab" asc="asc" desc="desc">
             <thead>
             <tr>
-                <th width="120">ID</th>
-                <th>姓名</th>
+                <th width="30">ID</th>
+                <th width="100">姓名</th>
                 <th>电话</th>
                 <th>所在公司</th>
                 <th>所属分店</th>
                 <th>职级</th>
-                <th>职务</th>
-                <th>状态</th>
+                <th width="30">状态</th>
             </tr>
             </thead>
             <tbody>
@@ -137,7 +136,6 @@
                         <td><?php echo $row->company_name;?></td>
                         <td><?php echo $row->subsidiary_name;?></td>
                         <td><?php echo $row->role_name;?></td>
-                        <td><?php echo $row->position_name;?></td>
                         <td><?php
                             if($row->flag == 1){
                                 echo '在职';

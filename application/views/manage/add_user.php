@@ -72,24 +72,7 @@
                         </select>
                     </dd>
                 </dl>
-                <dl>
-                    <dt>职务：</dt>
-                    <dd>
-                        <select name="position_id" class="combox" id="selectPosition">
 
-                            <?php
-                            if (!empty($position_list)):
-                                foreach ($position_list as $row):
-                                    $selected = !empty($position_id) && $row['id'] == $position_id ? "selected" : "";
-                                    ?>
-                                    <option value="<?php echo $row['id']; ?>" <?php echo $selected; ?>><?php echo $row['name']; ?></option>
-                                    <?php
-                                endforeach;
-                            endif;
-                            ?>
-                        </select>
-                    </dd>
-                </dl>
                 <dl>
                     <dt>状态：</dt>
                     <dd>
@@ -114,7 +97,28 @@
                     <dt>头像预览：</dt>
                     <dd id="img" style="float: none"><?php if(!empty($pic)):?><img height="50px" width="50px" src="<?php echo base_url().'/uploadfiles/profile/'.$pic;?>" /><?php endif;?></dd>
                 </dl>
+            </fieldset>
+            <fieldset>
+                <legend>职务</legend>
+                        <?php
+                        if (!empty($position_list)):
+                            foreach ($position_list as $row):
+                                $checked = '';
+                                if(!empty($pids)){
+                                    foreach ($pids as $id){
+                                        if($row['id'] == $id['pid']){
+                                            $checked = 'checked';
+                                        }
+                                    }
+                                }
+                                ?>
 
+                                <label><input <?php echo $checked; ?> name="pid[]" type="checkbox" value="<?php echo $row['id']; ?>"><?php echo $row['name']; ?></label>
+
+                                <?php
+                            endforeach;
+                        endif;
+                        ?>
             </fieldset>
         </div>
         <div class="formBar">

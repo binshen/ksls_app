@@ -339,45 +339,9 @@ class Manage_model extends MY_Model
 
         //获得总记录数
         $this->db->select('count(1) as num');
-        $this->db->from('user');
-        if($this->session->userdata('role_id') == 2) {
-            $this->db->where('company_id', $this->session->userdata('company_id'));
-        } else if($this->session->userdata('role_id') > 2) {
-            $this->db->where('subsidiary_id', $this->session->userdata('subsidiary_id'));
-        }
-        if($this->input->post('rel_name'))
-            $this->db->like('rel_name',$this->input->post('rel_name'));
-        if($this->input->post('tel'))
-            $this->db->like('tel',$this->input->post('tel'));
-        if($this->input->post('flag'))
-            $this->db->where('flag',$this->input->post('flag'));
-        if($this->input->post('position_id'))
-            $this->db->where('position_id',$this->input->post('position_id'));
-        if($this->input->post('role_id'))
-            $this->db->where('role_id',$this->input->post('role_id'));
-        if($this->input->post('company_id'))
-            $this->db->where('company_id',$this->input->post('company_id'));
-        if($this->input->post('subsidiary_id'))
-            $this->db->where('subsidiary_id',$this->input->post('subsidiary_id'));
-        $rs_total = $this->db->get()->row();
-        //总记录数
-        $data['relname'] = $this->input->post('rel_name')?$this->input->post('rel_name'):null;
-        $data['tel'] = $this->input->post('tel')?$this->input->post('tel'):null;
-        $data['flag'] = $this->input->post('flag')?$this->input->post('flag'):null;
-        $data['positionid'] = $this->input->post('position_id')?$this->input->post('position_id'):null;
-        $data['roleid'] = $this->input->post('role_id')?$this->input->post('role_id'):null;
-        $data['companyid'] = $this->input->post('company_id')?$this->input->post('company_id'):null;
-        $data['subsidiaryid'] = $this->input->post('subsidiary_id')?$this->input->post('subsidiary_id'):null;
-        $data['countPage'] = $rs_total->num;
-
-        $data['rel_name'] = null;
-        //list
-        $this->db->select('a.*, b.name AS company_name, c.name AS subsidiary_name, d.name AS role_name,e.name position_name');
+        $this->db->distinct('a.id');
         $this->db->from('user a');
-        $this->db->join('company b', 'a.company_id = b.id', 'left');
-        $this->db->join('subsidiary c', 'a.subsidiary_id = c.id', 'left');
-        $this->db->join('role d', 'a.role_id = d.id', 'left');
-        $this->db->join('position e', 'a.position_id = e.id', 'left');
+        $this->db->join('user_position b','a.id = b.user_id','left');
         if($this->session->userdata('role_id') == 2) {
             $this->db->where('a.company_id', $this->session->userdata('company_id'));
         } else if($this->session->userdata('role_id') > 2) {
@@ -390,7 +354,47 @@ class Manage_model extends MY_Model
         if($this->input->post('flag'))
             $this->db->where('a.flag',$this->input->post('flag'));
         if($this->input->post('position_id'))
-            $this->db->where('a.position_id',$this->input->post('position_id'));
+            $this->db->where('b.pid',$this->input->post('position_id'));
+        if($this->input->post('role_id'))
+            $this->db->where('a.role_id',$this->input->post('role_id'));
+        if($this->input->post('company_id'))
+            $this->db->where('a.company_id',$this->input->post('company_id'));
+        if($this->input->post('subsidiary_id'))
+            $this->db->where('a.subsidiary_id',$this->input->post('subsidiary_id'));
+        $rs_total = $this->db->get()->row();
+       //s die(var_dump($rs_total));
+        //总记录数
+        $data['relname'] = $this->input->post('rel_name')?$this->input->post('rel_name'):null;
+        $data['tel'] = $this->input->post('tel')?$this->input->post('tel'):null;
+        $data['flag'] = $this->input->post('flag')?$this->input->post('flag'):null;
+        $data['positionid'] = $this->input->post('position_id')?$this->input->post('position_id'):null;
+        $data['roleid'] = $this->input->post('role_id')?$this->input->post('role_id'):null;
+        $data['companyid'] = $this->input->post('company_id')?$this->input->post('company_id'):null;
+        $data['subsidiaryid'] = $this->input->post('subsidiary_id')?$this->input->post('subsidiary_id'):null;
+        $data['countPage'] = $rs_total->num?$rs_total->num:0;
+
+        $data['rel_name'] = null;
+        //list
+        $this->db->select('a.*, b.name AS company_name, c.name AS subsidiary_name, d.name AS role_name');
+        $this->db->distinct('a.id');
+        $this->db->from('user a');
+        $this->db->join('company b', 'a.company_id = b.id', 'left');
+        $this->db->join('subsidiary c', 'a.subsidiary_id = c.id', 'left');
+        $this->db->join('role d', 'a.role_id = d.id', 'left');
+        $this->db->join('user_position e', 'a.id = e.user_id', 'left');
+        if($this->session->userdata('role_id') == 2) {
+            $this->db->where('a.company_id', $this->session->userdata('company_id'));
+        } else if($this->session->userdata('role_id') > 2) {
+            $this->db->where('a.subsidiary_id', $this->session->userdata('subsidiary_id'));
+        }
+        if($this->input->post('rel_name'))
+            $this->db->like('a.rel_name',$this->input->post('rel_name'));
+        if($this->input->post('tel'))
+            $this->db->like('a.tel',$this->input->post('tel'));
+        if($this->input->post('flag'))
+            $this->db->where('a.flag',$this->input->post('flag'));
+        if($this->input->post('position_id'))
+            $this->db->where('e.pid',$this->input->post('position_id'));
         if($this->input->post('role_id'))
             $this->db->where('a.role_id',$this->input->post('role_id'));
         if($this->input->post('company_id'))
@@ -414,7 +418,6 @@ class Manage_model extends MY_Model
             'subsidiary_id' => $this->input->post('subsidiary_id'),
             'rel_name' => $this->input->post('rel_name'),
             'role_id' => $this->input->post('role_id'),
-            'position_id' => $this->input->post('position_id'),
             'flag'=>$this->input->post('flag')
         );
         if(!empty($pic)) {
@@ -426,9 +429,23 @@ class Manage_model extends MY_Model
         if($this->input->post('id')){//修改
             $this->db->where('id', $this->input->post('id'));
             $this->db->update('user', $data);
+            $user_id = $this->input->post('id');
+
         } else {
             $this->db->insert('user', $data);
+            $user_id = $this->db->insert_id();
         }
+        $this->db->where('user_id',$user_id)->delete('user_position');
+        if($this->input->post('pid')){
+            $pid=$this->input->post('pid');
+            foreach($pid as $id){
+                $this->db->insert('user_position', array(
+                    'pid'=>$id,
+                    'user_id'=>$user_id
+                ));
+            }
+        }
+
 
         $this->db->trans_complete();//------结束事务
         if ($this->db->trans_status() === FALSE) {
@@ -440,6 +457,10 @@ class Manage_model extends MY_Model
 
     public function get_user($id) {
         return $this->db->get_where('user', array('id' => $id))->row_array();
+    }
+
+    public function get_user_pid($id) {
+        return $this->db->get_where('user_position', array('user_id' => $id))->result_array();
     }
 
     public function delete_user($id) {

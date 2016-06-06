@@ -29,7 +29,7 @@ class Appointment extends MY_Controller
 
     function book_room() {
 
-        $position_id = $this->session->userdata('login_position_id');
+        $position_id = $this->session->userdata('login_position_id_array');
 
         $week = array("日", "一", "二", "三", "四", "五", "六");
         $dates = array();
@@ -62,7 +62,7 @@ class Appointment extends MY_Controller
         }
 
         $result = array();
-        if($position_id == 3) {
+        if(in_array(3,$position_id)) {
             foreach ($time_frame_list as $tf0) {
                 $tf0_id = $tf0->id;
                 $result[$tf0_id] = array();

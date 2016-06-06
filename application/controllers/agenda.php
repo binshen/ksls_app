@@ -25,7 +25,7 @@ class Agenda extends MY_Controller
         if(!$this->session->userdata('login_user_id')) {
             redirect(site_url('/'));
         } else {
-            if($this->session->userdata('login_position_id') == 2){
+            if(in_array(2,$this->session->userdata('login_position_id_array'))){
                 if($method == 'list_agenda'){
                     redirect(site_url('/agenda/list_agenda_other'));
                     exit();
@@ -50,7 +50,7 @@ class Agenda extends MY_Controller
     public function list_agenda($page=1) {
         $role_id = $this->session->userdata('login_role_id');
         $this->assign('role_id', $role_id);
-        $position_id = $this->session->userdata('login_position_id');
+        $position_id = $this->session->userdata('login_position_id_array');
         $this->assign('position_id', $position_id);
         $course_list = $this->agenda_model->get_course();
         $this->assign('course_list', $course_list);
@@ -71,11 +71,11 @@ class Agenda extends MY_Controller
     function list_agenda_other($page=1){
         $role_id = $this->session->userdata('login_role_id');
         $this->assign('role_id', $role_id);
-        $position_id = $this->session->userdata('login_position_id');
+        $position_id = $this->session->userdata('login_position_id_array');
         $this->assign('position_id', $position_id);
 
 
-        if($position_id==2){
+        if(in_array(2,$position_id)){
             //如果是 权证人员
             $company_list = $this->agenda_model->get_company_list();
             $this->assign('company_list', $company_list);
@@ -174,7 +174,7 @@ class Agenda extends MY_Controller
     public function add_agenda($id=NULL) {
         $role_id = $this->session->userdata('login_role_id');
         $this->assign('role_id', $role_id);
-        $position_id = $this->session->userdata('login_position_id');
+        $position_id = $this->session->userdata('login_position_id_array');
         $this->assign('position_id', $position_id);
         if(!empty($id)) {
             $agenda = $this->agenda_model->get_agenda($id);
@@ -216,7 +216,7 @@ class Agenda extends MY_Controller
         $role_id = $this->session->userdata('login_role_id');
         $this->assign('role_id', $role_id);
 
-        $position_id = $this->session->userdata('login_position_id');
+        $position_id = $this->session->userdata('login_position_id_array');
         $this->assign('position_id', $position_id);
 
         $this->assign('style', $style);

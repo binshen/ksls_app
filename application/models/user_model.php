@@ -38,6 +38,13 @@ class User_model extends MY_Model
             }
             $token = uniqid();
             $this->db->where('id',$res->id)->update('user',array('token'=>$token));
+            $pids = $this->db->select()->from('user_position')->where('user_id',$res->id)->get()->result_array();
+            $ids = array();
+            if($pids){
+                foreach($pids as $id){
+                    $ids[]=$id['pid'];
+                }
+            }
             $user_info['login_token'] = $token;
             $user_info['login_user_id'] = $res->id;
             $user_info['login_username'] = $username;
@@ -46,7 +53,8 @@ class User_model extends MY_Model
             $user_info['login_role_id'] = $res->role_id;
             $user_info['login_company_id'] = $res->company_id;
             $user_info['login_subsidiary_id'] = $res->subsidiary_id;
-            $user_info['login_position_id'] = $res->position_id;
+           // $user_info['login_position_id'] = $res->position_id; 此栏位暂不使用
+            $user_info['login_position_id_array'] = $ids;
             $user_info['login_user_pic'] = $res->pic;
             $this->session->set_userdata($user_info);
             return 1;
