@@ -127,4 +127,29 @@ class User_model extends MY_Model
             return $this->db->select('count(1) AS num')->get('icon')->row()->num;
         }
     }
+
+    public function reset_icon_config($user_id) {
+        if(empty($user_id)) return;
+
+        $this->db->trans_start();//--------开始事务
+
+        $this->db->where('user_id', $user_id);
+        $this->db->delete('icon_config');
+        
+        $icon_ids = $this->input->post("icon_id");
+        foreach ($icon_ids as $icon_id) {
+            $icon_config_data = array(
+                'user_id' => $user_id,
+                'icon_id' => $icon_id
+            );
+            $this->db->insert('icon_config', $icon_config_data);
+        }
+
+        $this->db->trans_complete();//------结束事务
+        if ($this->db->trans_status() === FALSE) {
+            return -1;
+        } else {
+            return 1;
+        }
+    }
 }

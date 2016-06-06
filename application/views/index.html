@@ -32,18 +32,15 @@
                     <div class="tableshortcut" id="Jtableshortcut"></div>
                     <div class="s-cardsetting" id="JsCardsetting" style="display: none;">
                         <div class="s-cardsetting-wrap">
-                            <div class="s-cardsetting-left" id="JsCardsettingLeft">
-                                <h3>已添加板块</h3>
-                                <div style="float:left;width:78px;text-align:center;margin-top:18px;border:1px solid #cdcdcd;height:24px;line-height:24px;">我的桌面</div>
-
-                                    <div class="s-cardsetting-content sui-componentWrap">
-
-                                     </div>
+                            <form method="post" action="/index/set_icon" id="iconConfigForm">
+                                <div class="s-cardsetting-left" id="JsCardsettingLeft">
+                                    <h3>已添加板块</h3>
+                                    <div style="float:left;width:78px;text-align:center;margin-top:18px;border:1px solid #cdcdcd;height:24px;line-height:24px;" id="icon_mytable">我的桌面</div>
+                                    <div class="s-cardsetting-content sui-componentWrap"></div>
                                 </div>
+                            </form>
                             <div class="s-cardsetting-right" id="JsCardsettingRight"><h3>未订阅频道</h3>
-                                <div class="s-cardsetting-content sui-componentWrap">
-
-                                </div>
+                                <div class="s-cardsetting-content sui-componentWrap"></div>
                             </div>
                         </div>
                     </div>
@@ -100,11 +97,11 @@
             var tableshortcut="";
             for(var i=0;prepareShortCutBtns.length>tableBtnsnum?i<tableBtnsnum:i<prepareShortCutBtns.length;i++){
                 tableshortcut+='<a href="javascript:void(0);" data-rel="'+prepareShortCutBtns[i].name+'"  class="a-btns" url="'+prepareShortCutBtns[i].url+'"><img src="/static/images/index/'+prepareShortCutBtns[i].img+'" alt=""></a>';
-                leftHtmls+= '<div class="s-mod-item ui-icon-trash" data-id="'+i+'"> <div class="s-mod-icon"></div><div class="s-mod-title">'+prepareShortCutBtns[i].name+'</div></div>';
+                leftHtmls+= '<div class="s-mod-item ui-icon-trash" data-id="'+i+'"> <div class="s-mod-icon"></div><div class="s-mod-title">'+prepareShortCutBtns[i].name+'</div><input type="hidden" name="icon_id[]" value="'+prepareShortCutBtns[i].id+'"></div>';
             }
             if(prepareShortCutBtns.length>tableBtnsnum){
                 for(var j=tableBtnsnum;j<prepareShortCutBtns.length;j++)
-                    rightHtmls+= '<div class="s-mod-item ui-icon-refresh" data-id="'+j+'"> <div class="s-mod-icon"></div><div class="s-mod-title">'+prepareShortCutBtns[j].name+'</div></div>';
+                    rightHtmls+= '<div class="s-mod-item ui-icon-refresh" data-id="'+j+'"> <div class="s-mod-icon"></div><div class="s-mod-title">'+prepareShortCutBtns[j].name+'</div><input type="hidden" name="icon_id[]" value="'+prepareShortCutBtns[j].id+'"></div>';
             }
             $("#Jtableshortcut").append(tableshortcut);
             $("#JsCardsettingLeft .s-cardsetting-content").append(leftHtmls);
@@ -263,6 +260,10 @@
         //关闭弹框
         $(".pop-close-btn").click(function(){
             $.unblockUI();
+        });
+
+        $("#icon_mytable").click(function() {
+            $("#iconConfigForm").submit();
         });
      </script>
 </body>
