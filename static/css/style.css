@@ -44,7 +44,7 @@ body{background: #fff; font-family: "Microsoft YaHei";}p{white-space: normal; wo
 .settingbtn{ width: 18px; height:18px; display: block;
     background: url(../images/add_icon.png) no-repeat 0 -324px; position: absolute; top:10px;right:10px;}
 .settingbtn:hover{background-position: -32px -324px;}
-.s-cardsetting{background: #fff;width:718px;height:173px;padding: 15px 25px 0 25px; position:absolute;top:0;left:35px;top:20px; border-bottom:1px solid #ddd;}
+.s-cardsetting{background: #fff;width:718px;padding: 15px 25px; position:absolute;top:0;left:35px;top:20px; border-bottom:1px solid #ddd;}
 .s-cardsetting-wrap .s-cardsetting-left h3 { font-weight: normal; font-size: 12px;color: #666; text-indent: 2px;}
 .main .sui-dialog-cardsetting{opacity:.98;filter:alpha(opacity=98);position:absolute;border:none;display:none;_height:186px}
 .sui-dialog-cardsetting{opacity:.98!important;filter:alpha(opacity=98)!important;border:none!important}
