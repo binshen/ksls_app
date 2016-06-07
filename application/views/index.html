@@ -15,15 +15,16 @@
         {{include file='header.html'}}
         <div class="wraper clearfix">
             <div class="index_logo"><a href=""><img src="/static/images/index/index_logo.png" alt=""></a></div>
-            <ul class="index-nav">
+            <ul class="index-nav" id ="slide01_control">
                 <li class="current">我的桌面</li>
-                <li>管理工具</li>
+                <li>店秘台</li>
                 <li>服务窗口</li>
                 <li>经纪人学院</li>
-                <li>金融服务</li>
-                <li>房猫新闻</li>
-                <li>文档库</li>
+                <li>业务工具</li>
+                <li>经纪人江湖</li>
+                <li>我的房猫</li>
             </ul>
+            <div id="slide01">
             <div class="content">
                 <div class="convenient-btns">
                     {{if $login_user_id}}
@@ -35,13 +36,14 @@
                             <form method="post" action="/index/set_icon" id="iconConfigForm">
                                 <div class="s-cardsetting-left" id="JsCardsettingLeft">
                                     <h3>已添加板块</h3>
-                                    <div style="float:left;width:78px;text-align:center;margin-top:18px;border:1px solid #cdcdcd;height:24px;line-height:24px;" id="icon_mytable">我的桌面</div>
+                                    <div style="float:left;width:78px;text-align:center;margin-top:13px;border:1px solid #cdcdcd;height:24px;line-height:24px;">我的桌面</div>
                                     <div class="s-cardsetting-content sui-componentWrap"></div>
                                 </div>
                             </form>
                             <div class="s-cardsetting-right" id="JsCardsettingRight"><h3>未订阅频道</h3>
                                 <div class="s-cardsetting-content sui-componentWrap"></div>
                             </div>
+                            <a href="javascript:" class="okBtn" id="icon_mytable">确认</a>
                         </div>
                     </div>
                 </div>
@@ -62,6 +64,38 @@
                     </div>
                 </div>
             </div>
+                <div class="content">
+                    <div class="convenient-btns">
+                        <div class="tableshortcut othershortcut ">
+                            <a href="javascript:void(0);" class="a-btns" url="/activity/list_activity"><img src="/static/images/index/index_nav1.jpg" alt=""></a>
+                            <a href="javascript:void(0);" class="a-btns" url="/activity/list_activity"><img src="/static/images/index/index_nav2.jpg" alt=""></a>
+                            <a href="javascript:void(0);" class="a-btns" url="/activity/list_ranking"><img src="/static/images/index/index_nav3.jpg" alt=""></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="content">
+                    <div class="convenient-btns">
+                        <div class="tableshortcut othershortcut ">
+                            <a href="javascript:void(0);" class="a-btns" url="/activity/list_activity"><img src="/static/images/index/index_nav4.jpg" alt=""></a>
+                            <a href="javascript:void(0);" class="a-btns" url="/activity/list_activity"><img src="/static/images/index/index_nav5.jpg" alt=""></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="content">
+                    <div class="convenient-btns">
+                        <div class="tableshortcut othershortcut ">
+                            <a href="javascript:void(0);" class="a-btns" url="/activity/list_activity"><img src="/static/images/index/index_nav6.jpg" alt=""></a>
+                            <a href="javascript:void(0);" class="a-btns" url="/activity/list_activity"><img src="/static/images/index/index_nav7.jpg" alt=""></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="content">
+                </div>
+                <div class="content">
+                </div>
+                <div class="content">
+                </div>
+          </div>
             {{include file='footer.html'}}
         </div>
     </div>
@@ -89,8 +123,15 @@
         <div class="popcontent"></div>
     </div>
     <script type="text/javascript" src="/static/js/jquery-ui/jquery-ui.js"></script>
+    <script type="text/javascript" src="/static/js/dpl-jquery.slide.js"></script>
+
     <script type="text/javascript">
         $(function() {
+            new Slide({
+                target: $('#slide01 .content' ),
+                control: $('#slide01_control li' ),
+                type:'click'
+            });
             //桌面快捷按钮初始化
             var tableBtnsnum = {{$icon_count|default:0}};
             var hasChooseBtns = [], leftHtmls = rightHtmls = "", prepareShortCutBtns= JSON.parse('{{$icon_data}}');
