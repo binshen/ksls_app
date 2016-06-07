@@ -110,16 +110,17 @@ class User_model extends MY_Model
     }
 
     public function get_icons($user_id=NULL) {
-        $this->db->select('a.id, a.name, a.icon AS img, a.action AS url, b.user_id');
+        $this->db->select('a.id, a.name, a.icon AS img, a.action AS url');
         $this->db->from('icon a');
-        $this->db->join('icon_config b', 'a.id = b.icon_id', 'left');
         if(!empty($user_id)) {
+            $this->db->select('b.user_id');
+            $this->db->join('icon_config b', "a.id = b.icon_id AND b.user_id = {$user_id}", 'left');
             $this->db->order_by('b.user_id', "DESC");
-            $this->db->order_by('b.id', "ASC");
         } else {
-            $this->db->order_by('a.id', "ASC");
+            $this->db->join('icon_config b', "a.id = b.icon_id", 'left');
         }
-
+        $this->db->order_by('b.id', "ASC");
+        $this->db->distinct();
         return $this->db->get()->result_array();
     }
 
