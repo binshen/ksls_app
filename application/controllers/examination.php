@@ -15,19 +15,22 @@ class Examination extends MY_Controller
 
         $this->display('self_examination.html');
     }
+
     public function do_examination()
-        {
+    {
 
-            $this->display('do_examination.html');
-        }
+        $this->display('do_examination.html');
+    }
+
     public function submit_examination()
-        {
+    {
 
-            $this->display('submit_examination.html');
-        }
+        $this->display('submit_examination.html');
+    }
+
      public function unit_examination()
-            {
+     {
 
-                $this->display('unit_examination.html');
-            }
+         $this->display('unit_examination.html');
+     }
 }
