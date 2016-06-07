@@ -19,7 +19,7 @@ body{background: #fff; font-family: "Microsoft YaHei";}p{white-space: normal; wo
 .more-operation a .a-em2{ background-position:-40px 0; }
 .up-icon{display: inline-block; width:20px; height:16px; background: url(/static/images/logo_in.png) no-repeat 5px 3px;}
 .wraper{ background: #2a3542;}
-.logo{display: block;height:45px;}
+.logo{display: block;height:45px; }
 /*-------首页---------*/
 
 .index {background: url(/static/images/index/index_bg1.jpg) no-repeat;}
@@ -92,8 +92,6 @@ body{background: #fff; font-family: "Microsoft YaHei";}p{white-space: normal; wo
 .nav-left-ul li a:hover{ color:#fff; text-decoration: none;}
 .nav-left-ul li em{margin:10px 2px 10px 10px;float:left;height:25px; width:25px; background: url(../images/left_nav.png) no-repeat;
 }
-
-
 .nav-left-ul li .home{ background-position:0 2px; }
 .nav-left-ul li .schedule{ background-position:0 -28px; }
 .nav-left-ul li .verify{ background-position:0 -56px; }
@@ -121,7 +119,7 @@ body{background: #fff; font-family: "Microsoft YaHei";}p{white-space: normal; wo
 .nav-left-ul li.on .onlineexam{ background-position:-27px -296px; }
 .nav-left-ul li.on .questionbank{ background-position:-27px -320px; }
 
-.nav-left-ul li .document-nav-list{height: 80px; display: block;margin-right:15px;text-align: right; }
+.nav-left-ul li .document-nav-list{height: 80px; display: block;margin-right:15px;text-align: right; line-height: 18px; }
 .nav-left-ul li .document-nav-list a {  font-weight: normal; display: inline;line-height: 24px;font-size: 12px; color: #aaaeb3;  height: 20px;}
 .nav-left-ul li .document-nav-list .on{ color: #fabe00;}
 .nav-left-ul li a:hover .home{ background-position:-29px 2px; }
@@ -611,9 +609,9 @@ html .fc,.fc table{font-size:1em;background:#f2f3f5}.fc td,.fc th{padding:0;vert
 
 /*考试*/
 
-.choose-exam-category{width: 458px;height: 235px; background: #f1f9fb;margin: 50px auto 150px;}
+.choose-exam-category{width: 458px;height: 235px; margin: 50px auto 150px;}
 .choose-exam-category .tit{ background:#1da8e8; height:48px;font-size:14px; color:#fff;padding-left:20px; line-height: 48px;}
-.ul-category{margin-bottom: 50px;}
+.ul-category{margin-bottom: 50px;background: #f1f9fb;}
 .ul-category li{height:60px; line-height: 60px; text-align: center; font-size: 18px; border-bottom: 1px solid #eee; cursor: pointer;}
 .ul-category li:last-child{border:none;}
 .ul-category li.current{ background: #d7f4fb;}
@@ -623,12 +621,14 @@ html .fc,.fc table{font-size:1em;background:#f2f3f5}.fc td,.fc th{padding:0;vert
 .show-examination .tit{margin-bottom:20px;font-size:24px; color: #666; text-align: center; display: block; }
 .examination-main {padding:20px 10px 50px; background: #fff;margin:0 15px;}
 .dl-exam dt{font-size:14px; color: #666; margin-bottom: 30px;}
-.dl-exam dd{height: 44px; margin-bottom: 20px; line-height: 44px; font-size: 14px; color:#666; box-shadow: 5px 5px 15px #ddd;border:1px solid #fdfdfe;}
+.dl-exam dd{padding-left:20px;height: 44px; margin-bottom: 20px; line-height: 44px; font-size: 14px; color:#666; box-shadow: 5px 5px 15px #ddd;border:1px solid #fdfdfe;}
 .dl-exam dd span{margin-left: 10px;}
 
 
 
-.examination-result{width:329px; float: right; margin-top: 40px;}
+
+
+.examination-result{width:329px; float: right;}
 .exam-category{position: relative; overflow: hidden;height: 36px;margin-bottom: 20px; display:block;}
 .exam-category .bor{border-bottom:1px dotted #a3a6a8;height: 1px; overflow: hidden; position: absolute;top:15px; width:314px;left:0;}
 .exam-category em{margin-left:25px;width:108px; height: 34px;border:1px solid #e0e0e0; color: #a0a0a0; background: #e0e0e0;
@@ -638,8 +638,21 @@ html .fc,.fc table{font-size:1em;background:#f2f3f5}.fc td,.fc th{padding:0;vert
 .examination-result-inner{border-left:1px solid #dedddd;padding-left:15px;}
 .ques-number a{display: inline-block;width:36px; height: 26px; border:1px solid #ccd1d9; margin:0 12px 10px 0;border-radius: 3px; text-align: center; line-height: 26px;}
 .ques-number .current{ background: #37bc9b; border:1px solid #37bc9b; color:#fff;}
+.ques-number .done{background: #85dbd4; border:1px solid #37bc9b; color:#fff;}
+.ques-number .error{ color: #f30606; text-decoration: line-through;}
+.ques-number .answer{ position: absolute;top:30px;left:20px; text-align: center; border:1px solid #ebebeb; background: #fff; color:#979393; display: block;padding:5px; width:85px; height: 35px; border-radius:3px;}
+.ques-number .answer .correct{color:#37bc9b;}
+.ques-number .answer .actual{color: #cc0000}
 .exam-page .btns-fl{width:550px;float: left;}
 .exam-page  p{ float: right;}
 .exam-page a{margin-left: 20px; width: 120px; height: 40px; font-size: 14px; display: block; float: left;border-radius: 3px;background: #009ee7; color: #fff;border:1px solid #009ee7;text-align: center; line-height: 40px;}
 .exam-page .btn-off{border:1px solid #96a0ad; color: #ddd; background: #fff; }
 .exam-page .btns-fr{width:329px;float: right;}
+.hassubmit{font-size:14px; color:#f30606;padding-left:15px; height: 40px; line-height: 40px;}
+.examination-result-inner .tips{ color:#0a0a0a; padding:10px 0 20px;}
+.examination-result-inner .tips span{margin: 0 8px 0 15px; display: inline-block; border:1px solid #24998e; width:15px; height: 15px;
+    line-height:15px; text-align: center;}
+.examination-result-inner .tips .col1{background: #fff;}
+.examination-result-inner .tips .col2{background: #00bbab;}
+.examination-result-inner .tips .col3{background: #85dbd4;}
+.examination-result-inner .tips .col4{background: #fff; color:#cc0000; text-decoration: line-through;}
