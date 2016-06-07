@@ -39,8 +39,9 @@ class Document_model extends MY_Model
             $this->db->join('forum_type c','b.type = c.id','inner');
             if($this->input->post('title'))
                 $this->db->like('b.title',$this->input->post('title'));
-
-                $this->db->where('c.flag',1);
+            $this->db->where('a.user_id',$this->session->userdata('login_user_id'));
+            $this->db->where('b.pass',2);
+            $this->db->where('c.flag',1);
             $row = $this->db->get()->row_array();
             //总记录数
             $data['countPage'] = $row['num'];
@@ -53,6 +54,7 @@ class Document_model extends MY_Model
                 $this->db->like('b.title',$this->input->post('title'));
 
             $this->db->where('c.flag',1);
+            $this->db->where('a.user_id',$this->session->userdata('login_user_id'));
             $this->db->where('b.pass',2);
             $this->db->limit($numPerPage, ($pageNum - 1) * $numPerPage );
             $this->db->order_by('a.cdate', 'desc');
