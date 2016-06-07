@@ -44,7 +44,7 @@ body{background: #fff; font-family: "Microsoft YaHei";}p{white-space: normal; wo
 .settingbtn{ width: 18px; height:18px; display: block;
     background: url(../images/add_icon.png) no-repeat 0 -324px; position: absolute; top:10px;right:10px;}
 .settingbtn:hover{background-position: -32px -324px;}
-.s-cardsetting{background: #fff;width:718px;padding: 15px 25px; position:absolute;top:0;left:35px;top:20px; border-bottom:1px solid #ddd;}
+.s-cardsetting{background: #fff;width:718px;min-height:173px;padding: 15px 25px; position:absolute;top:0;left:35px;top:20px; border-bottom:1px solid #ddd;}
 .s-cardsetting-wrap .s-cardsetting-left h3 { font-weight: normal; font-size: 12px;color: #666; text-indent: 2px;}
 .main .sui-dialog-cardsetting{opacity:.98;filter:alpha(opacity=98);position:absolute;border:none;display:none;_height:186px}
 .sui-dialog-cardsetting{opacity:.98!important;filter:alpha(opacity=98)!important;border:none!important}
@@ -56,6 +56,7 @@ body{background: #fff; font-family: "Microsoft YaHei";}p{white-space: normal; wo
 .s-cardsetting-right{float:left;width:290px;position:relative;zoom:1}
 .s-cardsetting-wrap .okBtn{ width:85px;height: 35px; display: block; float: right;
     line-height:35px; text-align: center; color:#fff; background: #e15616; border-radius: 3px;}
+
 .s-cardsetting-right .s-mod-item,.s-cardsetting-left .s-mod-item{font-size:12px;position:relative;display:inline-block;*display:inline;*zoom:1;margin:5px 8px 5px 8px;cursor:pointer}
 .s-cardsetting-left .s-mod-item{z-index:1 !important}
 .s-cardsetting-wrap  .s-cardsetting-left .s-mod-icon{position:absolute;top:-6px;left:-6px;width:15px;height:15px;
