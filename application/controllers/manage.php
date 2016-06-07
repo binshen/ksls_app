@@ -279,7 +279,7 @@ class Manage extends MY_Controller {
 		die;
 	}
 
-	public function get_subsidiary_list_2($id) {
+	public function get_subsidiary_list_2($id=0) {
 		$data = $this->manage_model->get_subsidiary_list_by_company($id);
 		$subSidiary = array();
 		$subSidiary[] = array('','请选择分店');
