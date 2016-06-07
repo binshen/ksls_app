@@ -554,8 +554,6 @@ html .fc,.fc table{font-size:1em;background:#f2f3f5}.fc td,.fc th{padding:0;vert
 .document_list .document-tit{padding-left:25px;float: left; background: url(../images/add_icon.png) no-repeat 0 -190px;}
 .document_list .operation-span{float: right; font-size:14px; color: #999;}
 .document_list .operation-span em{margin-right: 20px;}
-
-
 /*上传资料*/
 
 .upload-document-wrap .tab-tit{font-size: 20px; color: #515151;}
