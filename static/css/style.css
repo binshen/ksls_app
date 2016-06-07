@@ -32,14 +32,14 @@ body{background: #fff; font-family: "Microsoft YaHei";}p{white-space: normal; wo
 .index .index-nav li{height:60px; line-height: 60px; cursor: pointer;}
 .index .index-nav .current{background: #404042;}
 .index .content{padding-bottom:20px;width:838px;min-height:577px;float: left; background: #cbcec7;overflow: hidden;}
-.index .content .a-btns{ float:left;margin-right:15px;filter:alpha(opacity=80);opacity:0.8;}
+.index .content .a-btns{ float:left;margin-right:15px;filter:alpha(opacity=80);opacity:0.8; margin-bottom: 10px;}
 .index .content .a-btns:hover{ filter:alpha(opacity=100);opacity:1; box-shadow: 2px 2px 10px #aaa;}
 .index .wraper{background: none;}
 .index .convenient-btns{padding-top:20px;margin-bottom: 15px; position: relative;}
 .index .convenient-btns a:last-child{margin: 0;}
 .index .tableshortcut{width:765px; margin:0 auto;overflow: hidden;zoom:1; height:122px; }
 .index .othershortcut{height:175px; margin-top: 20px;}
-.index .content .othershortcut  .a-btns {margin-right:32px; }
+.index .content .othershortcut  .a-btns {margin-right:25px; }.index .content .othershortcut  .a-btns:last-child{margin: 0;}
 /*首页桌面快捷方式*/
 .settingbtn{ width: 18px; height:18px; display: block;
     background: url(../images/add_icon.png) no-repeat 0 -324px; position: absolute; top:10px;right:10px;}

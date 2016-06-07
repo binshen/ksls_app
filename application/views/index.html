@@ -86,14 +86,35 @@
                         <div class="tableshortcut othershortcut ">
                             <a href="javascript:void(0);" class="a-btns" url="/activity/list_activity"><img src="/static/images/index/index_nav6.jpg" alt=""></a>
                             <a href="javascript:void(0);" class="a-btns" url="/activity/list_activity"><img src="/static/images/index/index_nav7.jpg" alt=""></a>
+                            <a href="javascript:void(0);" class="a-btns" url="/activity/list_activity"><img src="/static/images/index/index_nav8.jpg" alt=""></a>
+                            <a href="javascript:void(0);" class="a-btns" url="/activity/list_activity"><img src="/static/images/index/index_nav9.jpg" alt=""></a>
                         </div>
                     </div>
                 </div>
                 <div class="content">
+                    <div class="convenient-btns">
+                        <div class="tableshortcut othershortcut ">
+                            <a href="javascript:void(0);" class="a-btns" url="/activity/list_activity"><img src="/static/images/index/index_nav10.jpg" alt=""></a>
+                            <a href="javascript:void(0);" class="a-btns" url="/activity/list_activity"><img src="/static/images/index/index_nav11.jpg" alt=""></a>
+                            <a href="javascript:void(0);" class="a-btns" url="/activity/list_activity"><img src="/static/images/index/index_nav12.jpg" alt=""></a>
+                            <a href="javascript:void(0);" class="a-btns" url="/activity/list_activity"><img src="/static/images/index/index_nav13.jpg" alt=""></a>
+                        </div>
+                    </div>
                 </div>
                 <div class="content">
+                    <div class="convenient-btns">
+                        <div class="tableshortcut othershortcut ">
+                            <a href="javascript:void(0);" class="a-btns" url="/activity/list_activity"><img src="/static/images/index/index_nav14.jpg" alt=""></a>
+                        </div>
+                    </div>
                 </div>
                 <div class="content">
+                    <div class="convenient-btns">
+                        <div class="tableshortcut othershortcut ">
+                            <a href="javascript:void(0);" class="a-btns" url="/activity/list_activity"><img src="/static/images/index/index_nav15.jpg" alt=""></a>
+                            <a href="javascript:void(0);" class="a-btns" url="/activity/list_activity"><img src="/static/images/index/index_nav16.jpg" alt=""></a>
+                        </div>
+                    </div>
                 </div>
           </div>
             {{include file='footer.html'}}
@@ -129,15 +150,14 @@
         $(function() {
             new Slide({
                 target: $('#slide01 .content' ),
-                control: $('#slide01_control li' ),
-                type:'click'
+                control: $('#slide01_control li' )
             });
             //桌面快捷按钮初始化
             var tableBtnsnum = {{$icon_count|default:0}};
             var hasChooseBtns = [], leftHtmls = rightHtmls = "", prepareShortCutBtns= JSON.parse('{{$icon_data}}');
             var tableshortcut="";
             for(var i=0;prepareShortCutBtns.length>tableBtnsnum?i<tableBtnsnum:i<prepareShortCutBtns.length;i++){
-                tableshortcut+='<a href="javascript:void(0);" data-rel="'+prepareShortCutBtns[i].name+'"  class="a-btns" url="'+prepareShortCutBtns[i].url+'"><img src="/static/images/index/'+prepareShortCutBtns[i].img+'" alt=""></a>';
+                tableshortcut+='<a href="javascript:void(0);" data-rel="'+prepareShortCutBtns[i].name+'"  class="a-btns" url="'+prepareShortCutBtns[i].url+'"><img src="/static/images/index/'+prepareShortCutBtns[i].img+'" alt="" width="115" height="112"></a>';
                 leftHtmls+= '<div class="s-mod-item ui-icon-trash" data-id="'+i+'"> <div class="s-mod-icon"></div><div class="s-mod-title">'+prepareShortCutBtns[i].name+'</div><input type="hidden" name="icon_id[]" value="'+prepareShortCutBtns[i].id+'"></div>';
             }
             if(prepareShortCutBtns.length>tableBtnsnum){
@@ -160,7 +180,7 @@
                 tableshortcut="";
                 for(var i=0; i<$("#JsCardsettingLeft .s-mod-item").length;i++) {
                     dataidId = $("#JsCardsettingLeft .s-mod-item").eq(i).attr("data-id");
-                    tableshortcut+='<a href="javascript:void(0);" data-rel="'+prepareShortCutBtns[dataidId].name+'"  class="a-btns" url="'+prepareShortCutBtns[dataidId].url+'"><img src="/static/images/index/'+prepareShortCutBtns[dataidId].img+'" alt=""></a>';
+                    tableshortcut+='<a href="javascript:void(0);" data-rel="'+prepareShortCutBtns[dataidId].name+'"  class="a-btns" url="'+prepareShortCutBtns[dataidId].url+'"><img src="/static/images/index/'+prepareShortCutBtns[dataidId].img+'" alt=""  width="115" height="112"></a>';
                 }
                 $("#Jtableshortcut").html(tableshortcut);
             }
