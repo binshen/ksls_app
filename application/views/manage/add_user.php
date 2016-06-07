@@ -15,6 +15,14 @@
                         <input name="rel_name" type="text" class="required" value="<?php if(!empty($rel_name)) echo $rel_name;?>" />
                     </dd>
                 </dl>
+                <?php if(!empty($id)){?>
+                <dl>
+                    <dt>重置密码:</dt>
+                    <dd>
+                        <button onclick="passwordRset(<?php if(!empty($id)) echo $id;?>)" type="button" class="icon-save" id="passwordreset">初始化密码</button>
+                    </dd>
+                </dl>
+                <?php }?>
                 <dl>
                     <dt>电话：</dt>
                     <dd>
@@ -137,6 +145,20 @@
             $("#img").html(html) ;
         }
     }) ;
+
+    function passwordRset(id){
+        var r=confirm("是否要初始化密码?")
+        if (r==true)
+        {
+            $.getJSON("<?php echo site_url('manage/password_reset'); ?>/"+id,function(data){
+                if(data==1){
+                    alert('初始化成功');
+                }else{
+                    alert('初始化失败');
+                }
+            })
+        }
+    }
     //建立一個可存取到該file的url
     function getObjectURL(file) {
         var url = null ;

@@ -250,6 +250,16 @@ class Manage extends MY_Controller {
 		}
 	}
 
+	public function password_reset($id=0){
+		if($id==0){
+			$res = 2;
+		}else{
+			$res = $this->manage_model->password_reset($id);
+		}
+
+		echo json_encode($res);
+	}
+
 	public function edit_user($id) {
 		$data = $this->manage_model->get_user($id);
 		$data['pids'] = $this->manage_model->get_user_pid($id);

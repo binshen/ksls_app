@@ -409,6 +409,16 @@ class Manage_model extends MY_Model
         return $data;
     }
 
+    public function password_reset($id){
+        $res = $this->db->where('id',$id)->update('user',array('password'=>sha1('888888')));
+        if($res){
+            return 1;
+        }else{
+            return 2;
+        }
+
+    }
+
     public function save_user($pic = NULL) {
         $data = array(
             'username' => $this->input->post('tel'),
