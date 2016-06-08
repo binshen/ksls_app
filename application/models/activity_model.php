@@ -47,6 +47,7 @@ class Activity_model extends MY_Model
         $this->db->select('count(1) as num');
         $this->db->from('activity a');
         $this->db->join('user b', 'a.user_id = b.id', 'inner');
+        $this->db->join('role c','c.id = b.role_id','inner');
         $this->db->where_in('a.status', $status);
         if($this->input->POST('company')) {
             $this->db->where('b.company_id', $this->input->POST('company'));
@@ -82,11 +83,11 @@ class Activity_model extends MY_Model
         if(!empty($company_id)) {
             $this->db->where('b.company_id', $company_id);
         }
-
+        $this->db->where('c.permission_id >=', 5);
         $rs_total = $this->db->get()->row();
         //总记录数
         $data['countPage'] = $rs_total->num;
-
+       // die(var_dump($this->db->last_query()));
         //list
         $this->db->select('a.*, b.rel_name AS u_name');
         $this->db->select('t1.name AS t1n, t2.name AS t2n, t3.name AS t3n, t4.name AS t4n, t5.name AS t5n');
@@ -120,7 +121,7 @@ class Activity_model extends MY_Model
         $this->db->join('activity_type t13','a.c3 = t13.id', 'left');
         $this->db->join('activity_type t14','a.c4 = t14.id', 'left');
         $this->db->join('activity_type t15','a.c5 = t15.id', 'left');
-
+        $this->db->join('role c','c.id = b.role_id','inner');
         $this->db->where_in('a.status', $status);
         if($this->input->POST('company')) {
             $this->db->where('b.company_id', $this->input->POST('company'));
@@ -160,6 +161,7 @@ class Activity_model extends MY_Model
             //只有在我的审核中,才不会显示状态为1的数据
             //$this->db->where('a.date <=',date('Ymd', strtotime("-1 day")));
         }
+        $this->db->where('c.permission_id >=', 5);
         $this->db->limit($numPerPage, ($pageNum - 1) * $numPerPage );
         //$this->db->order_by($this->input->post('orderField') ? $this->input->post('orderField') : 'a.date', $this->input->post('orderDirection') ? $this->input->post('orderDirection') : 'desc');
         $this->db->order_by('a.date', 'desc');
@@ -434,7 +436,7 @@ class Activity_model extends MY_Model
         $this->db->select('count(1) as num');
         $this->db->from('user a');
         $this->db->join('activity b', "a.id = b.user_id and b.date = '{$select_date}'", 'left');
-
+        $this->db->join('role c','c.id = a.role_id','inner');
         if($this->input->POST('company')) {
             $this->db->where('a.company_id', $this->input->POST('company'));
         }
@@ -452,7 +454,7 @@ class Activity_model extends MY_Model
             $this->db->where('a.company_id', $company_id);
         }
         $this->db->where('b.id is null');
-        $this->db->where('a.role_id >','6');
+        $this->db->where('c.permission_id >=', 5);
         $rs_total_noplan = $this->db->get()->row();
 
         //总记录数
@@ -464,7 +466,7 @@ class Activity_model extends MY_Model
         $this->db->select('a.rel_name');
         $this->db->from('user a');
         $this->db->join('activity b', "a.id = b.user_id and b.date = '{$select_date}'", 'left');
-
+        $this->db->join('role c','c.id = a.role_id','inner');
         if($this->input->POST('company')) {
             $this->db->where('a.company_id', $this->input->POST('company'));
         }
@@ -482,7 +484,7 @@ class Activity_model extends MY_Model
             $this->db->where('a.company_id', $company_id);
         }
         $this->db->where('b.id is null');
-        $this->db->where('a.role_id >','6');
+        $this->db->where('c.permission_id >=', 5);
         $this->db->limit($numPerPage, ($pageNum - 1) * $numPerPage );
         //$this->db->order_by($this->input->post('orderField') ? $this->input->post('orderField') : 'a.date', $this->input->post('orderDirection') ? $this->input->post('orderDirection') : 'desc');
 
@@ -499,7 +501,12 @@ class Activity_model extends MY_Model
 
     public function get_subsidiary_user_list_7($subsidiary_id) {
 
-        return $this->db->get_where('user', array('subsidiary_id' => $subsidiary_id,
-            'role_id >'=>'6'))->result_array();
+        $this->db->select()->from('user a');
+        $this->db->join('role b','b.id = a.role_id','inner');
+        $this->db->where(array(
+            'a.subsidiary_id' => $subsidiary_id,
+            'b.permission_id >'=>'4'
+        ));
+        return $this->db->get()->result_array();
     }
 }

@@ -19,11 +19,13 @@
             <div class="nav-left">
                 <ul class="nav-left-ul">
                     <li><a href="/"><em class="home"></em>回到首页</a></li>
+                    {{if $permission_id >= 5 }}
                     <li><a href="/activity/list_activity"><em class="schedule"></em>我的行程</a></li>
-                    {{if $role_id < 7 }}
+                    {{/if}}
+                    {{if $permission_id < 5 }}
                         <li><a href="/activity/list_review/1/1"><em class="verify"></em>我的审核</a></li>
                     {{/if}}
-                    {{if $role_id < 7 }}
+                    {{if $permission_id < 5 }}
                     <li class="on"><a href="/activity/list_noplan/1/1"><em class="noplan"></em>未计划</a></li>
                     {{/if}}
                 </ul>
@@ -32,7 +34,7 @@
         <div class="wrap-right">
             <div class="search-wrap">
                 <form id="formSearchActivity" method="POST" action="/activity/list_noplan">
-                    {{if $role_id == 1}}
+                    {{if $permission_id == 1}}
                         <select name="company" id="sel_company" style="width:150px">
                             <option value="">选择公司</option>
                             {{foreach from=$company_list key=key item=item}}
@@ -44,7 +46,7 @@
                             {{/foreach}}
                         </select>
                     {{/if}}
-                    {{if $role_id <= 2}}
+                    {{if $permission_id <= 2}}
                         <select name="subsidiary" id="sel_subsidiary" style="width:150px">
                             <option value="">选择分店</option>
                             {{foreach from=$subsidiary_list key=key item=item}}

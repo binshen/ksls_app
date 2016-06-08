@@ -45,12 +45,14 @@ class User_model extends MY_Model
                     $ids[]=$id['pid'];
                 }
             }
+            $role_p = $this->db->select()->where('id',$res->role_id)->from('role')->get()->row();
             $user_info['login_token'] = $token;
             $user_info['login_user_id'] = $res->id;
             $user_info['login_username'] = $username;
             $user_info['login_password'] = $res->password;
             $user_info['login_rel_name'] = $res->rel_name;
             $user_info['login_role_id'] = $res->role_id;
+            $user_info['login_permission_id'] = $role_p->permission_id;
             $user_info['login_company_id'] = $res->company_id;
             $user_info['login_subsidiary_id'] = $res->subsidiary_id;
            // $user_info['login_position_id'] = $res->position_id; 此栏位暂不使用

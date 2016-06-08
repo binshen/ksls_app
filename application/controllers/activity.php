@@ -32,7 +32,7 @@ class Activity extends MY_Controller {
         if(!$this->session->userdata('login_user_id')) {
             redirect(site_url('/'));
         } else {
-            if($this->session->userdata('login_role_id') > 6){
+            if($this->session->userdata('login_permission_id') > 4){
                 if($method == 'list_review'){
                     redirect(site_url('/activity/list_activity'));
                     exit();
@@ -45,14 +45,19 @@ class Activity extends MY_Controller {
                     redirect(site_url('/activity/list_activity'));
                     exit();
                 }
+            }else{
+                if($method == 'list_activity'){
+                    redirect(site_url('/activity/list_review/1/1'));
+                    exit();
+                }
             }
             return call_user_func_array(array($this, $method), $params);
         }
     }
 
     public function list_activity($page=1) {
-        $role_id = $this->session->userdata('login_role_id');
-        $this->assign('role_id', $role_id);
+        $permission_id = $this->session->userdata('login_permission_id');
+        $this->assign('permission_id', $permission_id);
 
         if($this->input->POST('start_date')) {
             $this->assign('start_date', $this->input->POST('start_date'));
@@ -75,9 +80,9 @@ class Activity extends MY_Controller {
     public function list_review($page=1,$flag=null) {
 
 
-        $role_id = $this->session->userdata('login_role_id');
-        $this->assign('role_id', $role_id);
-        if($role_id == 1) {
+        $permission_id = $this->session->userdata('login_permission_id');
+        $this->assign('permission_id', $permission_id);
+        if($permission_id == 1) {
             $company_list = $this->activity_model->get_company_list();
             $this->assign('company_list', $company_list);
         }
@@ -87,9 +92,9 @@ class Activity extends MY_Controller {
             $subsidiary_list = $this->activity_model->get_subsidiary_list($this->input->POST('company'), NULL);
         } else {
             $company_id = $this->session->userdata('login_company_id');
-            if($role_id < 3) {
+            if($permission_id < 3) {
                 $subsidiary_list = $this->activity_model->get_subsidiary_list($company_id, NULL);
-            } else if($role_id < 7) {
+            } else if($permission_id < 5) {
                 $subsidiary_id = $this->session->userdata('login_subsidiary_id');
                 $subsidiary_list = $this->activity_model->get_subsidiary_list($company_id, $subsidiary_id);
             }
@@ -98,11 +103,11 @@ class Activity extends MY_Controller {
 
         if($this->input->POST('subsidiary')) {
             $this->assign('subsidiary', $this->input->POST('subsidiary'));
-            $user_list = $this->activity_model->get_subsidiary_user_list($this->input->POST('subsidiary'));
+            $user_list = $this->activity_model->get_subsidiary_user_list_7($this->input->POST('subsidiary'));
             $this->assign('user_list', $user_list);
-        }elseif(!$this->input->post('subsidiary') && $role_id < 7 && $role_id > 2){
+        }elseif(!$this->input->post('subsidiary') && $permission_id < 5 && $permission_id > 2){
             $this->assign('subsidiary', $this->session->userdata('login_subsidiary_id'));
-            $user_list = $this->activity_model->get_subsidiary_user_list($this->session->userdata('login_subsidiary_id'));
+            $user_list = $this->activity_model->get_subsidiary_user_list_7($this->session->userdata('login_subsidiary_id'));
             $this->assign('user_list', $user_list);
         }
         if($this->input->POST('user')) {
@@ -117,11 +122,11 @@ class Activity extends MY_Controller {
         $this->assign('yesterday', date('Y-m-d', strtotime("-1 day")));
         $this->assign('flag', $flag);
         $company_id = NULL;
-        if($role_id > 1) {
+        if($permission_id > 1) { //如果不是管理员 就只能查看自己公司下的人员
             $company_id = $this->session->userdata('login_company_id');
         }
         $subsidiary_id = NULL;
-        if($role_id >= 4) {
+        if($permission_id > 2) {//如果不是总经理 就只能查看自己门店的人员
             $subsidiary_id = $this->session->userdata('login_subsidiary_id');
         }
         $data = $this->activity_model->list_activity($page, array(1,2,3), NULL, $subsidiary_id, $company_id,$flag);
@@ -135,8 +140,8 @@ class Activity extends MY_Controller {
     }
 
     public function add_activity() {
-        $role_id = $this->session->userdata('login_role_id');
-        $this->assign('role_id', $role_id);
+        $permission_id = $this->session->userdata('login_permission_id');
+        $this->assign('permission_id', $permission_id);
         $activity_type_list = $this->activity_model->get_activity_type_list();
         $this->assign('activity_type_list', json_encode($activity_type_list));
 
@@ -151,8 +156,8 @@ class Activity extends MY_Controller {
             redirect(site_url('/activity/list_activity'));
             exit();
         }
-        $role_id = $this->session->userdata('login_role_id');
-        $this->assign('role_id', $role_id);
+        $permission_id = $this->session->userdata('login_permission_id');
+        $this->assign('permission_id', $permission_id);
         $activity_type_list = $this->activity_model->get_activity_type_list();
         $this->assign('activity_type_list', json_encode($activity_type_list));
 
@@ -175,8 +180,8 @@ class Activity extends MY_Controller {
             redirect(site_url('/activity/list_activity'));
             exit();
         }
-        $role_id = $this->session->userdata('login_role_id');
-        $this->assign('role_id', $role_id);
+        $permission_id = $this->session->userdata('login_permission_id');
+        $this->assign('permission_id', $permission_id);
         $activity_type_list = $this->activity_model->get_activity_type_list();
         $this->assign('activity_type_list', json_encode($activity_type_list));
 
@@ -237,7 +242,8 @@ class Activity extends MY_Controller {
         }
         $activity_type_list = $this->activity_model->get_activity_type_list();
         $this->assign('activity_type_list', json_encode($activity_type_list));
-
+        $permission_id = $this->session->userdata('login_permission_id');
+        $this->assign('permission_id', $permission_id);
 
         $status = $activity['status'];
         if($status == 2) {
@@ -334,15 +340,15 @@ class Activity extends MY_Controller {
         }
         $this->assign('year_list', $year_list);
 
-        $role_id = $this->session->userdata('login_role_id');
-        $this->assign('role_id', $role_id);
-        if($role_id == 1) {
+        $permission_id = $this->session->userdata('login_permission_id');
+        $this->assign('permission_id', $permission_id);
+        if($permission_id == 1) {
             $company_list = $this->activity_model->get_company_list();
             $this->assign('company_list', $company_list);
         } else {
             $company_id = $this->session->userdata('login_company_id');
             $subsidiary_id = NULL;
-            if($role_id > 7) {
+            if($permission_id > 4) {
                 $subsidiary_id = $this->session->userdata('login_subsidiary_id');
                 $this->assign('subsidiary', $subsidiary_id);
             } else {
@@ -362,11 +368,11 @@ class Activity extends MY_Controller {
         $subsidiary_id = $this->input->post('subsidiary_id');
         $year = $this->input->post('year');
         $month = $this->input->post('month');
-        $role_id = $this->session->userdata('login_role_id');
-        if($role_id > 1) {
+        $permission_id = $this->session->userdata('login_permission_id');
+        if($permission_id > 1) {
             $company_id = $this->session->userdata('login_company_id');
         }
-        if($role_id >= 7) {
+        if($permission_id >= 5) {
             $subsidiary_id = $this->session->userdata('login_subsidiary_id');
         }
 
@@ -421,11 +427,19 @@ class Activity extends MY_Controller {
         die;
     }
 
+    public function get_subsidiary_user_list_7($subsidiary_id) {
+
+        $subsidiary_user_list = $this->activity_model->get_subsidiary_user_list_7($subsidiary_id);
+        echo json_encode($subsidiary_user_list);
+        die;
+        die;
+    }
+
     public function list_noplan($page=1,$flag=null){
-        $role_id = $this->session->userdata('login_role_id');
+        $permission_id = $this->session->userdata('login_permission_id');
+        $this->assign('permission_id', $permission_id);
         $this->assign('flag', $flag);
-        $this->assign('role_id', $role_id);
-        if($role_id == 1) {
+        if($permission_id == 1) {
             $company_list = $this->activity_model->get_company_list();
             $this->assign('company_list', $company_list);
         }
@@ -435,9 +449,9 @@ class Activity extends MY_Controller {
             $subsidiary_list = $this->activity_model->get_subsidiary_list($this->input->POST('company'), NULL);
         } else {
             $company_id = $this->session->userdata('login_company_id');
-            if($role_id < 3) {
+            if($permission_id < 3) {
                 $subsidiary_list = $this->activity_model->get_subsidiary_list($company_id, NULL);
-            } else if($role_id < 7) {
+            } else if($permission_id < 5) {
                 $subsidiary_id = $this->session->userdata('login_subsidiary_id');
                 $subsidiary_list = $this->activity_model->get_subsidiary_list($company_id, $subsidiary_id);
             }
@@ -448,7 +462,7 @@ class Activity extends MY_Controller {
             $this->assign('subsidiary', $this->input->POST('subsidiary'));
             $user_list = $this->activity_model->get_subsidiary_user_list_7($this->input->POST('subsidiary'));
             $this->assign('user_list', $user_list);
-        }elseif(!$this->input->post('subsidiary') && $role_id < 7 && $role_id > 2){
+        }elseif(!$this->input->post('subsidiary') && $permission_id < 5 && $permission_id > 2){
             $this->assign('subsidiary', $this->session->userdata('login_subsidiary_id'));
             $user_list = $this->activity_model->get_subsidiary_user_list_7($this->session->userdata('login_subsidiary_id'));
             $this->assign('user_list', $user_list);
@@ -467,11 +481,11 @@ class Activity extends MY_Controller {
         $this->assign('yesterday', date('Y-m-d', strtotime("-1 day")));
 
         $company_id = NULL;
-        if($role_id > 1) {
+        if($permission_id > 1) {
             $company_id = $this->session->userdata('login_company_id');
         }
         $subsidiary_id = NULL;
-        if($role_id >= 4) {
+        if($permission_id >= 3) {
             $subsidiary_id = $this->session->userdata('login_subsidiary_id');
         }
         $data = $this->activity_model->list_onplan($page, $subsidiary_id, $company_id,$flag);

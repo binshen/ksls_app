@@ -24,7 +24,7 @@
         <div class="wrap-right">
             <div class="search-wrap search-wrap1 search-wrap2">
                 <form id="formSearchActivity" method="POST" action="">
-                    {{if $role_id == 1}}
+                    {{if $permission_id == 1}}
                         <select name="company" id="sel_company" style="width:150px">
                             <option value="0">选择公司</option>
                             {{foreach from=$company_list key=key item=item}}
@@ -32,7 +32,7 @@
                             {{/foreach}}
                         </select>
                     {{/if}}
-                    {{if $role_id < 3}}
+                    {{if $permission_id < 3}}
                         <select name="subsidiary" id="sel_subsidiary" style="width:150px">
                             <option value="0">选择分店</option>
                             {{foreach from=$subsidiary_list key=key item=item}}
