@@ -18,6 +18,15 @@ class Examination extends MY_Controller
         $this->load->model('examination_model');
     }
 
+    function _remap($method, $params = array())
+    {
+        if(!$this->session->userdata('login_user_id')) {
+            redirect(site_url('/'));
+        } else {
+            return call_user_func_array(array($this, $method), $params);
+        }
+    }
+
     public function self_examination()
     {
 
@@ -29,6 +38,12 @@ class Examination extends MY_Controller
 
     public function do_examination($type_id=1)
     {
+        $user_id = $this->session->userdata('login_user_id');
+        $exam_data = $this->examination_model->get_user_exam($user_id, $type_id);
+        if(empty($exam_data)) {
+            $exam_list = $this->examination_model->gen_exam_data($user_id, $type_id);
+            
+        }
 
         $this->display('do_examination.html');
     }
