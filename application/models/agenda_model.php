@@ -33,7 +33,15 @@ class Agenda_model extends MY_Model
     }
 
     public function get_subsidiary_user_list($subsidiary_id) {
-        return $this->db->get_where('user', array('subsidiary_id' => $subsidiary_id))->result_array();
+        $this->db->select()->from('user a');
+        $this->db->join('role b','b.id = a.role_id','inner');
+        $this->db->where(array(
+            'a.subsidiary_id' => $subsidiary_id,
+            'b.permission_id >='=>$this->session->userdata('login_permission_id')
+        ));
+        return $this->db->get()->result_array();
+
+        //return $this->db->get_where('user', array('subsidiary_id' => $subsidiary_id))->result_array();
     }
 
     function list_agenda($page,$user_id = null,$subsidiary_id=null,$company_id=null){
@@ -44,6 +52,7 @@ class Agenda_model extends MY_Model
         $this->db->select('count(1) as num');
         $this->db->from('agenda a');
         $this->db->join('user b','a.user_id = b.id','inner');
+        $this->db->join('role c','c.id = b.role_id','inner');
         if(!empty($user_id)){
             $this->db->where('a.user_id',$user_id);
         }
@@ -72,6 +81,7 @@ class Agenda_model extends MY_Model
         if(!empty($company_id)) {
             $this->db->where('b.company_id', $company_id);
         }
+        $this->db->where('c.permission_id >=',$this->session->userdata('login_permission_id'));
         $row = $this->db->get()->row_array();
         //总记录数
         $data['countPage'] = $row['num'];
@@ -80,6 +90,7 @@ class Agenda_model extends MY_Model
         $this->db->select('a.*,b.rel_name');
         $this->db->from('agenda a');
         $this->db->join('user b','a.user_id = b.id','inner');
+        $this->db->join('role c','c.id = b.role_id','inner');
         if(!empty($user_id)){
             $this->db->where('a.user_id',$user_id);
         }
@@ -109,6 +120,7 @@ class Agenda_model extends MY_Model
         if(!empty($company_id)) {
             $this->db->where('b.company_id', $company_id);
         }
+        $this->db->where('c.permission_id >=', $this->session->userdata('login_permission_id'));
         //die(var_dump($this->db->last_query()));
         $this->db->limit($numPerPage, ($pageNum - 1) * $numPerPage );
         $this->db->order_by('a.cdate', 'desc');

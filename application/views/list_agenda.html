@@ -21,7 +21,7 @@
                     {{if !in_array(2,$position_id)}}
                     <li class="on"><a href="/agenda/list_agenda"><em class="myagenda"></em>我的代办</a></li>
                     {{/if}}
-                    {{if $role_id < 7 || in_array(2,$position_id)}}
+                    {{if $permission_id < 5 || in_array(2,$position_id)}}
                     <li><a href="/agenda/list_agenda_other"><em class="allagenda"></em>代办事项</a></li>
                     {{/if}}
                 </ul>
