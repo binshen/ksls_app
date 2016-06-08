@@ -326,7 +326,7 @@ class Activity extends MY_Controller {
     public function confirm_activity() {
         $this->activity_model->review_activity();
 
-        redirect(site_url('activity/list_review'));
+        redirect(site_url('activity/list_review/1/1'));
     }
 
     public function list_ranking($op = 0) {

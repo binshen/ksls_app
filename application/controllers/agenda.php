@@ -35,7 +35,7 @@ class Agenda extends MY_Controller
                     exit();
                 }
             }else{
-                if($this->session->userdata('login_role_id') > 6 ){
+                if($this->session->userdata('login_permission_id') > 4 ){
                     if($method == 'list_agenda_other'){
                         redirect(site_url('/agenda/list_agenda'));
                         exit();
@@ -48,8 +48,8 @@ class Agenda extends MY_Controller
     }
 
     public function list_agenda($page=1) {
-        $role_id = $this->session->userdata('login_role_id');
-        $this->assign('role_id', $role_id);
+        $permission_id = $this->session->userdata('login_permission_id');
+        $this->assign('permission_id', $permission_id);
         $position_id = $this->session->userdata('login_position_id_array');
         $this->assign('position_id', $position_id);
         $course_list = $this->agenda_model->get_course();
@@ -69,8 +69,8 @@ class Agenda extends MY_Controller
     }
 
     function list_agenda_other($page=1){
-        $role_id = $this->session->userdata('login_role_id');
-        $this->assign('role_id', $role_id);
+        $permission_id = $this->session->userdata('login_permission_id');
+        $this->assign('permission_id', $permission_id);
         $position_id = $this->session->userdata('login_position_id_array');
         $this->assign('position_id', $position_id);
 
@@ -105,7 +105,7 @@ class Agenda extends MY_Controller
 
         }else{
             ///这里不是权证人员 就安装自己的职级来判断
-            if($role_id == 1) {
+            if($permission_id == 1) {
                 $company_list = $this->agenda_model->get_company_list();
                 $this->assign('company_list', $company_list);
             }
@@ -115,9 +115,9 @@ class Agenda extends MY_Controller
                 $subsidiary_list = $this->agenda_model->get_subsidiary_list($this->input->POST('company'), NULL);
             } else {
                 $company_id = $this->session->userdata('login_company_id');
-                if($role_id < 4) {
+                if($permission_id < 3) {
                     $subsidiary_list = $this->agenda_model->get_subsidiary_list($company_id, NULL);
-                } else if($role_id < 7) {
+                } else if($permission_id < 5) {
                     $subsidiary_id = $this->session->userdata('login_subsidiary_id');
                     $subsidiary_list = $this->agenda_model->get_subsidiary_list($company_id, $subsidiary_id);
                 }
@@ -128,7 +128,7 @@ class Agenda extends MY_Controller
 
                 $user_list = $this->agenda_model->get_subsidiary_user_list($this->input->POST('subsidiary'));
                 $this->assign('user_list', $user_list);
-            }elseif(!$this->input->post('subsidiary') && $role_id < 7){
+            }elseif(!$this->input->post('subsidiary') && $permission_id < 5){
                 $this->assign('subsidiary', $this->session->userdata('login_subsidiary_id'));
                 $user_list = $this->agenda_model->get_subsidiary_user_list($this->session->userdata('login_subsidiary_id'));
                 $this->assign('user_list', $user_list);
@@ -138,11 +138,11 @@ class Agenda extends MY_Controller
             }
 
             $company_id = NULL;
-            if($role_id > 1) {
+            if($permission_id > 1) {
                 $company_id = $this->session->userdata('login_company_id');
             }
             $subsidiary_id = NULL;
-            if($role_id >= 4) {
+            if($permission_id >= 3) {
                 $subsidiary_id = $this->session->userdata('login_subsidiary_id');
             }
 
@@ -172,8 +172,8 @@ class Agenda extends MY_Controller
     }
 
     public function add_agenda($id=NULL) {
-        $role_id = $this->session->userdata('login_role_id');
-        $this->assign('role_id', $role_id);
+        $permission_id = $this->session->userdata('login_permission_id');
+        $this->assign('permission_id', $permission_id);
         $position_id = $this->session->userdata('login_position_id_array');
         $this->assign('position_id', $position_id);
         if(!empty($id)) {
@@ -213,8 +213,8 @@ class Agenda extends MY_Controller
         $course_list = $this->agenda_model->get_course_list();
         $this->assign('course_list', $course_list);
 
-        $role_id = $this->session->userdata('login_role_id');
-        $this->assign('role_id', $role_id);
+        $permission_id = $this->session->userdata('login_permission_id');
+        $this->assign('permission_id', $permission_id);
 
         $position_id = $this->session->userdata('login_position_id_array');
         $this->assign('position_id', $position_id);

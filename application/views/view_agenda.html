@@ -21,7 +21,7 @@
                     {{if !in_array(2,$position_id)}}
                     <li {{if $style == 1}}class="on"{{/if}}><a href="/agenda/list_agenda"><em class="myagenda"></em>我的代办</a></li>
                     {{/if}}
-                    {{if $role_id < 7 || in_array(2,$position_id)}}
+                    {{if $permission_id < 5 || in_array(2,$position_id)}}
                     <li {{if $style == 2}}class="on"{{/if}}><a href="/agenda/list_agenda_other"><em class="allagenda"></em>代办事项</a></li>
                     {{/if}}
                 </ul>
@@ -238,7 +238,7 @@
                     </tr>
                 </table>
             </div>
-            {{if $role_id == 1 || in_array(2,$position_id)}}
+            {{if $permission_id == 1 || in_array(2,$position_id)}}
             <form id="agendaForm" method="post" action="/agenda/confirm_agenda">
                 <input type="hidden" name="id" value="{{$agenda->id}}">
                 <div class="div-th div-th2"><em></em>权证信息</div>
