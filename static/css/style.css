@@ -22,7 +22,7 @@ body{background: #fff; font-family: "Microsoft YaHei";}p{white-space: normal; wo
 .logo{display: block;height:45px; }
 /*-------首页---------*/
 
-.index {background: url(/static/images/index/index_bg1.jpg) no-repeat;}
+.index {background: url(/static/images/index/index_bg2.jpg) no-repeat center top;}
 .index .header-wrap{color:#fff;background:rgba(255,255,255,0.3);border:none;filter:progid:DXImageTransform.Microsoft.gradient(startcolorstr=#CCFFFFFF,endcolorstr=#CCFFFFFF);}
 .index  .login-in .moreoperation,.index  .login-in .outoperation{color:#fff;}
 .index .header-in-wrap{width:1000px;}
