@@ -42,22 +42,16 @@
                     <div class="choose-exam-category">
                         <div class="tit">请选择您要进行自主考试的类别</div>
                         <ul class="ul-category">
-                            <li class="current">新人基础知识</li>
-                            <li>业务进阶</li>
-                            <li>店务管理</li>
+                            {{foreach from=$question_type_list item=item}}
+                                <li>{{$item.name}}</li>
+                            {{/foreach}}
                         </ul>
                         <a href="/examination/do_examination" class="go-exam">开始考试</a>
                     </div>
-                       
-                   
                 </div>
-               
-            
             </div>
         </div>
     </div>
 </div>
-
-
 </body>
 </html> 

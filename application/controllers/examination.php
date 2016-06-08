@@ -10,9 +10,19 @@ if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
 class Examination extends MY_Controller
 {
+
+    public function __construct() {
+        parent::__construct();
+
+        $this->load->model('examination_model');
+    }
+
     public function self_examination()
     {
 
+        $question_type_list = $this->examination_model->get_question_type_list();
+        $this->assign('question_type_list', $question_type_list);
+        
         $this->display('self_examination.html');
     }
 
