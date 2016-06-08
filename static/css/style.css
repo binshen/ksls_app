@@ -623,6 +623,8 @@ html .fc,.fc table{font-size:1em;background:#f2f3f5}.fc td,.fc th{padding:0;vert
 .dl-exam dt{font-size:14px; color: #666; margin-bottom: 30px;}
 .dl-exam dd{padding-left:20px;height: 44px; margin-bottom: 20px; line-height: 44px; font-size: 14px; color:#666; box-shadow: 5px 5px 15px #ddd;border:1px solid #fdfdfe;}
 .dl-exam dd span{margin-left: 10px;}
+.dl-exam .discuss-dd{height:auto;}
+.dl-exam .discuss-dd textarea{width:95%;height:300px;border:none; font-size: 14px;font-family: "Microsoft YaHei"; padding:10px;}
 
 
 
