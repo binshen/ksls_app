@@ -499,6 +499,6 @@ class Activity_model extends MY_Model
     public function get_subsidiary_user_list_7($subsidiary_id) {
 
         return $this->db->get_where('user', array('subsidiary_id' => $subsidiary_id,
-            'a.role_id >'=>'6'))->result_array();
+            'role_id >'=>'6'))->result_array();
     }
 }
