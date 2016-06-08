@@ -446,11 +446,11 @@ class Activity extends MY_Controller {
 
         if($this->input->POST('subsidiary')) {
             $this->assign('subsidiary', $this->input->POST('subsidiary'));
-            $user_list = $this->activity_model->get_subsidiary_user_list($this->input->POST('subsidiary'));
+            $user_list = $this->activity_model->get_subsidiary_user_list_7($this->input->POST('subsidiary'));
             $this->assign('user_list', $user_list);
         }elseif(!$this->input->post('subsidiary') && $role_id < 7 && $role_id > 2){
             $this->assign('subsidiary', $this->session->userdata('login_subsidiary_id'));
-            $user_list = $this->activity_model->get_subsidiary_user_list($this->session->userdata('login_subsidiary_id'));
+            $user_list = $this->activity_model->get_subsidiary_user_list_7($this->session->userdata('login_subsidiary_id'));
             $this->assign('user_list', $user_list);
         }
         if($this->input->POST('user')) {
