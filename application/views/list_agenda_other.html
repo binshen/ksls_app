@@ -234,9 +234,9 @@
         $("#sel_user").append('<option value="">选择员工</option>');
     });
     $('#sel_subsidiary').change(function(){
-        var path = '/activity/get_subsidiary_user_list/';
+        var path = '/agenda/get_subsidiary_user_list/';
         {{if in_array(2,$position_id)}}
-        path = '/activity/get_subsidiary_user_list_7/';
+        path = '/agenda/get_subsidiary_user_list_7/';
         {{/if}}
         $.get(path + $(this).val(), function(data) {
             $("#sel_user").empty();

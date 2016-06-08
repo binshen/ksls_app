@@ -303,4 +303,21 @@ class Agenda extends MY_Controller
         $data = $this->agenda_model->del_pic($folder,$style,$pic,$id);
         echo json_encode($data);
     }
+
+    public function get_subsidiary_user_list($subsidiary_id) {
+
+        $subsidiary_user_list = $this->agenda_model->get_subsidiary_user_list($subsidiary_id);
+        echo json_encode($subsidiary_user_list);
+        die;
+        die;
+    }
+
+    public function get_subsidiary_user_list_7($subsidiary_id) {
+
+        $subsidiary_user_list = $this->agenda_model->get_subsidiary_user_list_7($subsidiary_id);
+        echo json_encode($subsidiary_user_list);
+        die;
+        die;
+    }
+
 }
