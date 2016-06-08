@@ -18,7 +18,8 @@ class Examination_model extends MY_Model
         parent::__destruct();
     }
 
-    public function get_question_type_list() {
+    public function get_question_type_list()
+    {
         return $this->db->get('question_type')->result_array();
     }
 }

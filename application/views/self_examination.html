@@ -43,7 +43,7 @@
                         <div class="tit">请选择您要进行自主考试的类别</div>
                         <ul class="ul-category">
                             {{foreach from=$question_type_list item=item}}
-                                <li>{{$item.name}}</li>
+                                <li onclick="go_to_page({{$item.id}})">{{$item.name}}</li>
                             {{/foreach}}
                         </ul>
                         <a href="/examination/do_examination" class="go-exam">开始考试</a>
@@ -53,5 +53,10 @@
         </div>
     </div>
 </div>
+<script>
+    function go_to_page(type_id) {
+        window.location.href = '/examination/do_examination/' + type_id;
+    }
+</script>
 </body>
 </html> 

@@ -11,7 +11,8 @@ if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 class Examination extends MY_Controller
 {
 
-    public function __construct() {
+    public function __construct()
+    {
         parent::__construct();
 
         $this->load->model('examination_model');
@@ -26,7 +27,7 @@ class Examination extends MY_Controller
         $this->display('self_examination.html');
     }
 
-    public function do_examination()
+    public function do_examination($type_id=1)
     {
 
         $this->display('do_examination.html');
@@ -38,9 +39,9 @@ class Examination extends MY_Controller
         $this->display('submit_examination.html');
     }
 
-     public function unit_examination()
-     {
+    public function unit_examination()
+    {
 
-         $this->display('unit_examination.html');
-     }
+        $this->display('unit_examination.html');
+    }
 }
