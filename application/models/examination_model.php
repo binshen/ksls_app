@@ -28,7 +28,7 @@ class Examination_model extends MY_Model
         return $this->db->get_where('self_exam', array(
             'user_id' => $user_id,
             'type_id' => $type_id,
-            'complete' => 0))->result_array();
+            'complete' => 0))->row_array();
     }
 
     public function gen_exam_data($user_id, $type_id, $limit=20) {
@@ -65,7 +65,26 @@ class Examination_model extends MY_Model
         if ($this->db->trans_status() === FALSE) {
             return -1;
         } else {
-            return 1;
+            return $exam_id;
         }
+    }
+
+    public function get_exam_list($exam_id, $question_id = NULL) {
+        $this->db->select('c.title, c.op1, c.op2, c.op3, c.op4, d.name AS question_type');
+        $this->db->from('self_exam a');
+        $this->db->join('self_exam_question b', 'a.id = b.exam_id', 'inner');
+        $this->db->join('question c', 'b.question_id = c.id', 'inner');
+        $this->db->join('question_type d', 'c.type_id = d.id', 'inner');
+        $this->db->where('a.id', $exam_id);
+        if(!empty($question_id)) {
+            $this->db->where('c.id', $question_id);
+        }
+        $this->db->order_by('b.id ASC');
+        $this->db->limit(1);
+        return $this->db->get()->row_array();
+    }
+
+    public function get_exam_question($exam_id) {
+        return $this->db->get_where('self_exam_question', array('exam_id' => $exam_id))->result_array();
     }
 }
