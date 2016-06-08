@@ -452,7 +452,7 @@ class Activity_model extends MY_Model
             $this->db->where('a.company_id', $company_id);
         }
         $this->db->where('b.id is null');
-        $this->db->where('a.role_id <','6');
+        $this->db->where('a.role_id >','6');
         $rs_total_noplan = $this->db->get()->row();
 
         //总记录数
@@ -482,7 +482,7 @@ class Activity_model extends MY_Model
             $this->db->where('a.company_id', $company_id);
         }
         $this->db->where('b.id is null');
-        $this->db->where('a.role_id <','6');
+        $this->db->where('a.role_id >','6');
         $this->db->limit($numPerPage, ($pageNum - 1) * $numPerPage );
         //$this->db->order_by($this->input->post('orderField') ? $this->input->post('orderField') : 'a.date', $this->input->post('orderDirection') ? $this->input->post('orderDirection') : 'desc');
 
@@ -494,5 +494,11 @@ class Activity_model extends MY_Model
         $data['pageNum'] = $pageNum;
         $data['numPerPage'] = $numPerPage;
         return $data;
+    }
+
+    public function get_subsidiary_user_list_7($subsidiary_id) {
+
+        return $this->db->get_where('user', array('subsidiary_id' => $subsidiary_id,
+            'a.role_id >'=>'6'))->result_array();
     }
 }
