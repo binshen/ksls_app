@@ -53,7 +53,7 @@
                                             Your browser does not support the video tag.
                                         </video>
                                         <p class="video-txt">
-                                            <i class="fz16">[{{$item.type_name}}]{{$item.title}}</i><br />
+                                            <i class="fz16">[{{$item.type_name}}]{{$item.title|truncate:15:"...":true}}</i><br />
                                             <i class="fz12">{{$item.played}}次播放</i><br />
                                             <i href="javascript:void(0)" class="play-btn">立即播放</i>
                                         </p>
