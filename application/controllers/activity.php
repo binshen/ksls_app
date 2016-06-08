@@ -121,7 +121,7 @@ class Activity extends MY_Controller {
             $company_id = $this->session->userdata('login_company_id');
         }
         $subsidiary_id = NULL;
-        if($role_id >= 7) {
+        if($role_id >= 4) {
             $subsidiary_id = $this->session->userdata('login_subsidiary_id');
         }
         $data = $this->activity_model->list_activity($page, array(1,2,3), NULL, $subsidiary_id, $company_id,$flag);
@@ -471,7 +471,7 @@ class Activity extends MY_Controller {
             $company_id = $this->session->userdata('login_company_id');
         }
         $subsidiary_id = NULL;
-        if($role_id >= 7) {
+        if($role_id >= 4) {
             $subsidiary_id = $this->session->userdata('login_subsidiary_id');
         }
         $data = $this->activity_model->list_onplan($page, $subsidiary_id, $company_id,$flag);

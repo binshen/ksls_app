@@ -488,6 +488,7 @@ class Activity_model extends MY_Model
 
 
         $data['res_list'] = $this->db->get()->result();
+       // die(var_dump($this->db->last_query()));
         /*echo var_dump($data['res_list']);
         echo '</br>';
         die(var_dump($this->db->query()));*/
