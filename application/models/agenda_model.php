@@ -44,6 +44,11 @@ class Agenda_model extends MY_Model
         //return $this->db->get_where('user', array('subsidiary_id' => $subsidiary_id))->result_array();
     }
 
+    public function get_subsidiary_user_list_7($subsidiary_id) {
+
+        return $this->db->get_where('user', array('subsidiary_id' => $subsidiary_id))->result_array();
+    }
+
     function list_agenda($page,$user_id = null,$subsidiary_id=null,$company_id=null){
         // 每页显示的记录条数，默认20条
         $numPerPage = $this->input->post('numPerPage') ? $this->input->post('numPerPage') : 10;
@@ -81,7 +86,9 @@ class Agenda_model extends MY_Model
         if(!empty($company_id)) {
             $this->db->where('b.company_id', $company_id);
         }
-        $this->db->where('c.permission_id >=',$this->session->userdata('login_permission_id'));
+        if(!in_array(2,$this->session->userdata('login_position_id_array'))) {
+            $this->db->where('c.permission_id >=', $this->session->userdata('login_permission_id'));
+        }
         $row = $this->db->get()->row_array();
         //总记录数
         $data['countPage'] = $row['num'];
@@ -120,8 +127,9 @@ class Agenda_model extends MY_Model
         if(!empty($company_id)) {
             $this->db->where('b.company_id', $company_id);
         }
-        $this->db->where('c.permission_id >=', $this->session->userdata('login_permission_id'));
-        //die(var_dump($this->db->last_query()));
+        if(!in_array(2,$this->session->userdata('login_position_id_array'))) {
+            $this->db->where('c.permission_id >=', $this->session->userdata('login_permission_id'));
+        }
         $this->db->limit($numPerPage, ($pageNum - 1) * $numPerPage );
         $this->db->order_by('a.cdate', 'desc');
         $this->db->order_by('a.user_id', 'desc');
