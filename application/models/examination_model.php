@@ -69,18 +69,16 @@ class Examination_model extends MY_Model
         }
     }
 
-    public function get_exam_list($exam_id, $question_id = NULL) {
-        $this->db->select('c.title, c.op1, c.op2, c.op3, c.op4, d.name AS question_type');
+    public function get_exam_by_num($exam_id, $num) {
+        $this->db->select('c.title, c.op1, c.op2, c.op3, c.op4, c.type_id, d.name AS question_type');
         $this->db->from('self_exam a');
         $this->db->join('self_exam_question b', 'a.id = b.exam_id', 'inner');
         $this->db->join('question c', 'b.question_id = c.id', 'inner');
         $this->db->join('question_type d', 'c.type_id = d.id', 'inner');
         $this->db->where('a.id', $exam_id);
-        if(!empty($question_id)) {
-            $this->db->where('c.id', $question_id);
-        }
         $this->db->order_by('b.id ASC');
         $this->db->limit(1);
+        $this->db->offset($num-1);
         return $this->db->get()->row_array();
     }
 

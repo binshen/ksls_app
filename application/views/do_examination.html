@@ -39,34 +39,45 @@
               <div class="schedule-wrap upload-document-wrap">
                 <p class="tab-tit">在线考试</p>
                 <div class="examination-main clearfix">
-                   <div class="show-examination">
-                        <span class="tit">{{$exam_data.question_type}}</span>
-                        <dl class="dl-exam">
-                            <dt>1. {{$exam_data.title}}</dt>
-                            <dd>
-                                <label><input type="radio" value="A" name="option" /><span>A. {{$exam_data.op1}}</span></label>
-                            </dd>
-                            <dd>
-                                <label><input type="radio" value="B" name="option" /><span>B. {{$exam_data.op2}}</span></label>
-                            </dd>
-                            <dd>
-                                <label><input type="radio" value="C" name="option" /><span>C. {{$exam_data.op3}}</span></label>
-                            </dd>
-                            <dd>
-                                <label><input type="radio" value="D" name="option" /><span>D. {{$exam_data.op4}}</span></label>
-                            </dd>
-                            <!--论述题-->
-                            <!--<dd class="discuss-dd">
-                                <textarea rows="3" cols="4"></textarea>
-                            </dd>-->
-                        </dl>
-                       <div class="exam-page">
-                             <p style="margin-top:30px;">
-                                 <a href="javascript:void(0);" class="prev btn-off" id="btnPrev">上一题</a>
-                                 <a href="javascript:void(0);" class="next" id="btnNext">下一题</a>
-                             </p>
-                        </div>
-                   </div>
+                    <form action="/" method="post" id="examForm">
+                       <div class="show-examination">
+                            <span class="tit">{{$exam_data.question_type}}</span>
+                            <dl class="dl-exam">
+                                <dt>{{$num|default:1}}. {{$exam_data.title}}</dt>
+                                <dd>
+                                    <label><input type="radio" value="A" name="option" /><span>A. {{$exam_data.op1}}</span></label>
+                                </dd>
+                                <dd>
+                                    <label><input type="radio" value="B" name="option" /><span>B. {{$exam_data.op2}}</span></label>
+                                </dd>
+                                <dd>
+                                    <label><input type="radio" value="C" name="option" /><span>C. {{$exam_data.op3}}</span></label>
+                                </dd>
+                                <dd>
+                                    <label><input type="radio" value="D" name="option" /><span>D. {{$exam_data.op4}}</span></label>
+                                </dd>
+                                <!--论述题-->
+                                <!--<dd class="discuss-dd">
+                                    <textarea rows="3" cols="4"></textarea>
+                                </dd>-->
+                            </dl>
+                           <div class="exam-page">
+                                 <p style="margin-top:30px;">
+                                     {{if $num == 1}}
+                                        <a href="javascript:void(0);" class="prev btn-off">上一题</a>
+                                     {{else}}
+                                        <a href="javascript:void(0);" class="prev" onclick="clickPrev()">上一题</a>
+                                     {{/if}}
+
+                                     {{if $num == count($question_data)}}
+                                        <a href="javascript:void(0);" class="next btn-off">下一题</a>
+                                     {{else}}
+                                        <a href="javascript:void(0);" class="next" onclick="clickNext()">下一题</a>
+                                     {{/if}}
+                                 </p>
+                            </div>
+                       </div>
+                    </form>
                    <div class="examination-result">
                         <p class="hassubmit"></p>
                         <div class="examination-result-inner">
@@ -76,10 +87,20 @@
                             </span>
                             <div class="ques-number">
                                 {{foreach from=$question_data key=key item=item}}
-                                    <a href="/examination/do_examination/{{$type_id}}/{{$item.question_id}}" {{if $item.complete == 1}}class="done"{{/if}}>{{$key+1}}</a>
+                                    {{if $key+1 == $num}}
+                                        <a href="/examination/do_examination/{{$exam_data.type_id}}/{{$exam_id}}/{{$key+1}}" class="current">{{$key+1}}</a>
+                                    {{else if $item.complete == 1}}
+                                        <a href="/examination/do_examination/{{$exam_data.type_id}}/{{$exam_id}}/{{$key+1}}" class="done">{{$key+1}}</a>
+                                    {{else}}
+                                        <a href="/examination/do_examination/{{$exam_data.type_id}}/{{$exam_id}}/{{$key+1}}" >{{$key+1}}</a>
+                                    {{/if}}
                                 {{/foreach}}
                             </div>
-                            <p class="tips"><span class="col1">&nbsp</span>未答题<span class="col2">&nbsp</span>当前题<span class="col3">&nbsp</span>已答题</p>
+                            <p class="tips">
+                                <span class="col1">&nbsp</span>未答题
+                                <span class="col2">&nbsp</span>当前题
+                                <span class="col3">&nbsp</span>已答题
+                            </p>
                         </div>
                    </div>
                    <div class="clear"></div>
@@ -93,24 +114,26 @@
 </div>
 <script type="text/javascript" src="/static/js/layer/layer.js"></script>
 <script type="application/javascript">
-$(function() {
-    $("#submitExam").click(function() {
-       layer.confirm('确定要交卷吗？', {
-           btn: ['确定','取消'] //按钮
-       }, function(){
-           window.location.href = '/examination/submit_examination';
-       }, function(){
-       });
+    $(function() {
+        $("#submitExam").click(function() {
+           layer.confirm('确定要交卷吗？', {
+               btn: ['确定','取消'] //按钮
+           }, function(){
+               window.location.href = '/examination/submit_examination';
+           }, function(){
+           });
+        });
     });
 
-    $("#btnPrev").click(function() {
-        alert("prev");
-    });
+    function clickPrev() {
+        $("#examForm").attr('action', '/examination/do_examination/{{$exam_data.type_id}}/{{$exam_id}}/{{$num-1}}');
+        $("#examForm").submit();
+    }
 
-    $("#btnNext").click(function() {
-        alert("next");
-    });
-});
+    function clickNext() {
+        $("#examForm").attr('action', '/examination/do_examination/{{$exam_data.type_id}}/{{$exam_id}}/{{$num+1}}');
+        $("#examForm").submit();
+    }
 </script>
 </body>
 </html> 
