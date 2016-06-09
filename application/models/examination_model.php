@@ -70,7 +70,7 @@ class Examination_model extends MY_Model
     }
 
     public function get_exam_by_num($exam_id, $num) {
-        $this->db->select('c.title, c.op1, c.op2, c.op3, c.op4, c.type_id, d.name AS question_type');
+        $this->db->select('c.title, c.op1, c.op2, c.op3, c.op4, c.type_id, d.name AS question_type, b.as1, b.as2, b.as3, b.as4, b.id AS eq_id');
         $this->db->from('self_exam a');
         $this->db->join('self_exam_question b', 'a.id = b.exam_id', 'inner');
         $this->db->join('question c', 'b.question_id = c.id', 'inner');
@@ -84,6 +84,20 @@ class Examination_model extends MY_Model
 
     public function get_exam_question($exam_id) {
         return $this->db->get_where('self_exam_question', array('exam_id' => $exam_id))->result_array();
+    }
+
+    public function take_exam($eq_id, $data) {
+        $this->db->trans_start();//--------开始事务
+
+        $this->db->where('id', $eq_id);
+        $this->db->update('self_exam_question', $data);
+
+        $this->db->trans_complete();//------结束事务
+        if ($this->db->trans_status() === FALSE) {
+            return -1;
+        } else {
+            return 1;
+        }
     }
 
     public function get_true_exam_question($exam_id) {

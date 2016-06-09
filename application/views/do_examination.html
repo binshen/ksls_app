@@ -40,21 +40,22 @@
                 <p class="tab-tit">在线考试</p>
                 <div class="examination-main clearfix">
                     <form action="/" method="post" id="examForm">
+                        <input type="hidden" name="eq_id" value="{{$exam_data.eq_id}}">
                        <div class="show-examination">
                             <span class="tit">{{$exam_data.question_type}}</span>
                             <dl class="dl-exam">
                                 <dt>{{$num|default:1}}. {{$exam_data.title}}</dt>
                                 <dd>
-                                    <label><input type="radio" value="A" name="option" /><span>A. {{$exam_data.op1}}</span></label>
+                                    <label><input type="radio" value="A" name="option" {{if $exam_data.as1==1}}checked{{/if}}/><span>A. {{$exam_data.op1}}</span></label>
                                 </dd>
                                 <dd>
-                                    <label><input type="radio" value="B" name="option" /><span>B. {{$exam_data.op2}}</span></label>
+                                    <label><input type="radio" value="B" name="option" {{if $exam_data.as2==1}}checked{{/if}}/><span>B. {{$exam_data.op2}}</span></label>
                                 </dd>
                                 <dd>
-                                    <label><input type="radio" value="C" name="option" /><span>C. {{$exam_data.op3}}</span></label>
+                                    <label><input type="radio" value="C" name="option" {{if $exam_data.as3==1}}checked{{/if}}/><span>C. {{$exam_data.op3}}</span></label>
                                 </dd>
                                 <dd>
-                                    <label><input type="radio" value="D" name="option" /><span>D. {{$exam_data.op4}}</span></label>
+                                    <label><input type="radio" value="D" name="option" {{if $exam_data.as4==1}}checked{{/if}}/><span>D. {{$exam_data.op4}}</span></label>
                                 </dd>
                                 <!--论述题-->
                                 <!--<dd class="discuss-dd">
@@ -68,12 +69,7 @@
                                      {{else}}
                                         <a href="javascript:void(0);" class="prev" onclick="clickPrev()">上一题</a>
                                      {{/if}}
-
-                                     {{if $num == count($question_data)}}
-                                        <a href="javascript:void(0);" class="next btn-off">下一题</a>
-                                     {{else}}
-                                        <a href="javascript:void(0);" class="next" onclick="clickNext()">下一题</a>
-                                     {{/if}}
+                                     <a href="javascript:void(0);" class="next" onclick="clickNext()">下一题</a>
                                  </p>
                             </div>
                        </div>
@@ -131,7 +127,11 @@
     }
 
     function clickNext() {
-        $("#examForm").attr('action', '/examination/do_examination/{{$exam_data.type_id}}/{{$exam_id}}/{{$num+1}}');
+        {{if $num == count($question_data)}}
+            $("#examForm").attr('action', '/examination/do_examination/{{$exam_data.type_id}}/{{$exam_id}}/{{$num}}');
+        {{else}}
+            $("#examForm").attr('action', '/examination/do_examination/{{$exam_data.type_id}}/{{$exam_id}}/{{$num+1}}');
+        {{/if}}
         $("#examForm").submit();
     }
 </script>

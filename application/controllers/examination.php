@@ -49,6 +49,21 @@ class Examination extends MY_Controller
         }
         $this->assign('exam_id', $exam_id);
 
+        if(!empty($_POST['eq_id'])) {
+            $op = $_POST['option'];
+            $data = array('as1' => 0, 'as2' => 0, 'as3' => 0, 'as4' => 0, 'complete' => 1);
+            if($op == 'A') {
+                $data['as1'] = 1;
+            } else if($op == 'B') {
+                $data['as2'] = 1;
+            } else if($op == 'C') {
+                $data['as3'] = 1;
+            } else if($op == 'D') {
+                $data['as4'] = 1;
+            }
+            $this->examination_model->take_exam($_POST['eq_id'], $data);
+        }
+
         $exam_data = $this->examination_model->get_exam_by_num($exam_id, $num);
         $this->assign('exam_data', $exam_data);
 
