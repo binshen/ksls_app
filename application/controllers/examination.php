@@ -36,7 +36,7 @@ class Examination extends MY_Controller
         $this->display('self_examination.html');
     }
 
-    public function do_examination($type_id=1)
+    public function do_examination($type_id=1, $question_id=NULL)
     {
         $user_id = $this->session->userdata('login_user_id');
         $exam = $this->examination_model->get_user_exam($user_id, $type_id);
@@ -45,11 +45,13 @@ class Examination extends MY_Controller
         } else {
             $exam_id = $this->examination_model->gen_exam_data($user_id, $type_id);
         }
-        $exam_data = $this->examination_model->get_exam_list($exam_id);
+        $exam_data = $this->examination_model->get_exam_list($exam_id, $question_id);
         $this->assign('exam_data', $exam_data);
 
         $question_data = $this->examination_model->get_exam_question($exam_id);
         $this->assign('question_data', $question_data);
+
+        $this->assign('type_id', $type_id);
 
         $this->display('do_examination.html');
     }

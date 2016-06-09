@@ -74,7 +74,7 @@
                             </span>
                             <div class="ques-number">
                                 {{foreach from=$question_data key=key item=item}}
-                                    <a href="" {{if $item.complete == 1}}class="done"{{/if}}>{{$key+1}}</a>
+                                    <a href="/examination/do_examination/{{$type_id}}/{{$item.question_id}}" {{if $item.complete == 1}}class="done"{{/if}}>{{$key+1}}</a>
                                 {{/foreach}}
                             </div>
                             <p class="tips"><span class="col1">&nbsp</span>未答题<span class="col2">&nbsp</span>当前题<span class="col3">&nbsp</span>已答题</p>
@@ -82,13 +82,25 @@
                    </div>
                    <div class="clear"></div>
                      <div class="exam-page">
-                          <p><a href="/examination/submit_examination">交卷</a></p>
+                          <p><a href="" id="submitExam">交卷</a></p>
                      </div>
+                </div>
             </div>
         </div>
     </div>
 </div>
-
-
+<script type="text/javascript" src="/static/js/layer/layer.js"></script>
+<script type="application/javascript">
+$(function() {
+   $("#submitExam").click(function() {
+       layer.confirm('确定要交卷吗？', {
+           btn: ['确定','取消'] //按钮
+       }, function(){
+           window.location.href = '/examination/submit_examination';
+       }, function(){
+       });
+   });
+});
+</script>
 </body>
 </html> 
