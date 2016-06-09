@@ -60,9 +60,13 @@ class Examination extends MY_Controller
         
     }
 
-    public function submit_examination()
+    public function submit_examination($exam_id,$question_id=null)
     {
-
+        $exam_data = $this->examination_model->get_sub_exam_list($exam_id, $question_id);
+        $this->assign('exam_data', $exam_data);
+        $question_true = $this->examination_model->get_true_exam_question($exam_id);
+        $this->assign('question_true', $question_true);
+        $this->assign('exam_id', $exam_id);
         $this->display('submit_examination.html');
     }
 

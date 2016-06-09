@@ -87,4 +87,45 @@ class Examination_model extends MY_Model
     public function get_exam_question($exam_id) {
         return $this->db->get_where('self_exam_question', array('exam_id' => $exam_id))->result_array();
     }
+
+    public function get_true_exam_question($exam_id) {
+        $this->db->select('a.question_id,c.as1,c.as2,c.as3,c.as4,
+        a.as1 self_as1,a.as2 self_as2,a.as3 self_as3,a.as4 self_as4');
+        $this->db->from('self_exam_question a');
+        $this->db->join('question c', 'a.question_id = c.id', 'inner');
+        $this->db->where('a.exam_id',$exam_id);
+        return $this->db->get()->result_array();
+    }
+
+    public function get_sub_exam_list($exam_id, $question_id = NULL) {
+        $this->db->select('a.complete,b.id self_id,c.title, c.op1, c.op2, c.op3, c.op4,
+        c.as1,c.as2,c.as3,c.as4,
+        b.as1 self_as1,b.as2 self_as2,b.as3 self_as3,b.as4 self_as4,
+        d.name AS question_type');
+        $this->db->from('self_exam a');
+        $this->db->join('self_exam_question b', 'a.id = b.exam_id', 'inner');
+        $this->db->join('question c', 'b.question_id = c.id', 'inner');
+        $this->db->join('question_type d', 'c.type_id = d.id', 'inner');
+        $this->db->where('a.id', $exam_id);
+        if(!empty($question_id)) {
+            $this->db->where('c.id', $question_id);
+        }
+        $this->db->order_by('b.id ASC');
+        $this->db->limit(1);
+        $data['question_detail'] = $this->db->get()->row_array();
+       // echo $this->db->last_query();
+       //die(var_dump($data['question_detail']));
+        $this->db->select('count(1) as num');
+        $this->db->from('self_exam_question a');
+        $this->db->where('a.exam_id',$exam_id);
+        $this->db->where('a.id <=', $data['question_detail']['self_id']);
+        $row = $this->db->get()->row_array();
+        $this->db->select('count(1) as num');
+        $this->db->from('self_exam_question a');
+        $this->db->where('a.exam_id',$exam_id);
+        $row_count = $this->db->get()->row_array();
+        $data['No_question'] = $row['num'];
+        $data['count'] = $row_count['num'];
+        return $data;
+    }
 }

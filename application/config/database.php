@@ -45,7 +45,7 @@
 | the active record class
 */
 
-$active_group = 'default';
+$active_group = 'TEST';
 $active_record = TRUE;
 
 $db['default']['hostname'] = '121.40.97.183';
@@ -63,6 +63,22 @@ $db['default']['dbcollat'] = 'utf8_general_ci';
 $db['default']['swap_pre'] = '';
 $db['default']['autoinit'] = TRUE;
 $db['default']['stricton'] = FALSE;
+
+$db['TEST']['hostname'] = '121.40.97.183';
+$db['TEST']['username'] = 'root';
+$db['TEST']['password'] = 'k2s0l1s6qwe123!@#';
+$db['TEST']['database'] = 'ksls_ws_db';
+$db['TEST']['dbdriver'] = 'mysql';
+$db['TEST']['dbprefix'] = '';
+$db['TEST']['pconnect'] = TRUE;
+$db['TEST']['db_debug'] = TRUE;
+$db['TEST']['cache_on'] = FALSE;
+$db['TEST']['cachedir'] = '';
+$db['TEST']['char_set'] = 'utf8';
+$db['TEST']['dbcollat'] = 'utf8_general_ci';
+$db['TEST']['swap_pre'] = '';
+$db['TEST']['autoinit'] = TRUE;
+$db['TEST']['stricton'] = FALSE;
 
 /* End of file database.php */
 /* Location: ./application/config/database.php */
