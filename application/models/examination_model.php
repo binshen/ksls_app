@@ -100,6 +100,20 @@ class Examination_model extends MY_Model
         }
     }
 
+    public function complete_examination($exam_id) {
+        $this->db->trans_start();//--------开始事务
+
+        $this->db->where('id', $exam_id);
+        $this->db->update('self_exam', array('complete' => 1));
+
+        $this->db->trans_complete();//------结束事务
+        if ($this->db->trans_status() === FALSE) {
+            return -1;
+        } else {
+            return 1;
+        }
+    }
+
     public function get_true_exam_question($exam_id) {
         $this->db->select('a.question_id,c.as1,c.as2,c.as3,c.as4,
         a.as1 self_as1,a.as2 self_as2,a.as3 self_as3,a.as4 self_as4');

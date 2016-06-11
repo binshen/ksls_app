@@ -75,6 +75,12 @@ class Examination extends MY_Controller
         $this->display('do_examination.html');
     }
 
+    public function complete_examination($exam_id) {
+
+        $this->examination_model->complete_examination($exam_id);
+        redirect(site_url('/examination/submit_examination/' . $exam_id));
+    }
+
     public function submit_examination($exam_id,$question_id=null)
     {
         $exam_data = $this->examination_model->get_sub_exam_list($exam_id, $question_id);
