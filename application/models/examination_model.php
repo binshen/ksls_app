@@ -154,4 +154,23 @@ class Examination_model extends MY_Model
         $data['count'] = $row_count['num'];
         return $data;
     }
+
+    public function chenge_option($eq_id,$val,$as){
+        $data = array('as1' => 0, 'as2' => 0, 'as3' => 0, 'as4' => 0, 'complete' => 0);
+        if($val == 'A') {
+            $data['as1'] = $as;
+            $data['complete'] = 1;
+        } else if($val == 'B') {
+            $data['as2'] = $as;
+            $data['complete'] = 1;
+        } else if($val == 'C') {
+            $data['as3'] = $as;
+            $data['complete'] = 1;
+        } else if($val == 'D') {
+            $data['as4'] = $as;
+            $data['complete'] = 1;
+        }
+        $this->db->where('id', $eq_id);
+        $this->db->update('self_exam_question', $data);
+    }
 }
