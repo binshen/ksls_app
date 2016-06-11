@@ -81,7 +81,7 @@ class Examination extends MY_Controller
             $this->examination_model->complete_examination($exam_id);
             redirect(site_url('/examination/submit_examination/' . $exam_id));
         } else {
-            $this->display('self_examination.html');
+            redirect(site_url('/examination/self_examination'));
         }
     }
 
