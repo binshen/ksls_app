@@ -625,10 +625,8 @@ html .fc,.fc table{font-size:1em;background:#f2f3f5}.fc td,.fc th{padding:0;vert
 .dl-exam dd span{margin-left: 10px;}
 .dl-exam .discuss-dd{height:auto;}
 .dl-exam .discuss-dd textarea{width:95%;height:300px;border:none; font-size: 14px;font-family: "Microsoft YaHei"; padding:10px;}
-
-
-
-
+.dl-exam dd label{padding:0 2%;width:96%; height:42px; display:block;border:1px solid #fff;}
+.dl-exam dd .choose{border:1px solid #009ee7;}
 
 .examination-result{width:329px; float: right;}
 .exam-category{position: relative; overflow: hidden;height: 36px;margin-bottom: 20px; display:block;}
