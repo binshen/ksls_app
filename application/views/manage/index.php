@@ -68,7 +68,7 @@ $(function(){
 		<div id="header">
 			<div class="headerNav">
 				<ul style="float: left; padding-left: 5px; padding-top: 5px">
-					<img src="<?php echo base_url();?>static/images/logo.png" >
+					<img src="<?php echo base_url();?>static/images/index/index_logo.png" >
 				</ul>
 				<ul class="nav">
 					<li><a href="<?php echo base_url();?>" target="_black">前台首页</a></li>
