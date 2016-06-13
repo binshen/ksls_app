@@ -112,6 +112,7 @@ $(function(){
 							<li><a href="<?php echo site_url('manage/list_user');?>" target="navTab" rel="list_user">用户列表</a></li>
 						</ul>
 					</div>
+					<?php if($this->session->userdata('permission_id')==1):?>
 					<div class="accordionHeader">
 						<h2><span>Folder</span>论坛资料管理</h2>
 					</div>
@@ -121,6 +122,7 @@ $(function(){
 							<li><a href="<?php echo site_url('manage/list_ticket');?>" target="navTab" rel="list_ticket">资料列表</a></li>
 						</ul>
 					</div>
+					<?php endif;?>
 				</div>
 			</div>
 		</div>
