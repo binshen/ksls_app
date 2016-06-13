@@ -20,18 +20,18 @@
                     <li><a href="/"><em class="home"></em>回到首页</a></li>
                     <li><a href="/activity/list_activity"><em class="onlineclass"></em>在线课程</a></li>
                     <li><a href="/activity/list_activity"><em class="documentdata"></em>文档资料</a></li>
-                    <li class="on">
+                    <li>
                         <a href="/examination/selft_examination"><em class="onlineexam"></em>在线考试</a>
                         <span class="document-nav-list">
-                            <a href="/examination/self_examination" class="on">自主测评</a><br />
+                            <a href="/examination/self_examination">自主测评</a><br />
                             <a href="/examination/unit_examination">统一考试</a><br />
                             <a href="/examination/examination_score">我的成绩</a>
                         </span>
                     </li>
-                    <li><a href="/examination/enter_examination"><em class="onlineexam"></em>题库</a>
+                    <li class="on"><a href="/examination/enter_examination"><em class="onlineexam"></em>题库</a>
                         <span class="document-nav-list">
                             <a href="/examination/enter_examination">上传试题</a><br />
-                            <a href="/examination/setup_examination">生成试卷</a><br />
+                            <a href="/examination/setup_examination" class="on">生成试卷</a><br />
                             <a href="/examination/examination_list">我的试卷</a>
                         </span></li>
                 </ul>
@@ -42,28 +42,39 @@
                
             </div>
               <div class="schedule-wrap upload-document-wrap">
-                <p class="tab-tit">在线考试</p>
-                <div class="publish-document-main">
-                    <div class="choose-exam-category">
-                        <div class="tit">请选择您要进行自主考试的类别</div>
-                        <ul class="ul-category">
-                            {{foreach from=$question_type_list item=item}}
-                                <li onclick="go_to_page({{$item.id}})">{{$item.name}}</li>
-                            {{/foreach}}
-                        </ul>
-                        <a href="/examination/do_examination" class="go-exam">开始考试</a>
-                    </div>
+                <p class="tab-tit">我的试卷</p>
+                <div class="examination-main clearfix">
+                      <p class="exam-tit">科威门店统一期末考试卷</p>
+                      <p class="tips"><span class="fz18">注意事项：</span><br />
+                        本试卷共有52道试题</p>
+                      <p class="exam-p1">第I卷（选择题）</p> 
+                      <p class="exam-p2">一、单选题（共20小题）</p> 
+                      <dl class="dl-exam1">
+                        <dt>1. 住宅的土地使用年限为多少？</dt>
+                        <dd>A 40年<br /> 
+                            B 50年<br />  
+                            C 60年<br />  
+                            D 70年</dd>
+                      </dl>
+                      <dl class="dl-exam1">
+                        <dt>2. 住宅的土地使用年限为多少？</dt>
+                        <dd>A 40年<br /> 
+                            B 50年<br />  
+                            C 60年<br />  
+                            D 70年</dd>
+                      </dl>
+                      <dl class="dl-exam1">
+                        <dt>3. 住宅的土地使用年限为多少？</dt>
+                        <dd>A 40年<br /> 
+                            B 50年<br />  
+                            C 60年<br />  
+                            D 70年</dd>
+                      </dl>
+                      <a href="javascript:" class="createpaper-btn">确定生成试卷</a>
                 </div>
-            </div>
         </div>
     </div>
 </div>
-<script type="text/javascript" src="/static/js/jquery-1.7.2.min.js"></script>
-<script>
-    $(".ul-category li").click(function () {$(".ul-category li").removeClass("current");$(this).addClass("current");})
-    function go_to_page(type_id) {
-        window.location.href = '/examination/do_examination/' + type_id;
-    }
-</script>
+
 </body>
 </html> 

@@ -656,3 +656,75 @@ html .fc,.fc table{font-size:1em;background:#f2f3f5}.fc td,.fc th{padding:0;vert
 .examination-result-inner .tips .col2{background: #00bbab;}
 .examination-result-inner .tips .col3{background: #85dbd4;}
 .examination-result-inner .tips .col4{background: #fff; color:#cc0000; text-decoration: line-through;}
+.ques-number a{display: inline-block;color:#000;width:36px; height: 26px; border:1px solid #ccd1d9; margin:0 12px 10px 0;border-radius: 3px; text-align: center; line-height: 26px;}
+.ques-number .done{background: #85dbd4; border:1px solid #37bc9b; color:#fff;}
+.ques-number .error{ color: #f30606; text-decoration: line-through;}
+.ques-number .answer{ position: absolute;top:30px;left:20px; text-align: center; border:1px solid #ebebeb; background: #fff; color:#979393; display: block;padding:5px; width:85px; height: 35px; border-radius:3px;}
+.ques-number .answer .correct{color:#37bc9b;}
+.ques-number .answer .actual{color: #cc0000}
+.exam-page .btns-fl{width:550px;float: left;}
+.exam-page  p{ float: right;}
+.exam-page a{margin-left: 20px; width: 120px; height: 40px; font-size: 14px; display: block; float: left;border-radius: 3px;background: #009ee7; color: #fff;border:1px solid #009ee7;text-align: center; line-height: 40px;}
+.exam-page .btn-off{border:1px solid #96a0ad; color: #ddd; background: #fff; }
+.exam-page .btns-fr{width:329px;float: right;}
+.hassubmit{font-size:14px; color:#f30606;padding-left:15px; height: 40px; line-height: 40px;}
+
+.examination-list-table{margin-top:15px;width:100%;}
+.examination-list-table th {font-size: 18px; color:#333; text-align: center; padding:8px 0;
+    border-bottom:1px solid #f2f2f0; font-weight: normal;}
+.examination-list-table td{padding:6px 0;border-bottom:1px solid #f2f2f0; color: #999; font-size:16px; text-align: center;}
+.examination-list-table td .score,.examination-list-table td a{ color:#167ac1;}
+/*录入试题*/
+.entering-table th{font-size:16px; color:#515151;font-weight: normal; padding:5px 0;}
+.entering-table td {padding:6px 0;}
+.entering-table td select{width:180px; height: 36px;border:1px solid #d2d2d2; font-size: 16px; color:#949494; font-family: "Microsoft YaHei";}
+.entering-table td label{font-size:14px;}
+.entering-table td .question-type{ display: block; border:1px solid #d2d2d2;padding:6px 0; width:250px;}
+.entering-table td .question-type label{margin:0 5px;}
+.entering-table td .input-txt{padding:0 10px;border:1px solid #d2d2d2; width:800px; height: 32px; line-height: 30px; color: #000;}
+.entering-table td .input-txt1{width:40px;}
+.examination-main .p-btns {margin:30px 30px 0 0; width: 90%;}
+.examination-main .p-btns a{float: right; background: #e6382a; width: 110px; height: 36px; line-height: 36px; color:#fff; text-align: center;border-radius: 3px;}
+
+/*创建试卷*/
+.setup-paper-control {margin-bottom:23px;border-bottom:2px solid #f43c5e; overflow: hidden;padding-bottom: 18px;}
+.setup-paper-control li{width:225px; height: 42px; background: #eee; text-align: center; color: #333; border:none;}
+.setup-paper-control .current{color:#fff; background: #f43c5e;}
+
+.item-type{ overflow: hidden; font-size: 16px; margin-bottom: 30px;}
+.item-type .i-type{background:#eee ;width:108px; height: 40px; line-height: 40px; text-align: center; color: #333; float: left;}
+.item-type span{width:66px; height:28px; float: left; text-align: center;margin:7px 0 0 24px; color: #1887e3;}
+.item-type .current{ background: #f43c5e; color:#fff;}
+
+.examination-main #slide01{padding:0 10px;}
+.choose-list li{border:1px solid #eee; font-size: 14px; color:#333; margin-bottom: 12px;}
+.choose-list li dl{padding:10px;}
+.choose-list li dl dt{margin-bottom:5px;}.choose-list li dl dd{line-height: 26px;}
+.choose-list li .bg{ background: #e8e8e8;height: 50px; display: block;width: 100%;}
+.choose-list li .bg a{ float: right; margin: 10px 30px; width: 70px; height: 30px; line-height: 30px; text-align: center; color: #fff; background: #1887e3;}
+.choose-list li .bg .has-join{background: #999;}
+.choose-list li.hasjoinli{border:1px solid #f43c5e;}
+.paperitemsnumber{padding:10px;border:1px solid #f2f2f0;width:110px; height: 120px; position: fixed; right:0;top:30%; background: #fff;}
+.paperitemsnumber .red{ color: #f43c5e;}
+.paperitemsnumber .okbtn{ position: absolute;bottom:10px;left:25px; width: 82px; height: 28px; line-height: 28px; color: #f43c5e; text-align:center; line-height: 28px; background: #f43c5e; color:#fff;}
+
+/*确认试卷*/
+.exam-tit{text-align: center; font-size:24px; color: #0e0e0f;}
+.tips{color: #515151;padding-left:15px; font-size: 14px;}
+.tips .fz18{font-size:18px; line-height: 30px; }
+.exam-p1{text-align: center; font-size: 18px; color: #080808;margin-bottom:20px;}
+.exam-p2{ font-size: 16px; color: #515151; color: #0e0e0f; margin-bottom: 10px; margin-left: 20px; }
+.dl-exam1{font-size: 14px; color: #333;margin:0 0 20px 30px; }
+.dl-exam1 dt{margin-bottom: 5px;}
+.dl-exam1 dd{margin-left:10px; line-height: 26px;}
+.createpaper-btn{margin:50px 20px 0 0;float: right; width:150px; height: 50px; background: #fa446b; font-size:18px; color:#fff; text-align: center; line-height: 50px;}
+.examination-h2 {margin:0 0 26px 10px; font-size: 16px; height: 32px; color: #0a0a0a; line-height: 32px; border-bottom:1px solid #ececec; font-weight: normal;}
+.examination-h2 span{border-bottom:1px solid #1887e3;float: left;height: 32px;}
+.tb1 .examination-select{margin:0 20px 0 15px; float: left; width:180px; height:36px;border:1px solid #d2d2d2; font-family:"Microsoft YaHei"; font-size: 16px; color: #8f8f8f; }
+.examination-name{width:305px; height: 36px; border:none; background: #eeeded;padding:0 10px; font-size: 16px; color: #999;}
+.examination-main .tb1{margin-bottom: 60px; overflow: hidden;}
+.tb1 .p-num{float: left;width:225px; margin-right: 50px; font-size: 16px; margin-left:10px;}
+.tb1 .span-bg{ margin-right:22px; width:90px; height: 30px;float: left; font-size: 16px; text-align: center; color:#fff; background: #1887e3; line-height: 30px;}
+.tb1 .exam-num{width: 60px; height: 30px;border:none; background: #eeeded; text-align: center;}
+
+.begin-choose{margin:80px 0 0 420px;width: 160px; height: 50px; line-height: 50px; text-align: center; color: #fff; font-size: 18px; background: #fa446b; display: block;}

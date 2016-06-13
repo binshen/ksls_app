@@ -108,4 +108,24 @@ class Examination extends MY_Controller
     public function chenge_option($eq_id,$val,$as){
         $this->examination_model->chenge_option($eq_id,$val,$as);
     }
+
+    public function enter_examination(){
+        $this->display("entering_examination.html");
+    }
+    public function review_examination(){
+        $this->display("review_examination.html");
+    }
+    public function setup_examination(){
+        $this->display("setup_examination1.html");
+    }
+    public function choose_items(){
+            $this->display("setup_examination2.html");
+        }
+     public function examination_score(){
+            $this->display("examination_score.html");
+        }
+     public function examination_list(){
+            $this->display("examination_list.html");
+        }
+
 }
