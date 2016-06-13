@@ -4,7 +4,7 @@
     .file{ position:absolute; top:0; right:80px; height:24px; filter:alpha(opacity:0);opacity: 0;width:300px }
 </style>
 <div class="pageContent">
-    <form method="post" enctype="multipart/form-data" action="<?php echo site_url('manage/save_user');?>" class="pageForm required-validate" onsubmit="return iframeCallback(this, dialogAjaxDone);">
+    <form id="save_form" method="post" enctype="multipart/form-data" action="<?php echo site_url('manage/save_user');?>" class="pageForm required-validate" onsubmit="return iframeCallback(this, dialogAjaxDone);">
         <div class="pageFormContent" layoutH="55">
             <fieldset>
                 <legend>用户信息</legend>
@@ -46,23 +46,29 @@
                         </select>
                     </dd>
                 </dl>
-                <dl>
-                    <dt>所属分店：</dt>
-                    <dd>
-                        <select name="subsidiary_id" class="combox" id="selectSubSidiary">
-                            <?php
-                            if (!empty($subsidiary_list)):
-                                foreach ($subsidiary_list as $row):
-                                    $selected = !empty($subsidiary_id) && $row['id'] == $subsidiary_id ? "selected" : "";
-                                    ?>
-                                    <option value="<?php echo $row['id']; ?>" <?php echo $selected; ?>><?php echo $row['name']; ?></option>
-                                    <?php
-                                endforeach;
-                            endif;
-                            ?>
-                        </select>
-                    </dd>
-                </dl>
+
+
+                    <div style="float: left">
+                        <?php
+                        if (!empty($subsidiary_list)):
+                            foreach ($subsidiary_list as $row):
+                                $checked = '';
+                                if(!empty($subids)){
+                                    foreach ($subids as $id){
+                                        if($row['id'] == $id['subsidiary_id']){
+                                            $checked = 'checked';
+                                        }
+                                    }
+                                }
+                                ?>
+
+                                <label><input <?php echo $checked; ?> name="sub_id[]" type="checkbox" value="<?php echo $row['id']; ?>"><?php echo $row['name']; ?></label>
+
+                                <?php
+                            endforeach;
+                        endif;
+                        ?>
+                    </div>
                 <dl>
                     <dt>职级：</dt>
                     <dd>
@@ -131,7 +137,7 @@
         </div>
         <div class="formBar">
             <ul>
-                <li><div class="buttonActive"><div class="buttonContent"><button type="submit" class="icon-save">保存</button></div></div></li>
+                <li><div class="buttonActive"><div class="buttonContent"><button type="button" id="save_btn" class="icon-save">保存</button></div></div></li>
                 <li><div class="button"><div class="buttonContent"><button type="button" class="close icon-close">取消</button></div></div></li>
             </ul>
         </div>
@@ -146,6 +152,25 @@
         }
     }) ;
 
+    $("#company_id").change(function(){
+        $.getJSON('/manage/get_subsidiary_list/'+$("#company_id").val(),function(data){
+
+        })
+    })
+
+    $("#save_btn").click(function(data){
+        var num = $("input[name='sub_id[]']:checked").length;
+        if (num == 0 && $("#selectRole").val()!=2){
+            alert('需要选择部门');
+            return false;
+        }
+
+        if(num >1 && $("#selectRole").val()!=3){
+            alert('只有区域经理才可以兼任多个部门');
+            return false;
+        }
+        $("#save_form").submit();
+    })
     function passwordRset(id){
         var r=confirm("是否要初始化密码?")
         if (r==true)

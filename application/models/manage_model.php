@@ -425,7 +425,6 @@ class Manage_model extends MY_Model
             'password' => sha1('888888'),
             'tel' => $this->input->post('tel'),
             'company_id' => $this->input->post('company_id'),
-            'subsidiary_id' => $this->input->post('subsidiary_id'),
             'rel_name' => $this->input->post('rel_name'),
             'role_id' => $this->input->post('role_id'),
             'flag'=>$this->input->post('flag')
@@ -455,8 +454,16 @@ class Manage_model extends MY_Model
                 ));
             }
         }
-
-
+        $this->db->where('user_id',$user_id)->delete('user_subsidiary');
+        if($this->input->post('sub_id')){
+            $subid=$this->input->post('sub_id');
+            foreach($subid as $id){
+                $this->db->insert('user_subsidiary', array(
+                    'subsidiary_id'=>$id,
+                    'user_id'=>$user_id
+                ));
+            }
+        }
         $this->db->trans_complete();//------结束事务
         if ($this->db->trans_status() === FALSE) {
             return -1;
@@ -471,6 +478,10 @@ class Manage_model extends MY_Model
 
     public function get_user_pid($id) {
         return $this->db->get_where('user_position', array('user_id' => $id))->result_array();
+    }
+
+    public function get_user_subid($id) {
+        return $this->db->get_where('user_subsidiary', array('user_id' => $id))->result_array();
     }
 
     public function delete_user($id) {

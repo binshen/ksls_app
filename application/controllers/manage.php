@@ -263,6 +263,7 @@ class Manage extends MY_Controller {
 	public function edit_user($id) {
 		$data = $this->manage_model->get_user($id);
 		$data['pids'] = $this->manage_model->get_user_pid($id);
+		$data['subids'] = $this->manage_model->get_user_subid($id);
 		$data['company_list'] = $this->manage_model->get_company_list();
 		$data['position_list'] = $this->manage_model->get_position_list();
 		$data['subsidiary_list'] = $this->manage_model->get_subsidiary_list_by_company($data['company_id']);

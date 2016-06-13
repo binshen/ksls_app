@@ -28,15 +28,16 @@ class Agenda_model extends MY_Model
         if(empty($subsidiary_id)) {
             return $this->db->get_where('subsidiary', array('company_id' => $company_id))->result_array();
         } else {
-            return $this->db->get_where('subsidiary', array('id' => $subsidiary_id))->result_array();
+            return $this->db->where_in('id', $subsidiary_id)->from('subsidiary')->get()->result_array();
         }
     }
 
     public function get_subsidiary_user_list($subsidiary_id) {
-        $this->db->select()->from('user a');
+        $this->db->select('a.*')->from('user a');
         $this->db->join('role b','b.id = a.role_id','inner');
+        $this->db->join('user_subsidiary c','c.user_id = a.id','inner');
+        $this->db->where_in('c.subsidiary_id',$subsidiary_id);
         $this->db->where(array(
-            'a.subsidiary_id' => $subsidiary_id,
             'b.permission_id >='=>$this->session->userdata('login_permission_id')
         ));
         return $this->db->get()->result_array();
@@ -45,8 +46,10 @@ class Agenda_model extends MY_Model
     }
 
     public function get_subsidiary_user_list_7($subsidiary_id) {
-
-        return $this->db->get_where('user', array('subsidiary_id' => $subsidiary_id))->result_array();
+        $this->db->select('a.*')->from('user a');
+        $this->db->join('user_subsidiary c','c.user_id = a.id','inner');
+        $this->db->where_in('c.subsidiary_id',$subsidiary_id);
+        return $this->db->get()->result_array();
     }
 
     function list_agenda($page,$user_id = null,$subsidiary_id=null,$company_id=null){
@@ -58,6 +61,7 @@ class Agenda_model extends MY_Model
         $this->db->from('agenda a');
         $this->db->join('user b','a.user_id = b.id','inner');
         $this->db->join('role c','c.id = b.role_id','inner');
+        $this->db->join('user_subsidiary d','d.user_id = b.id','inner');
         if(!empty($user_id)){
             $this->db->where('a.user_id',$user_id);
         }
@@ -75,13 +79,13 @@ class Agenda_model extends MY_Model
             $this->db->where('b.company_id', $this->input->POST('company'));
         }
         if($this->input->POST('subsidiary')) {
-            $this->db->where('b.subsidiary_id', $this->input->POST('subsidiary'));
+            $this->db->where_in('d.subsidiary_id', $this->input->POST('subsidiary'));
         }
         if($this->input->POST('user')) {
             $this->db->where('b.id', $this->input->POST('user'));
         }
         if(!empty($subsidiary_id)) {
-            $this->db->where('b.subsidiary_id', $subsidiary_id);
+            $this->db->where_in('d.subsidiary_id', $subsidiary_id);
         }
         if(!empty($company_id)) {
             $this->db->where('b.company_id', $company_id);
@@ -98,6 +102,7 @@ class Agenda_model extends MY_Model
         $this->db->from('agenda a');
         $this->db->join('user b','a.user_id = b.id','inner');
         $this->db->join('role c','c.id = b.role_id','inner');
+        $this->db->join('user_subsidiary d','d.user_id = b.id','inner');
         if(!empty($user_id)){
             $this->db->where('a.user_id',$user_id);
         }
@@ -116,13 +121,13 @@ class Agenda_model extends MY_Model
             $this->db->where('b.company_id', $this->input->POST('company'));
         }
         if($this->input->POST('subsidiary')) {
-            $this->db->where('b.subsidiary_id', $this->input->POST('subsidiary'));
+            $this->db->where_in('d.subsidiary_id', $this->input->POST('subsidiary'));
         }
         if($this->input->POST('user')) {
             $this->db->where('b.id', $this->input->POST('user'));
         }
         if(!empty($subsidiary_id)) {
-            $this->db->where('b.subsidiary_id', $subsidiary_id);
+            $this->db->where_in('d.subsidiary_id', $subsidiary_id);
         }
         if(!empty($company_id)) {
             $this->db->where('b.company_id', $company_id);

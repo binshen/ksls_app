@@ -118,7 +118,7 @@ class Agenda extends MY_Controller
                 if($permission_id < 3) {
                     $subsidiary_list = $this->agenda_model->get_subsidiary_list($company_id, NULL);
                 } else if($permission_id < 5) {
-                    $subsidiary_id = $this->session->userdata('login_subsidiary_id');
+                    $subsidiary_id = $this->session->userdata('login_subsidiary_id_array');
                     $subsidiary_list = $this->agenda_model->get_subsidiary_list($company_id, $subsidiary_id);
                 }
             }
@@ -128,9 +128,9 @@ class Agenda extends MY_Controller
 
                 $user_list = $this->agenda_model->get_subsidiary_user_list($this->input->POST('subsidiary'));
                 $this->assign('user_list', $user_list);
-            }elseif(!$this->input->post('subsidiary') && $permission_id < 5){
-                $this->assign('subsidiary', $this->session->userdata('login_subsidiary_id'));
-                $user_list = $this->agenda_model->get_subsidiary_user_list($this->session->userdata('login_subsidiary_id'));
+            }elseif(!$this->input->post('subsidiary') && $permission_id < 5 && $permission_id > 3){
+                $this->assign('subsidiary', $this->session->userdata('login_subsidiary_id_array')[0]);
+                $user_list = $this->agenda_model->get_subsidiary_user_list($this->session->userdata('login_subsidiary_id_array')[0]);
                 $this->assign('user_list', $user_list);
             }
             if($this->input->POST('user')) {
@@ -143,7 +143,7 @@ class Agenda extends MY_Controller
             }
             $subsidiary_id = NULL;
             if($permission_id >= 3) {
-                $subsidiary_id = $this->session->userdata('login_subsidiary_id');
+                $subsidiary_id = $this->session->userdata('login_subsidiary_id_array');
             }
 
         }

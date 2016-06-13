@@ -29,7 +29,7 @@ class Activity_model extends MY_Model
         if(empty($subsidiary_id)) {
             return $this->db->get_where('subsidiary', array('company_id' => $company_id))->result_array();
         } else {
-            return $this->db->get_where('subsidiary', array('id' => $subsidiary_id))->result_array();
+            return $this->db->where_in('id', $subsidiary_id)->from('subsidiary')->get()->result_array();
         }
     }
 
@@ -48,12 +48,13 @@ class Activity_model extends MY_Model
         $this->db->from('activity a');
         $this->db->join('user b', 'a.user_id = b.id', 'inner');
         $this->db->join('role c','c.id = b.role_id','inner');
+        $this->db->join('user_subsidiary d','d.user_id = b.id','inner');
         $this->db->where_in('a.status', $status);
         if($this->input->POST('company')) {
             $this->db->where('b.company_id', $this->input->POST('company'));
         }
         if($this->input->POST('subsidiary')) {
-            $this->db->where('b.subsidiary_id', $this->input->POST('subsidiary'));
+            $this->db->where_in('d.subsidiary_id', $this->input->POST('subsidiary'));
         }
         if($this->input->POST('user')) {
             $this->db->where('b.id', $this->input->POST('user'));
@@ -78,16 +79,18 @@ class Activity_model extends MY_Model
             $this->db->where('a.user_id', $user_id);
         }
         if(!empty($subsidiary_id)) {
-            $this->db->where('b.subsidiary_id', $subsidiary_id);
+            $this->db->where_in('d.subsidiary_id', $subsidiary_id);
         }
         if(!empty($company_id)) {
             $this->db->where('b.company_id', $company_id);
         }
         $this->db->where('c.permission_id >=', 5);
+        $this->db->where('b.flag',1);
         $rs_total = $this->db->get()->row();
         //总记录数
         $data['countPage'] = $rs_total->num;
-       // die(var_dump($this->db->last_query()));
+
+       //die(var_dump($this->db->last_query()));
         //list
         $this->db->select('a.*, b.rel_name AS u_name');
         $this->db->select('t1.name AS t1n, t2.name AS t2n, t3.name AS t3n, t4.name AS t4n, t5.name AS t5n');
@@ -106,6 +109,7 @@ class Activity_model extends MY_Model
         $this->db->select('DATE_FORMAT(a.cdate, "%Y%m%d") AS date3', false);
         $this->db->from('activity a');
         $this->db->join('user b', 'a.user_id = b.id', 'inner');
+        $this->db->join('user_subsidiary d','d.user_id = b.id','inner');
         $this->db->join('activity_type t1', 'a.a1 = t1.id', 'left');
         $this->db->join('activity_type t2', 'a.a2 = t2.id', 'left');
         $this->db->join('activity_type t3', 'a.a3 = t3.id', 'left');
@@ -127,7 +131,7 @@ class Activity_model extends MY_Model
             $this->db->where('b.company_id', $this->input->POST('company'));
         }
         if($this->input->POST('subsidiary')) {
-            $this->db->where('b.subsidiary_id', $this->input->POST('subsidiary'));
+            $this->db->where_in('d.subsidiary_id', $this->input->POST('subsidiary'));
         }
         if($this->input->POST('user')) {
             $this->db->where('b.id', $this->input->POST('user'));
@@ -152,7 +156,7 @@ class Activity_model extends MY_Model
             $this->db->where('a.user_id', $user_id);
         }
         if(!empty($subsidiary_id)) {
-            $this->db->where('b.subsidiary_id', $subsidiary_id);
+            $this->db->where_in('d.subsidiary_id', $subsidiary_id);
         }
         if(!empty($company_id)) {
             $this->db->where('b.company_id', $company_id);
@@ -162,12 +166,14 @@ class Activity_model extends MY_Model
             //$this->db->where('a.date <=',date('Ymd', strtotime("-1 day")));
         }
         $this->db->where('c.permission_id >=', 5);
+        $this->db->where('b.flag',1);
         $this->db->limit($numPerPage, ($pageNum - 1) * $numPerPage );
         //$this->db->order_by($this->input->post('orderField') ? $this->input->post('orderField') : 'a.date', $this->input->post('orderDirection') ? $this->input->post('orderDirection') : 'desc');
         $this->db->order_by('a.date', 'desc');
         $this->db->order_by('a.user_id', 'desc');
 
         $data['res_list'] = $this->db->get()->result();
+
         $data['pageNum'] = $pageNum;
         $data['numPerPage'] = $numPerPage;
         return $data;
@@ -350,11 +356,12 @@ class Activity_model extends MY_Model
 
     public function get_total_top_list($company_id, $subsidiary_id, $year, $month) {
 
-        $this->db->select('b.id AS u_id, b.pic AS u_pic, b.rel_name AS u_name, c.name AS c_name, d.name AS s_name, SUM(a.total) AS total');
+        $this->db->select('b.id AS u_id, b.pic AS u_pic, b.rel_name AS u_name, c.name AS c_name, e.name AS s_name, SUM(a.total) AS total');
         $this->db->from('activity a');
         $this->db->join('user b', 'a.user_id = b.id', 'inner');
         $this->db->join('company c', 'b.company_id = c.id', 'left');
-        $this->db->join('subsidiary d', 'b.subsidiary_id = d.id', 'left');
+        $this->db->join('user_subsidiary d','d.user_id = b.id','inner');
+        $this->db->join('subsidiary e', 'd.subsidiary_id = e.id', 'left');
         $this->db->where('a.status', 3);
         if(!empty($year)) {
             $this->db->where('YEAR(a.date)', $year);
@@ -366,8 +373,9 @@ class Activity_model extends MY_Model
             $this->db->where('b.company_id', $company_id);
         }
         if(!empty($subsidiary_id)) {
-            $this->db->where('b.subsidiary_id', $subsidiary_id);
+            $this->db->where_in('d.subsidiary_id', $subsidiary_id);
         }
+        $this->db->where('b.flag', 1);
         $this->db->group_by('b.id');
         $this->db->order_by('total', 'desc');
         $this->db->distinct();
@@ -382,7 +390,7 @@ class Activity_model extends MY_Model
               b.pic AS u_pic, 
               b.rel_name AS u_name, 
               c.name AS c_name, 
-              d.name AS s_name,
+              e.name AS s_name,
               SUM(a.total) AS total
             FROM
               (
@@ -398,8 +406,9 @@ class Activity_model extends MY_Model
             ) AS a
             JOIN user b ON b.id = a.user_id
             LEFT JOIN company c ON b.company_id = c.id
-            LEFT JOIN subsidiary d ON b.subsidiary_id = d.id
-            WHERE 1 = 1
+            INNER JOIN user_subsidiary d ON d.user_id = b.id
+            INNER join subsidiary e ON e.id = d.subsidiary_id
+            WHERE b.flag = 1
         ";
         if(!empty($year)) {
             $sql .= " AND YEAR(a.date) = " . $year;
@@ -411,7 +420,21 @@ class Activity_model extends MY_Model
             $sql .= " AND b.company_id = " . $company_id;
         }
         if(!empty($subsidiary_id)) {
-            $sql .= " AND b.subsidiary_id = " . $subsidiary_id;
+            $string_in='';
+            if(is_array($subsidiary_id)){
+                foreach($subsidiary_id as $key=>$item){
+                    if($key==0){
+                        $string_in.=$item;
+                    }else{
+                        $string_in.=','.$item;
+                    }
+
+                }
+            }else{
+                $string_in = $subsidiary_id;
+            }
+
+            $sql .= " AND d.subsidiary_id in (".$string_in.")";
         }
         $sql .= " GROUP BY b.id ORDER BY total DESC ";
         return $this->db->query($sql)->result();
@@ -437,29 +460,31 @@ class Activity_model extends MY_Model
         $this->db->from('user a');
         $this->db->join('activity b', "a.id = b.user_id and b.date = '{$select_date}'", 'left');
         $this->db->join('role c','c.id = a.role_id','inner');
+        $this->db->join('user_subsidiary d','d.user_id = a.id','inner');
         if($this->input->POST('company')) {
             $this->db->where('a.company_id', $this->input->POST('company'));
         }
         if($this->input->POST('subsidiary')) {
-            $this->db->where('a.subsidiary_id', $this->input->POST('subsidiary'));
+            $this->db->where_in('d.subsidiary_id', $this->input->POST('subsidiary'));
         }
         if($this->input->POST('user')) {
             $this->db->where('a.id', $this->input->POST('user'));
         }
 
         if(!empty($subsidiary_id)) {
-            $this->db->where('a.subsidiary_id', $subsidiary_id);
+            $this->db->where_in('d.subsidiary_id', $subsidiary_id);
         }
         if(!empty($company_id)) {
             $this->db->where('a.company_id', $company_id);
         }
+        $this->db->where('a.flag',1);
         $this->db->where('b.id is null');
         $this->db->where('c.permission_id >=', 5);
         $rs_total_noplan = $this->db->get()->row();
 
         //总记录数
         $data['countPage'] =  $rs_total_noplan->num;
-
+        //die(var_dump($this->db->last_query()));
         //list
 
 
@@ -467,22 +492,24 @@ class Activity_model extends MY_Model
         $this->db->from('user a');
         $this->db->join('activity b', "a.id = b.user_id and b.date = '{$select_date}'", 'left');
         $this->db->join('role c','c.id = a.role_id','inner');
+        $this->db->join('user_subsidiary d','d.user_id = a.id','inner');
         if($this->input->POST('company')) {
             $this->db->where('a.company_id', $this->input->POST('company'));
         }
         if($this->input->POST('subsidiary')) {
-            $this->db->where('a.subsidiary_id', $this->input->POST('subsidiary'));
+            $this->db->where_in('d.subsidiary_id', $this->input->POST('subsidiary'));
         }
         if($this->input->POST('user')) {
             $this->db->where('a.id', $this->input->POST('user'));
         }
 
         if(!empty($subsidiary_id)) {
-            $this->db->where('a.subsidiary_id', $subsidiary_id);
+            $this->db->where_in('d.subsidiary_id', $subsidiary_id);
         }
         if(!empty($company_id)) {
             $this->db->where('a.company_id', $company_id);
         }
+        $this->db->where('a.flag',1);
         $this->db->where('b.id is null');
         $this->db->where('c.permission_id >=', 5);
         $this->db->limit($numPerPage, ($pageNum - 1) * $numPerPage );
@@ -501,11 +528,13 @@ class Activity_model extends MY_Model
 
     public function get_subsidiary_user_list_7($subsidiary_id) {
 
-        $this->db->select()->from('user a');
+        $this->db->select('a.*')->from('user a');
         $this->db->join('role b','b.id = a.role_id','inner');
+        $this->db->join('user_subsidiary c','c.user_id = a.id','inner');
+        $this->db->where_in('c.subsidiary_id',$subsidiary_id);
         $this->db->where(array(
-            'a.subsidiary_id' => $subsidiary_id,
-            'b.permission_id >'=>'4'
+            'b.permission_id >'=>'4',
+            'a.flag'=>1
         ));
         return $this->db->get()->result_array();
     }

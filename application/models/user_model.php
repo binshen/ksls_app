@@ -45,6 +45,14 @@ class User_model extends MY_Model
                     $ids[]=$id['pid'];
                 }
             }
+
+            $subids = $this->db->select()->from('user_subsidiary')->where('user_id',$res->id)->get()->result_array();
+            $sids = array();
+            if($subids){
+                foreach($subids as $id){
+                    $sids[]=$id['subsidiary_id'];
+                }
+            }
             $role_p = $this->db->select()->where('id',$res->role_id)->from('role')->get()->row();
             $user_info['login_token'] = $token;
             $user_info['login_user_id'] = $res->id;
@@ -54,7 +62,8 @@ class User_model extends MY_Model
             $user_info['login_role_id'] = $res->role_id;
             $user_info['login_permission_id'] = $role_p->permission_id;
             $user_info['login_company_id'] = $res->company_id;
-            $user_info['login_subsidiary_id'] = $res->subsidiary_id;
+          //  $user_info['login_subsidiary_id'] = $res->subsidiary_id;
+            $user_info['login_subsidiary_id_array'] = $sids;
            // $user_info['login_position_id'] = $res->position_id; 此栏位暂不使用
             $user_info['login_position_id_array'] = $ids;
             $user_info['login_user_pic'] = $res->pic;
