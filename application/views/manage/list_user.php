@@ -103,7 +103,7 @@
 <div class="pageContent">
     <div class="panelBar">
         <ul class="toolBar">
-            <?php if($this->session->userdata('role_id') < 5): ?>
+            <?php if($this->session->userdata('permission_id') < 5): ?>
                 <li><a class="add" href="<?php echo site_url('manage/add_user')?>" target="dialog" width="600" height="370" rel="add_user" title="新建"><span>新建</span></a></li>
                 <li><a class="delete" href="<?php echo site_url('manage/delete_user')?>/{id}" target="ajaxTodo"  title="确定要删除？" warn="请选择一条记录"><span>删除</span></a></li>
             <?php endif ?>
@@ -134,7 +134,11 @@
                         <td><?php echo $row->rel_name;?></td>
                         <td><?php echo $row->tel;?></td>
                         <td><?php echo $row->company_name;?></td>
-                        <td><?php echo $row->subsidiary_name;?></td>
+                        <td><?php
+                            if($row->permission_id > 3){
+                                echo $row->subsidiary_name;
+                            }
+                            ?></td>
                         <td><?php echo $row->role_name;?></td>
                         <td><?php
                             if($row->flag == 1){

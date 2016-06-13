@@ -32,7 +32,7 @@
                 <dl>
                     <dt>所属公司：</dt>
                     <dd>
-                        <select name="company_id" class="combox" id="selectCompany" ref="selectSubSidiary" refUrl="/manage/get_subsidiary_list/{value}" >
+                        <select name="company_id" class="combox" id="company_id" >
                             <?php
                             if (!empty($company_list)):
                                 foreach ($company_list as $row):
@@ -48,7 +48,7 @@
                 </dl>
 
 
-                    <div style="float: left">
+                    <div id="sub_div"  style="float: left">
                         <?php
                         if (!empty($subsidiary_list)):
                             foreach ($subsidiary_list as $row):
@@ -112,6 +112,7 @@
                     <dd id="img" style="float: none"><?php if(!empty($pic)):?><img height="50px" width="50px" src="<?php echo base_url().'/uploadfiles/profile/'.$pic;?>" /><?php endif;?></dd>
                 </dl>
             </fieldset>
+            <?php if($this->session->userdata('permission_id')==1):?>
             <fieldset>
                 <legend>职务</legend>
                         <?php
@@ -134,6 +135,7 @@
                         endif;
                         ?>
             </fieldset>
+            <?php endif;?>
         </div>
         <div class="formBar">
             <ul>
@@ -153,8 +155,16 @@
     }) ;
 
     $("#company_id").change(function(){
-        $.getJSON('/manage/get_subsidiary_list/'+$("#company_id").val(),function(data){
+        $.getJSON('<?php echo site_url("manage/get_subsidiary_list"); ?>/'+$("#company_id").val(),function(data){
 
+            if(data){
+                html_ = '';
+                data.forEach(function(item){
+                    html_+='<label><input  name="sub_id[]" type="checkbox" value="'+item[0]+'">'+item[1]+'</label>'
+                })
+
+                $("#sub_div").html(html_);
+            }
         })
     })
 

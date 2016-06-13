@@ -88,6 +88,7 @@ $(function(){
 			<div id="sidebar">
 				<div class="toggleCollapse"><h2>主菜单</h2><div>收缩</div></div>
 				<div class="accordion" fillSpace="sidebar" >
+					<?php if($this->session->userdata('permission_id')==1):?>
 					<div class="accordionHeader">
 						<h2><span>Folder</span>基础数据</h2>
 					</div>
@@ -100,6 +101,7 @@ $(function(){
 
 						</ul>
 					</div>
+					<?php endif;?>
 					<div class="accordionHeader">
 						<h2><span>Folder</span>经纪人管理</h2>
 					</div>

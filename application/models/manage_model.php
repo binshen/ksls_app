@@ -32,19 +32,29 @@ class Manage_model extends MY_Model
     {
         $username = $this->input->post('username');
         $password = $this->input->post('password');
-        $this->db->from('user');
-        $this->db->where('username', $username);
-        $this->db->where('password', sha1($password));
-        $this->db->where('role_id <= 4');
+        $this->db->select('a.*,b.permission_id');
+        $this->db->from('user a');
+        $this->db->join('role b','a.role_id = b.id','inner');
+        $this->db->where('a.username', $username);
+        $this->db->where('a.password', sha1($password));
+        $this->db->where('b.permission_id <= 4');
         $rs = $this->db->get();
         if ($rs->num_rows() > 0) {
         	$res = $rs->row();
         	$user_info['user_id'] = $res->id;
             $user_info['username'] = $username;
             $user_info['rel_name'] = $res->rel_name;
-            $user_info['role_id'] = $res->role_id;
+          //  $user_info['role_id'] = $res->role_id;
+            $user_info['permission_id'] = $res->permission_id;
             $user_info['company_id'] = $res->company_id;
-            $user_info['subsidiary_id'] = $res->subsidiary_id;
+            $subids = $this->db->select()->from('user_subsidiary')->where('user_id',$res->id)->get()->result_array();
+            $sids = array();
+            if($subids){
+                foreach($subids as $id){
+                    $sids[]=$id['subsidiary_id'];
+                }
+            }
+            $user_info['subsidiary_id_array'] = $sids;
             $this->session->set_userdata($user_info);
             return true;
         }
@@ -79,7 +89,7 @@ class Manage_model extends MY_Model
         //获得总记录数
         $this->db->select('count(1) as num');
         $this->db->from('company');
-        if($this->session->userdata('role_id') > 1) {
+        if($this->session->userdata('permission_id') > 1) {
             $this->db->where('id', $this->session->userdata('company_id'));
         }
 
@@ -89,7 +99,7 @@ class Manage_model extends MY_Model
 
         //list
         $this->db->select('*')->from('company');
-        if($this->session->userdata('role_id') > 1) {
+        if($this->session->userdata('permission_id') > 1) {
             $this->db->where('id', $this->session->userdata('company_id'));
         }
         $this->db->limit($numPerPage, ($pageNum - 1) * $numPerPage );
@@ -142,10 +152,10 @@ class Manage_model extends MY_Model
         //获得总记录数
         $this->db->select('count(1) as num');
         $this->db->from('subsidiary');
-        if($this->session->userdata('role_id') == 2) {
+        if($this->session->userdata('permission_id') == 2) {
             $this->db->where('company_id', $this->session->userdata('company_id'));
-        } else if($this->session->userdata('role_id') > 2) {
-            $this->db->where('id', $this->session->userdata('subsidiary_id'));
+        } else if($this->session->userdata('permission_id') > 2) {
+            $this->db->where_in('id', $this->session->userdata('subsidiary_id_array'));
         }
 
         $rs_total = $this->db->get()->row();
@@ -157,10 +167,10 @@ class Manage_model extends MY_Model
         $this->db->select('a.*, b.name AS company_name');
         $this->db->from('subsidiary a');
         $this->db->join('company b', 'a.company_id = b.id', 'left');
-        if($this->session->userdata('role_id') == 2) {
+        if($this->session->userdata('permission_id') == 2) {
             $this->db->where('a.company_id', $this->session->userdata('company_id'));
-        } else if($this->session->userdata('role_id') > 2) {
-            $this->db->where('a.id', $this->session->userdata('subsidiary_id'));
+        } else if($this->session->userdata('permission_id') > 2) {
+            $this->db->where_in('a.id', $this->session->userdata('subsidiary_id_array'));
         }
 
         $this->db->limit($numPerPage, ($pageNum - 1) * $numPerPage );
@@ -204,7 +214,7 @@ class Manage_model extends MY_Model
     }
 
     public function get_company_list() {
-        if($this->session->userdata('role_id') == 1) {
+        if($this->session->userdata('permission_id') == 1) {
             return $this->db->get('company')->result();
         } else {
             return $this->db->get_where('company', array('id' => $this->session->userdata('company_id')))->result();
@@ -212,10 +222,10 @@ class Manage_model extends MY_Model
     }
 
     public function get_subsidiary_list_by_company($id) {
-        if($this->session->userdata('role_id') < 6) {
+        if($this->session->userdata('permission_id') <=2) {
             return $this->db->get_where('subsidiary', array('company_id' => $id))->result_array();
         } else {
-            return $this->db->get_where('subsidiary', array('company_id' => $id, 'id' => $this->session->userdata('subsidiary_id')))->result_array();
+            return $this->db->where_in('id', $this->session->userdata('subsidiary_id_array'))->from('subsidiary')->get()->result_array();
         }
     }
 
@@ -338,14 +348,73 @@ class Manage_model extends MY_Model
         $pageNum = $this->input->post('pageNum') ? $this->input->post('pageNum') : 1;
 
         //获得总记录数
-        $this->db->select('count(1) as num');
-        $this->db->distinct('a.id');
+        $mysql = "
+              SELECT DISTINCT  a.id from user a
+               LEFT JOIN user_position b on a.id = b.user_id
+               INNER JOIN user_subsidiary d on d.user_id = a.id
+               LEFT JOIN role e on e.id = a.role_id
+              where  e.permission_id > {$this->session->userdata('permission_id')}
+               ";
+        if($this->session->userdata('permission_id') == 2) {
+            $mysql.=" and a.company_id = ".$this->session->userdata('company_id');
+        } else if($this->session->userdata('permission_id') > 2) {
+            $string_in='';
+            if(is_array($this->session->userdata('subsidiary_id_array'))){
+                foreach($this->session->userdata('subsidiary_id_array') as $key=>$item){
+                    if($key==0){
+                        $string_in.=$item;
+                    }else{
+                        $string_in.=','.$item;
+                    }
+
+                }
+            }else{
+                $string_in = $this->session->userdata('subsidiary_id_array');
+            }
+
+            $mysql .= " AND d.subsidiary_id in (".$string_in.")";
+        }
+        if($this->input->post('rel_name'))
+            $mysql .= " AND a.rel_name like '%".$this->input->post('rel_name')."%'";
+        if($this->input->post('tel'))
+            $mysql .= " AND a.tel like '%".$this->input->post('tel')."%'";
+        if($this->input->post('flag'))
+            $mysql .= " AND a.flag = '".$this->input->post('flag')."'";
+        if($this->input->post('position_id'))
+            $mysql .= " AND b.pid = '".$this->input->post('position_id')."'";
+        if($this->input->post('role_id'))
+            $mysql .= " AND a.role_id = '".$this->input->post('role_id')."'";
+        if($this->input->post('company_id'))
+            $mysql .= " AND a.company_id = '".$this->input->post('company_id')."'";
+        if($this->input->post('subsidiary_id')){
+            $string_in='';
+            if(is_array($this->input->post('subsidiary_id'))){
+                foreach($this->input->post('subsidiary_id') as $key=>$item){
+                    if($key==0){
+                        $string_in.=$item;
+                    }else{
+                        $string_in.=','.$item;
+                    }
+
+                }
+            }else{
+                $string_in = $this->input->post('subsidiary_id');
+            }
+
+            $mysql .= " AND d.subsidiary_id in (".$string_in.")";
+        }
+
+        $mainsql = "select count(1) as num from (".$mysql.") a";
+        $rs_total = $this->db->query($mainsql)->row();
+       /* $this->db->select('count(1) as num');
         $this->db->from('user a');
         $this->db->join('user_position b','a.id = b.user_id','left');
-        if($this->session->userdata('role_id') == 2) {
+        $this->db->join('user_subsidiary d','d.user_id = a.id','left');
+        if($this->session->userdata('permission_id') == 2) {
             $this->db->where('a.company_id', $this->session->userdata('company_id'));
-        } else if($this->session->userdata('role_id') > 2) {
-            $this->db->where('a.subsidiary_id', $this->session->userdata('subsidiary_id'));
+
+        } else if($this->session->userdata('permission_id') > 2) {
+            $this->db->where_in('d.subsidiary_id', $this->session->userdata('subsidiary_id_array'));
         }
         if($this->input->post('rel_name'))
             $this->db->like('a.rel_name',$this->input->post('rel_name'));
@@ -360,9 +429,10 @@ class Manage_model extends MY_Model
         if($this->input->post('company_id'))
             $this->db->where('a.company_id',$this->input->post('company_id'));
         if($this->input->post('subsidiary_id'))
-            $this->db->where('a.subsidiary_id',$this->input->post('subsidiary_id'));
-        $rs_total = $this->db->get()->row();
-       //s die(var_dump($rs_total));
+            $this->db->where_in('d.subsidiary_id',$this->input->post('subsidiary_id'));
+        //$this->db->group_by('a.id');
+        $rs_total = $this->db->get()->row();*/
+       //die(var_dump($this->db->last_query()));
         //总记录数
         $data['relname'] = $this->input->post('rel_name')?$this->input->post('rel_name'):null;
         $data['tel'] = $this->input->post('tel')?$this->input->post('tel'):null;
@@ -375,17 +445,18 @@ class Manage_model extends MY_Model
 
         $data['rel_name'] = null;
         //list
-        $this->db->select('a.*, b.name AS company_name, c.name AS subsidiary_name, d.name AS role_name');
-        $this->db->distinct('a.id');
+        $this->db->select('a.*, b.name AS company_name, c.name AS subsidiary_name, d.name AS role_name,d.permission_id');
+        //$this->db->distinct('a.id');
         $this->db->from('user a');
         $this->db->join('company b', 'a.company_id = b.id', 'left');
-        $this->db->join('subsidiary c', 'a.subsidiary_id = c.id', 'left');
         $this->db->join('role d', 'a.role_id = d.id', 'left');
         $this->db->join('user_position e', 'a.id = e.user_id', 'left');
-        if($this->session->userdata('role_id') == 2) {
+        $this->db->join('user_subsidiary f','f.user_id = a.id','inner');
+        $this->db->join('subsidiary c', 'f.subsidiary_id = c.id', 'left');
+        if($this->session->userdata('permission_id') == 2) {
             $this->db->where('a.company_id', $this->session->userdata('company_id'));
-        } else if($this->session->userdata('role_id') > 2) {
-            $this->db->where('a.subsidiary_id', $this->session->userdata('subsidiary_id'));
+        } else if($this->session->userdata('permission_id') > 2) {
+            $this->db->where_in('f.subsidiary_id', $this->session->userdata('subsidiary_id_array'));
         }
         if($this->input->post('rel_name'))
             $this->db->like('a.rel_name',$this->input->post('rel_name'));
@@ -400,10 +471,13 @@ class Manage_model extends MY_Model
         if($this->input->post('company_id'))
             $this->db->where('a.company_id',$this->input->post('company_id'));
         if($this->input->post('subsidiary_id'))
-            $this->db->where('a.subsidiary_id',$this->input->post('subsidiary_id'));
+            $this->db->where_in('f.subsidiary_id',$this->input->post('subsidiary_id'));
+        $this->db->where('d.permission_id >',$this->session->userdata('permission_id'));
+        $this->db->group_by('a.id');
         $this->db->limit($numPerPage, ($pageNum - 1) * $numPerPage );
         $this->db->order_by($this->input->post('orderField') ? $this->input->post('orderField') : 'id', $this->input->post('orderDirection') ? $this->input->post('orderDirection') : 'desc');
         $data['res_list'] = $this->db->get()->result();
+        //die(var_dump($this->db->last_query()));
         $data['pageNum'] = $pageNum;
         $data['numPerPage'] = $numPerPage;
         return $data;
@@ -494,7 +568,7 @@ class Manage_model extends MY_Model
     }
 
     public function get_role_list() {
-        return $this->db->get_where('role', array('id >' => 1))->result_array();
+        return $this->db->get_where('role', array('id >' => 1,'permission_id >'=>$this->session->userdata('permission_id')))->result_array();
     }
 
     public function get_position_list() {
