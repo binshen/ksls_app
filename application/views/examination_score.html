@@ -51,36 +51,14 @@
                             <th width="178">成绩</th>
                             <th>操作</th>
                         </tr>
+                        {{foreach from=$score_list item=item}}
                         <tr>
-                            <td>震川店入职新人在线评测(20160606)</td>
-                            <td>2016-06-06</td>
-                            <td><span class="score">80/100</span></td>
+                            <td>{{$item.title}}</td>
+                            <td>{{$item.created}}</td>
+                            <td><span class="score">{{$item.score|default:0}}/100</span></td>
                             <td><a href="">查看</a></td>
                         </tr>
-                        <tr>
-                            <td>震川店入职新人在线评测(20160606)</td>
-                            <td>2016-06-06</td>
-                            <td><span class="score">80/100</span></td>
-                            <td><a href="">查看</a></td>
-                        </tr>
-                        <tr>
-                            <td>震川店入职新人在线评测(20160606)</td>
-                            <td>2016-06-06</td>
-                            <td><span class="score">80/100</span></td>
-                            <td><a href="">查看</a></td>
-                        </tr>
-                        <tr>
-                            <td>震川店入职新人在线评测(20160606)</td>
-                            <td>2016-06-06</td>
-                            <td><span class="score">80/100</span></td>
-                            <td><a href="">查看</a></td>
-                        </tr>
-                        <tr>
-                            <td>震川店入职新人在线评测(20160606)</td>
-                            <td>2016-06-06</td>
-                            <td><span class="score">80/100</span></td>
-                            <td><a href="">查看</a></td>
-                        </tr>
+                        {{/foreach}}
                     </table>
 
             </div>

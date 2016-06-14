@@ -203,6 +203,12 @@ class Examination_model extends MY_Model
         var_dump($this->db->last_query());
     }
 
+    public function get_my_score_list() {
+        $user_id = $this->session->userdata('login_user_id');
+        //TODO: 除了自测试卷的分数,还有参加过的所有统一考试的试卷
+        return $this->db->where('user_id', $user_id)->order_by('id', 'desc')->get('self_exam')->result_array();
+    }
+
     public function get_my_exam_list() {
         $user_id = $this->session->userdata('login_user_id');
         return $this->db->where('user_id', $user_id)->order_by('id', 'desc')->get('exam')->result_array();
