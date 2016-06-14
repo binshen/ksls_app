@@ -107,8 +107,9 @@ class Activity extends MY_Controller {
             $user_list = $this->activity_model->get_subsidiary_user_list_7($this->input->POST('subsidiary'));
             $this->assign('user_list', $user_list);
         }elseif(!$this->input->post('subsidiary') && $permission_id < 5 && $permission_id > 3){
-            $this->assign('subsidiary', $this->session->userdata('login_subsidiary_id_array')[0]);
-            $user_list = $this->activity_model->get_subsidiary_user_list_7($this->session->userdata('login_subsidiary_id_array')[0]);
+            $subsidiary_id_array = $this->session->userdata('login_subsidiary_id_array');
+            $this->assign('subsidiary', $subsidiary_id_array[0]);
+            $user_list = $this->activity_model->get_subsidiary_user_list_7($subsidiary_id_array[0]);
             $this->assign('user_list', $user_list);
         }
         if($this->input->POST('user')) {
@@ -468,8 +469,9 @@ class Activity extends MY_Controller {
             $user_list = $this->activity_model->get_subsidiary_user_list_7($this->input->POST('subsidiary'));
             $this->assign('user_list', $user_list);
         }elseif(!$this->input->post('subsidiary') && $permission_id < 5 && $permission_id > 3){
-            $this->assign('subsidiary', $this->session->userdata('login_subsidiary_id_array')[0]);
-            $user_list = $this->activity_model->get_subsidiary_user_list_7($this->session->userdata('login_subsidiary_id_array')[0]);
+            $subsidiary_id_array = $this->session->userdata('login_subsidiary_id_array');
+            $this->assign('subsidiary', $subsidiary_id_array[0]);
+            $user_list = $this->activity_model->get_subsidiary_user_list_7($subsidiary_id_array[0]);
             $this->assign('user_list', $user_list);
         }
         if($this->input->POST('user')) {
