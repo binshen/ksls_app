@@ -44,42 +44,46 @@
               <div class="schedule-wrap upload-document-wrap">
                 <p class="tab-tit">录入试题</p>
                 <div class="examination-main clearfix">
-                    <form>
+                    <form id="save_form" method="post" action="/examination/save_question">
                         <table cellspacing="0" class="entering-table">
                             <tr>
                                 <th width="90">所属类别:</th>
-                                <td><select>
-                                    <option value="新人基础知识">新人基础知识</option>
-                                    <option value="新人进阶知识">新人进阶知识</option>
-                                    <option value="精英进阶知识">精英进阶知识</option>
+                                <td><select name="type_id">
+                                    {{if $type_list!=1}}
+                                    {{foreach from=$type_list item=item}}
+                                    <option value="{{$item.id}}">{{$item.name}}</option>
+                                    {{/foreach}}
+                                    {{/if}}
                                 </select></td>
                             </tr>
                              <tr>
                                 <th>该题类型:</th>
-                                <td><span class="question-type"><label><input type="radio" value="" /> 单选题</label>
-                                    <label><input type="radio" value="" /> 多选题</label>
-                                    <label><input type="radio" value="" /> 陈述题</label></span>
+                                <td><span class="question-type">
+                                   <label><input type="radio" name="style" value="1" /> 单选题</label>
+                                    <label><input type="radio" name="style" value="2" /> 多选题</label>
+                                    <label><input type="radio" name="style" value="3" /> 陈述题</label>
+                                </span>
                                 </td>
                             </tr>
                              <tr>
                                 <th>问题描述:</th>
-                                <td><input type="text" name="" class="input-txt"></td>
+                                <td><input required="required" type="text" name="title" class="input-txt"></td>
                             </tr>
                              <tr>
                                 <th>选项A:</th>
-                                <td><input type="text" name="" class="input-txt"></td>
+                                <td><input required="required" type="text" name="op1" class="input-txt"></td>
                             </tr>
                              <tr>
                                 <th>选项B:</th>
-                                <td><input type="text" name="" class="input-txt"></td>
+                                <td><input required="required" type="text" name="op2" class="input-txt"></td>
                             </tr>
                              <tr>
                                 <th>选项C:</th>
-                                <td><input type="text" name="" class="input-txt"></td>
+                                <td><input required="required" type="text" name="op3" class="input-txt"></td>
                             </tr>
                             <tr>
                                 <th>选项D:</th>
-                                <td><input type="text" name="" class="input-txt"></td>
+                                <td><input required="required" type="text" name="op4" class="input-txt"></td>
                             </tr>
                              <tr>
                                 <th>参考答案:</th>
@@ -88,13 +92,13 @@
                                     <!--<label><input type="radio" value="B" /> B</label>-->
                                     <!--<label><input type="radio" value="C" /> C</label>-->
                                     <!--<label><input type="radio" value="D" /> D</label>-->
-                                    <label><input type="checkbox" value="A" /> A</label>
-                                    <label><input type="checkbox" value="B" /> B</label>
-                                    <label><input type="checkbox" value="C" /> C</label>
-                                    <label><input type="checkbox" value="D" /> D</label>
+                                    <label><input type="checkbox" name="as1" value="1" /> A</label>
+                                    <label><input type="checkbox" name="as2" value="1" /> B</label>
+                                    <label><input type="checkbox" name="as3" value="1" /> C</label>
+                                    <label><input type="checkbox" name="as4" value="1" /> D</label>
                             </tr>
                         </table>
-                        <p class="p-btns"><a href="" class="submitBtn">提交</a></p>
+                        <p class="p-btns"><a href="" id="save_btn" class="submitBtn">提交</a></p>
                     </form>
             </div>
         </div>
@@ -103,4 +107,66 @@
 
 
 </body>
-</html> 
+</html>
+<script>
+    $("#save_btn").click(function(data){
+        var style = $("[name='style']:checked").val();
+        if(!style){
+            alert('请先选择题目类型');
+            return false;
+        }
+        if($.trim($("[name='title']").val())==""){
+            alert('请先填写题目标题');
+            return false;
+        }
+        if($.trim($("[name='op1']").val())==""){
+            alert('请完善A选项的内容');
+            return false;
+        }
+        if($.trim($("[name='op2']").val())==""){
+            alert('请完善B选项的内容');
+            return false;
+        }
+        if($.trim($("[name='op3']").val())==""){
+            alert('请完善C选项的内容');
+            return false;
+        }
+        if($.trim($("[name='op4']").val())==""){
+            alert('请完善D选项的内容');
+            return false;
+        }
+        if(style==1){
+            var flag = 0;
+            if($("[name='as1']").is(":checked")){
+                flag +=1;
+            }
+            if($("[name='as2']").is(":checked")){
+                flag +=1;
+            }
+            if($("[name='as3']").is(":checked")){
+                flag +=1;
+            }
+            if($("[name='as4']").is(":checked")){
+                flag +=1;
+            }
+            if(flag == 0){
+                alert('请先选择正确答案后再提交');
+                return false;
+            }
+            if(flag >1){
+                alert('单选题只可选择一个答案');
+                return false;
+            }
+
+        }
+        if(style==2){
+            alert('多选题暂未开放');
+            return false;
+        }
+        if(style==3){
+            alert('陈述题暂未开放');
+            return false;
+        }
+        $("#save_form").submit();
+    })
+</script>

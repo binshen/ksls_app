@@ -110,8 +110,11 @@ class Examination extends MY_Controller
     }
 
     public function enter_examination(){
+        $type_list = $this->examination_model->get_type();
+        $this->assign('type_list', $type_list);
         $this->display("entering_examination.html");
     }
+
     public function review_examination(){
         $this->display("review_examination.html");
     }
@@ -120,12 +123,16 @@ class Examination extends MY_Controller
     }
     public function choose_items(){
             $this->display("setup_examination2.html");
-        }
-     public function examination_score(){
+    }
+    public function examination_score(){
             $this->display("examination_score.html");
-        }
-     public function examination_list(){
+    }
+    public function examination_list(){
             $this->display("examination_list.html");
-        }
+    }
 
+    public function save_question(){
+        $this->examination_model->save_question();
+        redirect(site_url('/examination/enter_examination'));
+    }
 }

@@ -173,4 +173,33 @@ class Examination_model extends MY_Model
         $this->db->where('id', $eq_id);
         $this->db->update('self_exam_question', $data);
     }
+
+    public function get_type(){
+        $this->db->from('question_type');
+        $data = $this->db->get()->result_array();
+        if($data){
+            return $data;
+        }else{
+            return 1;
+        }
+
+    }
+
+    public function save_question(){
+        $data = array(
+            'type_id' => $this->input->post('type_id'),
+            'style' => $this->input->post('style'),
+            'title' => $this->input->post('title'),
+            'op1' => $this->input->post('op1'),
+            'op2' => $this->input->post('op2'),
+            'op3' => $this->input->post('op3'),
+            'op4' => $this->input->post('op4'),
+            'as1' => $this->input->post('as1')?$this->input->post('as1'):0,
+            'as2' => $this->input->post('as2')?$this->input->post('as2'):0,
+            'as3' => $this->input->post('as3')?$this->input->post('as3'):0,
+            'as4' => $this->input->post('as4')?$this->input->post('as4'):0
+        );
+        $this->db->insert('question',$data);
+        var_dump($this->db->last_query());
+    }
 }
