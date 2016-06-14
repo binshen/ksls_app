@@ -571,7 +571,7 @@ html .fc,.fc table{font-size:1em;background:#f2f3f5}.fc td,.fc th{padding:0;vert
 .document-main-fr .orange{ color:#ff6501; display: block;padding:3px 0;}
 .document-main-fr .doc-p{ text-indent: 2em; line-height: 24px; color:#555;}
 
-.publish-document-main{padding:20px 10px; background: #fff;margin:0 15px;}
+.publish-document-main{padding:20px 10px; background: #fff;margin:0 15px;min-height: 500px;}
 .publish-document-main .pub-select{width:102px; height:28px;border:1px solid #c0c0c0; margin-right: 13px;}
 .publish-document-main .input-txt{padding:0 10px;width:590px; height: 26px; line-height: 26px;border:1px solid #c0c0c0;}
 .publish-document-main dl{overflow: hidden; margin-bottom: 10px;}
@@ -593,13 +593,17 @@ html .fc,.fc table{font-size:1em;background:#f2f3f5}.fc td,.fc th{padding:0;vert
 .article-content{width: 625px; float: left;}
 .article-content p{padding-bottom: 10px; font-size: 14px; color: #555;line-height: 24px; text-indent: 2em;}
 
-.artical-opration{margin: 30px auto; width:228px; font-size: 12px; line-height: 22px;}
+.artical-opration{margin: 30px auto; width:228px; font-size: 12px; line-height: 22px; overflow: hidden;}
 .artical-opration a{margin-right:20px;padding:8px 0;width:102px; height:47px;border:1px solid #dcdcdc; float: left;color: #555;}
 .artical-opration a .num{display: block; text-align: center;}
 .artical-opration a:last-child{margin:0;}
 .artical-opration .zan{margin-left: 20px;}
 .artical-opration .collect{margin-left: 10px;}
-
+.delete-pass-btn{width:210px; margin: 0 auto;}
+.delete-pass-btn a{border-radius: 3px; width:95px; height:40px; float: left; margin-right: 20px; font-size:16px;color:#fff; text-align: center; line-height:40px;}
+.delete-pass-btn :last-child{margin-right: 0;}
+.delete-btn{background: #e74c3c;}
+.pass-btn{background: #a9d86e;}
 
 .relation-artical{border:1px solid #bdc2d3;padding:12px 12px 20px;width:276px;float: right;}
 .relation-artical .rel-tit{padding:2px 0; color: #161515;border-bottom: 2px solid #fdb72f;}
