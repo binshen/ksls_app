@@ -202,4 +202,9 @@ class Examination_model extends MY_Model
         $this->db->insert('question',$data);
         var_dump($this->db->last_query());
     }
+
+    public function get_my_exam_list() {
+        $user_id = $this->session->userdata('login_user_id');
+        return $this->db->where('user_id', $user_id)->order_by('id', 'desc')->get('exam')->result_array();
+    }
 }
