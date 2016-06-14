@@ -689,7 +689,7 @@ html .fc,.fc table{font-size:1em;background:#f2f3f5}.fc td,.fc th{padding:0;vert
 .entering-table td .input-txt1{width:40px;}
 .examination-main .p-btns {margin:30px 30px 0 0; width: 90%;}
 .examination-main .p-btns a{float: right; background: #e6382a; width: 110px; height: 36px; line-height: 36px; color:#fff; text-align: center;border-radius: 3px;}
-
+.entering-table td.correct label{margin-right: 10px;}
 /*创建试卷*/
 .setup-paper-control {margin-bottom:23px;border-bottom:2px solid #f43c5e; overflow: hidden;padding-bottom: 18px;}
 .setup-paper-control li{width:225px; height: 42px; background: #eee; text-align: center; color: #333; border:none;}
