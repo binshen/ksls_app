@@ -23,6 +23,16 @@ class Examination_model extends MY_Model
         return $this->db->get('question_type')->result_array();
     }
 
+    public function get_type(){
+        $this->db->from('question_type');
+        $data = $this->db->get()->result_array();
+        if($data){
+            return $data;
+        }else{
+            return 1;
+        }
+    }
+
     public function get_user_exam($user_id, $type_id)
     {
         return $this->db->get_where('self_exam', array(
@@ -174,15 +184,57 @@ class Examination_model extends MY_Model
         $this->db->update('self_exam_question', $data);
     }
 
-    public function get_type(){
-        $this->db->from('question_type');
-        $data = $this->db->get()->result_array();
-        if($data){
-            return $data;
-        }else{
-            return 1;
-        }
 
+
+    public function get_exam_data(){
+        $this->db->select('*')->from('exam')->where(array(
+            'user_id' => $this->session->userdata('login_user_id'),
+            'flag'=>1
+        ));
+        $res = $this->db->order_by('id','desc')->get()->row_array();
+        if(!$res){
+            return -1;
+        }
+        $data['exam_main'] = $res;
+        $this->db->select()->from('exam_question');
+        $data['exam_list'] = $this->db->where('exam_id',$res['id'])->get()->result_array();
+        $this->db->select('count(1) as num');
+        $this->db->where('exam_id',$res['id']);
+        $this->db->from('exam_question');
+        $num = $this->db->get()->row_array();
+        $data['exam_num'] = $num['num'];
+        return $data;
+
+
+    }
+
+    public function list_question($page=1,$typeid=null) {
+        // 每页显示的记录条数，默认20条
+        $numPerPage = $this->input->post('numPerPage') ? $this->input->post('numPerPage') : 10;
+        $pageNum = $this->input->post('pageNum') ? $this->input->post('pageNum') : $page;
+
+        $exam_id = $this->get_news_exam_id();
+        $this->db->select('count(1) as num');
+        $this->db->from('question a');
+        $this->db->join('exam_question b',"a.id = b.question_id and b.exam_id = {$exam_id}",'left');
+        $this->db->where('a.type_id',$typeid);
+        $this->db->where('a.flag',1);
+        $row = $this->db->get()->row_array();
+        //总记录数
+        $data['countPage'] = $row['num'];
+
+        //list
+        $this->db->select('a.*,b.id eq_id');
+        $this->db->from('question a');
+        $this->db->join('exam_question b',"a.id = b.question_id and b.exam_id = {$exam_id}",'left');
+        $this->db->where('a.type_id',$typeid);
+        $this->db->where('a.flag',1);
+        $this->db->limit($numPerPage, ($pageNum - 1) * $numPerPage );
+        $this->db->order_by('a.id', 'desc');
+        $data['res_list'] = $this->db->get()->result_array();
+        $data['pageNum'] = $pageNum;
+        $data['numPerPage'] = $numPerPage;
+        return $data;
     }
 
     public function save_question(){
@@ -199,8 +251,135 @@ class Examination_model extends MY_Model
             'as3' => $this->input->post('as3')?$this->input->post('as3'):0,
             'as4' => $this->input->post('as4')?$this->input->post('as4'):0
         );
-        $this->db->insert('question',$data);
-        var_dump($this->db->last_query());
+      return  $this->db->insert('question',$data);
+
+    }
+
+    public function save_exam_main(){
+
+        $data = array(
+            'user_id' => $this->session->userdata('login_user_id'),
+            'company_id' => $this->session->userdata('login_company_id'),
+            'permission_id' =>$this->session->userdata('login_permission_id'),
+            'title' => $this->input->post('title'),
+            'p_num' => $this->input->post('p_num'),
+            'p_score' => $this->input->post('p_score')
+        );
+        $this->db->trans_start();//--------开始事务
+        $this->db->insert('exam',$data);
+        $insert_id = $this->db->insert_id();
+        $subsidiary_id_array = $this->session->userdata('login_subsidiary_id_array');
+        foreach($subsidiary_id_array as $item){
+            $this->db->insert('exam_subsidiary',array(
+                'exam_id' => $insert_id,
+                'subsidiary_id' => $item
+            ));
+        }
+        $this->db->trans_complete();//------结束事务
+        if ($this->db->trans_status() === FALSE) {
+            return -1;
+        } else {
+            return $insert_id;
+        }
+
+    }
+
+    public function add_question($id){
+        $this->db->select('*')->from('exam')->where(array(
+            'user_id' => $this->session->userdata('login_user_id'),
+            'flag'=>1
+        ));
+        $res = $this->db->order_by('id','desc')->get()->row_array();
+        if(!$res){
+            return -1;
+        }
+        $exam_id = $res['id'];
+        $res_row = $this->db->select()->from('exam_question')->where('exam_id',$exam_id)
+            ->where('question_id',$id)->get()->row_array();
+        if($res_row){
+            return -2;
+        }
+        $this->db->select('count(1) as num');
+        $this->db->where('exam_id',$exam_id);
+        $this->db->from('exam_question');
+        $num_old = $this->db->get()->row_array();
+        if($num_old['num']>= $res['p_num']){
+            return -4;
+        }
+        $this->db->trans_start();//--------开始事务
+        $row = $this->db->select()->from('question')->where('id',$id)->get()->row_array();
+        $data = array(
+            'op1'=>$row['op1'],
+            'op2'=>$row['op2'],
+            'op3'=>$row['op3'],
+            'op4'=>$row['op4'],
+            'as1'=>$row['as1'],
+            'as2'=>$row['as2'],
+            'as3'=>$row['as3'],
+            'as4'=>$row['as4'],
+            'title'=>$row['title'],
+            'question_id'=>$row['id'],
+            'exam_id'=>$exam_id,
+            'style'=>$row['style']
+        );
+
+        $this->db->insert('exam_question',$data);
+        $this->db->select('count(1) as num');
+        $this->db->where('exam_id',$exam_id);
+        $this->db->from('exam_question');
+        $num = $this->db->get()->row_array();
+        $this->db->trans_complete();//------结束事务
+        if ($this->db->trans_status() === FALSE) {
+            return -1;
+        } else {
+            if($num){
+                return $num['num']==0?-3:$num['num'];
+            }else{
+                return -3;
+            }
+        }
+    }
+
+    public function delete_question($id){
+        $exam_id = $this->get_news_exam_id();
+        if($exam_id == -1){
+            return -1;
+        }
+        $this->db->trans_start();//--------开始事务
+        $this->db->where('exam_id',$exam_id)->where('question_id',$id)->delete('exam_question');
+        $this->db->select('count(1) as num');
+        $this->db->where('exam_id',$exam_id);
+        $this->db->from('exam_question');
+        $num = $this->db->get()->row_array();
+        $this->db->trans_complete();//------结束事务
+        if ($this->db->trans_status() === FALSE) {
+            return -1;
+        } else {
+            if($num){
+                return $num['num']==0?-3:$num['num'];
+            }else{
+                return -3;
+            }
+        }
+    }
+
+    public function get_news_exam_id(){
+        $this->db->select('*')->from('exam')->where(array(
+            'user_id' => $this->session->userdata('login_user_id'),
+            'flag'=>1
+        ));
+        $res = $this->db->order_by('id','desc')->get()->row_array();
+        if(!$res){
+            $exam_id = -1;
+        }else{
+            $exam_id = $res['id'];
+        }
+        return $exam_id;
+    }
+
+    public function change_exam_flag(){
+        $exam_id = $this->get_news_exam_id();
+        $this->db->where('id',$exam_id)->update('exam',array('flag'=>2,'created'=>date('Y-m-d H:i:s',time())));
     }
 
     public function get_my_score_list() {
@@ -212,5 +391,16 @@ class Examination_model extends MY_Model
     public function get_my_exam_list() {
         $user_id = $this->session->userdata('login_user_id');
         return $this->db->where('user_id', $user_id)->order_by('id', 'desc')->get('exam')->result_array();
+    }
+
+    public function view_examination($exam_id){
+        $data['exam_main'] = $this->db->where('id', $exam_id)->get("exam")->row_array();
+        $data['exam_list'] = $this->db->where('exam_id', $exam_id)->get('exam_question')->result_array();
+        $this->db->select('count(1) as num');
+        $this->db->where('exam_id', $exam_id);
+        $this->db->from('exam_question');
+        $num = $this->db->get()->row_array();
+        $data['exam_num'] = $num['num'];
+        return $data;
     }
 }

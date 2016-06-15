@@ -18,17 +18,12 @@
             <div class="nav-left">
                 <ul class="nav-left-ul">
                     <li><a href="/"><em class="home"></em>回到首页</a></li>
-                    <li><a href="/activity/list_activity"><em class="onlineclass"></em>在线课程</a></li>
-                    <li><a href="/activity/list_activity"><em class="documentdata"></em>文档资料</a></li>
+                    <li><a href="/video/list_video"><em class="onlineclass"></em>在线课程</a></li>
+                    <li><a href="/document/list_doc"><em class="documentdata"></em>文档资料</a></li>
                     <li>
-                        <a href="/examination/selft_examination"><em class="onlineexam"></em>在线考试</a>
-                        <span class="document-nav-list">
-                            <a href="/examination/self_examination">自主测评</a><br />
-                            <a href="/examination/unit_examination">统一考试</a><br />
-                            <a href="/examination/examination_score">我的成绩</a>
-                        </span>
+                        <a href="/examination/self_examination"><em class="onlineexam"></em>在线考试</a>
                     </li>
-                    <li class="on"><a href="/exmination/enter_examination"><em class="onlineexam"></em>题库</a>
+                    <li class="on"><a href="/examination/enter_examination"><em class="onlineexam"></em>题库</a>
                         <span class="document-nav-list">
                             <a href="/examination/enter_examination">上传试题</a><br />
                             <a href="/examination/setup_examination" class="on">生成试卷</a><br />
@@ -45,10 +40,14 @@
                 <p class="tab-tit">创建试卷</p>
                 <div class="examination-main clearfix">
                       <ul class="control setup-paper-control" id ="slide01_control">
-                        <li>新人基础知识</li>
-                        <li>新人进阶</li>
-                        <li>店务管理</li>
+                          {{if $type_list!=1}}
+                          {{foreach from=$type_list item=item}}
+                          <li><a href="{{site_url url='examination/choose_list'}}/1/{{$item.id}}" class="{{if $type==$item.id}}current{{/if}}">{{$item.name}}</a></li>
+                          {{/foreach}}
+                          {{/if}}
                      </ul>
+                    <form id="save_form" method="post" action="/examination/choose_list/1/1">
+                    <input type="hidden" name="type" value="{{$type}}">
                      <div class="main-inner" id="slide01">
                         <div class="condiv">
                             <div class="item-type">
@@ -57,48 +56,156 @@
                                 <span>陈述题</span>
                             </div>
                            <ul class="choose-list">
-                               <li> 
-                                    <dl>
-                                        <dt>住宅的土地使用年限为多少？</dt>
-                                        <dd>A 40年 <br />B 50年  <br />C 60年  <br />D 70年</dd>
-                                    </dl>
-                                    <span class="bg"><a href="" class="join-paper">加入试卷</a></span>
-                                </li>
-                                <li class="hasjoinli"> 
-                                    <dl>
-                                        <dt>住宅的土地使用年限为多少？</dt>
-                                        <dd>A 40年 <br />B 50年  <br />C 60年  <br />D 70年</dd>
-                                    </dl>
-                                    <span class="bg"><a href="" class="join-paper has-join">移出试卷</a></span>
+                               <li>
+                                   {{foreach from=$question_data.res_list item=item}}
+                                   <dl>
+                                       <dt>{{$item['title']}}</dt>
+
+                                   </dl>
+                                   <span class="bg">
+                                       <a href="javascript:void(0);" name="add_question" class="join-paper {{if $item['eq_id']}}has-join{{/if}}">加入试卷</a>
+                                        <input type="hidden" name="question_id[]" value="{{$item['id']}}">
+                                   </span>
+                                     {{/foreach}}
                                 </li>
                            </ul>
-                        <div class="pages">
-                            <span class="current">1</span><a href="/activity/list_review/2">2</a><a href="/activity/list_review/3">3</a><a href="/activity/list_review/4">4</a><a href="/activity/list_review/5">5</a><a href="/activity/list_review/2" class="prev">下一页</a>
-                        </div>
+                               <div class="pages">
+                                   {{$pager}}
+                               </div>
+                            <ul class="choose-list">
+                                <li class="hasjoinli">
+                                    {{foreach from=$exam_data.exam_list item=item}}
+                                    <dl>
+                                        <dt>{{$item['title']}}</dt>
+
+                                    </dl>
+                                    <span class="bg">
+                                        <a href="javascript:void(0);" name="delete_question" class="join-paper has-join">移除试题</a>
+                                        <input type="hidden" name="exam_question_id[]" value="{{$item['question_id']}}">
+                                    </span>
+                                    {{/foreach}}
+                                </li>
+                            </ul>
                         </div>
                         <div class="condiv">
                         </div>
                         <div class="condiv">
                         </div>
                     </div>
+                    </form>
                 </div>
         </div>
     </div>
 </div>
 <div class="paperitemsnumber">
-    <p>单选项(<i class="red">5</i>/5)</p>
-    <a href="/examination/review_examination" class="okbtn">生成试卷</a>
+    <p>选择题目(<i id="exam_num" class="red">{{$exam_data.exam_num}}</i>/{{$exam_data.exam_main.p_num}})</p>
+    <a href="javascript:void(0);" id="review_btn" class="okbtn">生成试卷</a>
 </div>
 <script type="text/javascript" src="/static/js/dpl-jquery.slide.js"></script>
 <script type="text/javascript">
 
-   new Slide({
-        target: $('#slide01 .condiv' ),
-        control: $('#slide01_control li' ),
-        type:'click'
-
-    });
 </script>
 
 </body>
-</html> 
+</html>
+<script>
+    $("#review_btn").click(function(){
+        var exam_num = $("#exam_num").html();
+        if(parseInt(exam_num) == {{$exam_data.exam_main.p_num}}){
+            window.location.href="/examination/review_examination";
+        }else{
+            alert('题目数量未符合要求')
+        }
+    })
+
+    $("[class='pages']").find('a').click(function(){
+        var path = $(this).attr('href');
+        $("#save_form").attr("action",path);
+        $("#save_form").submit();
+        return false;
+    })
+
+    $("[name='add_question']").click(function(){
+        var select_a = $(this);
+        var eq_id = $(this).next().val();
+        var html = $(this).parent().prev().eq(0).html();
+        $.getJSON('/examination/add_question/'+eq_id,function(data){
+            if(data == -1){
+                alert('加入失败');
+            }
+            if(data == -2){
+                alert('已加入');
+            }
+            if(data == -4){
+                alert('题目已满');
+            }
+            if(data==-3 || data >0){
+                if(data == -3){
+                    data = 0;
+                }
+                select_a.addClass('has-join');
+                html = '<dl>'+html+'</dl>'
+                html += ' <span class="bg"><a href="javascript:void(0);" name="delete_question" class="join-paper has-join">移除试题</a>'
+                html += '<input type="hidden" name="exam_question_id[]" value="'+eq_id+'"></span>'
+                $("[class='hasjoinli']").append(html);
+                $("#exam_num").html(data);
+                $("[name='delete_question']").off('click');
+                $("[name='delete_question']").click(function(){
+                    var select = $(this);
+                    var eq_id = $(this).next().val();
+                    var html = $(this).parent().prev().eq(0).html();
+                    $.getJSON('/examination/delete_question/'+eq_id,function(data){
+                        if(data == -1){
+                            alert('移除失败');
+                        }
+                        if(data==-3 || data >0){
+                            if(data == -3){
+                                data = 0;
+                            }
+                            select.parent().prev().remove();
+                            select.parent().remove();
+                            $("[name='question_id[]']").each(function(){
+                                if($(this).val()==eq_id){
+                                    $(this).prev().removeClass('has-join');
+                                }
+                            })
+                            $("#exam_num").html(data);
+                        }
+                    })
+
+                })
+
+
+                alert('加入成功');
+
+
+            }
+        })
+
+    })
+
+    $("[name='delete_question']").click(function(){
+        var select_a = $(this);
+        var eq_id = $(this).next().val();
+        var html = $(this).parent().prev().eq(0).html();
+        $.getJSON('/examination/delete_question/'+eq_id,function(data){
+            if(data == -1){
+                alert('移除失败');
+            }
+            if(data==-3 || data >0){
+                if(data == -3){
+                    data = 0;
+                }
+                select_a.parent().prev().remove();
+                select_a.parent().remove();
+                $("[name='question_id[]']").each(function(){
+                    if($(this).val()==eq_id){
+                        $(this).prev().removeClass('has-join');
+                    }
+                })
+                $("#exam_num").html(data);
+            }
+        })
+
+    })
+</script>

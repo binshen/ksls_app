@@ -38,35 +38,35 @@
             </div>
         </div>
         <div class="wrap-right">
-             <div class="search-wrap">
-               
+            <div class="search-wrap">
+
             </div>
-              <div class="schedule-wrap upload-document-wrap">
+            <div class="schedule-wrap upload-document-wrap">
                 <p class="tab-tit">我的试卷</p>
                 <div class="examination-main clearfix">
-                      <p class="exam-tit">{{$exam_data.exam_main.title}}</p>
-                      <p class="tips"><span class="fz18">注意事项：</span><br />
+                    <p class="exam-tit">{{$exam_data.exam_main.title}}</p>
+                    <p class="tips"><span class="fz18">注意事项：</span><br />
                         本试卷共有{{$exam_data.exam_main.p_num}}道试题</p>
-                      <p class="exam-p1">第I卷（选择题）</p> 
-                      <p class="exam-p2">一、选择题目（共{{$exam_data.exam_main.p_num}}小题）</p>
-                      <dl class="dl-exam1">
-                          {{foreach from=$exam_data.exam_list key=key item=item}}
-                          <dt>(
-                              {{if $item['style']==1}}单选题{{/if}}
-                              {{if $item['style']==2}}多选题{{/if}}
-                              )
-                              {{$key+1}}. {{$item['title']}}</dt>
-                          <dd>A {{$item['op1']}}<br />
-                              B {{$item['op2']}}<br />
-                              C {{$item['op3']}}<br />
-                              D {{$item['op4']}}</dd>
+                    <p class="exam-p1">第I卷（选择题）</p>
+                    <p class="exam-p2">一、选择题目（共{{$exam_data.exam_main.p_num}}小题）</p>
+                    <dl class="dl-exam1">
+                        {{foreach from=$exam_data.exam_list key=key item=item}}
+                        <dt>(
+                            {{if $item['style']==1}}单选题{{/if}}
+                            {{if $item['style']==2}}多选题{{/if}}
+                            )
+                            {{$key+1}}. {{$item['title']}}</dt>
+                        <dd>A {{$item['op1']}}<br />
+                            B {{$item['op2']}}<br />
+                            C {{$item['op3']}}<br />
+                            D {{$item['op4']}}</dd>
 
-                          {{/foreach}}  </dl>
-                      <a href="/examination/change_exam_flag" class="createpaper-btn">确定生成试卷</a>
+                        {{/foreach}}  </dl>
+                    <a href="/examination/examination_list" class="createpaper-btn">返回试卷列表</a>
                 </div>
+            </div>
         </div>
     </div>
-</div>
 
 </body>
 </html> 

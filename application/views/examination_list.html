@@ -18,15 +18,10 @@
             <div class="nav-left">
                 <ul class="nav-left-ul">
                     <li><a href="/"><em class="home"></em>回到首页</a></li>
-                    <li><a href="/activity/list_activity"><em class="onlineclass"></em>在线课程</a></li>
-                    <li><a href="/activity/list_activity"><em class="documentdata"></em>文档资料</a></li>
+                    <li><a href="/video/list_video"><em class="onlineclass"></em>在线课程</a></li>
+                    <li><a href="/document/list_doc"><em class="documentdata"></em>文档资料</a></li>
                     <li>
-                        <a href="/examination/selft_examination"><em class="onlineexam"></em>在线考试</a>
-                        <span class="document-nav-list">
-                            <a href="/examination/self_examination">自主测评</a><br />
-                            <a href="/examination/unit_examination">统一考试</a><br />
-                            <a href="/examination/examination_score">我的成绩</a>
-                        </span>
+                        <a href="/examination/self_examination"><em class="onlineexam"></em>在线考试</a>
                     </li>
                     <li class="on"><a href="/exmination/enter_exmination"><em class="onlineexam"></em>题库</a>
                         <span class="document-nav-list">
@@ -42,7 +37,7 @@
                
             </div>
               <div class="schedule-wrap upload-document-wrap">
-                <p class="tab-tit">我的成绩</p>
+                <p class="tab-tit">我的试卷</p>
                 <div class="examination-main clearfix">
                     <table cellspadding="0" border="0" class="examination-list-table">
                         <tr>
@@ -54,7 +49,7 @@
                         <tr>
                             <td>{{$item.title}}</td>
                             <td>{{$item.created}}</td>
-                            <td><a href="/">查看</a></td>
+                            <td><a href="/examination/view_examination/{{$item.id}}">查看</a></td>
                         </tr>
                         {{/foreach}}
                     </table>

@@ -18,17 +18,12 @@
             <div class="nav-left">
                 <ul class="nav-left-ul">
                     <li><a href="/"><em class="home"></em>回到首页</a></li>
-                    <li><a href="/activity/list_activity"><em class="onlineclass"></em>在线课程</a></li>
-                    <li><a href="/activity/list_activity"><em class="documentdata"></em>文档资料</a></li>
+                    <li><a href="/video/list_video"><em class="onlineclass"></em>在线课程</a></li>
+                    <li><a href="/document/list_doc"><em class="documentdata"></em>文档资料</a></li>
                     <li>
-                        <a href="/examination/selft_examination"><em class="onlineexam"></em>在线考试</a>
-                        <span class="document-nav-list">
-                            <a href="/examination/self_examination">自主测评</a><br />
-                            <a href="/examination/unit_examination">统一考试</a><br />
-                            <a href="/examination/examination_score">我的成绩</a>
-                        </span>
+                        <a href="/examination/self_examination"><em class="onlineexam"></em>在线考试</a>
                     </li>
-                    <li class="on">  <a href="/exmination/enter_examination"><em class="onlineexam"></em>题库</a>
+                    <li class="on">  <a href="/examination/enter_examination"><em class="onlineexam"></em>题库</a>
                         <span class="document-nav-list">
                             <a href="/examination/enter_examination" class="on">上传试题</a><br />
                             <a href="/examination/setup_examination">生成试卷</a><br />
@@ -98,7 +93,7 @@
                                     <label><input type="checkbox" name="as4" value="1" /> D</label>
                             </tr>
                         </table>
-                        <p class="p-btns"><a href="" id="save_btn" class="submitBtn">提交</a></p>
+                        <p class="p-btns"><a href="javascript:void(0);" id="save_btn" class="submitBtn">提交</a></p>
                     </form>
             </div>
         </div>
@@ -109,6 +104,10 @@
 </body>
 </html>
 <script>
+    $(function(){
+        {{if $information == 1}}alert('添加成功,可继续添加'){{/if}}
+        {{if $information == 2}}alert('添加失败,请重新添加'){{/if}}
+    })
     $("#save_btn").click(function(data){
         var style = $("[name='style']:checked").val();
         if(!style){

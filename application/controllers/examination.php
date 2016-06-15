@@ -109,19 +109,53 @@ class Examination extends MY_Controller
         $this->examination_model->chenge_option($eq_id,$val,$as);
     }
 
-    public function enter_examination(){
+    public function enter_examination($information=null){
+        $this->assign('information', $information?$information:-1);
         $type_list = $this->examination_model->get_type();
         $this->assign('type_list', $type_list);
         $this->display("entering_examination.html");
     }
 
     public function review_examination(){
+        $exam_data = $this->examination_model->get_exam_data();
+        $this->assign('exam_data', $exam_data);
         $this->display("review_examination.html");
     }
     public function setup_examination(){
-        $this->display("setup_examination1.html");
+        $res = $this->examination_model->get_news_exam_id();
+        if($res == -1){
+            $this->display("setup_examination1.html");
+        }else{
+            redirect(site_url('/examination/choose_list/1/1'));
+        }
+
     }
+
     public function choose_items(){
+        $res = $this->examination_model->save_exam_main();
+        if($res != -1){
+            redirect(site_url('/examination/choose_list/1/1'));
+        }else{
+            redirect(site_url('/examination/setup_examination'));
+        }
+       // $this->display("setup_examination2.html");
+
+    }
+
+    public function choose_list($page=1,$type=null){
+        if(!$type){
+            $type = $this->input->post('type');
+        }
+        $this->assign('type', $type);
+        $type_list = $this->examination_model->get_type();
+        $this->assign('type_list', $type_list);
+        $exam_data = $this->examination_model->get_exam_data();
+        $this->assign('exam_data', $exam_data);
+        $question_data = $this->examination_model->list_question($page,$type);
+        $this->assign('question_data', $question_data);
+        $pager = $this->pagination->getPageLink('/examination/choose_list', $question_data['countPage'], $question_data['numPerPage']);
+        $this->assign('pager', $pager);
+
         $this->display("setup_examination2.html");
     }
     public function examination_score(){
@@ -136,7 +170,33 @@ class Examination extends MY_Controller
     }
 
     public function save_question(){
-        $this->examination_model->save_question();
-        redirect(site_url('/examination/enter_examination'));
+      $res = $this->examination_model->save_question();
+        if($res){
+            redirect(site_url('/examination/enter_examination/1'));
+        }else{
+            redirect(site_url('/examination/enter_examination/2'));
+        }
+
+    }
+
+    public function add_question($id){
+        $res = $this->examination_model->add_question($id);
+        echo json_encode($res);
+    }
+
+    public function delete_question($id){
+        $res = $this->examination_model->delete_question($id);
+        echo json_encode($res);
+    }
+
+    public function change_exam_flag(){
+        $this->examination_model->change_exam_flag();
+        redirect(site_url('/examination/examination_list'));
+    }
+
+    public function view_examination($exam_id) {
+        $exam_data = $this->examination_model->view_examination($exam_id);
+        $this->assign('exam_data', $exam_data);
+        $this->display("view_examination.html");
     }
 }
