@@ -54,7 +54,7 @@ class Examination_model extends MY_Model
             $data = array(
                 'user_id' => $user_id,
                 'type_id' => $type_id,
-                'title' => $user_id . '-自助考试-' . date('YmdHis'),
+                'title' => '自助考试-' . date('YmdHis'),
                 'complete' => 0,
                 'created' => date("Y-m-d H:i:s")
             );
