@@ -21,7 +21,7 @@
                     <li><a href="/activity/list_activity"><em class="onlineclass"></em>在线课程</a></li>
                     <li><a href="/activity/list_activity"><em class="documentdata"></em>文档资料</a></li>
                     <li>
-                        <a href="/examination/selft_examination"><em class="onlineexam"></em>在线考试</a>
+                        <a href="/examination/self_examination"><em class="onlineexam"></em>在线考试</a>
                         <span class="document-nav-list">
                             <a href="/examination/self_examination">自主测评</a><br />
                             <a href="/examination/unit_examination">统一考试</a><br />
@@ -44,33 +44,25 @@
               <div class="schedule-wrap upload-document-wrap">
                 <p class="tab-tit">我的试卷</p>
                 <div class="examination-main clearfix">
-                      <p class="exam-tit">科威门店统一期末考试卷</p>
+                      <p class="exam-tit">{{$exam_data.exam_main.title}}</p>
                       <p class="tips"><span class="fz18">注意事项：</span><br />
-                        本试卷共有52道试题</p>
+                        本试卷共有{{$exam_data.exam_main.p_num}}道试题</p>
                       <p class="exam-p1">第I卷（选择题）</p> 
-                      <p class="exam-p2">一、单选题（共20小题）</p> 
+                      <p class="exam-p2">一、选择题目（共{{$exam_data.exam_main.p_num}}小题）</p>
                       <dl class="dl-exam1">
-                        <dt>1. 住宅的土地使用年限为多少？</dt>
-                        <dd>A 40年<br /> 
-                            B 50年<br />  
-                            C 60年<br />  
-                            D 70年</dd>
-                      </dl>
-                      <dl class="dl-exam1">
-                        <dt>2. 住宅的土地使用年限为多少？</dt>
-                        <dd>A 40年<br /> 
-                            B 50年<br />  
-                            C 60年<br />  
-                            D 70年</dd>
-                      </dl>
-                      <dl class="dl-exam1">
-                        <dt>3. 住宅的土地使用年限为多少？</dt>
-                        <dd>A 40年<br /> 
-                            B 50年<br />  
-                            C 60年<br />  
-                            D 70年</dd>
-                      </dl>
-                      <a href="javascript:" class="createpaper-btn">确定生成试卷</a>
+                          {{foreach from=$exam_data.exam_list key=key item=item}}
+                          <dt>(
+                              {{if $item['style']==1}}单选题{{/if}}
+                              {{if $item['style']==2}}多选题{{/if}}
+                              )
+                              {{$key+1}}. {{$item['title']}}</dt>
+                          <dd>A {{$item['op1']}}<br />
+                              B {{$item['op2']}}<br />
+                              C {{$item['op3']}}<br />
+                              D {{$item['op4']}}</dd>
+
+                          {{/foreach}}  </dl>
+                      <a href="/examination/change_exam_flag" class="createpaper-btn">确定生成试卷</a>
                 </div>
         </div>
     </div>

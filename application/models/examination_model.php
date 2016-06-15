@@ -377,6 +377,11 @@ class Examination_model extends MY_Model
         return $exam_id;
     }
 
+    public function change_exam_flag(){
+        $exam_id = $this->get_news_exam_id();
+        $this->db->where('id',$exam_id)->update('exam',array('flag'=>2,'created'=>date('Y-m-d H:i:s',time())));
+    }
+
     public function get_my_score_list() {
         $user_id = $this->session->userdata('login_user_id');
         //TODO: 除了自测试卷的分数,还有参加过的所有统一考试的试卷

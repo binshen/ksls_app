@@ -182,4 +182,9 @@ class Examination extends MY_Controller
         $res = $this->examination_model->delete_question($id);
         echo json_encode($res);
     }
+
+    public function change_exam_flag(){
+        $this->examination_model->change_exam_flag();
+        redirect(site_url('/examination/examination_list'));
+    }
 }
