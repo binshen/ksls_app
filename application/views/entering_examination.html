@@ -102,6 +102,7 @@
 
 </body>
 </html>
+<script type="text/javascript" src="/static/js/layer/layer.js"></script>
 <script>
     $(function(){
         {{if $information == 1}}alert('添加成功,可继续添加'){{/if}}
@@ -110,27 +111,27 @@
     $("#save_btn").click(function(data){
         var style = $("[name='style']:checked").val();
         if(!style){
-            alert('请先选择题目类型');
+            layer.msg('请先选择题目类型');
             return false;
         }
         if($.trim($("[name='title']").val())==""){
-            alert('请先填写题目标题');
+            layer.msg('请先填写题目标题');
             return false;
         }
         if($.trim($("[name='op1']").val())==""){
-            alert('请完善A选项的内容');
+            layer.msg('请完善A选项的内容');
             return false;
         }
         if($.trim($("[name='op2']").val())==""){
-            alert('请完善B选项的内容');
+            layer.msg('请完善B选项的内容');
             return false;
         }
         if($.trim($("[name='op3']").val())==""){
-            alert('请完善C选项的内容');
+            layer.msg('请完善C选项的内容');
             return false;
         }
         if($.trim($("[name='op4']").val())==""){
-            alert('请完善D选项的内容');
+            layer.msg('请完善D选项的内容');
             return false;
         }
         if(style==1){
@@ -148,21 +149,21 @@
                 flag +=1;
             }
             if(flag == 0){
-                alert('请先选择正确答案后再提交');
+                layer.msg('请先选择正确答案后再提交');
                 return false;
             }
             if(flag >1){
-                alert('单选题只可选择一个答案');
+                layer.msg('单选题只可选择一个答案');
                 return false;
             }
 
         }
         if(style==2){
-            alert('多选题暂未开放');
+            layer.msg('多选题暂未开放');
             return false;
         }
         if(style==3){
-            alert('陈述题暂未开放');
+            layer.msg('陈述题暂未开放');
             return false;
         }
         $("#save_form").submit();
