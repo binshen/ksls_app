@@ -420,7 +420,7 @@ and a.flag = 2
             foreach($subsidiary_id as $key=>$item){
                 if($key==0){
                     $string_in.='('.$item;
-                }elseif($key==count($subsidiary_id)){
+                }elseif($key==(count($subsidiary_id)-1)){
                     $string_in.=','.$item.')';
                 }else{
                     $string_in.=','.$item;
