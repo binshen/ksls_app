@@ -41,7 +41,9 @@
                     <div class="choose-exam-category">
                         <div class="tit">统一考试</div>
                         <ul class="ul-category">
-                            <li class="current">震川店新人入职考试(201601606)</li>
+                            {{foreach from=$exam_list item=item}}
+                            <li>{{$item.title}}<input type="hidden" value="{{$item.id}}"></li>
+                            {{/foreach}}
                         </ul>
                         <a href="/examination/do_examination" class="go-exam">开始考试</a>
                     </div>
@@ -57,4 +59,17 @@
 
 
 </body>
-</html> 
+</html>
+<script type="text/javascript" src="/static/js/jquery-1.7.2.min.js"></script>
+<script type="text/javascript" src="/static/js/layer/layer.js"></script>
+<script>
+    $(".ul-category li").click(function () {$(".ul-category li").removeClass("current");$(this).addClass("current");})
+    function go_to_page() {
+        var type = $(".ul-category").find("[class='current']").eq(0).find("input").eq(0).val();
+        if(type){
+            window.location.href = '/examination/do_examination/' + type;
+        }else{
+            layer.msg('请先选择类别')
+        }
+    }
+</script>
