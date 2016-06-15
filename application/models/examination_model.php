@@ -403,4 +403,31 @@ class Examination_model extends MY_Model
         $data['exam_num'] = $num['num'];
         return $data;
     }
+
+    public function get_exam_list()
+    {
+        $sql = "select DISTINCT a.title ,a.id
+from exam a
+left join exam_subsidiary b on b.exam_id = a.id
+where a.permission_id = 1 OR
+(a.permission_id = 2 and a.company_id = ?) OR
+(a.permission_id > 2 and b.subsidiary_id in (?))
+        ";
+        $string_in='';
+        $subsidiary_id = $this->session->userdata('login_subsidiary_id_array');
+        if(is_array($subsidiary_id)){
+            foreach($subsidiary_id as $key=>$item){
+                if($key==0){
+                    $string_in.=$item;
+                }else{
+                    $string_in.=','.$item;
+                }
+
+            }
+        }else{
+            $string_in = $subsidiary_id;
+        }
+        $res = $this->db->query($sql,array($this->session->userdata('login_company_id'),$string_in))->result_array();
+       return $res?$res:-1;
+    }
 }

@@ -101,7 +101,8 @@ class Examination extends MY_Controller
 
     public function unit_examination()
     {
-
+        $exam_list = $this->examination_model->get_exam_list();
+        $this->assign('exam_list', $exam_list);
         $this->display('unit_examination.html');
     }
 
