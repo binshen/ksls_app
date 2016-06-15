@@ -252,7 +252,7 @@ class Examination_model extends MY_Model
             'as4' => $this->input->post('as4')?$this->input->post('as4'):0
         );
         $this->db->insert('question',$data);
-        var_dump($this->db->last_query());
+       // die(var_dump($this->db->last_query()));
     }
 
     public function save_exam_main(){
