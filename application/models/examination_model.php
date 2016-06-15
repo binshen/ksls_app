@@ -246,10 +246,10 @@ class Examination_model extends MY_Model
             'op2' => $this->input->post('op2'),
             'op3' => $this->input->post('op3'),
             'op4' => $this->input->post('op4'),
-            'as1' => $this->input->post('as1')?$this->input->post('as1'):0,
-            'as2' => $this->input->post('as2')?$this->input->post('as2'):0,
-            'as3' => $this->input->post('as3')?$this->input->post('as3'):0,
-            'as4' => $this->input->post('as4')?$this->input->post('as4'):0
+            'as1' => 0,
+            'as2' => 0,
+            'as3' => 1,
+            'as4' => 0
         );
         $this->db->insert('question',$data);
        // die(var_dump($this->db->last_query()));
