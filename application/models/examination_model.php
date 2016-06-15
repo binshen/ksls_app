@@ -409,9 +409,10 @@ class Examination_model extends MY_Model
         $sql = "select DISTINCT a.title ,a.id
 from exam a
 left join exam_subsidiary b on b.exam_id = a.id
-where a.permission_id = 1 OR
+where (a.permission_id = 1 OR
 (a.permission_id = 2 and a.company_id = ?) OR
-(a.permission_id > 2 and b.subsidiary_id in (?))
+(a.permission_id > 2 and b.subsidiary_id in (?)))
+and a.flag = 2
         ";
         $string_in='';
         $subsidiary_id = $this->session->userdata('login_subsidiary_id_array');
