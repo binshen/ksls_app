@@ -411,7 +411,7 @@ from exam a
 left join exam_subsidiary b on b.exam_id = a.id
 where (a.permission_id = 1 OR
 (a.permission_id = 2 and a.company_id = ?) OR
-(a.permission_id > 2 and b.subsidiary_id in (?)))
+(a.permission_id > 2 and b.subsidiary_id in ?))
 and a.flag = 2
         ";
         $string_in='';
@@ -419,7 +419,9 @@ and a.flag = 2
         if(is_array($subsidiary_id)){
             foreach($subsidiary_id as $key=>$item){
                 if($key==0){
-                    $string_in.=$item;
+                    $string_in.='('.$item;
+                }elseif($key==count($subsidiary_id)){
+                    $string_in.=','.$item.')';
                 }else{
                     $string_in.=','.$item;
                 }
