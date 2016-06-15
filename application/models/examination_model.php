@@ -392,4 +392,15 @@ class Examination_model extends MY_Model
         $user_id = $this->session->userdata('login_user_id');
         return $this->db->where('user_id', $user_id)->order_by('id', 'desc')->get('exam')->result_array();
     }
+
+    public function view_examination($exam_id){
+        $data['exam_main'] = $this->db->where('id', $exam_id)->get("exam")->row_array();
+        $data['exam_list'] = $this->db->where('exam_id', $exam_id)->get('exam_question')->result_array();
+        $this->db->select('count(1) as num');
+        $this->db->where('exam_id', $exam_id);
+        $this->db->from('exam_question');
+        $num = $this->db->get()->row_array();
+        $data['exam_num'] = $num['num'];
+        return $data;
+    }
 }

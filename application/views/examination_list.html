@@ -42,7 +42,7 @@
                
             </div>
               <div class="schedule-wrap upload-document-wrap">
-                <p class="tab-tit">我的成绩</p>
+                <p class="tab-tit">我的试卷</p>
                 <div class="examination-main clearfix">
                     <table cellspadding="0" border="0" class="examination-list-table">
                         <tr>
@@ -54,7 +54,7 @@
                         <tr>
                             <td>{{$item.title}}</td>
                             <td>{{$item.created}}</td>
-                            <td><a href="/">查看</a></td>
+                            <td><a href="/examination/view_examination/{{$item.id}}">查看</a></td>
                         </tr>
                         {{/foreach}}
                     </table>

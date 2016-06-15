@@ -193,4 +193,10 @@ class Examination extends MY_Controller
         $this->examination_model->change_exam_flag();
         redirect(site_url('/examination/examination_list'));
     }
+
+    public function view_examination($exam_id) {
+        $exam_data = $this->examination_model->view_examination($exam_id);
+        $this->assign('exam_data', $exam_data);
+        $this->display("view_examination.html");
+    }
 }
