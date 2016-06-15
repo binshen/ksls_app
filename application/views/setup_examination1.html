@@ -21,7 +21,7 @@
                     <li><a href="/activity/list_activity"><em class="onlineclass"></em>在线课程</a></li>
                     <li><a href="/activity/list_activity"><em class="documentdata"></em>文档资料</a></li>
                     <li>
-                        <a href="/examination/selft_examination"><em class="onlineexam"></em>在线考试</a>
+                        <a href="/examination/self_examination"><em class="onlineexam"></em>在线考试</a>
                         <span class="document-nav-list">
                             <a href="/examination/self_examination">自主测评</a><br />
                             <a href="/examination/unit_examination">统一考试</a><br />
@@ -44,21 +44,19 @@
               <div class="schedule-wrap upload-document-wrap">
                 <p class="tab-tit">在线考试</p>
                 <div class="examination-main clearfix">
-                    <h2 class="examination-h2"><span>测评试卷名称</span></h2>
-                    <div class="tb1">
-                        <select class="examination-select">
-                            <option value="新人基础知识">新人基础知识</option>
-                            <option value="新人进阶知识">新人进阶知识</option>
-                            <option value="店务管理">店务管理</option>
-                        </select>
-                        <input type="text" name="" class="examination-name">
-                    </div>
-                     <h2 class="examination-h2"><span>测评试卷信息</span></h2>
-                      <div class="tb1">
-                         <p class="p-num"><span class="span-bg">试题数量</span><input type="text" name="" class="exam-num" /> 道</p>
-                         <p class="p-num"><span class="span-bg">试题</span><input type="text" name="" class="exam-num" /> 道</p>
-                    </div>
-                    <a href="/examination/choose_items" class="begin-choose">开始选题</a>
+                    <form id="save_form" method="post" action="/examination/choose_items">
+                        <h2 class="examination-h2"><span>测评试卷名称</span></h2>
+                        <div class="tb1">
+                            <input type="text" name="title" class="examination-name">
+                        </div>
+                        <h2 class="examination-h2"><span>测评试卷信息</span></h2>
+                        <div class="tb1">
+                            <p class="p-num"><span class="span-bg">试题数量</span><input type="text" name="p_num" class="exam-num" /> 道</p>
+                            <p class="p-num"><span class="span-bg">试题分数</span><input type="text" name="p_score" class="exam-num" /> 分/道</p>
+                        </div>
+                        <a href="javascript:void(0);" id="save_btn" class="begin-choose">开始选题</a>
+                    </form>
+
                 </div>
         </div>
     </div>
@@ -74,6 +72,24 @@
         type:'click'
 
     });
+
+    $("#save_btn").click(function () {
+        if($.trim($("[name='title']").eq(0).val()) == ""){
+            alert('试卷名称必填');
+            return false;
+        }
+        if($.trim($("[name='p_num']").eq(0).val()) == ""){
+            alert('试题数量必填');
+            return false;
+        }
+        if($.trim($("[name='p_score']").eq(0).val()) == ""){
+            alert('试题分数必填');
+            return false;
+        }
+
+        $("#save_form").submit();
+    })
+
 </script>
 
 </body>
