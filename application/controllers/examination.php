@@ -109,7 +109,8 @@ class Examination extends MY_Controller
         $this->examination_model->chenge_option($eq_id,$val,$as);
     }
 
-    public function enter_examination(){
+    public function enter_examination($information=null){
+        $this->assign('information', $information?$information:-1);
         $type_list = $this->examination_model->get_type();
         $this->assign('type_list', $type_list);
         $this->display("entering_examination.html");
@@ -169,8 +170,13 @@ class Examination extends MY_Controller
     }
 
     public function save_question(){
-        $this->examination_model->save_question();
-        redirect(site_url('/examination/enter_examination'));
+      $res = $this->examination_model->save_question();
+        if($res){
+            redirect(site_url('/examination/enter_examination/1'));
+        }else{
+            redirect(site_url('/examination/enter_examination/2'));
+        }
+
     }
 
     public function add_question($id){

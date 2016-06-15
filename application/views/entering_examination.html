@@ -98,7 +98,7 @@
                                     <label><input type="checkbox" name="as4" value="1" /> D</label>
                             </tr>
                         </table>
-                        <p class="p-btns"><a href="" id="save_btn" class="submitBtn">提交</a></p>
+                        <p class="p-btns"><a href="javascript:void(0);" id="save_btn" class="submitBtn">提交</a></p>
                     </form>
             </div>
         </div>
@@ -109,6 +109,10 @@
 </body>
 </html>
 <script>
+    $(function(){
+        {{if $information == 1}}alert('添加成功,可继续添加'){{/if}}
+        {{if $information == 2}}alert('添加失败,请重新添加'){{/if}}
+    })
     $("#save_btn").click(function(data){
         var style = $("[name='style']:checked").val();
         if(!style){
