@@ -158,10 +158,14 @@ class Examination extends MY_Controller
         $this->display("setup_examination2.html");
     }
     public function examination_score(){
-            $this->display("examination_score.html");
+        $score_list = $this->examination_model->get_my_score_list();
+        $this->assign('score_list', $score_list);
+        $this->display("examination_score.html");
     }
     public function examination_list(){
-            $this->display("examination_list.html");
+        $exam_list = $this->examination_model->get_my_exam_list();
+        $this->assign('exam_list', $exam_list);
+        $this->display("examination_list.html");
     }
 
     public function save_question(){
