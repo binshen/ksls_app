@@ -563,11 +563,11 @@ html .fc,.fc table{font-size:1em;background:#f2f3f5}.fc td,.fc th{padding:0;vert
 .upload-document-wrap .tab-tit{font-size: 20px; color: #515151;}
 .upload-document-main{background: #fff;padding-top:50px; height:400px; overflow: hidden;margin:0 15px;}
 .document-main-fl{padding:0 0 0 70px;width:410px;float: left;}
-.document-main-fl th{vertical-align: middle; font-size:14px; color: #515151; font-weight: normal;}
+.document-main-fl th{vertical-align: middle; font-size:14px; color: #515151; font-weight: normal; text-align: right;padding-right:10px;}
 .upload-document-wrap .red{ color:#e6382a;}
 .document-main-fl td{padding:14px 0;}
 .upload-icon em{width: 33px; height: 25px; display:block; background: url(../images/add_icon.png) no-repeat 0 -239px;}
-.document-main-fl .upload{padding:20px 0;width:270px; height:35px;border:1px dotted #bab9b9; display:block; text-align: center;}
+.document-main-fl .upload{padding:20px 0;width:270px; height:35px;border:1px dotted #bab9b9; display:block; text-align: center; line-height: 35px;}
 .document-main-fl .input-txt{width:250px;padding:0 10px; height:32px; line-height: 32px;border:1px solid #d8d8d8;}
 .document-main-fl .doc-sel{width:270px;padding:0 10px; height:32px; line-height: 32px;border:1px solid #d8d8d8;}
 .document-main-fl .sub-btn{margin:20px 0 0 15px;width:160px;height:35px; text-align: center; line-height: 35px; color: #fff; background: #e6382a; border:none;font-family: "Microsoft YaHei"; font-size: 14px;}

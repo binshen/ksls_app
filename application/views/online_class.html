@@ -98,12 +98,13 @@
 </div>
 
 <script type="text/javascript" src="/static/js/dpl-jquery.slide.js"></script>
+<script src="http://www.featureblend.com/flash_detect_1-0-4/flash_detect.js"></script>
 <script type="text/javascript">
     $(function() {
         $("[name='getvideoUrl']").each(function () {
           if( $(this).attr('rel').replace(/.+\./,"")=='flv'||$(this).attr('rel').replace(/.+\./,"")=='swf'){
-              alert(flashChecker().f);
-              if(!flashChecker().f) {
+              alert(!FlashDetect.installed);
+              if(!FlashDetect.installed) {
                   $(this).parent().children(".video-tips").show();
               }
           }

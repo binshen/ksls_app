@@ -38,13 +38,11 @@
                 <div class="upload-document-main">
                     <div class="document-main-fl">
                         <form id="save_form" method="post" enctype="multipart/form-data" action="{{site_url url='document/save_file'}}">
-                            <table cellspadding="0" width="358"> 
+                            <table cellspadding="0" width="370">
                                 <tr>
-                                    <th width="70" class="upload-icon"><em></em></th>
-                                    <td>
-
-                                        <input id="file" name="file" class="upload" type="file">
-
+                                    <th><em class="red">*</em> 上传文件</th>
+                                    <td width="285">
+                                        <div class="upload"><input id="file" name="file" type="file" style="width: 180px;"></div>
                                     </td>
 
                                 </tr>
