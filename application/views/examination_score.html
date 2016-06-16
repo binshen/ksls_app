@@ -48,8 +48,8 @@
                         <tr>
                             <td>{{$item.title}}</td>
                             <td>{{$item.created}}</td>
-                            <td><span class="score">{{$item.score|default:0}}/100</span></td>
-                            <td><a href="">查看</a></td>
+                            <td><span class="score">{{$item.score|default:0}}/{{$item.allscore|default:100}}</span></td>
+                            <td><a href="/examination/submit_examination/{{$item.id}}">查看</a></td>
                         </tr>
                         {{/foreach}}
                     </table>

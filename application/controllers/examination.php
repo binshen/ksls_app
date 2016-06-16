@@ -170,6 +170,7 @@ class Examination extends MY_Controller
     }
     public function examination_score(){
         $score_list = $this->examination_model->get_my_score_list();
+        //die(var_dump($score_list));
         $this->assign('score_list', $score_list);
         $this->display("examination_score.html");
     }

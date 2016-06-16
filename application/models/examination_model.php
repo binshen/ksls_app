@@ -55,6 +55,8 @@ class Examination_model extends MY_Model
             $this->db->order_by('style','asc');
             $questions = $this->db->get()->result_array();
         }else{
+            $title['title']="";
+            $title['id']="";
             $this->db->from('question');
             $this->db->where('type_id', $type_id);
             $this->db->order_by('RAND()');
@@ -150,9 +152,57 @@ class Examination_model extends MY_Model
 
     public function complete_examination($exam_id) {
         $this->db->trans_start();//--------开始事务
+        $exam_main = $this->db->select()->from('self_exam')->where('id',$exam_id)->get()->row_array();
+        if($exam_main['type_id'] < 0){
+            $model_exam = $this->db->select()->from('exam')->where('id',$exam_main['model_exam_id'])->get()->row_array();
+            $all_score = intval($model_exam['p_num']) * intval($model_exam['p_score']);
+            $this->db->select('count(1) as num');
+            $this->db->from('self_exam_question a');
+            $this->db->join('exam_question b','b.id = a.question_id','inner');
+            $this->db->where('a.exam_id',$exam_id);
+            $q_all_num =$this->db->get()->row_array();
+            $this->db->select('count(1) as num');
+            $this->db->from('self_exam_question a');
+            $this->db->join('exam_question b','b.id = a.question_id and a.as1 = b.as1 and a.as2 = b.as2 and a.as3 = b.as3 and a.as4 = b.as4','inner');
+            $this->db->where('a.exam_id',$exam_id);
+            $q_true_num =$this->db->get()->row_array();
+
+            $scroe = 0;
+            if($q_all_num['num']!=0){
+                if($q_all_num['num']==$q_true_num['num']){
+                    $scroe = $all_score;
+                }else{
+                    $scroe = floor($all_score * ($q_true_num['num']/$q_all_num['num']));
+                }
+            }
+        }else{
+            $this->db->select('count(1) as num');
+            $this->db->from('self_exam_question a');
+            $this->db->join('question b','b.id = a.question_id','inner');
+            $this->db->where('a.exam_id',$exam_id);
+            $q_all_num =$this->db->get()->row_array();
+            $this->db->select('count(1) as num');
+            $this->db->from('self_exam_question a');
+            $this->db->join('question b','b.id = a.question_id and a.as1 = b.as1 and a.as2 = b.as2 and a.as3 = b.as3 and a.as4 = b.as4','inner');
+            $this->db->where('a.exam_id',$exam_id);
+            $q_true_num =$this->db->get()->row_array();
+            $scroe = 0;
+            if($q_all_num['num']!=0){
+                if($q_all_num['num']==$q_true_num['num']){
+                    $scroe = 100;
+                }else{
+                    $scroe = floor(100 * ($q_true_num['num']/$q_all_num['num']));
+                }
+            }
+
+        }
 
         $this->db->where('id', $exam_id);
-        $this->db->update('self_exam', array('complete' => 1));
+        $this->db->update('self_exam', array(
+            'complete' => 1,
+            'score' => $scroe
+
+        ));
 
         $this->db->trans_complete();//------结束事务
         if ($this->db->trans_status() === FALSE) {
@@ -408,7 +458,15 @@ class Examination_model extends MY_Model
     public function get_my_score_list() {
         $user_id = $this->session->userdata('login_user_id');
         //TODO: 除了自测试卷的分数,还有参加过的所有统一考试的试卷
-        return $this->db->where('user_id', $user_id)->order_by('id', 'desc')->get('self_exam')->result_array();
+        $this->db->select('a.id,a.score,a.title,a.created,IFNULL(b.p_num * b.p_score,100) as allscore',false);
+        $this->db->from('self_exam a');
+        $this->db->join('exam b','a.model_exam_id = b.id','left');
+        $this->db->where(array(
+            'a.user_id'=>$user_id,
+            'a.complete'=>1
+        ));
+        return $this->db->order_by('a.id', 'desc')->get()->result_array();
+
     }
 
     public function get_my_exam_list() {
