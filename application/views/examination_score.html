@@ -44,7 +44,7 @@
                             <th width="178">成绩</th>
                             <th>操作</th>
                         </tr>
-                        {{foreach from=$score_list item=item}}
+                        {{foreach from=$score_list.res_list item=item}}
                         <tr>
                             <td>{{$item.title}}</td>
                             <td>{{$item.created}}</td>
@@ -53,6 +53,9 @@
                         </tr>
                         {{/foreach}}
                     </table>
+                    <div class="pages">
+                        {{$pager}}
+                    </div>
 
             </div>
         </div>

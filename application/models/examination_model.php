@@ -261,8 +261,8 @@ class Examination_model extends MY_Model
 
     public function get_exam_data(){
         $this->db->select('*')->from('exam')->where(array(
-            'user_id' => $this->session->userdata('login_user_id'),
-            'flag'=>1
+                'user_id' => $this->session->userdata('login_user_id'),
+                'flag'=>1
         ));
         $res = $this->db->order_by('id','desc')->get()->row_array();
         if(!$res){
@@ -277,8 +277,6 @@ class Examination_model extends MY_Model
         $num = $this->db->get()->row_array();
         $data['exam_num'] = $num['num'];
         return $data;
-
-
     }
 
     public function list_question($page=1,$typeid=null) {
@@ -451,12 +449,40 @@ class Examination_model extends MY_Model
     }
 
     public function change_exam_flag(){
-        $exam_id = $this->get_news_exam_id();
-        $this->db->where('id',$exam_id)->update('exam',array('flag'=>2,'created'=>date('Y-m-d H:i:s',time())));
+        $this->db->select('*')->from('exam')->where(array(
+            'user_id' => $this->session->userdata('login_user_id'),
+            'flag'=>1
+        ));
+        $res = $this->db->order_by('id','desc')->get()->row_array();
+        if(!$res){
+           return -1;
+        }
+        $p_num = $this->db->select('count(1) as num')->from('exam_question')->where(array(
+            'exam_id'=>$res['id']
+        ))->get()->row_array();
+        if($p_num['num']!=$res['p_num']){
+            return -1;
+        }
+        $this->db->where('id',$res['id'])->update('exam',array('flag'=>2,'created'=>date('Y-m-d H:i:s',time())));
+        return 1;
     }
 
-    public function get_my_score_list() {
+    public function get_my_score_list($page) {
         $user_id = $this->session->userdata('login_user_id');
+        $numPerPage = $this->input->post('numPerPage') ? $this->input->post('numPerPage') : 10;
+        $pageNum = $this->input->post('pageNum') ? $this->input->post('pageNum') : $page;
+
+        $this->db->select('count(1) as num');
+        $this->db->from('self_exam a');
+        $this->db->join('exam b','a.model_exam_id = b.id','left');
+        $this->db->where(array(
+            'a.user_id'=>$user_id,
+            'a.complete'=>1
+        ));
+        $this->db->order_by('a.id', 'desc');
+        $row = $this->db->get()->row_array();
+        //总记录数
+        $data['countPage'] = $row['num'];
         //TODO: 除了自测试卷的分数,还有参加过的所有统一考试的试卷
         $this->db->select('a.id,a.score,a.title,a.created,IFNULL(b.p_num * b.p_score,100) as allscore',false);
         $this->db->from('self_exam a');
@@ -465,13 +491,41 @@ class Examination_model extends MY_Model
             'a.user_id'=>$user_id,
             'a.complete'=>1
         ));
-        return $this->db->order_by('a.id', 'desc')->get()->result_array();
-
+        $this->db->order_by('a.id', 'desc');
+        $this->db->limit($numPerPage, ($pageNum - 1) * $numPerPage );
+        $data['res_list'] = $this->db->get()->result_array();
+        $data['pageNum'] = $pageNum;
+        $data['numPerPage'] = $numPerPage;
+        return $data;
     }
 
-    public function get_my_exam_list() {
+    public function get_my_exam_list($page) {
         $user_id = $this->session->userdata('login_user_id');
-        return $this->db->where('user_id', $user_id)->order_by('id', 'desc')->get('exam')->result_array();
+        $numPerPage = $this->input->post('numPerPage') ? $this->input->post('numPerPage') : 10;
+        $pageNum = $this->input->post('pageNum') ? $this->input->post('pageNum') : $page;
+        $this->db->select('count(1) as num');
+        $this->db->from('exam');
+        $this->db->where(array(
+            'user_id'=>$user_id,
+            'flag'=>2
+        ));
+        $this->db->order_by('id', 'desc');
+        $row = $this->db->get()->row_array();
+        //总记录数
+        $data['countPage'] = $row['num'];
+
+        $this->db->select();
+        $this->db->from('exam');
+        $this->db->where(array(
+            'user_id'=>$user_id,
+            'flag'=>2
+        ));
+        $this->db->order_by('id', 'desc');
+        $this->db->limit($numPerPage, ($pageNum - 1) * $numPerPage );
+        $data['res_list'] = $this->db->get()->result_array();
+        $data['pageNum'] = $pageNum;
+        $data['numPerPage'] = $numPerPage;
+        return $data;
     }
 
     public function view_examination($exam_id){

@@ -128,6 +128,9 @@ class Examination extends MY_Controller
 
     public function review_examination(){
         $exam_data = $this->examination_model->get_exam_data();
+        if($exam_data==-1){
+            redirect(site_url('/examination/examination_list'));
+        }
         $this->assign('exam_data', $exam_data);
         $this->display("review_examination.html");
     }
@@ -168,15 +171,19 @@ class Examination extends MY_Controller
 
         $this->display("setup_examination2.html");
     }
-    public function examination_score(){
-        $score_list = $this->examination_model->get_my_score_list();
-        //die(var_dump($score_list));
+    public function examination_score($page=1){
+
+        $score_list = $this->examination_model->get_my_score_list($page);
         $this->assign('score_list', $score_list);
+        $pager = $this->pagination->getPageLink('/examination/examination_score', $score_list['countPage'], $score_list['numPerPage']);
+        $this->assign('pager', $pager);
         $this->display("examination_score.html");
     }
-    public function examination_list(){
-        $exam_list = $this->examination_model->get_my_exam_list();
+    public function examination_list($page=1){
+        $exam_list = $this->examination_model->get_my_exam_list($page);
         $this->assign('exam_list', $exam_list);
+        $pager = $this->pagination->getPageLink('/examination/examination_list', $exam_list['countPage'], $exam_list['numPerPage']);
+        $this->assign('pager', $pager);
         $this->display("examination_list.html");
     }
 
@@ -201,7 +208,10 @@ class Examination extends MY_Controller
     }
 
     public function change_exam_flag(){
-        $this->examination_model->change_exam_flag();
+       $res = $this->examination_model->change_exam_flag();
+        if($res == -1){
+             redirect(site_url('/examination/setup_examination'));
+        }
         redirect(site_url('/examination/examination_list'));
     }
 

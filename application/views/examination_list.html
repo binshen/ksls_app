@@ -44,7 +44,7 @@
                             <th width="230">时间</th>
                             <th>操作</th>
                         </tr>
-                        {{foreach from=$exam_list item=item}}
+                        {{foreach from=$exam_list.res_list item=item}}
                         <tr>
                             <td>{{$item.title}}</td>
                             <td>{{$item.created}}</td>
@@ -52,6 +52,9 @@
                         </tr>
                         {{/foreach}}
                     </table>
+                    <div class="pages">
+                        {{$pager}}
+                    </div>
 
             </div>
         </div>
