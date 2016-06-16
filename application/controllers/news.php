@@ -45,7 +45,7 @@ class News extends MY_Controller
         redirect('/');
     }
 
-    public function upload_new_pic(){
+    public function upload_news_pic(){
         if (is_readable('./././uploadfiles/news_pic') == false) {
             mkdir('./././uploadfiles/news_pic');
         }
