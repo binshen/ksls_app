@@ -102,6 +102,7 @@
     $(function() {
         $("[name='getvideoUrl']").each(function () {
           if( $(this).attr('rel').replace(/.+\./,"")=='flv'||$(this).attr('rel').replace(/.+\./,"")=='swf'){
+              alert(flashChecker().f);
               if(!flashChecker().f) {
                   $(this).parent().children(".video-tips").show();
               }
