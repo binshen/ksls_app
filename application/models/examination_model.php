@@ -489,17 +489,22 @@ class Examination_model extends MY_Model
     {
         $string_in='';
         $subsidiary_id = $this->session->userdata('login_subsidiary_id_array');
-        if(is_array($subsidiary_id)){
-            foreach($subsidiary_id as $key=>$item){
-                if($key==0){
-                    $string_in.=$item;
-                }else{
-                    $string_in.=','.$item;
+        if($subsidiary_id || $this->session->userdata('login_permission_id')<3){
+            if(is_array($subsidiary_id)){
+                foreach($subsidiary_id as $key=>$item){
+                    if($key==0){
+                        $string_in.=$item;
+                    }else{
+                        $string_in.=','.$item;
+                    }
                 }
+            }else{
+                $string_in = $subsidiary_id;
             }
         }else{
-            $string_in = $subsidiary_id;
+            $string_in = -1;
         }
+
         $sql = "select DISTINCT a.title ,a.id
 from exam a
 left join exam_subsidiary b on b.exam_id = a.id
