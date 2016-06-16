@@ -92,6 +92,10 @@ class Document extends MY_Controller
         else{
             redirect(site_url('document/list_doc/1/-2'));
         }
+    }
 
+    public function del_doc($doc_id) {
+        $this->document_model->del_doc($doc_id);
+        redirect(site_url('/document/list_doc'));
     }
 }

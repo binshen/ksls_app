@@ -314,4 +314,19 @@ class Document_model extends MY_Model
         );
         return $data;
     }
+
+    public function del_doc($doc_id) {
+        $this->db->trans_start();//--------开始事务
+
+        $this->db->delete('ticket_likes',array('doc_id' => $doc_id));
+        $this->db->delete('ticket_house',array('doc_id' => $doc_id));
+        $this->db->delete('ticket', array('id' => $doc_id));
+
+        $this->db->trans_complete();//------结束事务
+        if ($this->db->trans_status() === FALSE) {
+            return -1;
+        } else {
+            return 1;
+        }
+    }
 }
