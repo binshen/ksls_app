@@ -15,6 +15,7 @@ class News extends MY_Controller
         parent::__construct();
         $this->load->model('news_model');
         $this->load->library('image_lib');
+        $this->load->helper('directory');
     }
 
     public function publish_news(){
@@ -42,5 +43,31 @@ class News extends MY_Controller
             $this->news_model->save_user($img_info['file_name']);
         }
         redirect('/');
+    }
+
+    public function upload_new_pic(){
+        if (is_readable('./././uploadfiles/news_pic') == false) {
+            mkdir('./././uploadfiles/news_pic');
+        }
+        $path = './././uploadfiles/news_pic/';
+        $path_out = '/uploadfiles/news_pic/';
+        $msg = '';
+
+        //设置原图限制
+        $config['upload_path'] = $path;
+        $config['allowed_types'] = 'gif|jpg|png|jpeg';
+        $config['max_size'] = '1000';
+        $config['encrypt_name'] = true;
+        $this->load->library('upload', $config);
+
+        if($this->upload->do_upload('filedata')){
+            $data = $this->upload->data();
+            $targetPath = $path_out.$data['file_name'];
+            $msg="{'url':'".$targetPath."','localname':'','id':'1'}";
+            $err = '';
+        }else{
+            $err = $this->upload->display_errors();
+        }
+        echo "{'err':'".$err."','msg':".$msg."}";
     }
 }
