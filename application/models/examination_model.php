@@ -489,7 +489,7 @@ class Examination_model extends MY_Model
     {
         $string_in='';
         $subsidiary_id = $this->session->userdata('login_subsidiary_id_array');
-        if($subsidiary_id || $this->session->userdata('login_permission_id')<3){
+        if($subsidiary_id || $this->session->userdata('login_permission_id') >= 3){
             if(is_array($subsidiary_id)){
                 foreach($subsidiary_id as $key=>$item){
                     if($key==0){
