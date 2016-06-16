@@ -38,15 +38,22 @@ class Examination extends MY_Controller
 
     public function do_examination($type_id=1, $exam_id=NULL, $num=1)
     {
+        //这里规定 $type_id = -1 时,就是 统一考试 选择题部分
         $user_id = $this->session->userdata('login_user_id');
         if(empty($exam_id)) {
-            $exam = $this->examination_model->get_user_exam($user_id, $type_id);
-            if(!empty($exam)) {
-                $exam_id = $exam['id'];
-            } else {
-                $exam_id = $this->examination_model->gen_exam_data($user_id, $type_id);
-            }
+                $exam = $this->examination_model->get_user_exam($user_id, $type_id);
+                if(!empty($exam)) {
+                    $exam_id = $exam['id'];
+                } else {
+                    $exam_id = $this->examination_model->gen_exam_data($user_id, $type_id);
+
+                }
         }
+        $check = $this->examination_model->check_user_exam($exam_id,$user_id);
+        if($check == -1){
+            redirect(site_url('/examination/self_examination'));
+        }
+       // die(var_dump($this->input->post('exam_id')));
         $this->assign('exam_id', $exam_id);
 
         if(!empty($_POST['eq_id']) && !empty($_POST['option'])) {
@@ -89,18 +96,20 @@ class Examination extends MY_Controller
         }
     }
 
-    public function submit_examination($exam_id,$question_id=null)
+    public function submit_examination($exam_id,$num=1)
     {
-        $exam_data = $this->examination_model->get_sub_exam_list($exam_id, $question_id);
+        $exam_data = $this->examination_model->get_exam_by_num($exam_id, $num);
         $this->assign('exam_data', $exam_data);
         $question_true = $this->examination_model->get_true_exam_question($exam_id);
         $this->assign('question_true', $question_true);
         $this->assign('exam_id', $exam_id);
+        $this->assign('num', $num);
         $this->display('submit_examination.html');
     }
 
     public function unit_examination()
     {
+
         $exam_list = $this->examination_model->get_exam_list();
         $this->assign('exam_list', $exam_list);
         $this->display('unit_examination.html');

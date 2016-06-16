@@ -38,6 +38,8 @@
               <div class="schedule-wrap upload-document-wrap">
                 <p class="tab-tit">在线考试</p>
                 <div class="publish-document-main">
+                    <form id="save_form" method="post" action="/examination/do_examination/-1">
+                        <input type="hidden" id="exam_id" name="exam_id" value="">
                     <div class="choose-exam-category">
                         <div class="tit">统一考试</div>
                         <ul class="ul-category">
@@ -45,9 +47,9 @@
                             <li>{{$item.title}}<input type="hidden" value="{{$item.id}}"></li>
                             {{/foreach}}
                         </ul>
-                        <a href="/examination/do_examination" class="go-exam">开始考试</a>
+                        <a href="javascript:void(0);" id="save_btn" class="go-exam">开始考试</a>
                     </div>
-
+                    </form>
                    
                 </div>
                
@@ -64,12 +66,14 @@
 <script type="text/javascript" src="/static/js/layer/layer.js"></script>
 <script>
     $(".ul-category li").click(function () {$(".ul-category li").removeClass("current");$(this).addClass("current");})
-    function go_to_page() {
+    $("#save_btn").click(function(){
         var type = $(".ul-category").find("[class='current']").eq(0).find("input").eq(0).val();
         if(type){
-            window.location.href = '/examination/do_examination/' + type;
+           $("#exam_id").val(type);
+            $("#save_form").submit();
         }else{
             layer.msg('请先选择类别')
         }
-    }
+    })
+
 </script>

@@ -35,26 +35,40 @@ class Examination_model extends MY_Model
 
     public function get_user_exam($user_id, $type_id)
     {
-        return $this->db->get_where('self_exam', array(
-            'user_id' => $user_id,
-            'type_id' => $type_id,
-            'complete' => 0))->row_array();
+        $this->db->select();
+        $this->db->from('self_exam');
+        $this->db->where('type_id',$type_id);
+        $this->db->where('user_id',$user_id);
+        $this->db->where('complete',0);
+        if($type_id < 0){
+            $this->db->where('model_exam_id',$this->input->post('exam_id'));
+        }
+        return $this->db->get()->row_array();
     }
 
     public function gen_exam_data($user_id, $type_id, $limit=20) {
         $this->db->trans_start();//--------开始事务
+        if($type_id == -1){
+            $title = $this->db->select()->from('exam')->where('id',$this->input->post('exam_id'))->get()->row_array();
+            $this->db->from('exam_question');
+            $this->db->where('exam_id', $this->input->post('exam_id'));
+            $this->db->order_by('style','asc');
+            $questions = $this->db->get()->result_array();
+        }else{
+            $this->db->from('question');
+            $this->db->where('type_id', $type_id);
+            $this->db->order_by('RAND()');
+            $this->db->limit($limit);
+            $questions = $this->db->get()->result_array();
+        }
 
-        $this->db->from('question');
-        $this->db->where('type_id', $type_id);
-        $this->db->order_by('RAND()');
-        $this->db->limit($limit);
-        $questions = $this->db->get()->result_array();
         $exam_data = array();
         if(!empty($questions)) {
             $data = array(
                 'user_id' => $user_id,
                 'type_id' => $type_id,
-                'title' => '自助考试-' . date('YmdHis'),
+                'title' => $title['title'] ? $title['title'] : '自助考试-' . date('YmdHis'),
+                'model_exam_id'=>$title['id'] ? $title['id'] : -1,
                 'complete' => 0,
                 'created' => date("Y-m-d H:i:s")
             );
@@ -80,16 +94,40 @@ class Examination_model extends MY_Model
     }
 
     public function get_exam_by_num($exam_id, $num) {
-        $this->db->select('c.title, c.op1, c.op2, c.op3, c.op4, c.type_id, d.name AS question_type, b.as1, b.as2, b.as3, b.as4, b.id AS eq_id');
-        $this->db->from('self_exam a');
-        $this->db->join('self_exam_question b', 'a.id = b.exam_id', 'inner');
-        $this->db->join('question c', 'b.question_id = c.id', 'inner');
-        $this->db->join('question_type d', 'c.type_id = d.id', 'inner');
-        $this->db->where('a.id', $exam_id);
-        $this->db->order_by('b.id ASC');
-        $this->db->limit(1);
-        $this->db->offset($num-1);
-        return $this->db->get()->row_array();
+        $row = $this->db->select()->from('self_exam')->where('id',$exam_id)->get()->row_array();
+        if($row['type_id']==-1){
+            $this->db->select('a.complete,c.title, c.op1, c.op2, c.op3, c.op4, a.type_id, a.title AS question_type,
+             c.as1 true_as1,c.as2 true_as2,c.as3 true_as3,c.as4 true_as4,
+            b.as1, b.as2, b.as3, b.as4, b.id AS eq_id');
+            $this->db->from('self_exam a');
+            $this->db->join('self_exam_question b', 'a.id = b.exam_id', 'inner');
+            $this->db->join('exam_question c', 'b.question_id = c.id', 'inner');
+            $this->db->where('a.id', $exam_id);
+            $this->db->order_by('b.id ASC');
+            $this->db->limit(1);
+            $this->db->offset($num-1);
+            $data['question_detail'] = $this->db->get()->row_array();
+        }else{
+            $this->db->select('a.complete,c.title, c.op1, c.op2, c.op3, c.op4, c.type_id, d.name AS question_type,
+             c.as1 true_as1,c.as2 true_as2,c.as3 true_as3,c.as4 true_as4,
+            b.as1, b.as2, b.as3, b.as4, b.id AS eq_id');
+            $this->db->from('self_exam a');
+            $this->db->join('self_exam_question b', 'a.id = b.exam_id', 'inner');
+            $this->db->join('question c', 'b.question_id = c.id', 'inner');
+            $this->db->join('question_type d', 'c.type_id = d.id', 'inner');
+            $this->db->where('a.id', $exam_id);
+            $this->db->order_by('b.id ASC');
+            $this->db->limit(1);
+            $this->db->offset($num-1);
+            $data['question_detail'] =  $this->db->get()->row_array();
+        }
+
+        $this->db->select('count(1) as num');
+        $this->db->from('self_exam_question a');
+        $this->db->where('a.exam_id',$exam_id);
+        $row_count = $this->db->get()->row_array();
+        $data['num'] = $row_count['num'];
+        return $data;
     }
 
     public function get_exam_question($exam_id) {
@@ -125,44 +163,31 @@ class Examination_model extends MY_Model
     }
 
     public function get_true_exam_question($exam_id) {
-        $this->db->select('a.question_id,c.as1,c.as2,c.as3,c.as4,
+        $row = $this->db->select()->from('self_exam')->where('id',$exam_id)->get()->row_array();
+        if($row['type_id']==-1){
+            $this->db->select('a.question_id,c.as1,c.as2,c.as3,c.as4,
         a.as1 self_as1,a.as2 self_as2,a.as3 self_as3,a.as4 self_as4');
-        $this->db->from('self_exam_question a');
-        $this->db->join('question c', 'a.question_id = c.id', 'inner');
-        $this->db->where('a.exam_id',$exam_id);
-        return $this->db->get()->result_array();
+            $this->db->from('self_exam_question a');
+            $this->db->join('exam_question c', 'a.question_id = c.id', 'inner');
+            $this->db->where('a.exam_id',$exam_id);
+            return $this->db->get()->result_array();
+        }else{
+            $this->db->select('a.question_id,c.as1,c.as2,c.as3,c.as4,
+        a.as1 self_as1,a.as2 self_as2,a.as3 self_as3,a.as4 self_as4');
+            $this->db->from('self_exam_question a');
+            $this->db->join('question c', 'a.question_id = c.id', 'inner');
+            $this->db->where('a.exam_id',$exam_id);
+            return $this->db->get()->result_array();
+        }
+
     }
 
-    public function get_sub_exam_list($exam_id, $question_id = NULL) {
-        $this->db->select('a.complete,b.id self_id,c.title, c.op1, c.op2, c.op3, c.op4,
-        c.as1,c.as2,c.as3,c.as4,
-        b.as1 self_as1,b.as2 self_as2,b.as3 self_as3,b.as4 self_as4,
-        d.name AS question_type');
-        $this->db->from('self_exam a');
-        $this->db->join('self_exam_question b', 'a.id = b.exam_id', 'inner');
-        $this->db->join('question c', 'b.question_id = c.id', 'inner');
-        $this->db->join('question_type d', 'c.type_id = d.id', 'inner');
-        $this->db->where('a.id', $exam_id);
-        if(!empty($question_id)) {
-            $this->db->where('c.id', $question_id);
-        }
-        $this->db->order_by('b.id ASC');
-        $this->db->limit(1);
-        $data['question_detail'] = $this->db->get()->row_array();
-       // echo $this->db->last_query();
-       //die(var_dump($data['question_detail']));
-        $this->db->select('count(1) as num');
-        $this->db->from('self_exam_question a');
-        $this->db->where('a.exam_id',$exam_id);
-        $this->db->where('a.id <=', $data['question_detail']['self_id']);
-        $row = $this->db->get()->row_array();
+    public function count_question($exam_id){
         $this->db->select('count(1) as num');
         $this->db->from('self_exam_question a');
         $this->db->where('a.exam_id',$exam_id);
         $row_count = $this->db->get()->row_array();
-        $data['No_question'] = $row['num'];
-        $data['count'] = $row_count['num'];
-        return $data;
+        return $row_count['num'];
     }
 
     public function chenge_option($eq_id,$val,$as){
@@ -183,8 +208,6 @@ class Examination_model extends MY_Model
         $this->db->where('id', $eq_id);
         $this->db->update('self_exam_question', $data);
     }
-
-
 
     public function get_exam_data(){
         $this->db->select('*')->from('exam')->where(array(
@@ -415,7 +438,6 @@ class Examination_model extends MY_Model
                 }else{
                     $string_in.=','.$item;
                 }
-
             }
         }else{
             $string_in = $subsidiary_id;
@@ -428,9 +450,19 @@ where (a.permission_id = 1 OR
 (a.permission_id > 2 and b.subsidiary_id in (".$string_in.")))
 and a.flag = 2
         ";
-
-
         $res = $this->db->query($sql,array($this->session->userdata('login_company_id'),$string_in))->result_array();
        return $res?$res:-1;
+    }
+
+    public function check_user_exam($exam_id,$user_id){
+        $res = $this->db->select()->from('self_exam')->where(array(
+            'user_id'=>$user_id,
+            'id'=>$exam_id
+        ))->get()->row_array();
+        if($res){
+            return 1;
+        }else{
+            return -1;
+        }
     }
 }

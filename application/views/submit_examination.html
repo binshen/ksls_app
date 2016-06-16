@@ -21,8 +21,8 @@
                     <li class="on">
                         <a href="/examination/self_examination"><em class="onlineexam"></em>在线考试</a>
                         <span class="document-nav-list">
-                            <a href="/examination/self_examination" class="on">自主测评</a><br />
-                            <a href="/examination/unit_examination">统一考试</a><br />
+                            <a href="/examination/self_examination" {{if $exam_data['question_detail']['type_id']>0}} class="on" {{/if}}>自主测评</a><br />
+                            <a href="/examination/unit_examination" {{if $exam_data['question_detail']['type_id']<0}} class="on" {{/if}}>统一考试</a><br />
                             <a href="">我的成绩</a>
                         </span>
                     </li>
@@ -40,32 +40,32 @@
                    <div class="show-examination">
                         <span class="tit">{{$exam_data['question_detail']['question_type']}}</span>
                         <dl class="dl-exam">
-                            <dt>{{$exam_data['No_question']}}.{{$exam_data['question_detail']['title']}}</dt>
+                            <dt>{{$num}}.{{$exam_data['question_detail']['title']}}</dt>
                             <dd>
-                               <label><input disabled="disabled" type="radio" value="" name="radio1" {{if $exam_data['question_detail']['self_as1']==1}} checked="checked" {{/if}} /><span>A {{$exam_data['question_detail']['op1']}}</span></label>
+                               <label><input disabled="disabled" type="radio" value="" name="radio1" {{if $exam_data['question_detail']['as1']==1}} checked="checked" {{/if}} /><span>A {{$exam_data['question_detail']['op1']}}</span></label>
                             </dd>
                             <dd>
-                                <label><input disabled="disabled" type="radio" value="" name="radio1" {{if $exam_data['question_detail']['self_as2']==1}} checked="checked" {{/if}} /><span>B {{$exam_data['question_detail']['op2']}}</span></label>
+                                <label><input disabled="disabled" type="radio" value="" name="radio1" {{if $exam_data['question_detail']['as2']==1}} checked="checked" {{/if}} /><span>B {{$exam_data['question_detail']['op2']}}</span></label>
                             </dd>
                             <dd>
-                                <label><input disabled="disabled" type="radio" value="" name="radio1" {{if $exam_data['question_detail']['self_as3']==1}} checked="checked" {{/if}} /><span>C {{$exam_data['question_detail']['op3']}}</span></label>
+                                <label><input disabled="disabled" type="radio" value="" name="radio1" {{if $exam_data['question_detail']['as3']==1}} checked="checked" {{/if}} /><span>C {{$exam_data['question_detail']['op3']}}</span></label>
                             </dd>
                             <dd>
-                                <label><input disabled="disabled" type="radio" value="" name="radio1" {{if $exam_data['question_detail']['self_as4']==1}} checked="checked" {{/if}} /><span>D {{$exam_data['question_detail']['op4']}}</span></label>
+                                <label><input disabled="disabled" type="radio" value="" name="radio1" {{if $exam_data['question_detail']['as4']==1}} checked="checked" {{/if}} /><span>D {{$exam_data['question_detail']['op4']}}</span></label>
                             </dd>
                         </dl>
                        <div class="exam-page">
                              <p style="margin-top:30px;">
-                                 {{if $exam_data['No_question'] <= 1}}
-                                 <a href="" class="prev btn-off">上一题</a>
+                                 {{if $num == 1}}
+                                 <a href="javascript:void(0);" class="prev btn-off">上一题</a>
                                  {{else}}
-                                 <a href="/examination/submit_examination/{{$exam_id}}/{{$question_true[$exam_data['No_question']-2]['question_id']}}" class="next">上一题</a>
+                                 <a href="/examination/submit_examination/{{$exam_id}}/{{$num-1}}" class="prev">上一题</a>
                                  {{/if}}
 
-                                 {{if $exam_data['No_question'] >= $exam_data['count']}}
-                                 <a href="" class="prev btn-off">下一题</a>
+                                 {{if $num >= count($question_true)}}
+                                 <a href="" class="next btn-off">下一题</a>
                                  {{else}}
-                                 <a href="/examination/submit_examination/{{$exam_id}}/{{$question_true[$exam_data['No_question']]['question_id']}}" class="next">下一题</a>
+                                 <a href="/examination/submit_examination/{{$exam_id}}/{{$num+1}}" class="next">下一题</a>
                                  {{/if}}
                                   </p>
                     </div> 
@@ -83,13 +83,13 @@
                             </span>
                             <div class="ques-number">
                                 {{foreach from=$question_true key=key item=item}}
-                                {{if $exam_data['No_question']==$key+1}}
+                                {{if $num==$key+1}}
                                 <a href="" class="current">{{$key+1}}</a>
                                 {{else}}
                                 {{if $item['self_as1']==$item['as1'] && $item['self_as2']==$item['as2'] && $item['self_as3']==$item['as3'] && $item['self_as4']==$item['as4']}}
-                                <a href="/examination/submit_examination/{{$exam_id}}/{{$item['question_id']}}" class="">{{$key+1}}</a>
+                                <a href="/examination/submit_examination/{{$exam_id}}/{{$key+1}}" class="">{{$key+1}}</a>
                                 {{else}}
-                                <a href="/examination/submit_examination/{{$exam_id}}/{{$item['question_id']}}" class="error">{{$key+1}}</a>
+                                <a href="/examination/submit_examination/{{$exam_id}}/{{$key+1}}" class="error">{{$key+1}}</a>
                                  <span class="answer" style="display:none">
                                     正确答案：<i class="correct">
                                      {{if $item['as1']==1}}A{{/if}}
@@ -107,7 +107,7 @@
                                 {{/if}}
                                 {{/if}}
                                 {{/foreach}}
-                                <p class="tips"><span class="col1">&nbsp</span>未答题<span class="col2">&nbsp</span>当前题<span class="col3">&nbsp</span>已答题<span class="col4">7</span>答错题</p>
+                                <p class="tips"><span class="col2">&nbsp</span>当前题<span class="col4">7</span>答错题</p>
 
                             </div>
                         </div>
