@@ -31,7 +31,7 @@ body{background: #fff; font-family: "Microsoft YaHei";}p{white-space: normal; wo
 .index .index-nav{width:105px; height:598px; float:left; background: #000; color:#aeaeae; font-size:16px; text-align:center;margin-right:5px;}
 .index .index-nav li{height:60px; line-height: 60px; cursor: pointer;}
 .index .index-nav .current{background: #404042;}
-.index .content{padding-bottom:20px;width:838px;min-height:577px;float: left; background: #cbcec7;overflow: hidden;}
+.index .content{padding-bottom:20px;width:838px;min-height:577px;float: left; background: rgba(203,206,199,.9);overflow: hidden;}
 .index .content .a-btns{ float:left;margin-right:15px;filter:alpha(opacity=80);opacity:0.8; margin-bottom: 10px;}
 .index .content .a-btns:hover{ filter:alpha(opacity=100);opacity:1; box-shadow: 2px 2px 10px #aaa;}
 .index .wraper{background: none;}
@@ -137,21 +137,24 @@ body{background: #fff; font-family: "Microsoft YaHei";}p{white-space: normal; wo
 
 .news-th{padding-left:20px;height:50px; line-height: 50px; font-size:20px; color: #fff; background: #e15616; margin:0 35px;}
 .new-tb{padding:0 8px 16px; background: #fff; margin: 0 35px;overflow: hidden;zoom:1;}
-.new-box{margin-top:20px; height:110px;overflow: hidden;zoom:1; width:370px;padding-bottom:25px;border-bottom: 1px dashed #a5a5a5;}
+.new-box{margin-top:20px; height:110px;overflow: hidden;zoom:1; width:370px;padding-bottom:25px;border-bottom: 1px dashed #a5a5a5; cursor: pointer;}
 .new-box dt{float: left;width:155px; float: left;}
 .new-box dd{padding-left:10px; width:205px;float: left;}
 .new-box dd .s-tit{font-size:14px; color:#555;}
 .new-box dd p{ color:#929292;}
 /*-----登录------*/
-.login-div{ background: #fff;width:410px; height:410px; border-radius: 5px; position:relative;}
-.pop-close-btn{background: url(/static/images/index/close.png) no-repeat; width:41px; height:41px; display: block; position: absolute;top:-20px; right:-20px;}
-.login-div .p-txt{padding:40px 0; font-size:40px; text-align:center; }
-.login-div .input-div{margin:0 50px;padding:0 10px; width:290px; background: #f0f0f0; color:#bcbcbc;height:50px; line-height: 50px; border-radius:3px;margin-bottom:18px; font-size:18px;}
+.login-div{width:410px; height:410px;position:relative;}
+.pop-close-btn{background: url(/static/images/index/close.png) no-repeat; width:41px; height:41px; display: block; position: absolute;top:0; right:0;}
+.login-div .p-txt{padding:15px 0; font-size:30px; text-align:center; background: #ed581e;color: #fff;  border-top-left-radius: 5px; border-top-right-radius: 5px; }
+.login-form{padding:30px 0; background: #fff; }
+.login-div .input-div{margin:18px 50px 0 ;padding:0 10px; width:290px; background: #f0f0f0; color:#bcbcbc;height:50px; line-height: 50px; border-radius:3px; font-size:18px;}
+.isremeberpsd{ text-align: center;padding:15px 0;}
+.isremeberpsd label input[type="checkbox"]{vertical-align: -2px;}
 .login-div .input-div span{float:left; margin-right:5px;}
 .login-div .input-div input{margin-top:10px;padding:5px; background: #f0f0f0; font-size:18px; float: left;width:220px;border:none;}
 .login-div .input-icon{margin:12px 8px 0 0;width:18px; height:28px; float:left; background:url(/static/images/index/index_login.png) no-repeat;}
 .login-div .input-pwd{background-position: 0 -39px;}
-.login-div .sub-btn{width:205px; height:54px; margin:0 auto 30px;  background: #ed581e; display: block;border-radius: 3px; color:#fff;font-size:24px; line-height: 54px; text-align: center;}
+.login-div .sub-btn{width:180px; height:45px; margin:0 auto;  background: #ed581e; display: block;border-radius: 3px; color:#fff;font-size:24px; line-height: 45px; text-align: center;}
 .login-div .tips{padding-left:30px; background: #f76e7d; height:50px; font-size:14px; color:#fff; line-height: 50px;border-radius: 3px; text-align:left;}
 .login-div .tips em{width:31px; height:26px; float:left; background: url(/static/images/index/tips.png) no-repeat; float: left;margin:10px 10px 0 0;}
 .search-wrap{overflow:hidden; zoom:1;height:45px;}
