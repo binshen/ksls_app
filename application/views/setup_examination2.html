@@ -18,8 +18,6 @@
             <div class="nav-left">
                 <ul class="nav-left-ul">
                     <li><a href="/"><em class="home"></em>回到首页</a></li>
-                    <li><a href="/video/list_video"><em class="onlineclass"></em>在线课程</a></li>
-                    <li><a href="/document/list_doc"><em class="documentdata"></em>文档资料</a></li>
                     <li>
                         <a href="/examination/self_examination"><em class="onlineexam"></em>在线考试</a>
                     </li>
@@ -28,7 +26,8 @@
                             <a href="/examination/enter_examination">上传试题</a><br />
                             <a href="/examination/setup_examination" class="on">生成试卷</a><br />
                             <a href="/examination/examination_list">我的试卷</a>
-                        </span></li>
+                        </span>
+                    </li>
                 </ul>
             </div>
         </div>
@@ -102,6 +101,7 @@
     <a href="javascript:void(0);" id="review_btn" class="okbtn">生成试卷</a>
 </div>
 <script type="text/javascript" src="/static/js/dpl-jquery.slide.js"></script>
+    <script type="text/javascript" src="/static/js/layer/layer.js"></script>
 <script type="text/javascript">
 
 </script>
@@ -114,7 +114,7 @@
         if(parseInt(exam_num) == {{$exam_data.exam_main.p_num}}){
             window.location.href="/examination/review_examination";
         }else{
-            alert('题目数量未符合要求')
+            layer.msg('题目数量未符合要求')
         }
     })
 
@@ -131,13 +131,13 @@
         var html = $(this).parent().prev().eq(0).html();
         $.getJSON('/examination/add_question/'+eq_id,function(data){
             if(data == -1){
-                alert('加入失败');
+                layer.msg('加入失败');
             }
             if(data == -2){
-                alert('已加入');
+                layer.msg('已加入');
             }
             if(data == -4){
-                alert('题目已满');
+                layer.msg('题目已满');
             }
             if(data==-3 || data >0){
                 if(data == -3){
@@ -156,7 +156,7 @@
                     var html = $(this).parent().prev().eq(0).html();
                     $.getJSON('/examination/delete_question/'+eq_id,function(data){
                         if(data == -1){
-                            alert('移除失败');
+                            layer.msg('移除失败');
                         }
                         if(data==-3 || data >0){
                             if(data == -3){
@@ -176,7 +176,7 @@
                 })
 
 
-                alert('加入成功');
+                layer.msg('加入成功');
 
 
             }
@@ -190,7 +190,7 @@
         var html = $(this).parent().prev().eq(0).html();
         $.getJSON('/examination/delete_question/'+eq_id,function(data){
             if(data == -1){
-                alert('移除失败');
+                layer.msg('移除失败');
             }
             if(data==-3 || data >0){
                 if(data == -3){

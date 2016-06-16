@@ -125,7 +125,7 @@ class User_model extends MY_Model
         $this->db->from('icon a');
         if(!empty($user_id)) {
             $this->db->select('b.user_id');
-            $this->db->join('icon_config b', "a.id = b.icon_id AND b.user_id = {$user_id}", 'left');
+            $this->db->join('icon_config b', "a.id = b.icon_id AND b.user_id = {$user_id}", 'inner');
             $this->db->order_by('b.user_id', "DESC");
         } else {
             $this->db->join('icon_config b', "a.id = b.icon_id", 'left');

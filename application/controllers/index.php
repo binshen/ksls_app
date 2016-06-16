@@ -29,6 +29,15 @@ class Index extends MY_Controller {
         if(!empty($user_id)) {
             $icons = $this->user_model->get_icons($user_id);
             $icon_count = $this->user_model->get_icon_count($user_id);
+
+            if(empty($icons)) {
+                $icons = array(
+                    array('id'=> 1, 'name' => '行程管理', 'img' => 'index_nav1.jpg', 'url' => '/activity/list_activity'),
+                    array('id'=> 2, 'name' => '绩效排行', 'img' => 'index_nav14.jpg', 'url' => '/activity/list_ranking'),
+                    array('id'=> 4, 'name' => '预约场地', 'img' => 'index_nav4.jpg', 'url' => '/appointment/book_room')
+                );
+                $icon_count = count($icons);
+            }
         } else {
             $icons = $this->user_model->get_icons();
             $icon_count = $this->user_model->get_icon_count();

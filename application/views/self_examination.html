@@ -18,8 +18,6 @@
             <div class="nav-left">
                 <ul class="nav-left-ul">
                     <li><a href="/"><em class="home"></em>回到首页</a></li>
-                    <li><a href="/video/list_video"><em class="onlineclass"></em>在线课程</a></li>
-                    <li><a href="/document/list_doc"><em class="documentdata"></em>文档资料</a></li>
                     <li class="on">
                         <a href="/examination/self_examination"><em class="onlineexam"></em>在线考试</a>
                         <span class="document-nav-list">
@@ -54,17 +52,16 @@
     </div>
 </div>
 <script type="text/javascript" src="/static/js/jquery-1.7.2.min.js"></script>
+<script type="text/javascript" src="/static/js/layer/layer.js"></script>
 <script>
     $(".ul-category li").click(function () {$(".ul-category li").removeClass("current");$(this).addClass("current");})
     function go_to_page() {
         var type = $(".ul-category").find("[class='current']").eq(0).find("input").eq(0).val();
-       // alert($(".ul-category").find("[class='current']").eq(0).find("input").eq(0).val())
         if(type){
             window.location.href = '/examination/do_examination/' + type;
         }else{
-            alert('请先选择类别')
+            layer.msg('请先选择类别')
         }
-     //   window.location.href = '/examination/do_examination/' + type_id;
     }
 </script>
 </body>
