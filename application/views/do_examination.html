@@ -21,8 +21,8 @@
                     <li class="on">
                         <a href="/examination/self_examination"><em class="onlineexam"></em>在线考试</a>
                         <span class="document-nav-list">
-                            <a href="/examination/self_examination" class="on">自主测评</a><br />
-                            <a href="/examination/unit_examination">统一考试</a><br />
+                            <a href="/examination/self_examination" {{if $exam_data['question_detail']['type_id']>0}} class="on" {{/if}}>自主测评</a><br />
+                            <a href="/examination/unit_examination" {{if $exam_data['question_detail']['type_id']<0}} class="on" {{/if}}>统一考试</a><br />
                             <a href="/examination/examination_score">我的成绩</a>
                         </span>
                     </li>
@@ -38,22 +38,22 @@
                 <p class="tab-tit">在线考试</p>
                 <div class="examination-main clearfix">
                     <form action="/" method="post" id="examForm">
-                        <input type="hidden" name="eq_id" value="{{$exam_data.eq_id}}">
+                        <input type="hidden" name="eq_id" value="{{$exam_data.question_detail.eq_id}}">
                        <div class="show-examination">
-                            <span class="tit">{{$exam_data.question_type}}</span>
+                            <span class="tit">{{$exam_data.question_detail.question_type}}</span>
                             <dl class="dl-exam">
-                                <dt>{{$num|default:1}}. {{$exam_data.title}}</dt>
+                                <dt>{{$num|default:1}}. {{$exam_data.question_detail.title}}</dt>
                                 <dd>
-                                    <label><input type="radio" value="A" name="option" {{if $exam_data.as1==1}}checked{{/if}}/><span>A. {{$exam_data.op1}}</span></label>
+                                    <label><input type="radio" value="A" name="option" {{if $exam_data.question_detail.as1==1}}checked{{/if}}/><span>A. {{$exam_data.question_detail.op1}}</span></label>
                                 </dd>
                                 <dd>
-                                    <label><input type="radio" value="B" name="option" {{if $exam_data.as2==1}}checked{{/if}}/><span>B. {{$exam_data.op2}}</span></label>
+                                    <label><input type="radio" value="B" name="option" {{if $exam_data.question_detail.as2==1}}checked{{/if}}/><span>B. {{$exam_data.question_detail.op2}}</span></label>
                                 </dd>
                                 <dd>
-                                    <label><input type="radio" value="C" name="option" {{if $exam_data.as3==1}}checked{{/if}}/><span>C. {{$exam_data.op3}}</span></label>
+                                    <label><input type="radio" value="C" name="option" {{if $exam_data.question_detail.as3==1}}checked{{/if}}/><span>C. {{$exam_data.question_detail.op3}}</span></label>
                                 </dd>
                                 <dd>
-                                    <label><input type="radio" value="D" name="option" {{if $exam_data.as4==1}}checked{{/if}}/><span>D. {{$exam_data.op4}}</span></label>
+                                    <label><input type="radio" value="D" name="option" {{if $exam_data.question_detail.as4==1}}checked{{/if}}/><span>D. {{$exam_data.question_detail.op4}}</span></label>
                                 </dd>
                                 <!--论述题-->
                                 <!--<dd class="discuss-dd">
@@ -67,7 +67,12 @@
                                      {{else}}
                                         <a href="javascript:void(0);" class="prev" onclick="clickPrev()">上一题</a>
                                      {{/if}}
+                                     {{if $num >= count($question_data)}}
+                                     <a href="javascript:void(0);" class="next btn-off">下一题</a>
+                                     {{else}}
                                      <a href="javascript:void(0);" class="next" onclick="clickNext()">下一题</a>
+                                     {{/if}}
+
                                  </p>
                             </div>
                        </div>
@@ -82,11 +87,11 @@
                             <div class="ques-number">
                                 {{foreach from=$question_data key=key item=item}}
                                     {{if $key+1 == $num}}
-                                        <a href="/examination/do_examination/{{$exam_data.type_id}}/{{$exam_id}}/{{$key+1}}" class="current">{{$key+1}}</a>
+                                        <a href="/examination/do_examination/{{$exam_data.question_detail.type_id}}/{{$exam_id}}/{{$key+1}}" class="current">{{$key+1}}</a>
                                     {{else if $item.complete == 1}}
-                                        <a href="/examination/do_examination/{{$exam_data.type_id}}/{{$exam_id}}/{{$key+1}}" class="done">{{$key+1}}</a>
+                                        <a href="/examination/do_examination/{{$exam_data.question_detail.type_id}}/{{$exam_id}}/{{$key+1}}" class="done">{{$key+1}}</a>
                                     {{else}}
-                                        <a href="/examination/do_examination/{{$exam_data.type_id}}/{{$exam_id}}/{{$key+1}}" >{{$key+1}}</a>
+                                        <a href="/examination/do_examination/{{$exam_data.question_detail.type_id}}/{{$exam_id}}/{{$key+1}}" >{{$key+1}}</a>
                                     {{/if}}
                                 {{/foreach}}
                             </div>
@@ -123,15 +128,15 @@
     });
 
     function clickPrev() {
-        $("#examForm").attr('action', '/examination/do_examination/{{$exam_data.type_id}}/{{$exam_id}}/{{$num-1}}');
+        $("#examForm").attr('action', '/examination/do_examination/{{$exam_data.question_detail.type_id}}/{{$exam_id}}/{{$num-1}}');
         $("#examForm").submit();
     }
 
     function clickNext() {
         {{if $num == count($question_data)}}
-            $("#examForm").attr('action', '/examination/do_examination/{{$exam_data.type_id}}/{{$exam_id}}/{{$num}}');
+            $("#examForm").attr('action', '/examination/do_examination/{{$exam_data.question_detail.type_id}}/{{$exam_id}}/{{$num}}');
         {{else}}
-            $("#examForm").attr('action', '/examination/do_examination/{{$exam_data.type_id}}/{{$exam_id}}/{{$num+1}}');
+            $("#examForm").attr('action', '/examination/do_examination/{{$exam_data.question_detail.type_id}}/{{$exam_id}}/{{$num+1}}');
         {{/if}}
         $("#examForm").submit();
     }
@@ -141,7 +146,7 @@
         var checked = 0
         if ($(this).is(':checked')) {
             checked = 1
-            var path = "{{site_url url='examination/chenge_option'}}/{{$exam_data.eq_id}}/"+val+"/"+checked;
+            var path = "{{site_url url='examination/chenge_option'}}/{{$exam_data.question_detail.eq_id}}/"+val+"/"+checked;
 
             $.getJSON(path,function(data){
 
