@@ -92,25 +92,7 @@ class Index extends MY_Controller {
         echo $this->user_model->update_user();
         die;
     }
-
-    public function test() {
-
-        $response = array();
-        $username = @$_POST['username'];
-        $password = @$_POST['password'];
-        if($username == '13913913999') {
-            $response['success'] = true;
-        } else {
-            $response['success'] = false;
-        }
-        header("Content-type: application/json; charset=utf-8");
-        //header("Content-type: text/html;charset=utf-8");
-        //$response['success'] = true;
-        
-        echo json_encode($response);
-        die;
-    }
-
+    
     public function set_icon() {
         $user_id = $this->session->userdata('login_user_id');
         $this->user_model->reset_icon_config($user_id);
