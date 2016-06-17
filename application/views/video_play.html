@@ -79,7 +79,16 @@
 </div>
 <script type="text/javascript" src="/static/js/jquery.poshytip.min.js"></script>
 <script type="text/javascript" src="/static/js/dpl-jquery.slide.js"></script>
-<script type="text/javascript"> 
+<script type="text/javascript">
+    $(function() {
+        setTimeout(function() {
+            $('.vjs-error-display').not(".vjs-hidden").each(function () {
+                $(this).parent().parent().parent().children(".video-tips").show();
+                $(this).hide();
+            });
+        }, 1200);
+    });
+
     $('.ul-video li a').mouseover(function(){
          $(this).children('.video-icon').show();
     }).mouseout(function(){  $(this).children('.video-icon').hide(); })
