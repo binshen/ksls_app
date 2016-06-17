@@ -81,12 +81,22 @@
 <script type="text/javascript" src="/static/js/dpl-jquery.slide.js"></script>
 <script type="text/javascript">
     $(function() {
-        setTimeout(function() {
+        var detectFun = function() {
             $('.vjs-error-display').not(".vjs-hidden").each(function () {
                 $(this).parent().parent().parent().children(".video-tips").show();
                 $(this).hide();
             });
-        }, 1500);
+        }
+
+        var count = 5;
+        var handle = setInterval(function() {
+            count--;
+            if(count > 0) {
+                detectFun();
+            } else {
+                window.clearInterval(handle);
+            }
+        }, 500);
     });
 
     $('.ul-video li a').mouseover(function(){
