@@ -674,7 +674,7 @@ html .fc,.fc table{font-size:1em;background:#f2f3f5}.fc td,.fc th{padding:0;vert
 .ques-number .answer .actual{color: #cc0000}
 .exam-page .btns-fl{width:550px;float: left;}
 .exam-page  p{ float: right;}
-.exam-page a{margin-left: 20px; width: 120px; height: 40px; font-size: 14px; display: block; float: left;border-radius: 3px;background: #009ee7; color: #fff;border:1px solid #009ee7;text-align: center; line-height: 40px;}
+.exam-page a{margin-right: 20px; width: 120px; height: 40px; font-size: 14px; display: block; float: left;border-radius: 3px;background: #009ee7; color: #fff;border:1px solid #009ee7;text-align: center; line-height: 40px;}
 .exam-page .btn-off{border:1px solid #96a0ad; color: #ddd; background: #fff; }
 .exam-page .btns-fr{width:329px;float: right;}
 .hassubmit{font-size:14px; color:#f30606;padding-left:15px; height: 40px; line-height: 40px;}
@@ -699,6 +699,7 @@ html .fc,.fc table{font-size:1em;background:#f2f3f5}.fc td,.fc th{padding:0;vert
 /*创建试卷*/
 .setup-paper-control {margin-bottom:23px;border-bottom:2px solid #f43c5e; overflow: hidden;padding-bottom: 18px;}
 .setup-paper-control li{width:225px; height: 42px; background: #eee; text-align: center; color: #333; border:none;}
+.setup-paper-control li a{display: block; color: #333; height: 42px;}
 .setup-paper-control .current{color:#fff; background: #f43c5e;}
 
 .item-type{ overflow: hidden; font-size: 16px; margin-bottom: 30px;}
