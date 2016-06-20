@@ -56,8 +56,8 @@
                               D {{$item['op4']}}</dd>
 
                           {{/foreach}}  </dl>
-
-                    <a href="/examination/change_exam_flag" class="createpaper-btn">确定生成试卷</a>
+                    <a href="/examination/setup_examination" class="createpaper-btn">返回修改</a>
+                    <a href="javascript:void(0);" id="save_btn" class="createpaper-btn">确定生成试卷</a>
 
 
                 </div>
@@ -66,4 +66,15 @@
 </div>
 
 </body>
-</html> 
+</html>
+<script type="text/javascript" src="/static/js/layer/layer.js"></script>
+<script>
+    $("#save_btn").click(function() {
+        layer.confirm('确定要生成试卷？', {
+            btn: ['确定','取消'] //按钮
+        }, function(){
+            window.location.href="/examination/change_exam_flag";
+        }, function(){
+        });
+    });
+</script>

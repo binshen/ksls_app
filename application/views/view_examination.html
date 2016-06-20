@@ -70,18 +70,24 @@
 <script type="text/javascript" src="/static/js/layer/layer.js"></script>
 <script>
 $("#save_btn").click(function(){
-    $.getJSON('/examination/check_flag_date/{{$exam_data.exam_main.id}}',function(data){
-        if(data==3){
-            layer.msg('"生成试卷"中有未完成的试卷,本试卷不能修改');
-            return false;
-        }
-        if(data==2){
-            layer.msg('试卷已开考,本试卷不能修改');
-            return false;
-        }
-        if(data==1){
-            window.location.href="/examination/change_flag_1/{{$exam_data.exam_main.id}}";
-        }
-    })
+    layer.confirm('确定要修改试卷？', {
+        btn: ['确定','取消'] //按钮
+    }, function(){
+        $.getJSON('/examination/check_flag_date/{{$exam_data.exam_main.id}}',function(data){
+            if(data==3){
+                layer.msg('"生成试卷"中有未完成的试卷,本试卷不能修改');
+                return false;
+            }
+            if(data==2){
+                layer.msg('试卷已开考,本试卷不能修改');
+                return false;
+            }
+            if(data==1){
+                window.location.href="/examination/change_flag_1/{{$exam_data.exam_main.id}}";
+            }
+        })
+    }, function(){
+    });
+
 })
 </script>
