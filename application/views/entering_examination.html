@@ -53,7 +53,7 @@
                              <tr>
                                 <th>该题类型:</th>
                                 <td><span class="question-type">
-                                   <label><input type="radio" name="style" value="1" /> 单选题</label>
+                                    <label><input type="radio" name="style" value="1" /> 单选题</label>
                                     <label><input type="radio" name="style" value="2" /> 多选题</label>
                                     <label><input type="radio" name="style" value="3" /> 陈述题</label>
                                 </span>
@@ -63,33 +63,37 @@
                                 <th>问题描述:</th>
                                 <td><input required="required" type="text" name="title" class="input-txt"></td>
                             </tr>
-                             <tr>
+                             <tr class="itemoption">
                                 <th>选项A:</th>
                                 <td><input required="required" type="text" name="op1" class="input-txt"></td>
                             </tr>
-                             <tr>
+                             <tr class="itemoption">
                                 <th>选项B:</th>
                                 <td><input required="required" type="text" name="op2" class="input-txt"></td>
                             </tr>
-                             <tr>
+                             <tr class="itemoption">
                                 <th>选项C:</th>
                                 <td><input required="required" type="text" name="op3" class="input-txt"></td>
                             </tr>
-                            <tr>
+                            <tr class="itemoption">
                                 <th>选项D:</th>
                                 <td><input required="required" type="text" name="op4" class="input-txt"></td>
                             </tr>
-                             <tr>
+                             <tr id="refAnswers" style="display: none;">
                                 <th>参考答案:</th>
                                 <td class="correct">
-                                    <!--<label><input type="radio" value="A" /> A</label>-->
-                                    <!--<label><input type="radio" value="B" /> B</label>-->
-                                    <!--<label><input type="radio" value="C" /> C</label>-->
-                                    <!--<label><input type="radio" value="D" /> D</label>-->
-                                    <label><input type="checkbox" name="as1" value="1" /> A</label>
-                                    <label><input type="checkbox" name="as2" value="1" /> B</label>
-                                    <label><input type="checkbox" name="as3" value="1" /> C</label>
-                                    <label><input type="checkbox" name="as4" value="1" /> D</label>
+                                    <div id="single-selection" style="display: none;">
+                                        <label><input type="radio" value="A" /> A</label>
+                                        <label><input type="radio" value="B" /> B</label>
+                                        <label><input type="radio" value="C" /> C</label>
+                                        <label><input type="radio" value="D" /> D</label>
+                                    </div>
+                                   <div id="Multiselect" style="display: none;" >
+                                       <label><input type="checkbox" name="as1" value="1" /> A</label>
+                                       <label><input type="checkbox" name="as2" value="1" /> B</label>
+                                       <label><input type="checkbox" name="as3" value="1" /> C</label>
+                                       <label><input type="checkbox" name="as4" value="1" /> D</label>
+                                   </div>
                             </tr>
                         </table>
                         <p class="p-btns"><a href="javascript:void(0);" id="save_btn" class="submitBtn">提交</a></p>
@@ -98,8 +102,6 @@
         </div>
     </div>
 </div>
-
-
 </body>
 </html>
 <script type="text/javascript" src="/static/js/layer/layer.js"></script>
@@ -108,6 +110,27 @@
         {{if $information == 1}}alert('添加成功,可继续添加'){{/if}}
         {{if $information == 2}}alert('添加失败,请重新添加'){{/if}}
     })
+    //选择题型
+    $('.question-type label').click(function (e) {
+        $("#refAnswers").hide();$("#single-selection").hide();$("#Multiselect").hide();
+       switch($(this).children('input').attr('value')){
+           case '1':
+                $("#refAnswers").show();
+                $("#single-selection").show();
+                $(".itemoption").show();
+               break;
+           case '2':
+               $("#refAnswers").show();
+               $("#Multiselect").show();
+               $(".itemoption").show();
+               break;
+           case '3':
+              $(".itemoption").hide();
+               $("#refAnswers").hide();
+               break;
+
+        }
+    });
     $("#save_btn").click(function(data){
         var style = $("[name='style']:checked").val();
         if(!style){
