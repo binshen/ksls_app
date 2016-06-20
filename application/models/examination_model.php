@@ -334,6 +334,8 @@ class Examination_model extends MY_Model
             'permission_id' =>$this->session->userdata('login_permission_id'),
             'title' => $this->input->post('title'),
             'p_num' => $this->input->post('p_num'),
+            'start_time' => $this->input->post('start_date'),
+            'end_time' => $this->input->post('end_date'),
             'p_score' => $this->input->post('p_score')
         );
         $this->db->trans_start();//--------开始事务

@@ -39,6 +39,7 @@
                 <p class="tab-tit">在线考试</p>
                 <div class="examination-main clearfix">
                     <form id="save_form" method="post" action="/examination/choose_items">
+                        <input type="hidden">
                         <h2 class="examination-h2"><span>测评试卷名称</span></h2>
                         <div class="tb1">
                             <input type="text" name="title" class="examination-name">
@@ -47,6 +48,14 @@
                         <div class="tb1">
                             <p class="p-num"><span class="span-bg">试题数量</span><input type="text" name="p_num" class="exam-num" /> 道</p>
                             <p class="p-num"><span class="span-bg">试题分数</span><input type="text" name="p_score" class="exam-num" /> 分/道</p>
+                        </div>
+                        <div class="tb1">
+                            <p class="p-num"><span class="span-bg">开考时间</span>
+                                <input type="text" name="start_date" id="J_DepDate" value="" style="width:100px;text-align: left" class="exam-num" />
+                            </p>
+                            <p class="p-num"><span class="span-bg">过期时间</span>
+                                <input type="text" name="end_date" id="J_EndDate" value="" style="width:100px;text-align: left" class="exam-num" />
+                            </p>
                         </div>
                         <a href="javascript:void(0);" id="save_btn" class="begin-choose">开始选题</a>
                     </form>
@@ -57,9 +66,31 @@
         {{include file='footer.html'}}
 </div>
     <script type="text/javascript" src="/static/js/layer/layer.js"></script>
+    <script type="text/javascript" src="/static/js/yui-min.js"></script>
 <script type="text/javascript" src="/static/js/dpl-jquery.slide.js"></script>
 <script type="text/javascript">
-
+    YUI({
+        modules: {
+            'trip-calendar': {
+                fullpath: '/static/js/calendar.js',
+                type    : 'js',
+                requires: ['trip-calendar-css']
+            },
+            'trip-calendar-css': {
+                fullpath: '/static/css/calendar.css',
+                type    : 'css'
+            }
+        }
+    }).use('trip-calendar', function(Y) {
+        new Y.TripCalendar({
+            // minDate         : new Date,     //最小时间限制
+            triggerNode     : '#J_DepDate', //第一个触节点
+            finalTriggerNode: '#J_EndDate',  //最后一个触发节点
+            isHoliday:true,
+            isDateInfo:false,
+            count:1
+        });
+    });
    new Slide({
         target: $('#slide01 .condiv' ),
         control: $('#slide01_control li' ),
@@ -78,6 +109,14 @@
         }
         if($.trim($("[name='p_score']").eq(0).val()) == ""){
             layer.msg('试题分数必填');
+            return false;
+        }
+        if($.trim($("[name='start_date']").eq(0).val()) == ""){
+            layer.msg('开考日期必填');
+            return false;
+        }
+        if($.trim($("[name='end_date']").eq(0).val()) == ""){
+            layer.msg('过期日期必填');
             return false;
         }
 
