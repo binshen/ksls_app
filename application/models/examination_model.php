@@ -564,10 +564,11 @@ class Examination_model extends MY_Model
         $sql = "select DISTINCT a.title ,a.id
 from exam a
 left join exam_subsidiary b on b.exam_id = a.id
+left join self_exam c on c.model_exam_id = a.id and c.complete = 1
 where (a.permission_id = 1 OR
 (a.permission_id = 2 and a.company_id = ".$this->session->userdata('login_company_id').") OR
 (a.permission_id > 2 and b.subsidiary_id in (".$string_in.")))
-and a.flag = 2
+and a.flag = 2 and c.id is null and a.start_time < now() and a.end_time > date_add(now(),INTERVAL -1 day)
         ";
         $res = $this->db->query($sql,array($this->session->userdata('login_company_id'),$string_in))->result_array();
        return $res?$res:-1;
@@ -583,5 +584,33 @@ and a.flag = 2
         }else{
             return -1;
         }
+    }
+
+    public function change_flag_1($id){
+        $result = $this->check_flag_date($id);
+        if($result!=1){
+            return -1;
+        }
+      $res = $this->db->where('id',$id)->update('exam',array('flag'=>1));
+        if($res){
+            return 1;
+        }else{
+            return -1;
+        }
+    }
+
+    public function check_flag_date($id){
+       $res = $this->get_news_exam_id();
+        if($res!=-1){
+            return 3;
+        }
+        $row = $this->db->select()->from('exam')
+            ->where('id',$id)
+            ->where('start_time < now()')
+            ->get()->row_array();
+        if($row){
+            return 2;
+        }
+        return 1;
     }
 }

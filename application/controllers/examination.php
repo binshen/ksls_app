@@ -217,7 +217,21 @@ class Examination extends MY_Controller
 
     public function view_examination($exam_id) {
         $exam_data = $this->examination_model->view_examination($exam_id);
+        $this->assign('today', date('Y-m-d'));
         $this->assign('exam_data', $exam_data);
         $this->display("view_examination.html");
+    }
+
+    public function change_flag_1($id){
+        $res = $this->examination_model->change_flag_1($id);
+        if($res == -1){
+            redirect(site_url('/examination/examination_list'));
+        }
+        redirect(site_url('/examination/setup_examination'));
+    }
+
+    public function check_flag_date($id){
+        $res = $this->examination_model->check_flag_date($id);
+        echo json_encode($res);
     }
 }

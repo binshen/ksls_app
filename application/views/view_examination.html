@@ -24,8 +24,8 @@
                     <li class="on"><a href="/examination/enter_examination"><em class="onlineexam"></em>题库</a>
                         <span class="document-nav-list">
                             <a href="/examination/enter_examination">上传试题</a><br />
-                            <a href="/examination/setup_examination" class="on">生成试卷</a><br />
-                            <a href="/examination/examination_list">我的试卷</a>
+                            <a href="/examination/setup_examination" >生成试卷</a><br />
+                            <a href="/examination/examination_list" class="on">我的试卷</a>
                         </span>
                     </li>
                 </ul>
@@ -56,6 +56,9 @@
                             D {{$item['op4']}}</dd>
 
                         {{/foreach}}  </dl>
+                    {{if $exam_data.exam_main.start_time > $today}}
+                    <a href="javascript:void(0);" id="save_btn" class="createpaper-btn">退回修改</a>
+                    {{/if}}
                     <a href="/examination/examination_list" class="createpaper-btn">返回试卷列表</a>
                 </div>
             </div>
@@ -63,4 +66,22 @@
     </div>
 
 </body>
-</html> 
+</html>
+<script type="text/javascript" src="/static/js/layer/layer.js"></script>
+<script>
+$("#save_btn").click(function(){
+    $.getJSON('/examination/check_flag_date/{{$exam_data.exam_main.id}}',function(data){
+        if(data==3){
+            layer.msg('"生成试卷"中有未完成的试卷,本试卷不能修改');
+            return false;
+        }
+        if(data==2){
+            layer.msg('试卷已开考,本试卷不能修改');
+            return false;
+        }
+        if(data==1){
+            window.location.href="/examination/change_flag_1/{{$exam_data.exam_main.id}}";
+        }
+    })
+})
+</script>
