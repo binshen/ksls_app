@@ -83,16 +83,16 @@
                                 <th>参考答案:</th>
                                 <td class="correct">
                                     <div id="single-selection" style="display: none;">
-                                        <label><input type="radio" name="as1" value="A" /> A</label>
-                                        <label><input type="radio" name="as2" value="B" /> B</label>
-                                        <label><input type="radio" name="as3" value="C" /> C</label>
-                                        <label><input type="radio" name="as4" value="D" /> D</label>
+                                        <label><input type="radio" name="as1" value="1" /> A</label>
+                                        <label><input type="radio" name="as2" value="1" /> B</label>
+                                        <label><input type="radio" name="as3" value="1" /> C</label>
+                                        <label><input type="radio" name="as4" value="1" /> D</label>
                                     </div>
                                    <div id="Multiselect" style="display: none;" >
-                                       <label><input type="checkbox" name="as1" value="1" /> A</label>
-                                       <label><input type="checkbox" name="as2" value="1" /> B</label>
-                                       <label><input type="checkbox" name="as3" value="1" /> C</label>
-                                       <label><input type="checkbox" name="as4" value="1" /> D</label>
+                                       <label><input type="checkbox" name="as11" value="1" /> A</label>
+                                       <label><input type="checkbox" name="as12" value="1" /> B</label>
+                                       <label><input type="checkbox" name="as13" value="1" /> C</label>
+                                       <label><input type="checkbox" name="as14" value="1" /> D</label>
                                    </div>
                             </tr>
                         </table>
@@ -141,23 +141,25 @@
             layer.msg('请先填写题目标题');
             return false;
         }
-        if($.trim($("[name='op1']").val())==""){
-            layer.msg('请完善A选项的内容');
-            return false;
-        }
-        if($.trim($("[name='op2']").val())==""){
-            layer.msg('请完善B选项的内容');
-            return false;
-        }
-        if($.trim($("[name='op3']").val())==""){
-            layer.msg('请完善C选项的内容');
-            return false;
-        }
-        if($.trim($("[name='op4']").val())==""){
-            layer.msg('请完善D选项的内容');
-            return false;
-        }
+
         if(style==1){
+            if($.trim($("[name='op1']").val())==""){
+                layer.msg('请完善A选项的内容');
+                return false;
+            }
+            if($.trim($("[name='op2']").val())==""){
+                layer.msg('请完善B选项的内容');
+                return false;
+            }
+            if($.trim($("[name='op3']").val())==""){
+                layer.msg('请完善C选项的内容');
+                return false;
+            }
+            if($.trim($("[name='op4']").val())==""){
+                layer.msg('请完善D选项的内容');
+                return false;
+            }
+
             var flag = 0;
             if($("[name='as1']").is(":checked")){
                 flag +=1;
@@ -182,12 +184,46 @@
 
         }
         if(style==2){
-            layer.msg('多选题暂未开放');
-            return false;
+            if($.trim($("[name='op1']").val())==""){
+                layer.msg('请完善A选项的内容');
+                return false;
+            }
+            if($.trim($("[name='op2']").val())==""){
+                layer.msg('请完善B选项的内容');
+                return false;
+            }
+            if($.trim($("[name='op3']").val())==""){
+                layer.msg('请完善C选项的内容');
+                return false;
+            }
+            if($.trim($("[name='op4']").val())==""){
+                layer.msg('请完善D选项的内容');
+                return false;
+            }
+            var flag = 0;
+            if($("[name='as11']").is(":checked")){
+                flag +=1;
+            }
+            if($("[name='as12']").is(":checked")){
+                flag +=1;
+            }
+            if($("[name='as13']").is(":checked")){
+                flag +=1;
+            }
+            if($("[name='as14']").is(":checked")){
+                flag +=1;
+            }
+            if(flag == 0){
+                layer.msg('请先选择正确答案后再提交');
+                return false;
+            }
+            if(flag == 1){
+                layer.msg('多选题需要多个答案');
+                return false;
+            }
         }
         if(style==3){
-            layer.msg('陈述题暂未开放');
-            return false;
+
         }
         $("#save_form").submit();
     })

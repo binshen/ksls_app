@@ -39,22 +39,29 @@
                 <div class="examination-main clearfix">
                     <form action="/" method="post" id="examForm">
                         <input type="hidden" name="eq_id" value="{{$exam_data.question_detail.eq_id}}">
+                        <input type="hidden" name="style" value="{{$exam_data.question_detail.style}}">
                        <div class="show-examination">
                             <span class="tit">{{$exam_data.question_detail.question_type}}</span>
                             <dl class="dl-exam">
-                                <dt>{{$num|default:1}}. {{$exam_data.question_detail.title}}</dt>
-                                <dd>
-                                    <label><input type="radio" value="A" name="option" {{if $exam_data.question_detail.as1==1}}checked{{/if}}/><span>A. {{$exam_data.question_detail.op1}}</span></label>
-                                </dd>
-                                <dd>
-                                    <label><input type="radio" value="B" name="option" {{if $exam_data.question_detail.as2==1}}checked{{/if}}/><span>B. {{$exam_data.question_detail.op2}}</span></label>
-                                </dd>
-                                <dd>
-                                    <label><input type="radio" value="C" name="option" {{if $exam_data.question_detail.as3==1}}checked{{/if}}/><span>C. {{$exam_data.question_detail.op3}}</span></label>
-                                </dd>
-                                <dd>
-                                    <label><input type="radio" value="D" name="option" {{if $exam_data.question_detail.as4==1}}checked{{/if}}/><span>D. {{$exam_data.question_detail.op4}}</span></label>
-                                </dd>
+                                <dt>{{$num|default:1}}.
+                                    (
+                                    {{if $exam_data.question_detail.style==1}}单选题{{/if}}
+                                    {{if $exam_data.question_detail.style==2}}多选题{{/if}}
+                                    {{if $exam_data.question_detail.style==3}}论述题{{/if}}
+                                    )
+                                    {{$exam_data.question_detail.title}}</dt>
+                                {{if $exam_data.question_detail.style==1}}
+                                <dd><label><input type="radio" value="A" name="option" {{if $exam_data.question_detail.as1==1}}checked{{/if}}/><span>A. {{$exam_data.question_detail.op1}}</span></label></dd>
+                                <dd><label><input type="radio" value="B" name="option" {{if $exam_data.question_detail.as2==1}}checked{{/if}}/><span>B. {{$exam_data.question_detail.op2}}</span></label></dd>
+                                <dd><label><input type="radio" value="C" name="option" {{if $exam_data.question_detail.as3==1}}checked{{/if}}/><span>C. {{$exam_data.question_detail.op3}}</span></label></dd>
+                                <dd><label><input type="radio" value="D" name="option" {{if $exam_data.question_detail.as4==1}}checked{{/if}}/><span>D. {{$exam_data.question_detail.op4}}</span></label></dd>
+                                {{/if}}
+                                {{if $exam_data.question_detail.style==2}}
+                                <dd><label><input type="checkbox" value="A" name="option" {{if $exam_data.question_detail.as1==1}}checked{{/if}}/><span>A. {{$exam_data.question_detail.op1}}</span></label></dd>
+                                <dd><label><input type="checkbox" value="B" name="option" {{if $exam_data.question_detail.as2==1}}checked{{/if}}/><span>B. {{$exam_data.question_detail.op2}}</span></label></dd>
+                                <dd><label><input type="checkbox" value="C" name="option" {{if $exam_data.question_detail.as3==1}}checked{{/if}}/><span>C. {{$exam_data.question_detail.op3}}</span></label></dd>
+                                <dd><label><input type="checkbox" value="D" name="option" {{if $exam_data.question_detail.as4==1}}checked{{/if}}/><span>D. {{$exam_data.question_detail.op4}}</span></label></dd>
+                                {{/if}}
                                 <!--论述题-->
                                 <!--<dd class="discuss-dd">
                                     <textarea rows="3" cols="4"></textarea>
@@ -146,13 +153,11 @@
         var checked = 0
         if ($(this).is(':checked')) {
             checked = 1
-            var path = "{{site_url url='examination/chenge_option'}}/{{$exam_data.question_detail.eq_id}}/"+val+"/"+checked;
-
-            $.getJSON(path,function(data){
-
-            })
         }
+        var path = "{{site_url url='examination/chenge_option'}}/{{$exam_data.question_detail.eq_id}}/"+val+"/"+checked+"/{{$exam_data.question_detail.style}}";
+        $.getJSON(path,function(data){
 
+        })
     })
 </script>
 </body>

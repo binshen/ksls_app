@@ -40,19 +40,24 @@
                    <div class="show-examination">
                         <span class="tit">{{$exam_data['question_detail']['question_type']}}</span>
                         <dl class="dl-exam">
-                            <dt>{{$num}}.{{$exam_data['question_detail']['title']}}</dt>
-                            <dd>
-                               <label><input disabled="disabled" type="radio" value="" name="radio1" {{if $exam_data['question_detail']['as1']==1}} checked="checked" {{/if}} /><span>A {{$exam_data['question_detail']['op1']}}</span></label>
-                            </dd>
-                            <dd>
-                                <label><input disabled="disabled" type="radio" value="" name="radio1" {{if $exam_data['question_detail']['as2']==1}} checked="checked" {{/if}} /><span>B {{$exam_data['question_detail']['op2']}}</span></label>
-                            </dd>
-                            <dd>
-                                <label><input disabled="disabled" type="radio" value="" name="radio1" {{if $exam_data['question_detail']['as3']==1}} checked="checked" {{/if}} /><span>C {{$exam_data['question_detail']['op3']}}</span></label>
-                            </dd>
-                            <dd>
-                                <label><input disabled="disabled" type="radio" value="" name="radio1" {{if $exam_data['question_detail']['as4']==1}} checked="checked" {{/if}} /><span>D {{$exam_data['question_detail']['op4']}}</span></label>
-                            </dd>
+                            <dt>{{$num}}.
+                                (
+                                {{if $exam_data.question_detail.style==1}}单选题{{/if}}
+                                {{if $exam_data.question_detail.style==2}}多选题{{/if}}
+                                {{if $exam_data.question_detail.style==3}}论述题{{/if}}
+                                )
+                                {{$exam_data['question_detail']['title']}}</dt>
+                            {{if $exam_data.question_detail.style==1}}
+                            <dd><label><input disabled="disabled" type="radio" value="" name="radio1" {{if $exam_data['question_detail']['as1']==1}} checked="checked" {{/if}} /><span>A {{$exam_data['question_detail']['op1']}}</span></label></dd>
+                            <dd><label><input disabled="disabled" type="radio" value="" name="radio1" {{if $exam_data['question_detail']['as2']==1}} checked="checked" {{/if}} /><span>B {{$exam_data['question_detail']['op2']}}</span></label></dd>
+                            <dd><label><input disabled="disabled" type="radio" value="" name="radio1" {{if $exam_data['question_detail']['as3']==1}} checked="checked" {{/if}} /><span>C {{$exam_data['question_detail']['op3']}}</span></label></dd>
+                            <dd><label><input disabled="disabled" type="radio" value="" name="radio1" {{if $exam_data['question_detail']['as4']==1}} checked="checked" {{/if}} /><span>D {{$exam_data['question_detail']['op4']}}</span></label></dd>
+                            {{else}}
+                            <dd><label><input disabled="disabled" type="checkbox" value="" name="radio1" {{if $exam_data['question_detail']['as1']==1}} checked="checked" {{/if}} /><span>A {{$exam_data['question_detail']['op1']}}</span></label></dd>
+                            <dd><label><input disabled="disabled" type="checkbox" value="" name="radio1" {{if $exam_data['question_detail']['as2']==1}} checked="checked" {{/if}} /><span>B {{$exam_data['question_detail']['op2']}}</span></label></dd>
+                            <dd><label><input disabled="disabled" type="checkbox" value="" name="radio1" {{if $exam_data['question_detail']['as3']==1}} checked="checked" {{/if}} /><span>C {{$exam_data['question_detail']['op3']}}</span></label></dd>
+                            <dd><label><input disabled="disabled" type="checkbox" value="" name="radio1" {{if $exam_data['question_detail']['as4']==1}} checked="checked" {{/if}} /><span>D {{$exam_data['question_detail']['op4']}}</span></label></dd>
+                            {{/if}}
                         </dl>
                        <div class="exam-page">
                              <p style="margin-top:30px;">

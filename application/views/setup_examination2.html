@@ -51,14 +51,23 @@
                         <div class="condiv">
                             <div class="item-type">
                                 <i class="i-type">题型</i>
-                                <span class="current">单选题</span>
-                                <span>陈述题</span>
+                                {{if in_array($exam_data.exam_main.style,array(1,2))}}
+                                <span class="current">选择题</span>
+                                {{else}}
+                                <span class="current">陈述题</span>
+                                {{/if}}
                             </div>
                            <ul class="choose-list">
                                <li>
                                    {{foreach from=$question_data.res_list item=item}}
                                    <dl>
-                                       <dt>{{$item['title']}}</dt>
+                                       <dt>
+                                           (
+                                           {{if $item['style']==1}}单选题{{/if}}
+                                           {{if $item['style']==2}}多选题{{/if}}
+                                           {{if $item['style']==3}}论述题{{/if}}
+                                           )
+                                           {{$item['title']}}</dt>
 
                                    </dl>
                                    <span class="bg">
@@ -75,7 +84,13 @@
                                 <li class="hasjoinli">
                                     {{foreach from=$exam_data.exam_list item=item}}
                                     <dl>
-                                        <dt>{{$item['title']}}</dt>
+                                        <dt>
+                                            (
+                                            {{if $item['style']==1}}单选题{{/if}}
+                                            {{if $item['style']==2}}多选题{{/if}}
+                                            {{if $item['style']==3}}论述题{{/if}}
+                                            )
+                                            {{$item['title']}}</dt>
 
                                     </dl>
                                     <span class="bg">

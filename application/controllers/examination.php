@@ -57,22 +57,7 @@ class Examination extends MY_Controller
         $this->assign('exam_id', $exam_id);
 
         if(!empty($_POST['eq_id']) && !empty($_POST['option'])) {
-            $op = $_POST['option'];
-            $data = array('as1' => 0, 'as2' => 0, 'as3' => 0, 'as4' => 0, 'complete' => 0);
-            if($op == 'A') {
-                $data['as1'] = 1;
-                $data['complete'] = 1;
-            } else if($op == 'B') {
-                $data['as2'] = 1;
-                $data['complete'] = 1;
-            } else if($op == 'C') {
-                $data['as3'] = 1;
-                $data['complete'] = 1;
-            } else if($op == 'D') {
-                $data['as4'] = 1;
-                $data['complete'] = 1;
-            }
-            $this->examination_model->take_exam($_POST['eq_id'], $data);
+            $this->examination_model->take_exam($_POST['eq_id']);
         }
 
         $exam_data = $this->examination_model->get_exam_by_num($exam_id, $num);
@@ -115,8 +100,8 @@ class Examination extends MY_Controller
         $this->display('unit_examination.html');
     }
 
-    public function chenge_option($eq_id,$val,$as){
-        $this->examination_model->chenge_option($eq_id,$val,$as);
+    public function chenge_option($eq_id,$val,$as,$style){
+        $this->examination_model->chenge_option($eq_id,$val,$as,$style);
     }
 
     public function enter_examination($information=null){
