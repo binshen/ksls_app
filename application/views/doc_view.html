@@ -45,7 +45,7 @@
                             <a href="javascript:void(0);" id="likes_btn"><em class="num">+<likes>{{$data['likes']}}</likes></em><em class="zan {{$house_likes['likes']|default:''}}"></em>点赞</a>
                             <a href="javascript:void(0);" id="house_btn"><em class="num">{{$data['house']}}</em><em class="collect {{$house_likes['house']|default:''}}"></em>收藏文章</a>
                         </div>
-                        {{if $permission_id==4}}
+                        {{if in_array(4,$position_id)}}
                         <div class="delete-pass-btn">
                             <a href="javascript:void(0)" id="btnDelete" class="delete-btn">删除</a>
                             <a href="javascript:void(0)" class="pass-btn">审核通过</a>
