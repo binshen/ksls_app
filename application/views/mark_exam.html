@@ -1,0 +1,74 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>在线考试</title>
+    <meta name="keywords" content="在线考试" />
+    <meta name="description" content="在线考试" />
+    <link href="/static/css/reset.css" rel="stylesheet" type="text/css">
+    <link href="/static/css/style.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="doc">
+    {{include file='header.html'}}
+    <div class="wraper clearfix">
+        <div class="wrap-left">
+            <a href="/" class="logo"><img src="/static/images/logo.jpg" alt="" width="130" height="35"></a>
+            <div class="nav-left">
+                <ul class="nav-left-ul">
+                    <li><a href="/"><em class="home"></em>回到首页</a></li>
+                    <li>
+                        <a href="/examination/self_examination"><em class="onlineexam"></em>在线考试</a>
+                    </li>
+                    <li><a href="/examination/enter_examination"><em class="onlineexam"></em>题库</a>
+                        <span class="document-nav-list">
+                            <a href="/examination/enter_examination">上传试题</a><br />
+                            <a href="/examination/setup_examination">生成试卷</a><br />
+                            <a href="/examination/examination_list">我的试卷</a>
+                        </span>
+                    </li>
+                    <li class="on"><a href="/examination/enter_examination"><em class="onlinemark"></em>在线阅卷</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="wrap-right">
+             <div class="search-wrap">
+               
+            </div>
+              <div class="schedule-wrap upload-document-wrap">
+                <p class="tab-tit">试卷评分</p>
+                <div class="examination-main clearfix">
+                    <p class="mark-score-p1">震川店入职新人在线测评 陈述题</p>
+                    <p class="mark-score-p2">1. 请结合自己的观点来说说昆山最近几次土拍的结果，分析下昆山近几年的房地产市场的趋势和变化。</p>
+                    <span class="mark-score-span">考生作答：</span>
+                    <p class="mark-score-p2"> 要对市场未来走势做出准确的判断，必须首先对当前房地产市场的现状有一个全面清晰准确的认识。
+                        从市场供求来看，自住房制度改革以来，随着住房需求逐步释放，再加上城镇化进程的推进，城镇住房需求较为旺盛，住房供求矛盾较为突出，特别是2003年起，房价出现持续快速上涨。
+                        　　2010年起，随着保障房建设的提速，市场供求有所缓解。但由于人们对房价的上涨预期强烈，投资性购房比重较高，市场供求依然表现为虚热。2011年，为抑制房价过快上涨，全国共47个城市开始执行住房限购政策，投资性购房需求被有效抑制。但房价上涨预期依然强烈，市场供求关系依然较为紧张，甚至在2013年，北上广深等一线城市房价涨幅超过20%。2014年，住房市场供求关系悄然较变。随着住房信贷政策的收紧，房屋销售突然遇冷，市场供求关系发生逆转，出现明显的供过于求。很多人都认为，2014年是中国房地产市场的一个重要转折点。</p>
+                    <p class="mark-score-p3"><span> 考题评分：<input type="text" class="setscore" /> 分</span></p>
+                    <p class="mark-score-p2">1. 请结合自己的观点来说说昆山最近几次土拍的结果，分析下昆山近几年的房地产市场的趋势和变化。</p>
+                    <span class="mark-score-span">考生作答：</span>
+                    <p class="mark-score-p2"> 要对市场未来走势做出准确的判断，必须首先对当前房地产市场的现状有一个全面清晰准确的认识。
+                        从市场供求来看，自住房制度改革以来，随着住房需求逐步释放，再加上城镇化进程的推进，城镇住房需求较为旺盛，住房供求矛盾较为突出，特别是2003年起，房价出现持续快速上涨。
+                        　　2010年起，随着保障房建设的提速，市场供求有所缓解。但由于人们对房价的上涨预期强烈，投资性购房比重较高，市场供求依然表现为虚热。2011年，为抑制房价过快上涨，全国共47个城市开始执行住房限购政策，投资性购房需求被有效抑制。但房价上涨预期依然强烈，市场供求关系依然较为紧张，甚至在2013年，北上广深等一线城市房价涨幅超过20%。2014年，住房市场供求关系悄然较变。随着住房信贷政策的收紧，房屋销售突然遇冷，市场供求关系发生逆转，出现明显的供过于求。很多人都认为，2014年是中国房地产市场的一个重要转折点。</p>
+                    <p class="mark-score-p3"><span> 考题评分：<input type="text" class="setscore" /> 分</span></p>
+                    <p class="mark-score-p3 mark-score-p4"><span> 试题总分：<input type="text" class="setscore" /> 分</span></p>
+                    <a href="/examination/mark_list" class="backbtn">返回列表</a>
+                </div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
+<script type="text/javascript" src="/static/js/layer/layer.js"></script>
+<script>
+    $("#save_btn").click(function() {
+        layer.confirm('确定要生成试卷？', {
+            btn: ['确定','取消'] //按钮
+        }, function(){
+            window.location.href="/examination/change_exam_flag";
+        }, function(){
+        });
+    });
+</script>
