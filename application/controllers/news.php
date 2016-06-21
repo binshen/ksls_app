@@ -18,7 +18,12 @@ class News extends MY_Controller
         $this->load->helper('directory');
     }
 
-    public function publish_news(){
+    public function publish_news($id=null){
+        $news = array();
+        if($id){
+            $news = $this->news_model->view_news($id);
+        }
+        $this->assign('news', $news);
         $this->display("publish_news.html");
     }
     
@@ -37,10 +42,22 @@ class News extends MY_Controller
         $config['allowed_types'] = 'gif|jpg|png|jpeg';
         $config['max_size'] = '1000';
         $config['encrypt_name'] = true;
-        $this->load->library('upload', $config);
-        if($this->upload->do_upload()){
-            $img_info = $this->upload->data();
-            $this->news_model->save_user($img_info['file_name']);
+        if($this->input->post('news_id')){
+            if(!$_FILES["userfile"]){
+                $this->news_model->update_user();
+            }else{
+                $this->load->library('upload', $config);
+                if($this->upload->do_upload()){
+                    $img_info = $this->upload->data();
+                    $this->news_model->update_user($img_info['file_name']);
+                }
+            }
+        }else{
+            $this->load->library('upload', $config);
+            if($this->upload->do_upload()){
+                $img_info = $this->upload->data();
+                $this->news_model->save_user($img_info['file_name']);
+            }
         }
         redirect('/');
     }

@@ -68,4 +68,16 @@ class News_model extends MY_Model
             return 1;
         }
     }
+
+    public function update_user($pic=null){
+        $data = array(
+            'title' => $this->input->post('title'),
+            'content' => $this->input->post('content'),
+        );
+        if($pic){
+            $data['pic'] = $pic;
+        }
+        $this->db->where('id',$this->input->post('news_id'))->update('news', $data);
+    }
+
 }

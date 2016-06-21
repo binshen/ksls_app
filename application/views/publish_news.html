@@ -2,9 +2,9 @@
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>上传文档</title>
-    <meta name="keywords" content="上传文档" />
-    <meta name="description" content="上传文档" />
+    <title>发布新闻</title>
+    <meta name="keywords" content="发布新闻" />
+    <meta name="description" content="发布新闻" />
     <link href="/static/css/reset.css" rel="stylesheet" type="text/css">
     <link href="/static/css/style.css" rel="stylesheet" type="text/css">
 </head>
@@ -28,9 +28,10 @@
                 <p class="tab-tit">发布新闻</p>
                 <div class="publish-document-main">
                     <form id="publishNewsForm" method="post" action="{{site_url url='news/save_news'}}" enctype="multipart/form-data">
+                        <input type="hidden" id="news_id" name="news_id" value="{{$news['id']|default:''}}">
                         <dl>
                             <dt>标题</dt>
-                            <dd><input id="title" type="text" name="title" class="input-txt"  /></dd>
+                            <dd><input id="title" type="text" name="title" value="{{$news['title']|default:''}}" class="input-txt"  /></dd>
                         </dl>
                         <dl>
                             <dt>封面</dt>
@@ -39,7 +40,12 @@
                                 <a href="javascript:" class="publish-news-btn" id="upload_file">本地上传</a>
                                 <div class="newscoverpic">
                                     <a href="javascript:">
+                                        {{if $news}}
+                                        <img id="imgFenmian" src="/uploadfiles/news/{{$news['pic']}}" alt="" width="155" height="110">
+                                        {{else}}
                                         <img id="imgFenmian" src="http://dummyimage.com/155x110/ccc/fff" alt="" width="155" height="110">
+                                        {{/if}}
+
                                         <span class="delete"><em></em></span>
                                     </a>
                                     <input style="display: none" type="file" name="userfile" class="file" id="file_field" />
@@ -47,7 +53,9 @@
                             </dd>
                         </dl>
                         <div class="editor-box">
-                            <textarea id="content" name="content" class="xheditor" rows="20" cols="80" style="width: 100%"></textarea>
+                            <textarea id="content" name="content" class="xheditor" rows="20" cols="80" style="width: 100%">
+                                {{$news['content']|default:''}}
+                            </textarea>
                         </div>
                         <p class="p-btn"><a href="javascript:void(0);" id="save_btn" class="publish-btn">发布</a></p>
                     </form>
@@ -98,13 +106,13 @@
         }
 
         var file_field = $("#file_field").val();
-        if(file_field == "") {
+        if(file_field == "" && $("#news_id").val()=="") {
             layer.msg('请输入封面', {icon: 2});
             return;
         }
 
         var content = $("#content").val();
-        if(content == "") {
+        if(content == "" ) {
             layer.msg('请输入内容', {icon: 2});
             return;
         }
