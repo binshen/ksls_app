@@ -143,6 +143,9 @@ class Examination extends MY_Controller
         }
 
     }
+     public function mark_score(){
+            $this->display("marking_score.html");
+        }
 
     public function choose_items(){
         $res = $this->examination_model->save_exam_main();
@@ -234,4 +237,5 @@ class Examination extends MY_Controller
         $res = $this->examination_model->check_flag_date($id);
         echo json_encode($res);
     }
+
 }
