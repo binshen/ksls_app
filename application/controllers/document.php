@@ -49,6 +49,8 @@ class Document extends MY_Controller
             $this->assign('recommend', $recommend);
             $this->assign('house_likes', $house_likes);
             $this->assign('data', $data);
+            $permission_id = $this->session->userdata('login_permission_id');
+            $this->assign('permission_id', $permission_id);
             $this->display('doc_view.html');
         }
 
