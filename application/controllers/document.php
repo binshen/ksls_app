@@ -45,24 +45,22 @@ class Document extends MY_Controller
 
     public function view_doc($id) {
         $data = $this->document_model->view_doc($id);
+        $recommend = $this->document_model->recomment_doc();  //推荐的文档/
+        $house_likes = $this->document_model->house_likes($id);
+        $this->assign('recommend', $recommend);
+        $this->assign('house_likes', $house_likes);
+        $this->assign('data', $data);
+        if($data['user_id'] == $this->session->userdata('login_user_id')){
+            $this->assign('mydoc', 1);
+        }else{
+            $this->assign('mydoc', -1);
+        }
+        $position_id = $this->session->userdata('login_position_id_array');
+        $this->assign('position_id', $position_id);
         if($data['type']==6){
             //$this->document_model->download($id);
-            $recommend = $this->document_model->recomment_doc();  //推荐的文档/
-            $house_likes = $this->document_model->house_likes($id);
-            $this->assign('recommend', $recommend);
-            $this->assign('house_likes', $house_likes);
-            $this->assign('data', $data);
-            $position_id = $this->session->userdata('login_position_id_array');
-            $this->assign('position_id', $position_id);
             $this->display('data_view.html');
         }else{
-            $recommend = $this->document_model->recomment_doc();  //推荐的文档/
-            $house_likes = $this->document_model->house_likes($id);
-            $this->assign('recommend', $recommend);
-            $this->assign('house_likes', $house_likes);
-            $this->assign('data', $data);
-            $position_id = $this->session->userdata('login_position_id_array');
-            $this->assign('position_id', $position_id);
             $this->display('doc_view.html');
         }
 
