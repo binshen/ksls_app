@@ -43,7 +43,7 @@ class News extends MY_Controller
         $config['max_size'] = '1000';
         $config['encrypt_name'] = true;
         if($this->input->post('news_id')){
-            if(!$_FILES["userfile"]){
+            if(!$_FILES["userfile"]['tmp_name']){
                 $this->news_model->update_user();
             }else{
                 $this->load->library('upload', $config);
