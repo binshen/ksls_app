@@ -17,6 +17,13 @@ class Examination extends MY_Controller
 
         $this->load->model('examination_model');
     }
+     public function mark_list(){
+        $this->display("mark_list.html");
+     }
+
+      public function mark_exam(){
+             $this->display("mark_exam.html");
+      }
 
     function _remap($method, $params = array())
     {
@@ -35,6 +42,8 @@ class Examination extends MY_Controller
         
         $this->display('self_examination.html');
     }
+
+
 
     public function do_examination($type_id=1, $exam_id=NULL, $num=1)
     {
@@ -143,9 +152,7 @@ class Examination extends MY_Controller
         }
 
     }
-     public function mark_score(){
-            $this->display("marking_score.html");
-        }
+
 
     public function choose_items(){
         $res = $this->examination_model->save_exam_main();

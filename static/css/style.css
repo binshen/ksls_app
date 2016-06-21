@@ -104,6 +104,8 @@ body{background: #fff; font-family: "Microsoft YaHei";}p{white-space: normal; wo
 .nav-left-ul li .onlineexam{ background-position:0 -296px; }
 .nav-left-ul li .questionbank{ background-position:0 -320px; }
 .nav-left-ul li .noplan{ background-position:0 -270px; }
+.nav-left-ul li .onlinemark{background-position:0 -343px;}
+.nav-left-ul li .exmaitems{background-position:0 -368px;}
 
 .nav-left-ul li.on a{color:#fff;}
 .nav-left-ul li.on .schedule{background-position:-29px 2px;}
@@ -118,6 +120,8 @@ body{background: #fff; font-family: "Microsoft YaHei";}p{white-space: normal; wo
 .nav-left-ul li.on .noplan{ background-position:-27px -270px; }
 .nav-left-ul li.on .onlineexam{ background-position:-27px -296px; }
 .nav-left-ul li.on .questionbank{ background-position:-27px -320px; }
+.nav-left-ul li.on .onlinemark{background-position:-27px -343px;}
+.nav-left-ul li.on .exmaitems{background-position:-27px -368px;}
 
 .nav-left-ul li .document-nav-list{height: 80px; display: block;margin-right:15px;text-align: right; line-height: 18px; }
 .nav-left-ul li .document-nav-list a {  font-weight: normal; display: inline;line-height: 24px;font-size: 12px; color: #aaaeb3;  height: 20px;}
@@ -133,7 +137,8 @@ body{background: #fff; font-family: "Microsoft YaHei";}p{white-space: normal; wo
 .nav-left-ul li a:hover .noplan{ background-position:-27px -270px; }
 .nav-left-ul li a:hover .onlineexam{ background-position:-27px -296px; }
 .nav-left-ul li a:hover .questionbank{ background-position:-27px -320px; }
-
+.nav-left-ul li a:hover .onlinemark{background-position:-27px -343px;}
+.nav-left-ul li a:hover .exmaitems{background-position:-27px -368px;}
 
 .news-th{padding-left:20px;height:50px; line-height: 50px; font-size:20px; color: #fff; background: #e15616; margin:0 35px;}
 .new-tb{padding:0 8px 16px; background: #fff; margin: 0 35px;overflow: hidden;zoom:1;}
@@ -738,3 +743,15 @@ html .fc,.fc table{font-size:1em;background:#f2f3f5}.fc td,.fc th{padding:0;vert
 .tb1 .span-bg{ margin-right:22px; width:90px; height: 30px;float: left; font-size: 16px; text-align: center; color:#fff; background: #1887e3; line-height: 30px;}
 .tb1 .exam-num{width: 60px; height: 30px;border:none; background: #eeeded; text-align: center;}
 .begin-choose{margin:80px 0 0 420px;width: 160px; height: 50px; line-height: 50px; text-align: center; color: #fff; font-size: 18px; background: #fa446b; display: block;}
+
+/*试卷评分*/
+.mark-score-p1,.mark-score-span{ font-size:16px; color:#333; font-weight:bold;margin-bottom:20px;}
+.mark-score-p2{ padding:5px 0;font-size:16px; color: #515151; background: #f7f7f7; line-height: 24px; border-bottom:1px solid #e9e7e7;padding-left: 20px;
+ text-indent: 2em;}
+.mark-score-p3{overflow: hidden; margin: 30px 0;}
+.mark-score-span{margin: 10px 0; display: block;}
+.mark-score-p3 span {float: right; font-size:16px;color: #333; font-weight:bold;}
+.mark-score-p3 .setscore{width:60px; height:35px; border:1px solid;border:1px solid #167ac1;border-radius:5px; line-height: 35px; text-align: center;}
+.mark-score-p4{background: #f7f7f7;padding:10px 0;}
+.mark-score-p4 .setscore{border:1px solid #acd974;}
+.backbtn{float: right;border:1px solid #d8d8d8;width:105px; height: 36px; line-height: 36px; text-align: center;font-style: 14px; background: #f2f2f2; color: #777;border-radius: 5px;}
