@@ -58,6 +58,12 @@
 <script type="text/javascript" src="/static/js/xheditor-1.2.2.min.js"></script>
 <script type="text/javascript" src="/static/js/zh-cn.js"></script>
 <script>
+    //可视化编辑器实例调用
+    $('#elm1').xheditor({
+        html5Upload : false,
+        upImgUrl:"/news/upload_news_pic",
+        upImgExt:"jpg,jpeg,gif,png"
+    });
     $("#save_btn").click(function(){
         $("#save_form").submit();
     })
