@@ -9,9 +9,9 @@
     <form method="post" enctype="multipart/form-data" action="<?php echo site_url('manage/save_ticket');?>" class="pageForm required-validate" onsubmit="return iframeCallback(this, navTabAjaxDone);">
         <div class="pageFormContent" layoutH="55">
         	<fieldset style="width: 90%">
-        	    <dl>
+        	    <dl class="nowrap">
         			<dt>标题：</dt>
-        			<dd style="float: left">
+        			<dd>
 						<input type="hidden" name="id" value="<?php if(!empty($id)) echo $id;?>">
 						<?php echo $head->title;?>
         			</dd>
@@ -19,7 +19,7 @@
         	</fieldset >
 			<fieldset style="width: 90%">
 
-				<dl>
+				<dl class="nowrap">
 					<dt>创建时间：</dt>
 					<dd>
 						<?php echo $head->created;?>
@@ -29,7 +29,10 @@
 			</fieldset >
 
 			<fieldset style="width: 90%" class="article-content">
-				<?php echo $head->content;?>
+
+				<textarea id="content" name="content" class="xheditor" rows="20" cols="80" style="width: 100%">
+                      <?php echo $head->content;?>
+                </textarea>
 			</fieldset>
 
 
@@ -41,7 +44,15 @@
         </div>
 	</form>
 </div>
+<script type="text/javascript" src="/static/js/xheditor-1.2.2.min.js"></script>
+<script type="text/javascript" src="/static/js/zh-cn.js"></script>
 <script>
+    //可视化编辑器实例调用
+    $('#content').xheditor({
+        html5Upload : false,
+        upImgUrl:"/news/upload_news_pic",
+        upImgExt:"jpg,jpeg,gif,png"
+    });
 	var total = 0
 	$('.xiaoji').each(function(){
 		total += parseInt($(this).html());
