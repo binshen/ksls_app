@@ -560,7 +560,9 @@ html .fc,.fc table{font-size:1em;background:#f2f3f5}.fc td,.fc th{padding:0;vert
 .document-list-control li{margin-right: 15px;}
 .document_list li{margin-bottom: 5px; padding:0 15px;height: 42px; background: #fff; line-height: 42px;font-size: 16px; color:#333;}
 .document_list li a{color:#333;}
-.document_list .document-tit{padding-left:25px;float: left; background: url(../images/add_icon.png) no-repeat 0 -190px;}
+.document_list .document-tit{float: left;}
+.document_list .txt-icon{width:25px; height: 30px;float:left; background: url(../images/add_icon.png) no-repeat -32px -190px;}
+.document_list .download-icon{width:25px; height: 30px;float:left; background: url(../images/add_icon.png) no-repeat 0 -190px;}
 .document_list .operation-span{float: right; font-size:14px; color: #999;}
 .document_list .operation-span em{margin-right: 20px;}
 /*上传资料*/

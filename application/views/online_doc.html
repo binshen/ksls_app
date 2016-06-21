@@ -55,7 +55,7 @@
                         <ul class="document_list">
                             {{foreach from=$list_doc.res_list item=item}}
                             <li>
-                                <a href="{{site_url url='document/view_doc'}}/{{$item.id}}"><span class="document-tit">{{$item.title}}</span>
+                                <a href="{{site_url url='document/view_doc'}}/{{$item.id}}"><span class="document-tit"><em class="download-icon"></em>{{$item.title}}</span>
                                     <span class="operation-span"><em>浏览:{{$item.look}}次</em><em>收藏:{{$item.house}}次</em><em>点赞:{{$item.likes}}</em></span></a>
                             </li>
                             {{/foreach}}
