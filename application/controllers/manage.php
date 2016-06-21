@@ -378,7 +378,7 @@ class Manage extends MY_Controller {
 
 	/**
 	 *
-	 * ***************************************以下为职务列表*******************************************************************
+	 * ***************************************以下为文档类别列表*******************************************************************
 	 */
 
 	public function list_forum_type()
@@ -440,7 +440,30 @@ class Manage extends MY_Controller {
 			form_submit_json("300", $rs);
 		}
 	}
+	/**
+	 *
+	 * ***************************************以下为新闻列表*******************************************************************
+	 */
+	public function list_news()
+	{
+		$data = $this->manage_model->list_news();
+		$this->load->view('manage/list_news.php',$data);
+	}
 
+
+	public function delete_news($id){
+		$rs = $this->manage_model->delete_news($id);
+		if ($rs === 1) {
+			form_submit_json("200", "操作成功", "list_news", "", "");
+		} else {
+			form_submit_json("300", $rs);
+		}
+	}
+
+	public function edit_news($id){
+		$data = $this->manage_model->get_news($id);
+		$this->load->view('manage/edit_news.php',$data);
+	}
 	/*public function save_ticket(){
 		$rs = $this->manage_model->save_ticket();
 		if ($rs === 1) {

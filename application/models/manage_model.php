@@ -55,6 +55,15 @@ class Manage_model extends MY_Model
                 }
             }
             $user_info['subsidiary_id_array'] = $sids;
+
+            $pids = $this->db->select()->from('user_position')->where('user_id',$res->id)->get()->result_array();
+            $ids = array();
+            if($pids){
+                foreach($pids as $id){
+                    $ids[]=$id['pid'];
+                }
+            }
+            $user_info['position_id_array'] = $ids;
             $this->session->set_userdata($user_info);
             return true;
         }
@@ -843,5 +852,54 @@ class Manage_model extends MY_Model
             //   $file_name='./uploadfiles/'.$data['url'];//需要下载的文件
             force_download($data['oldfile'],$string);
         }
+    }
+
+    public function list_news()
+    {
+        $numPerPage = $this->input->post('numPerPage') ? $this->input->post('numPerPage') : 20;
+        $pageNum = $this->input->post('pageNum') ? $this->input->post('pageNum') : 1;
+
+        //获得总记录数
+        $this->db->select('count(1) as num');
+        $this->db->from('news');
+
+        if($this->input->post('title'))
+            $this->db->like('title',$this->input->post('title'));
+
+        $rs_total = $this->db->get()->row();
+        //总记录数
+        $data['countPage'] = $rs_total->num;
+
+        $data['title'] = $this->input->post('title')?$this->input->post('title'):null;
+        //list
+        $this->db->select();
+        $this->db->from('news');
+        if($this->input->post('title'))
+            $this->db->like('title',$this->input->post('title'));
+
+        $this->db->limit($numPerPage, ($pageNum - 1) * $numPerPage );
+        $this->db->order_by($this->input->post('orderField') ? $this->input->post('orderField') : 'id', $this->input->post('orderDirection') ? $this->input->post('orderDirection') : 'desc');
+        $data['res_list'] = $this->db->get()->result();
+        $data['pageNum'] = $pageNum;
+        $data['numPerPage'] = $numPerPage;
+        return $data;
+    }
+
+    public function delete_news($id){
+        $rs = $this->db->delete('news', array('id' => $id));
+        if($rs){
+            return 1;
+        }else{
+            return $this->db_error;
+        }
+    }
+
+    public function get_news($id){
+        $this->db->select()->from('news');
+        $this->db->where('id',$id);
+        $data['head'] = $this->db->get()->row();
+        $data['id'] = $id;
+        //die(var_dump($data));
+        return $data;
     }
 }
