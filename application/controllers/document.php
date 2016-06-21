@@ -49,6 +49,8 @@ class Document extends MY_Controller
             $this->assign('recommend', $recommend);
             $this->assign('house_likes', $house_likes);
             $this->assign('data', $data);
+            $position_id = $this->session->userdata('login_position_id_array');
+            $this->assign('position_id', $position_id);
             $this->display('doc_view.html');
         }
 
