@@ -660,10 +660,12 @@ html .fc,.fc table{font-size:1em;background:#f2f3f5}.fc td,.fc th{padding:0;vert
 .ques-number .answer{ position: absolute;top:30px;left:20px; text-align: center; border:1px solid #ebebeb; background: #fff; color:#979393; display: block;padding:5px;border-radius:3px;}
 .ques-number .answer .correct{color:#37bc9b;}
 .ques-number .answer .actual{color: #cc0000}
+.exam-page{ overflow: hidden; margin-top: 10px;}
 .exam-page .btns-fl{width:550px;float: left;}
 .exam-page  p{ float: right;}
 .exam-page a{margin-left: 20px; width: 120px; height: 40px; font-size: 14px; display: block; float: left;border-radius: 3px;background: #009ee7; color: #fff;border:1px solid #009ee7;text-align: center; line-height: 40px;}
 .exam-page .btn-off{border:1px solid #96a0ad; color: #ddd; background: #fff; }
+.exam-page .save{background-color:#e6382a;border-color:#e6382a;}
 .exam-page .btns-fr{width:329px;float: right;}
 .hassubmit{font-size:14px; color:#f30606;padding-left:15px; height: 40px; line-height: 40px;}
 .examination-result-inner .tips{ color:#0a0a0a; padding:10px 0 20px;}
