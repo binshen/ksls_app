@@ -62,10 +62,11 @@
                                 <dd><label><input type="checkbox" value="C" name="option" {{if $exam_data.question_detail.as3==1}}checked{{/if}}/><span>C. {{$exam_data.question_detail.op3}}</span></label></dd>
                                 <dd><label><input type="checkbox" value="D" name="option" {{if $exam_data.question_detail.as4==1}}checked{{/if}}/><span>D. {{$exam_data.question_detail.op4}}</span></label></dd>
                                 {{/if}}
-                                <!--论述题-->
-                                <!--<dd class="discuss-dd">
-                                    <textarea rows="3" cols="4"></textarea>
-                                </dd>-->
+                                {{if $exam_data.question_detail.style==3}}
+                                <dd class="discuss-dd">
+                                    <textarea name="answer" rows="3" cols="4"></textarea>
+                                </dd>
+                                {{/if}}
                             </dl>
                            <div class="exam-page">
                                  <p style="margin-top:30px;">
@@ -89,7 +90,12 @@
                         <div class="examination-result-inner">
                             <span class="exam-category">
                                 <i class="bor"></i>
+                                {{if $exam_data.question_detail.style==3}}
+                                 <em class="pos1">选择题</em><em class="current pos2">论述题</em>
+                                {{else}}
                                 <em class="current pos1">选择题</em><em class="pos2">论述题</em>
+                                {{/if}}
+
                             </span>
                             <div class="ques-number">
                                 {{foreach from=$question_data key=key item=item}}

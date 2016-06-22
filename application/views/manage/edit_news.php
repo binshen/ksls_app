@@ -30,7 +30,7 @@
 
 			<fieldset style="width: 90%" class="article-content">
 
-				<textarea id="content" name="content" class="xheditor" rows="20" cols="80" style="width: 100%">
+				<textarea id="content" name="content" class="" rows="20" cols="80" style="width: 100%">
                       <?php echo $head->content;?>
                 </textarea>
 			</fieldset>
@@ -44,7 +44,7 @@
         </div>
 	</form>
 </div>
-<script type="text/javascript" src="/static/js/xheditor-1.2.2.min.js"></script>
+
 <script type="text/javascript" src="/static/js/zh-cn.js"></script>
 <script>
     //可视化编辑器实例调用
