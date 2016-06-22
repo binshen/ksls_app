@@ -616,7 +616,8 @@ html .fc,.fc table{font-size:1em;background:#f2f3f5}.fc td,.fc th{padding:0;vert
 .delete-pass-btn a{border-radius: 3px; width:95px; height:40px; float: left; margin-right: 20px; font-size:16px;color:#fff; text-align: center; line-height:40px;}
 .delete-pass-btn :last-child{margin-right: 0;}
 .delete-btn{background: #e74c3c;}
-.pass-btn{background: #a9d86e;}
+.pass-btn{text-align: center; font-size: 18px;
+    display: block; width:200px; height: 50px; line-height: 50px; background: #81c242; color:#fff; border-radius: 5px;}
 
 .relation-artical{border:1px solid #bdc2d3;padding:12px 12px 20px;width:276px;float: right;}
 .relation-artical .rel-tit{padding:2px 0; color: #161515;border-bottom: 2px solid #fdb72f;}
