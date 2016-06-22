@@ -64,15 +64,16 @@
                                 {{/if}}
                                 {{if $exam_data.question_detail.style==3}}
                                 <dd class="discuss-dd">
-                                    <textarea name="answer" rows="3" cols="4"></textarea>
+                                    <textarea id="answer" name="answer" rows="3" cols="4">{{$exam_data.question_detail.answer}}</textarea>
                                 </dd>
+                                <div class="exam-page">
+                                    <p>
+                                        <a href="javascript:void(0);" onclick="save_answer()" class="save">保存答案</a>
+                                    </p>
+                                </div>
                                 {{/if}}
                             </dl>
-                           <div class="exam-page">
-                               <p>
-                                   <a href="javascript:void(0);" class="save">上一题</a>
-                               </p>
-                          </div>
+
                            <div class="exam-page">
                                  <p>
                                      {{if $num == 1}}
@@ -148,6 +149,16 @@
     function clickPrev() {
         $("#examForm").attr('action', '/examination/do_examination/{{$exam_data.question_detail.type_id}}/{{$exam_id}}/{{$num-1}}');
         $("#examForm").submit();
+    }
+
+    function save_answer() {
+        if($.trim($("#answer").val())==""){
+            layer.msg('请填写答案后保存');
+        }else{
+            $("#examForm").attr('action', '/examination/do_examination/{{$exam_data.question_detail.type_id}}/{{$exam_id}}/{{$num}}/1');
+            $("#examForm").submit();
+        }
+
     }
 
     function clickNext() {

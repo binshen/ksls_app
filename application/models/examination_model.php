@@ -23,6 +23,12 @@ class Examination_model extends MY_Model
         return $this->db->get('question_type')->result_array();
     }
 
+    public function mark_exam($id){
+        $data = $this->examination_model->mark_exam($id);
+        $this->assign('data', $data);
+        $this->display("mark_exam.html");
+    }
+
     public function get_type(){
         $this->db->from('question_type');
         $data = $this->db->get()->result_array();
@@ -99,7 +105,7 @@ class Examination_model extends MY_Model
     public function get_exam_by_num($exam_id, $num) {
         $row = $this->db->select()->from('self_exam')->where('id',$exam_id)->get()->row_array();
         if($row['type_id']==-1){
-            $this->db->select('c.style,a.complete,c.title, c.op1, c.op2, c.op3, c.op4, a.type_id, a.title AS question_type,
+            $this->db->select('b.answer,c.style,a.complete,c.title, c.op1, c.op2, c.op3, c.op4, a.type_id, a.title AS question_type,
              c.as1 true_as1,c.as2 true_as2,c.as3 true_as3,c.as4 true_as4,
             b.as1, b.as2, b.as3, b.as4, b.id AS eq_id');
             $this->db->from('self_exam a');
@@ -140,53 +146,62 @@ class Examination_model extends MY_Model
     public function take_exam($eq_id) {
         $this->db->trans_start();//--------开始事务
         $data = array();
-        if(is_array($this->input->post('option'))){
-            $ops = $this->input->post('option');
-            foreach($ops as $item){
-                if($item == 'A') {
-                    $data['as1'] = 1;
-                } else if($item == 'B') {
-                    $data['as2'] = 1;
-                } else if($item == 'C') {
-                    $data['as3'] = 1;
-                } else if($item == 'D') {
-                    $data['as4'] = 1;
-                }
-            }
+        if($this->input->post('style')==3){
             $this->db->where('id', $eq_id);
-            $this->db->update('self_exam_question', $data);
-            $row = $this->db->select()->from('self_exam_question')
-                ->where(array(
-                    'id'=>$eq_id,
-                    'as1'=>0,
-                    'as2'=>0,
-                    'as3'=>0,
-                    'as4'=>0
-                ))->get()->row_array();
-            if(!$row){
-                $this->db->where('id', $eq_id);
-                $this->db->update('self_exam_question', array('complete'=>1));
-            }else{
-                $this->db->where('id', $eq_id);
-                $this->db->update('self_exam_question', array('complete'=>0));
-            }
+            $this->db->update('self_exam_question', array(
+                'answer'=>$this->input->post('answer'),
+                'complete'=>1
+                ));
         }else{
-            if($this->input->post('option') == 'A') {
-                $data['as1'] = 1;
-                $data['complete'] = 1;
-            } else if($this->input->post('option') == 'B') {
-                $data['as2'] = 1;
-                $data['complete'] = 1;
-            } else if($this->input->post('option') == 'C') {
-                $data['as3'] = 1;
-                $data['complete'] = 1;
-            } else if($this->input->post('option') == 'D') {
-                $data['as4'] = 1;
-                $data['complete'] = 1;
+            if(is_array($this->input->post('option'))){
+                $ops = $this->input->post('option');
+                foreach($ops as $item){
+                    if($item == 'A') {
+                        $data['as1'] = 1;
+                    } else if($item == 'B') {
+                        $data['as2'] = 1;
+                    } else if($item == 'C') {
+                        $data['as3'] = 1;
+                    } else if($item == 'D') {
+                        $data['as4'] = 1;
+                    }
+                }
+                $this->db->where('id', $eq_id);
+                $this->db->update('self_exam_question', $data);
+                $row = $this->db->select()->from('self_exam_question')
+                    ->where(array(
+                        'id'=>$eq_id,
+                        'as1'=>0,
+                        'as2'=>0,
+                        'as3'=>0,
+                        'as4'=>0
+                    ))->get()->row_array();
+                if(!$row){
+                    $this->db->where('id', $eq_id);
+                    $this->db->update('self_exam_question', array('complete'=>1));
+                }else{
+                    $this->db->where('id', $eq_id);
+                    $this->db->update('self_exam_question', array('complete'=>0));
+                }
+            }else{
+                if($this->input->post('option') == 'A') {
+                    $data['as1'] = 1;
+                    $data['complete'] = 1;
+                } else if($this->input->post('option') == 'B') {
+                    $data['as2'] = 1;
+                    $data['complete'] = 1;
+                } else if($this->input->post('option') == 'C') {
+                    $data['as3'] = 1;
+                    $data['complete'] = 1;
+                } else if($this->input->post('option') == 'D') {
+                    $data['as4'] = 1;
+                    $data['complete'] = 1;
+                }
+                $this->db->where('id', $eq_id);
+                $this->db->update('self_exam_question', $data);
             }
-            $this->db->where('id', $eq_id);
-            $this->db->update('self_exam_question', $data);
         }
+
 
 
         $this->db->trans_complete();//------结束事务
@@ -673,7 +688,7 @@ class Examination_model extends MY_Model
         $sql = "select DISTINCT a.title ,a.id
 from exam a
 left join exam_subsidiary b on b.exam_id = a.id
-left join self_exam c on c.model_exam_id = a.id and c.complete = 1
+left join self_exam c on c.model_exam_id = a.id and c.complete = 1 and c.user_id = ".$this->session->userdata('login_user_id')."
 where (a.permission_id = 1 OR
 (a.permission_id = 2 and a.company_id = ".$this->session->userdata('login_company_id').") OR
 (a.permission_id > 2 and b.subsidiary_id in (".$string_in.")))

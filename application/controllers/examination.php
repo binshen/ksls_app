@@ -17,13 +17,6 @@ class Examination extends MY_Controller
 
         $this->load->model('examination_model');
     }
-     public function mark_list(){
-        $this->display("mark_list.html");
-     }
-
-      public function mark_exam(){
-             $this->display("mark_exam.html");
-      }
 
     function _remap($method, $params = array())
     {
@@ -32,6 +25,17 @@ class Examination extends MY_Controller
         } else {
             return call_user_func_array(array($this, $method), $params);
         }
+    }
+
+    public function mark_list(){
+
+        $this->display("mark_list.html");
+    }
+
+    public function mark_exam($id){
+        $data = $this->examination_model->mark_exam($id);
+        $this->assign('data', $data);
+        $this->display("mark_exam.html");
     }
 
     public function self_examination()
@@ -43,9 +47,7 @@ class Examination extends MY_Controller
         $this->display('self_examination.html');
     }
 
-
-
-    public function do_examination($type_id=1, $exam_id=NULL, $num=1)
+    public function do_examination($type_id=1, $exam_id=NULL, $num=1,$flag=null)
     {
         //这里规定 $type_id = -1 时,就是 统一考试 选择题部分
         $user_id = $this->session->userdata('login_user_id');
@@ -68,7 +70,9 @@ class Examination extends MY_Controller
         if(!empty($_POST['eq_id']) && !empty($_POST['option'])) {
             $this->examination_model->take_exam($_POST['eq_id']);
         }
-
+        if($flag==1){
+            $this->examination_model->take_exam($_POST['eq_id']);
+        }
         $exam_data = $this->examination_model->get_exam_by_num($exam_id, $num);
         $this->assign('exam_data', $exam_data);
 
@@ -229,5 +233,6 @@ class Examination extends MY_Controller
         $res = $this->examination_model->check_flag_date($id);
         echo json_encode($res);
     }
+
 
 }
