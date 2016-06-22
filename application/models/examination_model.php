@@ -25,8 +25,50 @@ class Examination_model extends MY_Model
 
     public function mark_exam($id){
         $data = $this->examination_model->mark_exam($id);
-        $this->assign('data', $data);
-        $this->display("mark_exam.html");
+
+    }
+
+    public function mark_list($page){
+        $user_id = $this->session->userdata('login_user_id');
+        $numPerPage = $this->input->post('numPerPage') ? $this->input->post('numPerPage') : 10;
+        $pageNum = $this->input->post('pageNum') ? $this->input->post('pageNum') : $page;
+        $this->db->select('count(1) as num');
+        $this->db->from('self_exam a');
+        $this->db->join('exam b','a.model_exam_id = b.id','inner');
+        $this->db->where('b.user_id',$user_id);
+        $this->db->where('a.type_id',-1);
+        if($this->input->post('complete')==1){
+            $this->db->where_in('a.complete',array(1));
+        }elseif($this->input->post('complete')==2){
+            $this->db->where_in('a.complete',array(2));
+        }else{
+            $this->db->where_in('a.complete',array(1,2));
+        }
+        $this->db->order_by('a.id', 'desc');
+        $row = $this->db->get()->row_array();
+        //总记录数
+        $data['countPage'] = $row['num'];
+        $data['complete'] = $this->input->post('complete')?$this->input->post('complete'):'';
+        $this->db->select('a.id,a.score,a.title,a.complete,a.created,IFNULL(b.p_num * b.p_score,100) as allscore',false);
+        $this->db->from('self_exam a');
+        $this->db->join('exam b','a.model_exam_id = b.id','inner');
+        $this->db->where('b.user_id',$user_id);
+        $this->db->where('a.type_id',-1);
+        if($this->input->post('complete')==1){
+            $this->db->where_in('a.complete',array(1));
+        }elseif($this->input->post('complete')==2){
+            $this->db->where_in('a.complete',array(2));
+        }else{
+            $this->db->where_in('a.complete',array(1,2));
+        }
+        $this->db->order_by('a.id', 'desc');
+        $this->db->limit($numPerPage, ($pageNum - 1) * $numPerPage );
+        $data['res_list'] = $this->db->get()->result_array();
+        $data['pageNum'] = $pageNum;
+        $data['numPerPage'] = $numPerPage;
+
+        return $data;
+
     }
 
     public function get_type(){
@@ -215,56 +257,66 @@ class Examination_model extends MY_Model
     public function complete_examination($exam_id) {
         $this->db->trans_start();//--------开始事务
         $exam_main = $this->db->select()->from('self_exam')->where('id',$exam_id)->get()->row_array();
-        if($exam_main['type_id'] < 0){
-            $model_exam = $this->db->select()->from('exam')->where('id',$exam_main['model_exam_id'])->get()->row_array();
-            $all_score = intval($model_exam['p_num']) * intval($model_exam['p_score']);
-            $this->db->select('count(1) as num');
-            $this->db->from('self_exam_question a');
-            $this->db->join('exam_question b','b.id = a.question_id','inner');
-            $this->db->where('a.exam_id',$exam_id);
-            $q_all_num =$this->db->get()->row_array();
-            $this->db->select('count(1) as num');
-            $this->db->from('self_exam_question a');
-            $this->db->join('exam_question b','b.id = a.question_id and a.as1 = b.as1 and a.as2 = b.as2 and a.as3 = b.as3 and a.as4 = b.as4','inner');
-            $this->db->where('a.exam_id',$exam_id);
-            $q_true_num =$this->db->get()->row_array();
-
-            $scroe = 0;
-            if($q_all_num['num']!=0){
-                if($q_all_num['num']==$q_true_num['num']){
-                    $scroe = $all_score;
-                }else{
-                    $scroe = floor($all_score * ($q_true_num['num']/$q_all_num['num']));
-                }
-            }
+        if($exam_main['style']==3){
+            $this->db->where('id', $exam_id);
+            $this->db->update('self_exam', array(
+                'complete' => 1
+            ));
         }else{
-            $this->db->select('count(1) as num');
-            $this->db->from('self_exam_question a');
-            $this->db->join('question b','b.id = a.question_id','inner');
-            $this->db->where('a.exam_id',$exam_id);
-            $q_all_num =$this->db->get()->row_array();
-            $this->db->select('count(1) as num');
-            $this->db->from('self_exam_question a');
-            $this->db->join('question b','b.id = a.question_id and a.as1 = b.as1 and a.as2 = b.as2 and a.as3 = b.as3 and a.as4 = b.as4','inner');
-            $this->db->where('a.exam_id',$exam_id);
-            $q_true_num =$this->db->get()->row_array();
-            $scroe = 0;
-            if($q_all_num['num']!=0){
-                if($q_all_num['num']==$q_true_num['num']){
-                    $scroe = 100;
-                }else{
-                    $scroe = floor(100 * ($q_true_num['num']/$q_all_num['num']));
-                }
-            }
+            if($exam_main['type_id'] < 0){
+                $model_exam = $this->db->select()->from('exam')->where('id',$exam_main['model_exam_id'])->get()->row_array();
+                $all_score = intval($model_exam['p_num']) * intval($model_exam['p_score']);
+                $this->db->select('count(1) as num');
+                $this->db->from('self_exam_question a');
+                $this->db->join('exam_question b','b.id = a.question_id','inner');
+                $this->db->where('a.exam_id',$exam_id);
+                $q_all_num =$this->db->get()->row_array();
+                $this->db->select('count(1) as num');
+                $this->db->from('self_exam_question a');
+                $this->db->join('exam_question b','b.id = a.question_id and a.as1 = b.as1 and a.as2 = b.as2 and a.as3 = b.as3 and a.as4 = b.as4','inner');
+                $this->db->where('a.exam_id',$exam_id);
+                $q_true_num =$this->db->get()->row_array();
 
+                $scroe = 0;
+                if($q_all_num['num']!=0){
+                    if($q_all_num['num']==$q_true_num['num']){
+                        $scroe = $all_score;
+                    }else{
+                        $scroe = floor($all_score * ($q_true_num['num']/$q_all_num['num']));
+                    }
+                }
+            }else{
+                $this->db->select('count(1) as num');
+                $this->db->from('self_exam_question a');
+                $this->db->join('question b','b.id = a.question_id','inner');
+                $this->db->where('a.exam_id',$exam_id);
+                $q_all_num =$this->db->get()->row_array();
+                $this->db->select('count(1) as num');
+                $this->db->from('self_exam_question a');
+                $this->db->join('question b','b.id = a.question_id and a.as1 = b.as1 and a.as2 = b.as2 and a.as3 = b.as3 and a.as4 = b.as4','inner');
+                $this->db->where('a.exam_id',$exam_id);
+                $q_true_num =$this->db->get()->row_array();
+                $scroe = 0;
+                if($q_all_num['num']!=0){
+                    if($q_all_num['num']==$q_true_num['num']){
+                        $scroe = 100;
+                    }else{
+                        $scroe = floor(100 * ($q_true_num['num']/$q_all_num['num']));
+                    }
+                }
+
+            }
+            $this->db->where('id', $exam_id);
+            $this->db->update('self_exam', array(
+                'complete' => 2,
+                'score' => $scroe
+
+            ));
         }
 
-        $this->db->where('id', $exam_id);
-        $this->db->update('self_exam', array(
-            'complete' => 1,
-            'score' => $scroe
 
-        ));
+
+
 
         $this->db->trans_complete();//------结束事务
         if ($this->db->trans_status() === FALSE) {
@@ -603,7 +655,7 @@ class Examination_model extends MY_Model
         $this->db->join('exam b','a.model_exam_id = b.id','left');
         $this->db->where(array(
             'a.user_id'=>$user_id,
-            'a.complete'=>1
+            'a.complete'=>2
         ));
         $this->db->order_by('a.id', 'desc');
         $row = $this->db->get()->row_array();
@@ -615,7 +667,7 @@ class Examination_model extends MY_Model
         $this->db->join('exam b','a.model_exam_id = b.id','left');
         $this->db->where(array(
             'a.user_id'=>$user_id,
-            'a.complete'=>1
+            'a.complete'=>2
         ));
         $this->db->order_by('a.id', 'desc');
         $this->db->limit($numPerPage, ($pageNum - 1) * $numPerPage );
@@ -688,7 +740,7 @@ class Examination_model extends MY_Model
         $sql = "select DISTINCT a.title ,a.id
 from exam a
 left join exam_subsidiary b on b.exam_id = a.id
-left join self_exam c on c.model_exam_id = a.id and c.complete = 1 and c.user_id = ".$this->session->userdata('login_user_id')."
+left join self_exam c on c.model_exam_id = a.id and c.complete >= 1 and c.user_id = ".$this->session->userdata('login_user_id')."
 where (a.permission_id = 1 OR
 (a.permission_id = 2 and a.company_id = ".$this->session->userdata('login_company_id').") OR
 (a.permission_id > 2 and b.subsidiary_id in (".$string_in.")))

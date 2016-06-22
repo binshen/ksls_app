@@ -27,8 +27,11 @@ class Examination extends MY_Controller
         }
     }
 
-    public function mark_list(){
-
+    public function mark_list($page=1){
+        $mark_list = $this->examination_model->mark_list($page);
+        $this->assign('mark_list', $mark_list);
+        $pager = $this->pagination->getPageLink('/examination/mark_list', $mark_list['countPage'], $mark_list['numPerPage']);
+        $this->assign('pager', $pager);
         $this->display("mark_list.html");
     }
 

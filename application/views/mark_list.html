@@ -32,41 +32,48 @@
         </div>
         <div class="wrap-right">
              <div class="search-wrap" style="padding-left:20px;">
-                 <form id="formSearchActivity" method="POST" action="/activity/list_activity">
+                 <form id="formSearchActivity" method="POST" action="/examination/mark_list">
                      <select name="subsidiary" style="width:210px;">
                          <option value="">试卷选择</option>
                          <option value="震川店入职新人在线测评">震川店入职新人在线测评</option>
                          <option value="震川店入职新人在线测评">震川店入职新人在线测评</option>
                      </select>
-                     <select name="user">
-                         <option value="">选择状态</option>
-                         <option value="未评分">未评分</option>
-                         <option value="已评分">已评分</option>
+                     <select name="complete">
+                         <option value="">全部</option>
+                         <option value="1">未评分</option>
+                         <option value="2">已评分</option>
                      </select>
                      <a href="javascript:void(0);" class="search-btn" id="btn_search"></a>
+                 </form>
             </div>
               <div class="schedule-wrap upload-document-wrap">
                 <p class="tab-tit">我的阅卷</p>
                 <div class="examination-main clearfix">
                     <table cellspadding="0" border="0" class="examination-list-table">
                         <tr>
-                            <th width="100">编号</th>
+
                             <th width="150">姓名</th>
                             <th width="200">考试名称</th>
                             <th width="100">评阅</th>
                             <th width="178">状态</th>
                             <th>操作</th>
                         </tr>
+                        {{foreach from=$mark_list.res_list key=key item=item}}
                         <tr>
-                            <td>1</td>
+
                             <td>郑法明</td>
-                            <td>震川店入职新人在线测评</td>
-                            <td>--</td>
-                            <td class="nomark">未评分</td>
+                            <td>{{$item.title}}</td>
+                            <td>{{$item.score|default:'--'}}</td>
+                            <td class="nomark">
+                                {{if $item.complete==1}}未评分{{/if}}
+                                {{if $item.complete==2}}已评分{{/if}}
+                                </td>
                             <td><a href="/examination/mark_exam">评分</a></td>
                         </tr>
+                        {{/foreach}}
+
                         <tr>
-                            <td>2</td>
+
                             <td>郑法明</td>
                             <td>震川店入职新人在线测评</td>
                             <td>--</td>
@@ -74,7 +81,7 @@
                             <td><a href="/examination/mark_exam">查看</a></td>
                         </tr>
                         <tr>
-                            <td>3</td>
+
                             <td>郑法明</td>
                             <td>震川店入职新人在线测评</td>
                             <td>--</td>
@@ -82,7 +89,7 @@
                             <td><a href="/examination/mark_exam">查看</a></td>
                         </tr>
                         <tr>
-                            <td>4</td>
+
                             <td>郑法明</td>
                             <td>震川店入职新人在线测评</td>
                             <td>--</td>
@@ -91,7 +98,7 @@
                         </tr>
                     </table>
                     <div class="pages">
-
+                        {{$pager}}
                     </div>
 
             </div>
