@@ -691,6 +691,7 @@ html .fc,.fc table{font-size:1em;background:#f2f3f5}.fc td,.fc th{padding:0;vert
     border-bottom:1px solid #f2f2f0; font-weight: normal;}
 .examination-list-table td{padding:6px 0;border-bottom:1px solid #f2f2f0; color: #999; font-size:16px; text-align: center;}
 .examination-list-table td .score,.examination-list-table td a{ color:#167ac1;}
+.examination-list-table .nomark{color:#f10a14;}
 /*录入试题*/
 .entering-table th{font-size:16px; color:#515151;font-weight: normal; padding:5px 0;}
 .entering-table td {padding:10px 0;}

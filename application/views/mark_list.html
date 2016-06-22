@@ -31,8 +31,19 @@
             </div>
         </div>
         <div class="wrap-right">
-             <div class="search-wrap">
-               
+             <div class="search-wrap" style="padding-left:20px;">
+                 <form id="formSearchActivity" method="POST" action="/activity/list_activity">
+                     <select name="subsidiary" style="width:210px;">
+                         <option value="">试卷选择</option>
+                         <option value="震川店入职新人在线测评">震川店入职新人在线测评</option>
+                         <option value="震川店入职新人在线测评">震川店入职新人在线测评</option>
+                     </select>
+                     <select name="user">
+                         <option value="">选择状态</option>
+                         <option value="未评分">未评分</option>
+                         <option value="已评分">已评分</option>
+                     </select>
+                     <a href="javascript:void(0);" class="search-btn" id="btn_search"></a>
             </div>
               <div class="schedule-wrap upload-document-wrap">
                 <p class="tab-tit">我的阅卷</p>
@@ -51,7 +62,7 @@
                             <td>郑法明</td>
                             <td>震川店入职新人在线测评</td>
                             <td>--</td>
-                            <td>未评分</td>
+                            <td class="nomark">未评分</td>
                             <td><a href="/examination/mark_exam">评分</a></td>
                         </tr>
                         <tr>
@@ -59,7 +70,7 @@
                             <td>郑法明</td>
                             <td>震川店入职新人在线测评</td>
                             <td>--</td>
-                            <td>未评分</td>
+                            <td class="nomark">未评分</td>
                             <td><a href="/examination/mark_exam">查看</a></td>
                         </tr>
                         <tr>
@@ -67,7 +78,7 @@
                             <td>郑法明</td>
                             <td>震川店入职新人在线测评</td>
                             <td>--</td>
-                            <td>未评分</td>
+                            <td class="nomark">未评分</td>
                             <td><a href="/examination/mark_exam">查看</a></td>
                         </tr>
                         <tr>
@@ -75,7 +86,7 @@
                             <td>郑法明</td>
                             <td>震川店入职新人在线测评</td>
                             <td>--</td>
-                            <td>未评分</td>
+                            <td class="nomark">未评分</td>
                             <td><a href="/examination/mark_exam">评分</a></td>
                         </tr>
                     </table>
