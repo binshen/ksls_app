@@ -840,4 +840,17 @@ and a.flag = 2 and c.id is null and a.start_time < now() and a.end_time > date_a
             ));
         $this->db->trans_complete();//------结束事务
     }
+
+    public function check_complete($id){
+        $this->db->select();
+        $this->db->from('self_exam_question');
+        $this->db->where('exam_id',$id);
+        $this->db->where('complete',0);
+        $res = $this->db->get()->row_array();
+        if($res){
+            return 1;
+        }else{
+            return 2;
+        }
+    }
 }

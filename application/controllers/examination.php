@@ -309,4 +309,9 @@ class Examination extends MY_Controller
         redirect(site_url('/examination/mark_list'));
     }
 
+    public function check_complete($id){
+        $res = $this->examination_model->check_complete($id);
+        echo json_encode($res);
+    }
+
 }
