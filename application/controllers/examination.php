@@ -23,6 +23,54 @@ class Examination extends MY_Controller
         if(!$this->session->userdata('login_user_id')) {
             redirect(site_url('/'));
         } else {
+            if($this->session->userdata('login_permission_id') > 4){
+                if($method == 'mark_list'){
+                    redirect(site_url('/examination/self_examination'));
+                    exit();
+                }
+                if($method == 'review_examination'){
+                    redirect(site_url('/examination/self_examination'));
+                    exit();
+                }
+                if($method == 'setup_examination'){
+                    redirect(site_url('/examination/self_examination'));
+                    exit();
+                }
+                if($method == 'choose_items'){
+                    redirect(site_url('/examination/self_examination'));
+                    exit();
+                }
+                if($method == 'choose_list'){
+                    redirect(site_url('/examination/self_examination'));
+                    exit();
+                }
+                if($method == 'examination_list'){
+                    redirect(site_url('/examination/self_examination'));
+                    exit();
+                }
+                if($method == 'save_question'){
+                    redirect(site_url('/examination/self_examination'));
+                    exit();
+                }
+                if($method == 'change_exam_flag'){
+                    redirect(site_url('/examination/self_examination'));
+                    exit();
+                }
+                if($method == 'change_flag_1'){
+                    redirect(site_url('/examination/self_examination'));
+                    exit();
+                }
+                if($method == 'mark_exam2'){
+                    redirect(site_url('/examination/self_examination'));
+                    exit();
+                }
+                if($method == 'save_score'){
+                    redirect(site_url('/examination/self_examination'));
+                    exit();
+                }
+            }
+            $this->assign('login_permission_id', $this->session->userdata('login_permission_id'));
+            $this->assign('login_position_id_array', $this->session->userdata('login_position_id_array'));
             return call_user_func_array(array($this, $method), $params);
         }
     }
@@ -75,7 +123,7 @@ class Examination extends MY_Controller
 
         $question_data = $this->examination_model->get_exam_question($exam_id);
         $this->assign('question_data', $question_data);
-
+        $this->assign('flag', $flag);
         $this->assign('num', $num);
 
         $this->display('do_examination.html');

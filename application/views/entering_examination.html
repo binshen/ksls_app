@@ -24,10 +24,15 @@
                     <li class="on">  <a href="/examination/enter_examination"><em class="onlineexam"></em>题库</a>
                         <span class="document-nav-list">
                             <a href="/examination/enter_examination" class="on">上传试题</a><br />
+                            {{if $login_permission_id <= 4}}
                             <a href="/examination/setup_examination">生成试卷</a><br />
                             <a href="/examination/examination_list">我的试卷</a>
+                            {{/if}}
                         </span>
                     </li>
+                    {{if $login_permission_id <= 4}}
+                    <li><a href="/examination/mark_list"><em class="onlinemark"></em>在线阅卷</a></li>
+                    {{/if}}
                 </ul>
             </div>
         </div>

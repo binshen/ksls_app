@@ -26,7 +26,12 @@
                             <a href="/examination/examination_score">我的成绩</a>
                         </span>
                     </li>
+                    {{if $login_permission_id <= 4 || in_array(5,$login_position_id_array)}}
                     <li><a href="/examination/enter_examination"><em class="onlineexam"></em>题库</a></li>
+                    {{if $login_permission_id <= 4}}
+                    <li><a href="/examination/mark_list"><em class="onlinemark"></em>在线阅卷</a></li>
+                    {{/if}}
+                    {{/if}}
                 </ul>
             </div>
         </div>
@@ -134,6 +139,9 @@
 <script type="text/javascript" src="/static/js/jquery-1.7.2.min.js"></script>
 <script type="application/javascript">
     $(function() {
+        {{if $flag}}
+            layer.msg('保存成功');
+        {{/if}}
         $(".dl-exam dd label").click(function(){ $(".dl-exam dd label").removeClass("choose");$(this).addClass("choose"); });
         $("#submitExam").click(function() {
            layer.confirm('确定要交卷吗？', {
@@ -145,6 +153,8 @@
            });
         });
     });
+
+
 
     function clickPrev() {
         $("#examForm").attr('action', '/examination/do_examination/{{$exam_data.question_detail.type_id}}/{{$exam_id}}/{{$num-1}}');

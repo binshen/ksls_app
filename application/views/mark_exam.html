@@ -44,7 +44,7 @@
                          <p class="mark-score-p3"><span> 考题评分：<input type="text" name="score[]" class="setscore" value="{{$item.score|default:''}}" /> 分</span></p>
                          <input type="hidden" name="self_exam_qus_id[]" value="{{$item.id}}">
                          {{/foreach}}
-                         <p class="mark-score-p3 mark-score-p4"><span> 试题总分：<input type="text" readonly="readonly" name="allscore" id="allscore" class="setscore" /> 分</span></p>
+                         <p class="mark-score-p3 mark-score-p4"><span> 试题总分：<input type="text" value="{{$data.exam_main.score|default:''}}" readonly="readonly" name="allscore" id="allscore" class="setscore" /> 分</span></p>
                          <p class="p-btn"><a href="javascript:void(0);" id="save_btn" class="confirm-btn" style="width:130px; height: 42px; line-height: 42px;">保存</a></p>
                          <!--<a href="javascript:" class="savebtn">保存</a>-->
                           <a href="/examination/mark_list" class="backbtn">返回列表</a>
