@@ -69,6 +69,13 @@ class Examination extends MY_Controller
                     exit();
                 }
             }
+            $login_position_id_array = $this->session->userdata('login_position_id_array');
+            if(!in_array(5,$login_position_id_array)){
+                if($method == 'enter_examination'){
+                    redirect(site_url('/examination/examination_list'));
+                    exit();
+                }
+            }
             $this->assign('login_permission_id', $this->session->userdata('login_permission_id'));
             $this->assign('login_position_id_array', $this->session->userdata('login_position_id_array'));
             return call_user_func_array(array($this, $method), $params);
