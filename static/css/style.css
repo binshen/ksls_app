@@ -653,7 +653,7 @@ html .fc,.fc table{font-size:1em;background:#f2f3f5}.fc td,.fc th{padding:0;vert
     float: left; text-align: center; line-height: 34px;border-radius: 3px; position: absolute;}
 .exam-category .pos1{left:26px;} .exam-category .pos2{left:155px;}
 .exam-category .current{border: 1px solid #009ee7;color: #009ee7; background: #fff; }
-.examination-result-inner{border-left:1px solid #dedddd;padding-left:15px;}
+.examination-result-inner{border-left:1px solid #dedddd;padding-left:15px; min-height: 320px;}
 .ques-number a{display: inline-block;width:36px; height: 26px; border:1px solid #ccd1d9; margin:0 12px 10px 0;border-radius: 3px; text-align: center; line-height: 26px;}
 .ques-number .current{ background: #37bc9b; border:1px solid #37bc9b; color:#fff;}
 .ques-number .done{background: #85dbd4; border:1px solid #37bc9b; color:#fff;}
