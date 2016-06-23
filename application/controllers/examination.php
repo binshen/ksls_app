@@ -35,12 +35,6 @@ class Examination extends MY_Controller
         $this->display("mark_list.html");
     }
 
-    public function mark_exam($id){
-        $data = $this->examination_model->mark_exam($id);
-        $this->assign('data', $data);
-        $this->display("mark_exam.html");
-    }
-
     public function self_examination()
     {
 
@@ -135,6 +129,7 @@ class Examination extends MY_Controller
         $this->assign('exam_data', $exam_data);
         $this->display("review_examination.html");
     }
+
     public function setup_examination(){
         $res = $this->examination_model->get_news_exam_id();
         if($res == -1){
@@ -144,7 +139,6 @@ class Examination extends MY_Controller
         }
 
     }
-
 
     public function choose_items(){
         $res = $this->examination_model->save_exam_main();
@@ -237,5 +231,20 @@ class Examination extends MY_Controller
         echo json_encode($res);
     }
 
+    public function mark_exam2($exam_id,$num=1){
+        $exam_data = $this->examination_model->get_exam_by_num($exam_id, $num);
+        $this->assign('exam_data', $exam_data);
+        $question_true = $this->examination_model->get_true_exam_question($exam_id);
+        $this->assign('question_true', $question_true);
+        $this->assign('exam_id', $exam_id);
+        $this->assign('num', $num);
+        $this->display('submit_examination_mark.html');
+    }
+
+    public function mark_exam($id){
+        $data = $this->examination_model->mark_exam($id);
+        $this->assign('data', $data);
+        $this->display("mark_exam.html");
+    }
 
 }

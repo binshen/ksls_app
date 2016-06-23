@@ -24,7 +24,14 @@ class Examination_model extends MY_Model
     }
 
     public function mark_exam($id){
-        $data = $this->examination_model->mark_exam($id);
+
+        $data['exam_main'] = $this->db->select()->from('self_exam')->where('id',$id)->get()->row_array();
+        $this->db->select('a.answer,a.score,b.title');
+        $this->db->from('self_exam_question a');
+        $this->db->join('exam_question b','a.question_id = b.id','inner');
+        $this->db->where('a.exam_id',$id);
+        $data['exam_detail'] = $this->db->get()->result_array();
+        return $data;
 
     }
 
@@ -35,6 +42,7 @@ class Examination_model extends MY_Model
         $this->db->select('count(1) as num');
         $this->db->from('self_exam a');
         $this->db->join('exam b','a.model_exam_id = b.id','inner');
+        $this->db->join('user c','a.user_id = c.id','inner');
         $this->db->where('b.user_id',$user_id);
         $this->db->where('a.type_id',-1);
         if($this->input->post('complete')==1){
@@ -44,14 +52,18 @@ class Examination_model extends MY_Model
         }else{
             $this->db->where_in('a.complete',array(1,2));
         }
+        if($this->input->post('exam_id'))
+            $this->db->where('b.id',$this->input->post('exam_id'));
         $this->db->order_by('a.id', 'desc');
         $row = $this->db->get()->row_array();
         //总记录数
         $data['countPage'] = $row['num'];
         $data['complete'] = $this->input->post('complete')?$this->input->post('complete'):'';
-        $this->db->select('a.id,a.score,a.title,a.complete,a.created,IFNULL(b.p_num * b.p_score,100) as allscore',false);
+        $data['exam_id'] = $this->input->post('exam_id')?$this->input->post('exam_id'):'';
+        $this->db->select('b.style,a.*,c.rel_name,IFNULL(b.p_num * b.p_score,100) as allscore',false);
         $this->db->from('self_exam a');
         $this->db->join('exam b','a.model_exam_id = b.id','inner');
+        $this->db->join('user c','a.user_id = c.id','inner');
         $this->db->where('b.user_id',$user_id);
         $this->db->where('a.type_id',-1);
         if($this->input->post('complete')==1){
@@ -61,12 +73,21 @@ class Examination_model extends MY_Model
         }else{
             $this->db->where_in('a.complete',array(1,2));
         }
+        if($this->input->post('exam_id'))
+            $this->db->where('b.id',$this->input->post('exam_id'));
         $this->db->order_by('a.id', 'desc');
         $this->db->limit($numPerPage, ($pageNum - 1) * $numPerPage );
         $data['res_list'] = $this->db->get()->result_array();
         $data['pageNum'] = $pageNum;
         $data['numPerPage'] = $numPerPage;
-
+        $this->db->select();
+        $this->db->from('exam');
+        $this->db->where(array(
+            'user_id'=>$user_id,
+            'flag'=>2
+        ));
+        $this->db->order_by('id', 'desc');
+        $data['exam_list'] = $this->db->get()->result_array();
         return $data;
 
     }
