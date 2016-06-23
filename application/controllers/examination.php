@@ -167,6 +167,7 @@ class Examination extends MY_Controller
 
         $this->display("setup_examination2.html");
     }
+
     public function examination_score($page=1){
 
         $score_list = $this->examination_model->get_my_score_list($page);
@@ -175,6 +176,7 @@ class Examination extends MY_Controller
         $this->assign('pager', $pager);
         $this->display("examination_score.html");
     }
+
     public function examination_list($page=1){
         $exam_list = $this->examination_model->get_my_exam_list($page);
         $this->assign('exam_list', $exam_list);
@@ -245,6 +247,11 @@ class Examination extends MY_Controller
         $data = $this->examination_model->mark_exam($id);
         $this->assign('data', $data);
         $this->display("mark_exam.html");
+    }
+
+    public function save_score(){
+        $this->examination_model->save_score();
+        redirect(site_url('/examination/mark_list'));
     }
 
 }

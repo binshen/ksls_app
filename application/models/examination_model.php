@@ -26,7 +26,10 @@ class Examination_model extends MY_Model
     public function mark_exam($id){
 
         $data['exam_main'] = $this->db->select()->from('self_exam')->where('id',$id)->get()->row_array();
-        $this->db->select('a.answer,a.score,b.title');
+        $data['exam_model'] = $this->db->select()->from('exam')->where('id',$data['exam_main']['model_exam_id'])->get()->row_array();
+       /*echo $this->db->last_query();
+        die(var_dump($data['exam_model']));*/
+        $this->db->select('a.id,a.answer,a.score,b.title');
         $this->db->from('self_exam_question a');
         $this->db->join('exam_question b','a.question_id = b.id','inner');
         $this->db->where('a.exam_id',$id);
@@ -126,6 +129,7 @@ class Examination_model extends MY_Model
         }else{
             $title['title']="";
             $title['id']="";
+            $title['style']=1;
             $this->db->from('question');
             $this->db->where('type_id', $type_id);
             $this->db->where_in('style',array(1,2));
@@ -142,6 +146,7 @@ class Examination_model extends MY_Model
                 'title' => $title['title'] ? $title['title'] : '自助考试-' . date('YmdHis'),
                 'model_exam_id'=>$title['id'] ? $title['id'] : -1,
                 'complete' => 0,
+                'style'=>$title['style'],
                 'created' => date("Y-m-d H:i:s")
             );
             $this->db->insert('self_exam', $data);
@@ -809,5 +814,29 @@ and a.flag = 2 and c.id is null and a.start_time < now() and a.end_time > date_a
             return 2;
         }
         return 1;
+    }
+
+    public function save_score(){
+
+        $ids = $this->input->post('self_exam_qus_id');
+        $score = $this->input->post('score');
+        $allscore=0;
+        $this->db->trans_start();//--------开始事务
+        if($ids){
+            if(is_array($ids)){
+                foreach($ids as $key=>$item){
+                    $this->db->where('id',$item)->update('self_exam_question',array('score'=>$score[$key]?$score[$key]:0));
+                    $allscore += $score[$key]?$score[$key]:0;
+                }
+            }else{
+                $this->db->where('id',$ids)->update('self_exam_question',array('score'=>$score?$score:0));
+                $allscore += $score?$score:0;
+            }
+        }
+        $this->db->where('id',$this->input->post('exam_id'))->update('self_exam',array(
+            'complete'=>2,
+            'score'=>$allscore
+            ));
+        $this->db->trans_complete();//------结束事务
     }
 }
