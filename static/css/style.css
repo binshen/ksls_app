@@ -758,6 +758,7 @@ html .fc,.fc table{font-size:1em;background:#f2f3f5}.fc td,.fc th{padding:0;vert
 .mark-score-span{margin: 10px 0; display: block;}
 .mark-score-p3 span {float: right; font-size:16px;color: #333; font-weight:bold;}
 .mark-score-p3 .setscore{width:60px; height:35px; border:1px solid;border:1px solid #167ac1;border-radius:5px; line-height: 35px; text-align: center;}
-.mark-score-p4{background: #f7f7f7;padding:10px 0;}
+.mark-score-p4{background: #f7f7f7;padding:10px 0; margin:30px 0 0 0;}
 .mark-score-p4 .setscore{border:1px solid #acd974;}
 .backbtn{float: right;border:1px solid #d8d8d8;width:105px; height: 36px; line-height: 36px; text-align: center;font-style: 14px; background: #f2f2f2; color: #777;border-radius: 5px;}
+.savebtn{}

@@ -46,7 +46,9 @@
                     <p class="mark-score-p2">{{$item.answer}}</p>
                     <p class="mark-score-p3"><span> 考题评分：<input type="text" class="setscore" value="{{$item.score|default:''}}" /> 分</span></p>
                     {{/foreach}}
-
+                    <p class="mark-score-p3 mark-score-p4"><span> 试题总分：<input type="text" class="setscore" /> 分</span></p>
+                    <p class="p-btn"><a href="javascript:" class="confirm-btn" style="width:130px; height: 42px; line-height: 42px;">保存</a></p>
+                    <!--<a href="javascript:" class="savebtn">保存</a>-->
                     <a href="/examination/mark_list" class="backbtn">返回列表</a>
                 </div>
         </div>
