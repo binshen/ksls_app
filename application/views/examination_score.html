@@ -26,7 +26,12 @@
                             <a href="/examination/examination_score" class="on">我的成绩</a>
                         </span>
                     </li>
+                    {{if $login_permission_id <= 4 || in_array(5,$login_position_id_array)}}
                     <li><a href="/examination/enter_examination"><em class="onlineexam"></em>题库</a></li>
+                    {{if $login_permission_id <= 4)}}
+                    <li><a href="/examination/mark_list"><em class="onlinemark"></em>在线阅卷</a></li>
+                    {{/if}}
+                    {{/if}}
                 </ul>
             </div>
         </div>
