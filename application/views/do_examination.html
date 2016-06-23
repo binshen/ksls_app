@@ -145,13 +145,28 @@
         {{/if}}
         $(".dl-exam dd label").click(function(){ $(".dl-exam dd label").removeClass("choose");$(this).addClass("choose"); });
         $("#submitExam").click(function() {
-           layer.confirm('确定要交卷吗？', {
-               btn: ['确定','取消'] //按钮
-           }, function(){
-               $("#examForm").attr('action', '/examination/complete_examination/{{$exam_id}}');
-               $("#examForm").submit();
-           }, function(){
-           });
+            var msg = "确定要交卷吗？";
+            $.getJSON('/examination/check_complete/{{$exam_id}}',function(data){
+                if(data==1){
+                    msg = "您还有未完成的试题,是否确定要交卷？";
+                    layer.confirm(msg, {
+                        btn: ['确定','取消'] //按钮
+                    }, function(){
+                        $("#examForm").attr('action', '/examination/complete_examination/{{$exam_id}}');
+                        $("#examForm").submit();
+                    }, function(){
+                    });
+                }else{
+                    layer.confirm(msg, {
+                        btn: ['确定','取消'] //按钮
+                    }, function(){
+                        $("#examForm").attr('action', '/examination/complete_examination/{{$exam_id}}');
+                        $("#examForm").submit();
+                    }, function(){
+                    });
+                }
+            })
+
         });
     });
 
