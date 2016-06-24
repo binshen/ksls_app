@@ -54,9 +54,22 @@
                                 )
                                 {{$exam_data['question_detail']['title']}}({{$exam_data['question_detail']['p_score']}}分)
 
-                                {{if $exam_data.question_detail.style==3 && $exam_data['question_detail']['complete']==2}}
-                            <p class="hassubmit">
-                                本题论述题得分:{{$exam_data['question_detail']['score']}}分
+                                {{if $exam_data['question_detail']['complete']==2}}
+                            <p style="color: red;float: right">
+                            {{if $exam_data.question_detail.style==3}}
+                            论述题得分:{{$exam_data['question_detail']['score']|default:0}}分
+                            {{else}}
+                            {{if $exam_data['question_detail']['as1']==$exam_data['question_detail']['true_as1'] && $exam_data['question_detail']['as2']==$exam_data['question_detail']['true_as2'] && $exam_data['question_detail']['as3']==$exam_data['question_detail']['true_as3'] && $exam_data['question_detail']['as4']==$exam_data['question_detail']['true_as4']}}
+                            正确
+                            {{else}}
+                            错误,正确答案:
+                            {{if $exam_data['question_detail']['true_as1']==1}}A{{/if}}
+                            {{if $exam_data['question_detail']['true_as2']==1}}B{{/if}}
+                            {{if $exam_data['question_detail']['true_as3']==1}}C{{/if}}
+                            {{if $exam_data['question_detail']['true_as4']==1}}D{{/if}}
+                            {{/if}}
+                            {{/if}}
+
                             </p>
                             {{/if}}
                             </dt>

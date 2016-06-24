@@ -854,4 +854,11 @@ and a.flag = 2 and c.id is null and a.start_time < now() and a.end_time > date_a
             return 2;
         }
     }
+
+    public function delete_exam(){
+        $this->db->where(array(
+            'user_id' => $this->session->userdata('login_user_id'),
+            'flag'=>1
+        ))->update('exam',array('flag'=>-1));
+    }
 }

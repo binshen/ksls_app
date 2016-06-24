@@ -131,11 +131,10 @@
 </html>
 <script>
     $("#delete_btn").click(function(){
-        layer.confirm('是否确认放弃试卷,放弃后将会永久删除次试卷的数据!', {
+        layer.confirm('是否确认放弃试卷,放弃后将会永久删除本试卷的数据!', {
             btn: ['确定','取消'] //按钮
         }, function(){
-            $("#examForm").attr('action', '/examination/delete_exam');
-            $("#examForm").submit();
+            window.location.href="/examination/delete_exam";
         }, function(){
         });
     })

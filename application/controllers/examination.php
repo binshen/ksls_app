@@ -315,8 +315,7 @@ class Examination extends MY_Controller
     }
 
     public function delete_exam(){
-    $res = $this->examination_model->check_complete($id);
-    echo json_encode($res);
-}
-
+        $this->examination_model->delete_exam();
+        redirect(site_url('/examination/setup_examination'));
+    }
 }
