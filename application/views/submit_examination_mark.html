@@ -42,7 +42,13 @@
                                 {{if $exam_data.question_detail.style==2}}多选题{{/if}}
                                 {{if $exam_data.question_detail.style==3}}论述题{{/if}}
                                 )
-                                {{$exam_data['question_detail']['title']}}</dt>
+                                {{$exam_data['question_detail']['title']}}({{$exam_data['question_detail']['p_score']}}分)
+                                {{if $exam_data.question_detail.style==3 && $exam_data['question_detail']['complete']==2}}
+                            <p class="hassubmit">
+                                本题论述题得分:{{$exam_data['question_detail']['score']}}分
+                            </p>
+                            {{/if}}
+                            </dt>
                             {{if $exam_data.question_detail.style==1}}
                             <dd><label><input disabled="disabled" type="radio" value="" name="radio1" {{if $exam_data['question_detail']['as1']==1}} checked="checked" {{/if}} /><span>A {{$exam_data['question_detail']['op1']}}</span></label></dd>
                             <dd><label><input disabled="disabled" type="radio" value="" name="radio1" {{if $exam_data['question_detail']['as2']==1}} checked="checked" {{/if}} /><span>B {{$exam_data['question_detail']['op2']}}</span></label></dd>
@@ -55,7 +61,7 @@
                             <dd><label><input disabled="disabled" type="checkbox" value="" name="radio1" {{if $exam_data['question_detail']['as4']==1}} checked="checked" {{/if}} /><span>D {{$exam_data['question_detail']['op4']}}</span></label></dd>
                             {{else}}
                             <dd class="discuss-dd">
-                                <textarea id="answer" name="answer" rows="3" cols="4">{{$exam_data.question_detail.answer}}</textarea>
+                                <textarea id="answer" readonly="readonly" name="answer" rows="3" cols="4">{{$exam_data.question_detail.answer}}</textarea>
                             </dd>
                             {{/if}}
                         </dl>
@@ -64,13 +70,13 @@
                                  {{if $num == 1}}
                                  <a href="javascript:void(0);" class="prev btn-off">上一题</a>
                                  {{else}}
-                                 <a href="/examination/submit_examination_mark/{{$exam_id}}/{{$num-1}}" class="prev">上一题</a>
+                                 <a href="/examination/mark_exam2/{{$exam_id}}/{{$num-1}}" class="prev">上一题</a>
                                  {{/if}}
 
                                  {{if $num >= count($question_true)}}
                                  <a href="" class="next btn-off">下一题</a>
                                  {{else}}
-                                 <a href="/examination/submit_examination_mark/{{$exam_id}}/{{$num+1}}" class="next">下一题</a>
+                                 <a href="/examination/mark_exam2/{{$exam_id}}/{{$num+1}}" class="next">下一题</a>
                                  {{/if}}
                                   </p>
                     </div> 
@@ -79,6 +85,9 @@
                         <p class="hassubmit">
                             {{if $exam_data['question_detail']['complete']>=1}}
                             已交卷!
+                            {{if $exam_data['question_detail']['complete']==2}}
+                            共得分:{{$exam_data['question_detail']['allscore']}}
+                            {{/if}}
                             {{/if}}
                         </p>
                         <div class="examination-result-inner">
@@ -92,9 +101,9 @@
                                 <a href="" class="current">{{$key+1}}</a>
                                 {{else}}
                                 {{if $item['self_as1']==$item['as1'] && $item['self_as2']==$item['as2'] && $item['self_as3']==$item['as3'] && $item['self_as4']==$item['as4']}}
-                                <a href="/examination/submit_examination_mark/{{$exam_id}}/{{$key+1}}" class="">{{$key+1}}</a>
+                                <a href="/examination/mark_exam2/{{$exam_id}}/{{$key+1}}" class="">{{$key+1}}</a>
                                 {{else}}
-                                <a href="/examination/submit_examination_mark/{{$exam_id}}/{{$key+1}}" class="error">{{$key+1}}</a>
+                                <a href="/examination/mark_exam2/{{$exam_id}}/{{$key+1}}" class="error">{{$key+1}}</a>
                                  <span class="answer" style="display:none">
                                     正确答案：<i class="correct">
                                      {{if $item['as1']==1}}A{{/if}}

@@ -314,4 +314,9 @@ class Examination extends MY_Controller
         echo json_encode($res);
     }
 
+    public function delete_exam(){
+    $res = $this->examination_model->check_complete($id);
+    echo json_encode($res);
+}
+
 }

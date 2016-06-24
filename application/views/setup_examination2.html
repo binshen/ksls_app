@@ -119,6 +119,7 @@
 <div class="paperitemsnumber">
     <p>选择题目(<i id="exam_num" class="red">{{$exam_data.exam_num}}</i>/{{$exam_data.exam_main.p_num}})</p>
     <a href="javascript:void(0);" id="review_btn" class="okbtn">生成试卷</a>
+    <a href="javascript:void(0);" id="delete_btn" class="okbtn">放弃试卷</a>
 </div>
 <script type="text/javascript" src="/static/js/dpl-jquery.slide.js"></script>
     <script type="text/javascript" src="/static/js/layer/layer.js"></script>
@@ -129,6 +130,16 @@
 </body>
 </html>
 <script>
+    $("#delete_btn").click(function(){
+        layer.confirm('是否确认放弃试卷,放弃后将会永久删除次试卷的数据!', {
+            btn: ['确定','取消'] //按钮
+        }, function(){
+            $("#examForm").attr('action', '/examination/delete_exam');
+            $("#examForm").submit();
+        }, function(){
+        });
+    })
+
     $("#review_btn").click(function(){
         var exam_num = $("#exam_num").html();
         if(parseInt(exam_num) == {{$exam_data.exam_main.p_num}}){

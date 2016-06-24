@@ -173,19 +173,20 @@ class Examination_model extends MY_Model
     public function get_exam_by_num($exam_id, $num) {
         $row = $this->db->select()->from('self_exam')->where('id',$exam_id)->get()->row_array();
         if($row['type_id']==-1){
-            $this->db->select('b.answer,c.style,a.complete,c.title, c.op1, c.op2, c.op3, c.op4, a.type_id, a.title AS question_type,
+            $this->db->select('d.p_score,a.score allscore,b.score,b.answer,c.style,a.complete,c.title, c.op1, c.op2, c.op3, c.op4, a.type_id, a.title AS question_type,
              c.as1 true_as1,c.as2 true_as2,c.as3 true_as3,c.as4 true_as4,
             b.as1, b.as2, b.as3, b.as4, b.id AS eq_id');
             $this->db->from('self_exam a');
             $this->db->join('self_exam_question b', 'a.id = b.exam_id', 'inner');
             $this->db->join('exam_question c', 'b.question_id = c.id', 'inner');
+            $this->db->join('exam d','d.id = a.model_exam_id','left');
             $this->db->where('a.id', $exam_id);
             $this->db->order_by('b.id ASC');
             $this->db->limit(1);
             $this->db->offset($num-1);
             $data['question_detail'] = $this->db->get()->row_array();
         }else{
-            $this->db->select('c.style,a.complete,c.title, c.op1, c.op2, c.op3, c.op4, c.type_id, d.name AS question_type,
+            $this->db->select('a.p_score,c.style,a.complete,c.title, c.op1, c.op2, c.op3, c.op4, c.type_id, d.name AS question_type,
              c.as1 true_as1,c.as2 true_as2,c.as3 true_as3,c.as4 true_as4,
             b.as1, b.as2, b.as3, b.as4, b.id AS eq_id');
             $this->db->from('self_exam a');
