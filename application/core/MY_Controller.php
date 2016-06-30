@@ -42,6 +42,9 @@ class MY_Controller extends CI_Controller
 
 		$user_pic = $this->session->userdata('login_user_pic');
 		if(empty($user_pic)) $user_pic = 'user_photo.gif';
+		if(!@file_get_contents('./uploadfiles/profile/'.$user_pic)){
+			$user_pic='user_photo.gif';
+		}
 		$this->cismarty->assign('login_user_pic', $user_pic);
     }
     

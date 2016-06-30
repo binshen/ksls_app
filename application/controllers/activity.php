@@ -390,10 +390,17 @@ class Activity extends MY_Controller {
 
         $rank = array();
         $login_user_id = $this->session->userdata('login_user_id');
+       /* $rank_list[0]->u_pic='user_photo.gif';
+        die(var_dump($rank_list[0]->u_pic));*/
         if(!empty($rank_list)) {
             foreach ($rank_list as $idx => $user){
+                if(!@file_get_contents('./uploadfiles/profile/'.$user->u_pic)){
+                    $rank_list[$idx]->u_pic='user_photo.gif';
+                }
                 if($user->u_id == $login_user_id) {
                     $rank['num'] = $idx+1;
+                    $rank['u_pic'] = $user->u_pic;
+                    //die(var_dump(file_get_contents('./uploadfiles/profile/'.$user->u_pic)));
                     $rank['u_pic'] = $user->u_pic;
                     $rank['u_name'] = $user->u_name;
                     $rank['c_name'] = $user->c_name;
