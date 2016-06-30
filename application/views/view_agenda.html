@@ -139,9 +139,9 @@
                                 <dd>
                                     <ul>
                                         {{if !empty($agenda_images[1]) }}
-                                            {{foreach from=$agenda_images[1] item=item}}
+                                            {{foreach from=$agenda_images[1]  item=item}}
                                                 <li>
-                                                    <a class="example-image-link" href="{{$base_url}}uploadfiles/agenda/{{$item->folder}}/{{$item->style}}/{{$item->pic}}" data-lightbox="example-set" data-title="卖房身份证">
+                                                    <a class="example-image-link" href="{{$base_url}}uploadfiles/agenda/{{$item->folder}}/{{$item->style}}/{{$item->pic}}" data-lightbox="example-1" data-title="卖房身份证">
                                                     <img src="{{$base_url}}uploadfiles/agenda/{{$item->folder}}/{{$item->style}}/{{$item->pic_short}}" alert="" width="85" height="65" />
                                                 </a></li>
                                             {{/foreach}}
@@ -160,7 +160,7 @@
                                     <ul>
                                         {{if !empty($agenda_images[4]) }}
                                             {{foreach from=$agenda_images[4] item=item}}
-                                        <li><a class="example-image-link" href="{{$base_url}}uploadfiles/agenda/{{$item->folder}}/{{$item->style}}/{{$item->pic}}" data-lightbox="example-set" data-title="买房身份证">
+                                        <li><a class="example-image-link" href="{{$base_url}}uploadfiles/agenda/{{$item->folder}}/{{$item->style}}/{{$item->pic}}" data-lightbox="example-2" data-title="买房身份证">
                                                <img src="{{$base_url}}uploadfiles/agenda/{{$item->folder}}/{{$item->style}}/{{$item->pic_short}}" alert="" width="85" height="65" />
                                                 </a></li>
                                             {{/foreach}}
@@ -307,6 +307,12 @@
 <script type="text/javascript" src="/static/js/lightbox-plus-jquery.min.js"></script>
 <script type="text/javascript" src="/static/js/layer/layer.js"></script>
 <script type="text/javascript">
+    var example_num =1;
+    $("[class='example-image-link']").each(function(){
+        $(this).attr('data-lightbox','example_num-' + example_num);
+        example_num+=1;
+    })
+
     $(".ing-error").mouseover(function(){
         $(this).children(".error-explain").toggle();
     }).mouseout(function(){
