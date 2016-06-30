@@ -141,7 +141,7 @@
                                         {{if !empty($agenda_images[1]) }}
                                             {{foreach from=$agenda_images[1] item=item}}
                                                 <li>
-                                                    <a class="example-image-link" href="http://lokeshdhakar.com/projects/lightbox2/images/image-3.jpg" data-lightbox="example-set" data-title="身份证">
+                                                    <a class="example-image-link" href="{{$base_url}}uploadfiles/agenda/{{$item->folder}}/{{$item->style}}/{{$item->pic}}" data-lightbox="example-set" data-title="卖房身份证">
                                                     <img src="{{$base_url}}uploadfiles/agenda/{{$item->folder}}/{{$item->style}}/{{$item->pic_short}}" alert="" width="85" height="65" />
                                                 </a></li>
                                             {{/foreach}}
@@ -160,7 +160,9 @@
                                     <ul>
                                         {{if !empty($agenda_images[4]) }}
                                             {{foreach from=$agenda_images[4] item=item}}
-                                                <li><img src="{{$base_url}}uploadfiles/agenda/{{$item->folder}}/{{$item->style}}/{{$item->pic_short}}" alert="" width="85" height="65" /></li>
+                                        <li><a class="example-image-link" href="{{$base_url}}uploadfiles/agenda/{{$item->folder}}/{{$item->style}}/{{$item->pic}}" data-lightbox="example-set" data-title="买房身份证">
+                                               <img src="{{$base_url}}uploadfiles/agenda/{{$item->folder}}/{{$item->style}}/{{$item->pic_short}}" alert="" width="85" height="65" />
+                                                </a></li>
                                             {{/foreach}}
                                         {{/if}}
                                     </ul>
@@ -179,7 +181,10 @@
                                     <ul>
                                         {{if !empty($agenda_images[2]) }}
                                             {{foreach from=$agenda_images[2] item=item}}
-                                                <li><img src="{{$base_url}}uploadfiles/agenda/{{$item->folder}}/{{$item->style}}/{{$item->pic_short}}" alert="" width="85" height="65" /></li>
+                                                <li>
+                                                    <a class="example-image-link" href="{{$base_url}}uploadfiles/agenda/{{$item->folder}}/{{$item->style}}/{{$item->pic}}" data-lightbox="example-set" data-title="卖房 户口本 | 房产证 | 土地证">
+                                                        <img src="{{$base_url}}uploadfiles/agenda/{{$item->folder}}/{{$item->style}}/{{$item->pic_short}}" alert="" width="85" height="65" />
+                                                </a></li>
                                             {{/foreach}}
                                         {{/if}}
                                     </ul>
@@ -196,7 +201,9 @@
                                     <ul>
                                         {{if !empty($agenda_images[5]) }}
                                             {{foreach from=$agenda_images[5] item=item}}
-                                                <li><img src="{{$base_url}}uploadfiles/agenda/{{$item->folder}}/{{$item->style}}/{{$item->pic_short}}" alert="" width="85" height="65" /></li>
+                                                <li>
+                                                    <a class="example-image-link" href="{{$base_url}}uploadfiles/agenda/{{$item->folder}}/{{$item->style}}/{{$item->pic}}" data-lightbox="example-set" data-title="买房户口本"><img src="{{$base_url}}uploadfiles/agenda/{{$item->folder}}/{{$item->style}}/{{$item->pic_short}}" alert="" width="85" height="65" />
+                                                </a></li>
                                             {{/foreach}}
                                         {{/if}}
                                     </ul>
@@ -215,7 +222,10 @@
                                     <ul>
                                         {{if !empty($agenda_images[3]) }}
                                             {{foreach from=$agenda_images[3] item=item}}
-                                                <li><img src="{{$base_url}}uploadfiles/agenda/{{$item->folder}}/{{$item->style}}/{{$item->pic_short}}" alert="" width="85" height="65" /></li>
+                                                <li>
+                                                    <a class="example-image-link" href="{{$base_url}}uploadfiles/agenda/{{$item->folder}}/{{$item->style}}/{{$item->pic}}" data-lightbox="example-set" data-title="卖房婚姻证明">
+                                                        <img src="{{$base_url}}uploadfiles/agenda/{{$item->folder}}/{{$item->style}}/{{$item->pic_short}}" alert="" width="85" height="65" />
+                                                </a></li>
                                             {{/foreach}}
                                         {{/if}}
                                     </ul>
@@ -232,7 +242,10 @@
                                     <ul>
                                         {{if !empty($agenda_images[6]) }}
                                             {{foreach from=$agenda_images[6] item=item}}
-                                                <li><img src="{{$base_url}}uploadfiles/agenda/{{$item->folder}}/{{$item->style}}/{{$item->pic_short}}" alert="" width="85" height="65" /></li>
+                                                <li>
+                                                    <a class="example-image-link" href="{{$base_url}}uploadfiles/agenda/{{$item->folder}}/{{$item->style}}/{{$item->pic}}" data-lightbox="example-set" data-title="买房婚姻证明">
+                                                        <img src="{{$base_url}}uploadfiles/agenda/{{$item->folder}}/{{$item->style}}/{{$item->pic_short}}" alert="" width="85" height="65" />
+                                                </a></li>
                                             {{/foreach}}
                                         {{/if}}
                                     </ul>
