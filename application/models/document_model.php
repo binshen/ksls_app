@@ -133,6 +133,7 @@ class Document_model extends MY_Model
         $this->db->select('a.*,b.name type_name')->from('ticket a');
         $this->db->join('forum_type b','a.type = b.id','inner');
         $this->db->where('b.flag',1);
+        $this->db->where('a.pass',2);
         $this->db->limit(6, 0);
         $data = $this->db->order_by('a.cdate','desc')->get()->result_array();
         if(!$data){
