@@ -13,7 +13,7 @@ class MY_Pagination extends CI_Pagination {
 		$config['total_rows'] = $total_rows;
 		$config['per_page'] = $per_page;
 		$config['use_page_numbers'] = true;
-		
+		$config['num_links'] = 5;
 		$config['cur_tag_open']   = '<span class="current">';
 		$config['cur_tag_close']  = '</span>';
 		$config['num_tag_open']   = '';
@@ -29,12 +29,12 @@ class MY_Pagination extends CI_Pagination {
 		
    		$config['first_link'] = false;
    		$config['last_link'] = false;
-// 		$config['first_link']      = '&lt;&lt;首页';
-// 		$config['first_tag_open']  = '';
-// 		$config['first_tag_close'] = '';
-// 		$config['last_link']      = '尾页&gt;&gt;';
-// 		$config['last_tag_open']  = '';
-// 		$config['last_tag_close'] = '';
+ 		$config['first_link']      = '&lt;&lt;首页';
+		$config['first_tag_open']  = '';
+		$config['first_tag_close'] = '';
+		$config['last_link']      = '尾页&gt;&gt;';
+		$config['last_tag_open']  = '';
+ 		$config['last_tag_close'] = '';
  		
 		
 		$this->initialize($config);
