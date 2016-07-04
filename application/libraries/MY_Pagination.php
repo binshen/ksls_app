@@ -8,12 +8,47 @@ class MY_Pagination extends CI_Pagination {
 	}
 
 	function getPageLink($base_url, $total_rows, $per_page, $uri_segment=3) {
-		
+		$CI =& get_instance();
 		$config['base_url'] = $base_url;
 		$config['total_rows'] = $total_rows;
 		$config['per_page'] = $per_page;
 		$config['use_page_numbers'] = true;
-		$config['num_links'] = 5;
+		$num_links_yy = 5;
+		switch ($CI->uri->segment(3)){
+			case 1;
+				$num_links_yy=9;
+				break;
+			case 2;
+				$num_links_yy=8;
+				break;
+			case 3;
+				$num_links_yy=7;
+				break;
+			case 4;
+				$num_links_yy=6;
+				break;
+			case 5;
+				$num_links_yy=5;
+				break;
+		}
+		switch ($total_rows - (int)$CI->uri->segment(3)){
+			case 0;
+				$num_links_yy=9;
+				break;
+			case 1;
+				$num_links_yy=8;
+				break;
+			case 2;
+				$num_links_yy=7;
+				break;
+			case 3;
+				$num_links_yy=6;
+				break;
+			case 4;
+				$num_links_yy=5;
+				break;
+		}
+		$config['num_links'] = $num_links_yy;
 		$config['cur_tag_open']   = '<span class="current">';
 		$config['cur_tag_close']  = '</span>';
 		$config['num_tag_open']   = '';
@@ -67,7 +102,7 @@ class MY_Pagination extends CI_Pagination {
 		}
 
 		// Determine the current page number.
-		$CI =& get_instance();
+
 
 		if ($CI->config->item('enable_query_strings') === TRUE OR $this->page_query_string === TRUE)
 		{
