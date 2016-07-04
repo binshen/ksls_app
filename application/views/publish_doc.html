@@ -39,7 +39,7 @@
                 <p class="tab-tit">发布文档</p>
                 <div class="publish-document-main">
                         <form id="save_form" method="post" action="{{site_url url='document/save_ticket'}}">
-                            <select name="type" class="pub-select">
+                            <select id="sel_type" name="type" class="pub-select">
                                 <option value="">选择文档</option>
                                 {{if $type_list!=1}}
                                 {{foreach from=$type_list item=item}}
@@ -47,7 +47,7 @@
                                 {{/foreach}}
                                 {{/if}}
                             </select>
-                            <input type="text" name="title" class="input-txt" placeholder="标题" />
+                            <input type="text" id="title" name="title" class="input-txt" placeholder="标题" />
                             <div class="editor-box">
                                 <textarea id="elm1" name="elm1" class="xheditor" rows="30" cols="80" style="width: 100%"></textarea>
                             </div>
@@ -60,6 +60,7 @@
 </div>
 <script type="text/javascript" src="/static/js/xheditor-1.2.2.min.js"></script>
 <script type="text/javascript" src="/static/js/zh-cn.js"></script>
+<script type="text/javascript" src="/static/js/layer/layer.js"></script>
 <script>
     //可视化编辑器实例调用
     $('#elm1').xheditor({
@@ -68,6 +69,14 @@
         upImgExt:"jpg,jpeg,gif,png"
     });
     $("#save_btn").click(function(){
+        if($.trim($("#title").val())==""){
+            layer.msg('请输入标题');
+            return false;
+        }
+        if($.trim($("#sel_type").val())==""){
+            layer.msg('请选择文档类别');
+            return false;
+        }
         $("#save_form").submit();
     })
 </script>
