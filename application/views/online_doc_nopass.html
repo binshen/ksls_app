@@ -19,23 +19,14 @@
                 <ul class="nav-left-ul">
                     <li><a href="/"><em class="home"></em>回到首页</a></li>
                     <li><a href="/video/list_video"><em class="onlineclass"></em>在线课程</a></li>
-                    <li class="on">
-                        <a href="/document/list_doc"><em class="documentdata"></em>文档资料</a>
-                        <span class="document-nav-list">
-                            <a href="/document/list_doc" class="on">文档列表</a><br />
-                            <a href="/document/publish_doc">上传文档</a><br />
-                            <a href="/document/upload_data">上传资料</a>
-                        </span>
-                    </li>
-                    {{if in_array(4,$position_id)}}
-                    <li><a href="/document/list_doc_nopass"><em class="documentdata"></em>文档审核</a></li>
-                    {{/if}}
+                    <li><a href="/document/list_doc"><em class="documentdata"></em>文档资料</a></li>
+                    <li class="on"><a href="/document/list_doc_nopass"><em class="documentdata"></em>文档审核</a></li>
                 </ul>
             </div>
         </div>
         <div class="wrap-right">
             <div class="search-wrap">
-                <form id="formSearchActivity" method="POST" action="/document/list_doc">
+                <form id="formSearchActivity" method="POST" action="/document/list_doc_nopass">
                     <input type="text" name="title" value="{{$title|default:''}}" class="search-input" placeholder="你不懂的搜一搜" >
                     <input type="hidden" name="type" value="{{$typeid|default:''}}">
                     <a href="javascript:void(0);" class="search-btn" id="btn_search"></a>
@@ -43,14 +34,12 @@
             </div>
             <div class="schedule-wrap online-class-wrap">
                 <ul class="control online-class-control document-list-control" id ="slide01_control">
-                    <li><a href="{{site_url url='document/list_doc'}}" class="{{if $typeid==''}}current{{/if}}">全部</a> </li>
+                    <li><a href="{{site_url url='document/list_doc_nopass'}}" class="{{if $typeid==''}}current{{/if}}">全部</a> </li>
                     {{if $type_list!=1}}
                     {{foreach from=$type_list item=item}}
-                    <li><a href="{{site_url url='document/list_doc'}}/1/{{$item.id}}" class="{{if $typeid==$item.id}}current{{/if}}">{{$item.name}}</a></li>
+                    <li><a href="{{site_url url='document/list_doc_nopass'}}/1/{{$item.id}}" class="{{if $typeid==$item.id}}current{{/if}}">{{$item.name}}</a></li>
                     {{/foreach}}
                     {{/if}}
-                    <li><a href="{{site_url url='document/list_doc'}}/1/-1" class="{{if $typeid=='-1'}}current{{/if}}">我的收藏</a></li>
-                    <li><a href="{{site_url url='document/list_doc'}}/1/-2" class="{{if $typeid=='-2'}}current{{/if}}">我的发布</a></li>
                 </ul>
                 <div class="main-inner" id="slide01">
                     <div class="condiv">

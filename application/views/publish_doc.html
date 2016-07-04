@@ -26,6 +26,9 @@
                             <a href="/document/upload_data">上传资料</a>
                         </span>
                     </li>
+                    {{if in_array(4,$position_id)}}
+                    <li><a href="/document/list_doc_nopass"><em class="documentdata"></em>文档审核</a></li>
+                    {{/if}}
                 </ul>
             </div>
         </div>

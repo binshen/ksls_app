@@ -20,6 +20,18 @@ class Document extends MY_Controller
         if(!$this->session->userdata('login_user_id')) {
             redirect(site_url('/'));
         } else {
+            if(!in_array(4,$this->session->userdata('login_position_id_array'))){
+                if($method == 'pass_doc'){
+                    redirect(site_url('/document/list_doc'));
+                    exit();
+                }
+                if($method == 'list_doc_nopass'){
+                    redirect(site_url('/document/list_doc'));
+                    exit();
+                }
+            }
+            $position_id = $this->session->userdata('login_position_id_array');
+            $this->assign('position_id', $position_id);
             return call_user_func_array(array($this, $method), $params);
         }
     }
@@ -39,6 +51,21 @@ class Document extends MY_Controller
         $this->display('online_doc.html');
     }
 
+    //待审核列表没有 我的收藏和发布
+    public function list_doc_nopass($page=1,$typeid=null) {
+        $type = $this->document_model->get_forum_type();
+        $data = $this->document_model->list_doc_nopass($page,$typeid);
+        $this->assign('typeid', $typeid ? $typeid : $this->input->post('type'));
+        $type_name = $this->document_model->get_type_name($typeid ? $typeid : $this->input->post('type'));
+        $this->assign('type_name', $type_name);
+        $this->assign('title', $this->input->post('title') ? $this->input->post('title') : null);
+        $this->assign('list_doc', $data);
+        $pager = $this->pagination->getPageLink('/document/list_doc_nopass', $data['countPage'], $data['numPerPage']);
+        $this->assign('pager', $pager);
+        $this->assign('type_list', $type);
+        $this->display('online_doc_nopass.html');
+    }
+
     public function download_data($id){
         $this->document_model->download($id);
     }
@@ -55,8 +82,6 @@ class Document extends MY_Controller
         }else{
             $this->assign('mydoc', -1);
         }
-        $position_id = $this->session->userdata('login_position_id_array');
-        $this->assign('position_id', $position_id);
         if($data['type']==6){
             //$this->document_model->download($id);
             $this->display('data_view.html');
@@ -109,5 +134,10 @@ class Document extends MY_Controller
     public function del_doc($doc_id) {
         $this->document_model->del_doc($doc_id);
         redirect(site_url('/document/list_doc'));
+    }
+
+    public function pass_doc($doc_id) {
+        $this->document_model->pass_doc($doc_id);
+        redirect(site_url('/document/list_doc_nopass'));
     }
 }

@@ -113,7 +113,8 @@ class Document_model extends MY_Model
             'content' => $this->input->post('elm1'),
             'type' => $this->input->post('type'),
             'user_id' => $this->session->userdata('login_user_id'),
-            'cdate' => date('Y-m-d H:i:s')
+            'cdate' => date('Y-m-d H:i:s'),
+            'pass'=>1
         );
         $this->db->insert('ticket',$data);
     }
@@ -275,7 +276,8 @@ class Document_model extends MY_Model
             'file'=>$data['file_name'],
             'oldfile'=>$data['client_name'],
             'user_id'=>$this->session->userdata('login_user_id'),
-            'cdate'=>date("y-m-d H:i:s",time())
+            'cdate'=>date("y-m-d H:i:s",time()),
+            'pass'=>1
         );
         $res=$this->db->insert('ticket',$modeldata);
         if ($res){
@@ -317,10 +319,75 @@ class Document_model extends MY_Model
 
     public function del_doc($doc_id) {
         $this->db->trans_start();//--------开始事务
+        $row = $this->db->select()->from('ticket')->where('id',$doc_id)->get()->row_array();
+        if(in_array(4,$this->session->userdata('login_position_id_array')) || $row['user_id']==$this->session->userdata('login_user_id')){
+            $this->db->delete('ticket_likes',array('doc_id' => $doc_id));
+            $this->db->delete('ticket_house',array('doc_id' => $doc_id));
+            $this->db->delete('ticket', array('id' => $doc_id));
+        }
 
-        $this->db->delete('ticket_likes',array('doc_id' => $doc_id));
-        $this->db->delete('ticket_house',array('doc_id' => $doc_id));
-        $this->db->delete('ticket', array('id' => $doc_id));
+
+        $this->db->trans_complete();//------结束事务
+        if ($this->db->trans_status() === FALSE) {
+            return -1;
+        } else {
+            return 1;
+        }
+    }
+
+    public function list_doc_nopass($page=1,$typeid=null) {
+        // 每页显示的记录条数，默认20条
+        $numPerPage = $this->input->post('numPerPage') ? $this->input->post('numPerPage') : 10;
+        $pageNum = $this->input->post('pageNum') ? $this->input->post('pageNum') : $page;
+
+        $this->db->select('count(1) as num');
+        $this->db->from('ticket a');
+        $this->db->join('forum_type b','a.type = b.id','inner');
+        if($typeid && $typeid > 0)
+            $this->db->where('a.type',$typeid);
+        if($this->input->post('type') && $this->input->post('type') > 0)
+            $this->db->where('a.type',$this->input->post('type'));
+        if($this->input->post('title'))
+            $this->db->like('a.title',$this->input->post('title'));
+        if(($typeid && $typeid == -2) || ($this->input->post('type') && $this->input->post('type') == -2)){
+            $this->db->where('user_id',$this->session->userdata('login_user_id'));
+        }else{
+            $this->db->where('b.flag',1);
+            $this->db->where('a.pass',1);
+        }
+        $row = $this->db->get()->row_array();
+        //总记录数
+        $data['countPage'] = $row['num'];
+        //list
+        $this->db->select('a.*');
+        $this->db->from('ticket a');
+        $this->db->join('forum_type b','a.type = b.id','inner');
+        if($typeid && $typeid > 0)
+            $this->db->where('a.type',$typeid);
+        if($this->input->post('type') && $this->input->post('type') > 0)
+            $this->db->where('a.type',$this->input->post('type'));
+        if($this->input->post('title'))
+            $this->db->like('a.title',$this->input->post('title'));
+        if(($typeid && $typeid == -2) || ($this->input->post('type') && $this->input->post('type') == -2)){
+            $this->db->where('a.user_id',$this->session->userdata('login_user_id'));
+        }else{
+            $this->db->where('b.flag',1);
+            $this->db->where('a.pass',1);
+        }
+        $this->db->limit($numPerPage, ($pageNum - 1) * $numPerPage );
+        $this->db->order_by('a.cdate', 'desc');
+
+
+        $data['res_list'] = $this->db->get()->result_array();
+        $data['pageNum'] = $pageNum;
+        $data['numPerPage'] = $numPerPage;
+        return $data;
+    }
+
+    public function pass_doc($doc_id) {
+        $this->db->trans_start();//--------开始事务
+
+        $this->db->where('id',$doc_id)->update('ticket', array('pass' => 2));
 
         $this->db->trans_complete();//------结束事务
         if ($this->db->trans_status() === FALSE) {

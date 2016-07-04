@@ -18,7 +18,8 @@
             <div class="nav-left">
                 <ul class="nav-left-ul">
                     <li><a href="/"><em class="home"></em>回到首页</a></li>
-                    <li class="on"><a href="/video/list_video"><em class="onlineclass"></em>在线课程</a></li>
+                    <li><a href="/video/list_video"><em class="onlineclass"></em>在线课程</a></li>
+                    {{if $data['pass']==2}}
                     <li>
                         <a href="/document/list_doc"><em class="documentdata"></em>文档资料</a>
                         <span class="document-nav-list">
@@ -27,6 +28,24 @@
                             <a href="/document/upload_data">上传资料</a>
                         </span>
                     </li>
+                    {{if in_array(4,$position_id)}}
+                    <li><a href="/document/list_doc_nopass"><em class="documentdata"></em>文档审核</a></li>
+                    {{/if}}
+                    {{else}}
+                    {{if in_array(4,$position_id)}}
+                    <li><a href="/document/list_doc"><em class="documentdata"></em>文档资料</a></li>
+                    <li class="on"><a href="/document/list_doc_nopass"><em class="documentdata"></em>文档审核</a></li>
+                    {{else}}
+                    <li>
+                        <a href="/document/list_doc"><em class="documentdata"></em>文档资料</a>
+                        <span class="document-nav-list">
+                            <a href="/document/list_doc" class="on">文档列表</a><br />
+                            <a href="/document/publish_doc">上传文档</a><br />
+                            <a href="/document/upload_data">上传资料</a>
+                        </span>
+                    </li>
+                    {{/if}}
+                    {{/if}}
                 </ul>
             </div>
         </div>
@@ -48,8 +67,8 @@
                         {{if in_array(4,$position_id) || $mydoc == 1}}
                         <div class="delete-pass-btn">
                             <a href="javascript:void(0)" id="btnDelete" class="delete-btn">删除</a>
-                            {{if in_array(4,$position_id)}}
-                            <a href="javascript:void(0)" class="pass-btn">审核通过</a>
+                            {{if in_array(4,$position_id) && $data['pass']==1}}
+                            <a href="javascript:void(0)" id="btnPass" class="pass-btn">审核通过</a>
                             {{/if}}
                         </div>
                         {{/if}}
@@ -125,6 +144,15 @@
             btn: ['确定','取消'] //按钮
         }, function(){
             window.location.href = "/document/del_doc/{{$data['id']}}";
+        }, function(){
+        });
+    });
+
+    $("#btnPass").click(function () {
+        layer.confirm('确定要通过该文档吗？', {
+            btn: ['确定','取消'] //按钮
+        }, function(){
+            window.location.href = "/document/pass_doc/{{$data['id']}}";
         }, function(){
         });
     });
