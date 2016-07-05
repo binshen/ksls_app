@@ -362,8 +362,13 @@ class Manage_model extends MY_Model
                LEFT JOIN user_position b on a.id = b.user_id
                LEFT JOIN user_subsidiary d on d.user_id = a.id
                LEFT JOIN role e on e.id = a.role_id
-              where  e.permission_id > {$this->session->userdata('permission_id')}
+              where  a.id > 0
                ";
+        if($this->session->userdata('permission_id')==1){
+            $mysql.=" and e.permission_id >= ".$this->session->userdata('permission_id');
+        }else{
+            $mysql.=" and e.permission_id > ".$this->session->userdata('permission_id');
+        }
         if($this->session->userdata('permission_id') == 2) {
             $mysql.=" and a.company_id = ".$this->session->userdata('company_id');
         } else if($this->session->userdata('permission_id') > 2) {
@@ -481,7 +486,12 @@ class Manage_model extends MY_Model
             $this->db->where('a.company_id',$this->input->post('company_id'));
         if($this->input->post('subsidiary_id'))
             $this->db->where_in('f.subsidiary_id',$this->input->post('subsidiary_id'));
-        $this->db->where('d.permission_id >',$this->session->userdata('permission_id'));
+        if($this->session->userdata('permission_id')==1){
+            $this->db->where('d.permission_id >=',$this->session->userdata('permission_id'));
+        }else{
+            $this->db->where('d.permission_id >',$this->session->userdata('permission_id'));
+        }
+
         $this->db->group_by('a.id');
         $this->db->limit($numPerPage, ($pageNum - 1) * $numPerPage );
         $this->db->order_by($this->input->post('orderField') ? $this->input->post('orderField') : 'id', $this->input->post('orderDirection') ? $this->input->post('orderDirection') : 'desc');
