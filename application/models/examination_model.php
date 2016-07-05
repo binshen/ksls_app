@@ -186,7 +186,7 @@ class Examination_model extends MY_Model
             $this->db->offset($num-1);
             $data['question_detail'] = $this->db->get()->row_array();
         }else{
-            $this->db->select('a.p_score,c.style,a.complete,c.title, c.op1, c.op2, c.op3, c.op4, c.type_id, d.name AS question_type,
+            $this->db->select('a.type_id,c.style,a.complete,c.title, c.op1, c.op2, c.op3, c.op4, c.type_id, d.name AS question_type,
              c.as1 true_as1,c.as2 true_as2,c.as3 true_as3,c.as4 true_as4,
             b.as1, b.as2, b.as3, b.as4, b.id AS eq_id');
             $this->db->from('self_exam a');

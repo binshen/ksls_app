@@ -52,7 +52,11 @@
                                 {{if $exam_data.question_detail.style==2}}多选题{{/if}}
                                 {{if $exam_data.question_detail.style==3}}论述题{{/if}}
                                 )
-                                {{$exam_data['question_detail']['title']}}({{$exam_data['question_detail']['p_score']}}分)
+                                {{$exam_data['question_detail']['title']}}
+
+                                {{if $exam_data['question_detail']['type_id'] == -1}}
+                                ({{$exam_data['question_detail']['p_score']|default:''}}分)
+                                {{/if}}
 
                                 {{if $exam_data['question_detail']['complete']==2}}
                             <p style="color: red;float: right">
@@ -110,7 +114,9 @@
                             {{if $exam_data['question_detail']['complete']>=1}}
                             已交卷!
                             {{if $exam_data['question_detail']['complete']==2}}
+                            {{if $exam_data['question_detail']['type_id'] == -1}}
                             共得分:{{$exam_data['question_detail']['allscore']}}
+                            {{/if}}
                             {{/if}}
                             {{/if}}
                         </p>
