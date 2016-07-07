@@ -63,21 +63,25 @@
                         </tr>
                         <tr>
                             <td><dl><dt class="wid115">提醒时间：</dt>
-                                 <dd><select name="" id="" class="hire-sel">
-                                     <option value="永不">永不</option>
-                                     <option value="一个月后">一个月后</option>
-                                     <option value="两个月后">两个月后</option>
-                                     <option value="三个月后">三个月后</option>
-                                     <option value="四个月后">四个月后</option>
-                                     <option value="五个月后">五个月后</option>
-                                     <option value="六个月后">六个月后</option>
-                                     <option value="七个月后">七个月后</option>
-                                     <option value="八个月后">八个月后</option>
-                                     <option value="九个月后">九个月后</option>
-                                     <option value="十个月后">十个月后</option>
-                                     <option value="十一个月后">十一个月后</option>
-                                     <option value="十二个月后">十二个月后</option>
-                                     </select>
+                                 <dd>
+                                     <label class="hire-deadline"><input type="checkbox" name="deadline"> 永不</label><br />
+                                     <input readonly="readonly" type="text" name="date" placeholder="选择提醒时间" id="J_DepDate" value="" class="sel-begin-time hire-time" />
+
+                                     <!--<select name="" id="" class="hire-sel">-->
+                                     <!--<option value="永不">永不</option>-->
+                                     <!--<option value="一个月后">一个月后</option>-->
+                                     <!--<option value="两个月后">两个月后</option>-->
+                                     <!--<option value="三个月后">三个月后</option>-->
+                                     <!--<option value="四个月后">四个月后</option>-->
+                                     <!--<option value="五个月后">五个月后</option>-->
+                                     <!--<option value="六个月后">六个月后</option>-->
+                                     <!--<option value="七个月后">七个月后</option>-->
+                                     <!--<option value="八个月后">八个月后</option>-->
+                                     <!--<option value="九个月后">九个月后</option>-->
+                                     <!--<option value="十个月后">十个月后</option>-->
+                                     <!--<option value="十一个月后">十一个月后</option>-->
+                                     <!--<option value="十二个月后">十二个月后</option>-->
+                                     <!--</select>-->
                                  </dd>
                                 </dl>
                             </td>
@@ -91,5 +95,29 @@
         </div>
     </div>
 </div>
+<script type="text/javascript" src="/static/js/yui-min.js"></script>
+<script type="text/javascript">
+    YUI({
+        modules: {
+            'trip-calendar': {
+                fullpath: '/static/js/calendar.js',
+                type    : 'js',
+                requires: ['trip-calendar-css']
+            },
+            'trip-calendar-css': {
+                fullpath: '/static/css/calendar.css',
+                type    : 'css'
+            }
+        }
+    }).use('trip-calendar', function(Y) {
+        new Y.TripCalendar({
+            triggerNode     : '#J_DepDate', //第一个触节点
+            finalTriggerNode: '#J_EndDate',  //最后一个触发节点
+            isHoliday:false,
+            isDateInfo:false,
+            count:1
+        });
+    });
+ </script>
 </body>
 </html>
