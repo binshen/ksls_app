@@ -23,8 +23,9 @@
             </div>
         </div>
         <div class="wrap-right">
-            <form id="agendaForm" method="post" action="/agenda/save_agenda">
-                <input type="hidden" name="id" value="{{$agenda->id|default:''}}">
+            <form id="hireForm" method="post" action="/hire/save_hire">
+                <input type="hidden" name="id" value="{{$data.id|default:''}}">
+                <input type="hidden" name="page_flag" value="{{$pageflag|default:''}}">
                 <div class="search-wrap">
                     <div class="t-tit">租房信息录入 Add Hire Information </div>
                 </div>
@@ -35,66 +36,54 @@
                             <td>
                                 <dl>
                                     <dt class="wid115">小区名称：</dt>
-                                    <dd><input type="text" id="xq_name" name="xq_name" class="add-txt" value="{{$agenda->xq_name|default:''}}" /></dd>
+                                    <dd><input type="text" id="xiaoqu" name="xiaoqu" class="add-txt" value="{{$data.xiaoqu|default:''}}" /></dd>
                                 </dl>
                             </td>
                             <td><dl><dt class="wid115">房号：</dt>
-                                <dd><input type="text" id="acreage" name="acreage" class="add-txt number" value="" /><em></em></dd></dl></td>
+                                <dd><input type="text" id="fanghao" name="fanghao" class="add-txt number" value="{{$data.fanghao|default:''}}" /><em></em></dd></dl></td>
                         </tr>
                         <tr>
                             <td><dl><dt class="wid115">面积：</dt>
-                                <dd><input type="text" id="landlord_name" name="landlord_name" class="add-txt" value="" /><em>平方米</em></dd></dl></td>
+                                <dd><input type="text" id="mianji" name="mianji" class="add-txt" value="{{$data.mianji|default:''}}" /></dd></dl></td>
                             <td>
                                 <dl>
                                     <dt class="wid115">装修：</dt>
-                                    <dd><input type="text"  name="landlord_name" class="add-txt" value="" /></dd>
+                                    <dd><input type="text" id="zhuangxiu"  name="zhuangxiu" class="add-txt" value="{{$data.zhuangxiu|default:''}}" /></dd>
                                 </dl>
                             </td>
                         </tr>
                         <tr>
                             <td>
                                 <dl>
-                                    <dt class="wid115">月租：</dt>
-                                    <dd><input type="text" id="customer_name" name="customer_name" class="add-txt" value="{{$agenda->customer_name|default:''}}" /><em>元</em></em></dd>
+                                    <dt class="wid115">租金：</dt>
+                                    <dd><input type="text" id="zhujing" name="zhujing" class="add-txt" value="{{$data.zhujing|default:''}}" /><em></em></dd>
                                 </dl>
                             </td>
                             <td><dl><dt class="wid115">房东号码：</dt>
-                                <dd><input id="contract_amount" type="text" name="amount" class="add-txt number" value="{{$agenda->amount|default:''}}" /></dd></dl></td>
+                                <dd><input id="haoma" type="text" name="haoma" class="add-txt number" value="{{$data.haoma|default:''}}" /></dd></dl></td>
                         </tr>
                         <tr>
                             <td><dl><dt class="wid115">提醒时间：</dt>
                                  <dd>
-                                     <label class="hire-deadline"><input type="checkbox" name="deadline"> 永不</label><br />
-                                     <input readonly="readonly" type="text" name="date" placeholder="选择提醒时间" id="J_DepDate" value="" class="sel-begin-time hire-time" />
+                                     <label class="hire-deadline"><input id="flag" type="checkbox" name="flag" {{if $data && $data['flag']==2}} checked="checked" {{/if}}> 不再提醒</label><br />
+                                     <input readonly="readonly" type="text" name="tixin_time" placeholder="选择提醒时间" id="J_DepDate" value="{{$data.tixin_time|default:''}}" class="sel-begin-time hire-time" />
 
-                                     <!--<select name="" id="" class="hire-sel">-->
-                                     <!--<option value="永不">永不</option>-->
-                                     <!--<option value="一个月后">一个月后</option>-->
-                                     <!--<option value="两个月后">两个月后</option>-->
-                                     <!--<option value="三个月后">三个月后</option>-->
-                                     <!--<option value="四个月后">四个月后</option>-->
-                                     <!--<option value="五个月后">五个月后</option>-->
-                                     <!--<option value="六个月后">六个月后</option>-->
-                                     <!--<option value="七个月后">七个月后</option>-->
-                                     <!--<option value="八个月后">八个月后</option>-->
-                                     <!--<option value="九个月后">九个月后</option>-->
-                                     <!--<option value="十个月后">十个月后</option>-->
-                                     <!--<option value="十一个月后">十一个月后</option>-->
-                                     <!--<option value="十二个月后">十二个月后</option>-->
-                                     <!--</select>-->
                                  </dd>
                                 </dl>
                             </td>
                             <td></td>
                         </tr>
                     </table>
-                    <a href="javascript:" class="confirm-btn" style="width:120px;margin-top:50px;">删除</a>
-                    <a href="javascript:" class="confirm-btn" style="width:120px;margin-top:50px;">保存</a>
+                    {{if $data}}
+                    <a href="javascript:" id="delete_btn" class="confirm-btn" style="width:120px;margin-top:50px;">删除</a>
+                    {{/if}}
+                    <a href="javascript:" id="save_btn" class="confirm-btn" style="width:120px;margin-top:50px;">保存</a>
                 </div>
             </form>
         </div>
     </div>
 </div>
+<script type="text/javascript" src="/static/js/layer/layer.js"></script>
 <script type="text/javascript" src="/static/js/yui-min.js"></script>
 <script type="text/javascript">
     YUI({
@@ -118,6 +107,43 @@
             count:1
         });
     });
+
+    $("#save_btn").click(function () {
+        if($.trim($("#xiaoqu").val())==""){
+            layer.msg('请填写小区信息');
+            return false;
+        }
+        if($("#J_DepDate").val()=="" && !$("#flag").is(":checked")){
+            layer.msg('请选择日期,或勾选"不再提醒"');
+            return false;
+        }
+        var today_ = new Date();
+        var tixin =  new Date(Date.parse($("#J_DepDate").val().replace(/-/g,"/")));
+        var msg_ = '确定保存吗?'
+        if(today_ > tixin && !$("#flag").is(":checked")){
+            {{if $data}}
+            msg_ = '所选提醒时间已过,点击[确定]后将继续在"提醒到期"页面中显示'
+            {{else}}
+            msg_ = '所选提醒时间已过,点击[确定]后将直接在"提醒到期"页面中显示'
+            {{/if}}
+
+        }
+        layer.confirm(msg_, {
+            btn: ['确定','取消'] //按钮
+        }, function(){
+            $("#hireForm").submit();
+        }, function(){
+        });
+    })
+
+    $("#delete_btn").click(function(){
+        layer.confirm('确定要删除此信息吗？', {
+            btn: ['确定','取消'] //按钮
+        }, function(){
+            window.location.href="/hire/delete_hire/{{$data.id|default:''}}/{{$pageflag|default:''}}";
+        }, function(){
+        });
+    })
  </script>
 </body>
 </html>

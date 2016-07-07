@@ -38,7 +38,7 @@ class Document_model extends MY_Model
             $this->db->join('ticket b','a.doc_id = b.id','inner');
             $this->db->join('forum_type c','b.type = c.id','inner');
             if($this->input->post('title'))
-                $this->db->like('b.title',$this->input->post('title'));
+                $this->db->like('b.title',trim($this->input->post('title')));
             $this->db->where('a.user_id',$this->session->userdata('login_user_id'));
             $this->db->where('b.pass',2);
             $this->db->where('c.flag',1);
@@ -51,7 +51,7 @@ class Document_model extends MY_Model
             $this->db->join('ticket b','a.doc_id = b.id','inner');
             $this->db->join('forum_type c','b.type = c.id','inner');
             if($this->input->post('title'))
-                $this->db->like('b.title',$this->input->post('title'));
+                $this->db->like('b.title',trim($this->input->post('title')));
 
             $this->db->where('c.flag',1);
             $this->db->where('a.user_id',$this->session->userdata('login_user_id'));
@@ -71,7 +71,7 @@ class Document_model extends MY_Model
         if($this->input->post('type') && $this->input->post('type') > 0)
             $this->db->where('a.type',$this->input->post('type'));
         if($this->input->post('title'))
-            $this->db->like('a.title',$this->input->post('title'));
+            $this->db->like('a.title',trim($this->input->post('title')));
         if(($typeid && $typeid == -2) || ($this->input->post('type') && $this->input->post('type') == -2)){
             $this->db->where('user_id',$this->session->userdata('login_user_id'));
         }else{
@@ -90,7 +90,7 @@ class Document_model extends MY_Model
         if($this->input->post('type') && $this->input->post('type') > 0)
             $this->db->where('a.type',$this->input->post('type'));
         if($this->input->post('title'))
-            $this->db->like('a.title',$this->input->post('title'));
+            $this->db->like('a.title',trim($this->input->post('title')));
         if(($typeid && $typeid == -2) || ($this->input->post('type') && $this->input->post('type') == -2)){
             $this->db->where('a.user_id',$this->session->userdata('login_user_id'));
         }else{
@@ -349,7 +349,7 @@ class Document_model extends MY_Model
         if($this->input->post('type') && $this->input->post('type') > 0)
             $this->db->where('a.type',$this->input->post('type'));
         if($this->input->post('title'))
-            $this->db->like('a.title',$this->input->post('title'));
+            $this->db->like('a.title',trim($this->input->post('title')));
         if(($typeid && $typeid == -2) || ($this->input->post('type') && $this->input->post('type') == -2)){
             $this->db->where('user_id',$this->session->userdata('login_user_id'));
         }else{
@@ -368,7 +368,7 @@ class Document_model extends MY_Model
         if($this->input->post('type') && $this->input->post('type') > 0)
             $this->db->where('a.type',$this->input->post('type'));
         if($this->input->post('title'))
-            $this->db->like('a.title',$this->input->post('title'));
+            $this->db->like('a.title',trim($this->input->post('title')));
         if(($typeid && $typeid == -2) || ($this->input->post('type') && $this->input->post('type') == -2)){
             $this->db->where('a.user_id',$this->session->userdata('login_user_id'));
         }else{

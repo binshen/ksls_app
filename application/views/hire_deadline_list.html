@@ -3,9 +3,9 @@
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>在线考试</title>
-    <meta name="keywords" content="在线考试" />
-    <meta name="description" content="在线考试" />
+    <title>提醒到期</title>
+    <meta name="keywords" content="提醒到期" />
+    <meta name="description" content="提醒到期" />
     <link href="/static/css/reset.css" rel="stylesheet" type="text/css">
     <link href="/static/css/style.css" rel="stylesheet" type="text/css">
 </head>
@@ -25,10 +25,10 @@
         </div>
         <div class="wrap-right">
              <div class="search-wrap" style="padding:0 20px;">
-                 <form id="formSearchActivity" method="POST" action="/activity/list_activity">
-                     <div class="calendar-input-wrap"><span class="calendar-start-icon trigger-icon-yui_3_5_1_1_1467856854734_16"></span><input type="text" name="start_date" value="" class="sel-begin-time" style="width:200px;"></div>
+                 <form id="formSearchHire" method="POST" action="/hire/hire_deadline_list">
+                     <div class="calendar-input-wrap"><span class="calendar-start-icon trigger-icon-yui_3_5_1_1_1467856854734_16"></span>
+                         <input type="text" name="xiaoqu" value="{{$hire_list.xiaoqu}}" class="sel-begin-time" style="width:200px;"></div>
                      <a href="javascript:void(0);" class="search-btn" id="btn_search"></a>
-                     <a href="/hire/add_hire" class="add-schedule-btn">+新增租房</a>
                  </form>
             </div>
               <div class="schedule-wrap upload-document-wrap">
@@ -45,47 +45,29 @@
                             <th width="">提醒时间</th>
                             <th>操作</th>
                         </tr>
+                        {{foreach from=$hire_list.res_list item=item}}
                         <tr>
-                            <td>黄金海岸</td>
-                            <td>102棟501室</td>
-                            <td>100㎡</td>
-                            <td>精装修</td>
-                            <td>1000元/月</td>
-                            <td>137********</td>
-                            <td>六个月</td>
-                            <td><a href="/hire/add_hire/">查看</a></td>
+                            <td>{{$item.xiaoqu}}</td>
+                            <td>{{$item.fanghao}}</td>
+                            <td>{{$item.mianji}}</td>
+                            <td>{{$item.zhuangxiu}}</td>
+                            <td>{{$item.zhujing}}</td>
+                            <td>{{$item.haoma}}</td>
+                            <td>
+                                {{if $item.flag==2}}
+                                不在提醒
+                                {{else}}
+                                {{$item.tixin_time}}
+                                {{/if}}
+                            </td>
+                            <td><a href="/hire/add_hire/{{$item.id}}/1">查看</a></td>
                         </tr>
-                        <tr>
-                            <td>黄金海岸</td>
-                            <td>102棟501室</td>
-                            <td>100㎡</td>
-                            <td>精装修</td>
-                            <td>1000元/月</td>
-                            <td>137********</td>
-                            <td>六个月</td>
-                            <td><a href="/hire/add_hire/">查看</a></td>
-                        </tr>
-                        <tr>
-                            <td>黄金海岸</td>
-                            <td>102棟501室</td>
-                            <td>100㎡</td>
-                            <td>精装修</td>
-                            <td>1000元/月</td>
-                            <td>137********</td>
-                            <td>六个月</td>
-                            <td><a href="/hire/add_hire/">查看</a></td>
-                        </tr>
-                        <tr>
-                            <td>黄金海岸</td>
-                            <td>102棟501室</td>
-                            <td>100㎡</td>
-                            <td>精装修</td>
-                            <td>1000元/月</td>
-                            <td>137********</td>
-                            <td>六个月</td>
-                            <td><a href="/hire/add_hire/">查看</a></td>
-                        </tr>
+                        {{/foreach}}
+
                     </table>
+                    <div id="hire_page" class="pages">
+                        {{$pager}}
+                    </div>
             </div>
         </div>
     </div>
@@ -93,4 +75,15 @@
 
 
 </body>
-</html> 
+</html>
+<script>
+    $("#btn_search").click(function(){
+        $("#formSearchHire").submit();
+    })
+    $("#hire_page").find('a').click(function(){
+        var path = $(this).attr('href');
+        $("#formSearchHire").attr("action",path);
+        $("#formSearchHire").submit();
+        return false;
+    })
+</script>

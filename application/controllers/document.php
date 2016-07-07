@@ -43,7 +43,7 @@ class Document extends MY_Controller
         $this->assign('typeid', $typeid ? $typeid : $this->input->post('type'));
         $type_name = $this->document_model->get_type_name($typeid ? $typeid : $this->input->post('type'));
         $this->assign('type_name', $type_name);
-        $this->assign('title', $this->input->post('title') ? $this->input->post('title') : null);
+        $this->assign('title', $this->input->post('title') ? trim($this->input->post('title')) : null);
         $this->assign('list_doc', $data);
         $pager = $this->pagination->getPageLink('/document/list_doc', $data['countPage'], $data['numPerPage']);
         $this->assign('pager', $pager);
@@ -58,7 +58,7 @@ class Document extends MY_Controller
         $this->assign('typeid', $typeid ? $typeid : $this->input->post('type'));
         $type_name = $this->document_model->get_type_name($typeid ? $typeid : $this->input->post('type'));
         $this->assign('type_name', $type_name);
-        $this->assign('title', $this->input->post('title') ? $this->input->post('title') : null);
+        $this->assign('title', $this->input->post('title') ? trim($this->input->post('title')) : null);
         $this->assign('list_doc', $data);
         $pager = $this->pagination->getPageLink('/document/list_doc_nopass', $data['countPage'], $data['numPerPage']);
         $this->assign('pager', $pager);

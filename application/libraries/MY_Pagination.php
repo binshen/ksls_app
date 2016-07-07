@@ -13,38 +13,35 @@ class MY_Pagination extends CI_Pagination {
 		$config['total_rows'] = $total_rows;
 		$config['per_page'] = $per_page;
 		$config['use_page_numbers'] = true;
-		$num_links_yy = 5;
+		$num_links_yy = 4;
+		if(!$CI->uri->segment(3)){
+			$num_links_yy=8;
+		}
 		switch ($CI->uri->segment(3)){
 			case 1;
-				$num_links_yy=9;
-				break;
-			case 2;
 				$num_links_yy=8;
 				break;
-			case 3;
+			case 2;
 				$num_links_yy=7;
 				break;
-			case 4;
+			case 3;
 				$num_links_yy=6;
 				break;
-			case 5;
+			case 4;
 				$num_links_yy=5;
 				break;
 		}
 		switch ($total_rows - (int)$CI->uri->segment(3)){
 			case 0;
-				$num_links_yy=9;
-				break;
-			case 1;
 				$num_links_yy=8;
 				break;
-			case 2;
+			case 1;
 				$num_links_yy=7;
 				break;
-			case 3;
+			case 2;
 				$num_links_yy=6;
 				break;
-			case 4;
+			case 3;
 				$num_links_yy=5;
 				break;
 		}
