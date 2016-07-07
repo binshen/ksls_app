@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>房猫房地产管理系统</title>
+    <meta name="keywords" content="房猫-行程管理-我的行程" />
+    <meta name="description" content="房猫-行程管理-我的行程" />
+    <link href="/static/css/reset.css" rel="stylesheet" type="text/css">
+    <link href="/static/css/style.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="doc">
+    {{include file='header.html'}}
+    <div class="wraper clearfix">
+        <div class="wrap-left">
+            <a href="/" class="logo"><img src="/static/images/logo.jpg" alt="" width="130" height="35"></a>
+            <div class="nav-left">
+                <ul class="nav-left-ul">
+                    <li><a href="/"><em class="home"></em>回到首页</a></li>
+                    <li class="on"><a href="/hire/hire_list"><em class="schedule"></em>租房信息</a></li>
+                    <li><a href="/hire/hire_deadline_list"><em class="noplan"></em>提醒到期</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="wrap-right">
+            <form id="agendaForm" method="post" action="/agenda/save_agenda">
+                <input type="hidden" name="id" value="{{$agenda->id|default:''}}">
+                <div class="search-wrap">
+                    <div class="t-tit">租房信息录入 Add Hire Information </div>
+                </div>
+                <div class="div-th"><em></em>基本信息</div>
+                <div class="div-bd">
+                    <table cellpadding="0" cellsapcing="0" class="add-data-table">
+                        <tr>
+                            <td>
+                                <dl>
+                                    <dt class="wid115">小区名称：</dt>
+                                    <dd><input type="text" id="xq_name" name="xq_name" class="add-txt" value="{{$agenda->xq_name|default:''}}" /></dd>
+                                </dl>
+                            </td>
+                            <td><dl><dt class="wid115">房号：</dt>
+                                <dd><input type="text" id="acreage" name="acreage" class="add-txt number" value="" /><em></em></dd></dl></td>
+                        </tr>
+                        <tr>
+                            <td><dl><dt class="wid115">面积：</dt>
+                                <dd><input type="text" id="landlord_name" name="landlord_name" class="add-txt" value="" /><em>平方米</em></dd></dl></td>
+                            <td>
+                                <dl>
+                                    <dt class="wid115">装修：</dt>
+                                    <dd><input type="text"  name="landlord_name" class="add-txt" value="" /></dd>
+                                </dl>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <dl>
+                                    <dt class="wid115">月租：</dt>
+                                    <dd><input type="text" id="customer_name" name="customer_name" class="add-txt" value="{{$agenda->customer_name|default:''}}" /><em>元</em></em></dd>
+                                </dl>
+                            </td>
+                            <td><dl><dt class="wid115">房东号码：</dt>
+                                <dd><input id="contract_amount" type="text" name="amount" class="add-txt number" value="{{$agenda->amount|default:''}}" /></dd></dl></td>
+                        </tr>
+                        <tr>
+                            <td><dl><dt class="wid115">提醒时间：</dt>
+                                 <dd><select name="" id="" class="hire-sel">
+                                     <option value="永不">永不</option>
+                                     <option value="一个月后">一个月后</option>
+                                     <option value="两个月后">两个月后</option>
+                                     <option value="三个月后">三个月后</option>
+                                     <option value="四个月后">四个月后</option>
+                                     <option value="五个月后">五个月后</option>
+                                     <option value="六个月后">六个月后</option>
+                                     <option value="七个月后">七个月后</option>
+                                     <option value="八个月后">八个月后</option>
+                                     <option value="九个月后">九个月后</option>
+                                     <option value="十个月后">十个月后</option>
+                                     <option value="十一个月后">十一个月后</option>
+                                     <option value="十二个月后">十二个月后</option>
+                                     </select>
+                                 </dd>
+                                </dl>
+                            </td>
+                            <td></td>
+                        </tr>
+                    </table>
+                    <a href="javascript:" class="confirm-btn" style="width:120px;margin-top:50px;">删除</a>
+                    <a href="javascript:" class="confirm-btn" style="width:120px;margin-top:50px;">保存</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+</body>
+</html>

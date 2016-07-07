@@ -83,7 +83,7 @@ body{background: #fff; font-family: "Microsoft YaHei";}p{white-space: normal; wo
 .newspop .newspop-btn{width:50px;height:50px;  display: block; position:fixed;top:30%; right:0; background: url(/static/images/add_icon.png) no-repeat 0 -390px;}
 .copyright{ text-align: center; color:#000; clear:both; padding-top:30px;}
 .wrap-left{padding-top:25px;width:130px; float:left; background: #fff; }
-.wrap-right{padding-top:25px;width:990px; float:left; background: #fff;}
+.wrap-right{padding-top:25px;width:990px; float:left; background: #fff; min-height: 600px;}
 .nav-left{ background: #2a3542;}
 .schedule-wrap{padding-bottom: 20px; background: #f2f2f0;min-height:540px;}
 .nav-left-ul{padding:18px 10px;}
@@ -763,3 +763,5 @@ html .fc,.fc table{font-size:1em;background:#f2f3f5}.fc td,.fc th{padding:0;vert
 .backbtn{float: right;border:1px solid #d8d8d8;width:105px; height: 36px; line-height: 36px; text-align: center;font-style: 14px; background: #f2f2f2; color: #777;border-radius: 5px;}
 .questype label{ display: inline-block; margin-left: 15px;}
 .questype{font-size:16px; margin-bottom: 15px;}
+.hire-sel{width:170px;font-size:16px;border:1px solid #e5e5e5; background: #f9f9f9; padding:0 10px;height: 26px; line-height: 26px;
+    font-family: "Microsoft YaHei";}
