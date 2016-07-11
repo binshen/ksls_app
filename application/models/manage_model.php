@@ -515,7 +515,6 @@ class Manage_model extends MY_Model
     public function save_user($pic = NULL) {
         $data = array(
             'username' => $this->input->post('tel'),
-            'password' => sha1('888888'),
             'tel' => $this->input->post('tel'),
             'company_id' => $this->input->post('company_id'),
             'rel_name' => $this->input->post('rel_name'),
@@ -534,6 +533,7 @@ class Manage_model extends MY_Model
             $user_id = $this->input->post('id');
 
         } else {
+            $data['password']=sha1('888888');
             $this->db->insert('user', $data);
             $user_id = $this->db->insert_id();
         }
