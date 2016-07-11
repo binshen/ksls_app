@@ -185,12 +185,15 @@
 
             $(".a-btns").click(function() {
                 redirect_url = $(this).attr('url');
-                var result = checkAuth();
-                if(result < 1) {
-                    $.blockUI({ message: $('#Jloginpop'), css:{ background: 'none',top:'100px', border: 'none',width:'410px', height:'410px'}, overlayCSS: {cursor:'default'}});
-                } else {
-                    window.location = redirect_url;
-                }
+                //var result = checkAuth();
+                $.getJSON('/index/check_login',function (data) {
+                    if(data < 1) {
+                        $.blockUI({ message: $('#Jloginpop'), css:{ background: 'none',top:'100px', border: 'none',width:'410px', height:'410px'}, overlayCSS: {cursor:'default'}});
+                    } else {
+                        window.location = redirect_url;
+                    }
+                })
+
             });
         });
 
@@ -310,6 +313,7 @@
         });
 
         function checkAuth() {
+           // alert('one');
             return $.ajax({
                 url: "/index/check_login",
                 async: false

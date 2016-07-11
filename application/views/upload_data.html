@@ -113,7 +113,7 @@
     })
 
     $("#save_btn").click(function () {
-        var files = $('input[name="file"]').prop('files');
+        var files = $('#file').val();
         if(files.length == 0){
             alert('请选择文件');
             return;
