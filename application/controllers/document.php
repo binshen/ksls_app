@@ -140,4 +140,16 @@ class Document extends MY_Controller
         $this->document_model->pass_doc($doc_id);
         redirect(site_url('/document/list_doc_nopass'));
     }
+
+    public function edit_doc($doc_id){
+        $type = $this->document_model->get_forum_type();
+        $this->assign('type_list', $type);
+        $data = array();
+        $res = $this->document_model->get_doc($doc_id);
+        if($res){
+            $data = $res;
+        }
+        $this->assign('data', $data);
+        $this->display('publish_doc.html');
+    }
 }

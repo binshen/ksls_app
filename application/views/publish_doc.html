@@ -39,6 +39,7 @@
                 <p class="tab-tit">发布文档</p>
                 <div class="publish-document-main">
                         <form id="save_form" method="post" action="{{site_url url='document/save_ticket'}}">
+                            <input type="hidden" value="{{$data['id']|default:''}}" name="id">
                             <select id="sel_type" name="type" class="pub-select">
                                 <option value="">选择文档</option>
                                 {{if $type_list!=1}}
@@ -47,9 +48,9 @@
                                 {{/foreach}}
                                 {{/if}}
                             </select>
-                            <input type="text" id="title" name="title" class="input-txt" placeholder="标题" />
+                            <input type="text" value="{{$data['title']|default:''}}" id="title" name="title" class="input-txt" placeholder="标题" />
                             <div class="editor-box">
-                                <textarea id="elm1" name="elm1" class="xheditor" rows="30" cols="80" style="width: 100%"></textarea>
+                                <textarea id="elm1" name="elm1" class="xheditor" rows="30" cols="80" style="width: 100%">{{$data['content']|default:''}}</textarea>
                             </div>
                             <p class="p-btn"><a href="javascript:void(0);" id="save_btn" class="publish-btn">发布</a></p>
                         </form>
@@ -79,6 +80,8 @@
         }
         $("#save_form").submit();
     })
+
+    $("#sel_type").val({{$data['type']|default:''}});
 </script>
 </body>
 </html>

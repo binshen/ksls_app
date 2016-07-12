@@ -113,10 +113,19 @@ class Document_model extends MY_Model
             'content' => $this->input->post('elm1'),
             'type' => $this->input->post('type'),
             'user_id' => $this->session->userdata('login_user_id'),
-            'cdate' => date('Y-m-d H:i:s'),
             'pass'=>1
         );
-        $this->db->insert('ticket',$data);
+        if(!$this->input->post('id')){
+            $data['cdate'] =  date('Y-m-d H:i:s');
+            $this->db->insert('ticket',$data);
+        }else{
+            if(in_array(4,$this->session->userdata('login_position_id_array'))){
+                $data['pass'] = 2;
+            }
+            $this->db->where('id',$this->input->post('id'));
+            $this->db->update('ticket',$data);
+        }
+
     }
 
     public function view_doc($id) {
@@ -395,6 +404,26 @@ class Document_model extends MY_Model
             return -1;
         } else {
             return 1;
+        }
+    }
+
+    public function get_doc($id){
+        if(in_array(4,$this->session->userdata('login_position_id_array'))){
+            $this->db->select('a.*,b.name type_name')->from('ticket a');
+            $this->db->join('forum_type b','a.type = b.id','left');
+            $this->db->where('a.id',$id);
+            $this->db->where('a.type <>',6);
+            $data = $this->db->get()->row_array();
+            return $data;
+        }else{
+            $this->db->select('a.*,b.name type_name')->from('ticket a');
+            $this->db->join('forum_type b','a.type = b.id','left');
+            $this->db->where('a.id',$id);
+            $this->db->where('a.type <>',6);
+            $this->db->where('a.pass',1);
+            $this->db->where('a.user_id',$this->session->userdata('login_user_id'));
+            $data = $this->db->get()->row_array();
+            return $data;
         }
     }
 }
