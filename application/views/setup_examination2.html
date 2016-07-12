@@ -158,22 +158,25 @@
         var html = $(this).parent().prev().eq(0).html();
         $.getJSON('/examination/add_question/'+eq_id,function(data){
             alert(eq_id);
-            alert(data);
+            alert(data.text);
             $.each(data,function(k, v) {
                 alert(v)
             })
-            if(data == -1){
+            if(data.text == -1){
                 layer.msg('加入失败');
             }
-            if(data == -2){
+            if(data.text == -2){
                 layer.msg('已加入');
             }
-            if(data == -4){
+            if(data.text == -4){
                 layer.msg('题目已满');
             }
-            if(data==-3 || data >0){
-                if(data == -3){
-                    data = 0;
+            if(data.text == -3 || data.text >0){
+                var num = 0
+                if(data.text == -3){
+                    num = 0;
+                }else{
+                    num = data.text;
                 }
 
                 select_a.addClass('has-join');
@@ -181,7 +184,7 @@
                 html += ' <span class="bg"><a href="javascript:void(0);" name="delete_question" class="join-paper has-join">移除试题</a>'
                 html += '<input type="hidden" name="exam_question_id[]" value="'+eq_id+'"></span>'
                 $("[class='hasjoinli']").append(html);
-                $("#exam_num").html(data);
+                $("#exam_num").html(num);
                 $("[name='delete_question']").off('click');
                 $("[name='delete_question']").click(function(){
                     var select = $(this);

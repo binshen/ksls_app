@@ -251,7 +251,7 @@ class Examination extends MY_Controller
     }
 
     public function add_question($id){
-        $res = $this->examination_model->add_question($id);
+        $res['text'] = $this->examination_model->add_question($id);
         echo json_encode($res);
     }
 
