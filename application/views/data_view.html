@@ -109,7 +109,7 @@
         var _em =$(this).find('em')
         var likes = $(this).find('likes').eq(0);
         var data_ = Date.parse(new Date());
-        $.getJSON("{{site_url url='document/likes_one_time'}}/{{$data['id']}}/"+data_,function(data){
+        $.getJSON("{{site_url url='document/likes_one_time'}}/{{$data['id']}}/" + Math.random(),function(data){
             if(data==1){
                 var _likes = likes.html();
                 _likes = parseInt(_likes) + 1;
@@ -127,8 +127,6 @@
 
     $("#house_btn").click(function(data){
         var _em =$(this).find('em')
-        var data_ = Date.parse(new Date());
-        alert(data_)
         $.getJSON("{{site_url url='document/house_one_time'}}/{{$data['id']}}/" + Math.random(),function(data){
             if(data==1){
                 var _house = _em.eq(0).html();

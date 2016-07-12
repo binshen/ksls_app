@@ -157,7 +157,7 @@
         var eq_id = $(this).next().val();
         var html = $(this).parent().prev().eq(0).html();
         var data_ = Date.parse(new Date());
-        $.getJSON('/examination/add_question/'+eq_id+'/'+data_,function(data){
+        $.getJSON('/examination/add_question/'+eq_id+'/' + Math.random(),function(data){
             if(data.text == -1){
                 layer.msg('加入失败');
             }
@@ -187,7 +187,7 @@
                     var eq_id = $(this).next().val();
                     var html = $(this).parent().prev().eq(0).html();
                     var data_ = Date.parse(new Date());
-                    $.getJSON('/examination/delete_question/'+eq_id+'/'+data_,function(data){
+                    $.getJSON('/examination/delete_question/'+eq_id+'/' + Math.random(),function(data){
                         if(data == -1){
                             layer.msg('移除失败');
                         }
@@ -222,7 +222,7 @@
         var eq_id = $(this).next().val();
         var html = $(this).parent().prev().eq(0).html();
         var data_ = Date.parse(new Date());
-        $.getJSON('/examination/delete_question/'+eq_id+'/'+data_,function(data){
+        $.getJSON('/examination/delete_question/'+eq_id+'/' + Math.random(),function(data){
             if(data == -1){
                 layer.msg('移除失败');
             }
