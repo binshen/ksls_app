@@ -189,7 +189,8 @@
             $(".a-btns").click(function() {
                 redirect_url = $(this).attr('url');
                 //var result = checkAuth();
-                $.getJSON('/index/check_login',function (data) {
+                var data_ = Date.parse(new Date());
+                $.getJSON('/index/check_login/'+data_,function (data) {
                     if(data < 1) {
                         $.blockUI({ message: $('#Jloginpop'), css:{ background: 'none',top:'100px', border: 'none',width:'410px', height:'410px'}, overlayCSS: {cursor:'default'}});
                     } else {
