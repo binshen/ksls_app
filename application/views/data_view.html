@@ -128,7 +128,8 @@
     $("#house_btn").click(function(data){
         var _em =$(this).find('em')
         var data_ = Date.parse(new Date());
-        $.getJSON("{{site_url url='document/house_one_time'}}/{{$data['id']}}/"+data_,function(data){
+        alert(data_)
+        $.getJSON("{{site_url url='document/house_one_time'}}/{{$data['id']}}/" + Math.random(),function(data){
             if(data==1){
                 var _house = _em.eq(0).html();
                 _house = parseInt(_house) + 1;
