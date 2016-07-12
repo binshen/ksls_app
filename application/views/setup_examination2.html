@@ -90,11 +90,11 @@
                                     {{foreach from=$exam_data.exam_list item=item}}
                                     <dl>
                                         <dt>
-                                            (
+                                            [
                                             {{if $item['style']==1}}单选题{{/if}}
                                             {{if $item['style']==2}}多选题{{/if}}
                                             {{if $item['style']==3}}论述题{{/if}}
-                                            )
+                                            ]
                                             {{$item['title']}}</dt>
 
                                     </dl>
@@ -123,9 +123,6 @@
 </div>
 <script type="text/javascript" src="/static/js/dpl-jquery.slide.js"></script>
     <script type="text/javascript" src="/static/js/layer/layer.js"></script>
-<script type="text/javascript">
-
-</script>
 
 </body>
 </html>
