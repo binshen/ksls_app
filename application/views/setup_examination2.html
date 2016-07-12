@@ -157,6 +157,8 @@
         var eq_id = $(this).next().val();
         var html = $(this).parent().prev().eq(0).html();
         $.getJSON('/examination/add_question/'+eq_id,function(data){
+            alert(eq_id);
+            alert(data);
             if(data == -1){
                 layer.msg('加入失败');
             }
@@ -170,7 +172,7 @@
                 if(data == -3){
                     data = 0;
                 }
-                alert(data);
+
                 select_a.addClass('has-join');
                 html = '<dl>'+html+'</dl>'
                 html += ' <span class="bg"><a href="javascript:void(0);" name="delete_question" class="join-paper has-join">移除试题</a>'
