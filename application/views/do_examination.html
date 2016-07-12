@@ -145,7 +145,8 @@
         $(".dl-exam dd label").click(function(){ $(".dl-exam dd label").removeClass("choose");$(this).addClass("choose"); });
         $("#submitExam").click(function() {
             var msg = "确定要交卷吗？";
-            $.getJSON('/examination/check_complete/{{$exam_id}}',function(data){
+            var data_ = Date.parse(new Date());
+            $.getJSON('/examination/check_complete/{{$exam_id}}/'+data_,function(data){
                 if(data==1){
                     msg = "您还有未完成的试题,是否确定要交卷？";
                     layer.confirm(msg, {
@@ -201,7 +202,8 @@
         if ($(this).is(':checked')) {
             checked = 1
         }
-        var path = "{{site_url url='examination/chenge_option'}}/{{$exam_data.question_detail.eq_id}}/"+val+"/"+checked+"/{{$exam_data.question_detail.style}}";
+        var data_ = Date.parse(new Date());
+        var path = "{{site_url url='examination/chenge_option'}}/{{$exam_data.question_detail.eq_id}}/"+val+"/"+checked+"/{{$exam_data.question_detail.style}}/"+data_;
         $.getJSON(path,function(data){
 
         })

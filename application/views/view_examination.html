@@ -83,7 +83,8 @@ $("#save_btn").click(function(){
     layer.confirm('确定要修改试卷？', {
         btn: ['确定','取消'] //按钮
     }, function(){
-        $.getJSON('/examination/check_flag_date/{{$exam_data.exam_main.id}}',function(data){
+        var data_ = Date.parse(new Date());
+        $.getJSON('/examination/check_flag_date/{{$exam_data.exam_main.id}}/'+data_,function(data){
             if(data==3){
                 layer.msg('"生成试卷"中有未完成的试卷,本试卷不能修改');
                 return false;
