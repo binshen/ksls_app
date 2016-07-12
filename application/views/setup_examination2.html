@@ -186,7 +186,8 @@
                     var select = $(this);
                     var eq_id = $(this).next().val();
                     var html = $(this).parent().prev().eq(0).html();
-                    $.getJSON('/examination/delete_question/'+eq_id,function(data){
+                    var data_ = Date.parse(new Date());
+                    $.getJSON('/examination/delete_question/'+eq_id+'/'+data_,function(data){
                         if(data == -1){
                             layer.msg('移除失败');
                         }
@@ -220,7 +221,8 @@
         var select_a = $(this);
         var eq_id = $(this).next().val();
         var html = $(this).parent().prev().eq(0).html();
-        $.getJSON('/examination/delete_question/'+eq_id,function(data){
+        var data_ = Date.parse(new Date());
+        $.getJSON('/examination/delete_question/'+eq_id+'/'+data_,function(data){
             if(data == -1){
                 layer.msg('移除失败');
             }
