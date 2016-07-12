@@ -569,12 +569,14 @@ class Examination_model extends MY_Model
         $res = $this->db->order_by('id','desc')->get()->row_array();
         if(!$res){
             return -1;
+            exit();
         }
         $exam_id = $res['id'];
         $res_row = $this->db->select()->from('exam_question')->where('exam_id',$exam_id)
             ->where('question_id',$id)->get()->row_array();
         if($res_row){
             return -2;
+            exit();
         }
         $this->db->select('count(1) as num');
         $this->db->where('exam_id',$exam_id);
@@ -582,6 +584,7 @@ class Examination_model extends MY_Model
         $num_old = $this->db->get()->row_array();
         if($num_old['num']>= $res['p_num']){
             return -4;
+            exit();
         }
         $this->db->trans_start();//--------开始事务
         $row = $this->db->select()->from('question')->where('id',$id)->get()->row_array();
@@ -608,11 +611,14 @@ class Examination_model extends MY_Model
         $this->db->trans_complete();//------结束事务
         if ($this->db->trans_status() === FALSE) {
             return -1;
+            exit();
         } else {
             if($num){
                 return $num['num']==0?-3:$num['num'];
+                exit();
             }else{
                 return -3;
+                exit();
             }
         }
     }
