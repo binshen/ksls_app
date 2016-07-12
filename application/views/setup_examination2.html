@@ -159,6 +159,9 @@
         $.getJSON('/examination/add_question/'+eq_id,function(data){
             alert(eq_id);
             alert(data);
+            $.each(data,function(k, v) {
+                alert(v)
+            })
             if(data == -1){
                 layer.msg('加入失败');
             }
