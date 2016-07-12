@@ -67,11 +67,11 @@
                                    {{foreach from=$question_data.res_list item=item}}
                                    <dl>
                                        <dt>
-                                           (
+                                           [
                                            {{if $item['style']==1}}单选题{{/if}}
                                            {{if $item['style']==2}}多选题{{/if}}
                                            {{if $item['style']==3}}论述题{{/if}}
-                                           )
+                                           ]
                                            {{$item['title']}}</dt>
 
                                    </dl>
