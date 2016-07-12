@@ -156,7 +156,9 @@
         var select_a = $(this);
         var eq_id = $(this).next().val();
         var html = $(this).parent().prev().eq(0).html();
-        $.getJSON('/examination/add_question/'+eq_id,function(data){
+        var data_ = Date.parse(new Date());
+        alert(data_)
+        $.getJSON('/examination/add_question/'+eq_id+'/'+data_,function(data){
             alert(eq_id);
             alert(data.text);
             $.each(data,function(k, v) {
