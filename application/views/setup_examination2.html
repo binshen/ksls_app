@@ -157,13 +157,7 @@
         var eq_id = $(this).next().val();
         var html = $(this).parent().prev().eq(0).html();
         var data_ = Date.parse(new Date());
-        alert(data_)
         $.getJSON('/examination/add_question/'+eq_id+'/'+data_,function(data){
-            alert(eq_id);
-            alert(data.text);
-            $.each(data,function(k, v) {
-                alert(v)
-            })
             if(data.text == -1){
                 layer.msg('加入失败');
             }
