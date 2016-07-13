@@ -54,8 +54,13 @@
             </div>
             <div class="schedule-wrap upload-document-wrap">
                 <div class="a-nav"><a href="{{site_url url='document/list_doc'}}">文档资料</a> &gt {{$data['type_name']}}</div>
+
                 <div class="publish-document-main">
-                    <p class="article-tit">{{$data['title']}}</p>
+                    <p class="article-tit">{{$data['title']}}
+                        {{if in_array(4,$position_id) || $mydoc == 1}}
+                        <a href="javascript:void(0)" id="btnEdit" class="delete-btn">编辑</a>
+                        {{/if}}
+                    </p>
                     <p class="article-author">
                         <em class="em-lock">{{$data['cdate']}}</em><em class="em-glance">{{$data['look']}}</em></p>
                     <div class="article-content">
@@ -146,6 +151,15 @@
             btn: ['确定','取消'] //按钮
         }, function(){
             window.location.href = "/document/del_doc/{{$data['id']}}";
+        }, function(){
+        });
+    });
+
+    $("#btnEdit").click(function () {
+        layer.confirm('确定要编辑该文档吗？', {
+            btn: ['确定','取消'] //按钮
+        }, function(){
+            window.location.href = "/document/edit_doc/{{$data['id']}}";
         }, function(){
         });
     });

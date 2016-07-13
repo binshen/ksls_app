@@ -104,7 +104,24 @@ class Document extends MY_Controller
 
     public function save_ticket(){
         $res = $this->document_model->save_ticket();
-        redirect(site_url('document/list_doc/1/-2'));
+        if(!$this->input->post('id')){
+            redirect(site_url('document/list_doc/1/-2'));
+            exit();
+        }else{
+            if(in_array(4,$this->session->userdata('login_position_id_array'))){
+                if($res==1){
+                    redirect(site_url('/document/list_doc_nopass'));
+                    exit();
+                }else{
+                    redirect(site_url('document/list_doc'));
+                    exit();
+                }
+            }else{
+                redirect(site_url('document/list_doc/1/-2'));
+                exit();
+            }
+        }
+
     }
 
     public function likes_one_time($id){

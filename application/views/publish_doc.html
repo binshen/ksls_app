@@ -44,7 +44,9 @@
                                 <option value="">选择文档</option>
                                 {{if $type_list!=1}}
                                 {{foreach from=$type_list item=item}}
+                                {{if $item.id != 6}}
                                 <option value="{{$item.id}}">{{$item.name}}</option>
+                                {{/if}}
                                 {{/foreach}}
                                 {{/if}}
                             </select>

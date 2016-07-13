@@ -118,12 +118,19 @@ class Document_model extends MY_Model
         if(!$this->input->post('id')){
             $data['cdate'] =  date('Y-m-d H:i:s');
             $this->db->insert('ticket',$data);
+            return 1;
         }else{
             if(in_array(4,$this->session->userdata('login_position_id_array'))){
-                $data['pass'] = 2;
+                unset($data['pass']);
             }
             $this->db->where('id',$this->input->post('id'));
             $this->db->update('ticket',$data);
+            $row = $this->db->select()->from('ticket')->where('id',$this->input->post('id'))->get()->row_array();
+            if($row){
+                return $row['pass'];
+            }else{
+                return 1;
+            }
         }
 
     }
