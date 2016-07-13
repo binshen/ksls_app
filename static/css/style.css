@@ -726,12 +726,12 @@ html .fc,.fc table{font-size:1em;background:#f2f3f5}.fc td,.fc th{padding:0;vert
 .setup-paper-control li{width:225px; height: 42px; background: #eee; text-align: center; color: #333; border:none;}
 .setup-paper-control li a{display: block; color: #333; height: 42px;}
 .setup-paper-control .current{color:#fff; background: #f43c5e;}
-
 .item-type{ overflow: hidden; font-size: 16px; margin-bottom: 30px;}
 .item-type .i-type{background:#eee ;width:108px; height: 40px; line-height: 40px; text-align: center; color: #333; float: left;}
 .item-type span{width:66px; height:28px; float: left; text-align: center;margin:7px 0 0 24px; color: #1887e3;}
 .item-type .current{ background: #f43c5e; color:#fff;}
 
+.index #slide01 .content{display: none;}
 .examination-main #slide01{padding:0 10px;}
 .choose-list li{border:1px solid #eee; font-size: 14px; color:#333; margin-bottom: 12px;}
 .choose-list li dl{padding:10px;}

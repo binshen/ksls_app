@@ -25,7 +25,7 @@
                 <li>我的房猫</li>
             </ul>
             <div id="slide01">
-            <div class="content">
+            <div class="content" style="display: block;">
                 <div class="convenient-btns">
                     {{if $login_user_id}}
                     <a href="javascript:" class="settingbtn" id="Jsettingbtn"></a>
@@ -264,7 +264,6 @@
                 return false;
             });
         }
-
         //新闻弹框
         $('.new-box').click(function(){
             $.get('/news/view_news/' + $(this).attr('n_id'), function(html) {
