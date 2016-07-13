@@ -130,6 +130,7 @@ class User_model extends MY_Model
         } else {
             $this->db->join('icon_config b', "a.id = b.icon_id", 'left');
         }
+        $this->db->where('a.flag',1);
         $this->db->order_by('b.id', "ASC");
         $this->db->distinct();
         return $this->db->get()->result_array();
@@ -139,7 +140,7 @@ class User_model extends MY_Model
         if(!empty($user_id)) {
             return $this->db->select('count(1) AS num')->where('user_id', $user_id)->get('icon_config')->row()->num;
         } else {
-            return $this->db->select('count(1) AS num')->get('icon')->row()->num;
+            return $this->db->select('count(1) AS num')->get('icon')->where('flag',1)->row()->num;
         }
     }
 
