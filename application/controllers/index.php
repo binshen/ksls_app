@@ -60,7 +60,15 @@ class Index extends MY_Controller {
     }
 
     public function check_login() {
-        echo $this->session->userdata('login_user_id') ? 1 : 0;
+        if($this->session->userdata('login_user_id')){
+            if(in_array(1,$this->session->userdata('login_position_id_array'))){
+                echo 2;
+            }else{
+                echo 1;
+            }
+        }else{
+            echo 0;
+        }
         die;
     }
 

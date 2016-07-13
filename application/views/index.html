@@ -147,7 +147,7 @@
     </div>
     <script type="text/javascript" src="/static/js/jquery-ui/jquery-ui.js"></script>
     <script type="text/javascript" src="/static/js/dpl-jquery.slide.js"></script>
-
+    <script type="text/javascript" src="/static/js/layer/layer.js"></script>
     <script type="text/javascript">
         $(function() {
             new Slide({
@@ -195,7 +195,16 @@
                     if(data < 1) {
                         $.blockUI({ message: $('#Jloginpop'), css:{ background: 'none',top:'100px', border: 'none',width:'410px', height:'410px'}, overlayCSS: {cursor:'default'}});
                     } else {
-                        window.location = redirect_url;
+                        if(data==2){
+                            if(redirect_url=="/appointment/book_room" || redirect_url=="/agenda/list_agenda"){
+                                window.location = redirect_url;
+                            }else{
+                                layer.msg('如需使用此服务,请先购买')
+                            }
+                        }else {
+                            window.location = redirect_url;
+                        }
+
                     }
                 })
 
