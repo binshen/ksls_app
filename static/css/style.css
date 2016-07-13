@@ -732,6 +732,7 @@ html .fc,.fc table{font-size:1em;background:#f2f3f5}.fc td,.fc th{padding:0;vert
 .item-type span{width:66px; height:28px; float: left; text-align: center;margin:7px 0 0 24px; color: #1887e3;}
 .item-type .current{ background: #f43c5e; color:#fff;}
 
+.index #slide01 .content{display: none;}
 .examination-main #slide01{padding:0 10px;}
 .choose-list li{border:1px solid #eee; font-size: 14px; color:#333; margin-bottom: 12px;}
 .choose-list li dl{padding:10px;}
