@@ -56,13 +56,13 @@
                 <div class="a-nav"><a href="{{site_url url='document/list_doc'}}">文档资料</a> &gt {{$data['type_name']}}</div>
 
                 <div class="publish-document-main">
-                    <p class="article-tit">{{$data['title']}}
+                    <p class="article-tit">{{$data['title']}}</p>
+                    <p class="article-author">
+                        <em class="em-lock">{{$data['cdate']}}</em><em class="em-glance">{{$data['look']}}</em>
                         {{if in_array(4,$position_id) || $mydoc == 1}}
-                        <a href="javascript:void(0)" id="btnEdit" class="delete-btn">编辑</a>
+                        <a href="javascript:void(0)" id="btnEdit" class="edit-btn">编辑</a>
                         {{/if}}
                     </p>
-                    <p class="article-author">
-                        <em class="em-lock">{{$data['cdate']}}</em><em class="em-glance">{{$data['look']}}</em></p>
                     <div class="article-content">
                         {{$data['content']}}
                         <div class="p-opration artical-opration">
