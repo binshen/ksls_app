@@ -123,7 +123,8 @@ class Manage_model extends MY_Model
         $data = array(
             'name' => $this->input->post('name'),
             'address' => $this->input->post('address'),
-            'tel' => $this->input->post('tel')
+            'tel' => $this->input->post('tel'),
+            'flag'=> $this->input->post('flag')? 1 : 2
         );
         $this->db->trans_start();//--------开始事务
 

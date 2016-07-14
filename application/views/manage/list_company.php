@@ -24,6 +24,7 @@
                 <th>名称</th>
                 <th>地址</th>
                 <th>电话</th>
+                <th>状态</th>
             </tr>
             </thead>
             <tbody>
@@ -36,6 +37,13 @@
                         <td><?php echo $row->name;?></td>
                         <td><?php echo $row->address;?></td>
                         <td><?php echo $row->tel;?></td>
+                        <td><?php
+                            if($row->flag == 1){
+                                echo '启用服务';
+                            }else{
+                                echo '暂停服务';
+                            }
+                            ?></td>
                     </tr>
                     <?php
                 endforeach;

@@ -27,11 +27,24 @@
         				<input name="tel" type="text" class="required" value="<?php if(!empty($tel)) echo $tel;?>" />
         			</dd>
         		</dl>
+				<dl>
+					<dt>状态：</dt>
+					<dd>
+						<label>
+							<input
+								<?php if (!empty($flag) && $flag==1){
+								echo "checked";
+								} ?>
+								name="flag" type="checkbox">启用
+						</label>
+
+					</dd>
+				</dl>
         	</fieldset>
         </div>
         <div class="formBar">
     		<ul>
-				<?php if($this->session->userdata('permission_id') > 3):?>
+				<?php if($this->session->userdata('permission_id') < 2):?>
     			<li><div class="buttonActive"><div class="buttonContent"><button type="submit" class="icon-save">保存</button></div></div></li>
 				<?php endif;?>
     			<li><div class="button"><div class="buttonContent"><button type="button" class="close icon-close">取消</button></div></div></li>
