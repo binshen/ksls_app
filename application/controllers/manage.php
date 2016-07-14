@@ -471,5 +471,47 @@ class Manage extends MY_Controller {
 		} else {
 			form_submit_json("300", $rs);
 		}
+
+	}*/
+	/**
+	 *
+	 * ***************************************以下为试题列表*******************************************************************
+	 */
+	public function list_questions()
+	{
+		$data = $this->manage_model->list_questions();
+		$this->load->view('manage/list_questions.php',$data);
+	}
+
+
+	public function delete_questions($id){
+		$rs = $this->manage_model->delete_questions($id);
+		if ($rs === 1) {
+			form_submit_json("200", "操作成功", "list_questions", "", "");
+		} else {
+			form_submit_json("300", $rs);
+		}
+	}
+
+	public function use_questions($id){
+		$rs = $this->manage_model->use_questions($id);
+		if ($rs === 1) {
+			form_submit_json("200", "操作成功", "list_questions", "", "");
+		} else {
+			form_submit_json("300", $rs);
+		}
+	}
+
+	public function edit_questions($id){
+		$data = $this->manage_model->get_questions($id);
+		$this->load->view('manage/edit_questions.php',$data);
+	}
+	/*public function save_ticket(){
+		$rs = $this->manage_model->save_ticket();
+		if ($rs === 1) {
+			form_submit_json("200", "操作成功", "list_ticket");
+		} else {
+			form_submit_json("300", $rs);
+		}
 	}*/
 }

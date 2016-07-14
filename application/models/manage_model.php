@@ -913,4 +913,74 @@ class Manage_model extends MY_Model
         //die(var_dump($data));
         return $data;
     }
+
+    public function list_questions()
+    {
+        $numPerPage = $this->input->post('numPerPage') ? $this->input->post('numPerPage') : 20;
+        $pageNum = $this->input->post('pageNum') ? $this->input->post('pageNum') : 1;
+
+        //获得总记录数
+        $this->db->select('count(1) as num');
+        $this->db->from('question');
+
+        if($this->input->post('title'))
+            $this->db->like('title',$this->input->post('title'));
+        if($this->input->post('style'))
+            $this->db->where('style',$this->input->post('style'));
+        if($this->input->post('type'))
+            $this->db->where('type_id',$this->input->post('type'));
+
+        $rs_total = $this->db->get()->row();
+        //总记录数
+        $data['countPage'] = $rs_total->num;
+
+        $data['title'] = $this->input->post('title')?$this->input->post('title'):null;
+        $data['style'] = $this->input->post('style')?$this->input->post('style'):null;
+        $data['type'] = $this->input->post('type')?$this->input->post('type'):null;
+        //list
+        $this->db->select('a.*,b.name');
+        $this->db->from('question a');
+        $this->db->join('question_type b','a.type_id = b.id','left');
+        if($this->input->post('a.title'))
+            $this->db->like('a.title',$this->input->post('title'));
+        if($this->input->post('style'))
+            $this->db->where('a.style',$this->input->post('style'));
+        if($this->input->post('type'))
+            $this->db->where('a.type_id',$this->input->post('type'));
+        $this->db->limit($numPerPage, ($pageNum - 1) * $numPerPage );
+        $this->db->order_by($this->input->post('orderField') ? $this->input->post('orderField') : 'a.id', $this->input->post('orderDirection') ? $this->input->post('orderDirection') : 'desc');
+        $data['res_list'] = $this->db->get()->result();
+        $data['type_list'] = $this->db->from('question_type')->get()->result();
+        $data['pageNum'] = $pageNum;
+        $data['numPerPage'] = $numPerPage;
+        return $data;
+    }
+
+    public function delete_questions($id){
+        $rs = $this->db->where('id',$id)->update('question', array('flag' => 2));
+        if($rs){
+            return 1;
+        }else{
+            return $this->db_error;
+        }
+    }
+
+    public function use_questions($id){
+        $rs = $this->db->where('id',$id)->update('question', array('flag' => 1));
+        if($rs){
+            return 1;
+        }else{
+            return $this->db_error;
+        }
+    }
+
+    public function get_questions($id){
+        $this->db->select('a.*,b.name')->from('question a');
+        $this->db->join('question_type b','a.type_id = b.id','left');
+        $this->db->where('a.id',$id);
+        $data['head'] = $this->db->get()->row();
+        $data['id'] = $id;
+        //die(var_dump($data));
+        return $data;
+    }
 }

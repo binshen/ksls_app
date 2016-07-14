@@ -6,7 +6,7 @@
     <input type="hidden" name="orderDirection" value="<?php echo $this->input->post('orderDirection');?>" />
 </form>
 <div class="pageHeader">
-    <form onsubmit="return navTabSearch(this);" action="<?php site_url('manage/list_ticket')?>" method="post">
+    <form onsubmit="return navTabSearch(this);" action="<?php site_url('manage/list_news')?>" method="post">
         <div class="searchBar">
             <table class="searchContent" id="search_purchase_order">
                 <tr>

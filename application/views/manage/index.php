@@ -114,13 +114,14 @@ $(function(){
 					</div>
 					<?php if($this->session->userdata('permission_id')==1):?>
 					<div class="accordionHeader">
-						<h2><span>Folder</span>文档/新闻管理</h2>
+						<h2><span>Folder</span>文档/新闻/题库管理</h2>
 					</div>
 					<div class="accordionContent">
 						<ul class="tree">
 							<li><a href="<?php echo site_url('manage/list_forum_type');?>" target="navTab" rel="list_forum_type">资料类别</a></li>
 							<li><a href="<?php echo site_url('manage/list_ticket');?>" target="navTab" rel="list_ticket">资料列表</a></li>
 							<li><a href="<?php echo site_url('manage/list_news');?>" target="navTab" rel="list_ticket">新闻列表</a></li>
+							<li><a href="<?php echo site_url('manage/list_questions');?>" target="navTab" rel="list_questions">试题列表</a></li>
 						</ul>
 					</div>
 					<?php endif;?>
