@@ -41,7 +41,7 @@ class Hire_model extends MY_Model
             $this->db->like('xiaoqu',trim($this->input->post('xiaoqu')));
         }
         $this->db->limit($numPerPage, ($pageNum - 1) * $numPerPage );
-        $this->db->order_by('id', 'desc');
+        $this->db->order_by('create_time', 'desc');
         $data['res_list'] = $this->db->get()->result_array();
         $data['pageNum'] = $pageNum;
         $data['numPerPage'] = $numPerPage;
