@@ -35,7 +35,7 @@
         </div>
         <div class="formBar">
     		<ul>
-				<?php if($this->session->userdata('permission_id') > 3):?>
+				<?php if($this->session->userdata('permission_id') < 3):?>
     			<li><div class="buttonActive"><div class="buttonContent"><button type="submit" class="icon-save">保存</button></div></div></li>
 				<?php endif;?>
 				<li><div class="button"><div class="buttonContent"><button type="button" class="close icon-close">取消</button></div></div></li>

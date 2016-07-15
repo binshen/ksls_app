@@ -36,6 +36,14 @@ class User_model extends MY_Model
             if($res->flag==2){
                 return 2;
             }
+            $company_flag = $this->db->where('id',$res->company_id)->from('company')->get()->row_array();
+            if($company_flag){
+                if($company_flag['flag']==2){
+                    return 3;
+                }
+            }else{
+                return 3;
+            }
             $token = uniqid();
             $this->db->where('id',$res->id)->update('user',array('token'=>$token));
             $pids = $this->db->select()->from('user_position')->where('user_id',$res->id)->get()->result_array();

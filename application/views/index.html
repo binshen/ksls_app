@@ -139,6 +139,7 @@
         </form>
         <p class="tips" id="login_error" style="display:none"><em></em>手机或密码不对，请重新输入！</p>
         <p class="tips" id="login_error2" style="display:none"><em></em>人员离职,账户停用</p>
+        <p class="tips" id="login_error3" style="display:none"><em></em>服务暂停</p>
     </div>
     <!--新闻弹框-->
     <div class="newspop" id="newspop" style="display: none;">
@@ -314,11 +315,19 @@
                 } else if(data == 2) {
                     $("#login_error").hide();
                     $("#login_error2").show();
+                    $("#login_error3").hide();
+                    $("#username").val("");
+                    $("#password").val("");
+                }else if(data == 3) {
+                    $("#login_error").hide();
+                    $("#login_error2").hide();
+                    $("#login_error3").show();
                     $("#username").val("");
                     $("#password").val("");
                 } else{
                     $("#login_error").show();
                     $("#login_error2").hide();
+                    $("#login_error3").hide();
                     $("#username").val("");
                     $("#password").val("");
                 }
