@@ -86,7 +86,34 @@ class Manage_model extends MY_Model
             return $rs;
         }
     }
-
+    /**
+     * 确认是否是下属关系
+     */
+    public function Is_subordinate($id){
+        $user_row = $this->db->select('b.permission_id,a.company_id')->from('user a')
+            ->join('role b','a.role_id = b.id','left')
+            ->where('a.id',$id)->get()->row_array();
+        $user_sub = $this->db->select('b.*')->from('user a')
+            ->join('user_subsidiary b','a.id = b.user_id','left')
+            ->where('a.id',$id)->get()->result_array();
+        if($this->session->userdata('company_id') != $user_row['company_id']){
+            return -1;
+        }
+        if($this->session->userdata('permission_id') >= $user_row['permission_id']){
+            return -1;
+        }
+        if($this->session->userdata('permission_id') == 2){
+            return 1;
+        }
+        foreach($this->session->userdata('subsidiary_id_array') as $item){
+            foreach($user_sub as $sub1){
+                if($item == $sub1['id']){
+                    return 1;
+                }
+            }
+        }
+        return -1;
+    }
     /**
      * 公司信息
      */
@@ -219,7 +246,13 @@ class Manage_model extends MY_Model
     }
 
     public function delete_subsidiary($id) {
+        if($this->session->userdata('permission_id') >2){
+            return false;
+        }
         $this->db->where('id', $id);
+        if($this->session->userdata('permission_id') ==2){
+            $this->db->where('company_id',$this->session->userdata('company_id'));
+        }
         return $this->db->delete('subsidiary');
     }
 
@@ -504,12 +537,18 @@ class Manage_model extends MY_Model
     }
 
     public function password_reset($id){
-        $res = $this->db->where('id',$id)->update('user',array('password'=>sha1('888888')));
-        if($res){
-            return 1;
+        $res1 = $this->Is_subordinate($id);
+        if($res1==1 || $this->session->userdata('permission_id')==1){
+            $res = $this->db->where('id',$id)->update('user',array('password'=>sha1('888888')));
+            if($res){
+                return 1;
+            }else{
+                return 2;
+            }
         }else{
             return 2;
         }
+
 
     }
 
@@ -579,8 +618,14 @@ class Manage_model extends MY_Model
     }
 
     public function delete_user($id) {
-        $this->db->where('id', $id);
-        return $this->db->delete('user');
+        $res = $this->Is_subordinate($id);
+        if($res == 1 || $this->session->userdata('permission_id')==1){
+            $this->db->where('id', $id);
+            return $this->db->delete('user');
+        }else{
+            return false;
+        }
+
     }
 
     public function get_user_by_tel($tel) {

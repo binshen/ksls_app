@@ -33,7 +33,33 @@ class Manage extends MY_Controller {
 			}
 
 		}else{
-			return call_user_func_array(array($this, $method), $params);
+			if($this->session->userdata('permission_id')==1){
+				return call_user_func_array(array($this, $method), $params);
+			}else{
+				if($method == 'index' ||
+					$method == 'list_company' ||
+					$method == 'edit_company' ||
+					$method == 'list_subsidiary' ||
+					$method == 'add_subsidiary' ||
+					$method == 'save_subsidiary' ||
+					$method == 'edit_subsidiary' ||
+					$method == 'delete_subsidiary' ||
+					$method == 'list_user' ||
+					$method == 'add_user' ||
+					$method == 'save_user' ||
+					$method == 'password_reset' ||
+					$method == 'edit_user' ||
+					$method == 'delete_user' ||
+					$method == 'get_subsidiary_list' ||
+					$method == 'get_subsidiary_list_2'
+				){
+					return call_user_func_array(array($this, $method), $params);
+				}else{
+					redirect(site_url('/manage'));
+					exit();
+				}
+			}
+
 		}
 	}
 
