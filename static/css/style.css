@@ -610,7 +610,9 @@ html .fc,.fc table{font-size:1em;background:#f2f3f5}.fc td,.fc th{padding:0;vert
 .newscoverpic .delete em{width: 16px; height: 35px; display: block;margin:0 auto; background: url(/static/images/add_icon.png) no-repeat -84px -412px;}
 .editor-box{margin-top:20px;width:930px;}
 .p-btn{overflow: hidden;}
-.publish-btn{margin:20px 20px 0 0;width:108px; height: 36px; color: #fff; text-align: center; line-height: 36px; background: #e6382a; display: block; font-size: 14px; border-radius: 3px; float: right;}
+.publish-btn{margin:20px 20px 0 0;font-family: "Microsoft YaHei";
+    width:108px; height: 36px; color: #fff; text-align: center; line-height: 36px; background: #e6382a; display: block; font-size: 14px; border-radius: 3px; float: right; }
+.publish-btn:hover{color: #fff;}
 .article-tit{font-size:24px; color:#515151;}
 .article-author{margin-bottom:25px;padding:5px;border-bottom: 1px solid #bdc2d3; font-size: 14px; color: #515151; line-height: 24px;}
 .article-author .em-lock{padding:0 20px;  background: url(../images/add_icon.png) no-repeat 0 -275px;}
