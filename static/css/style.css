@@ -87,7 +87,7 @@ body{background: #fff; font-family: "Microsoft YaHei";}p{white-space: normal; wo
 .wrap-right{padding-top:25px;width:990px; float:left; background: #fff; min-height: 600px;}
 .nav-left{ background: #2a3542;}
 .schedule-wrap{padding-bottom: 20px; background: #f2f2f0;min-height:540px;}
-.nav-left-ul{padding:18px 10px;}
+.nav-left-ul{padding:18px 10px;margin:0;}
 .nav-left-ul li{width:110px; background: #35404d;margin-bottom:12px; border-radius: 2px; font-size: 14px;}
 .nav-left-ul li a{ color:#aeb2b7;font-weight:bold; width:110px; height:42px;line-height: 42px;  display: block;}
 .nav-left-ul li a:hover{ color:#fff; text-decoration: none;}
@@ -206,9 +206,20 @@ body{background: #fff; font-family: "Microsoft YaHei";}p{white-space: normal; wo
 .add-select-items .select-list ul li:first-child{text-align:center;}
 .item-icon-0{background: none;}
 .item-icon-1{}
-.item-icon-2{ background-position:0 -60px; }.item-icon-3{background-position:0 -97px;}
+.item-icon-2{ background-position:0 -60px;}.item-icon-3{background-position:0 -97px;}
 .item-icon-4{background-position:0 -132px;}.item-icon-5{background-position:0 -165px;}
 .item-icon-6{background-position:0 -198px;}.item-icon-7{background-position:0 -232px;}
+.item-icon-8{background-position:0 -305px;}.item-icon-9{background-position:0 -340px;}
+.item-icon-10{background-position:0 -375px;}
+.item-icon-11{background-position:0 -412px;}
+.item-icon-12{background-position:0 -448px;}
+.item-icon-13{background-position:0 -484px;}
+.item-icon-14{background-position:0 -516px;}
+.item-icon-15{background-position:0 -552px;}
+.item-icon-16{background-position:0 -588px;}
+.item-icon-17{background-position:0 -624px;}
+.item-icon-18{background-position:0 -660px;}
+
 .schedule-list .items ul{float:left;margin-top:10px;}
 .schedule-list .items li{margin-bottom:2px; height:18px; line-height: 18px;}
 .schedule-list .items .span-num-text{width: 42px;height:18px; line-height: 18px; background:#f3f5f6;border-radius: 3px; float: left;}
@@ -256,6 +267,51 @@ body{background: #fff; font-family: "Microsoft YaHei";}p{white-space: normal; wo
 .schedule-list .items .item-icon-7-plan{ background-position: 0 -173px;}
 .schedule-list .items .item-icon-7-reality{ background-position: -26px -173px;}
 .schedule-list .items .item-icon-7-review{ background-position: -52px -173px;}
+/*新增房源*/
+.schedule-list .items .item-icon-8-plan{ background-position: 0 -201px;}
+.schedule-list .items .item-icon-8-reality{ background-position: -29px -201px;}
+.schedule-list .items .item-icon-8-review{ background-position: -55px -201px;}
+/*新增客源*/
+.schedule-list .items .item-icon-9-plan{ background-position: 0 -228px;}
+.schedule-list .items .item-icon-9-reality{ background-position: -29px -228px;}
+.schedule-list .items .item-icon-9-review{ background-position: -55px -228px;}
+/*房源跟进*/
+.schedule-list .items .item-icon-10-plan{ background-position: 0 -254px;}
+.schedule-list .items .item-icon-10-reality{ background-position: -29px -254px;}
+.schedule-list .items .item-icon-10-review{ background-position: -55px -254px;}
+/*客源跟进*/
+.schedule-list .items .item-icon-11-plan{ background-position: 0 -281px;}
+.schedule-list .items .item-icon-11-reality{ background-position: -29px -281px;}
+.schedule-list .items .item-icon-11-review{ background-position: -55px -281px;}
+/*签委托*/
+.schedule-list .items .item-icon-12-plan{ background-position: 0 -308px;}
+.schedule-list .items .item-icon-12-reality{ background-position: -29px -308px;}
+.schedule-list .items .item-icon-12-review{ background-position: -55px -308px;}
+/*照片*/
+.schedule-list .items .item-icon-13-plan{ background-position: 0 -334px;}
+.schedule-list .items .item-icon-13-reality{ background-position: -29px -334px;}
+.schedule-list .items .item-icon-13-review{ background-position: -55px -334px;}
+/*钥匙*/
+.schedule-list .items .item-icon-14-plan{ background-position: 0 -357px;}
+.schedule-list .items .item-icon-14-reality{ background-position: -29px -357px;}
+.schedule-list .items .item-icon-14-review{ background-position: -55px -357px;}
+/*约谈*/
+.schedule-list .items .item-icon-15-plan{ background-position: 0 -382px;}
+.schedule-list .items .item-icon-15-reality{ background-position: -29px -382px;}
+.schedule-list .items .item-icon-15-review{ background-position: -55px -382px;}
+/*意向金*/
+.schedule-list .items .item-icon-16-plan{ background-position: 0 -406px;}
+.schedule-list .items .item-icon-16-reality{ background-position: -29px -406px;}
+.schedule-list .items .item-icon-16-review{ background-position: -55px -406px;}
+/*签约*/
+.schedule-list .items .item-icon-17-plan{ background-position: 0 -432px;}
+.schedule-list .items .item-icon-17-reality{ background-position: -29px -432px;}
+.schedule-list .items .item-icon-17-review{ background-position: -55px -432px;}
+/*售后*/
+.schedule-list .items .item-icon-18-plan{ background-position: 0 -458px;}
+.schedule-list .items .item-icon-18-reality{ background-position: -29px -458px;}
+.schedule-list .items .item-icon-18-review{ background-position: -55px -458px;}
+
 
 .schedule-list .items .i-plan{color:#a9d86e;}.schedule-list .items .i-reality{color:#59ace2;}.schedule-list .items .i-review{color:#ff6c60;}
 .schedule-list li.score-plan,.schedule-list li.score-reality,.schedule-list li.score-review{ color:#fff;font-size:14px;}
