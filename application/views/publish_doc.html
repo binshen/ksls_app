@@ -7,6 +7,10 @@
     <meta name="description" content="上传文档" />
     <link href="/static/css/reset.css" rel="stylesheet" type="text/css">
     <link href="/static/css/style.css" rel="stylesheet" type="text/css">
+    <!--可视化编辑器样式-->
+    <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.0.1/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css" />
+    <link rel="stylesheet" href="/static/summernote/summernote.css">
 </head>
 <body>
 <div class="doc">
@@ -52,7 +56,7 @@
                             </select>
                             <input type="text" value="{{$data['title']|default:''}}" id="title" name="title" class="input-txt" placeholder="标题" />
                             <div class="editor-box">
-                                <textarea id="elm1" name="elm1" class="xheditor" rows="30" cols="80" style="width: 100%">{{$data['content']|default:''}}</textarea>
+                                <textarea id="elm1" name="elm1" class="xheditor" rows="30" cols="80" style="width: 100%;">{{$data['content']|default:''}}</textarea>
                             </div>
                             <p class="p-btn"><a href="javascript:void(0);" id="save_btn" class="publish-btn">发布</a></p>
                         </form>
@@ -62,15 +66,17 @@
     </div>
 </div>
 {{include file='footer.html'}}
-<script type="text/javascript" src="/static/js/xheditor-1.2.2.min.js"></script>
+<!--<script type="text/javascript" src="/static/js/Xheditor-1.2.2.min.js"></script>
 <script type="text/javascript" src="/static/js/zh-cn.js"></script>
+<script type="text/javascript" src="/static/js/layer/layer.js"></script>-->
+<!--可视化编辑引用js-->
 <script type="text/javascript" src="/static/js/layer/layer.js"></script>
+<script type="text/javascript" src="http://netdna.bootstrapcdn.com/bootstrap/3.0.1/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="/static/summernote/summernote.js"></script>
 <script>
     //可视化编辑器实例调用
-    $('#elm1').xheditor({
-        html5Upload : false,
-        upImgUrl:"/news/upload_news_pic",
-        upImgExt:"jpg,jpeg,gif,png"
+    $('#elm1').summernote({
+        height: 200
     });
     $("#save_btn").click(function(){
         if($.trim($("#title").val())==""){
@@ -83,7 +89,6 @@
         }
         $("#save_form").submit();
     })
-
     $("#sel_type").val({{$data['type']|default:''}});
 </script>
 </body>

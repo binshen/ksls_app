@@ -443,16 +443,16 @@ html .fc,.fc table{font-size:1em;background:#f2f3f5}.fc td,.fc th{padding:0;vert
 .add-data-table{border-collapse: collapse;width:100%;}
 .add-data-table td{border:1px solid #efefef; width:50%; vertical-align: top; }
 .add-data-table .twodl dl{float:left;}
-.add-data-table td dl{padding: 12px 33px;overflow: hidden;zoom:1;}
-.add-data-table td dt{float:left; font-size:14px; color:#333;}
-.add-data-table td .wid115{width:115px;}.add-data-table td .wid58{width:58px;}
-.add-data-table td dd { position: relative; float: left;line-height: 26px; font-size:16px;}
-.add-data-table td dd em{ position: absolute;right:10px; font-size: 14px; color: #999;}
-.add-data-table td dd .add-txt{font-size:16px;border:1px solid #e5e5e5; background: #f9f9f9; padding:0 10px;width:150px; height: 26px; line-height: 26px;
+.add-data-table dl{padding: 12px 33px;overflow: hidden;zoom:1;}
+.add-data-table dt{float:left; font-size:14px; color:#333;}
+.add-data-table .wid115{width:115px;}.add-data-table td .wid58{width:58px;}
+.add-data-table dd { position: relative; float: left;line-height: 26px; font-size:16px;}
+.add-data-table dd em{ position: absolute;right:10px; font-size: 14px; color: #999;}
+.add-data-table dd .add-txt{font-size:16px;border:1px solid #e5e5e5; background: #f9f9f9; padding:0 10px;width:150px; height: 26px; line-height: 26px;
     font-family: "Microsoft YaHei";}
-.add-data-table td dd .input-wid85{width:85px;}
-.add-data-table td dd .radio-choose{margin:0 5px 0 10px; vertical-align:middle; }
-.add-data-table td dd .sce-remarks{margin:0;padding:5px;width:820px; height:68px;border:1px solid #e5e5e5;font-family: "Microsoft YaHei"; background: none;}
+.add-data-table dd .input-wid85{width:85px;}
+.add-data-table dd .radio-choose{margin:0 5px 0 10px; vertical-align:middle; }
+.add-data-table dd .sce-remarks{margin:0;padding:5px;width:820px; height:68px;border:1px solid #e5e5e5;font-family: "Microsoft YaHei"; background: none;}
 .add-data-table .td-tit{padding: 10px 0; text-align: center; font-size:16px; color:#333;}
 .add-data-table .p-tips{padding:10px 0 0 33px;}
 .add-data-table .p-tips em{color:#979595;font-size:12px;}
