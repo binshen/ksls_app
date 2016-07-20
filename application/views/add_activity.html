@@ -254,6 +254,7 @@
         $("#activityForm").find('.fz14').each(function() {
             total += parseFloat($(this).text());
         });
+        total = total.toFixed(1)
         $(".plan_score").text(total);
     }
 

@@ -406,6 +406,7 @@
         var op = $('.specradio:checked').val();
         var float = op * num;
         total += float;
+        total = total.toFixed(1);
         $(".review_score").text(total);
         $("#total").val(total);
     }
