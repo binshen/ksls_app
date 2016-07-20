@@ -313,7 +313,7 @@ class Activity_model extends MY_Model
     }
 
     public function get_activity_type_list() {
-        return $this->db->get('activity_type')->result_array();
+        return $this->db->where('flag',1)->get('activity_type')->result_array();
     }
 
     public function get_activity_by_id($id) {
