@@ -107,6 +107,8 @@ body{background: #fff; font-family: "Microsoft YaHei";}p{white-space: normal; wo
 .nav-left-ul li .noplan{ background-position:0 -270px; }
 .nav-left-ul li .onlinemark{background-position:0 -343px;}
 .nav-left-ul li .exmaitems{background-position:0 -368px;}
+.nav-left-ul li .loan{background-position:0 -395px;}
+.nav-left-ul li .taxation{background-position:0 -423px;}
 
 .nav-left-ul li.on a{color:#fff;}
 .nav-left-ul li.on .schedule{background-position:-29px 2px;}
@@ -123,6 +125,8 @@ body{background: #fff; font-family: "Microsoft YaHei";}p{white-space: normal; wo
 .nav-left-ul li.on .questionbank{ background-position:-27px -320px; }
 .nav-left-ul li.on .onlinemark{background-position:-27px -343px;}
 .nav-left-ul li.on .exmaitems{background-position:-27px -368px;}
+.nav-left-ul li a:hover .taxation,.nav-left-ul li.on .taxation{background-position:-27px -423px;}
+.nav-left-ul li a:hover .loan,.nav-left-ul li.on .loan{background-position:-27px -395px;}
 
 .nav-left-ul li .document-nav-list{padding-bottom:10px;display: block;margin-right:15px;text-align: right; line-height: 18px; }
 .nav-left-ul li .document-nav-list a {  font-weight: normal; display: inline;line-height: 24px;font-size: 12px; color: #aaaeb3;  height: 20px;}
@@ -837,3 +841,25 @@ html .fc,.fc table{font-size:1em;background:#f2f3f5}.fc td,.fc th{padding:0;vert
 .questype{font-size:16px; margin-bottom: 15px;}
 .hire-sel{width:170px;font-size:16px;border:1px solid #e5e5e5; background: #f9f9f9; padding:0 10px;height: 26px; line-height: 26px;
     font-family: "Microsoft YaHei";}
+
+/*税费计算器*/
+.argument-items{width:460px; height:600px; float: left; background:#fff; margin-left:10px;border-right:1px solid #dedede;position: relative;}
+.argument-items .s1{ font-size: 14px; color:#ff6600;display: block;padding:20px 20px 10px;}
+.argument-items .add-data-table dd{margin-left:10px;line-height: 36px; font-size:14px;}
+.argument-items .add-data-table td{ border:none;}
+.argument-items .add-data-table dt{width: 152px; text-align: right; height: 34px;
+    line-height:34px;}
+.argument-items .add-data-table dl {padding:8px 0;}
+.argument-items .add-data-table dd .add-txt{width:255px; background: none; height: 32px;}
+.calculate-btn{ margin:0 auto;width:150px;height:40px; line-height: 40px; background: #ff6600;font-size:14px;text-align:center; display:block; color:#fff;border-radius:5px;}
+.argument-sel {width:275px; height: 34px; border:1px solid #e3e3e3; font-family: "微软雅黑"; font-size:14px;}
+
+.result-div{padding-top:60px;width:515px;height:528px; float: left; background: #f9f9f9; }
+.result-div .result-table{ margin-left:40px;width:465px;border-collapse: collapse}
+.result-div .result-table thead,.result-div .result-table tbody td{background: #fff;}
+.result-div .result-table th{ font-weight:normal; }
+.result-div .result-table .res-txt{border:none; width:100px; font-size:14px;font-family: "微软雅黑"; background: none;}
+.result-div .result-table td,.result-div .result-table th{border:1px solid #dcdcdc;padding:6px 0;text-align: center;font-size:14px; color:#333;}
+.result-bg{padding:110px 0 0 180px; line-height:30px;}
+#cal-result{ display: none;}
+.argument-items .arrow-icon{width:17px; height:31px; display: block;position: absolute;top:285px;right:-17px; background: url(/static//images/add_icon.png) no-repeat 0 -474px;}
