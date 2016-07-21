@@ -576,6 +576,16 @@ class Manage_model extends MY_Model
             $data['password']=sha1('888888');
             $this->db->insert('user', $data);
             $user_id = $this->db->insert_id();
+            $this->db->where('user_id', $user_id);
+            $this->db->delete('icon_config');
+            $icon_ids = array(3,4);
+            foreach ($icon_ids as $icon_id) {
+                $icon_config_data = array(
+                    'user_id' => $user_id,
+                    'icon_id' => $icon_id
+                );
+                $this->db->insert('icon_config', $icon_config_data);
+            }
         }
         $this->db->where('user_id',$user_id)->delete('user_position');
         if($this->input->post('pid')){
