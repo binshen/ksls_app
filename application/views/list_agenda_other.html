@@ -115,16 +115,7 @@
                     <li class="items wid80">{{$item.amount}}万</li>
                     <li class="bor-separate"></li>
                     <li class="wid80 score-reality bgno">
-                        {{if $item.course==1}}审核中{{/if}}
-                        {{if $item.course==2}}审核通过{{/if}}
-                        {{if $item.course==3}}评估中{{/if}}
-                        {{if $item.course==4}}评估通过{{/if}}
-                        {{if $item.course==5}}过户中{{/if}}
-                        {{if $item.course==6}}过户通过{{/if}}
-                        {{if $item.course==7}}按揭中{{/if}}
-                        {{if $item.course==8}}按揭通过{{/if}}
-                        {{if $item.course==9}}按揭房款中{{/if}}
-                        {{if $item.course==10}}按揭房款完成{{/if}}
+                        {{$item.course_name}}
                     </li>
                     <li class="bor-separate"></li>
                     <li class="wid80 score-plan bgno">正常</li>
@@ -150,16 +141,7 @@
                     <li class="items wid80">{{$item.amount}}万</li>
                     <li class="bor-separate bor-separate-none"></li>
                     <li class="wid82 score-reality history-show">
-                        {{if $item.course==1}}审核中{{/if}}
-                        {{if $item.course==2}}审核通过{{/if}}
-                        {{if $item.course==3}}评估中{{/if}}
-                        {{if $item.course==4}}评估通过{{/if}}
-                        {{if $item.course==5}}过户中{{/if}}
-                        {{if $item.course==6}}过户通过{{/if}}
-                        {{if $item.course==7}}按揭中{{/if}}
-                        {{if $item.course==8}}按揭通过{{/if}}
-                        {{if $item.course==9}}按揭房款中{{/if}}
-                        {{if $item.course==10}}按揭房款完成{{/if}}
+                        {{$item.course_name}}
                         <div class="history-list">
                             <em class="triangle"></em>
                             <div class="history-list-inner">

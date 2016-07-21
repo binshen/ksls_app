@@ -98,11 +98,12 @@ class Agenda_model extends MY_Model
         $data['countPage'] = $row['num'];
 
         //list
-        $this->db->select('a.*,b.rel_name');
+        $this->db->select('a.*,b.rel_name,f.name course_name');
         $this->db->from('agenda a');
         $this->db->join('user b','a.user_id = b.id','inner');
         $this->db->join('role c','c.id = b.role_id','inner');
         $this->db->join('user_subsidiary d','d.user_id = b.id','inner');
+        $this->db->join('course f','f.id = a.course','left');
         if(!empty($user_id)){
             $this->db->where('a.user_id',$user_id);
         }
