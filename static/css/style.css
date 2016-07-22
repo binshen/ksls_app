@@ -841,7 +841,7 @@ html .fc,.fc table{font-size:1em;background:#f2f3f5}.fc td,.fc th{padding:0;vert
 .questype{font-size:16px; margin-bottom: 15px;}
 .hire-sel{width:170px;font-size:16px;border:1px solid #e5e5e5; background: #f9f9f9; padding:0 10px;height: 26px; line-height: 26px;
     font-family: "Microsoft YaHei";}
-
+.add-news-btn{margin-right:20px;float: right; font-size:14px; color:#fff;}
 /*税费计算器*/
 .argument-items{width:460px; height:600px; float: left; background:#fff; margin-left:10px;border-right:1px solid #dedede;position: relative;}
 .argument-items .s1{ font-size: 14px; color:#ff6600;display: block;padding:20px 20px 10px;}
