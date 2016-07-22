@@ -91,3 +91,4 @@ class News extends MY_Controller
         $this->display("news_list.html");
     }
 }
+
