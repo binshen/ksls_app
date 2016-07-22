@@ -197,7 +197,12 @@
                 var data_ = Date.parse(new Date());
                 $.getJSON('/index/check_login/'+data_,function (data) {
                     if(data < 1) {
+                        {{if $login_user_id}}
+                        layer.msg('账户已在异地登陆,请退出后重新登陆')
+                        {{else}}
                         $.blockUI({ message: $('#Jloginpop'), css:{ background: 'none',top:'100px', border: 'none',width:'410px', height:'410px'}, overlayCSS: {cursor:'default'}});
+                        {{/if}}
+
                     } else {
                         if(data==2){
                             if(redirect_url=="/appointment/book_room" || redirect_url=="/agenda/list_agenda"){
