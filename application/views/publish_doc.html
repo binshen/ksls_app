@@ -56,6 +56,7 @@
                         </select>
                         <input type="text" value="{{$data['title']|default:''}}" id="title" name="title" class="input-txt" placeholder="标题" />
                         <div class="editor-box">
+                            <input type="hidden" name="elm1" id="content" />
                             <script id="editor" type="text/plain" style="width: 100%;height:500px;">{{$data['content']|default:''}}</script>
                         </div>
                         <p class="p-btn"><a href="javascript:void(0);" id="save_btn" class="publish-btn">发布</a></p>
@@ -83,6 +84,7 @@
             layer.msg('请选择文档类别');
             return false;
         }
+        $("#content").val(ue.getContent());
         $("#save_form").submit();
     })
     $("#sel_type").val({{$data['type']|default:''}});
