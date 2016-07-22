@@ -36,13 +36,16 @@ class User_model extends MY_Model
             if($res->flag==2){
                 return 2;
             }
+            $role_p = $this->db->select()->where('id',$res->role_id)->from('role')->get()->row();
             $company_flag = $this->db->where('id',$res->company_id)->from('company')->get()->row_array();
-            if($company_flag){
-                if($company_flag['flag']==2){
+            if($role_p->permission_id !=1){
+                if($company_flag){
+                    if($company_flag['flag']==2 && $role_p->permission_id !=1){
+                        return 3;
+                    }
+                }else{
                     return 3;
                 }
-            }else{
-                return 3;
             }
             $token = uniqid();
             $this->db->where('id',$res->id)->update('user',array('token'=>$token));
@@ -61,7 +64,7 @@ class User_model extends MY_Model
                     $sids[]=$id['subsidiary_id'];
                 }
             }
-            $role_p = $this->db->select()->where('id',$res->role_id)->from('role')->get()->row();
+
             $user_info['login_token'] = $token;
             $user_info['login_user_id'] = $res->id;
             $user_info['login_username'] = $username;
