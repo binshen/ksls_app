@@ -852,14 +852,14 @@ html .fc,.fc table{font-size:1em;background:#f2f3f5}.fc td,.fc th{padding:0;vert
 .argument-items .add-data-table dl {padding:8px 0;}
 .argument-items .add-data-table dd .add-txt{width:255px; background: none; height: 32px;}
 .calculate-btn{ margin:0 auto;width:150px;height:40px; line-height: 40px; background: #ff6600;font-size:14px;text-align:center; display:block; color:#fff;border-radius:5px;}
-.argument-sel {width:275px; height: 34px; border:1px solid #e3e3e3; font-family: "微软雅黑"; font-size:14px;}
+.argument-sel {width:275px; height: 34px; border:1px solid #e3e3e3; font-family: "Microsoft YaHei";font-size:14px;}
 
 .result-div{padding-top:60px;width:515px;height:528px; float: left; background: #f9f9f9; }
 .result-div .result-table{ margin-left:40px;width:465px;border-collapse: collapse}
 .result-div .result-table thead,.result-div .result-table tbody td{background: #fff;}
 .result-div .result-table th{ font-weight:normal; }
-.result-div .result-table .res-txt{border:none; width:100px; font-size:14px;font-family: "微软雅黑"; background: none;}
+.result-div .result-table .res-txt{border:none; width:100px; font-size:14px;font-family: "Microsoft YaHei"; background: none;}
 .result-div .result-table td,.result-div .result-table th{border:1px solid #dcdcdc;padding:6px 0;text-align: center;font-size:14px; color:#333;}
 .result-bg{padding:110px 0 0 180px; line-height:30px;}
 #cal-result{ display: none;}
-.argument-items .arrow-icon{width:17px; height:31px; display: block;position: absolute;top:285px;right:-17px; background: url(/static//images/add_icon.png) no-repeat 0 -474px;}
+.argument-items .arrow-icon{width:17px; height:31px; display: block;position: absolute;top:285px;right:-17px; background: url(/static/images/add_icon.png) no-repeat 0 -474px;}
