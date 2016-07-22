@@ -87,4 +87,7 @@ class News extends MY_Controller
         }
         echo "{'err':'".$err."','msg':".$msg."}";
     }
+    public function news_list(){
+        $this->display("news_list.html");
+    }
 }
