@@ -19,16 +19,20 @@ class News extends MY_Controller
     }
 
     function _remap($method,$params = array()) {
-        if(!$this->session->userdata('login_user_id') || in_array(1,$this->session->userdata('login_position_id_array'))) {
-            redirect(site_url('/'));
-        } else {
-            if(in_array(6,$this->session->userdata('login_position_id_array'))){
-                return call_user_func_array(array($this, $method), $params);
-            }else{
+        if($method == 'view_news'){
+            return call_user_func_array(array($this, $method), $params);
+        }else{
+            if(!$this->session->userdata('login_user_id') || in_array(1,$this->session->userdata('login_position_id_array'))) {
                 redirect(site_url('/'));
+            } else {
+                if(in_array(6,$this->session->userdata('login_position_id_array'))){
+                    return call_user_func_array(array($this, $method), $params);
+                }else{
+                    redirect(site_url('/'));
+                }
             }
-
         }
+
     }
 
     public function publish_news($id=null){
