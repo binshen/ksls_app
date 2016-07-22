@@ -18,8 +18,8 @@ class News_model extends MY_Model
         parent::__destruct();
     }
 
-    public function list_news($page) {
-        $numPerPage = $this->input->post('numPerPage') ? $this->input->post('numPerPage') : 4;
+    public function list_news($page,$num=4) {
+        $numPerPage = $this->input->post('numPerPage') ? $this->input->post('numPerPage') : $num;
         $pageNum = $this->input->post('pageNum') ? $this->input->post('pageNum') : $page;
 
         //获得总记录数
@@ -80,4 +80,7 @@ class News_model extends MY_Model
         $this->db->where('id',$this->input->post('news_id'))->update('news', $data);
     }
 
+    public function delete_news($id){
+        $this->db->where('id',$id)->delete('news');
+    }
 }

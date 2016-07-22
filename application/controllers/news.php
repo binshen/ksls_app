@@ -18,6 +18,19 @@ class News extends MY_Controller
         $this->load->helper('directory');
     }
 
+    function _remap($method,$params = array()) {
+        if(!$this->session->userdata('login_user_id') || in_array(1,$this->session->userdata('login_position_id_array'))) {
+            redirect(site_url('/'));
+        } else {
+            if(in_array(6,$this->session->userdata('login_position_id_array'))){
+                return call_user_func_array(array($this, $method), $params);
+            }else{
+                redirect(site_url('/'));
+            }
+
+        }
+    }
+
     public function publish_news($id=null){
         $news = array();
         if($id){
@@ -59,7 +72,7 @@ class News extends MY_Controller
                 $this->news_model->save_user($img_info['file_name']);
             }
         }
-        redirect('/');
+        redirect(site_url('/news/news_list'));
     }
 
     public function upload_news_pic(){
@@ -87,8 +100,18 @@ class News extends MY_Controller
         }
         echo "{'err':'".$err."','msg':".$msg."}";
     }
-    public function news_list(){
+
+    public function news_list($page=1){
+        $data = $this->news_model->list_news($page,10);
+        $this->assign('news_list', $data);
+        $pager = $this->pagination->getPageLink('/news/news_list', $data['countPage'], $data['numPerPage']);
+        $this->assign('pager', $pager);
         $this->display("news_list.html");
+    }
+
+    public function delete_news($id){
+        $this->news_model->delete_news($id);
+        redirect(site_url('/news/news_list'));
     }
 }
 

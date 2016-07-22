@@ -36,29 +36,16 @@
                             <th width="150">发布时间</th>
                             <th width="260">操作</th>
                         </tr>
+                        {{foreach from=$news_list.res_list item=item}}
                         <tr>
-                            <td>Hub Novo@Kunshan改潮玩代，一大家子「昆城」新去处</td>
-                            <td>2016-06-02</td>
-                            <td><a href="">修改</a>&nbsp&nbsp&nbsp&nbsp<a href="">删除</a></td>
+                            <td>{{$item.title}}</td>
+                            <td>{{$item.created}}</td>
+                            <td><a href="/news/publish_news/{{$item.id}}">修改</a>&nbsp&nbsp&nbsp&nbsp<a href="javascript:void(0);" onclick="delete_new('{{$item.id}}')">删除</a></td>
                         </tr>
-                        <tr>
-                            <td>Hub Novo@Kunshan改潮玩代，一大家子「昆城」新去处</td>
-                            <td>2016-06-02</td>
-                            <td><a href="">修改</a>&nbsp&nbsp&nbsp&nbsp<a href="">删除</a></td>
-                        </tr>
-                        <tr>
-                            <td>Hub Novo@Kunshan改潮玩代，一大家子「昆城」新去处</td>
-                            <td>2016-06-02</td>
-                            <td><a href="">修改</a>&nbsp&nbsp&nbsp&nbsp<a href="">删除</a></td>
-                        </tr>
-                        <tr>
-                            <td>Hub Novo@Kunshan改潮玩代，一大家子「昆城」新去处</td>
-                            <td>2016-06-02</td>
-                            <td><a href="">修改</a>&nbsp&nbsp&nbsp&nbsp<a href="">删除</a></td>
-                        </tr>
+                        {{/foreach}}
                     </table>
                     <div class="pages">
-                        <!--{{$pager}}-->
+                        {{$pager}}
                     </div>
 
             </div>
@@ -69,4 +56,15 @@
 {{include file='footer.html'}}
 </body>
 </html>
+<script type="text/javascript" src="/static/js/layer/layer.js"></script>
+<script>
+   function delete_new(id){
+       layer.confirm('是否确认删除此新闻?', {
+           btn: ['确定','取消'] //按钮
+       }, function(){
+           window.location.href = '/news/delete_news/' + id
+       }, function(){
+       });
+   }
+</script>
 
