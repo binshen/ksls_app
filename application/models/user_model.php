@@ -38,12 +38,14 @@ class User_model extends MY_Model
             }
             $role_p = $this->db->select()->where('id',$res->role_id)->from('role')->get()->row();
             $company_flag = $this->db->where('id',$res->company_id)->from('company')->get()->row_array();
-            if($company_flag){
-                if($company_flag['flag']==2 && $role_p->permission_id !=1){
+            if($role_p->permission_id ==1){
+                if($company_flag){
+                    if($company_flag['flag']==2 && $role_p->permission_id !=1){
+                        return 3;
+                    }
+                }else{
                     return 3;
                 }
-            }else{
-                return 3;
             }
             $token = uniqid();
             $this->db->where('id',$res->id)->update('user',array('token'=>$token));
