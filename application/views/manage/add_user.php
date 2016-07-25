@@ -48,7 +48,7 @@
                 </dl>
 
 
-                    <div id="sub_div"  style="float: left">
+                    <div id="sub_div"  style="float: left;width:550px;">
                         <?php
                         if (!empty($subsidiary_list)):
                             foreach ($subsidiary_list as $row):
