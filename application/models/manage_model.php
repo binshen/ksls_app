@@ -107,7 +107,7 @@ class Manage_model extends MY_Model
         }
         foreach($this->session->userdata('subsidiary_id_array') as $item){
             foreach($user_sub as $sub1){
-                if($item == $sub1['id']){
+                if($item == $sub1['subsidiary_id']){
                     return 1;
                 }
             }
