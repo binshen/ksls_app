@@ -105,7 +105,7 @@
                         <tr>
                             <td>
                                 <dl>
-                                    <dt>买房家庭首次购房：</dt>
+                                    <dt>买房购房数量：</dt>
                                     <dd>
                                         <label><input name="buyonly" value="首套" checked="checked" type="radio"> 首套</label>
                                         <label><input name="buyonly" value="二套" type="radio"> 二套</label>
@@ -117,7 +117,7 @@
                         <tr>
                             <td>
                                 <dl>
-                                    <dt>卖房家庭首次购房：</dt><dd>
+                                    <dt>卖房是否唯一住房：</dt><dd>
                                      <label><input name="sellonly" value="是" checked="checked" type="radio"> 是</label>
                                      <label><input name="sellonly" value="否" type="radio"> 否</label>
                                     </dd>
@@ -266,13 +266,13 @@
                 }
             }
             $("#yhshui").val(0);//印花税
-            $("#ggyhshui").val(5);//工本印花税
+            $("#ggyhshui").val(0);//工本印花税
         }
         if(houseProperty == '非普通住宅')  //非普通住宅
         {
+            var cj = parseFloat(totalPrice) - parseFloat($('#fwyj').val() * 10000);//差价
             $('#qishui').val((totalPrice * 3 / 100).toFixed(2));//精确到小数点后两位
-            $('#yyshui').val((totalPrice * 5.6 /100).toFixed(2));
-           var cj = parseFloat(totalPrice) - parseFloat($('#fwyj').val() * 10000);//差价
+            $('#yyshui').val((cj * 5.6 /100).toFixed(2));
             $('#grsdshui').val((cj * 20 /100).toFixed(2));
             $("#yhshui").val(totalPrice * 5 /1000);
             $("#ggyhshui").val(5);//工本印花税
