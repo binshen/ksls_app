@@ -643,7 +643,8 @@ class Manage_model extends MY_Model
     }
 
     public function get_role_list() {
-        return $this->db->get_where('role', array('id >' => 1,'permission_id >'=>$this->session->userdata('permission_id')))->result_array();
+        return $this->db->order_by('permission_id','asc')->get_where('role', array('id >' => 1,'permission_id >'=>$this->session->userdata('permission_id')))
+            ->result_array();
     }
 
     public function get_position_list() {
