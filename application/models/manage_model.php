@@ -554,8 +554,8 @@ class Manage_model extends MY_Model
 
     public function save_user($pic = NULL) {
         $data = array(
-            'username' => $this->input->post('tel'),
-            'tel' => $this->input->post('tel'),
+            'username' => trim($this->input->post('tel')),
+            'tel' => trim($this->input->post('tel')),
             'company_id' => $this->input->post('company_id'),
             'rel_name' => $this->input->post('rel_name'),
             'role_id' => $this->input->post('role_id'),
@@ -638,8 +638,12 @@ class Manage_model extends MY_Model
 
     }
 
-    public function get_user_by_tel($tel) {
-        return $this->db->get_where('user', array('tel' => $tel))->row_array();
+    public function get_user_by_tel($tel,$id=null) {
+        $data['tel']=$tel;
+        if($id){
+            $data['id <>'] = $id;
+        }
+        return $this->db->get_where('user', $data)->row_array();
     }
 
     public function get_role_list() {

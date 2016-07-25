@@ -238,8 +238,15 @@ class Manage extends MY_Controller {
 	public function save_user() {
 
 		if(!$this->input->post('id')){
-			$tel = $this->input->post('tel');
+			$tel = trim($this->input->post('tel'));
 			$broker = $this->manage_model->get_user_by_tel($tel);
+			if(!empty($broker)) {
+				form_submit_json("300", "手机号已经注册过");
+				return;
+			}
+		}else{
+			$tel = trim($this->input->post('tel'));
+			$broker = $this->manage_model->get_user_by_tel($tel,$this->input->post('id'));
 			if(!empty($broker)) {
 				form_submit_json("300", "手机号已经注册过");
 				return;
