@@ -65,11 +65,6 @@ class News_model extends MY_Model
         if ($this->db->trans_status() === FALSE) {
             return -1;
         } else {
-            $dataxml['first'] = array('value','新闻数据提交成功');
-            $dataxml['keynote1'] = array('value',$this->input->post('title'));
-            $dataxml['keynote2'] = array('value',date("Y-m-d H:i:s"));
-            $dataxml['remark'] = array('value','');
-            $this->wxpost('GCLMW8LVj59vIBGfAnoTjo-98pcxBcZak_4eFornX0g',$dataxml);
             return 1;
         }
     }
