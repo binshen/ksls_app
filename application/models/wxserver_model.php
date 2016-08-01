@@ -49,7 +49,7 @@ class Wxserver_model extends MY_Model
                 }
             }
             $insert = $this->db->where('id',$res->id)->update('user',array('openid'=>$openid));
-            if(insert){
+            if($insert){
                 return 1;
             }else{
                 return 4;

@@ -295,6 +295,129 @@ class MY_Model extends CI_Model{
 
 
     }
+
+    public function get_access_token() {
+        $url = 'https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid='.APP_ID.'&secret='.APP_SECRET;
+        $response = file_get_contents($url);
+        return json_decode($response)->access_token;
+    }
+
+    public function get_or_create_token() {
+
+        $this->db->from('token');
+        $this->db->where('app_id', APP_ID);
+        $this->db->where('app_secret', APP_SECRET);
+        $data_token = $this->db->get()->row_array();
+        if(empty($data_token)) {
+            $data = array(
+                'app_id' => APP_ID,
+                'app_secret' => APP_SECRET,
+                'token' => $this->get_access_token(),
+                'created' => time()
+            );
+            $this->db->insert('token', $data);
+            return $data;
+        } else {
+            $interval = time() - intval($data_token['created']);
+            if($interval / 60 / 60 > 1) {
+                $data_token['token'] = $this->get_access_token();
+                $data_token['created'] = time();
+                $this->db->where('id', $data_token['id']);
+                $this->db->update('token', $data_token);
+            }
+            return $data_token;
+        }
+    }
+
+    public function wxpost($template_id,$post_data){
+      /*  $openid = $this->get_openid();
+        $data = array(
+            "touser"=>$openid,
+            "template_id"=>$template_id,
+            "url"=>"http://weixin.qq.com/download",
+            'data' => $post_data
+        );
+        $options = array(
+            'http' => array(
+                'method' => 'POST',
+                'header' => 'Content-type:application/x-www-form-urlencoded',
+                'content' => json_encode($data),
+                'timeout' => 15 * 60 // 超时时间（单位:s）
+            )
+        );
+        $context = stream_context_create($options);
+        $access_token = $this->get_or_create_token();
+        return file_get_contents("https://api.weixin.qq.com/cgi-bin/message/template/send?access_token=".$access_token, false, $context);*/
+
+        $openid = $this->get_openid();
+        $access_token = $this->get_or_create_token();
+        $url = "https://api.weixin.qq.com/cgi-bin/message/template/send?access_token=".$access_token;//access_token改成你的有效值
+
+        $data = array(
+            'first' => array(
+                'value' => '数据提交成功！',
+                'color' => '#FF0000'
+            ),
+            'keyword1' => array(
+                'value' => '休假单',
+                'color' => '#FF0000'
+            ),
+            'keyword2' => array(
+                'value' => date("Y-m-d H:i:s"),
+                'color' => '#FF0000'
+            ),
+            'remark' => array(
+                'value' => '请审核！',
+                'color' => '#FF0000'
+            )
+        );
+        $template = array(
+            'touser' => $openid,
+            'template_id' => $template_id,
+            'url' => $url,
+            'topcolor' => '#7B68EE',
+            'data' => $data
+        );
+        $json_template = json_encode($template);
+        $dataRes = $this->request_post($url, urldecode($json_template));
+        if($this->session->userdata('login_user_id')==24){
+            die(var_dump($dataRes));
+        }
+
+        if ($dataRes['errcode'] == 0) {
+            return true;
+        } else {
+            return false;
+        }
+
+    }
+
+    public function get_openid(){
+        $row = $this->db->select()->from('user')->where('id',$this->session->userdata('login_user_id'))->get()->row_array();
+        if ($row){
+            return $row['openid'];
+        }else{
+            return -1;
+        }
+    }
+
+    function request_post($url = '', $param = '')
+    {
+        if (empty($url) || empty($param)) {
+            return false;
+        }
+        $postUrl = $url;
+        $curlPost = $param;
+        $ch = curl_init(); //初始化curl
+        curl_setopt($ch, CURLOPT_URL, $postUrl); //抓取指定网页
+        curl_setopt($ch, CURLOPT_HEADER, 0); //设置header
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1); //要求结果为字符串且输出到屏幕上
+        curl_setopt($ch, CURLOPT_POST, 1); //post提交方式
+        curl_setopt($ch, CURLOPT_POSTFIELDS, $curlPost);
+        $data = curl_exec($ch); //运行curl
+        curl_close($ch);
+        return $data;
+    }
 }
 
 /* End of file MY_Model.php */

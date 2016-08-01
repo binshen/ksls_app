@@ -118,6 +118,26 @@ class Document_model extends MY_Model
         if(!$this->input->post('id')){
             $data['cdate'] =  date('Y-m-d H:i:s');
             $this->db->insert('ticket',$data);
+
+            $dataxml = array(
+                'first' => array(
+                    'value' => '数据提交成功！',
+                    'color' => '#FF0000'
+                ),
+                'keyword1' => array(
+                    'value' => $this->input->post('title'),
+                    'color' => '#FF0000'
+                ),
+                'keyword2' => array(
+                    'value' => date("Y-m-d H:i:s"),
+                    'color' => '#FF0000'
+                ),
+                'remark' => array(
+                    'value' => '请审核！',
+                    'color' => '#FF0000'
+                )
+            );
+            $this->wxpost('GCLMW8LVj59vIBGfAnoTjo-98pcxBcZak_4eFornX0g',$dataxml);
             return 1;
         }else{
             if(in_array(4,$this->session->userdata('login_position_id_array'))){
