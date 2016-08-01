@@ -330,7 +330,7 @@ class MY_Model extends CI_Model{
     }
 
     public function wxpost($template_id,$post_data){
-        $openid = $this->get_openid();
+      /*  $openid = $this->get_openid();
         $data = array(
             "touser"=>$openid,
             "template_id"=>$template_id,
@@ -347,7 +347,49 @@ class MY_Model extends CI_Model{
         );
         $context = stream_context_create($options);
         $access_token = $this->get_or_create_token();
-        return file_get_contents("https://api.weixin.qq.com/cgi-bin/message/template/send?access_token=".$access_token, false, $context);
+        return file_get_contents("https://api.weixin.qq.com/cgi-bin/message/template/send?access_token=".$access_token, false, $context);*/
+
+        $openid = $this->get_openid();
+        $access_token = $this->get_or_create_token();
+        $url = "https://api.weixin.qq.com/cgi-bin/message/template/send?access_token=".$access_token;//access_token改成你的有效值
+
+        $data = array(
+            'first' => array(
+                'value' => '数据提交成功！',
+                'color' => '#FF0000'
+            ),
+            'keyword1' => array(
+                'value' => '休假单',
+                'color' => '#FF0000'
+            ),
+            'keyword2' => array(
+                'value' => date("Y-m-d H:i:s"),
+                'color' => '#FF0000'
+            ),
+            'remark' => array(
+                'value' => '请审核！',
+                'color' => '#FF0000'
+            )
+        );
+        $template_msg=array('touser'=>$openid,'template_id'=>$template_id,'topcolor'=>'#FF0000','data'=>$data);
+
+        $curl = curl_init($url);
+        $header = array();
+        $header[] = 'Content-Type: application/x-www-form-urlencoded';
+        curl_setopt($curl, CURLOPT_HTTPHEADER, $header);
+// 不输出header头信息
+        curl_setopt($curl, CURLOPT_HEADER, 0);
+// 伪装浏览器
+        curl_setopt($curl, CURLOPT_USERAGENT, 'Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2272.118 Safari/537.36');
+// 保存到字符串而不是输出
+        curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
+// post数据
+        curl_setopt($curl, CURLOPT_POST, 1);
+// 请求数据
+        curl_setopt($curl,CURLOPT_POSTFIELDS,json_encode($template_msg));
+        $response = curl_exec($curl);
+        curl_close($curl);
+        echo $response;
     }
 
     public function get_openid(){
