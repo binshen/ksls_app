@@ -14,6 +14,7 @@ class Wxserver extends CI_Controller {
     public function __construct()
     {
         parent::__construct();
+        $this->load->model('wxserver_model');
         if ( strpos($_SERVER['HTTP_USER_AGENT'], 'MicroMessenger') !== false ) {
             if(!$this->session->userdata('openid')){
                 $appid = APP_ID;
@@ -103,7 +104,28 @@ class Wxserver extends CI_Controller {
     }
 
     public function bdwx(){
-        echo ('123');
-       // $this->display('wxhtml/login.html');
+        $data['res'] = 0;
+        if($this->session->userdata('openid')){
+            $res = $this->wxserver_model->check_openid();
+            $data = array();
+            if($res){
+                $data['user_info'];
+            }
+            $this->load->view('wxhtml/login.html');
+        }
+
+    }
+
+    public function save_openid(){
+        $res = $this->wxserver_model->save_openid();
+        $data['res'] = $res;
+        if($this->session->userdata('openid')){
+            $res = $this->wxserver_model->check_openid();
+            $data = array();
+            if($res){
+                $data['user_info'];
+            }
+            $this->load->view('wxhtml/login.html');
+        }
     }
 }
