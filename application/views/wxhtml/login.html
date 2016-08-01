@@ -39,7 +39,7 @@ font-size: 14px;
                 if($res == 4){echo '写入失败';}
                 ?>
                 <?php
-                 if($user_info){
+                 if(!empty($user_info)){
                  echo $user_info['rel_name'];
                  }
                  ?>

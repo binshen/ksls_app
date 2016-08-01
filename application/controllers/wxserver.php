@@ -107,7 +107,6 @@ class Wxserver extends CI_Controller {
         $data['res'] = 0;
         if($this->session->userdata('openid')){
             $res = $this->wxserver_model->check_openid();
-            $data = array();
             if($res){
                 $data['user_info'];
             }
@@ -121,7 +120,6 @@ class Wxserver extends CI_Controller {
         $data['res'] = $res;
         if($this->session->userdata('openid')){
             $res = $this->wxserver_model->check_openid();
-            $data = array();
             if($res){
                 $data['user_info'];
             }
