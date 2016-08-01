@@ -36,5 +36,10 @@ define('FOPEN_READ_WRITE_CREATE',				'a+b');
 define('FOPEN_WRITE_CREATE_STRICT',				'xb');
 define('FOPEN_READ_WRITE_CREATE_STRICT',		'x+b');
 
+define('APP_ID', 'wx6eb14c27ebe160c6');
+define('APP_SECRET', '7921ff3dbf764e2c5df5964a18846554');
+define('TOKEN', '8354b302d5100247d2acc6211664c6f3');
+define('DOMAIN', 'www.funmall.com.cn');
+
 /* End of file constants.php */
 /* Location: ./application/config/constants.php */
