@@ -29,7 +29,6 @@ class Wxserver extends CI_Controller {
                     $a_access_token=json_decode($j_access_token,true);
                     $access_token=$a_access_token["access_token"];
                     $openid=$a_access_token["openid"];
-                    $rs = $this->sysconfig_model->check_openid($openid);
                     $this->session->set_userdata('openid', $openid);
                 }
             }
