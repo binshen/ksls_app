@@ -21,8 +21,8 @@ class Wxserver extends CI_Controller {
 
                 if(empty($_GET['code'])){
                     $url = 'http://'.$_SERVER['SERVER_NAME'].$_SERVER["REQUEST_URI"];
-                    $url = urlencode($url);
-                    die($url);
+                    //$url = urlencode($url);
+                    //die($url);
                     redirect("https://open.weixin.qq.com/connect/oauth2/authorize?appid={$appid}&redirect_uri={$url}&response_type=code&scope=snsapi_base&state=STATE#wechat_redirect");
                 }else{
                     $j_access_token=file_get_contents("https://api.weixin.qq.com/sns/oauth2/access_token?appid={$appid}&secret={$secret}&code={$_GET['code']}&grant_type=authorization_code");
