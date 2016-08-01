@@ -110,7 +110,7 @@ class Wxserver extends CI_Controller {
             if($res){
                 $data['user_info'];
             }
-            $this->load->view('wxhtml/login.html');
+            $this->load->view('wxhtml/login.html',$data);
         }
 
     }
@@ -123,7 +123,7 @@ class Wxserver extends CI_Controller {
             if($res){
                 $data['user_info'];
             }
-            $this->load->view('wxhtml/login.html');
+            $this->load->view('wxhtml/login.html',$data);
         }
     }
 }
