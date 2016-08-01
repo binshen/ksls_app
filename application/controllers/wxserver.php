@@ -18,6 +18,7 @@ class Wxserver extends CI_Controller {
             if(!$this->session->userdata('openid')){
                 $appid = APP_ID;
                 $secret = APP_SECRET;
+                die('http://'.$_SERVER['SERVER_NAME'].$_SERVER["REQUEST_URI"]);
                 if(empty($_GET['code'])){
                     $url = 'http://'.$_SERVER['SERVER_NAME'].$_SERVER["REQUEST_URI"];
                     $url = urlencode($url);
