@@ -15,7 +15,7 @@
 if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
 //t
-class Wxserver extends MY_Controller {
+class Wxserver extends MYWX_Controller {
 
     public function __construct()
     {
@@ -87,5 +87,10 @@ class Wxserver extends MY_Controller {
         }else{
             return false;
         }
+    }
+
+    public function bdwx(){
+        echo ('123');
+       // $this->display('wxhtml/login.html');
     }
 }
