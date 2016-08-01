@@ -1,0 +1,88 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>房猫房地产管理系统</title>
+    <meta name="keywords" content="房猫-行程管理-我的行程" />
+    <meta name="description" content="房猫-行程管理-我的行程" />
+    <link href="/static/css/reset.css" rel="stylesheet" type="text/css">
+    <link href="/static/css/style.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="doc">
+    {{include file='header.html'}}
+    <div class="wraper clearfix">
+        <div class="wrap-left">
+            <span class="logo"><img src="/static/images/logo.jpg" alt="" width="130" height="35"></span>
+            <div class="nav-left">
+                <ul class="nav-left-ul">
+                    <li><a href="/"><em class="home"></em>回到首页</a></li>
+                    <li class="on"><a href="/activity/list_activity"><em class="cpaccount"></em>我的房猫</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="wrap-right">
+            <div class="search-wrap">
+            </div>
+            <div class="schedule-wrap upload-document-wrap">
+                <p class="tab-tit">我的房猫</p>
+                <div class="publish-document-main">
+                   <table cellspadding="0" colspadding="0" border="0" class="account-table">
+                        <tr>
+                            <th width="100">充值账号：</th>
+                            <td><input type="text" name="" value="" class="account-txt"></td>
+                        </tr>
+                        <tr>
+                            <th>充值F币：</th>
+                            <td><input type="text" name="" value="" class="account-txt account-txt-wid80">F币 （1F币 = 1元）</td>
+                        </tr>
+                        <tr>
+                            <th>充值F分：</th>
+                            <td><input type="text" name="" value="" class="account-txt account-txt-wid80">F分</td>
+                        </tr>
+                        <tr>
+                            <th></th>
+                            <td><a href="javascript:" class="review-account">确认</a></td>
+                        </tr>
+                   </table>
+                </div>
+               
+            
+            </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript" src="js/yui-min.js"></script>
+<script type="text/javascript" src="js/jquery.poshytip.min.js"></script>
+<script type="text/javascript">
+    $('.item-icon').poshytip();
+    YUI({
+        modules: {
+            'trip-calendar': {
+                fullpath: '/static/js/calendar.js',
+                type    : 'js',
+                requires: ['trip-calendar-css']
+            },
+            'trip-calendar-css': {
+                fullpath: '/static/css/calendar.css',
+                type    : 'css'
+            }
+        }
+    }).use('trip-calendar', function(Y) {
+        new Y.TripCalendar({
+            // minDate         : new Date,     //最小时间限制
+            triggerNode     : '#J_DepDate', //第一个触节点
+            finalTriggerNode: '#J_EndDate',  //最后一个触发节点
+            isHoliday:true,
+            isDateInfo:false,
+            count:1
+        });
+    });
+
+</script>
+{{include file='footer.html'}}
+</body>
+</html>

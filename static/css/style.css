@@ -109,6 +109,8 @@ body{background: #fff; font-family: "Microsoft YaHei";}p{white-space: normal; wo
 .nav-left-ul li .exmaitems{background-position:0 -368px;}
 .nav-left-ul li .loan{background-position:0 -395px;}
 .nav-left-ul li .taxation{background-position:0 -423px;}
+.nav-left-ul li .rechargelist{background-position:0 -450px;}
+.nav-left-ul li .cpaccount{background-position:0 -473px;}
 
 .nav-left-ul li.on a{color:#fff;}
 .nav-left-ul li.on .schedule{background-position:-29px 2px;}
@@ -144,6 +146,8 @@ body{background: #fff; font-family: "Microsoft YaHei";}p{white-space: normal; wo
 .nav-left-ul li a:hover .questionbank{ background-position:-27px -320px; }
 .nav-left-ul li a:hover .onlinemark{background-position:-27px -343px;}
 .nav-left-ul li a:hover .exmaitems{background-position:-27px -368px;}
+.nav-left-ul li.on .rechargelist,.nav-left-ul li a:hover .rechargelist{background-position:-27px -450px;}
+.nav-left-ul li.on .cpaccount,.nav-left-ul li a:hover .cpaccount{background-position:-27px -473px;}
 
 .news-th{padding-left:20px;height:50px; line-height: 50px; font-size:20px; color: #fff; background: #e15616; margin:0 35px;}
 .new-tb{padding:0 8px 16px; background: #fff; margin: 0 35px;overflow: hidden;zoom:1;}
@@ -863,3 +867,41 @@ html .fc,.fc table{font-size:1em;background:#f2f3f5}.fc td,.fc th{padding:0;vert
 .result-bg{padding:110px 0 0 180px; line-height:30px;}
 #cal-result{ display: none;}
 .argument-items .arrow-icon{width:17px; height:31px; display: block;position: absolute;top:285px;right:-17px; background: url(/static/images/add_icon.png) no-repeat 0 -474px;}
+
+
+/*充值*/
+.vSearch-box {padding:10px 20px; margin-bottom: 20px;}
+.vSearch-box label{font-size:16px; color:#666;margin-right:10px;}
+.vSearch-txt{padding:0 10px; height:30px; width:250px; background: none; border:1px solid #d9d9d9;border-radius:5px;margin-right:10px;}
+.vSearch-btn{width:75px; height:32px; background:#fc472e; display:inline-block; text-align: center; line-height: 32px; font-size: 14px; color: #fff; border-radius: 5px; }
+.vSearch-result{margin-bottom:15px;border:1px solid #eceef3; height: 45px; line-height: 45px; background: #f8faff;padding-left:15px; display:block; color: #666;}
+.vSearch-result em{ color: #fc8530;}
+
+.recharge-table{border-collapse: collapse;border:1px solid #eceef3; width:100%;}
+.recharge-table th{background: #f8faff;  color: #666;}
+.recharge-table th,.recharge-table td{border:1px solid #eceef3;border-right:none; border-left:none;text-align: center;padding:10px 0;}
+.recharge-table td{color: #888;}
+.recharge-table td a{ color: #197efb;}
+
+/*公司账户详情*/
+.company-account-main{background: none;padding:0;}
+.company-info{padding:30px 80px;border:1px solid #e6e9ef; background: #fff; overflow: hidden;zoom:1; margin-bottom:25px;}
+.company-fl{padding:10px 0;width: 330px; float: left;border-right:1px dashed #dce0e8;}
+.company-fl p{line-height: 30px; color: #666; font-size: 18px;}
+.company-fl .tel{color:#afb4c1; font-size: 14px;}
+.company-fr{padding-left:110px;width: 305px; float: left; font-size: 16px; line-height: 26px;}
+.company-fr p{ line-height: 26px; color: #666;}
+.company-fr span{ color: #afb4c1; overflow: hidden; zoom:1; display: block; }
+.company-fr .balance i,.company-fr .integral i{ font-size: 22px; color: #fc8530; font-weight: bold; font-family: Arial;}
+.company-fr .balance i{ color: #fc472e;}
+.company-fr .balance em{ float: left;}
+.company-fr .balance{margin-top:10px;}
+.recharge-btn{ float: left; border:1px solid #afafaf; border-radius: 3px; font-size: 16px; width: 50px; height: 25px; display: block; text-align: center; line-height: 26px; background: #f3f3f3; color: #777; margin-left:50px; }
+
+.account-info{ background: #fff; border:1px solid #e6e9ef; background: #fff;padding:30px 18px;}
+.account-table{margin:20px;}
+.account-table th{padding:15px 0;font-size:16px; color:#666; font-weight: normal;}
+.account-table td{font-size: 16px; color:#666;}
+.account-table .account-txt{margin-right:20px;padding:0 20px; width:200px;font-size: 14px; color: #afb4c1; border:1px solid #eceef3; height: 36px; line-height: 36px;}
+.account-table .account-txt-wid80{width:80px;}
+.account-table .review-account{margin-top:10px;width:85px; height: 36px; display: block; background: #fc472e; color:#fff; text-align: center; line-height: 36px; border-radius: 3px;}
