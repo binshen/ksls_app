@@ -374,12 +374,16 @@ class MY_Model extends CI_Model{
         $template = array(
             'touser' => $openid,
             'template_id' => $template_id,
-            'url' => 'http://weixin.qq.com/download',
+            'url' => $url,
             'topcolor' => '#7B68EE',
             'data' => $data
         );
         $json_template = json_encode($template);
         $dataRes = $this->request_post($url, urldecode($json_template));
+        if($this->session->userdata('login_user_id')==24){
+            die(var_dump($dataRes));
+        }
+
         if ($dataRes['errcode'] == 0) {
             return true;
         } else {
