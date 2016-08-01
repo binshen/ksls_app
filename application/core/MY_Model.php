@@ -331,15 +331,18 @@ class MY_Model extends CI_Model{
 
     public function wxpost($template_id,$post_data){
         $openid = $this->get_openid();
+        $data = array(
+            "touser"=>$openid,
+            "template_id"=>$template_id,
+            "url"=>"http://weixin.qq.com/download",
+            'data' => $post_data
+        );
         $options = array(
             'http' => array(
-                "touser"=>$openid,
-                "template_id"=>$template_id,
-                "url"=>"http://weixin.qq.com/download",
                 'method' => 'POST',
-                'header' => 'Content-type:application/json;encoding=utf-8',
-                'data' => urldecode(json_encode($post_data)),
-                'timeout' => 300
+                'header' => 'Content-type:application/x-www-form-urlencoded',
+                'content' => $data,
+                'timeout' => 15 * 60 // 超时时间（单位:s）
             )
         );
         $context = stream_context_create($options);
