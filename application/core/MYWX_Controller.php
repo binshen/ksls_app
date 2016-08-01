@@ -10,7 +10,7 @@ if (! defined('BASEPATH'))
  * @author      yaobin<645894453@qq.com>
  *        
  */
-class MY_Controller extends CI_Controller
+class MYWX_Controller extends CI_Controller
 {
 
     public function __construct ()
