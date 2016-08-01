@@ -371,25 +371,21 @@ class MY_Model extends CI_Model{
                 'color' => '#FF0000'
             )
         );
-        $template_msg=array('touser'=>$openid,'template_id'=>$template_id,'topcolor'=>'#FF0000','data'=>$data);
+        $template = array(
+            'touser' => $openid,
+            'template_id' => $template_id,
+            'url' => 'http://weixin.qq.com/download',
+            'topcolor' => '#7B68EE',
+            'data' => $data
+        );
+        $json_template = json_encode($template);
+        $dataRes = $this->request_post($url, urldecode($json_template));
+        if ($dataRes['errcode'] == 0) {
+            return true;
+        } else {
+            return false;
+        }
 
-        $curl = curl_init($url);
-        $header = array();
-        $header[] = 'Content-Type: application/x-www-form-urlencoded';
-        curl_setopt($curl, CURLOPT_HTTPHEADER, $header);
-// 不输出header头信息
-        curl_setopt($curl, CURLOPT_HEADER, 0);
-// 伪装浏览器
-        curl_setopt($curl, CURLOPT_USERAGENT, 'Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2272.118 Safari/537.36');
-// 保存到字符串而不是输出
-        curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
-// post数据
-        curl_setopt($curl, CURLOPT_POST, 1);
-// 请求数据
-        curl_setopt($curl,CURLOPT_POSTFIELDS,json_encode($template_msg));
-        $response = curl_exec($curl);
-        curl_close($curl);
-        echo $response;
     }
 
     public function get_openid(){
@@ -399,6 +395,24 @@ class MY_Model extends CI_Model{
         }else{
             return -1;
         }
+    }
+
+    function request_post($url = '', $param = '')
+    {
+        if (empty($url) || empty($param)) {
+            return false;
+        }
+        $postUrl = $url;
+        $curlPost = $param;
+        $ch = curl_init(); //初始化curl
+        curl_setopt($ch, CURLOPT_URL, $postUrl); //抓取指定网页
+        curl_setopt($ch, CURLOPT_HEADER, 0); //设置header
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1); //要求结果为字符串且输出到屏幕上
+        curl_setopt($ch, CURLOPT_POST, 1); //post提交方式
+        curl_setopt($ch, CURLOPT_POSTFIELDS, $curlPost);
+        $data = curl_exec($ch); //运行curl
+        curl_close($ch);
+        return $data;
     }
 }
 
