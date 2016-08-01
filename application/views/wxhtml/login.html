@@ -30,7 +30,7 @@ font-size: 14px;
      
 <section class="innercontent">
 
-            <form method="post" class="c-form login-form" id="J_Register" action="<?php site_url('wxserver/save_openid')?>">
+            <form method="post" class="c-form login-form" id="J_Register" action="<?php echo site_url('wxserver/save_openid')?>">
                 <?php
                 if($res == -1){echo '账号登陆失败';}
                 if($res == 1){echo '绑定成功';}
