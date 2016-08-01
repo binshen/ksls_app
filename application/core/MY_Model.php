@@ -341,7 +341,7 @@ class MY_Model extends CI_Model{
             'http' => array(
                 'method' => 'POST',
                 'header' => 'Content-type:application/x-www-form-urlencoded',
-                'content' => $data,
+                'content' => json_encode($data),
                 'timeout' => 15 * 60 // 超时时间（单位:s）
             )
         );
