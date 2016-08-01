@@ -15,7 +15,7 @@
 if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
 //t
-class Index extends MY_Controller {
+class Wxserver extends MY_Controller {
 
     public function __construct()
     {
