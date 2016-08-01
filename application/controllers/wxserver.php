@@ -5,21 +5,33 @@
  * Date: 16/8/1
  * Time: 上午11:36
  */
-/**
- * Created by PhpStorm.
- * User: bin.shen
- * Date: 5/2/16
- * Time: 09:56
- */
 
 if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
 //t
-class Wxserver extends MYWX_Controller {
+class Wxserver extends CI_Controller {
 
     public function __construct()
     {
         parent::__construct();
+        if ( strpos($_SERVER['HTTP_USER_AGENT'], 'MicroMessenger') !== false ) {
+            if(!$this->session->userdata('openid')){
+                $appid = APP_ID;
+                $secret = APP_SECRET;
+                if(empty($_GET['code'])){
+                    $url = 'http://'.$_SERVER['SERVER_NAME'].$_SERVER["REQUEST_URI"];
+                    $url = urlencode($url);
+                    redirect("https://open.weixin.qq.com/connect/oauth2/authorize?appid={$appid}&redirect_uri={$url}&response_type=code&scope=snsapi_base&state=STATE#wechat_redirect");
+                }else{
+                    $j_access_token=file_get_contents("https://api.weixin.qq.com/sns/oauth2/access_token?appid={$appid}&secret={$secret}&code={$_GET['code']}&grant_type=authorization_code");
+                    $a_access_token=json_decode($j_access_token,true);
+                    $access_token=$a_access_token["access_token"];
+                    $openid=$a_access_token["openid"];
+                    $rs = $this->sysconfig_model->check_openid($openid);
+                    $this->session->set_userdata('openid', $openid);
+                }
+            }
+        }
     }
 
     public function index()
