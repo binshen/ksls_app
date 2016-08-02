@@ -16,6 +16,30 @@ class Account extends MY_Controller {
         $this->load->model('account_model');
     }
 
+    function _remap($method,$params = array()) {
+        if(!$this->session->userdata('login_user_id')) {
+            redirect(site_url('/'));
+        } else {
+            if(!in_array(7,$this->session->userdata('login_position_id_array'))){
+                if($method == 'recharge_list'){
+                    redirect(site_url('/account/company_account'));
+                    exit();
+                }
+                if($method == 'save_sum'){
+                    redirect(site_url('/account/company_account'));
+                    exit();
+                }
+                if($method == 'mo_recharge'){
+                    redirect(site_url('/account/company_account'));
+                    exit();
+                }
+            }
+            $position_id = $this->session->userdata('login_position_id_array');
+            $this->assign('position_id', $position_id);
+            return call_user_func_array(array($this, $method), $params);
+        }
+    }
+
     public function company_account($page=1,$company_id=null)
     {
         $position_array = $this->session->userdata('login_position_id_array');
@@ -28,7 +52,6 @@ class Account extends MY_Controller {
         }
         $data = $this->account_model->company_account($page,$company_id);
         $this->assign('company_account', $data);
-        $this->assign('position_array', $position_array);
         $pager = $this->pagination->getPageLink('/account/company_account', $data['countPage'], $data['numPerPage']);
         $this->assign('pager', $pager);
         $this->display('company_account.html');
