@@ -316,7 +316,7 @@ class MY_Model extends CI_Model{
                 'created' => time()
             );
             $this->db->insert('token', $data);
-            return $data;
+            return $data['token'];
         } else {
             $interval = time() - intval($data_token['created']);
             if($interval / 60 / 60 > 1) {
@@ -417,6 +417,25 @@ class MY_Model extends CI_Model{
         $data = curl_exec($ch); //运行curl
         curl_close($ch);
         return $data;
+    }
+
+    public function change_sum($company_id,$qty,$style,$demo){
+        if($style ==1){
+            $this->db->set('sum','sum + '.$qty,false);
+        }else{
+            $this->db->set('sum','sum - '.$qty,false);
+        }
+        $this->db->where('id',$company_id);
+        $this->db->update('company');
+        $data = array(
+            'company_id' => $company_id,
+            'qty' => $qty,
+            'style' => $style,
+            'demo' => $demo,
+            'user_id' => $this->session->userdata('login_user_id'),
+            'created' => date("Y-m-d H:i:s")
+        );
+        $this->db->insert('sum_log',$data);
     }
 }
 

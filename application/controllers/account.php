@@ -28,14 +28,18 @@ class Account extends MY_Controller {
         }
         $data = $this->account_model->company_account($page,$company_id);
         $this->assign('company_account', $data);
+        $this->assign('position_array', $position_array);
         $pager = $this->pagination->getPageLink('/account/company_account', $data['countPage'], $data['numPerPage']);
         $this->assign('pager', $pager);
         $this->display('company_account.html');
     }
 
-     public function mo_recharge()
+     public function mo_recharge($id)
      {
-              $this->display('mo_recharge.html');
+        $data = $this->account_model->mo_recharge($id);
+         $this->assign('company_id', $id);
+         $this->assign('company_info', $data);
+         $this->display('mo_recharge.html');
      }
 
     public function recharge_list($page=1){
@@ -44,5 +48,10 @@ class Account extends MY_Controller {
         $pager = $this->pagination->getPageLink('/account/recharge_list', $data['countPage'], $data['numPerPage']);
         $this->assign('pager', $pager);
         $this->display('recharge_list.html');
+    }
+
+    public function save_sum(){
+        $this->account_model->save_sum();
+        redirect(site_url('/account/company_account/1/'.$this->input->post('company_id')));
     }
 }
