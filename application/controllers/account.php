@@ -18,7 +18,8 @@ class Account extends MY_Controller {
 
     public function company_account($page=1,$company_id=null)
     {
-        if(in_array(7,$this->session->userdata('login_position_id_array'))){
+        $position_array = $this->session->userdata('login_position_id_array');
+        if(in_array(7,$position_array)){
             if($this->input->post('company_id')){
                 $company_id = $this->input->post('company_id');
             }
