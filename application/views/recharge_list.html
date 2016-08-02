@@ -52,14 +52,15 @@
                             <td>{{$item.name}}</td>
                             <td>{{$item.tel}}</td>
                             <td>{{$item.address}}</td>
-                            <td><a href="/account/company_account/{{$item.id}}">编辑</a></td>
+                            <td><a href="/account/company_account/1/{{$item.id}}">编辑</a></td>
                         </tr>
                         {{/foreach}}
                      </table>
+                    <div id="account_page" class="pages">
+                        {{$pager}}
+                    </div>
                 </div>
-                <div id="account_page" class="pages">
-                    {{$pager}}
-                </div>
+
             </div>
 
             </div>

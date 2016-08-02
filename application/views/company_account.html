@@ -29,15 +29,17 @@
                 <p class="tab-tit">我的房猫</p>
                 <div class="publish-document-main company-account-main">
                     <div class="company-info">
-                         <div class="company-fl">
-                             <p>友利房屋昆山点<br />
-                             <span class="tel">手机号码：13761126491</span></p>
-                         </div>
-                         <div class="company-fr">
-                              <p>账户余额<br />
-                              <span class="balance"><em><i>0.60</i> 元</em> <a href="javascript:" class="recharge-btn">充值</a></span>
-                              <span class="integral"><em><i>1600</i> 积分</em></span></p> 
-                         </div>
+                        {{if $company_account.company}}
+                        <div class="company-fl">
+                            <p>{{$company_account.company.name}}<br />
+                                <span class="tel">手机号码：{{$company_account.company.tel}}</span></p>
+                        </div>
+                        <div class="company-fr">
+                            <p>账户余额<br />
+                                <span class="balance"><em><i>{{$company_account.company.sum}}</i> 元</em> <a href="javascript:" class="recharge-btn">充值</a></span>
+                                <!--<span class="integral"><em><i>1600</i> 积分</em></span></p> -->
+                        </div>
+                        {{/if}}
                     </div>
                     <div class="account-info">
                          <div class="search-wrap" id="yui_3_5_1_1_1470035798576_24">
@@ -59,41 +61,32 @@
                         </span>
                        <table cellspadding="0" clospadding="0" class="recharge-table">
                        <tr>
-                            <th width="10%">序号</th>
-                            <th width="30%">公司名称</th>
-                            <th width="20%">手机号码</th>
-                            <th width="30%">地址</th>
-                            <th width="10%">操作</th>
-                       </tr>  
-                       <tr>
-                            <td>01</td>
-                            <td>有利房屋昆山点</td>
-                            <td>13451691016</td>
-                            <td>昆山萧林路2191号</td>
-                            <td><a href="">编辑</a></td>
+                            <th width="10%">编号</th>
+                            <th width="30%">操作事项</th>
+                            <th width="20%">转入</th>
+                            <th width="30%">转出</th>
+                            <th width="10%">时间</th>
                        </tr>
-                       <tr>
-                            <td>01</td>
-                            <td>有利房屋昆山点</td>
-                            <td>13451691016</td>
-                            <td>昆山萧林路2191号</td>
-                            <td><a href="">编辑</a></td>
-                       </tr>
-                       <tr>
-                            <td>01</td>
-                            <td>有利房屋昆山点</td>
-                            <td>13451691016</td>
-                            <td>昆山萧林路2191号</td>
-                           <td><a href="">编辑</a></td>
-                       </tr>
-                       <tr>
-                            <td>01</td>
-                            <td>有利房屋昆山点</td>
-                            <td>13451691016</td>
-                            <td>昆山萧林路2191号</td>
-                            <td><a href="">编辑</a></td>
-                       </tr>
+                           {{foreach from=$company_account.res_list item=item}}
+                           <tr>
+                               <td>{{$item.id}}</td>
+                               <td>{{$item.demo}}</td>
+                               <td>{{if $item.style==1}}
+                                   {{$item.qty}}
+                                   {{/if}}
+                               </td>
+                               <td>{{if $item.style==2}}
+                                   {{$item.qty}}
+                                   {{/if}}</td>
+                               <td>
+                                   {{$item.created}}
+                               </td>
+                           </tr>
+                           {{/foreach}}
                      </table>
+                        <div id="account_page" class="pages">
+                            {{$pager}}
+                        </div>
                     </div>
                 </div>
                

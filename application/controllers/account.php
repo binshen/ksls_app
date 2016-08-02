@@ -16,9 +16,20 @@ class Account extends MY_Controller {
         $this->load->model('account_model');
     }
 
-    public function company_account()
+    public function company_account($page=1,$company_id=null)
     {
-          $this->display('company_account.html');
+        if(in_array(7,$this->session->userdata('login_position_id_array'))){
+            if($this->input->post('company_id')){
+                $company_id = $this->input->post('company_id');
+            }
+        }else{
+            $company_id = $this->session->userdata('login_company_id');
+        }
+        $data = $this->account_model->company_account($page,$company_id);
+        $this->assign('company_account', $data);
+        $pager = $this->pagination->getPageLink('/account/company_account', $data['countPage'], $data['numPerPage']);
+        $this->assign('pager', $pager);
+        $this->display('company_account.html');
     }
 
      public function mo_recharge()
