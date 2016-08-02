@@ -18,7 +18,12 @@
             <div class="nav-left">
                 <ul class="nav-left-ul">
                     <li><a href="/"><em class="home"></em>回到首页</a></li>
-                    <li class="on"><a href="/activity/list_activity"><em class="cpaccount"></em>我的房猫</a></li>
+                    {{if in_array(7,$position_id)}}
+                    <li><a href="/account/recharge_list"><em class="rechargelist"></em>公司账户</a></li>
+                    <li class="on"><a href="/account/company_account/1/{{$company_account.company_id}}"><em class="cpaccount"></em>公司详情</a></li>
+                    {{else}}
+                    <li class="on"><a href="/account/company_account"><em class="cpaccount"></em>我的房猫</a></li>
+                    {{/if}}
                 </ul>
             </div>
         </div>
@@ -69,15 +74,15 @@
                         </span>
                        <table cellspadding="0" clospadding="0" class="recharge-table">
                        <tr>
-                            <th width="10%">编号</th>
+                            <!--<th width="10%">编号</th>-->
                             <th width="30%">操作事项</th>
                             <th width="20%">转入</th>
-                            <th width="30%">转出</th>
-                            <th width="10%">时间</th>
+                            <th width="20%">转出</th>
+                            <th width="30%">时间</th>
                        </tr>
                            {{foreach from=$company_account.res_list item=item}}
                            <tr>
-                               <td>{{$item.id}}</td>
+                               <!--<td>{{$item.id}}</td>-->
                                <td>{{$item.demo}}</td>
                                <td>{{if $item.style==1}}
                                    {{$item.qty}}

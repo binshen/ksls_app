@@ -124,6 +124,14 @@ $(function(){
 							<li><a href="<?php echo site_url('manage/list_questions');?>" target="navTab" rel="list_questions">试题列表</a></li>
 						</ul>
 					</div>
+						<div class="accordionHeader">
+							<h2><span>Folder</span>记录管理</h2>
+						</div>
+						<div class="accordionContent">
+							<ul class="tree">
+								<li><a href="<?php echo site_url('manage/list_sum_log');?>" target="navTab" rel="list_sum_log">金额流水记录</a></li>
+							</ul>
+						</div>
 					<?php endif;?>
 				</div>
 			</div>
