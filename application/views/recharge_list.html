@@ -28,12 +28,15 @@
             <div class="schedule-wrap upload-document-wrap">
                 <p class="tab-tit">公司账户</p>
                 <div class="publish-document-main">
-                    <div class="vSearch-box">
-                        <label>模糊查找:</label><input type="text" name="vSearch-txt" class="vSearch-txt">
-                        <a href="javascript:" class="vSearch-btn">查询</a>
-                    </div>
+                    <form action="/account/recharge_list" method="post" id="formAccount">
+                        <div class="vSearch-box">
+                            <label>模糊查找:</label><input type="text" name="company" value="{{$recharge_list.company}}" class="vSearch-txt">
+                            <a href="javascript:void(0);" class="vSearch-btn" id="btn_search">查询</a>
+                        </div>
+                    </form>
+
                     <span class="vSearch-result">
-                      共搜索到 <em>1</em> 条记录
+                      共搜索到 <em>{{$recharge_list.countPage}}</em> 条记录
                     </span>
                     <table cellspadding="0" clospading="0" class="recharge-table">
                        <tr>
@@ -42,39 +45,21 @@
                             <th width="20%">手机号码</th>
                             <th width="30%">地址</th>
                             <th width="10%">操作</th>
-                       </tr>  
-                       <tr>
-                            <td>01</td>
-                            <td>有利房屋昆山点</td>
-                            <td>13451691016</td>
-                            <td>昆山萧林路2191号</td>
-                            <td><a href="">编辑</a></td>
                        </tr>
-                       <tr>
-                            <td>01</td>
-                            <td>有利房屋昆山点</td>
-                            <td>13451691016</td>
-                            <td>昆山萧林路2191号</td>
-                            <td><a href="">编辑</a></td>
-                       </tr>
-                       <tr>
-                            <td>01</td>
-                            <td>有利房屋昆山点</td>
-                            <td>13451691016</td>
-                            <td>昆山萧林路2191号</td>
-                           <td><a href="">编辑</a></td>
-                       </tr>
-                       <tr>
-                            <td>01</td>
-                            <td>有利房屋昆山点</td>
-                            <td>13451691016</td>
-                            <td>昆山萧林路2191号</td>
-                            <td><a href="">编辑</a></td>
-                       </tr>
+                        {{foreach from=$recharge_list.res_list item=item}}
+                        <tr>
+                            <td>{{$item.id}}</td>
+                            <td>{{$item.name}}</td>
+                            <td>{{$item.tel}}</td>
+                            <td>{{$item.address}}</td>
+                            <td><a href="/account/company_account/{{$item.id}}">编辑</a></td>
+                        </tr>
+                        {{/foreach}}
                      </table>
                 </div>
-               
-            
+                <div id="account_page" class="pages">
+                    {{$pager}}
+                </div>
             </div>
 
             </div>
@@ -84,3 +69,14 @@
 {{include file='footer.html'}}
 </body>
 </html>
+<script>
+    $("#btn_search").click(function(){
+        $("#formAccount").submit();
+    })
+    $("#account_page").find('a').click(function(){
+        var path = $(this).attr('href');
+        $("#formAccount").attr("action",path);
+        $("#formAccount").submit();
+        return false;
+    })
+</script>

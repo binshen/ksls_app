@@ -27,7 +27,7 @@ class Hire_model extends MY_Model
         $this->db->from('hire');
         $this->db->where('user_id',$this->session->userdata('login_user_id'));
         if ($this->input->post('xiaoqu')){
-            $this->db->like('xiaoqu',$this->input->post('xiaoqu'));
+            $this->db->like('xiaoqu',trim($this->input->post('xiaoqu')));
         }
         $row = $this->db->get()->row_array();
         //总记录数
