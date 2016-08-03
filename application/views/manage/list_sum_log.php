@@ -5,6 +5,8 @@
     <input type="hidden" name="style" value="<?php echo $style;?>" />
     <input type="hidden" name="user" value="<?php echo $user;?>" />
     <input type="hidden" name="demo" value="<?php echo $demo;?>" />
+    <input type="hidden" name="start_date" value="<?php echo $start_date;?>" />
+    <input type="hidden" name="end_date" value="<?php echo $end_date;?>" />
     <input type="hidden" name="orderField" value="<?php echo $this->input->post('orderField');?>" />
     <input type="hidden" name="orderDirection" value="<?php echo $this->input->post('orderDirection');?>" />
 </form>
@@ -27,14 +29,11 @@
                 </tr>
                 <tr>
                     <td><label>时间：</label>
-                        <input name="start_time" value="<?php echo $user;?>" type="text"
-                                style="background:#fff url(/static/js/My97DatePicker/skin/datePicker.gif) no-repeat right;"
-                               onfocus="WdatePicker({isShowClear:false,readOnly:true,dateFmt:'yyyy-MM-dd'})">
+                        <input type="text" name="start_date" id="J_DepDate" value="<?php echo $start_date;?>" class="sel-begin-time trigger-node-yui_3_5_1_1_1470035798576_18">
                          到</td>
                     <td>
-                       <!-- <input id="date" name="end_time" value="<?php /*echo $user;*/?>" type="text"
-                        style="background:#fff url(/static/js/My97DatePicker/skin/datePicker.gif) no-repeat right;"
-                               onfocus="WdatePicker({isShowClear:false,readOnly:true,dateFmt:'yyyy-MM-dd'})">-->
+                        <input type="text" name="end_date" id="J_EndDate" value="<?php echo $end_date;?>" class="sel-begin-time trigger-node-yui_3_5_1_1_1470035798576_18">
+
                         </td>
                 </tr>
             </table>
@@ -56,7 +55,7 @@
         </ul>
     </div>
 
-    <div layoutH="54" id="list_warehouse_in_print">
+    <div layoutH="140" id="list_warehouse_in_print">
         <table class="list" width="100%" targetType="navTab" asc="asc" desc="desc">
             <thead>
             <tr>
@@ -115,3 +114,29 @@
         <div class="pagination" targetType="navTab" totalCount="<?php echo $countPage;?>" numPerPage="<?php echo $numPerPage;?>" pageNumShown="10" currentPage="<?php echo $pageNum;?>"></div>
     </div>
 </div>
+<script type="text/javascript" src="/static/js/yui-min.js"></script>
+<script type="text/javascript">
+    //$('.item-icon').poshytip();
+    YUI({
+        modules: {
+            'trip-calendar': {
+                fullpath: '/static/js/calendar.js',
+                type    : 'js',
+                requires: ['trip-calendar-css']
+            },
+            'trip-calendar-css': {
+                fullpath: '/static/css/calendar.css',
+                type    : 'css'
+            }
+        }
+    }).use('trip-calendar', function(Y) {
+        new Y.TripCalendar({
+            // minDate         : new Date,     //最小时间限制
+            triggerNode     : '#J_DepDate', //第一个触节点
+            finalTriggerNode: '#J_EndDate',  //最后一个触发节点
+            isHoliday:true,
+            isDateInfo:false,
+            count:1
+        });
+    });
+</script>

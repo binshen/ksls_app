@@ -1063,15 +1063,23 @@ class Manage_model extends MY_Model
             $this->db->like('a.demo',trim($this->input->post('demo')));
         if($this->input->post('style'))
             $this->db->where('a.style',$this->input->post('style'));
-
+        if($this->input->POST('start_date')) {
+            $this->db->where('a.created >=', date('Y-m-d H:i:s',strtotime($this->input->POST('start_date'))));
+        }
+        if($this->input->POST('end_date')) {
+            $this->db->where('a.created <=', date('Y-m-d H:i:s',strtotime('+1 day',strtotime($this->input->POST('end_date')))));
+        }
         $rs_total = $this->db->get()->row();
         //总记录数
+
         $data['countPage'] = $rs_total->num;
 
         $data['company'] = $this->input->post('company')?trim($this->input->post('company')):null;
         $data['style'] = $this->input->post('style')?$this->input->post('style'):null;
         $data['user'] = $this->input->post('user') ? trim($this->input->post('user')):null;
         $data['demo'] = $this->input->post('demo') ? trim($this->input->post('demo')):null;
+        $data['start_date'] = $this->input->post('start_date') ? trim($this->input->post('start_date')):null;
+        $data['end_date'] = $this->input->post('end_date') ? trim($this->input->post('end_date')):null;
         //list
         $this->db->select('a.*,b.name,c.rel_name');
         $this->db->from('sum_log a');
@@ -1086,6 +1094,12 @@ class Manage_model extends MY_Model
             $this->db->like('a.demo',trim($this->input->post('demo')));
         if($this->input->post('style'))
             $this->db->where('a.style',$this->input->post('style'));
+        if($this->input->POST('start_date')) {
+            $this->db->where('a.created >=', date('Y-m-d H:i:s',strtotime($this->input->POST('start_date'))));
+        }
+        if($this->input->POST('end_date')) {
+            $this->db->where('a.created <=', date('Y-m-d H:i:s',strtotime('+1 day',strtotime($this->input->POST('end_date')))));
+        }
         $this->db->limit($numPerPage, ($pageNum - 1) * $numPerPage );
         $this->db->order_by($this->input->post('orderField') ? $this->input->post('orderField') : 'a.id', $this->input->post('orderDirection') ? $this->input->post('orderDirection') : 'desc');
         $data['res_list'] = $this->db->get()->result();
@@ -1093,5 +1107,14 @@ class Manage_model extends MY_Model
         $data['pageNum'] = $pageNum;
         $data['numPerPage'] = $numPerPage;
         return $data;
+    }
+
+    public function delete_sum_log($id){
+        $rs = $this->db->delete('sum_log', array('id' => $id));
+        if($rs){
+            return 1;
+        }else{
+            return $this->db_error;
+        }
     }
 }

@@ -552,9 +552,17 @@ class Manage extends MY_Controller {
 	 *
 	 * ***************************************以下为资金流水列表*******************************************************************
 	 */
-	public function list_sum_log()
-	{
+	public function list_sum_log(){
 		$data = $this->manage_model->list_sum_log();
 		$this->load->view('manage/list_sum_log.php',$data);
+	}
+
+	public function delete_sum_log($id){
+		$rs = $this->manage_model->delete_sum_log($id);
+		if ($rs === 1) {
+			form_submit_json("200", "操作成功", "list_sum_log", "", "");
+		} else {
+			form_submit_json("300", $rs);
+		}
 	}
 }
