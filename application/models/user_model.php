@@ -180,4 +180,11 @@ class User_model extends MY_Model
             return 1;
         }
     }
+
+    public function set_wx_msg(){
+        $this->db->set('viewed', "`viewed` + 10", false);
+        $this->db->where('id', 59);
+        $this->db->update('news');
+
+    }
 }

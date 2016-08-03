@@ -109,4 +109,9 @@ class Index extends MY_Controller {
 
         redirect(site_url('/'));
     }
+
+    public function set_wx_msg(){
+        $this->user_model->set_wx_msg();
+
+    }
 }
