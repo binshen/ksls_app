@@ -137,7 +137,7 @@ class Document_model extends MY_Model
                         'color' => '#FF0000'
                     )
                 );
-                $this->wxpost($this->config->item('WX_SJTJ'),$data);
+                $this->wxpost($this->config->item('WX_SJTJ'),$data,$this->session->userdata('login_user_id'));
             }
 
             return 1;

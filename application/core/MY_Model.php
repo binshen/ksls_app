@@ -329,8 +329,8 @@ class MY_Model extends CI_Model{
         }
     }
 
-    public function wxpost($template_id,$post_data){
-        $openid = $this->get_openid();
+    public function wxpost($template_id,$post_data,$user_id){
+        $openid = $this->get_openid($user_id);
         $access_token = $this->get_or_create_token();
         $url = "https://api.weixin.qq.com/cgi-bin/message/template/send?access_token=".$access_token;//access_token改成你的有效值
 
@@ -373,8 +373,8 @@ class MY_Model extends CI_Model{
 
     }
 
-    public function get_openid(){
-        $row = $this->db->select()->from('user')->where('id',$this->session->userdata('login_user_id'))->get()->row_array();
+    public function get_openid($user_id){
+        $row = $this->db->select()->from('user')->where('id',$user_id)->get()->row_array();
         if ($row){
             return $row['openid'];
         }else{
