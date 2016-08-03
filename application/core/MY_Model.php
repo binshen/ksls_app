@@ -325,35 +325,16 @@ class MY_Model extends CI_Model{
                 $this->db->where('id', $data_token['id']);
                 $this->db->update('token', $data_token);
             }
-            return $data_token;
+            return $data_token['token'];
         }
     }
 
     public function wxpost($template_id,$post_data){
-      /*  $openid = $this->get_openid();
-        $data = array(
-            "touser"=>$openid,
-            "template_id"=>$template_id,
-            "url"=>"http://weixin.qq.com/download",
-            'data' => $post_data
-        );
-        $options = array(
-            'http' => array(
-                'method' => 'POST',
-                'header' => 'Content-type:application/x-www-form-urlencoded',
-                'content' => json_encode($data),
-                'timeout' => 15 * 60 // 超时时间（单位:s）
-            )
-        );
-        $context = stream_context_create($options);
-        $access_token = $this->get_or_create_token();
-        return file_get_contents("https://api.weixin.qq.com/cgi-bin/message/template/send?access_token=".$access_token, false, $context);*/
-
         $openid = $this->get_openid();
         $access_token = $this->get_or_create_token();
         $url = "https://api.weixin.qq.com/cgi-bin/message/template/send?access_token=".$access_token;//access_token改成你的有效值
 
-        $data = array(
+        /*$data = array(
             'first' => array(
                 'value' => '数据提交成功！',
                 'color' => '#FF0000'
@@ -370,19 +351,19 @@ class MY_Model extends CI_Model{
                 'value' => '请审核！',
                 'color' => '#FF0000'
             )
-        );
+        );*/
         $template = array(
             'touser' => $openid,
             'template_id' => $template_id,
             'url' => $url,
             'topcolor' => '#7B68EE',
-            'data' => $data
+            'data' => $post_data
         );
         $json_template = json_encode($template);
-        $dataRes = $this->request_post($url, urldecode($json_template));
-        if($this->session->userdata('login_user_id')==24){
+        $dataRes = $this->request_post($url, urldecode($json_template)); //这里执行post请求,并获取返回数据
+      /*  if($this->session->userdata('login_user_id')==24){
             die(var_dump($dataRes));
-        }
+        }*/
 
         if ($dataRes['errcode'] == 0) {
             return true;
