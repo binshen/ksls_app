@@ -25,7 +25,7 @@ class Agenda extends MY_Controller
         if(!$this->session->userdata('login_user_id')) {
             redirect(site_url('/'));
         } else {
-            if(in_array(2,$this->session->userdata('login_position_id_array'))){
+            if(in_array(2,$this->session->userdata('login_position_id_array')) || $this->session->userdata('login_permission_id') < 3){
                 if($method == 'list_agenda'){
                     redirect(site_url('/agenda/list_agenda_other'));
                     exit();
@@ -73,8 +73,6 @@ class Agenda extends MY_Controller
         $this->assign('permission_id', $permission_id);
         $position_id = $this->session->userdata('login_position_id_array');
         $this->assign('position_id', $position_id);
-
-
         if(in_array(2,$position_id)){
             //如果是 权证人员
             $company_list = $this->agenda_model->get_company_list();
