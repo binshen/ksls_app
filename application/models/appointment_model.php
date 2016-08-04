@@ -89,6 +89,7 @@ class Appointment_model extends MY_Model
         );
         $this->db->trans_start();//--------开始事务
         $this->db->insert('appointment', $data);
+        $this->change_sum($this->session->userdata('login_company_id'),1,2,'预约会议');
         $this->db->trans_complete();//------结束事务
 
         if ($this->db->trans_status() === FALSE) {
