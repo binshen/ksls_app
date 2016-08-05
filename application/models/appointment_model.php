@@ -89,7 +89,16 @@ class Appointment_model extends MY_Model
         );
         $this->db->trans_start();//--------开始事务
         $this->db->insert('appointment', $data);
-        $this->change_sum($this->session->userdata('login_company_id'),1,2,'预约会议');
+        $res_sum = $this->change_sum($this->session->userdata('login_company_id'),
+            $this->config->item('appointment_sum'),
+            2,
+            $this->config->item('appointment_sum_name'),
+            'app',
+            $this->db->insert_id()
+            );
+        if($res_sum != 1){
+            return -3;//金额不足
+        }
         $this->db->trans_complete();//------结束事务
 
         if ($this->db->trans_status() === FALSE) {
@@ -106,14 +115,39 @@ class Appointment_model extends MY_Model
     }
 
     public function unbook_room($date, $tf_id, $user_id) {
+
+        $row = $this->db->select()->from('appointment')->where(array(
+            'user_id'=>$user_id,
+            'date'=>$date,
+            'time_frame_id'=>$tf_id
+        ))->get()->row_array();
+        if(!$row){
+            return false;
+        }
+        $this->db->trans_start();//--------开始事务
         $this->db->where('user_id', $user_id);
         $this->db->where('date', $date);
         $this->db->where('time_frame_id', $tf_id);
-        return $this->db->delete('appointment');
+        $this->db->delete('appointment');
+        $res_sum = $this->change_sum($this->session->userdata('login_company_id'),
+            $this->config->item('appointment_tksum'),
+            1,
+            $this->config->item('appointment_tksum_name'),
+            'app',
+            $row['id']
+        );
+        $this->db->trans_complete();//------结束事务
+
+        if ($this->db->trans_status() === FALSE) {
+            return -1;
+        } else {
+            return 1;
+        }
     }
 
     public function get_time_frame($id) {
         $this->db->where('id', $id);
         return $this->db->get('time_frame')->row();
     }
+
 }

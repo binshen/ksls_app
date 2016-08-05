@@ -400,23 +400,44 @@ class MY_Model extends CI_Model{
         return $data;
     }
 
-    public function change_sum($company_id,$qty,$style,$demo){
-        if($style ==1){
-            $this->db->set('sum','sum + '.$qty,false);
-        }else{
-            $this->db->set('sum','sum - '.$qty,false);
+    public function check_sum($company_id){
+        $row = $this->db->select()->from('company')->where('id',$company_id)->get()->row_array();
+        if(!$row){
+            return -1;
         }
-        $this->db->where('id',$company_id);
-        $this->db->update('company');
-        $data = array(
-            'company_id' => $company_id,
-            'qty' => $qty,
-            'style' => $style,
-            'demo' => $demo,
-            'user_id' => $this->session->userdata('login_user_id'),
-            'created' => date("Y-m-d H:i:s")
-        );
-        $this->db->insert('sum_log',$data);
+        if($row['sum'] > -1000){
+            return 1;
+        }else{
+            return -1;
+        }
+    }
+
+    public function change_sum($company_id,$qty,$style,$demo,$table=null,$t_id=-1){
+        $res_sum = $this->check_sum($company_id);
+        if($res_sum == 1 || $style == 1){
+            if($style ==1){
+                $this->db->set('sum','sum + '.$qty,false);
+            }else{
+                $this->db->set('sum','sum - '.$qty,false);
+            }
+            $this->db->where('id',$company_id);
+            $this->db->update('company');
+            $data = array(
+                'company_id' => $company_id,
+                'qty' => $qty,
+                'style' => $style,
+                'demo' => $demo,
+                'user_id' => $this->session->userdata('login_user_id'),
+                't_id' => $t_id,
+                't_name'=>$table,
+                'created' => date("Y-m-d H:i:s")
+            );
+            $this->db->insert('sum_log',$data);
+            return 1;
+        }else{
+            return -1;
+        }
+
     }
 }
 
