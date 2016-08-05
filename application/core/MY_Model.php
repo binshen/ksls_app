@@ -331,6 +331,9 @@ class MY_Model extends CI_Model{
 
     public function wxpost($template_id,$post_data,$user_id){
         $openid = $this->get_openid($user_id);
+        if($openid == -1 || empty($openid)){
+            return false;
+        }
         $access_token = $this->get_or_create_token();
         $url = "https://api.weixin.qq.com/cgi-bin/message/template/send?access_token=".$access_token;//access_token改成你的有效值
 
