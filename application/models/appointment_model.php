@@ -104,6 +104,29 @@ class Appointment_model extends MY_Model
         if ($this->db->trans_status() === FALSE) {
             return -1;
         } else {
+            $data = array(
+                'first' => array(
+                    'value' => "恭喜！您预约已成功啦！",
+                    'color' => '#FF0000'
+                ),
+                'keyword1' => array(
+                    'value' => '预约场地',
+                    'color' => '#FF0000'
+                ),
+                'keyword2' => array(
+                    'value' => '预约成功',
+                    'color' => '#FF0000'
+                ),
+                'keyword3' => array(
+                    'value' => date("Y-m-d H:i:s"),
+                    'color' => '#FF0000'
+                ),
+                'remark' => array(
+                    'value' => '预约成功,扣款'.$this->config->item('appointment_sum').'元至公司账户',
+                    'color' => '#FF0000'
+                )
+            );
+            $this->wxpost($this->config->item('WX_YY'),$data,$this->session->userdata('login_user_id'));
             return 1;
         }
     }
@@ -141,6 +164,25 @@ class Appointment_model extends MY_Model
         if ($this->db->trans_status() === FALSE) {
             return -1;
         } else {
+            $data = array(
+                'first' => array(
+                    'value' => "成功取消预约,已退款!",
+                    'color' => '#FF0000'
+                ),
+                'reason' => array(
+                    'value' => '取消预约',
+                    'color' => '#FF0000'
+                ),
+                'refund' => array(
+                    'value' => $this->config->item('appointment_tksum').'元',
+                    'color' => '#FF0000'
+                ),
+                'remark' => array(
+                    'value' => '取消预约成功,退款'.$this->config->item('appointment_tksum').'元至公司账户',
+                    'color' => '#FF0000'
+                )
+            );
+            $this->wxpost($this->config->item('WX_TK'),$data,$this->session->userdata('login_user_id'));
             return 1;
         }
     }
