@@ -18,7 +18,8 @@
             <div class="nav-left">
                 <ul class="nav-left-ul">
                     <li><a href="/"><em class="home"></em>回到首页</a></li>
-                    <li class="on"><a href="/activity/list_activity"><em class="cpaccount"></em>我的房猫</a></li>
+                    <li><a href="/account/recharge_list"><em class="rechargelist"></em>公司账户</a></li>
+                    <li class="on"><a href="/account/company_account/1/{{$company_id}}"><em class="cpaccount"></em>公司详情</a></li>
                 </ul>
             </div>
         </div>
@@ -27,26 +28,41 @@
             </div>
             <div class="schedule-wrap upload-document-wrap">
                 <p class="tab-tit">我的房猫</p>
-                <div class="publish-document-main">
-                   <table cellspadding="0" colspadding="0" border="0" class="account-table">
-                        <tr>
-                            <th width="100">充值账号：</th>
-                            <td><input type="text" name="" value="" class="account-txt"></td>
-                        </tr>
-                        <tr>
-                            <th>充值F币：</th>
-                            <td><input type="text" name="" value="" class="account-txt account-txt-wid80">F币 （1F币 = 1元）</td>
-                        </tr>
-                        <tr>
-                            <th>充值F分：</th>
-                            <td><input type="text" name="" value="" class="account-txt account-txt-wid80">F分</td>
-                        </tr>
-                        <tr>
-                            <th></th>
-                            <td><a href="javascript:" class="review-account">确认</a></td>
-                        </tr>
-                   </table>
-                </div>
+                <form action="/account/save_sum" id="save_form" method="post">
+                    <div class="publish-document-main">
+                        <table cellspadding="0" colspadding="0" border="0" class="account-table">
+                            <tr>
+                                <th width="100">充值账号：</th>
+                                <td>{{if $company_info}}{{$company_info.name}}{{/if}}
+                                <input type="hidden" name="company_id" value="{{$company_id}}">
+                                </td>
+
+                            </tr>
+                            <tr>
+                                <th>充值F币：</th>
+                                <td><input type="text" name="qty" onfocus='this.value=this.value.replace(/[^1-9]\D*$/,"")' onkeyup='this.value=this.value.replace(/[^0-9]\D*$/,"")' class="account-txt account-txt-wid80">F币 （1F币 = 1元）</td>
+                            </tr>
+                            <tr>
+                                <th>操作：</th>
+                                <td>
+                                    <select name="style">
+                                        <option value="1">转入</option>
+                                        <option value="2">转出</option>
+                                    </select>
+                                </td>
+                            </tr>
+                           <!-- <tr>
+                                <th>充值F分：</th>
+                                <td><input type="text" name="" value="" class="account-txt account-txt-wid80">F分</td>
+                            </tr>-->
+                            <tr>
+                                <th></th>
+                                <td><a href="javascript:void(0);" id="save_btn" class="review-account">确认</a></td>
+                            </tr>
+                        </table>
+                    </div>
+                </form>
+
                
             
             </div>
@@ -58,30 +74,9 @@
 <script type="text/javascript" src="js/yui-min.js"></script>
 <script type="text/javascript" src="js/jquery.poshytip.min.js"></script>
 <script type="text/javascript">
-    $('.item-icon').poshytip();
-    YUI({
-        modules: {
-            'trip-calendar': {
-                fullpath: '/static/js/calendar.js',
-                type    : 'js',
-                requires: ['trip-calendar-css']
-            },
-            'trip-calendar-css': {
-                fullpath: '/static/css/calendar.css',
-                type    : 'css'
-            }
-        }
-    }).use('trip-calendar', function(Y) {
-        new Y.TripCalendar({
-            // minDate         : new Date,     //最小时间限制
-            triggerNode     : '#J_DepDate', //第一个触节点
-            finalTriggerNode: '#J_EndDate',  //最后一个触发节点
-            isHoliday:true,
-            isDateInfo:false,
-            count:1
-        });
-    });
-
+    $("#save_btn").click(function(){
+        $("#save_form").submit();
+    })
 </script>
 {{include file='footer.html'}}
 </body>

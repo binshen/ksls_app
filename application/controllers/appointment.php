@@ -142,7 +142,11 @@ class Appointment extends MY_Controller
             echo -2;
             die;
         }
-
+        $res_sum = $this->appointment_model->check_sum($this->session->userdata('login_company_id'));
+        if($res_sum == -1){
+            echo -3;
+            die;
+        }
         $appointments = $this->appointment_model->get_appointment_info($date, $tf_id);
         $this->assign('appointments', $appointments);
 

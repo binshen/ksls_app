@@ -18,7 +18,7 @@
             <div class="nav-left">
                 <ul class="nav-left-ul">
                     <li><a href="/"><em class="home"></em>回到首页</a></li>
-                    {{if !in_array(2,$position_id)}}
+                    {{if !in_array(2,$position_id) && $permission_id > 2}}
                     <li><a href="/agenda/list_agenda"><em class="myagenda"></em>我的代办</a></li>
                     {{/if}}
                     {{if $permission_id < 5 || in_array(2,$position_id)}}
@@ -67,10 +67,10 @@
                     <select name="course" id="sel_course">
                         <option value="">进程选择</option>
                         {{foreach from=$course_list item=doo}}
-                        {{if $doo['code']==$course}}
-                        <option value="{{$doo['code']}}" selected>{{$doo['name']}}</option>
+                        {{if $doo['id']==$course}}
+                        <option value="{{$doo['id']}}" selected>{{$doo['name']}}</option>
                         {{else}}
-                        <option value="{{$doo['code']}}">{{$doo['name']}}</option>
+                        <option value="{{$doo['id']}}">{{$doo['name']}}</option>
                         {{/if}}
                         {{/foreach}}
                     </select>

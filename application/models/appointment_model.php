@@ -89,11 +89,44 @@ class Appointment_model extends MY_Model
         );
         $this->db->trans_start();//--------开始事务
         $this->db->insert('appointment', $data);
+        $res_sum = $this->change_sum($this->session->userdata('login_company_id'),
+            $this->config->item('appointment_sum'),
+            2,
+            $this->config->item('appointment_sum_name'),
+            'app',
+            $this->db->insert_id()
+            );
+        if($res_sum != 1){
+            return -3;//金额不足
+        }
         $this->db->trans_complete();//------结束事务
 
         if ($this->db->trans_status() === FALSE) {
             return -1;
         } else {
+            $data = array(
+                'first' => array(
+                    'value' => "恭喜！您预约已成功啦！",
+                    'color' => '#FF0000'
+                ),
+                'keyword1' => array(
+                    'value' => '预约场地',
+                    'color' => '#FF0000'
+                ),
+                'keyword2' => array(
+                    'value' => '预约成功',
+                    'color' => '#FF0000'
+                ),
+                'keyword3' => array(
+                    'value' => date("Y-m-d H:i:s"),
+                    'color' => '#FF0000'
+                ),
+                'remark' => array(
+                    'value' => '预约成功,扣款'.$this->config->item('appointment_sum').'元至公司账户',
+                    'color' => '#FF0000'
+                )
+            );
+            $this->wxpost($this->config->item('WX_YY'),$data,$this->session->userdata('login_user_id'));
             return 1;
         }
     }
@@ -105,14 +138,58 @@ class Appointment_model extends MY_Model
     }
 
     public function unbook_room($date, $tf_id, $user_id) {
+
+        $row = $this->db->select()->from('appointment')->where(array(
+            'user_id'=>$user_id,
+            'date'=>$date,
+            'time_frame_id'=>$tf_id
+        ))->get()->row_array();
+        if(!$row){
+            return false;
+        }
+        $this->db->trans_start();//--------开始事务
         $this->db->where('user_id', $user_id);
         $this->db->where('date', $date);
         $this->db->where('time_frame_id', $tf_id);
-        return $this->db->delete('appointment');
+        $this->db->delete('appointment');
+        $res_sum = $this->change_sum($this->session->userdata('login_company_id'),
+            $this->config->item('appointment_tksum'),
+            1,
+            $this->config->item('appointment_tksum_name'),
+            'app',
+            $row['id']
+        );
+        $this->db->trans_complete();//------结束事务
+
+        if ($this->db->trans_status() === FALSE) {
+            return -1;
+        } else {
+            $data = array(
+                'first' => array(
+                    'value' => "成功取消预约,已退款!",
+                    'color' => '#FF0000'
+                ),
+                'reason' => array(
+                    'value' => '取消预约',
+                    'color' => '#FF0000'
+                ),
+                'refund' => array(
+                    'value' => $this->config->item('appointment_tksum').'元',
+                    'color' => '#FF0000'
+                ),
+                'remark' => array(
+                    'value' => '取消预约成功,退款'.$this->config->item('appointment_tksum').'元至公司账户',
+                    'color' => '#FF0000'
+                )
+            );
+            $this->wxpost($this->config->item('WX_TK'),$data,$this->session->userdata('login_user_id'));
+            return 1;
+        }
     }
 
     public function get_time_frame($id) {
         $this->db->where('id', $id);
         return $this->db->get('time_frame')->row();
     }
+
 }

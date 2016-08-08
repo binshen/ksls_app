@@ -316,7 +316,7 @@ class MY_Model extends CI_Model{
                 'created' => time()
             );
             $this->db->insert('token', $data);
-            return $data;
+            return $data['token'];
         } else {
             $interval = time() - intval($data_token['created']);
             if($interval / 60 / 60 > 1) {
@@ -325,35 +325,19 @@ class MY_Model extends CI_Model{
                 $this->db->where('id', $data_token['id']);
                 $this->db->update('token', $data_token);
             }
-            return $data_token;
+            return $data_token['token'];
         }
     }
 
-    public function wxpost($template_id,$post_data){
-      /*  $openid = $this->get_openid();
-        $data = array(
-            "touser"=>$openid,
-            "template_id"=>$template_id,
-            "url"=>"http://weixin.qq.com/download",
-            'data' => $post_data
-        );
-        $options = array(
-            'http' => array(
-                'method' => 'POST',
-                'header' => 'Content-type:application/x-www-form-urlencoded',
-                'content' => json_encode($data),
-                'timeout' => 15 * 60 // 超时时间（单位:s）
-            )
-        );
-        $context = stream_context_create($options);
-        $access_token = $this->get_or_create_token();
-        return file_get_contents("https://api.weixin.qq.com/cgi-bin/message/template/send?access_token=".$access_token, false, $context);*/
-
-        $openid = $this->get_openid();
+    public function wxpost($template_id,$post_data,$user_id){
+        $openid = $this->get_openid($user_id);
+        if($openid == -1 || empty($openid)){
+            return false;
+        }
         $access_token = $this->get_or_create_token();
         $url = "https://api.weixin.qq.com/cgi-bin/message/template/send?access_token=".$access_token;//access_token改成你的有效值
 
-        $data = array(
+        /*$data = array(
             'first' => array(
                 'value' => '数据提交成功！',
                 'color' => '#FF0000'
@@ -370,19 +354,19 @@ class MY_Model extends CI_Model{
                 'value' => '请审核！',
                 'color' => '#FF0000'
             )
-        );
+        );*/
         $template = array(
             'touser' => $openid,
             'template_id' => $template_id,
-            'url' => $url,
+            'url' => 'www.funmall.com.cn',
             'topcolor' => '#7B68EE',
-            'data' => $data
+            'data' => $post_data
         );
         $json_template = json_encode($template);
-        $dataRes = $this->request_post($url, urldecode($json_template));
-        if($this->session->userdata('login_user_id')==24){
+        $dataRes = $this->request_post($url, urldecode($json_template)); //这里执行post请求,并获取返回数据
+      /*  if($this->session->userdata('login_user_id')==24){
             die(var_dump($dataRes));
-        }
+        }*/
 
         if ($dataRes['errcode'] == 0) {
             return true;
@@ -392,8 +376,8 @@ class MY_Model extends CI_Model{
 
     }
 
-    public function get_openid(){
-        $row = $this->db->select()->from('user')->where('id',$this->session->userdata('login_user_id'))->get()->row_array();
+    public function get_openid($user_id){
+        $row = $this->db->select()->from('user')->where('id',$user_id)->get()->row_array();
         if ($row){
             return $row['openid'];
         }else{
@@ -417,6 +401,46 @@ class MY_Model extends CI_Model{
         $data = curl_exec($ch); //运行curl
         curl_close($ch);
         return $data;
+    }
+
+    public function check_sum($company_id){
+        $row = $this->db->select()->from('company')->where('id',$company_id)->get()->row_array();
+        if(!$row){
+            return -1;
+        }
+        if($row['sum'] > -1000){
+            return 1;
+        }else{
+            return -1;
+        }
+    }
+
+    public function change_sum($company_id,$qty,$style,$demo,$table=null,$t_id=-1){
+        $res_sum = $this->check_sum($company_id);
+        if($res_sum == 1 || $style == 1){
+            if($style ==1){
+                $this->db->set('sum','sum + '.$qty,false);
+            }else{
+                $this->db->set('sum','sum - '.$qty,false);
+            }
+            $this->db->where('id',$company_id);
+            $this->db->update('company');
+            $data = array(
+                'company_id' => $company_id,
+                'qty' => $qty,
+                'style' => $style,
+                'demo' => $demo,
+                'user_id' => $this->session->userdata('login_user_id'),
+                't_id' => $t_id,
+                't_name'=>$table,
+                'created' => date("Y-m-d H:i:s")
+            );
+            $this->db->insert('sum_log',$data);
+            return 1;
+        }else{
+            return -1;
+        }
+
     }
 }
 

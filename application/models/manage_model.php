@@ -1043,4 +1043,78 @@ class Manage_model extends MY_Model
         //die(var_dump($data));
         return $data;
     }
+
+    public function list_sum_log()
+    {
+        $numPerPage = $this->input->post('numPerPage') ? $this->input->post('numPerPage') : 20;
+        $pageNum = $this->input->post('pageNum') ? $this->input->post('pageNum') : 1;
+
+        //获得总记录数
+        $this->db->select('count(1) as num');
+        $this->db->from('sum_log a');
+        $this->db->join('company b','a.company_id = b.id','left');
+        $this->db->join('user c','a.user_id = c.id','left');
+
+        if($this->input->post('company'))
+            $this->db->like('b.name',trim($this->input->post('company')));
+        if($this->input->post('user'))
+            $this->db->like('c.rel_name',trim($this->input->post('user')));
+        if($this->input->post('demo'))
+            $this->db->like('a.demo',trim($this->input->post('demo')));
+        if($this->input->post('style'))
+            $this->db->where('a.style',$this->input->post('style'));
+        if($this->input->POST('start_date')) {
+            $this->db->where('a.created >=', date('Y-m-d H:i:s',strtotime($this->input->POST('start_date'))));
+        }
+        if($this->input->POST('end_date')) {
+            $this->db->where('a.created <=', date('Y-m-d H:i:s',strtotime('+1 day',strtotime($this->input->POST('end_date')))));
+        }
+        $rs_total = $this->db->get()->row();
+        //总记录数
+
+        $data['countPage'] = $rs_total->num;
+
+        $data['company'] = $this->input->post('company')?trim($this->input->post('company')):null;
+        $data['style'] = $this->input->post('style')?$this->input->post('style'):null;
+        $data['user'] = $this->input->post('user') ? trim($this->input->post('user')):null;
+        $data['demo'] = $this->input->post('demo') ? trim($this->input->post('demo')):null;
+        $data['start_date'] = $this->input->post('start_date') ? trim($this->input->post('start_date')):null;
+        $data['end_date'] = $this->input->post('end_date') ? trim($this->input->post('end_date')):null;
+        //list
+        $this->db->select('a.*,b.name,c.rel_name');
+        $this->db->from('sum_log a');
+        $this->db->join('company b','a.company_id = b.id','left');
+        $this->db->join('user c','a.user_id = c.id','left');
+
+        if($this->input->post('company'))
+            $this->db->like('b.name',trim($this->input->post('company')));
+        if($this->input->post('user'))
+            $this->db->like('c.rel_name',trim($this->input->post('user')));
+        if($this->input->post('demo'))
+            $this->db->like('a.demo',trim($this->input->post('demo')));
+        if($this->input->post('style'))
+            $this->db->where('a.style',$this->input->post('style'));
+        if($this->input->POST('start_date')) {
+            $this->db->where('a.created >=', date('Y-m-d H:i:s',strtotime($this->input->POST('start_date'))));
+        }
+        if($this->input->POST('end_date')) {
+            $this->db->where('a.created <=', date('Y-m-d H:i:s',strtotime('+1 day',strtotime($this->input->POST('end_date')))));
+        }
+        $this->db->limit($numPerPage, ($pageNum - 1) * $numPerPage );
+        $this->db->order_by($this->input->post('orderField') ? $this->input->post('orderField') : 'a.id', $this->input->post('orderDirection') ? $this->input->post('orderDirection') : 'desc');
+        $data['res_list'] = $this->db->get()->result();
+       // $data['type_list'] = $this->db->from('question_type')->get()->result();
+        $data['pageNum'] = $pageNum;
+        $data['numPerPage'] = $numPerPage;
+        return $data;
+    }
+
+    public function delete_sum_log($id){
+        $rs = $this->db->delete('sum_log', array('id' => $id));
+        if($rs){
+            return 1;
+        }else{
+            return $this->db_error;
+        }
+    }
 }

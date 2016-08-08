@@ -33,10 +33,10 @@
                     <select name="course" id="sel_course">
                         <option value="">进程选择</option>
                         {{foreach from=$course_list item=doo}}
-                        {{if $doo['code']==$course}}
-                        <option value="{{$doo['code']}}" selected>{{$doo['name']}}</option>
+                        {{if $doo['id']==$course}}
+                        <option value="{{$doo['id']}}" selected>{{$doo['name']}}</option>
                         {{else}}
-                        <option value="{{$doo['code']}}">{{$doo['name']}}</option>
+                        <option value="{{$doo['id']}}">{{$doo['name']}}</option>
                         {{/if}}
                         {{/foreach}}
                     </select>

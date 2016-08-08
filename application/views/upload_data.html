@@ -85,6 +85,7 @@
 </div>
 {{include file='footer.html'}}
 <script type="text/javascript" src="js/dpl-jquery.slide.js"></script>
+<script type="text/javascript" src="/static/js/layer/layer.js"></script>
 <!--plupload start--------------------------------------------------------------------------->
 <!-- Load plupload and all it's runtimes and finally the UI widget -->
 
@@ -113,15 +114,17 @@
     $("#save_btn").click(function () {
         var files = $('#file').val();
         if(files.length == 0){
-            alert('请选择文件');
+            layer.msg('请选择文件');
             return;
         }
         if($.trim($("#title").val())==""){
-            alert('标题不能为空')
+            layer.msg('标题不能为空');
+
             return false;
         }
         if($.trim($("#type").val())==""){
-            alert('类别不能为空')
+            layer.msg('类别不能为空');
+
             return false;
         }
         $("#save_form").submit();

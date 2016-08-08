@@ -131,4 +131,61 @@ class Wxserver extends CI_Controller {
             $this->load->view('wxhtml/login.html',$data);
         }
     }
+
+    public function text(){
+        /*$dataxml['first'] = array('value'=>'数据提交成功');
+        $dataxml['keynote1'] = array('value'=>$this->input->post('title'));
+        $dataxml['keynote2'] = array('value'=>date("Y-m-d H:i:s"));
+        $dataxml['remark'] = array('value'=>'');
+
+        $data = array(
+            "touser"=>'oFzKgwbFEyC40jU6bS_HQ5sxM4X8',
+            "template_id"=>'GCLMW8LVj59vIBGfAnoTjo-98pcxBcZak_4eFornX0g',
+            "url"=>"http://weixin.qq.com/download",
+            'data' => urldecode(json_encode($dataxml))
+        );
+
+        die(var_dump(json_encode($data)));*/
+
+        $access_token = 'KS3N4n80ZPeLsxPQIlgicPC5fGfyjhXAILK4Nv5QbV4xm4uuOnoYYJUbu89p1g0fqVmWZjdsg3ypfvnJ3CzcSXUwd7q1K9RPSMsNqRHl_e8';
+        $url = '改成接口URL ?access_token=' . $access_token;//access_token改成你的有效值
+
+        $data = array(
+            'first' => array(
+                'value' => '有一名客户进行了一次预约！',
+                'color' => '#FF0000'
+            ),
+            'keyword1' => array(
+                'value' => '2015/10/5 14:00~14:45',
+                'color' => '#FF0000'
+            ),
+            'keyword2' => array(
+                'value' => '都会型SPA',
+                'color' => '#FF0000'
+            ),
+            'remark' => array(
+                'value' => '请您务必准时到场为客户提供SPA服务！',
+                'color' => '#FF0000'
+            )
+        );
+        $template_msg=array('touser'=>'oFzKgwbFEyC40jU6bS_HQ5sxM4X8','template_id'=>'GCLMW8LVj59vIBGfAnoTjo-98pcxBcZak_4eFornX0g','topcolor'=>'#FF0000','data'=>$data);
+        die(var_dump($template_msg));
+        $curl = curl_init($url);
+        $header = array();
+        $header[] = 'Content-Type: application/x-www-form-urlencoded';
+        curl_setopt($curl, CURLOPT_HTTPHEADER, $header);
+// 不输出header头信息
+        curl_setopt($curl, CURLOPT_HEADER, 0);
+// 伪装浏览器
+        curl_setopt($curl, CURLOPT_USERAGENT, 'Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2272.118 Safari/537.36');
+// 保存到字符串而不是输出
+        curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
+// post数据
+        curl_setopt($curl, CURLOPT_POST, 1);
+// 请求数据
+        curl_setopt($curl,CURLOPT_POSTFIELDS,json_encode($template_msg));
+        $response = curl_exec($curl);
+        curl_close($curl);
+        echo $response;
+    }
 }

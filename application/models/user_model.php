@@ -180,4 +180,27 @@ class User_model extends MY_Model
             return 1;
         }
     }
+
+    public function set_wx_msg(){
+        $data = array(
+            'first' => array(
+                'value' => '软件测试单据',
+                'color' => '#FF0000'
+            ),
+            'keyword1' => array(
+                'value' => '测试定时发送',
+                'color' => '#FF0000'
+            ),
+            'keyword2' => array(
+                'value' => date("Y-m-d H:i:s"),
+                'color' => '#FF0000'
+            ),
+            'remark' => array(
+                'value' => '请审核！',
+                'color' => '#FF0000'
+            )
+        );
+        $this->wxpost($this->config->item('WX_SJTJ'),$data,24);
+
+    }
 }

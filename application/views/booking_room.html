@@ -87,7 +87,10 @@
                     async : false,
                     type : "POST"
                 }).responseText;
-                if(result == -1) {
+                if(result == -3){
+                    layer.msg("公司账户金额不足", {icon: 2});
+                    return false;
+                }else if(result == -1) {
                     layer.msg("至少需要提前2小时才能预约", {icon: 2});
                     return false;
                 } else if(result == -2) {
@@ -111,6 +114,17 @@
         $('.book-successful-btn').click(function() {
             var x = $(this).attr('x');
             var y = $(this).attr('y');
+            var result = $.ajax({
+                url : '/appointment/popup_room',
+                data: { x: x, y: y },
+                cache : false,
+                async : false,
+                type : "POST"
+            }).responseText;
+            if(result == -1) {
+                layer.msg("至少需要提前2小时才能解除预约", {icon: 2});
+                return false;
+            }
             layer.confirm('确定要取消预约吗？', {
                 btn: ['确定','取消'] //按钮
             }, function(){

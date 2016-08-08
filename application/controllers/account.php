@@ -16,6 +16,30 @@ class Account extends MY_Controller {
         $this->load->model('account_model');
     }
 
+    function _remap($method,$params = array()) {
+        if(!$this->session->userdata('login_user_id')) {
+            redirect(site_url('/'));
+        } else {
+            if(!in_array(7,$this->session->userdata('login_position_id_array'))){
+                if($method == 'recharge_list'){
+                    redirect(site_url('/account/company_account'));
+                    exit();
+                }
+                if($method == 'save_sum'){
+                    redirect(site_url('/account/company_account'));
+                    exit();
+                }
+                if($method == 'mo_recharge'){
+                    redirect(site_url('/account/company_account'));
+                    exit();
+                }
+            }
+            $position_id = $this->session->userdata('login_position_id_array');
+            $this->assign('position_id', $position_id);
+            return call_user_func_array(array($this, $method), $params);
+        }
+    }
+
     public function company_account($page=1,$company_id=null)
     {
         $position_array = $this->session->userdata('login_position_id_array');
@@ -33,9 +57,12 @@ class Account extends MY_Controller {
         $this->display('company_account.html');
     }
 
-     public function mo_recharge()
+     public function mo_recharge($id)
      {
-              $this->display('mo_recharge.html');
+        $data = $this->account_model->mo_recharge($id);
+         $this->assign('company_id', $id);
+         $this->assign('company_info', $data);
+         $this->display('mo_recharge.html');
      }
 
     public function recharge_list($page=1){
@@ -44,5 +71,10 @@ class Account extends MY_Controller {
         $pager = $this->pagination->getPageLink('/account/recharge_list', $data['countPage'], $data['numPerPage']);
         $this->assign('pager', $pager);
         $this->display('recharge_list.html');
+    }
+
+    public function save_sum(){
+        $this->account_model->save_sum();
+        redirect(site_url('/account/company_account/1/'.$this->input->post('company_id')));
     }
 }

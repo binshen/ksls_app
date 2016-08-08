@@ -57,7 +57,8 @@ class Agenda_model extends MY_Model
         $numPerPage = $this->input->post('numPerPage') ? $this->input->post('numPerPage') : 10;
         $pageNum = $this->input->post('pageNum') ? $this->input->post('pageNum') : $page;
 
-        $this->db->select('count(1) as num');
+        //$this->db->distinct('a.id');
+        $this->db->select('count(distinct(a.id)) as num',false);
         $this->db->from('agenda a');
         $this->db->join('user b','a.user_id = b.id','inner');
         $this->db->join('role c','c.id = b.role_id','inner');
@@ -93,12 +94,13 @@ class Agenda_model extends MY_Model
         if(!in_array(2,$this->session->userdata('login_position_id_array'))) {
             $this->db->where('c.permission_id >=', $this->session->userdata('login_permission_id'));
         }
+
         $row = $this->db->get()->row_array();
         //总记录数
         $data['countPage'] = $row['num'];
-
         //list
         $this->db->select('a.*,b.rel_name,f.name course_name');
+        $this->db->distinct('a.id');
         $this->db->from('agenda a');
         $this->db->join('user b','a.user_id = b.id','inner');
         $this->db->join('role c','c.id = b.role_id','inner');
@@ -151,6 +153,7 @@ class Agenda_model extends MY_Model
                 $this->db->join('course c','b.c_id = c.id','left');
                 $this->db->where_in('a.id',$ids);
                 $this->db->order_by('b.created','desc');
+                $this->db->order_by('b.id','desc');
                 $agenda_detail = $this->db->get()->result_array();
                 if ($agenda_detail){
                     $data['detail'] = $agenda_detail;
@@ -190,7 +193,7 @@ class Agenda_model extends MY_Model
     }
 
     public function get_course_list() {
-        return $this->db->get('course')->result();
+        return $this->db->where('flag',1)->get('course')->result();
     }
 
     public function save_agenda() {
@@ -244,6 +247,7 @@ class Agenda_model extends MY_Model
             $this->db->delete('agenda_image', array('a_id' => $a_id));
         } else {
             $this->db->insert('agenda', $agenda);
+            //die(var_dump($this->db->last_query()));
             $a_id = $this->db->insert_id();
 
             $agenda_course = array(
