@@ -43,18 +43,17 @@
                     </div>
                     <div class="account-info">
                          <div class="search-wrap" id="yui_3_5_1_1_1470035798576_24">
-                        <form id="formSearchActivity" method="POST" action="/activity/list_review">
-
-                            <div class="calendar-input-wrap"><span class="calendar-start-icon trigger-icon-yui_3_5_1_1_1470035798576_18"></span><input type="text" name="start_date" id="J_DepDate" value="2016-07-31" class="sel-begin-time trigger-node-yui_3_5_1_1_1470035798576_18"></div>
-                            <span class="time-break"> </span>
-                            <div class="calendar-input-wrap"><span class="calendar-end-icon trigger-icon-yui_3_5_1_1_1470035798576_18"></span><input type="text" name="end_date" id="J_EndDate" value="2016-07-31" class="sel-end-time trigger-node-yui_3_5_1_1_1470035798576_18"></div>
-                            <select name="user">
-                                <option value="转入">转入</option>
-                                <option value="转出">转出</option>
-                            </select>
-                            <a href="javascript:void(0);" class="search-btn" id="btn_search"></a>
-                        </form>
-
+                             <form id="formSearchActivity" method="POST" action="/activity/list_review">
+                                 <span style="float:left;font-size:16px;">起止时间：</span>
+                                 <div class="calendar-input-wrap"><span class="calendar-start-icon trigger-icon-yui_3_5_1_1_1470035798576_18"></span><input type="text" name="start_date" id="J_DepDate" value="2016-07-31" class="sel-begin-time"></div>
+                                 <span class="time-break"> </span>
+                                 <div class="calendar-input-wrap"><span class="calendar-end-icon trigger-icon-yui_3_5_1_1_1470035798576_18"></span><input type="text" name="end_date" id="J_EndDate" value="2016-07-31" class="sel-end-time"></div>
+                                 <select name="user">
+                                     <option value="转入">转入</option>
+                                     <option value="转出">转出</option>
+                                 </select>
+                                 <a href="javascript:void(0);" class="search-btn" id="btn_search"></a>
+                             </form>
                        </div>
                         <span class="vSearch-result">
                           共搜索到 <em>1</em> 条记录
