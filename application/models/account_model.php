@@ -106,7 +106,7 @@ class Account_model extends MY_Model
         $qty = $this->input->post('qty');
        // die('wwww'.$qty);
         $style = $this->input->post('style');
-        $demo = '人工充值';
+        $demo = '人工充值/扣款';
         $this->change_sum($company_id,$qty,$style,$demo);
         $this->db->trans_complete();//------结束事务
         if ($this->db->trans_status() === FALSE) {

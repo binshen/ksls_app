@@ -188,4 +188,8 @@ class Wxserver extends CI_Controller {
         curl_close($curl);
         echo $response;
     }
+
+    public function test2(){
+        phpinfo();
+    }
 }
