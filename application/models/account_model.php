@@ -65,6 +65,7 @@ class Account_model extends MY_Model
         if($this->input->POST('end_date')) {
             $this->db->where('created <=', date('Y-m-d H:i:s',strtotime('+1 day',strtotime($this->input->POST('end_date')))));
         }
+        $this->db->where('flag',1);
         $row = $this->db->get()->row_array();
         //总记录数
         $data['countPage'] = $row['num'];
@@ -76,6 +77,7 @@ class Account_model extends MY_Model
         $this->db->select('*');
         $this->db->from('sum_log');
         $this->db->where('company_id',$company_id);
+        $this->db->where('flag',1);
         if($this->input->post('style')){
             $this->db->where('style',$this->input->post('style'));
         }

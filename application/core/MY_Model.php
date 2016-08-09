@@ -433,6 +433,7 @@ class MY_Model extends CI_Model{
                 'user_id' => $this->session->userdata('login_user_id'),
                 't_id' => $t_id,
                 't_name'=>$table,
+                'flag'=>1,
                 'created' => date("Y-m-d H:i:s")
             );
             $this->db->insert('sum_log',$data);
