@@ -56,11 +56,13 @@ class Alipay extends CI_Controller {
         //商户订单号，商户网站订单系统中唯一订单号
         $out_trade_no = $res;
         //订单名称，必填
-        $subject = '房猫服务中心账户充值';
+        $subject = 'subject';
+        //$subject = '房猫服务中心账户充值';
         //付款金额，必填
         $total_fee = $this->input->post('qty');
         //商品描述，可空
-        $body = '公司账户充值';
+        $body = 'body';
+        //$body = '公司账户充值';
         //构造要请求的参数数组，无需改动
         $parameter = array(
             "service"       => $this->config->item('service'),
@@ -91,7 +93,6 @@ class Alipay extends CI_Controller {
         $alipayNotify = new AlipayNotify($this->alipay_config);
         $verify_result = $alipayNotify->verifyReturn();
         var_dump($_GET);
-        var_dump($verify_result);
         if($verify_result) {//验证成功
             /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
             //请在这里加上商户的业务逻辑程序代码
