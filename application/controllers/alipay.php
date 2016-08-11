@@ -57,7 +57,7 @@ class Alipay extends CI_Controller {
         //订单名称，必填
         $subject = '账户充值';
         //付款金额，必填
-        $total_fee = $this->input->post('qty')*100;
+        $total_fee = $this->input->post('qty');
         //商品描述，可空
         $body = '在线充值';
         //构造要请求的参数数组，无需改动
