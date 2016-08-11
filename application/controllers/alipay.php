@@ -17,6 +17,7 @@ class Alipay extends CI_Controller {
         parent::__construct();
         ini_set('date.timezone','Asia/Shanghai');
         $this->config->load('alipay');
+
         $this->load->model('alipay_model');
         $this->load->helper('url');
       $this->alipay_config = array(
@@ -45,7 +46,7 @@ class Alipay extends CI_Controller {
     }
 
     public function save_order(){
-
+        require_once(APPPATH.'libraries/alipay/alipay_submit.class.php');
        $res = $this->alipay_model->save_order();
         if($res == -1){
             redirect(site_url('account/recharge_list'));
@@ -85,6 +86,7 @@ class Alipay extends CI_Controller {
     }
 
     public function returnpay(){
+        require_once(APPPATH.'libraries/alipay/alipay_notify.class.php');
         $alipayNotify = new AlipayNotify($this->alipay_config);
         $verify_result = $alipayNotify->verifyReturn();
         if($verify_result) {//验证成功
@@ -130,6 +132,7 @@ class Alipay extends CI_Controller {
     }
 
     public function notifypay(){
+        require_once(APPPATH.'libraries/alipay/alipay_notify.class.php');
         $alipayNotify = new AlipayNotify($this->alipay_config);
         $verify_result = $alipayNotify->verifyNotify();
         if($verify_result) {//验证成功
