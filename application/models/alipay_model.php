@@ -39,7 +39,7 @@ class Alipay_model extends MY_Model
         }
     }
 
-    public function change_order($out_trade_no){
+    public function change_order($out_trade_no,$log=null){
         $row = $this->db->select()->from('sum_log')->where('id',$out_trade_no)->get()->row_array();
         if($row){
             if($row['flag'] == 2){
@@ -50,6 +50,9 @@ class Alipay_model extends MY_Model
                 $this->db->update('company');
 
                 $this->db->set('flag',1);
+                if($log){
+                    $this->db->set('demo','支付宝在线充值');
+                }
                 $this->db->where('id',$out_trade_no);
                 $this->db->update('sum_log');
                 $this->db->trans_complete();//------结束事务
