@@ -56,11 +56,11 @@ class Alipay extends CI_Controller {
         //商户订单号，商户网站订单系统中唯一订单号
         $out_trade_no = $res;
         //订单名称，必填
-        $subject = '账户充值';
+        $subject = 'subject';
         //付款金额，必填
         $total_fee = $this->input->post('qty');
         //商品描述，可空
-        $body = '在线充值';
+        $body = 'body';
         //构造要请求的参数数组，无需改动
         $parameter = array(
             "service"       => $this->config->item('service'),
