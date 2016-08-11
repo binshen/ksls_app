@@ -56,11 +56,11 @@ class Alipay extends CI_Controller {
         //商户订单号，商户网站订单系统中唯一订单号
         $out_trade_no = $res;
         //订单名称，必填
-        $subject = 'subject';
+        $subject = '房猫服务中心账户充值';
         //付款金额，必填
         $total_fee = $this->input->post('qty');
         //商品描述，可空
-        $body = 'body';
+        $body = '公司账户充值';
         //构造要请求的参数数组，无需改动
         $parameter = array(
             "service"       => $this->config->item('service'),
@@ -113,7 +113,7 @@ class Alipay extends CI_Controller {
 
             if($_GET['trade_status'] == 'TRADE_FINISHED' || $_GET['trade_status'] == 'TRADE_SUCCESS') {
                $res= $this->alipay_model->change_order($out_trade_no);
-                echo $res;
+               // echo $res;
                 //判断该笔订单是否在商户网站中已经做过处理
                 //如果没有做过处理，根据订单号（out_trade_no）在商户网站的订单系统中查到该笔订单的详细，并执行商户的业务程序
                 //如果有做过处理，不执行商户的业务程序
@@ -122,7 +122,7 @@ class Alipay extends CI_Controller {
                 echo "trade_status=".$_GET['trade_status'];
             }
 
-           // redirect(site_url('account/recharge_list'));
+           redirect(site_url('account/recharge_list'));
 
             //——请根据您的业务逻辑来编写程序（以上代码仅作参考）——
 
