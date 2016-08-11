@@ -27,7 +27,7 @@ $config['key']			= 'ecpq14mto9u1c8jw5ntq2b0lm7ezj2wf';
 $config['notify_url'] = "http://www.funmall.com.cn/alipay/notifypay";
 
 // 页面跳转同步通知页面路径 需http://格式的完整路径，不能加?id=123这类自定义参数，必须外网可以正常访问
-$config['return_url'] = 'http://'.$_SERVER['SERVER_NAME']."alipay/returnpay";
+$config['return_url'] = 'http://'.$_SERVER['SERVER_NAME']."/alipay/returnpay";
 
 //签名方式
 $config['sign_type']    = strtoupper('MD5');
