@@ -46,6 +46,7 @@ class Alipay extends CI_Controller {
     }
 
     public function save_order(){
+        header("Content-type:text/html;charset=utf-8");
         require_once(APPPATH.'libraries/alipay/alipay_submit.class.php');
        $res = $this->alipay_model->save_order();
         if($res == -1){
