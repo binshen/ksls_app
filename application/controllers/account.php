@@ -77,4 +77,12 @@ class Account extends MY_Controller {
         $this->account_model->save_sum();
         redirect(site_url('/account/company_account/1/'.$this->input->post('company_id')));
     }
+
+    public function alipay_recharge($id)
+    {
+        $data = $this->account_model->mo_recharge($id);
+        $this->assign('company_id', $id);
+        $this->assign('company_info', $data);
+        $this->display('alipay_recharge.html');
+    }
 }
