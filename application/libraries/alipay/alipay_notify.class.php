@@ -99,6 +99,7 @@ class AlipayNotify {
 			//验证
 			//$responsetTxt的结果不是true，与服务器设置问题、合作身份者ID、notify_id一分钟失效有关
 			//isSign的结果不是true，与安全校验码、请求时的参数格式（如：带自定义参数等）、编码格式有关
+			var_dump($isSign);
 			if (preg_match("/true$/i",$responseTxt) && $isSign) {
 				return true;
 			} else {
