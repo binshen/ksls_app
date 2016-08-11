@@ -162,7 +162,7 @@ class Alipay extends CI_Controller {
 
 
             if($_POST['trade_status'] == 'TRADE_FINISHED') {
-                $this->alipay_model->change_order($out_trade_no);
+                $this->alipay_model->change_order($out_trade_no,'123');
                 //判断该笔订单是否在商户网站中已经做过处理
                 //如果没有做过处理，根据订单号（out_trade_no）在商户网站的订单系统中查到该笔订单的详细，并执行商户的业务程序
                 //请务必判断请求时的total_fee、seller_id与通知时获取的total_fee、seller_id为一致的
@@ -175,7 +175,7 @@ class Alipay extends CI_Controller {
                 //logResult("这里写入想要调试的代码变量值，或其他运行的结果记录");
             }
             else if ($_POST['trade_status'] == 'TRADE_SUCCESS') {
-                $this->alipay_model->change_order($out_trade_no);
+                $this->alipay_model->change_order($out_trade_no,'123');
                 //判断该笔订单是否在商户网站中已经做过处理
                 //如果没有做过处理，根据订单号（out_trade_no）在商户网站的订单系统中查到该笔订单的详细，并执行商户的业务程序
                 //请务必判断请求时的total_fee、seller_id与通知时获取的total_fee、seller_id为一致的
