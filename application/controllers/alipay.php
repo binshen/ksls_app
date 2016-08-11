@@ -45,7 +45,7 @@ class Alipay extends CI_Controller {
     }
 
     public function save_order(){
-        $this->config->load('alipay', TRUE);
+
        $res = $this->alipay_model->save_order();
         if($res == -1){
             redirect(site_url('account/recharge_list'));
