@@ -29,13 +29,21 @@ font-size: 14px;
         </header>
      
 <section class="innercontent">
-    {{$data.user_info.rel_name}}
+    {{if $data.user_info}}
+
+    <span class="omit">公司名称:{{$data.user_info.name}}</span>
+    <span class="omit">用户姓名:{{$data.user_info.rel_name}}</span>
+    <span class="omit">职级:{{$data.user_info.role_name}}</span>
+    <span class="omit">公司账户余额:{{$data.user_info.sum}}元</span>
+
+    {{/if}}
+
             <form method="post" class="c-form login-form" id="J_Register" action="<?php echo site_url('wxserver/save_openid')?>">
-                {{if $res == -1}}账号登陆失败{{/if}}
-                {{if $res == 1}}绑定成功{{/if}}
-                {{if $res == 2}}人员离职,绑定失败{{/if}}
-                {{if $res == 3}}公司服务暂停,绑定失败{{/if}}
-                {{if $res == 4}}写入失败{{/if}}
+                {{if $data.res == -1}}账号登陆失败{{/if}}
+                {{if $data.res == 1}}绑定成功{{/if}}
+                {{if $data.res == 2}}人员离职,绑定失败{{/if}}
+                {{if $data.res == 3}}公司服务暂停,绑定失败{{/if}}
+                {{if $data.res == 4}}写入失败{{/if}}
 
                 <fieldset>
                     <div class="field username">
