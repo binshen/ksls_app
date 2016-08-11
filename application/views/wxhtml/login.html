@@ -29,20 +29,14 @@ font-size: 14px;
         </header>
      
 <section class="innercontent">
-
+    {{$data.user_info.rel_name}}
             <form method="post" class="c-form login-form" id="J_Register" action="<?php echo site_url('wxserver/save_openid')?>">
-                <?php
-                if($res == -1){echo '账号登陆失败';}
-                if($res == 1){echo '绑定成功';}
-                if($res == 2){echo '人员离职,绑定失败';}
-                if($res == 3){echo '公司服务暂停,绑定失败';}
-                if($res == 4){echo '写入失败';}
-                ?>
-                <?php
-                 if(!empty($user_info)){
-                 echo $user_info['rel_name'];
-                 }
-                 ?>
+                {{if $res == -1}}账号登陆失败{{/if}}
+                {{if $res == 1}}绑定成功{{/if}}
+                {{if $res == 2}}人员离职,绑定失败{{/if}}
+                {{if $res == 3}}公司服务暂停,绑定失败{{/if}}
+                {{if $res == 4}}写入失败{{/if}}
+
                 <fieldset>
                     <div class="field username">
                         <div class="c-form-search st">
