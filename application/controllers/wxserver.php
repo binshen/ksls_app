@@ -140,7 +140,8 @@ class Wxserver extends CI_Controller {
             if($res){
                 $data['user_info'] = $res;
             }
-            $this->load->view('wxhtml/login.html',$data);
+            $this->assign('data', $data);
+            $this->display('wxhtml/login.html');
         }
     }
 

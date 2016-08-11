@@ -62,4 +62,28 @@ class Wxserver_model extends MY_Model
         }
         return -1;
     }
+
+    public function save_order(){
+        $row = $this->db->select()->from('user')->where('openid',$this->session->userdata('openid'))->get()->row_array();
+        if(!$row){
+            return -1;
+        }
+        $data = array(
+            'company_id' => $row['company_id'],
+            'qty' => $this->input->post('qty'),
+            'style' => 1,
+            'demo' => '微信充值',
+            'user_id' => $row['id'],
+            't_id' => -1,
+            't_name'=>null,
+            'flag'=>2,
+            'created' => date("Y-m-d H:i:s")
+        );
+       $res = $this->db->insert('sum_log',$data);
+        if($res){
+            return $this->db->insert_id();
+        }else{
+            return -1;
+        }
+    }
 }
