@@ -109,7 +109,8 @@ class Alipay extends CI_Controller {
 
 
             if($_GET['trade_status'] == 'TRADE_FINISHED' || $_GET['trade_status'] == 'TRADE_SUCCESS') {
-                $this->alipay_model->change_order($out_trade_no);
+               $res= $this->alipay_model->change_order($out_trade_no);
+                echo $res;
                 //判断该笔订单是否在商户网站中已经做过处理
                 //如果没有做过处理，根据订单号（out_trade_no）在商户网站的订单系统中查到该笔订单的详细，并执行商户的业务程序
                 //如果有做过处理，不执行商户的业务程序
@@ -118,7 +119,7 @@ class Alipay extends CI_Controller {
                 echo "trade_status=".$_GET['trade_status'];
             }
 
-            redirect(site_url('account/recharge_list'));
+           // redirect(site_url('account/recharge_list'));
 
             //——请根据您的业务逻辑来编写程序（以上代码仅作参考）——
 
@@ -127,7 +128,8 @@ class Alipay extends CI_Controller {
         else {
             //验证失败
             //如要调试，请看alipay_notify.php页面的verifyReturn函数
-            redirect(site_url('account/recharge_list'));
+            echo '验证失败';
+           // redirect(site_url('account/recharge_list'));
         }
     }
 
