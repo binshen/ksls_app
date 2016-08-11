@@ -30,7 +30,7 @@ $config['notify_url'] = "http://www.funmall.com/alipay/notifypay";
 $config['return_url'] = base_url()."alipay/returnpay";
 
 //签名方式
-$config['sign_type']    = strtoupper('MD5');
+$config['sign_type']    = strtoupper('RSA');
 
 //字符编码格式 目前支持 gbk 或 utf-8
 $config['input_charset']= strtolower('utf-8');

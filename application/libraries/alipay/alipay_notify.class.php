@@ -14,7 +14,7 @@
  */
 
 require_once("alipay_core.function.php");
-require_once("alipay_md5.function.php");
+require_once("alipay_rsa.function.php");
 
 class AlipayNotify {
     /**
@@ -81,11 +81,10 @@ class AlipayNotify {
 		else {
 			//生成签名结果
 			$isSign = $this->getSignVeryfy($_GET, $_GET["sign"]);
-			echo 'isSign:'.$isSign." ";
 			//获取支付宝远程服务器ATN结果（验证是否是支付宝发来的消息）
 			$responseTxt = 'false';
 			if (! empty($_GET["notify_id"])) {$responseTxt = $this->getResponse($_GET["notify_id"]);}
-			echo 'responseTxt:'.$responseTxt." ";
+			
 			//写日志记录
 			//if ($isSign) {
 			//	$isSignStr = 'true';
@@ -126,8 +125,8 @@ class AlipayNotify {
 		
 		$isSgin = false;
 		switch (strtoupper(trim($this->alipay_config['sign_type']))) {
-			case "MD5" :
-				$isSgin = md5Verify($prestr, $sign, $this->alipay_config['key']);
+			case "RSA" :
+				$isSgin = rsaVerify($prestr, trim($this->alipay_config['alipay_public_key']), $sign);
 				break;
 			default :
 				$isSgin = false;
