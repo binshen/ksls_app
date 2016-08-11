@@ -46,7 +46,7 @@ class Alipay extends CI_Controller {
     }
 
     public function save_order(){
-        header("Content-type:text/html;charset=utf-8");
+       // header("Content-type:text/html;charset=utf-8");
         require_once(APPPATH.'libraries/alipay/alipay_submit.class.php');
        $res = $this->alipay_model->save_order();
         if($res == -1){
@@ -131,7 +131,8 @@ class Alipay extends CI_Controller {
         else {
             //验证失败
             //如要调试，请看alipay_notify.php页面的verifyReturn函数
-            echo '验证失败';
+            redirect(site_url('account/recharge_list'));
+            //echo '验证失败';
            // redirect(site_url('account/recharge_list'));
         }
     }
