@@ -15,6 +15,7 @@ class Alipay extends CI_Controller {
     public function __construct()
     {
         parent::__construct();
+        ini_set('date.timezone','Asia/Shanghai');
         $this->config->load('alipay');
         $this->load->model('alipay_model');
         $this->load->helper('url');
