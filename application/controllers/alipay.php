@@ -89,7 +89,7 @@ class Alipay extends CI_Controller {
         require_once(APPPATH.'libraries/alipay/alipay_notify.class.php');
         $alipayNotify = new AlipayNotify($this->alipay_config);
         $verify_result = $alipayNotify->verifyReturn();
-        var_dump($_POST);
+        var_dump($_GET);
         var_dump($verify_result);
         if($verify_result) {//验证成功
             /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
