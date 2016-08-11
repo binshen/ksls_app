@@ -14,6 +14,7 @@ class Wxserver extends CI_Controller {
     public function __construct()
     {
         parent::__construct();
+        ini_set('date.timezone','Asia/Shanghai');
         $this->load->model('wxserver_model');
         $this->load->helper('url');
         if ( strpos($_SERVER['HTTP_USER_AGENT'], 'MicroMessenger') !== false ) {
