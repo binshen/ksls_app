@@ -91,7 +91,7 @@ class Wxserver_model extends MY_Model
         $this->db->select('a.id,a.openid,a.rel_name,d.date');
         $this->db->select('t1.name AS t1n, t2.name AS t2n, t3.name AS t3n, t4.name AS t4n, t5.name AS t5n');
         $this->db->select('t1.unit AS t1u, t2.unit AS t2u, t3.unit AS t3u, t4.unit AS t4u, t5.unit AS t5u');
-        $this->db->select('t1.icon AS t1c, t2.icon AS t2c, t3.icon AS t3c, t4.icon AS t4c, t5.icon AS t5c');
+        $this->db->select('d.a1n,d.a2n,d.a3n,d.a4n,d.a5n');
         $this->db->select('b.name');
         $this->db->from('user a');
         $this->db->join('company b','a.company_id = b.id','left');
@@ -111,19 +111,19 @@ class Wxserver_model extends MY_Model
         $res = $this->db->get()->result_array();
         foreach($res as $item){
             if(date('H') < 9){
-                $keyword2 = $item['t1n'];
+                $keyword2 = $item['t1n'].$item['a1n'].$item['t1u'];
                 $keyword3 = '9:00-10:30';
             }elseif(date('H') < 11){
-                $keyword2 = $item['t2n'];
+                $keyword2 = $item['t2n'].$item['a2n'].$item['t2u'];
                 $keyword3 = '10:30-13:00';
             }elseif(date('H') < 13){
-                $keyword2 = $item['t3n'];
+                $keyword2 = $item['t3n'].$item['a3n'].$item['t3u'];
                 $keyword3 = '13:00-15:00';
             }elseif(date('H') < 15){
-                $keyword2 = $item['t4n'];
+                $keyword2 = $item['t4n'].$item['a4n'].$item['t4u'];
                 $keyword3 = '15:00-16:30';
             }else{
-                $keyword2 = $item['t5n'];
+                $keyword2 = $item['t5n'].$item['a5n'].$item['t5u'];
                 $keyword3 = '16:30-18:00';
             }
 
@@ -149,8 +149,8 @@ class Wxserver_model extends MY_Model
                     'color' => '#FF0000'
                 )
             );
-            var_dump($data);
-           // $this->wxpost($this->config->item('WX_XC'),$data,$item['id']);
+           // var_dump($data);
+            $this->wxpost($this->config->item('WX_XC'),$data,$item['id']);
         }
 
       /*  var_dump($this->db->last_query());
