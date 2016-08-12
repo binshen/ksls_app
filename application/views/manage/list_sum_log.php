@@ -66,6 +66,7 @@
                 <th>操作事项</th>
                 <th>操作人员</th>
                 <th>操作时间</th>
+                <th>状态</th>
             </tr>
             </thead>
             <tbody>
@@ -92,6 +93,14 @@
                         <td><?php echo $row->demo;?></td>
                         <td><?php echo $row->rel_name;?></td>
                         <td><?php echo $row->created;?></td>
+                        <td><?php
+                            if($row->flag==2){
+                                echo '未完成';
+                            }
+                            if($row->flag==1){
+                                echo '完成';
+                            }
+                            ?></td>
                     </tr>
                     <?php
                 endforeach;
