@@ -145,6 +145,10 @@ class Wxserver extends CI_Controller {
         }
     }
 
+    public function fasongxc(){
+        $this->wxserver_model->fasongxc();
+    }
+
     public function text(){
         /*$dataxml['first'] = array('value'=>'数据提交成功');
         $dataxml['keynote1'] = array('value'=>$this->input->post('title'));

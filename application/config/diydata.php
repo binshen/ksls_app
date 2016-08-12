@@ -9,6 +9,8 @@
 $config['WX_SJTJ']='GCLMW8LVj59vIBGfAnoTjo-98pcxBcZak_4eFornX0g'; //数据提交提醒模板
 $config['WX_TK']='jQaPXlMV4Vn2CBM1UaFFcrf9Kp7i-ZInQBk9xvnyq2M'; //退款模板
 $config['WX_YY']='EFDja7hX1SvZWD7mW9vbN-ikff4cy6B6LIGdQ0jmXsk'; //预约模板
+$config['WX_XC']='vo65oOidcn-zk1Oyh2sSPhM70n4BpwK-e8p683ULPJo'; //行程模板
+
 //扣款明细
 $config['appointment_sum']=1;
 $config['appointment_sum_name']='预约会议_扣款';
