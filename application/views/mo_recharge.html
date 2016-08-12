@@ -40,7 +40,7 @@
                             </tr>
                             <tr>
                                 <th>充值F币：</th>
-                                <td><input type="text" name="qty" onfocus='this.value=this.value.replace(/[^1-9]\D*$/,"")' onkeyup='this.value=this.value.replace(/[^0-9]\D*$/,"")' class="account-txt account-txt-wid80">F币 （1F币 = 1元）</td>
+                                <td><input type="text" name="qty"onblur="check(this)"  onkeyup="this.value=this.value.replace(/[^0-9.]/g,'')" class="account-txt account-txt-wid80">F币 （1F币 = 1元）</td>
                             </tr>
                             <tr>
                                 <th>操作：</th>
@@ -77,6 +77,16 @@
     $("#save_btn").click(function(){
         $("#save_form").submit();
     })
+    function check(e) {
+        var re = /^\d+(?=\.{0,1}\d+$|$)/
+        if (e.value != "") {
+            if (!re.test(e.value)) {
+                alert("请输入正确的数字");
+                e.value = "";
+                e.focus();
+            }
+        }
+    }
 </script>
 {{include file='footer.html'}}
 </body>
