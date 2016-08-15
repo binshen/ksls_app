@@ -386,6 +386,42 @@ class Agenda_model extends MY_Model
         if ($this->db->trans_status() === FALSE) {
             return -1;
         } else {
+            $agenda_info = $this->db->select()->from('agenda')->where('a.id',$this->input->post('id'))->get()->row_array();
+            if($agenda_info){
+                $course_info = $this->db->select()->from('course')->where('id',end($courses))->get()->row_array();
+
+                $data = array(
+                    'first' => array(
+                        'value' => "代办事项进程变更提醒",
+                        'color' => '#FF0000'
+                    ),
+                    'keyword1' => array(
+                        'value' => $agenda_info['num'],
+                        'color' => '#FF0000'
+                    ),
+                    'keyword2' => array(
+                        'value' => date('Y-m-d H:m:s'),
+                        'color' => '#FF0000'
+                    ),
+                    'remark' => array(
+                        'value' => '当前进程:'.$course_info['name'].'.当前状态:',
+                        'color' => '#FF0000'
+                    )
+                );
+                if($this->input->post('status')==3){
+                    $data['first']['value']='代办事项服务完成!';
+                    $data['remark']['value']='服务完成,感谢您对我们工作的支持!';
+                }else{
+                    if($this->input->post('status')==1){
+                        $data['remark']['value']='当前进程:'.$course_info['name'].'.当前状态:正常';
+                    }else{
+                        $data['remark']['value']='当前进程:'.$course_info['name'].'.当前状态:异常';
+                    }
+                }
+                //发送给用户自己
+                $this->wxpost($this->config->item('WX_SJTJ'),$data,$agenda_info['user_id'],'www.baidu.com');
+            }
+
             return 1;
         }
     }
