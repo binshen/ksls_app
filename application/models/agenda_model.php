@@ -419,7 +419,7 @@ class Agenda_model extends MY_Model
                     }
                 }
                 //发送给用户自己
-                $this->wxpost($this->config->item('WX_SJTJ'),$data,$agenda_info['user_id'],'www.baidu.com');
+                $this->wxpost($this->config->item('WX_SJTJ'),$data,$agenda_info['user_id'],'www.funmall.com');
             }
 
             return 1;
