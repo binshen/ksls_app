@@ -418,6 +418,7 @@ class Agenda_model extends MY_Model
         $this->db->select('count(distinct(id)) as num',false);
         $this->db->from('agenda');
         $this->db->where('status <>',3);
+        $this->db->where('company_id',$this->session->userdata('login_company_id'));
         $agenda = $this->db->get()->row_array();
         $agenda_num = $agenda['num'];
         //开始计算是否满足新增单据条件
