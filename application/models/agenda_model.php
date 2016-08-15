@@ -278,6 +278,66 @@ class Agenda_model extends MY_Model
         if ($this->db->trans_status() === FALSE) {
             return -1;
         } else {
+            if(!$this->input->post('id')){
+                $data = array(
+                    'first' => array(
+                        'value' => "新增代办事项成功!",
+                        'color' => '#FF0000'
+                    ),
+                    'keyword1' => array(
+                        'value' => $num,
+                        'color' => '#FF0000'
+                    ),
+                    'keyword2' => array(
+                        'value' => date('Y-m-d H:m:s'),
+                        'color' => '#FF0000'
+                    ),
+                    'remark' => array(
+                        'value' => '感谢你对我们工作的信任',
+                        'color' => '#FF0000'
+                    )
+                );
+                //发送给用户自己
+                $this->wxpost($this->config->item('WX_SJTJ'),$data,$this->session->userdata('login_user_id'),'www.baidu.com');
+                //发送给用户的店长,如果用户本身职级大于等于店长,就不做通知
+                if($this->session->userdata('login_permission_id') > 4){
+                    $data['remark']['value'] = "你的员工 ".$this->session->userdata('login_rel_name')." 成功提交一单代办业务.";
+                    $this->db->select('a.id');
+                    $this->db->from('user a');
+                    $this->db->join('user_subsidiary b','a.id = b.user_id','left');
+                    $this->db->where(array(
+                        'a.flag'=>1,
+                        'a.company'=>$this->session->userdata('login_company_id'),
+                        'a.role_id'=>4,
+                        'a.openid <>'=>''
+                    ));
+                    $this->db->where('a.openid is not null');
+                    $this->db->where_in('b.subsidiary_id',$this->session->userdata('login_subsidiary_id_array'));
+                    $user_list1 = $this->db->get()->result_array();
+                    foreach($user_list1 as $item){
+                        $this->wxpost($this->config->item('WX_SJTJ'),$data,$item['id']);
+                    }
+                }
+                //发送给权证人员
+                $data['first']['value'] = "有一单新的代办业务生成";
+                $data['remark']['value'] = "用户 ".$this->session->userdata('login_rel_name')." 成功提交一单代办业务.";
+                $this->db->select('a.id');
+                $this->db->from('user a');
+                $this->db->join('user_position b','a.id = b.user_id','left');
+                $this->db->where(array(
+                    'a.flag'=>1,
+                    'b.pid'=>2,
+                    'a.openid <>'=>''
+                ));
+                $this->db->where('a.openid is not null');
+                $user_list2 = $this->db->get()->result_array();
+                foreach($user_list2 as $item2){
+                    $this->wxpost($this->config->item('WX_SJTJ'),$data,$item2['id']);
+                }
+
+            }
+
+
             return 1;
         }
     }

@@ -329,7 +329,7 @@ class MY_Model extends CI_Model{
         }
     }
 
-    public function wxpost($template_id,$post_data,$user_id){
+    public function wxpost($template_id,$post_data,$user_id,$url='www.funmall.com.cn'){
         $openid = $this->get_openid($user_id);
         if($openid == -1 || empty($openid)){
             return false;
