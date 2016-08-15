@@ -309,7 +309,19 @@ class Agenda_model extends MY_Model
         }
         $this->db->where('id', $id);
         $this->db->update('agenda', $agenda);
-
+        if($this->input->post('status')==3){
+            $res_sum = $this->change_sum($this->session->userdata('login_company_id'),
+                $this->config->item('agenda_sum'),
+                2,
+                $this->config->item('agenda_sum_name'),
+                'age',
+                $this->input->post('id'),
+                2
+            );
+            if($res_sum != 1){
+                return -3;//金额不足
+            }
+        }
         $this->db->trans_complete();//------结束事务
         if ($this->db->trans_status() === FALSE) {
             return -1;
@@ -333,5 +345,27 @@ class Agenda_model extends MY_Model
             'pic'=>$pic
         );
         return $data;
+    }
+
+    public function age_check_sum(){
+        //先查看公司账户金额
+      $company = $this->db->select()->where("id",$this->session->userdata('login_company_id'))->from('company')->get()->row_array();
+       if(!$company){
+           return -1;
+       }
+        $company_sum = $company['sum'];
+        //再查看正在办理中的权证单据数量
+        $this->db->select('count(distinct(id)) as num',false);
+        $this->db->from('agenda');
+        $this->db->where('status <>',3);
+        $agenda = $this->db->get()->row_array();
+        $agenda_num = $agenda['num'];
+        //开始计算是否满足新增单据条件
+        $pty = $company_sum - ($agenda_num * $this->config->item('agenda_sum'));
+        if($this->config->item('Arrears_CK') >= $pty){
+            return -2;
+        }else{
+            return 1;
+        }
     }
 }

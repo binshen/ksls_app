@@ -28,7 +28,7 @@
         </div>
         <div class="wrap-right">
             <form id="agendaForm" method="post" action="/agenda/save_agenda">
-                <input type="hidden" name="id" value="{{$agenda->id|default:''}}">
+                <input type="hidden" id="agenda_id" name="id" value="{{$agenda->id|default:''}}">
                 <div class="search-wrap">
                     <div class="t-tit">代办买卖二手房服务Agent Housing Services</div>
                 </div>
@@ -319,6 +319,7 @@
     });
 
     $("#btnSubmit").click(function() {
+
         var xq_name = $("#xq_name").val();
         if(xq_name == "") {
             layer.msg('请输入小区名称', {icon: 2});
@@ -364,7 +365,24 @@
         layer.confirm('确定要保存代办服务信息？', {
             btn: ['确定','取消'] //按钮
         }, function(){
-            $("#agendaForm").submit();
+            var agenda_id = $("#agenda_id").val();
+            if(agenda_id !=""){
+                $("#agendaForm").submit();
+            }else{
+                var data_ = Date.parse(new Date());
+                $.getJSON('/agenda/check_sum/'+data_,function (data) {
+                    if(data == 1) {
+                        $("#agendaForm").submit();
+                    } else {
+                        layer.alert('公司正在处理中的权证业务过多,账户余额不足!', {
+                            skin: 'layui-layer-lan'
+                            ,closeBtn: 0
+                            ,shift: 4 //动画类型
+                        });
+                    }
+                })
+            }
+
         }, function(){
         });
     });

@@ -319,4 +319,9 @@ class Agenda extends MY_Controller
         die;
     }
 
+    public function check_sum(){
+        $data = $this->agenda_model->age_check_sum();
+        echo json_encode($data);
+    }
+
 }

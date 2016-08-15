@@ -122,7 +122,7 @@ class Appointment_model extends MY_Model
                     'color' => '#FF0000'
                 ),
                 'remark' => array(
-                    'value' => '预约成功,扣款'.$this->config->item('appointment_sum').'元至公司账户',
+                    'value' => '预约成功,扣款'.$this->config->item('appointment_sum').'元',
                     'color' => '#FF0000'
                 )
             );

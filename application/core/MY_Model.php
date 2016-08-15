@@ -408,23 +408,26 @@ class MY_Model extends CI_Model{
         if(!$row){
             return -1;
         }
-        if($row['sum'] > -1000){
+        if($row['sum'] > $this->config->item('Arrears_CK')){
             return 1;
         }else{
             return -1;
         }
     }
 
-    public function change_sum($company_id,$qty,$style,$demo,$table=null,$t_id=-1){
+    public function change_sum($company_id,$qty,$style,$demo,$table=null,$t_id=-1,$flag=1){
         $res_sum = $this->check_sum($company_id);
-        if($res_sum == 1 || $style == 1){
+        if($res_sum == 1 || $style == 1 || $flag == 2){
             if($style ==1){
                 $this->db->set('sum','sum + '.$qty,false);
             }else{
                 $this->db->set('sum','sum - '.$qty,false);
             }
             $this->db->where('id',$company_id);
-            $this->db->update('company');
+           $up_flag = $this->db->update('company');
+            if(!$up_flag){
+                return -1;
+            }
             $data = array(
                 'company_id' => $company_id,
                 'qty' => $qty,
@@ -436,7 +439,10 @@ class MY_Model extends CI_Model{
                 'flag'=>1,
                 'created' => date("Y-m-d H:i:s")
             );
-            $this->db->insert('sum_log',$data);
+           $in_flag = $this->db->insert('sum_log',$data);
+            if(!$in_flag){
+                return -1;
+            }
             return 1;
         }else{
             return -1;

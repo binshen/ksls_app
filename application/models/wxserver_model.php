@@ -38,6 +38,9 @@ class Wxserver_model extends MY_Model
         $this->db->where('password', sha1($password));
         $rs = $this->db->get();
         if ($rs->num_rows() > 0) {
+            $this->db->where('openid',$openid)->set('openid','')->update('user');
+
+
             $res = $rs->row();
             if($res->flag==2){
                 return 2;
