@@ -307,7 +307,7 @@ class Agenda_model extends MY_Model
                     $this->db->join('user_subsidiary b','a.id = b.user_id','left');
                     $this->db->where(array(
                         'a.flag'=>1,
-                        'a.company'=>$this->session->userdata('login_company_id'),
+                        'a.company_id'=>$this->session->userdata('login_company_id'),
                         'a.role_id'=>4,
                         'a.openid <>'=>''
                     ));
