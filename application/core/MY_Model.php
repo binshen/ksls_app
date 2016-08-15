@@ -358,7 +358,7 @@ class MY_Model extends CI_Model{
         $template = array(
             'touser' => $openid,
             'template_id' => $template_id,
-            'url' => 'www.funmall.com.cn',
+            'url' => $url,
             'topcolor' => '#7B68EE',
             'data' => $post_data
         );

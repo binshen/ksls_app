@@ -386,7 +386,7 @@ class Agenda_model extends MY_Model
         if ($this->db->trans_status() === FALSE) {
             return -1;
         } else {
-            $agenda_info = $this->db->select()->from('agenda')->where('a.id',$this->input->post('id'))->get()->row_array();
+            $agenda_info = $this->db->select()->from('agenda')->where('id',$this->input->post('id'))->get()->row_array();
             if($agenda_info){
                 $course_info = $this->db->select()->from('course')->where('id',end($courses))->get()->row_array();
 
