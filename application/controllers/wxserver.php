@@ -354,7 +354,7 @@ class Wxserver extends CI_Controller {
                 $wxconfig['appsecret'] = $this->config->item('appsecret');
                 $wxconfig['sslcertPath'] = $this->config->item('sslcertPath');
                 $wxconfig['sslkeyPath'] = $this->config->item('sslkeyPath');
-                $this->load->library('Wechatpay', $wxconfig);
+                $this->load->library('wxpay/Wechatpay',$wxconfig);
 
                 if (isset($listno) && $listno != "") {
                     $out_trade_no = $listno;
