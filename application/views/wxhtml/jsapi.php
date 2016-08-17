@@ -3,8 +3,9 @@
 <html>
 <head>
     <meta http-equiv="content-type" content="text/html;charset=utf-8"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1"/> 
-    <title>微信支付样例-支付</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+	<script type="text/javascript" src="/static/js/jquery-1.7.2.min.js"></script>
+    <title>微信支付</title>
 	<?php
 	$jsApiParameters = $parameters;//参数赋值
 	?>
