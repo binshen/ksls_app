@@ -301,7 +301,7 @@ class Wxserver extends CI_Controller {
         $wxconfig['sslkeyPath']=$this->config->item('sslkeyPath');
         $this->load->library('wxpay/Wechatpay',$wxconfig);
         $data_array = $this->wechatpay->get_back_data();
-        if($data_array['result_code'=='SUCCESS' && $data_array['return_code']=='SUCCESS']){
+        if($data_array['result_code']=='SUCCESS' && $data_array['return_code']=='SUCCESS'){
             if($this->wxserver_model->change_order($data_array['out_trade_no'],'23')==-2){
                 return 'FAIL';
             }else{
