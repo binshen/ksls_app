@@ -2,8 +2,8 @@
 /**
 * 2015-06-29 修复签名问题
 **/
-require_once  APPPATH ."libraries/wxpay/lib/WxPay.Config.php";
-require_once  APPPATH ."libraries/wxpay/lib/WxPay.Exception.php";
+require_once(APPPATH ."libraries/wxpay/lib/WxPay.Config.php");
+require_once(APPPATH ."libraries/wxpay/lib/WxPay.Exception.php");
 
 /**
  * 

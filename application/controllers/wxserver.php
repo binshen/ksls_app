@@ -211,12 +211,15 @@ class Wxserver extends CI_Controller {
     }
 
     public function jsapi_wxpay(){
-        /*if(!$this->session->userdata('openid')){
+       /* if(!$this->session->userdata('openid')){
+            echo APPPATH . 'libraries/wxpay/cert/apiclient_cert.pem';
+            echo APPPATH . "libraries/wxpay/cert/apiclient_key.pem";
             die('请使用微信登陆');
         }*/
+
 //error_reporting(E_ERROR);
-        require_once APPPATH ."libraries/wxpay/lib/WxPay.Api.php";
-        require_once APPPATH ."libraries/wxpay/lib/WxPay.JsApiPay.php";
+        require_once(APPPATH ."libraries/wxpay/lib/WxPay.Api.php");
+        require_once(APPPATH ."libraries/wxpay/lib/WxPay.JsApiPay.php");
 
         $res_order = $this->wxserver_model->save_order();
         if($res_order == -1){
@@ -241,6 +244,48 @@ class Wxserver extends CI_Controller {
         printf_info($order);*/
         $data['jsApiParameters'] = $tools->GetJsApiParameters($order);
         $this->load->view('wxhtml/jsapi', $data);
+    }
+
+    public function jsapi_wxpay2(){
+        $this->load->config('wxpay_config');
+        $wxconfig['appid']=$this->config->item('appid');
+        $wxconfig['mch_id']=$this->config->item('mch_id');
+        $wxconfig['apikey']=$this->config->item('apikey');
+        $wxconfig['appsecret']=$this->config->item('appsecret');
+        $wxconfig['sslcertPath']=$this->config->item('sslcertPath');
+        $wxconfig['sslkeyPath']=$this->config->item('sslkeyPath');
+        $this->load->library('wxpay/Wechatpay',$wxconfig);
+        $res_order = $this->wxserver_model->save_order();
+        if($res_order == -1){
+            die('订单保存失败');
+        }
+        $param['body'] = '房猫服务中心';
+        $param['attach'] = 'attach';
+        $param['detail'] = "房猫微信充值——微信支付";
+        $param['out_trade_no'] = $res_order;
+        $param['total_fee'] = 1;
+        $param["spbill_create_ip"] = $_SERVER['REMOTE_ADDR'];
+        $param["time_start"] = date("YmdHis");
+        $param["time_expire"] = date("YmdHis", time() + 600);
+        $param["goods_tag"] = "房猫服务中心";
+        $param["notify_url"] = base_url()."/wxserver/notify";
+        $param["trade_type"] = "JSAPI";
+        $param["openid"] = $this->session->userdata('openid');
+
+        //统一下单，获取结果，结果是为了构造jsapi调用微信支付组件所需参数
+        $result = $this->wechatpay->unifiedOrder($param);
+
+        //如果结果是成功的我们才能构造所需参数，首要判断预支付id
+
+        if (isset($result["prepay_id"]) && !empty($result["prepay_id"])) {
+            //调用支付类里的get_package方法，得到构造的参数
+            $data['parameters'] = json_encode($this->wechatpay->get_package($result['prepay_id']));
+            $data['notifyurl'] = $param["notify_url"];
+            $data['fee'] = 1;
+            $data['pubid'] = $res_order;
+            $data['orderid'] = $res_order;
+            $this->load->view('wxhtml/jsapi', $data);
+        }
     }
 
     public function notify(){
