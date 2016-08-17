@@ -247,6 +247,9 @@ class Wxserver extends CI_Controller {
     }
 
     public function jsapi_wxpay2(){
+        if(!$this->session->userdata('openid')){
+            die('请使用微信登陆');
+        }
         $this->load->config('wxpay_config');
         $wxconfig['appid']=$this->config->item('appid');
         $wxconfig['mch_id']=$this->config->item('mch_id');
@@ -289,8 +292,8 @@ class Wxserver extends CI_Controller {
     }
 
     public function notify(){
-        require_once "../lib/WxPay.Api.php";
-        require_once '../lib/WxPay.Notify.php';
+        require_once(APPPATH ."libraries/wxpay/lib/WxPay.Api.php");
+        require_once(APPPATH ."libraries/wxpay/lib/WxPay.Notify.php");
         $notify = new PayNotifyCallBack();
         $res = $notify->Handle(false);
         if($res == 'true'){
@@ -298,6 +301,13 @@ class Wxserver extends CI_Controller {
             $data = $this->xmlToArray($fileContent);
             $this->wxserver_model->change_order($data['out_trade_no'],'23');
             return true;
+        }
+    }
+
+    public function notify_tb($order_id){
+        if ($this->session->userdata('openid')) {
+            $rs =  $this->wxserver_model->change_order($order_id);
+            echo $rs;
         }
     }
 

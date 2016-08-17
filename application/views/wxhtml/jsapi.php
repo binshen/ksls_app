@@ -17,7 +17,22 @@
 			<?php echo $jsApiParameters; ?>,
 			function(res){
 				WeixinJSBridge.log(res.err_msg);
-				alert(res.err_code+res.err_desc+res.err_msg);
+				if(res.err_msg == "get_brand_wcpay_request:ok" ){
+
+					$.get('<?php echo site_url('wxserver/notify_tb').'/'.$pubid;?>',function(ret){
+						if(ret==1){
+							alert('支付成功');
+							//成功后返回我的订单页面
+							location.href='<?php echo base_url().'wxserver/bdwx/';?>';
+						}else{
+							alert('订单支付异常!')
+						}
+					});
+
+				}else
+				{
+					alert('支付失败');
+				}
 			}
 		);
 	}
