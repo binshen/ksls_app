@@ -240,7 +240,7 @@ class Wxserver extends CI_Controller {
       /*  echo '<font color="#f00"><b>统一下单支付单信息</b></font><br/>';
         printf_info($order);*/
         $data['jsApiParameters'] = $tools->GetJsApiParameters($order);
-        $this->load->view('wxhtml/pay', $data);
+        $this->load->view('wxhtml/jsapi', $data);
     }
 
     public function notify(){
