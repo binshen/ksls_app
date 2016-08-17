@@ -187,4 +187,8 @@ class Wxserver_model extends MY_Model
         }
         return -2;
     }
+
+    public function order_info($id){
+        return $this->db->select()->from('sum_log')->where('id',$id)->get()->row_array();
+    }
 }
