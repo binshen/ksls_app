@@ -209,4 +209,60 @@ class Wxserver extends CI_Controller {
     public function test2(){
         phpinfo();
     }
+
+    public function jsapi_wxpay(){
+        if(!$this->session->userdata('openid')){
+            die('请使用微信登陆');
+        }
+//error_reporting(E_ERROR);
+        require_once APPPATH ."libraries/wxpay/lib/WxPay.Api.php";
+        require_once APPPATH ."libraries/wxpay/WxPay.JsApiPay.php";
+
+        $res_order = $this->wxserver_model->save_order();
+        if($res_order == -1){
+            die('订单保存失败');
+        }
+//①、获取用户openid
+        $tools = new JsApiPay();
+//②、统一下单
+        $input = new WxPayUnifiedOrder();
+        $input->SetBody("SetBody");
+        $input->SetAttach("SetAttach");
+        $input->SetOut_trade_no($res_order);
+        $input->SetTotal_fee("1");
+        $input->SetTime_start(date("YmdHis"));
+        $input->SetTime_expire(date("YmdHis", time() + 600));
+        $input->SetGoods_tag("SetGoods_tag");
+        $input->SetNotify_url("http://www.funmall.com.cn/wxserver/notify");
+        $input->SetTrade_type("JSAPI");
+        $input->SetOpenid($this->session->userdata('openid'));
+        $order = WxPayApi::unifiedOrder($input);
+      /*  echo '<font color="#f00"><b>统一下单支付单信息</b></font><br/>';
+        printf_info($order);*/
+        $data['jsApiParameters'] = $tools->GetJsApiParameters($order);
+        $this->load->view('wxhtml/pay', $data);
+    }
+
+    public function notify(){
+        require_once "../lib/WxPay.Api.php";
+        require_once '../lib/WxPay.Notify.php';
+        $notify = new PayNotifyCallBack();
+        $res = $notify->Handle(false);
+        if($res == 'true'){
+            $fileContent = file_get_contents("php://input");
+            $data = $this->xmlToArray($fileContent);
+            $this->wxserver_model->change_order($data['out_trade_no'],'23');
+            return true;
+        }
+    }
+
+    public function xmlToArray($xml){
+        $data = simplexml_load_string($xml);
+        $array = array();
+        foreach($data->children() as $childItem) {
+            $array = array_merge($array,array($childItem->getName()=>(string)$childItem));
+        }
+        return $array;
+    }
+
 }

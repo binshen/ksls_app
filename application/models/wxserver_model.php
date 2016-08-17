@@ -73,7 +73,8 @@ class Wxserver_model extends MY_Model
         }
         $data = array(
             'company_id' => $row['company_id'],
-            'qty' => $this->input->post('qty'),
+           // 'qty' => $this->input->post('qty'),
+            'qty' => 0.01,
             'style' => 1,
             'demo' => '微信充值',
             'user_id' => $row['id'],
@@ -156,9 +157,32 @@ class Wxserver_model extends MY_Model
             $this->wxpost($this->config->item('WX_XC'),$data,$item['id']);
         }
 
-      /*  var_dump($this->db->last_query());
-        die(var_dump($res));*/
+    }
 
+    public function change_order($out_trade_no,$log=null){
+        $row = $this->db->select()->from('sum_log')->where('id',$out_trade_no)->get()->row_array();
+        if($row){
+            if($row['flag'] == 2){
+                $this->db->trans_start();//--------开始事务
 
+                $this->db->set('sum','sum + '.$row['qty'],false);
+                $this->db->where('id',$row['company_id']);
+                $this->db->update('company');
+
+                $this->db->set('flag',1);
+                if($log){
+                    $this->db->set('demo','微信在线充值');
+                }
+                $this->db->where('id',$out_trade_no);
+                $this->db->update('sum_log');
+                $this->db->trans_complete();//------结束事务
+                if ($this->db->trans_status() === FALSE) {
+                    return -1;
+                } else {
+                    return 1;
+                }
+            }
+        }
+        return -2;
     }
 }
