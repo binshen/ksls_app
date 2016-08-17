@@ -31,8 +31,9 @@
 								alert('支付成功');
 								//成功后返回我的订单页面
 								location.href='<?php echo base_url().'wxserver/bdwx/';?>';
+							}else{
+								alert('订单支付异常!')
 							}
-							alert('订单支付异常!')
 						}
 					});
 
