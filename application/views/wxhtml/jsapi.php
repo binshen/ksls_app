@@ -18,7 +18,7 @@
 			<?php echo $jsApiParameters; ?>,
 			function(res){
 				WeixinJSBridge.log(res.err_msg);
-				alert(res.err_msg);
+				//alert(res.err_msg);
 				if(res.err_msg == "get_brand_wcpay_request:ok" ){
 
 					$.get('<?php echo site_url('wxserver/notify_tb').'/'.$pubid;?>',function(ret){
