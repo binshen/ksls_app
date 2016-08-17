@@ -211,12 +211,12 @@ class Wxserver extends CI_Controller {
     }
 
     public function jsapi_wxpay(){
-        if(!$this->session->userdata('openid')){
+        /*if(!$this->session->userdata('openid')){
             die('请使用微信登陆');
-        }
+        }*/
 //error_reporting(E_ERROR);
         require_once APPPATH ."libraries/wxpay/lib/WxPay.Api.php";
-        require_once APPPATH ."libraries/wxpay/WxPay.JsApiPay.php";
+        require_once APPPATH ."libraries/wxpay/lib/WxPay.JsApiPay.php";
 
         $res_order = $this->wxserver_model->save_order();
         if($res_order == -1){
