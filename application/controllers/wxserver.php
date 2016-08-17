@@ -305,7 +305,7 @@ class Wxserver extends CI_Controller {
     }
 
     public function notify_tb($order_id){
-        if ($this->session->userdata('openid')) {
+        if($this->session->userdata('openid')) {
             $rs =  $this->wxserver_model->change_order($order_id);
             echo $rs;
         }
