@@ -337,9 +337,12 @@ class Wxserver extends CI_Controller {
             //方便我手动调用退单
             $id = $this->uri->segment(3);
         }
+        if($this->session->userdata('login_permission_id') != 1 ){
+            die('NG');
+        }
         if (isset($id) && $id != "") {
             //1、取消订单可以退款。2、失败订单可以退款
-            $pub = $this->manage_model->order_info($id);
+            $pub = $this->wxserver_model->order_info($id);
             if ($pub) {
                 $listno = $id;
                 $fee = $pub['qty']*100;
