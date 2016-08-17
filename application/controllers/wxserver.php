@@ -292,7 +292,18 @@ class Wxserver extends CI_Controller {
     }
 
     public function notify(){
-        require_once(APPPATH ."libraries/wxpay/lib/WxPay.Api.php");
+        $this->load->config('wxpay_config');
+        $wxconfig['appid']=$this->config->item('appid');
+        $wxconfig['mch_id']=$this->config->item('mch_id');
+        $wxconfig['apikey']=$this->config->item('apikey');
+        $wxconfig['appsecret']=$this->config->item('appsecret');
+        $wxconfig['sslcertPath']=$this->config->item('sslcertPath');
+        $wxconfig['sslkeyPath']=$this->config->item('sslkeyPath');
+        $this->load->library('wxpay/Wechatpay',$wxconfig);
+        $data_array = $this->wechatpay->get_back_data();
+        $this->wxserver_model->change_order($data_array['out_trade_no'],'23');
+        return 'SUCCESS';
+        /*require_once(APPPATH ."libraries/wxpay/lib/WxPay.Api.php");
         require_once(APPPATH ."libraries/wxpay/lib/WxPay.Notify.php");
         $notify = new PayNotifyCallBack();
         $res = $notify->Handle(false);
@@ -301,7 +312,7 @@ class Wxserver extends CI_Controller {
             $data = $this->xmlToArray($fileContent);
             $this->wxserver_model->change_order($data['out_trade_no'],'23');
             return true;
-        }
+        }*/
     }
 
     public function notify_tb($order_id){
