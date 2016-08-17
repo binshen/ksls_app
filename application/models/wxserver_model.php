@@ -181,6 +181,8 @@ class Wxserver_model extends MY_Model
                 } else {
                     return 1;
                 }
+            }else{
+                return -3;
             }
         }
         return -2;
