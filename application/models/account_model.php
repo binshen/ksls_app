@@ -118,4 +118,25 @@ class Account_model extends MY_Model
         }
     }
 
+    public function save_order(){
+
+        $data = array(
+            'company_id' => $this->session->userdata('login_company_id'),
+            'qty' => $this->input->post('qty'),
+            'style' => 1,
+            'demo' => '微信充值',
+            'user_id' => $this->session->userdata('login_user_id'),
+            't_id' => -1,
+            't_name'=>null,
+            'flag'=>2,
+            'created' => date("Y-m-d H:i:s")
+        );
+        $res = $this->db->insert('sum_log',$data);
+        if($res){
+            return $this->db->insert_id();
+        }else{
+            return -1;
+        }
+    }
+
 }
