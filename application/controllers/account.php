@@ -109,7 +109,7 @@ class Account extends MY_Controller {
         );
         if($result){
             $this->assign('result', $result);
-            $this->display('alipay_recharge.html');
+            $this->display('wxpay.html');
         }else{
             redirect(site_url('account/recharge_list'));
             exit();
