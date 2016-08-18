@@ -18,12 +18,12 @@ class Wxserver extends CI_Controller {
         $this->load->model('wxserver_model');
         $this->load->helper('url');
         $this->load->config('wxpay_config');
-        $wxconfig['appid']=$this->config->item('appid');
-        $wxconfig['mch_id']=$this->config->item('mch_id');
-        $wxconfig['apikey']=$this->config->item('apikey');
-        $wxconfig['appsecret']=$this->config->item('appsecret');
-        $wxconfig['sslcertPath']=$this->config->item('sslcertPath');
-        $wxconfig['sslkeyPath']=$this->config->item('sslkeyPath');
+       $this->wxconfig['appid']=$this->config->item('appid');
+        $this->wxconfig['mch_id']=$this->config->item('mch_id');
+        $this->wxconfig['apikey']=$this->config->item('apikey');
+        $this->wxconfig['appsecret']=$this->config->item('appsecret');
+        $this->wxconfig['sslcertPath']=$this->config->item('sslcertPath');
+        $this->wxconfig['sslkeyPath']=$this->config->item('sslkeyPath');
         if ( strpos($_SERVER['HTTP_USER_AGENT'], 'MicroMessenger') !== false ) {
             if(!$this->session->userdata('openid')){
                 $appid = APP_ID; //我把微信的appid 写成了全局变量,一般放在application/config/constant.php 中
