@@ -139,4 +139,14 @@ class Account_model extends MY_Model
         }
     }
 
+    public function check_order($id){
+       $res = $this->db->select()->from('sum_log')->where('id',$id)->get()->row_array();
+        if($res){
+            return $res['flag'];
+        }else{
+            return -1;
+        }
+
+    }
+
 }

@@ -33,7 +33,7 @@
                         <table cellspadding="0" colspadding="0" border="0" class="account-table">
                             <tr>
                                 <td>
-                                    <img alt="扫码支付" src="http://paysdk.weixin.qq.com/example/qrcode.php?data={{$result}}" style="width:150px;height:150px;"/>
+                                    <img alt="扫码支付" src="http://paysdk.weixin.qq.com/example/qrcode.php?data={{$result}}" style="width:450px;height:450px;"/>
                                 </td>
 
                         </tr>
@@ -51,8 +51,25 @@
 </div>
 <script type="text/javascript" src="js/yui-min.js"></script>
 <script type="text/javascript" src="js/jquery.poshytip.min.js"></script>
+<script type="text/javascript" src="/static/js/layer/layer.js"></script>
 <script type="text/javascript">
-
+$(function(){
+   var settime = setInterval("myInterval()",3000);//1000为1秒钟
+    function myInterval()
+    {
+        $.getJSON('/account/check_order/{{$res}}' + Math.random(),function(data){
+            if(data == 1){
+                clearInterval(settime);
+                layer.alert('充值成功', {
+                    skin: 'layui-layer-molv' //样式类名
+                    ,closeBtn: 0
+                }, function(){
+                    location.href='/account/recharge_list';
+                });
+            }
+        })
+    }
+})
 
 </script>
 {{include file='footer.html'}}

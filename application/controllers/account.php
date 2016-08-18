@@ -110,10 +110,17 @@ class Account extends MY_Controller {
         if($result){
             $this->assign('company_id', $this->input->post('company_id'));
             $this->assign('result', $result);
+            $this->assign('res', $res);
             $this->display('wxpay.html');
         }else{
             redirect(site_url('account/recharge_list'));
             exit();
         }
+    }
+
+    public function check_order($id){
+       $res = $this->account_model->check_order($id);
+        echo $res;
+        die;
     }
 }
