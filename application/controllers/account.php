@@ -14,7 +14,6 @@ class Account extends MY_Controller {
     {
         parent::__construct();
         $this->load->model('account_model');
-        $this->load->model('wxserver_model');
     }
 
     function _remap($method,$params = array()) {
@@ -88,7 +87,7 @@ class Account extends MY_Controller {
     }
 
     public function save_order(){
-        $res = $this->wxserver_model->save_order();
+        $res = $this->account_model->save_order();
         if($res == -1){
             redirect(site_url('account/recharge_list'));
             exit();
