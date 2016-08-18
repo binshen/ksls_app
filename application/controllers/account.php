@@ -103,11 +103,12 @@ class Account extends MY_Controller {
         $result = $this->wechatpay->getCodeUrl(
             '房猫服务中心',
             $res,
-            1,
+            $this->input->post('qty')*100,
             'http://www.funmall.com.cn/wxserver/notify',
             $res
         );
         if($result){
+            $this->assign('company_id', $this->input->post('company_id'));
             $this->assign('result', $result);
             $this->display('wxpay.html');
         }else{
