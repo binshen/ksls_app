@@ -48,7 +48,8 @@
                             </tr>-->
                             <tr>
                                 <th></th>
-                                <td><a href="javascript:void(0);" id="save_btn" class="review-account">确认</a></td>
+                                <td><a href="javascript:void(0);" id="save_btn_alipay" class="review-account">支付宝支付</a></td>
+                                <td><a href="javascript:void(0);" id="save_btn_wxpay" class="review-account">微信支付(充值0.01元 测试)</a></td>
                             </tr>
                         </table>
                     </div>
@@ -65,7 +66,13 @@
 <script type="text/javascript" src="js/yui-min.js"></script>
 <script type="text/javascript" src="js/jquery.poshytip.min.js"></script>
 <script type="text/javascript">
-    $("#save_btn").click(function(){
+    $("#save_btn_alipay").click(function(){
+        $("#save_form").attr("action",'/alipay/save_order');
+        $("#save_form").submit();
+    })
+
+    $("#save_btn_wxpay").click(function(){
+        $("#save_form").attr("action",'/account/save_order');
         $("#save_form").submit();
     })
 

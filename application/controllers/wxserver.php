@@ -10,13 +10,20 @@ if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
 //t
 class Wxserver extends CI_Controller {
-
+    protected $wxconfig = array();
     public function __construct()
     {
         parent::__construct();
         ini_set('date.timezone','Asia/Shanghai');
         $this->load->model('wxserver_model');
         $this->load->helper('url');
+        $this->load->config('wxpay_config');
+        $wxconfig['appid']=$this->config->item('appid');
+        $wxconfig['mch_id']=$this->config->item('mch_id');
+        $wxconfig['apikey']=$this->config->item('apikey');
+        $wxconfig['appsecret']=$this->config->item('appsecret');
+        $wxconfig['sslcertPath']=$this->config->item('sslcertPath');
+        $wxconfig['sslkeyPath']=$this->config->item('sslkeyPath');
         if ( strpos($_SERVER['HTTP_USER_AGENT'], 'MicroMessenger') !== false ) {
             if(!$this->session->userdata('openid')){
                 $appid = APP_ID; //我把微信的appid 写成了全局变量,一般放在application/config/constant.php 中
@@ -250,14 +257,7 @@ class Wxserver extends CI_Controller {
         if(!$this->session->userdata('openid')){
             die('请使用微信登陆');
         }
-        $this->load->config('wxpay_config');
-        $wxconfig['appid']=$this->config->item('appid');
-        $wxconfig['mch_id']=$this->config->item('mch_id');
-        $wxconfig['apikey']=$this->config->item('apikey');
-        $wxconfig['appsecret']=$this->config->item('appsecret');
-        $wxconfig['sslcertPath']=$this->config->item('sslcertPath');
-        $wxconfig['sslkeyPath']=$this->config->item('sslkeyPath');
-        $this->load->library('wxpay/Wechatpay',$wxconfig);
+        $this->load->library('wxpay/Wechatpay',$this->wxconfig);
         $res_order = $this->wxserver_model->save_order();
         if($res_order == -1){
             die('订单保存失败');
@@ -292,14 +292,7 @@ class Wxserver extends CI_Controller {
     }
 
     public function notify(){
-        $this->load->config('wxpay_config');
-        $wxconfig['appid']=$this->config->item('appid');
-        $wxconfig['mch_id']=$this->config->item('mch_id');
-        $wxconfig['apikey']=$this->config->item('apikey');
-        $wxconfig['appsecret']=$this->config->item('appsecret');
-        $wxconfig['sslcertPath']=$this->config->item('sslcertPath');
-        $wxconfig['sslkeyPath']=$this->config->item('sslkeyPath');
-        $this->load->library('wxpay/Wechatpay',$wxconfig);
+        $this->load->library('wxpay/Wechatpay',$this->wxconfig);
         $data_array = $this->wechatpay->get_back_data();
         if($data_array['result_code']=='SUCCESS' && $data_array['return_code']=='SUCCESS'){
             if($this->wxserver_model->change_order($data_array['out_trade_no'],'23')==-2){
@@ -341,24 +334,14 @@ class Wxserver extends CI_Controller {
             if ($pub) {
                 $listno = $id;
                 $fee = $pub['qty'];
-
-                $this->load->config('wxpay_config');
-                $wxconfig['appid'] = $this->config->item('appid');
-                $wxconfig['mch_id'] = $this->config->item('mch_id');
-                $wxconfig['apikey'] = $this->config->item('apikey');
-                $wxconfig['appsecret'] = $this->config->item('appsecret');
-                $wxconfig['sslcertPath'] = $this->config->item('sslcertPath');
-                $wxconfig['sslkeyPath'] = $this->config->item('sslkeyPath');
-                $this->load->library('wxpay/Wechatpay',$wxconfig);
-
+                $this->load->library('wxpay/Wechatpay',$this->wxconfig);
                 if (isset($listno) && $listno != "") {
                     $out_trade_no = $listno;
                     $total_fee = $fee * 100;
                     $refund_fee = $fee * 100;
                     //自定义商户退单号
-                    $out_refund_no = $wxconfig['mch_id'] . date("YmdHis");
-                    $result = $this->wechatpay->refund($out_trade_no, $out_refund_no, $total_fee, $refund_fee, $wxconfig['mch_id']);
-
+                    $out_refund_no = $this->wxconfig['mch_id'] . date("YmdHis");
+                    $result = $this->wechatpay->refund($out_trade_no, $out_refund_no, $total_fee, $refund_fee, $this->wxconfig['mch_id']);
                     //log::DEBUG(json_encode($result));
                     if (isset($result["return_code"]) && $result["return_code"] = "SUCCESS" && isset($result["result_code"]) && $result["result_code"] = "SUCCESS") {
                        echo 'YES';
@@ -368,7 +351,6 @@ class Wxserver extends CI_Controller {
                 }
             }
         }
-
     }
 
 }

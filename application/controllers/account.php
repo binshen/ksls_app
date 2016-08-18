@@ -14,6 +14,7 @@ class Account extends MY_Controller {
     {
         parent::__construct();
         $this->load->model('account_model');
+        $this->load->model('wxserver_model');
     }
 
     function _remap($method,$params = array()) {
@@ -84,5 +85,35 @@ class Account extends MY_Controller {
         $this->assign('company_id', $id);
         $this->assign('company_info', $data);
         $this->display('alipay_recharge.html');
+    }
+
+    public function save_order(){
+        $res = $this->wxserver_model->save_order();
+        if($res == -1){
+            redirect(site_url('account/recharge_list'));
+            exit();
+        }
+        $this->load->config('wxpay_config');
+        $wxconfig['appid']=$this->config->item('appid');
+        $wxconfig['mch_id']=$this->config->item('mch_id');
+        $wxconfig['apikey']=$this->config->item('apikey');
+        $wxconfig['appsecret']=$this->config->item('appsecret');
+        $wxconfig['sslcertPath']=$this->config->item('sslcertPath');
+        $wxconfig['sslkeyPath']=$this->config->item('sslkeyPath');
+        $this->load->library('wxpay/Wechatpay',$wxconfig);
+        $result = $this->wechatpay->getCodeUrl(
+            '房猫服务中心',
+            $res,
+            1,
+            'http://www.funmall.com.cn/wxserver/notify',
+            $res
+        );
+        if($result){
+            $this->assign('result', $result);
+            $this->display('alipay_recharge.html');
+        }else{
+            redirect(site_url('account/recharge_list'));
+            exit();
+        }
     }
 }
