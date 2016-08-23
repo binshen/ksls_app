@@ -1,0 +1,104 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>房猫房地产管理系统</title>
+    <meta name="keywords" content="测试" />
+    <meta name="description" content="测试" />
+    <link href="/static/css/reset.css" rel="stylesheet" type="text/css">
+    <link href="/static/css/style.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="doc">
+    {{include file='header.html'}}
+    <div class="wraper clearfix">
+        <div class="wrap-left">
+            <span class="logo"><img src="/static/images/logo.jpg" alt="" width="130" height="35"></span>
+            <div class="nav-left">
+                <ul class="nav-left-ul">
+                    <li><a href="/"><em class="home"></em>回到首页</a></li>
+                    <li><a href="/account/recharge_list"><em class="rechargelist"></em>公司账户</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="wrap-right">
+            <div class="search-wrap">
+            </div>
+            <div class="schedule-wrap upload-document-wrap">
+                <p class="tab-tit">我的房猫</p>
+                <form  id="save_form" method="post">
+                    <div class="publish-document-main">
+                        <table cellspadding="0" colspadding="0" border="0" class="account-table">
+                            <tr>
+                                <td>
+                                    <input id="product_search" type="text" data-provide="typeahead">
+                                </td>
+
+                            </tr>
+                        </table>
+                    </div>
+                </form>
+
+
+
+            </div>
+
+        </div>
+    </div>
+</div>
+</div>
+{{include file='footer.html'}}
+</body>
+</html>
+<script src="/static/js/bootstrap-typeahead.js"></script>
+<script>
+$(function(){
+   $.getJSON("{{site_url url='account/getcommpay'}}",function (data) {
+       alert(data);
+        // Workaround for bug in mouse item selection
+        $.fn.typeahead.Constructor.prototype.blur = function () {
+            var that = this;
+            setTimeout(function () { that.hide() }, 250);
+        };
+
+        var products = data;
+
+        var that = this;
+
+        $('#product_search').typeahead({
+            source: function (query, process) {
+                var results = _.map(products, function (product) {
+                    return product.name + "";
+                });
+                process(results);
+            },
+
+            matcher: function (item) {
+                return true;
+            },
+
+            highlighter: function (name) {
+                var product = _.find(products, function (p) {
+                    return p.name == name;
+                });
+                return product.name;
+            },
+
+            updater: function (name) {
+                var product = _.find(products, function (p) {
+                    return p.name == name;
+                });
+                that.setSelectedProduct(product);
+                return product.name;
+            }
+
+        });
+
+        this.setSelectedProduct = function (product) {
+            $('#pid').val(product.id)
+        }
+
+
+    })
+})
+</script>

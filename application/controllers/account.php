@@ -123,4 +123,16 @@ class Account extends MY_Controller {
         echo $res;
         die;
     }
+
+    public function tryxiao(){
+        $this->display('wxhtml/test.html');
+    }
+
+    public function getcommpay(){
+
+            $data=$this->account_model->getcommpay();
+            //var_dump($data);
+            echo json_encode($data);
+
+    }
 }
