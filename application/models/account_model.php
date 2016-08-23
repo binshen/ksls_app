@@ -150,12 +150,13 @@ class Account_model extends MY_Model
     }
 
     public function getcommpay(){
-            $data=$this->db->select('id,name')->from('company')->get()->result_array();
+            $data=$this->db->select('id,name,towns_id')->from('xiaoqu')->where('flag',1)->get()->result_array();
             if (!$data){
                 return 1;
             }else{
                 return $data;
             }
     }
+
 
 }

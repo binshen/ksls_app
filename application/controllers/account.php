@@ -57,7 +57,7 @@ class Account extends MY_Controller {
         $this->display('company_account.html');
     }
 
-     public function mo_recharge($id)
+    public function mo_recharge($id)
      {
         $data = $this->account_model->mo_recharge($id);
          $this->assign('company_id', $id);
@@ -134,5 +134,11 @@ class Account extends MY_Controller {
             //var_dump($data);
             echo json_encode($data);
 
+    }
+
+    function choice_xiao() {
+        $id = $_POST['x'];
+        $this->assign('id', $id);
+        $this->display('wxhtml/choice_xiao.html');
     }
 }

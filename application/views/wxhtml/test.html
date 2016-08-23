@@ -17,7 +17,6 @@
             <div class="nav-left">
                 <ul class="nav-left-ul">
                     <li><a href="/"><em class="home"></em>回到首页</a></li>
-                    <li><a href="/account/recharge_list"><em class="rechargelist"></em>公司账户</a></li>
                 </ul>
             </div>
         </div>
@@ -25,15 +24,37 @@
             <div class="search-wrap">
             </div>
             <div class="schedule-wrap upload-document-wrap">
-                <p class="tab-tit">我的房猫</p>
+                <p class="tab-tit">页面开发调试</p>
                 <form  id="save_form" method="post">
                     <div class="publish-document-main">
                         <table cellspadding="0" colspadding="0" border="0" class="account-table">
                             <tr>
                                 <td>
-                                    <input id="product_search" type="text" data-provide="typeahead">
+                                   小区名称: <em class="roomtips-book-pos"></em><input type="text" x="1" id="xiaoqu1" class="unbook-btn" readonly>
+                                    小区编号 :<input id="xiaoid1" type="text" >
+                                    乡镇编号:<input id="town1" type="text" >
                                 </td>
-
+                            </tr>
+                            <tr>
+                                <td>
+                                    小区名称: <em class="roomtips-book-pos"></em><input type="text" x="2" id="xiaoqu2" class="unbook-btn" readonly>
+                                    小区编号 :<input id="xiaoid2" type="text" >
+                                    乡镇编号:<input id="town2" type="text" >
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    小区名称: <em class="roomtips-book-pos"></em><input type="text" x="3" id="xiaoqu3" class="unbook-btn" readonly>
+                                    小区编号 :<input id="xiaoid3" type="text" >
+                                    乡镇编号:<input id="town3" type="text" >
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    小区名称: <em class="roomtips-book-pos"></em><input type="text" x="4" id="xiaoqu4" class="unbook-btn" readonly>
+                                    小区编号 :<input id="xiaoid4" type="text" >
+                                    乡镇编号:<input id="town4" type="text" >
+                                </td>
                             </tr>
                         </table>
                     </div>
@@ -50,55 +71,42 @@
 {{include file='footer.html'}}
 </body>
 </html>
+<div class="manage-showroom"></div>
+<script type="text/javascript" src="/static/js/jquery.poshytip.min.js"></script>
 <script src="/static/js/bootstrap-typeahead.js"></script>
+<script src="/static/js/underscore-min.js"></script>
+<script type="text/javascript" src="/static/js/layer/layer.js"></script>
 <script>
-$(function(){
-   $.getJSON("{{site_url url='account/getcommpay'}}",function (data) {
-       alert(data);
-        // Workaround for bug in mouse item selection
-        $.fn.typeahead.Constructor.prototype.blur = function () {
-            var that = this;
-            setTimeout(function () { that.hide() }, 250);
-        };
-
-        var products = data;
-
-        var that = this;
-
-        $('#product_search').typeahead({
-            source: function (query, process) {
-                var results = _.map(products, function (product) {
-                    return product.name + "";
-                });
-                process(results);
-            },
-
-            matcher: function (item) {
-                return true;
-            },
-
-            highlighter: function (name) {
-                var product = _.find(products, function (p) {
-                    return p.name == name;
-                });
-                return product.name;
-            },
-
-            updater: function (name) {
-                var product = _.find(products, function (p) {
-                    return p.name == name;
-                });
-                that.setSelectedProduct(product);
-                return product.name;
-            }
-
+    $(function(){
+        $('.unbook-btn').click(function(e){
+            $('.roomtips-book-pos').poshytip('hide');
+            $(this).siblings('.roomtips-book-pos').poshytip('show');
+            e.stopPropagation();
         });
 
-        this.setSelectedProduct = function (product) {
-            $('#pid').val(product.id)
-        }
-
-
+        $('.roomtips-book-pos').poshytip({
+            className: 'manage-showroom',
+            content:function(updateCallback) {
+                var x = $(this).parent().find(".unbook-btn").attr('x');
+                return $.ajax({
+                    url : '/account/choice_xiao',
+                    data: { x: x },
+                    cache : false,
+                    async : false,
+                    type : "POST"
+                }).responseText;
+            },
+            showOn:'none',
+            alignTo:'target',
+            alignX:'center',
+            offsetY:5
+        });
+        $(document).click(function(){
+            $('.roomtips-book-pos').poshytip('hide');
+            $('.unbook-btn').removeClass('on');
+        });
+        $(".manage-showroom").click(function(e){
+            e.stopPropagation();
+        });
     })
-})
 </script>
