@@ -789,6 +789,171 @@ class Manage_model extends MY_Model
     }
 
     /**
+     * 获取区镇列表
+     */
+    public function list_towns(){
+        // 每页显示的记录条数，默认20条
+        $numPerPage = $this->input->post('numPerPage') ? $this->input->post('numPerPage') : 20;
+        $pageNum = $this->input->post('pageNum') ? $this->input->post('pageNum') : 1;
+
+        //获得总记录数
+        $this->db->select('count(1) as num');
+        $this->db->from('towns');
+        $rs_total = $this->db->get()->row();
+        //总记录数
+        $data['countPage'] = $rs_total->num;
+
+        //list
+        $this->db->select('*');
+        $this->db->from('towns');
+        $this->db->limit($numPerPage, ($pageNum - 1) * $numPerPage );
+        $this->db->order_by($this->input->post('orderField') ? $this->input->post('orderField') : 'id', $this->input->post('orderDirection') ? $this->input->post('orderDirection') : 'asc');
+        $data['res_list'] = $this->db->get()->result();
+        $data['pageNum'] = $pageNum;
+        $data['numPerPage'] = $numPerPage;
+        return $data;
+    }
+
+    /**
+     * 保存区镇
+     */
+    public function save_towns(){
+        $this->db->trans_start();
+        $data = array(
+            'id'=>$this->input->post('id'),
+            'towns_name'=>$this->input->post('towns_name'),
+            'flag'=>$this->input->post('flag')?1:2
+        );
+        if($this->input->post('id')){//修改
+            $this->db->where('id', $this->input->post('id'));
+            $this->db->update('towns', $data);
+        }else{//新增
+            unset($data['id']);
+            $this->db->insert('towns', $data);
+        }
+        $this->db->trans_complete();
+        if ($this->db->trans_status() === FALSE) {
+            return $this->db_error;
+        } else {
+            return 1;
+        }
+    }
+
+    /**
+     * 删除区镇
+     */
+    public function delete_towns($id){
+        $rs = $this->db->delete('towns', array('id' => $id));
+        if($rs){
+            return 1;
+        }else{
+            return $this->db_error;
+        }
+    }
+
+    /**
+     * 获取区镇详情
+     */
+    public function get_towns($id){
+        $this->db->select('*')->from('towns')->where('id', $id);
+        $data = $this->db->get()->row();
+        return $data;
+    }
+
+    /**
+     * 获取小区列表
+     */
+    public function list_xiaoqu(){
+        // 每页显示的记录条数，默认20条
+        $numPerPage = $this->input->post('numPerPage') ? $this->input->post('numPerPage') : 20;
+        $pageNum = $this->input->post('pageNum') ? $this->input->post('pageNum') : 1;
+
+        //获得总记录数
+        $this->db->select('count(1) as num');
+        $this->db->from('xiaoqu');
+        if($this->input->post('flag'))
+            $this->db->where("flag",$this->input->post('flag'));
+        if($this->input->post('towns_id'))
+            $this->db->where("towns_id",$this->input->post('towns_id'));
+        if($this->input->post('name'))
+            $this->db->like("name",trim($this->input->post('name')));
+        $rs_total = $this->db->get()->row();
+        //总记录数
+        $data['countPage'] = $rs_total->num;
+        $data['flag'] = $this->input->post('flag')?trim($this->input->post('flag')):null;
+        $data['name'] = $this->input->post('name')?trim($this->input->post('name')):null;
+        $data['towns_id'] = $this->input->post('towns_id') ? trim($this->input->post('towns_id')):null;
+        //list
+        $this->db->select('a.*,b.towns_name');
+        $this->db->from('xiaoqu a');
+        $this->db->join('towns b','a.towns_id = b.id','left');
+        if($this->input->post('flag'))
+            $this->db->where("a.flag",$this->input->post('flag'));
+        if($this->input->post('towns_id'))
+            $this->db->where("a.towns_id",$this->input->post('towns_id'));
+        if($this->input->post('name'))
+            $this->db->like("a.name",trim($this->input->post('name')));
+        $this->db->limit($numPerPage, ($pageNum - 1) * $numPerPage );
+        $this->db->order_by($this->input->post('orderField') ? $this->input->post('orderField') : 'a.id', $this->input->post('orderDirection') ? $this->input->post('orderDirection') : 'asc');
+        $data['res_list'] = $this->db->get()->result();
+        $data['towns_list'] = $this->db->from('towns')->get()->result();
+        $data['pageNum'] = $pageNum;
+        $data['numPerPage'] = $numPerPage;
+        return $data;
+    }
+
+    public function get_towns_list(){
+        return $this->db->select()->where('flag',1)->from('towns')->get()->result();
+    }
+    /**
+     * 保存小区
+     */
+    public function save_xiaoqu(){
+        $this->db->trans_start();
+        $data = array(
+            'id'=>$this->input->post('id'),
+            'name'=>$this->input->post('name'),
+            'path'=>$this->input->post('path'),
+            'towns_id'=>$this->input->post('towns_id'),
+            'flag'=>$this->input->post('flag')?1:2
+        );
+        if($this->input->post('id')){//修改
+            $this->db->where('id', $this->input->post('id'));
+            $this->db->update('xiaoqu', $data);
+        }else{//新增
+            unset($data['id']);
+            $this->db->insert('xiaoqu', $data);
+        }
+        $this->db->trans_complete();
+        if ($this->db->trans_status() === FALSE) {
+            return $this->db_error;
+        } else {
+            return 1;
+        }
+    }
+
+    /**
+     * 删除小区
+     */
+    public function delete_xiaoqu($id){
+        $rs = $this->db->delete('xiaoqu', array('id' => $id));
+        if($rs){
+            return 1;
+        }else{
+            return $this->db_error;
+        }
+    }
+
+    /**
+     * 获取小区详情
+     */
+    public function get_xiaoqu($id){
+        $this->db->select('*')->from('xiaoqu')->where('id', $id);
+        $data = $this->db->get()->row_array();
+        return $data;
+    }
+
+    /**
      * 获取资料类别列表
      */
     public function list_forum_type(){

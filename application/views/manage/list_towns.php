@@ -1,4 +1,4 @@
-<form id="pagerForm" method="post" action="<?php echo site_url('manage/list_position')?>">
+<form id="pagerForm" method="post" action="<?php echo site_url('manage/list_towns')?>">
     <input type="hidden" name="pageNum" value="<?php echo $pageNum;?>" />
     <input type="hidden" name="numPerPage" value="<?php echo $numPerPage;?>" />
     <input type="hidden" name="orderField" value="<?php echo $this->input->post('orderField');?>" />
@@ -9,10 +9,10 @@
     <div class="panelBar">
         <ul class="toolBar">
             <?php if($this->session->userdata('permission_id') == 1): ?>
-                <li><a class="add" href="<?php echo site_url('manage/add_position')?>" target="dialog" rel="add_position" title="新建"><span>新建</span></a></li>
-                <li><a class="delete" href="<?php echo site_url('manage/delete_position')?>/{id}" target="ajaxTodo"  title="确定要删除？" warn="请选择一条记录"><span>删除</span></a></li>
+                <li><a class="add" href="<?php echo site_url('manage/add_towns')?>" target="dialog" rel="add_towns" title="新建"><span>新建</span></a></li>
+                <li><a class="delete" href="<?php echo site_url('manage/delete_towns')?>/{id}" target="ajaxTodo"  title="确定要删除？" warn="请选择一条记录"><span>删除</span></a></li>
             <?php endif ?>
-            <li><a class="edit" href="<?php echo site_url('manage/edit_position/{id}')?>" target="dialog" rel="edit_position" warn="请选择一条记录" title="查看"><span>查看</span></a></li>
+            <li><a class="edit" href="<?php echo site_url('manage/edit_towns/{id}')?>" target="dialog" rel="edit_towns" warn="请选择一条记录" title="查看"><span>查看</span></a></li>
         </ul>
     </div>
 
@@ -22,6 +22,7 @@
             <tr>
                 <th width="120">ID</th>
                 <th>名称</th>
+                <th>状态</th>
             </tr>
             </thead>
             <tbody>
@@ -31,7 +32,14 @@
                     ?>
                     <tr target="id" rel=<?php echo $row->id; ?>>
                         <td><?php echo $row->id;?></td>
-                        <td><?php echo $row->name;?></td>
+                        <td><?php echo $row->towns_name;?></td>
+                        <td><?php
+                            if($row->flag == 1){
+                                echo '启用';
+                            }else{
+                                echo '禁用';
+                            }
+                            ?></td>
                     </tr>
                     <?php
                 endforeach;

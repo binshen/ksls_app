@@ -411,6 +411,85 @@ class Manage extends MY_Controller {
 
 	/**
 	 *
+	 * ***************************************以下为区镇列表*******************************************************************
+	 */
+
+	public function list_towns()
+	{
+		$data = $this->manage_model->list_towns();
+		$this->load->view('manage/list_towns.php',$data);
+	}
+
+	public function add_towns(){
+		$this->load->view('manage/add_town.php');
+	}
+
+	public function save_towns(){
+		$rs = $this->manage_model->save_towns();
+		if ($rs === 1) {
+			form_submit_json("200", "操作成功", "list_towns");
+		} else {
+			form_submit_json("300", $rs);
+		}
+	}
+
+	public function delete_towns($id){
+		$rs = $this->manage_model->delete_towns($id);
+		if ($rs === 1) {
+			form_submit_json("200", "操作成功", "list_towns", "", "");
+		} else {
+			form_submit_json("300", $rs);
+		}
+	}
+
+	public function edit_towns($id){
+		$data = $this->manage_model->get_towns($id);
+		$this->load->view('manage/add_town.php',$data);
+	}
+
+	/**
+	 *
+	 * ***************************************以下为小区列表*******************************************************************
+	 */
+
+	public function list_xiaoqu()
+	{
+		$data = $this->manage_model->list_xiaoqu();
+		$this->load->view('manage/list_xiaoqu.php',$data);
+	}
+
+	public function add_xiaoqu(){
+		$data = array();
+		$data['towns_list'] = $this->manage_model->get_towns_list();
+		$this->load->view('manage/add_xiaoqu.php',$data);
+	}
+
+	public function save_xiaoqu(){
+		$rs = $this->manage_model->save_xiaoqu();
+		if ($rs === 1) {
+			form_submit_json("200", "操作成功", "list_xiaoqu");
+		} else {
+			form_submit_json("300", $rs);
+		}
+	}
+
+	public function delete_xiaoqu($id){
+		$rs = $this->manage_model->delete_xiaoqu($id);
+		if ($rs === 1) {
+			form_submit_json("200", "操作成功", "list_xiaoqu", "", "");
+		} else {
+			form_submit_json("300", $rs);
+		}
+	}
+
+	public function edit_xiaoqu($id){
+		$data = $this->manage_model->get_xiaoqu($id);
+		$data['towns_list'] = $this->manage_model->get_towns_list();
+		$this->load->view('manage/add_xiaoqu.php',$data);
+	}
+
+	/**
+	 *
 	 * ***************************************以下为文档类别列表*******************************************************************
 	 */
 

@@ -8,7 +8,7 @@
 <div class="pageContent">
     <div class="panelBar">
         <ul class="toolBar">
-            <?php if($this->session->userdata('role_id') == 1): ?>
+            <?php if($this->session->userdata('permission_id') == 1): ?>
                 <li><a class="add" href="<?php echo site_url('manage/add_forum_type')?>" target="dialog" rel="add_forum_type" title="新建"><span>新建</span></a></li>
                 <li><a class="delete" href="<?php echo site_url('manage/delete_forum_type')?>/{id}" target="ajaxTodo"  title="确定要删除？" warn="请选择一条记录"><span>删除</span></a></li>
             <?php endif ?>

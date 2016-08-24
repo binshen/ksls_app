@@ -24,7 +24,7 @@
                     });
                     process(results);
                 },
-
+                items:8,
                 matcher: function (item) {
                     return true;
                 },
@@ -48,10 +48,11 @@
 
             this.setSelectedProduct = function (product) {
                 $('#xiaoqu{{$id}}').val(product.name);
-                $('.roomtips-book-pos').poshytip('hide');
-                $('.unbook-btn').removeClass('on');
                 $("#xiaoid{{$id}}").val(product.id)
                 $("#town{{$id}}").val(product.towns_id)
+                $('.roomtips-book-pos').poshytip('hide');
+                $('.unbook-btn').removeClass('on');
+
                // $('#pid').val(product.id)
             }
 
