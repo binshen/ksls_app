@@ -212,7 +212,12 @@
                                 layer.msg('如需使用此服务,请先购买')
                             }
                         }else {
-                            window.location = redirect_url;
+                            if(redirect_url=="/agenda/list_agenda"){
+                                layer.msg('服务升级中...')
+                            }else{
+                                window.location = redirect_url;
+                            }
+
                         }
 
                     }

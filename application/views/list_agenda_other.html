@@ -79,16 +79,41 @@
                         <option value="">选择状态</option>
                         <option value="1">正常</option>
                         <option value="2">异常</option>
+                        <option value="3">服务完成</option>
                     </select>
-                    <input type="text" name="start_date" placeholder="编号" class="sel-begin-time areanumber"/>
-                    <input type="text" name="start_date" placeholder="小区" class="sel-begin-time areanumber" />
                     </div> <div class="search-wrap" style="margin-left: 40px;">
-                    <input type="text" name="start_date" placeholder="权证过户" class="sel-begin-time areanumber"/>
-                    <input type="text" name="start_date" placeholder="权证银行" class="sel-begin-time areanumber" />
-                    <input type="text" name="start_date" id="J_DepDate" value="" class="sel-begin-time" />
-                    <span class="time-break"> </span>
-                    <input type="text" name="end_date" id="J_EndDate" value="" class="sel-end-time" />
-                    <a href="javascript:void(0);" class="search-btn" id="btn_search"></a>
+                    <input type="text" name="num" placeholder="编号" class="sel-begin-time areanumber"/>
+                    <input type="text" name="xq_name" placeholder="小区" class="sel-begin-time areanumber" />
+                    <select name="dbgh_id" id="dbgh_id">
+                        <option value="">权证过户</option>
+                        {{foreach from=$data.gh_list item=doo}}
+                        {{if $doo['id']==$dbgh_id}}
+                        <option value="{{$doo['id']}}" selected>{{$doo['rel_name']}}</option>
+                        {{else}}
+                        <option value="{{$doo['id']}}">{{$doo['rel_name']}}</option>
+                        {{/if}}
+                        {{/foreach}}
+                    </select>
+                    <select name="dbyh_id" id="dbyh_id">
+                        <option value="">权证银行</option>
+                        {{foreach from=$data.yh_list item=doo}}
+                        {{if $doo['id']==$dbyh_id}}
+                        <option value="{{$doo['id']}}" selected>{{$doo['rel_name']}}</option>
+                        {{else}}
+                        <option value="{{$doo['id']}}">{{$doo['rel_name']}}</option>
+                        {{/if}}
+                        {{/foreach}}
+                    </select>
+
+                    </div>
+                    <div class="search-wrap" style="margin-left: 40px;">
+                        <input placeholder="申请时间" type="text" name="start_date" id="J_CDepDate" value="" class="sel-begin-time" />
+                        <span class="time-break"> </span>
+                        <input placeholder="申请时间" type="text" name="end_date" id="J_CEndDate" value="" class="sel-end-time" />
+                        <input placeholder="服务完成时间" type="text" name="start_date" id="J_EDepDate" value="" class="sel-begin-time" />
+                        <span class="time-break"> </span>
+                        <input placeholder="服务完成时间" type="text" name="end_date" id="J_EEndDate" value="" class="sel-end-time" />
+                        <a href="javascript:void(0);" class="search-btn" id="btn_search"></a>
                     </div>
                 </form>
 
@@ -116,13 +141,13 @@
                     <li class="bor-separate"></li>
                     <li class="items wid103">{{$item.xq_name|strip_tags|strip|default:$item.title|truncate:7:"..":true}}</li>
                     <li class="bor-separate"></li>
-                    <li class="items wid103 liname">小王<br />13761128976</li>
+                    <li class="items wid103 liname">{{$item.gh_name}}<br />{{$item.gh_tel}}</li>
                     <li class="bor-separate"></li>
-                    <li class="items wid103 liname">小王<br />13761128976</li>
+                    <li class="items wid103 liname">{{$item.yh_name}}<br />{{$item.yh_tel}}</li>
                     <li class="bor-separate"></li>
-                    <li class="items wid80">2015/08/26</li>
+                    <li class="items wid80">{{$item.cdate}}</li>
                     <li class="bor-separate"></li>
-                    <li class="items wid80">2015/08/26</li>
+                    <li class="items wid80">{{$item.edate|default:'--'}}</li>
                     <li class="bor-separate"></li>
                     <li class="wid80 score-reality bgno">
                         {{$item.course_name}}
@@ -142,13 +167,13 @@
                     <li class="bor-separate"></li>
                     <li class="items wid103">{{$item.xq_name|strip_tags|strip|default:$item.title|truncate:7:"..":true}}</li>
                     <li class="bor-separate"></li>
-                    <li class="items wid103 liname">小王<br />13761128976</li>
+                    <li class="items wid103 liname">{{$item.gh_name}}<br />{{$item.gh_tel}}</li>
                     <li class="bor-separate"></li>
-                    <li class="items wid103 liname">小王<br />13761128976</li>
+                    <li class="items wid103 liname">{{$item.yh_name}}<br />{{$item.yh_tel}}</li>
                     <li class="bor-separate"></li>
-                    <li class="items wid80">2015/08/26</li>
+                    <li class="items wid80">{{$item.cdate}}</li>
                     <li class="bor-separate"></li>
-                    <li class="items wid80">2015/08/26</li>
+                    <li class="items wid80">{{$item.edate|default:'--'}}</li>
                     <li class="bor-separate bor-separate-none"></li>
                     <li class="wid82 score-reality history-show">
                         {{$item.course_name}}
@@ -216,8 +241,30 @@
     }).use('trip-calendar', function(Y) {
         new Y.TripCalendar({
             // minDate         : new Date,     //最小时间限制
-            triggerNode     : '#J_DepDate', //第一个触节点
-            finalTriggerNode: '#J_EndDate',  //最后一个触发节点
+            triggerNode     : '#J_CDepDate', //第一个触节点
+            finalTriggerNode: '#J_CEndDate',  //最后一个触发节点
+            isHoliday:true,
+            isDateInfo:false,
+            count:1
+        });
+    });
+    YUI({
+        modules: {
+            'trip-calendar': {
+                fullpath: '/static/js/calendar.js',
+                type    : 'js',
+                requires: ['trip-calendar-css']
+            },
+            'trip-calendar-css': {
+                fullpath: '/static/css/calendar.css',
+                type    : 'css'
+            }
+        }
+    }).use('trip-calendar', function(Y) {
+        new Y.TripCalendar({
+            // minDate         : new Date,     //最小时间限制
+            triggerNode     : '#J_EDepDate', //第一个触节点
+            finalTriggerNode: '#J_EEndDate',  //最后一个触发节点
             isHoliday:true,
             isDateInfo:false,
             count:1

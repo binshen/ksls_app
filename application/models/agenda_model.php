@@ -67,14 +67,16 @@ class Agenda_model extends MY_Model
             $this->db->where('a.user_id',$user_id);
         }
         if($this->input->post('status')){
-            if($this->input->post('status')==1){
-                $this->db->where_in('a.status',array(1,3));
-            }else{
                 $this->db->where('a.status',$this->input->post('status'));
-            }
         }
         if($this->input->post('course')){
             $this->db->where('a.course',$this->input->post('course'));
+        }
+        if($this->input->post('dbgh_id')){
+            $this->db->where('a.dbgh_id',$this->input->post('dbgh_id'));
+        }
+        if($this->input->post('dbyh_id')){
+            $this->db->where('a.dbyh_id',$this->input->post('dbyh_id'));
         }
         if($this->input->POST('company')) {
             $this->db->where('b.company_id', $this->input->POST('company'));
@@ -91,18 +93,25 @@ class Agenda_model extends MY_Model
         if(!empty($company_id)) {
             $this->db->where('b.company_id', $company_id);
         }
-        if(!in_array(2,$this->session->userdata('login_position_id_array'))) {
+        if(!in_array(2,$this->session->userdata('login_position_id_array')) && !in_array(8,$this->session->userdata('login_position_id_array')) &&!in_array(9,$this->session->userdata('login_position_id_array'))) {
             $this->db->where('c.permission_id >=', $this->session->userdata('login_permission_id'));
         }
-
+        if(in_array(8,$this->session->userdata('login_position_id_array'))){
+            $this->db->where('a.dbgh_id >=', $this->session->userdata('login_user_id'));
+        }
+        if(in_array(9,$this->session->userdata('login_position_id_array'))){
+            $this->db->where('a.dbyh_id >=', $this->session->userdata('login_user_id'));
+        }
         $row = $this->db->get()->row_array();
         //总记录数
         $data['countPage'] = $row['num'];
         //list
-        $this->db->select('a.*,b.rel_name,f.name course_name');
+        $this->db->select('a.*,b.rel_name,f.name course_name,u1.rel_name gh_name,u1.tel gh_tel,u2.rel_name yh_name,u2.tel yh_tel');
         $this->db->distinct('a.id');
         $this->db->from('agenda a');
         $this->db->join('user b','a.user_id = b.id','inner');
+        $this->db->join('user u1','a.dbgh_id = u1.id','left');
+        $this->db->join('user u2','a.dbyh_id = u2.id','left');
         $this->db->join('role c','c.id = b.role_id','inner');
         $this->db->join('user_subsidiary d','d.user_id = b.id','inner');
         $this->db->join('course f','f.id = a.course','left');
@@ -110,15 +119,16 @@ class Agenda_model extends MY_Model
             $this->db->where('a.user_id',$user_id);
         }
         if($this->input->post('status')){
-            if($this->input->post('status')==1){
-                $this->db->where_in('a.status',array(1,3));
-            }else{
                 $this->db->where('a.status',$this->input->post('status'));
-            }
-
         }
         if($this->input->post('course')){
             $this->db->where('a.course',$this->input->post('course'));
+        }
+        if($this->input->post('dbgh_id')){
+            $this->db->where('a.dbgh_id',$this->input->post('dbgh_id'));
+        }
+        if($this->input->post('dbyh_id')){
+            $this->db->where('a.dbyh_id',$this->input->post('dbyh_id'));
         }
         if($this->input->POST('company')) {
             $this->db->where('b.company_id', $this->input->POST('company'));
@@ -135,11 +145,17 @@ class Agenda_model extends MY_Model
         if(!empty($company_id)) {
             $this->db->where('b.company_id', $company_id);
         }
-        if(!in_array(2,$this->session->userdata('login_position_id_array'))) {
+        if(!in_array(2,$this->session->userdata('login_position_id_array')) && !in_array(8,$this->session->userdata('login_position_id_array')) &&!in_array(9,$this->session->userdata('login_position_id_array'))) {
             $this->db->where('c.permission_id >=', $this->session->userdata('login_permission_id'));
         }
+        if(in_array(8,$this->session->userdata('login_position_id_array'))){
+            $this->db->where('a.dbgh_id >=', $this->session->userdata('login_user_id'));
+        }
+        if(in_array(9,$this->session->userdata('login_position_id_array'))){
+            $this->db->where('a.dbyh_id >=', $this->session->userdata('login_user_id'));
+        }
         $this->db->limit($numPerPage, ($pageNum - 1) * $numPerPage );
-        $this->db->order_by('a.cdate', 'desc');
+        $this->db->order_by('a.id', 'desc');
         $this->db->order_by('a.user_id', 'desc');
         $data['res_list'] = $this->db->get()->result_array();
         $data['detail'] = 1;
@@ -161,6 +177,20 @@ class Agenda_model extends MY_Model
                 }
             }
         }
+        $this->db->select('a.id,a.rel_name');
+        $this->db->from('user a');
+        $this->db->join('user_position b','a.id = b.user_id','left');
+        $this->db->where('b.pid',8);
+        $this->db->where('a.flag',1);
+        $this->db->order_by('a.id');
+        $data['gh_list'] = $this->db->get()->result_array();
+        $this->db->select('a.id,a.rel_name');
+        $this->db->from('user a');
+        $this->db->join('user_position b','a.id = b.user_id','left');
+        $this->db->where('b.pid',9);
+        $this->db->where('a.flag',1);
+        $this->db->order_by('a.id');
+        $data['yh_list'] = $this->db->get()->result_array();
         $data['pageNum'] = $pageNum;
         $data['numPerPage'] = $numPerPage;
         return $data;
@@ -198,7 +228,7 @@ class Agenda_model extends MY_Model
 
     public function save_agenda() {
 
-        $now = date('Y-m-d H:i:s');
+        $now = date('Y-m-d');
 
         $company_id = $this->session->userdata('login_company_id');
 
@@ -241,11 +271,77 @@ class Agenda_model extends MY_Model
             $this->db->where('id', $this->input->post('id'));
             unset($agenda['num']);
             unset($agenda['max_num']);
+            unset($agenda['cdate']);
             $this->db->update('agenda', $agenda);
             $a_id = $this->input->post('id');
 
             $this->db->delete('agenda_image', array('a_id' => $a_id));
         } else {
+            //这里查找权证人员,进行分单操作
+            //第一步查找当前最后一单的权证是谁
+            $agenda_row = $this->db->select('dbgh_id,dbyh_id')->from('agenda')->order_by('id','desc')->get()->row_array();
+            $this->db->select('a.id,a.rel_name');
+            $this->db->from('user a');
+            $this->db->join('user_position b','a.id = b.user_id','left');
+            $this->db->where('b.pid',8);
+            $this->db->where('a.flag',1);
+            $this->db->order_by('a.id');
+            if($agenda_row){
+                $this->db->where('a.id >',$agenda_row['dbgh_id']);
+            }
+            $dbgh = $this->db->get()->row_array();
+            if($dbgh){
+                $dbgh_id = $dbgh['id'];
+                $dbgh_name = $dbgh['rel_name'];
+            }else{
+                $this->db->select('a.id,a.rel_name');
+                $this->db->from('user a');
+                $this->db->join('user_position b','a.id = b.user_id','left');
+                $this->db->where('b.pid',8);
+                $this->db->where('a.flag',1);
+                $this->db->order_by('a.id');
+                $dbgh_one = $this->db->get()->row_array();
+                if($dbgh_one){
+                    $dbgh_id = $dbgh_one['id'];
+                    $dbgh_name = $dbgh_one['rel_name'];
+                }else{
+                    $dbgh_id = 0;
+                    $dbgh_name = '无 权证(过户) 人员';
+                }
+            }
+
+            $this->db->select('a.id,a.rel_name');
+            $this->db->from('user a');
+            $this->db->join('user_position b','a.id = b.user_id','left');
+            $this->db->where('b.pid',9);
+            $this->db->where('a.flag',1);
+            $this->db->order_by('a.id');
+            if($agenda_row){
+                $this->db->where('a.id >',$agenda_row['dbyh_id']);
+            }
+            $dbyh = $this->db->get()->row_array();
+            if($dbyh){
+                $dbyh_id = $dbyh['id'];
+                $dbyh_name = $dbyh['rel_name'];
+            }else{
+                $this->db->select('a.id,a.rel_name');
+                $this->db->from('user a');
+                $this->db->join('user_position b','a.id = b.user_id','left');
+                $this->db->where('b.pid',9);
+                $this->db->where('a.flag',1);
+                $this->db->order_by('a.id');
+                $dbyh_one = $this->db->get()->row_array();
+                if($dbyh_one){
+                    $dbyh_id = $dbyh_one['id'];
+                    $dbyh_name = $dbyh_one['rel_name'];
+                }else{
+                    $dbyh_id = 0;
+                    $dbyh_name = '无 权证(银行) 人员';
+                }
+            }
+
+            $agenda['dbgh_id'] = $dbgh_id;
+            $agenda['dbyh_id'] = $dbyh_id;
             $this->db->insert('agenda', $agenda);
             //die(var_dump($this->db->last_query()));
             $a_id = $this->db->insert_id();
@@ -321,6 +417,7 @@ class Agenda_model extends MY_Model
                 //发送给权证人员
                 $data['first']['value'] = "有一单新的代办业务生成";
                 $data['remark']['value'] = "用户 ".$this->session->userdata('login_rel_name')." 成功提交一单代办业务.";
+
                 $this->db->select('a.id');
                 $this->db->from('user a');
                 $this->db->join('user_position b','a.id = b.user_id','left');
@@ -334,6 +431,10 @@ class Agenda_model extends MY_Model
                 foreach($user_list2 as $item2){
                     $this->wxpost($this->config->item('WX_SJTJ'),$data,$item2['id']);
                 }
+                //发送给 权证(过户)
+                $this->wxpost($this->config->item('WX_SJTJ'),$data,$dbgh_id,'www.baidu.com');
+                //发送给 权证(银行)
+                $this->wxpost($this->config->item('WX_SJTJ'),$data,$dbyh_id,'www.baidu.com');
 
             }
 
