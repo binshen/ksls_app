@@ -28,10 +28,11 @@
             </div>
         </div>
         <div class="wrap-right">
-            <div class="search-wrap">
+
                 <form id="formSearchActivity" method="POST" action="/agenda/list_agenda_other">
+                    <div class="search-wrap" style=" margin-left: 40px;">
                     {{if $permission_id == 1 || in_array(2,$position_id)}}
-                    <select name="company" id="sel_company" style="width:150px">
+                    <select name="company" id="sel_company">
                         <option value="">选择公司</option>
                         {{foreach from=$company_list key=key item=item}}
                         {{if $item.id == $company}}
@@ -81,9 +82,16 @@
                     </select>
                     <input type="text" name="start_date" placeholder="编号" class="sel-begin-time areanumber"/>
                     <input type="text" name="start_date" placeholder="小区" class="sel-begin-time areanumber" />
+                    </div> <div class="search-wrap" style="margin-left: 40px;">
+                    <input type="text" name="start_date" placeholder="权证过户" class="sel-begin-time areanumber"/>
+                    <input type="text" name="start_date" placeholder="权证银行" class="sel-begin-time areanumber" />
+                    <input type="text" name="start_date" id="J_DepDate" value="" class="sel-begin-time" />
+                    <span class="time-break"> </span>
+                    <input type="text" name="end_date" id="J_EndDate" value="" class="sel-end-time" />
                     <a href="javascript:void(0);" class="search-btn" id="btn_search"></a>
+                    </div>
                 </form>
-            </div>
+
             <div class="schedule-wrap">
 
                 <ul class="schedule-ul dosth-ul">
@@ -191,8 +199,30 @@
     </div>
 </div>
 {{include file='footer.html'}}
+<script type="text/javascript" src="/static/js/yui-min.js"></script>
 <script type="text/javascript">
-
+    YUI({
+        modules: {
+            'trip-calendar': {
+                fullpath: '/static/js/calendar.js',
+                type    : 'js',
+                requires: ['trip-calendar-css']
+            },
+            'trip-calendar-css': {
+                fullpath: '/static/css/calendar.css',
+                type    : 'css'
+            }
+        }
+    }).use('trip-calendar', function(Y) {
+        new Y.TripCalendar({
+            // minDate         : new Date,     //最小时间限制
+            triggerNode     : '#J_DepDate', //第一个触节点
+            finalTriggerNode: '#J_EndDate',  //最后一个触发节点
+            isHoliday:true,
+            isDateInfo:false,
+            count:1
+        });
+    });
     $(function(){
         $(".ing-error").mouseover(function(){
             $(this).children(".error-explain").toggle();
