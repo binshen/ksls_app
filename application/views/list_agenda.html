@@ -45,6 +45,8 @@
                         <option value="1">正常</option>
                         <option value="2">异常</option>
                     </select>
+                    <input type="text" name="start_date" placeholder="编号" class="sel-begin-time areanumber" />
+                    <input type="text" name="start_date" placeholder="小区" class="sel-begin-time areanumber" />
                     <a href="javascript:void(0);" class="search-btn" id="btn_search"></a>
                     <a href="/agenda/add_agenda" class="add-schedule-btn">+新增代办</a>
                 </form>
@@ -55,10 +57,10 @@
                     <!--  <li class="wid92">业务员姓名</li> -->
                     <li class="wid103">编号</li>
                     <li class="wid103">小区</li>
-                    <li class="wid103">客户姓名</li>
-                    <li class="wid103">房东姓名</li>
-                    <li class="wid103">面积</li>
-                    <li class="wid103">总价</li>
+                    <li class="wid103">权证过户</li>
+                    <li class="wid103">权证银行</li>
+                    <li class="wid103">申请时间</li>
+                    <li class="wid103">服务完成时间</li>
                     <li class="wid80">进程</li>
                     <li class="wid80">状态</li>
                     <li class="wid103">操作</li>
@@ -71,13 +73,14 @@
                     <li class="bor-separate"></li>
                     <li class="items wid103">{{$item.xq_name|strip_tags|strip|default:$item.title|truncate:7:"..":true}}</li>
                     <li class="bor-separate"></li>
-                    <li class="items wid103">{{$item.customer_name}}</li>
+                    <!--<li class="items wid103">{{$item.customer_name}}</li>-->
+                    <li class="items wid103 liname">小王<br />13761128976</li>
                     <li class="bor-separate"></li>
-                    <li class="items wid103">{{$item.landlord_name}}</li>
+                    <li class="items wid103 liname">小王<br />13761128976}</li>
                     <li class="bor-separate"></li>
-                    <li class="items wid103">{{$item.acreage}} ㎡</li>
+                    <li class="items wid103">2015/08/26</li>
                     <li class="bor-separate"></li>
-                    <li class="items wid103">{{$item.amount}}万</li>
+                    <li class="items wid103">2015/08/26</li>
                     <li class="bor-separate bor-separate-none"></li>
                     <li class="wid80 score-reality bgno">
                         {{$item.course_name}}
@@ -95,13 +98,13 @@
                     <li class="bor-separate"></li>
                     <li class="items wid103">{{$item.xq_name|strip_tags|strip|default:$item.title|truncate:7:"..":true}}</li>
                     <li class="bor-separate"></li>
-                    <li class="items wid103">{{$item.customer_name}}</li>
+                    <li class="items wid103 liname">小王<br />13761128976</li>
                     <li class="bor-separate"></li>
-                    <li class="items wid103">{{$item.landlord_name}}</li>
+                    <li class="items wid103 liname">小王<br />13761128976</li>
                     <li class="bor-separate"></li>
-                    <li class="items wid103">{{$item.acreage}} ㎡</li>
+                    <li class="items wid103">2015/08/26</li>
                     <li class="bor-separate"></li>
-                    <li class="items wid103">{{$item.amount}}万</li>
+                    <li class="items wid103">2015/08/26</li>
                     <li class="bor-separate bor-separate-none"></li>
                     <li class="wid82 score-reality history-show">
                         {{$item.course_name}}

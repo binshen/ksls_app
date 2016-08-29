@@ -125,136 +125,136 @@
             <div class="div-th div-th1"><em></em>上传资料</div>
             <div class="div-bd div-bd1">
                 <table cellpadding="0" cellsapcing="0" class="add-data-table add-data-table1">
-                    <tr>
-                        <td class="td-tit">卖房相关证件</td>
-                        <td class="td-tit">买房相关证件</td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <p class="p-tips">身份证：<em>（请上传清晰的身份证正面和反面）</em></p>
-                            <dl class="uploadInformation">
-                                <dt>
-                                    <a href="javascript:" class="aClickUpload"></a>
-                                </dt>
-                                <dd>
-                                    <ul>
-                                        {{if !empty($agenda_images[1]) }}
-                                            {{foreach from=$agenda_images[1]  item=item}}
-                                                <li>
-                                                    <a class="example-image-link" href="{{$base_url}}uploadfiles/agenda/{{$item->folder}}/{{$item->style}}/{{$item->pic}}" data-lightbox="example-1" data-title="卖房身份证">
-                                                    <img src="{{$base_url}}uploadfiles/agenda/{{$item->folder}}/{{$item->style}}/{{$item->pic_short}}" alert="" width="85" height="65" />
-                                                </a></li>
-                                            {{/foreach}}
-                                        {{/if}}
-                                    </ul>
-                                </dd>
-                            </dl>
-                        </td>
-                        <td>
-                            <p class="p-tips">身份证：<em>（请上传清晰的身份证正面和反面）</em></p>
-                            <dl class="uploadInformation">
-                                <dt>
-                                    <a href="javascript:" class="aClickUpload"></a>
-                                </dt>
-                                <dd>
-                                    <ul>
-                                        {{if !empty($agenda_images[4]) }}
-                                            {{foreach from=$agenda_images[4] item=item}}
-                                        <li><a class="example-image-link" href="{{$base_url}}uploadfiles/agenda/{{$item->folder}}/{{$item->style}}/{{$item->pic}}" data-lightbox="example-2" data-title="买房身份证">
-                                               <img src="{{$base_url}}uploadfiles/agenda/{{$item->folder}}/{{$item->style}}/{{$item->pic_short}}" alert="" width="85" height="65" />
-                                                </a></li>
-                                            {{/foreach}}
-                                        {{/if}}
-                                    </ul>
-                                </dd>
-                            </dl>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <p class="p-tips">户口本 | 房产证 | 土地证：<em>（请上传清晰的照片）</em></p>
-                            <dl class="uploadInformation">
-                                <dt>
-                                    <a href="javascript:" class="aClickUpload"></a>
-                                </dt>
-                                <dd>
-                                    <ul>
-                                        {{if !empty($agenda_images[2]) }}
-                                            {{foreach from=$agenda_images[2] item=item}}
-                                                <li>
-                                                    <a class="example-image-link" href="{{$base_url}}uploadfiles/agenda/{{$item->folder}}/{{$item->style}}/{{$item->pic}}" data-lightbox="example-set" data-title="卖房 户口本 | 房产证 | 土地证">
-                                                        <img src="{{$base_url}}uploadfiles/agenda/{{$item->folder}}/{{$item->style}}/{{$item->pic_short}}" alert="" width="85" height="65" />
-                                                </a></li>
-                                            {{/foreach}}
-                                        {{/if}}
-                                    </ul>
-                                </dd>
-                            </dl>
-                        </td>
-                        <td>
-                            <p class="p-tips">户口本：<em>（请上传清晰的照片）</em></p>
-                            <dl class="uploadInformation">
-                                <dt>
-                                    <a href="javascript:" class="aClickUpload"></a>
-                                </dt>
-                                <dd>
-                                    <ul>
-                                        {{if !empty($agenda_images[5]) }}
-                                            {{foreach from=$agenda_images[5] item=item}}
-                                                <li>
-                                                    <a class="example-image-link" href="{{$base_url}}uploadfiles/agenda/{{$item->folder}}/{{$item->style}}/{{$item->pic}}" data-lightbox="example-set" data-title="买房户口本"><img src="{{$base_url}}uploadfiles/agenda/{{$item->folder}}/{{$item->style}}/{{$item->pic_short}}" alert="" width="85" height="65" />
-                                                </a></li>
-                                            {{/foreach}}
-                                        {{/if}}
-                                    </ul>
-                                </dd>
-                            </dl>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <p class="p-tips">婚姻证明：<em>（请上传清晰的照片）</em></p>
-                            <dl class="uploadInformation">
-                                <dt>
-                                    <a href="javascript:" class="aClickUpload"></a>
-                                </dt>
-                                <dd>
-                                    <ul>
-                                        {{if !empty($agenda_images[3]) }}
-                                            {{foreach from=$agenda_images[3] item=item}}
-                                                <li>
-                                                    <a class="example-image-link" href="{{$base_url}}uploadfiles/agenda/{{$item->folder}}/{{$item->style}}/{{$item->pic}}" data-lightbox="example-set" data-title="卖房婚姻证明">
-                                                        <img src="{{$base_url}}uploadfiles/agenda/{{$item->folder}}/{{$item->style}}/{{$item->pic_short}}" alert="" width="85" height="65" />
-                                                </a></li>
-                                            {{/foreach}}
-                                        {{/if}}
-                                    </ul>
-                                </dd>
-                            </dl>
-                        </td>
-                        <td>
-                            <p class="p-tips">婚姻证明：<em>（请上传清晰的照片）</em></p>
-                            <dl class="uploadInformation">
-                                <dt>
-                                    <a href="javascript:" class="aClickUpload"></a>
-                                </dt>
-                                <dd>
-                                    <ul>
-                                        {{if !empty($agenda_images[6]) }}
-                                            {{foreach from=$agenda_images[6] item=item}}
-                                                <li>
-                                                    <a class="example-image-link" href="{{$base_url}}uploadfiles/agenda/{{$item->folder}}/{{$item->style}}/{{$item->pic}}" data-lightbox="example-set" data-title="买房婚姻证明">
-                                                        <img src="{{$base_url}}uploadfiles/agenda/{{$item->folder}}/{{$item->style}}/{{$item->pic_short}}" alert="" width="85" height="65" />
-                                                </a></li>
-                                            {{/foreach}}
-                                        {{/if}}
-                                    </ul>
-                                </dd>
-                            </dl>
-                        </td>
-                    </tr>
-                </table>
-            </div>
+            <tr>
+                <td class="td-tit">卖房相关证件</td>
+                <td class="td-tit">买房相关证件</td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="p-tips">身份证：<em>（请上传清晰的身份证正面和反面）</em></p>
+                    <dl class="uploadInformation">
+                        <dt>
+                            <a href="javascript:" class="aClickUpload"></a>
+                        </dt>
+                        <dd>
+                            <ul>
+                                {{if !empty($agenda_images[1]) }}
+                                {{foreach from=$agenda_images[1]  item=item}}
+                                <li>
+                                    <a class="example-image-link" href="{{$base_url}}uploadfiles/agenda/{{$item->folder}}/{{$item->style}}/{{$item->pic}}" data-lightbox="example-1" data-title="卖房身份证">
+                                        <img src="{{$base_url}}uploadfiles/agenda/{{$item->folder}}/{{$item->style}}/{{$item->pic_short}}" alert="" width="85" height="65" />
+                                    </a></li>
+                                {{/foreach}}
+                                {{/if}}
+                            </ul>
+                        </dd>
+                    </dl>
+                </td>
+                <td>
+                    <p class="p-tips">身份证：<em>（请上传清晰的身份证正面和反面）</em></p>
+                    <dl class="uploadInformation">
+                        <dt>
+                            <a href="javascript:" class="aClickUpload"></a>
+                        </dt>
+                        <dd>
+                            <ul>
+                                {{if !empty($agenda_images[4]) }}
+                                {{foreach from=$agenda_images[4] item=item}}
+                                <li><a class="example-image-link" href="{{$base_url}}uploadfiles/agenda/{{$item->folder}}/{{$item->style}}/{{$item->pic}}" data-lightbox="example-2" data-title="买房身份证">
+                                    <img src="{{$base_url}}uploadfiles/agenda/{{$item->folder}}/{{$item->style}}/{{$item->pic_short}}" alert="" width="85" height="65" />
+                                </a></li>
+                                {{/foreach}}
+                                {{/if}}
+                            </ul>
+                        </dd>
+                    </dl>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="p-tips">户口本 | 房产证 | 土地证：<em>（请上传清晰的照片）</em></p>
+                    <dl class="uploadInformation">
+                        <dt>
+                            <a href="javascript:" class="aClickUpload"></a>
+                        </dt>
+                        <dd>
+                            <ul>
+                                {{if !empty($agenda_images[2]) }}
+                                {{foreach from=$agenda_images[2] item=item}}
+                                <li>
+                                    <a class="example-image-link" href="{{$base_url}}uploadfiles/agenda/{{$item->folder}}/{{$item->style}}/{{$item->pic}}" data-lightbox="example-set" data-title="卖房 户口本 | 房产证 | 土地证">
+                                        <img src="{{$base_url}}uploadfiles/agenda/{{$item->folder}}/{{$item->style}}/{{$item->pic_short}}" alert="" width="85" height="65" />
+                                    </a></li>
+                                {{/foreach}}
+                                {{/if}}
+                            </ul>
+                        </dd>
+                    </dl>
+                </td>
+                <td>
+                    <p class="p-tips">户口本：<em>（请上传清晰的照片）</em></p>
+                    <dl class="uploadInformation">
+                        <dt>
+                            <a href="javascript:" class="aClickUpload"></a>
+                        </dt>
+                        <dd>
+                            <ul>
+                                {{if !empty($agenda_images[5]) }}
+                                {{foreach from=$agenda_images[5] item=item}}
+                                <li>
+                                    <a class="example-image-link" href="{{$base_url}}uploadfiles/agenda/{{$item->folder}}/{{$item->style}}/{{$item->pic}}" data-lightbox="example-set" data-title="买房户口本"><img src="{{$base_url}}uploadfiles/agenda/{{$item->folder}}/{{$item->style}}/{{$item->pic_short}}" alert="" width="85" height="65" />
+                                    </a></li>
+                                {{/foreach}}
+                                {{/if}}
+                            </ul>
+                        </dd>
+                    </dl>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="p-tips">婚姻证明：<em>（请上传清晰的照片）</em></p>
+                    <dl class="uploadInformation">
+                        <dt>
+                            <a href="javascript:" class="aClickUpload"></a>
+                        </dt>
+                        <dd>
+                            <ul>
+                                {{if !empty($agenda_images[3]) }}
+                                {{foreach from=$agenda_images[3] item=item}}
+                                <li>
+                                    <a class="example-image-link" href="{{$base_url}}uploadfiles/agenda/{{$item->folder}}/{{$item->style}}/{{$item->pic}}" data-lightbox="example-set" data-title="卖房婚姻证明">
+                                        <img src="{{$base_url}}uploadfiles/agenda/{{$item->folder}}/{{$item->style}}/{{$item->pic_short}}" alert="" width="85" height="65" />
+                                    </a></li>
+                                {{/foreach}}
+                                {{/if}}
+                            </ul>
+                        </dd>
+                    </dl>
+                </td>
+                <td>
+                    <p class="p-tips">婚姻证明：<em>（请上传清晰的照片）</em></p>
+                    <dl class="uploadInformation">
+                        <dt>
+                            <a href="javascript:" class="aClickUpload"></a>
+                        </dt>
+                        <dd>
+                            <ul>
+                                {{if !empty($agenda_images[6]) }}
+                                {{foreach from=$agenda_images[6] item=item}}
+                                <li>
+                                    <a class="example-image-link" href="{{$base_url}}uploadfiles/agenda/{{$item->folder}}/{{$item->style}}/{{$item->pic}}" data-lightbox="example-set" data-title="买房婚姻证明">
+                                        <img src="{{$base_url}}uploadfiles/agenda/{{$item->folder}}/{{$item->style}}/{{$item->pic_short}}" alert="" width="85" height="65" />
+                                    </a></li>
+                                {{/foreach}}
+                                {{/if}}
+                            </ul>
+                        </dd>
+                    </dl>
+                </td>
+            </tr>
+            </table>
+        </div>
             {{if $permission_id == 1 || in_array(2,$position_id)}}
             <form id="agendaForm" method="post" action="/agenda/confirm_agenda">
                 <input type="hidden" name="id" value="{{$agenda->id}}">
