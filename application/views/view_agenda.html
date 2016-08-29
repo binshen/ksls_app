@@ -19,10 +19,10 @@
             <div class="nav-left">
                 <ul class="nav-left-ul">
                     <li><a href="/"><em class="home"></em>回到首页</a></li>
-                    {{if !in_array(2,$position_id) && $permission_id > 2}}
+                    {{if !in_array(2,$position_id) && $permission_id > 2 && !in_array(8,$position_id) && !in_array(9,$position_id)}}
                     <li {{if $style == 1}}class="on"{{/if}}><a href="/agenda/list_agenda"><em class="myagenda"></em>我的代办</a></li>
                     {{/if}}
-                    {{if $permission_id < 5 || in_array(2,$position_id)}}
+                    {{if $permission_id < 5 || in_array(2,$position_id) || in_array(8,$position_id) || in_array(9,$position_id)}}
                     <li {{if $style == 2}}class="on"{{/if}}><a href="/agenda/list_agenda_other"><em class="allagenda"></em>代办事项</a></li>
                     {{/if}}
                 </ul>
@@ -255,7 +255,7 @@
             </tr>
             </table>
         </div>
-            {{if $permission_id == 1 || in_array(2,$position_id)}}
+            {{if in_array(9,$position_id)}}
             <form id="agendaForm" method="post" action="/agenda/confirm_agenda">
                 <input type="hidden" name="id" value="{{$agenda->id}}">
                 <div class="div-th div-th2"><em></em>权证信息</div>
@@ -297,6 +297,44 @@
             </form>
             <p class="p-btns">
                 <a href="javascript:void(0);" class="sub-btn" id="btnSubmit">提交</a>
+                <!-- <a href="" class="sub-btn reset-btn">重置</a> -->
+            </p>
+            {{/if}}
+            {{if in_array(2,$position_id)}}
+            <form id="agendaForm2" method="post" action="/agenda/change_dbuser_agenda">
+                <input type="hidden" name="id" value="{{$agenda->id}}">
+                <div class="div-th div-th2"><em></em>代办人员</div>
+                <div class="div-bd div-bd2">
+                    <div class="editor-process search-wrap">
+                        <div class="div-process">
+                            <div class="his-tit">权证(过户)</div>
+                            <select id="dbgh" name="dbgh_id">
+                                {{foreach from=$dbgh_list item=doo}}
+                                {{if $doo['id']==$agenda->dbgh_id}}
+                                <option value="{{$doo['id']}}" selected>{{$doo['rel_name']}}</option>
+                                {{else}}
+                                <option value="{{$doo['id']}}">{{$doo['rel_name']}}</option>
+                                {{/if}}
+                                {{/foreach}}
+                            </select>
+                        </div>
+                        <div class="div-process">
+                            <div class="his-tit">权证(银行)</div>
+                            <select id="dbyh" name="dbyh_id">
+                                {{foreach from=$dbyh_list item=doo}}
+                                {{if $doo['id']==$agenda->dbyh_id}}
+                                <option value="{{$doo['id']}}" selected>{{$doo['rel_name']}}</option>
+                                {{else}}
+                                <option value="{{$doo['id']}}">{{$doo['rel_name']}}</option>
+                                {{/if}}
+                                {{/foreach}}
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </form>
+            <p class="p-btns">
+                <a href="javascript:void(0);" class="sub-btn" id="btnSubmit2">提交</a>
                 <!-- <a href="" class="sub-btn reset-btn">重置</a> -->
             </p>
             {{/if}}
@@ -362,6 +400,14 @@
             btn: ['确定','取消'] //按钮
         }, function(){
             $("#agendaForm").submit();
+        }, function(){
+        });
+    });
+    $("#btnSubmit2").click(function() {
+        layer.confirm('确定要更改代办人员？', {
+            btn: ['确定','取消'] //按钮
+        }, function(){
+            $("#agendaForm2").submit();
         }, function(){
         });
     });

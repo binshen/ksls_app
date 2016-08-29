@@ -18,10 +18,10 @@
             <div class="nav-left">
                 <ul class="nav-left-ul">
                     <li><a href="/"><em class="home"></em>回到首页</a></li>
-                    {{if !in_array(2,$position_id) && $permission_id > 2}}
+                    {{if !in_array(2,$position_id) && $permission_id > 2 && !in_array(8,$position_id) && !in_array(9,$position_id)}}
                     <li><a href="/agenda/list_agenda"><em class="myagenda"></em>我的代办</a></li>
                     {{/if}}
-                    {{if $permission_id < 5 || in_array(2,$position_id)}}
+                    {{if $permission_id < 5 || in_array(2,$position_id) || in_array(8,$position_id) || in_array(9,$position_id)}}
                     <li class="on"><a href="/agenda/list_agenda_other"><em class="allagenda"></em>代办事项</a></li>
                     {{/if}}
                 </ul>
@@ -82,12 +82,12 @@
                         <option value="3">服务完成</option>
                     </select>
                     </div> <div class="search-wrap" style="margin-left: 40px;">
-                    <input type="text" name="num" placeholder="编号" class="sel-begin-time areanumber"/>
-                    <input type="text" name="xq_name" placeholder="小区" class="sel-begin-time areanumber" />
+                    <input type="text" name="num" value="{{$agenda_list.num|default:''}}" placeholder="编号" class="sel-begin-time areanumber"/>
+                    <input type="text" name="xq_name" value="{{$agenda_list.xq_name|default:''}}" placeholder="小区" class="sel-begin-time areanumber" />
                     <select name="dbgh_id" id="dbgh_id">
                         <option value="">权证过户</option>
-                        {{foreach from=$data.gh_list item=doo}}
-                        {{if $doo['id']==$dbgh_id}}
+                        {{foreach from=$agenda_list.gh_list item=doo}}
+                        {{if $doo['id']==$agenda_list.dbgh_id}}
                         <option value="{{$doo['id']}}" selected>{{$doo['rel_name']}}</option>
                         {{else}}
                         <option value="{{$doo['id']}}">{{$doo['rel_name']}}</option>
@@ -96,8 +96,8 @@
                     </select>
                     <select name="dbyh_id" id="dbyh_id">
                         <option value="">权证银行</option>
-                        {{foreach from=$data.yh_list item=doo}}
-                        {{if $doo['id']==$dbyh_id}}
+                        {{foreach from=$agenda_list.yh_list item=doo}}
+                        {{if $doo['id']==$agenda_list.dbyh_id}}
                         <option value="{{$doo['id']}}" selected>{{$doo['rel_name']}}</option>
                         {{else}}
                         <option value="{{$doo['id']}}">{{$doo['rel_name']}}</option>
@@ -107,12 +107,12 @@
 
                     </div>
                     <div class="search-wrap" style="margin-left: 40px;">
-                        <input placeholder="申请时间" type="text" name="start_date" id="J_CDepDate" value="" class="sel-begin-time" />
+                        <input placeholder="申请时间" type="text" name="Cstart_date" id="J_CDepDate" value="{{$agenda_list.Cstart_date|default:''}}" class="sel-begin-time" />
                         <span class="time-break"> </span>
-                        <input placeholder="申请时间" type="text" name="end_date" id="J_CEndDate" value="" class="sel-end-time" />
-                        <input placeholder="服务完成时间" type="text" name="start_date" id="J_EDepDate" value="" class="sel-begin-time" />
+                        <input placeholder="申请时间" type="text" name="Cend_date" id="J_CEndDate" value="{{$agenda_list.Cend_date|default:''}}" class="sel-end-time" />
+                        <input placeholder="服务完成时间" type="text" name="Estart_date" id="J_EDepDate" value="{{$agenda_list.Estart_date|default:''}}" class="sel-begin-time" />
                         <span class="time-break"> </span>
-                        <input placeholder="服务完成时间" type="text" name="end_date" id="J_EEndDate" value="" class="sel-end-time" />
+                        <input placeholder="服务完成时间" type="text" name="Eend_date" id="J_EEndDate" value="{{$agenda_list.Eend_date|default:''}}" class="sel-end-time" />
                         <a href="javascript:void(0);" class="search-btn" id="btn_search"></a>
                     </div>
                 </form>

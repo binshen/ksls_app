@@ -25,7 +25,10 @@ class Agenda extends MY_Controller
         if(!$this->session->userdata('login_user_id')) {
             redirect(site_url('/'));
         } else {
-            if(in_array(2,$this->session->userdata('login_position_id_array')) || $this->session->userdata('login_permission_id') < 3){
+            if(in_array(2,$this->session->userdata('login_position_id_array'))
+                || in_array(8,$this->session->userdata('login_position_id_array'))
+                || in_array(9,$this->session->userdata('login_position_id_array'))
+                || $this->session->userdata('login_permission_id') < 3){
                 if($method == 'list_agenda'){
                     redirect(site_url('/agenda/list_agenda_other'));
                     exit();
@@ -208,7 +211,10 @@ class Agenda extends MY_Controller
             $agenda_images[$img->style][] = $img;
         }
         $this->assign('agenda_images', $agenda_images);
-
+        $dbgh_list = $this->agenda_model->get_dbgh_list();
+        $this->assign('dbgh_list', $dbgh_list);
+        $dbyh_list = $this->agenda_model->get_dbyh_list();
+        $this->assign('dbyh_list', $dbyh_list);
         $course_list = $this->agenda_model->get_course_list();
         $this->assign('course_list', $course_list);
 
@@ -322,6 +328,12 @@ class Agenda extends MY_Controller
     public function check_sum(){
         $data = $this->agenda_model->age_check_sum();
         echo json_encode($data);
+    }
+
+    public function change_dbuser_agenda(){
+        $this->agenda_model->change_dbuser_agenda();
+
+        redirect(site_url('agenda/list_agenda_other'));
     }
 
 }

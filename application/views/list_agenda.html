@@ -18,10 +18,10 @@
             <div class="nav-left">
                 <ul class="nav-left-ul">
                     <li><a href="/"><em class="home"></em>回到首页</a></li>
-                    {{if !in_array(2,$position_id)}}
+                    {{if !in_array(2,$position_id) && !in_array(8,$position_id) && !in_array(9,$position_id)}}
                     <li class="on"><a href="/agenda/list_agenda"><em class="myagenda"></em>我的代办</a></li>
                     {{/if}}
-                    {{if $permission_id < 5 || in_array(2,$position_id)}}
+                    {{if $permission_id < 5 || in_array(2,$position_id) || in_array(8,$position_id) || in_array(9,$position_id)}}
                     <li><a href="/agenda/list_agenda_other"><em class="allagenda"></em>代办事项</a></li>
                     {{/if}}
                 </ul>
@@ -46,8 +46,8 @@
                         <option value="2">异常</option>
                         <option value="3">服务完成</option>
                     </select>
-                    <input type="text" name="start_date" placeholder="编号" class="sel-begin-time areanumber" />
-                    <input type="text" name="start_date" placeholder="小区" class="sel-begin-time areanumber" />
+                    <input type="text" name="num" value="{{$agenda_list.num|default:''}}" placeholder="编号" class="sel-begin-time areanumber"/>
+                    <input type="text" name="xq_name" value="{{$agenda_list.xq_name|default:''}}" placeholder="小区" class="sel-begin-time areanumber" />
                     <a href="javascript:void(0);" class="search-btn" id="btn_search"></a>
                     <a href="/agenda/add_agenda" class="add-schedule-btn">+新增代办</a>
                 </form>
