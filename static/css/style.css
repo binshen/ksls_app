@@ -182,6 +182,7 @@ body{background: #fff; font-family: "Microsoft YaHei";}p{white-space: normal; wo
 .search-wrap1 .em-lock{width:25px;background:url(/static/images/items_icon.png) no-repeat 0 3px;}
 .search-wrap input{width: 150px;}
 .search-wrap select,.search-wrap input,.hire-time{margin-left:10px;padding:4px 10px; width:100px;font-size:14px; color:#aeb2b7;font-family: "Microsoft YaHei";background: none;border:1px solid #d9d9d9;border-radius: 5px;float: left; display: inline-block;}
+.search-wrap .areanumber{padding:5px 10px;}
 .hire-deadline{border-radius: 0px;float:left;}.hire-time{margin-left: 0px; width:120px;}
 .search-wrap .sel-end-time{margin:0;}
 .add-schedule-btn{ background: #fdb322; width:95px; height: 30px; float:right;border-radius: 3px; font-size:16px; color:#fff; text-align: center; line-height: 30px;}
@@ -208,7 +209,7 @@ body{background: #fff; font-family: "Microsoft YaHei";}p{white-space: normal; wo
 .schedule-list .em-lock{width:13px; height:13px; display:inline-block;margin-right:5px;background: url(/static/images/items_icon.png) no-repeat -6px 0;}
 .dosth-list{height:45px;}
 .dosth-list>li{font-size:14px;height:45px;line-height: 45px;}
-.dosth-list>li.wid103{line-height: 45px;}
+.dosth-list>li.wid103{line-height: 45px;}.dosth-list>li.liname{ line-height: 20px; font-size:12px;}
 .dosth-list .bor-separate{margin-top:12px; height: 20px;width:1px; margin:12px 1px 0 2px;}
 .item-icon{margin:28px 3px 0 10px;height:22px; width:30px; float: left; background: url(/static/images/items_icon.png) no-repeat 0 -24px;}
 .add-select-items .select-list ul li:first-child{text-align:center;}
@@ -858,7 +859,7 @@ html .fc,.fc table{font-size:1em;background:#f2f3f5}.fc td,.fc th{padding:0;vert
 .calculate-btn{ margin:0 auto;width:150px;height:40px; line-height: 40px; background: #ff6600;font-size:14px;text-align:center; display:block; color:#fff;border-radius:5px;}
 .argument-sel {width:275px; height: 34px; border:1px solid #e3e3e3; font-family: "Microsoft YaHei";font-size:14px;}
 
-.result-div{padding-top:60px;width:515px;height:528px; float: left; background: #f9f9f9; }
+.result-div{padding-top:60px;width:515px;height:540px; float: left; background: #f9f9f9; }
 .result-div .result-table{ margin-left:40px;width:465px;border-collapse: collapse}
 .result-div .result-table thead,.result-div .result-table tbody td{background: #fff;}
 .result-div .result-table th{ font-weight:normal; }
@@ -866,9 +867,9 @@ html .fc,.fc table{font-size:1em;background:#f2f3f5}.fc td,.fc th{padding:0;vert
 .result-div .result-table td,.result-div .result-table th{border:1px solid #dcdcdc;padding:6px 0;text-align: center;font-size:14px; color:#333;}
 .result-bg{padding:110px 0 0 180px; line-height:30px;}
 #cal-result{ display: none;}
-.argument-items .arrow-icon{width:17px; height:31px; display: block;position: absolute;top:285px;right:-17px; background: url(/static/images/add_icon.png) no-repeat 0 -474px;}
-
-
+.argument-items .arrow-icon{position: absolute;top:285px;right:-17px;width:17px; height:31px; display: block; background: url(/static/images/add_icon.png) no-repeat 0 -474px;}
+.mainltr01{margin-bottom:20px;margin-left:50px; font-size:14px; color:#333;}
+.mainltr02{margin-left:50px;}
 /*充值*/
 .vSearch-box {padding:10px 20px; margin-bottom: 20px;}
 .vSearch-box label{font-size:16px; color:#666;margin-right:10px;}
@@ -898,6 +899,7 @@ html .fc,.fc table{font-size:1em;background:#f2f3f5}.fc td,.fc th{padding:0;vert
 .company-fr .balance{margin-top:10px;}
 .recharge-btn{ float: left; border:1px solid #afafaf; border-radius: 3px; font-size: 16px; width: 50px; height: 25px; display: block; text-align: center; line-height: 26px; background: #f3f3f3; color: #777; margin-left:50px; }
 
+
 .account-info{ background: #fff; border:1px solid #e6e9ef; background: #fff;padding:30px 18px;}
 .account-table{margin:20px;}
 .account-table th{padding:15px 0;font-size:16px; color:#666; font-weight: normal;}
@@ -905,3 +907,7 @@ html .fc,.fc table{font-size:1em;background:#f2f3f5}.fc td,.fc th{padding:0;vert
 .account-table .account-txt{margin-right:20px;padding:0 20px; width:200px;font-size: 14px; color: #afb4c1; border:1px solid #eceef3; height: 36px; line-height: 36px;}
 .account-table .account-txt-wid80{width:80px;}
 .account-table .review-account{margin-top:10px;width:85px; height: 36px; display: block; background: #fc472e; color:#fff; text-align: center; line-height: 36px; border-radius: 3px;}
+
+.add-data-table2 dl{padding:5px 33px;}
+
+.billurgent{ font-size:14px;padding:0 20px 20px;}
