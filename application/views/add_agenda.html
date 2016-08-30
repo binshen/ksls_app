@@ -365,13 +365,21 @@
     });
 
     $("#btnSubmit").click(function() {
+        if($("#R2").is(':checked')){
+            if($("#C1").is(':checked') || $("#C2").is(':checked') || $("#C3").is(':checked')){
 
+            }else{
+                layer.msg('请选择加急类型', {icon: 2});
+                return;
+            }
+        }
 
         var xq_name = $("#xq_name").val();
         if(xq_name == "") {
             layer.msg('请输入房屋地址', {icon: 2});
             return;
         }
+
 
         var acreage = $("#acreage").val();
         if(acreage == "") {

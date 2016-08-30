@@ -261,7 +261,15 @@ class Agenda extends MY_Controller
     }
 
     public function confirm_agenda() {
-
+        $agenda = $this->agenda_model->get_agenda($this->input->post('id'));
+        $open_flag = 1;
+        if($agenda->dbyh_id == $this->session->userdata('login_user_id') && in_array(9,$this->session->userdata('login_position_id_array'))){
+            $open_flag = 2;
+        }
+        if($open_flag == 1){
+            redirect(site_url('/agenda/list_agenda_other'));
+            exit();
+        }
         $this->agenda_model->confirm_agenda();
 
         redirect(site_url('agenda/list_agenda_other'));

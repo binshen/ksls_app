@@ -318,7 +318,7 @@ class Agenda_model extends MY_Model
             $agenda['a3'] = $this->input->post('a3');
         }
 
-        if($this->input->post('order_status') == 2){
+        if($this->input->post('order_status') == 1){
             $pay_sum = $this->config->item('agenda_pt_sum');
         }else{
             $pay_sum = 0;
@@ -520,6 +520,8 @@ class Agenda_model extends MY_Model
         );
         if($this->input->post('status')==3){
             $agenda['edate'] = $edate;
+            $agenda['sf_sum'] = $this->input->post('sf_sum');
+            $agenda['pay_text'] = $this->input->post('pay_text');
         }
         $courses = $this->input->post('course');
         if(!empty($courses)) {
@@ -615,6 +617,7 @@ class Agenda_model extends MY_Model
 
     public function change_dbuser_agenda(){
         $this->db->where('id',$this->input->post('id'));
+        $this->db->where('status <>',3);
         $this->db->update('agenda',array(
             'dbgh_id'=>$this->input->post('dbgh_id'),
             'dbyh_id'=>$this->input->post('dbyh_id')
@@ -645,14 +648,14 @@ class Agenda_model extends MY_Model
        }
         $company_sum = $company['sum'];
         //再查看正在办理中的权证单据数量
-        $this->db->select('count(distinct(id)) as num',false);
+        $this->db->select('SUM(pay_sum ) as num',false);
         $this->db->from('agenda');
         $this->db->where('status <>',3);
         $this->db->where('company_id',$this->session->userdata('login_company_id'));
         $agenda = $this->db->get()->row_array();
         $agenda_num = $agenda['num'];
         //开始计算是否满足新增单据条件
-        $pty = $company_sum - ($agenda_num * $this->config->item('agenda_sum'));
+        $pty = $company_sum - $agenda_num;
         if($this->config->item('Arrears_CK') >= $pty){
             return -2;
         }else{
