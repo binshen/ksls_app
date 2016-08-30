@@ -309,9 +309,27 @@ class Agenda_model extends MY_Model
             'num' => $num,
             'errtext' => '',
             'company_id' => $company_id,
+            'order_status'=> $this->input->post('order_status'),
             'max_num' => $max_num
         );
+        if($this->input->post('order_status') == 2){
+            $agenda['a1'] = $this->input->post('a1');
+            $agenda['a2'] = $this->input->post('a2');
+            $agenda['a3'] = $this->input->post('a3');
+        }
 
+        if($this->input->post('order_status') == 2){
+            $pay_sum = $this->config->item('agenda_pt_sum');
+        }else{
+            $pay_sum = 0;
+            if($this->input->post('a1') == 1)
+                $pay_sum += $this->config->item('agenda_jj_a1_sum');
+            if($this->input->post('a1') == 2)
+                $pay_sum += $this->config->item('agenda_jj_a2_sum');
+            if($this->input->post('a1') == 3)
+                $pay_sum += $this->config->item('agenda_jj_a3_sum');
+        }
+        $agenda['pay_sum'] = $pay_sum;
         if($this->input->post('id')){//修改
             $this->db->where('id', $this->input->post('id'));
             unset($agenda['num']);
@@ -518,8 +536,9 @@ class Agenda_model extends MY_Model
         $this->db->where('id', $id);
         $this->db->update('agenda', $agenda);
         if($this->input->post('status')==3){
+            $age_row = $this->db->select()->from('agenda')->where('id',$id)->get()->row_array();
             $res_sum = $this->change_sum($this->session->userdata('login_company_id'),
-                $this->config->item('agenda_sum'),
+                $age_row['pay_sum'],
                 2,
                 $this->config->item('agenda_sum_name'),
                 'age',

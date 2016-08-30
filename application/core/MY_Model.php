@@ -246,6 +246,57 @@ class MY_Model extends CI_Model{
     }
 
     public function issubordinates($parent_id,$subordinates_id){
+    if(!$parent_id || !$subordinates_id){
+        return 2;
+    }
+    $parent_row = $this->db->select('b.permission_id,a.company_id')->from('user a')
+        ->join('role b','a.role_id = b.id','left')
+        ->where('a.id',$parent_id)->get()->row_array();
+    $parent_sub = $this->db->select('b.*')->from('user a')
+        ->join('user_subsidiary b','a.id = b.user_id','left')
+        ->where('a.id',$parent_id)->get()->result_array();
+    $user_row = $this->db->select('b.permission_id,c.subsidiary_id,a.company_id')->from('user a')
+        ->join('role b','a.role_id = b.id','left')
+        ->join('user_subsidiary c','a.id = c.user_id','left')
+        ->where('a.id',$subordinates_id)->get()->row_array();
+    //这里判断是否有审核权限
+    if($parent_row['permission_id'] > 4){
+        return 2;
+    }
+    //这里判断职级是否满足要求
+    /*if($parent_row['role_id'] < $user_row['role_id']){
+        return 2;
+    }*/
+    //如果是管理员直接通过
+    if(in_array($parent_row['permission_id'],array(1))){
+        return 1;
+    }
+    //如果是总经理,判断是否是同一个公司
+    if(in_array($parent_row['permission_id'],array(2))){
+        if($parent_row['company_id'] == $user_row['company_id']){
+            return 1;
+        }else{
+            return 2;
+        }
+    }
+    //如果是区域经理,店长,副店长,店秘 需要判断是否是同一个公司,同一个部门
+    if(in_array($parent_row['permission_id'],array(3,4))){
+        if($parent_row['company_id'] == $user_row['company_id']){
+            foreach($parent_sub as $item){
+                if($item['subsidiary_id'] == $user_row['subsidiary_id']){
+                    return 1;
+                }
+            }
+            return 2;
+        }else{
+            return 2;
+        }
+    }
+
+
+}
+
+    public function issubordinates_age($parent_id,$subordinates_id){
         if(!$parent_id || !$subordinates_id){
             return 2;
         }
@@ -254,19 +305,21 @@ class MY_Model extends CI_Model{
             ->where('a.id',$parent_id)->get()->row_array();
         $parent_sub = $this->db->select('b.*')->from('user a')
             ->join('user_subsidiary b','a.id = b.user_id','left')
-                ->where('a.id',$parent_id)->get()->result_array();
-        $user_row = $this->db->select('b.permission_id,c.subsidiary_id,a.company_id')->from('user a')
+            ->where('a.id',$parent_id)->get()->result_array();
+        $user_row = $this->db->select('b.permission_id,a.company_id')->from('user a')
             ->join('role b','a.role_id = b.id','left')
-            ->join('user_subsidiary c','a.id = c.user_id','left')
             ->where('a.id',$subordinates_id)->get()->row_array();
+        $user_sub = $this->db->select('b.*')->from('user a')
+            ->join('user_subsidiary b','a.id = b.user_id','left')
+            ->where('a.id',$subordinates_id)->get()->result_array();
         //这里判断是否有审核权限
         if($parent_row['permission_id'] > 4){
             return 2;
         }
         //这里判断职级是否满足要求
-        /*if($parent_row['role_id'] < $user_row['role_id']){
+        if($parent_row['permission_id'] > $user_row['permission_id']){
             return 2;
-        }*/
+        }
         //如果是管理员直接通过
         if(in_array($parent_row['permission_id'],array(1))){
             return 1;
@@ -280,19 +333,23 @@ class MY_Model extends CI_Model{
             }
         }
         //如果是区域经理,店长,副店长,店秘 需要判断是否是同一个公司,同一个部门
-        if(in_array($parent_row['permission_id'],array(3,4))){
+       if(in_array($parent_row['permission_id'],array(3,4))){
             if($parent_row['company_id'] == $user_row['company_id']){
                 foreach($parent_sub as $item){
-                    if($item['subsidiary_id'] == $user_row['subsidiary_id']){
-                        return 1;
+                    foreach($user_sub as $item1){
+                        if($item['subsidiary_id'] == $item1['subsidiary_id']){
+                          /*  echo $item['subsidiary_id'];
+                            echo $item1['subsidiary_id'];
+                            die();*/
+                            return 1;
+                        }
                     }
+
                 }
-                return 2;
-            }else{
                 return 2;
             }
         }
-
+        return 2;
 
     }
 

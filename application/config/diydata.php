@@ -15,6 +15,11 @@ $config['WX_XC'] = 'vo65oOidcn-zk1Oyh2sSPhM70n4BpwK-e8p683ULPJo'; //行程模板
 $config['Arrears_CK'] = -1000;
 
 //扣款明细
+$config['agenda_pt_sum'] = 2;
+$config['agenda_jj_sum'] = 3;
+$config['agenda_jj_a1_sum'] = 3;
+$config['agenda_jj_a2_sum'] = 4;
+$config['agenda_jj_a3_sum'] = 5;
 $config['appointment_sum'] = 1;
 $config['appointment_sum_name'] = '预约会议_扣款';
 $config['appointment_tksum'] = 1;

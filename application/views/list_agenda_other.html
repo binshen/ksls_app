@@ -31,7 +31,7 @@
 
                 <form id="formSearchActivity" method="POST" action="/agenda/list_agenda_other">
                     <div class="search-wrap" style=" margin-left: 40px;">
-                    {{if $permission_id == 1 || in_array(2,$position_id)}}
+                    {{if $permission_id == 1 || in_array(2,$position_id) || in_array(8,$position_id) || in_array(9,$position_id)}}
                     <select name="company" id="sel_company">
                         <option value="">选择公司</option>
                         {{foreach from=$company_list key=key item=item}}
@@ -116,13 +116,15 @@
                         <a href="javascript:void(0);" class="search-btn" id="btn_search"></a>
                     </div>
                 </form>
-
+  <span class="vSearch-result">
+                          共搜索到 <em>{{$agenda_list.countPage}}</em> 条记录
+                        </span>
             <div class="schedule-wrap">
 
                 <ul class="schedule-ul dosth-ul">
                    <li class="wid92">业务员姓名</li>
                     <li class="wid103">编号</li>
-                    <li class="wid103">小区</li>
+                    <li class="wid103">房屋地址</li>
                     <li class="wid103">权证过户</li>
                     <li class="wid103">权证银行</li>
                     <li class="wid80">申请时间</li>

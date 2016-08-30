@@ -36,9 +36,22 @@
                 <div class="div-bd">
                     <table cellpadding="0" cellsapcing="0" class="add-data-table">
                         <tr>
+                            <td colspan="2">
+                                <dl>
+                                    <dd>
+                                        <label><input id="R1" type="radio" {{if $agenda->order_status|default:1 == 1}} checked{{/if}} value="1" name="order_status"> 普通单</label>
+                                        <label><input id="R2" type="radio"   {{if $agenda->order_status|default:1 == 2}} checked{{/if}} value="2" name="order_status"> 加急单</label>
+                                        <label><input id="C1" type="checkbox"  {{if $agenda->order_status|default:1 == 1}} disabled {{else}}{{if $agenda->a1|default:2 == 1}} checked{{/if}}{{/if}} value="1" name="a1">过户加急</label>
+                                        <label><input id="C2" type="checkbox" {{if $agenda->order_status|default:1 == 1}} disabled {{else}}{{if $agenda->a2|default:2 == 1}} checked{{/if}}{{/if}}  value="1" name="a2">不动产证加急</label>
+                                        <label><input id="C3" type="checkbox" {{if $agenda->order_status|default:1 == 1}} disabled {{else}}{{if $agenda->a3|default:2 == 1}} checked{{/if}}{{/if}} value="1" name="a3">抵押权证加急</label>
+                                    </dd>
+                                </dl>
+                            </td>
+                        </tr>
+                        <tr>
                             <td>
                                 <dl>
-                                    <dt class="wid115">小区名称：</dt>
+                                    <dt class="wid115">房屋地址：</dt>
                                     <dd><input type="text" id="xq_name" name="xq_name" class="add-txt" value="{{$agenda->xq_name|default:''}}" /></dd>
                                 </dl>
                             </td>
@@ -286,11 +299,7 @@
                     </table>
                 </div>
                 <div class="billurgent">
-                    <label><input type="radio" value="普通单" name="othertype"> 普通单</label>
-                    <label><input type="radio" value="加急单" name="othertype"> 加急单</label>
-                    <label><input type="checkbox" value="一级加急" name="urgent">一级加急</label>
-                    <label><input type="checkbox" value="二级加急" name="urgent">二级加急</label>
-                    <label><input type="checkbox" value="三级加急" name="urgent">三级加急</label>
+
                 </div>
 
                 <p class="p-btns">
@@ -316,6 +325,35 @@
 <!--plupload end---------------------------------------------------------------------------->
 <script type="text/javascript" src="/static/js/layer/layer.js"></script>
 <script type="text/javascript">
+    $(function(){
+
+      /*  {{if $agenda->order_status|default:1 == 1}}
+        $("#R1").checked=true;
+        $("#R2").checked=false;
+        $('#C1').attr("disabled",true);
+        $("#C2").attr("disabled",true);
+        $("#C3").attr("disabled",true);
+        {{/if}}
+        {{if $agenda->order_status|default:1 == 2}}
+        $("#R1").checked=false;
+        $("#R2").checked=true;
+        $('#C1').attr("disabled",false);
+        $("#C2").attr("disabled",false);
+        $("#C3").attr("disabled",false);
+        {{if $agenda->a1|default:2 ==1}}
+        $("#C1").checked=true;
+        {{/if}}
+        {{if $agenda->a2|default:2 ==1}}
+        $("#C2").checked=true;
+        {{/if}}
+        {{if $agenda->a3|default:2 ==1}}
+        $("#C3").checked=true;
+        {{/if}}
+        {{/if}}*/
+
+
+    })
+
     $(".ing-error").mouseover(function(){
         $(this).children(".error-explain").toggle();
     }).mouseout(function(){
@@ -328,9 +366,10 @@
 
     $("#btnSubmit").click(function() {
 
+
         var xq_name = $("#xq_name").val();
         if(xq_name == "") {
-            layer.msg('请输入小区名称', {icon: 2});
+            layer.msg('请输入房屋地址', {icon: 2});
             return;
         }
 
@@ -530,6 +569,22 @@
     }).bind("paste",function(){  //CTR+V事件处理
         $(this).val($(this).val().replace(/[^0-9.]/g,''));
     }).css("ime-mode", "disabled");
+
+    $("#R1").click(function(){
+       // $("#R1").checked=true;
+        $("#R2").checked=false;
+        $('#C1').attr("disabled",true);
+        $("#C2").attr("disabled",true);
+        $("#C3").attr("disabled",true);
+    })
+
+    $("#R2").click(function(){
+       // $("#R2").checked=true;
+        $("#R1").checked=false;
+        $('#C1').attr("disabled",false);
+        $("#C2").attr("disabled",false);
+        $("#C3").attr("disabled",false);
+    })
 </script>
 </body>
 </html>

@@ -184,6 +184,10 @@ class Agenda extends MY_Controller
                 redirect(site_url('/agenda/list_agenda'));
                 exit();
             }
+            if($agenda->user_id != $this->session->userdata('login_user_id')){
+                redirect(site_url('/agenda/list_agenda'));
+                exit();
+            }
             $this->assign('agenda', $agenda);
 
             $agenda_image = $this->agenda_model->get_agenda_image($id);
@@ -200,6 +204,26 @@ class Agenda extends MY_Controller
 
     public function view_agenda($id, $style=1) {
         $agenda = $this->agenda_model->get_agenda($id);
+        $open_flag = 1;
+        if($agenda->user_id == $this->session->userdata('login_user_id')){
+            $open_flag = 2;
+        }
+        if($agenda->dbyh_id == $this->session->userdata('login_user_id') && in_array(9,$this->session->userdata('login_position_id_array'))){
+            $open_flag = 2;
+        }
+        if($agenda->dbgh_id == $this->session->userdata('login_user_id') && in_array(8,$this->session->userdata('login_position_id_array'))){
+            $open_flag = 2;
+        }
+        if(in_array(2,$this->session->userdata('login_position_id_array'))){
+            $open_flag = 2;
+        }
+        if($this->agenda_model->issubordinates_age($this->session->userdata('login_user_id'),$agenda->user_id)==1){
+            $open_flag = 2;
+        }
+        if($open_flag == 1){
+            redirect(site_url('/agenda/list_agenda'));
+            exit();
+        }
         $this->assign('agenda', $agenda);
 
         $agenda_course = $this->agenda_model->get_agenda_course($id);
