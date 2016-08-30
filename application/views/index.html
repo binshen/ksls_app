@@ -318,7 +318,8 @@
         $("#btn_login").click(function() {
             var username = $("#username").val();
             var password = $("#password").val();
-            $.post('/index/login', {username: username, password: password}, function(data) {
+            var data_ = Date.parse(new Date());
+            $.post('/index/login', {username: username, password: password,datayy:data_}, function(data) {
                 if(data == 1) {
                     if($("#cb_pass").is(':checked')){
                         storeuser.set('user',username,password)
