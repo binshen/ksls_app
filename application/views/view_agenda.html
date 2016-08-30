@@ -36,6 +36,21 @@
             <div class="div-bd">
                 <table cellpadding="0" cellsapcing="0" class="add-data-table">
                     <tr>
+                        <td colspan="2">
+                            <dl>
+                                <dd>
+                                    {{if $agenda->order_status|default:1 == 1}}
+                                    普通单
+                                    {{else}}
+                                    {{if $agenda->a1|default:2 == 1}} 过户加急{{/if}}
+                                    {{if $agenda->a2|default:2 == 1}} 不动产证加急{{/if}}
+                                    {{if $agenda->a3|default:2 == 1}} 抵押权证加急{{/if}}
+                                    {{/if}}
+                                </dd>
+                            </dl>
+                        </td>
+                    </tr>
+                    <tr>
                         <td>
                             <dl>
                                 <dt class="wid115">房屋地址：</dt>

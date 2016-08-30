@@ -12,7 +12,7 @@ $config['WX_YY'] = 'EFDja7hX1SvZWD7mW9vbN-ikff4cy6B6LIGdQ0jmXsk'; //预约模板
 $config['WX_XC'] = 'vo65oOidcn-zk1Oyh2sSPhM70n4BpwK-e8p683ULPJo'; //行程模板
 
 //限制最低额度
-$config['Arrears_CK'] = -1000;
+$config['Arrears_CK'] = -10000;
 
 //扣款明细
 $config['agenda_pt_sum'] = 2;

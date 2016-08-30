@@ -425,7 +425,32 @@
                 $("#agendaForm").submit();
             }else{
                 var data_ = Date.parse(new Date());
-                $.getJSON('/agenda/check_sum/'+data_,function (data) {
+                if($("#R2").is(':checked')){
+                    var R2 = 1;
+                }else{
+                    var R2 = 2;
+                }
+                if($("#R1").is(':checked')){
+                    var R1 = 1;
+                }else{
+                    var R1 = 2;
+                }
+                if($("#C1").is(':checked')){
+                    var C1 = 1;
+                }else{
+                    var C1 = 2;
+                }
+                if($("#C2").is(':checked')){
+                    var C2 = 1;
+                }else{
+                    var C2 = 2;
+                }
+                if($("#C3").is(':checked')){
+                    var C3 = 1;
+                }else{
+                    var C3 = 2;
+                }
+                $.post('/agenda/check_sum/'+data_, {R1: R1, R2: R2,R1: R1, C2: C2,C1: C1, C3: C3}, function(data) {
                     if(data == 1) {
                         $("#agendaForm").submit();
                     } else {
@@ -436,6 +461,9 @@
                         });
                     }
                 })
+             /*   $.getJSON('/agenda/check_sum/'+data_,function (data) {
+
+                })*/
             }
 
         }, function(){
