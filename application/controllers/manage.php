@@ -333,6 +333,28 @@ class Manage extends MY_Controller {
 		echo json_encode($subSidiary);
 		die;
 	}
+
+	public function get_subsidiary_list_age($id=0) {
+		$data = $this->manage_model->get_subsidiary_list_by_company_age($id);
+		$subSidiary = array();
+		$subSidiary[] = array('','请选择分店');
+		foreach ($data as $s) {
+			$subSidiary[] = array($s['id'], $s['name']);
+		}
+		echo json_encode($subSidiary);
+		die;
+	}
+
+	public function get_user_list_age($id=0) {
+		$data = $this->manage_model->get_user_list_by_subsidiary_age($id);
+		$subSidiary = array();
+		$subSidiary[] = array('','请选择人员');
+		foreach ($data as $s) {
+			$subSidiary[] = array($s['id'], $s['rel_name']);
+		}
+		echo json_encode($subSidiary);
+		die;
+	}
 	/**
 	 *
 	 * ***************************************以下为职务列表*******************************************************************
@@ -644,4 +666,22 @@ class Manage extends MY_Controller {
 			form_submit_json("300", $rs);
 		}
 	}
+
+	/**
+	 *
+	 * ***************************************以下为资金流水列表*******************************************************************
+	 */
+	public function list_agenda(){
+		$data = $this->manage_model->list_agenda();
+		$data['company_list'] = $this->manage_model->get_company_list_age();
+		$data['dbyh_list'] = $this->manage_model->get_dbyh_list();
+		$data['dbgh_list'] = $this->manage_model->get_dbgh_list();
+		if($this->input->post('company_id'))
+			$data['subsidiary_list'] = $this->manage_model->get_subsidiary_list_age($this->input->post('company_id'));
+		if($this->input->post('subsidiary_id'))
+			$data['user_list'] = $this->manage_model->get_user_list_by_subsidiary_age($this->input->post('subsidiary_id'));
+
+		$this->load->view('manage/list_agenda.php',$data);
+	}
+
 }

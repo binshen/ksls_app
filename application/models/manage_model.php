@@ -264,6 +264,22 @@ class Manage_model extends MY_Model
         }
     }
 
+    public function get_company_list_age(){
+        return $this->db->get('company')->result();
+    }
+
+    public function get_subsidiary_list_age($id){
+        return $this->db->get_where('subsidiary', array('company_id' => $id))->result_array();
+    }
+
+    public function get_user_list_by_subsidiary_age($id){
+        $this->db->select('a.*');
+        $this->db->from('user a');
+        $this->db->join('user_subsidiary b','a.id = b.user_id','left');
+        $this->db->where('b.subsidiary_id',$id);
+        return $this->db->get()->result_array();
+    }
+
     public function get_subsidiary_list_by_company($id) {
         if($this->session->userdata('permission_id') <=2) {
             return $this->db->get_where('subsidiary', array('company_id' => $id))->result_array();
@@ -1281,5 +1297,162 @@ class Manage_model extends MY_Model
         }else{
             return $this->db_error;
         }
+    }
+
+    public function list_agenda(){
+        $numPerPage = $this->input->post('numPerPage') ? $this->input->post('numPerPage') : 20;
+        $pageNum = $this->input->post('pageNum') ? $this->input->post('pageNum') : 1;
+
+        //获得总记录数
+        $this->db->select('count(distinct(a.id)) as num',false);
+        $this->db->from('agenda a');
+        $this->db->join('user b','a.user_id = b.id','inner');
+        $this->db->join('role c','c.id = b.role_id','inner');
+        $this->db->join('user_subsidiary d','d.user_id = b.id','inner');
+        if($this->input->post('user_id')){
+            $this->db->where('a.user_id',$this->input->post('user_id'));
+        }
+        if($this->input->post('status')){
+            $this->db->where('a.status',$this->input->post('status'));
+        }
+        if($this->input->post('course')){
+            $this->db->where('a.course',$this->input->post('course'));
+        }
+        if($this->input->post('num')){
+            $this->db->like('a.num',trim($this->input->post('num')));
+        }
+        if($this->input->post('xq_name')){
+            $this->db->like('a.xq_name',trim($this->input->post('xq_name')));
+        }
+        if($this->input->post('dbgh_id')){
+            $this->db->where('a.dbgh_id',$this->input->post('dbgh_id'));
+        }
+        if($this->input->post('dbyh_id')){
+            $this->db->where('a.dbyh_id',$this->input->post('dbyh_id'));
+        }
+        if($this->input->POST('company_id')) {
+            $this->db->where('b.company_id', $this->input->POST('company_id'));
+        }
+        if($this->input->POST('subsidiary_id')) {
+            $this->db->where_in('d.subsidiary_id', $this->input->POST('subsidiary_id'));
+        }
+        if($this->input->POST('user')) {
+            $this->db->where('b.id', $this->input->POST('user'));
+        }
+        if(!empty($subsidiary_id)) {
+            $this->db->where_in('d.subsidiary_id', $subsidiary_id);
+        }
+        if(!empty($company_id)) {
+            $this->db->where('b.company_id', $company_id);
+        }
+        if($this->input->POST('Cstart_date')) {
+            $this->db->where('a.cdate >=', $this->input->POST('Cstart_date'));
+        }
+        if($this->input->POST('Cend_date')) {
+            $this->db->where('a.cdate <=', $this->input->POST('Cend_date'));
+        }
+        if($this->input->POST('Estart_date')) {
+            $this->db->where('a.edate >=', $this->input->POST('Estart_date'));
+        }
+        if($this->input->POST('Eend_date')) {
+            $this->db->where('a.edate <=', $this->input->POST('Eend_date'));
+        }
+
+        $rs_total = $this->db->get()->row();
+        //总记录数
+
+        $data['countPage'] = $rs_total->num;
+
+        $data['company_id'] = $this->input->post('company_id')?$this->input->post('company_id'):null;
+        $data['subsidiary_id'] = $this->input->post('subsidiary_id')?$this->input->post('subsidiary_id'):null;
+        $data['user_id'] = $this->input->post('user_id')?$this->input->post('user_id'):null;
+        $data['dbgh_id'] = $this->input->post('dbgh_id')?$this->input->post('dbgh_id'):null;
+        $data['dbyh_id'] = $this->input->post('dbyh_id')?$this->input->post('dbyh_id'):null;
+        $data['course'] = $this->input->post('course')?$this->input->post('course'):null;
+        $data['status'] = $this->input->post('status')?$this->input->post('status'):null;
+        $data['num'] = $this->input->post('num') ? trim($this->input->post('num')):null;
+        $data['xq_name'] = $this->input->post('xq_name') ? trim($this->input->post('xq_name')):null;
+        $data['Cstart_date'] = $this->input->post('Cstart_date') ? $this->input->post('Cstart_date') :"";
+        $data['Cend_date'] = $this->input->post('Cend_date') ? $this->input->post('Cend_date') :"";
+        $data['Estart_date'] = $this->input->post('Estart_date') ? $this->input->post('Estart_date') :"";
+        $data['Eend_date'] = $this->input->post('Eend_date') ? $this->input->post('Eend_date') :"";
+        //list
+        $this->db->select('a.*,b.rel_name,f.name course_name,u1.rel_name gh_name,u1.tel gh_tel,u2.rel_name yh_name,u2.tel yh_tel');
+        $this->db->distinct('a.id');
+        $this->db->from('agenda a');
+        $this->db->join('user b','a.user_id = b.id','inner');
+        $this->db->join('user u1','a.dbgh_id = u1.id','left');
+        $this->db->join('user u2','a.dbyh_id = u2.id','left');
+        $this->db->join('role c','c.id = b.role_id','inner');
+        $this->db->join('user_subsidiary d','d.user_id = b.id','inner');
+        $this->db->join('course f','f.id = a.course','left');
+        if($this->input->post('user_id')){
+            $this->db->where('a.user_id',$this->input->post('user_id'));
+        }
+        if($this->input->post('status')){
+            $this->db->where('a.status',$this->input->post('status'));
+        }
+        if($this->input->post('course')){
+            $this->db->where('a.course',$this->input->post('course'));
+        }
+        if($this->input->post('num')){
+            $this->db->like('a.num',trim($this->input->post('num')));
+        }
+        if($this->input->post('xq_name')){
+            $this->db->like('a.xq_name',trim($this->input->post('xq_name')));
+        }
+        if($this->input->post('dbgh_id')){
+            $this->db->where('a.dbgh_id',$this->input->post('dbgh_id'));
+        }
+        if($this->input->post('dbyh_id')){
+            $this->db->where('a.dbyh_id',$this->input->post('dbyh_id'));
+        }
+        if($this->input->POST('company_id')) {
+            $this->db->where('b.company_id', $this->input->POST('company_id'));
+        }
+        if($this->input->POST('subsidiary_id')) {
+            $this->db->where_in('d.subsidiary_id', $this->input->POST('subsidiary_id'));
+        }
+        if($this->input->POST('user')) {
+            $this->db->where('b.id', $this->input->POST('user'));
+        }
+        if($this->input->POST('Cstart_date')) {
+            $this->db->where('a.cdate >=', $this->input->POST('Cstart_date'));
+        }
+        if($this->input->POST('Cend_date')) {
+            $this->db->where('a.cdate <=', $this->input->POST('Cend_date'));
+        }
+        if($this->input->POST('Estart_date')) {
+            $this->db->where('a.edate >=', $this->input->POST('Estart_date'));
+        }
+        if($this->input->POST('Eend_date')) {
+            $this->db->where('a.edate <=', $this->input->POST('Eend_date'));
+        }
+        $this->db->limit($numPerPage, ($pageNum - 1) * $numPerPage );
+        $this->db->order_by($this->input->post('orderField') ? $this->input->post('orderField') : 'a.id', $this->input->post('orderDirection') ? $this->input->post('orderDirection') : 'desc');
+        $data['res_list'] = $this->db->get()->result();
+        // $data['type_list'] = $this->db->from('question_type')->get()->result();
+        $data['pageNum'] = $pageNum;
+        $data['numPerPage'] = $numPerPage;
+        $data['course_list'] =  $this->db->select('*')->from('course')->get()->result_array();
+        return $data;
+    }
+
+    public function get_dbgh_list() {
+        $this->db->select('a.id,a.rel_name');
+        $this->db->from('user a');
+        $this->db->join('user_position b','a.id = b.user_id','left');
+        $this->db->where('b.pid',8);
+        $this->db->order_by('a.id');
+        return $this->db->get()->result_array();
+    }
+
+    public function get_dbyh_list() {
+        $this->db->select('a.id,a.rel_name');
+        $this->db->from('user a');
+        $this->db->join('user_position b','a.id = b.user_id','left');
+        $this->db->where('b.pid',9);
+        $this->db->order_by('a.id');
+        return $this->db->get()->result_array();
     }
 }
