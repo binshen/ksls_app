@@ -207,7 +207,11 @@
                     } else {
                         if(data==2){
                             if(redirect_url=="/appointment/book_room" || redirect_url=="/agenda/list_agenda"){
-                                window.location = redirect_url;
+                                if(redirect_url=="/agenda/list_agenda"){
+                                    layer.msg('服务升级中...')
+                                }else{
+                                    window.location = redirect_url;
+                                }
                             }else{
                                 layer.msg('如需使用此服务,请先购买')
                             }
@@ -326,7 +330,26 @@
                     }else{
                         store.remove('user');
                     }
-                    window.location = redirect_url;
+                    $.getJSON('/index/check_login/'+data_,function (data) {
+                            if(data==2){
+                                if(redirect_url=="/appointment/book_room" || redirect_url=="/agenda/list_agenda"){
+                                    if(redirect_url=="/agenda/list_agenda"){
+                                        window.location = '/';
+                                    }else{
+                                        window.location = redirect_url;
+                                    }
+                                }else{
+                                    window.location = '/';
+                                }
+                            }else {
+                                if(redirect_url=="/agenda/list_agenda"){
+                                    window.location = '/';
+                                }else{
+                                    window.location = redirect_url;
+                                }
+
+                            }
+                    })
                 } else if(data == 2) {
                     $("#login_error").hide();
                     $("#login_error2").show();
