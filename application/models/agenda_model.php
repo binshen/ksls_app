@@ -201,7 +201,7 @@ class Agenda_model extends MY_Model
         }
         $this->db->limit($numPerPage, ($pageNum - 1) * $numPerPage );
         $this->db->order_by('a.id', 'desc');
-        $this->db->order_by('a.user_id', 'desc');
+        //$this->db->order_by('a.user_id', 'desc');
         $data['res_list'] = $this->db->get()->result_array();
         $data['detail'] = 1;
         if($data['res_list']){
