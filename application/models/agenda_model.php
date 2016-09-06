@@ -669,7 +669,7 @@ class Agenda_model extends MY_Model
         //开始计算是否满足新增单据条件
         $pty = $company_sum - $agenda_num - $pay_sum;
         if($this->config->item('Arrears_CK') >= $pty){
-            return 1;
+            return -2;
         }else{
             return 1;
         }

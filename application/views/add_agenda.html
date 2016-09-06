@@ -450,7 +450,7 @@
                 }else{
                     var C3 = 2;
                 }
-                $.post('/agenda/check_sum/'+data_, {R1: R1, R2: R2,R1: R1, C2: C2,C1: C1, C3: C3}, function(data) {
+                $.post('/agenda/check_sum/'+data_, {R1: R1, R2: R2, C2: C2,C1: C1, C3: C3}, function(data) {
                     if(data == 1) {
                         $("#agendaForm").submit();
                     } else {
