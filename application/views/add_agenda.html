@@ -453,8 +453,14 @@
                 $.post('/agenda/check_sum/'+data_, {R1: R1, R2: R2, C2: C2,C1: C1, C3: C3}, function(data) {
                     if(data == 1) {
                         $("#agendaForm").submit();
-                    } else {
+                    } else if(data == -2) {
                         layer.alert('公司正在处理中的权证业务过多,账户余额不足!', {
+                            skin: 'layui-layer-lan'
+                            ,closeBtn: 0
+                            ,shift: 4 //动画类型
+                        });
+                    }else{
+                        layer.alert('账户登陆超时或在异地登陆,请退出后再登陆', {
                             skin: 'layui-layer-lan'
                             ,closeBtn: 0
                             ,shift: 4 //动画类型
