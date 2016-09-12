@@ -124,23 +124,39 @@ class Manage_model extends MY_Model
 
         //获得总记录数
         $this->db->select('count(1) as num');
-        $this->db->from('company');
+        $this->db->from('company a');
+        $this->db->join('power_menu b','b.id = a.menu_id','left');
         if($this->session->userdata('permission_id') > 1) {
-            $this->db->where('id', $this->session->userdata('company_id'));
+            $this->db->where('a.id', $this->session->userdata('company_id'));
         }
-
+        if($this->input->post('company'))
+            $this->db->like('a.name',trim($this->input->post('company')));
+        if($this->input->post('flag'))
+            $this->db->where('a.flag',$this->input->post('flag'));
+        if($this->input->post('power_id'))
+            $this->db->where('b.id',$this->input->post('power_id'));
         $rs_total = $this->db->get()->row();
         //总记录数
         $data['countPage'] = $rs_total->num;
-
+        $data['company'] = $this->input->post('company')?trim($this->input->post('company')):null;
+        $data['flag'] = $this->input->post('flag')?$this->input->post('flag'):null;
+        $data['menuid'] = $this->input->post('power_id')?$this->input->post('power_id'):null;
         //list
-        $this->db->select('*')->from('company');
+        $this->db->select('a.*,b.menu_name')->from('company a');
+        $this->db->join('power_menu b','b.id = a.menu_id','left');
         if($this->session->userdata('permission_id') > 1) {
-            $this->db->where('id', $this->session->userdata('company_id'));
+            $this->db->where('a.id', $this->session->userdata('company_id'));
         }
+        if($this->input->post('company'))
+            $this->db->like('a.name',trim($this->input->post('company')));
+        if($this->input->post('flag'))
+            $this->db->where('a.flag',$this->input->post('flag'));
+        if($this->input->post('power_id'))
+            $this->db->where('b.id',$this->input->post('power_id'));
         $this->db->limit($numPerPage, ($pageNum - 1) * $numPerPage );
-        $this->db->order_by($this->input->post('orderField') ? $this->input->post('orderField') : 'id', $this->input->post('orderDirection') ? $this->input->post('orderDirection') : 'desc');
+        $this->db->order_by($this->input->post('orderField') ? $this->input->post('orderField') : 'a.id', $this->input->post('orderDirection') ? $this->input->post('orderDirection') : 'desc');
         $data['res_list'] = $this->db->get()->result();
+        $data['menu_list'] = $this->db->select()->from('power_menu')->get()->result();
         $data['pageNum'] = $pageNum;
         $data['numPerPage'] = $numPerPage;
         return $data;
@@ -151,6 +167,8 @@ class Manage_model extends MY_Model
             'name' => $this->input->post('name'),
             'address' => $this->input->post('address'),
             'tel' => $this->input->post('tel'),
+            'menu_id' =>$this->input->post('menu_id'),
+            'menu_end_time' =>$this->input->post('menu_end_time'),
             'flag'=> $this->input->post('flag')? 1 : 2
         );
         $this->db->trans_start();//--------开始事务
@@ -170,7 +188,10 @@ class Manage_model extends MY_Model
     }
 
     public function get_company($id) {
-        return $this->db->get_where('company', array('id' => $id))->row_array();
+        $this->db->select('a.*,b.menu_name');
+        $this->db->from('company a');
+        $this->db->join('power_menu b','a.menu_id = b.id','left');
+        return $this->db->where('a.id', $id)->get()->row_array();
     }
 
     public function delete_company($id) {
@@ -178,6 +199,9 @@ class Manage_model extends MY_Model
         return $this->db->delete('company');
     }
 
+    public function get_menu_list(){
+        return $this->db->select()->from('power_menu')->get()->result();
+    }
     /**
      * 分店信息
      */
@@ -877,6 +901,70 @@ class Manage_model extends MY_Model
     }
 
     /**
+     * 套餐处理
+     */
+    public function list_menu(){
+        // 每页显示的记录条数，默认20条
+        $numPerPage = $this->input->post('numPerPage') ? $this->input->post('numPerPage') : 20;
+        $pageNum = $this->input->post('pageNum') ? $this->input->post('pageNum') : 1;
+
+        //获得总记录数
+        $this->db->select('count(1) as num');
+        $this->db->from('power_menu');
+        $rs_total = $this->db->get()->row();
+        //总记录数
+        $data['countPage'] = $rs_total->num;
+
+        //list
+        $this->db->select('*');
+        $this->db->from('power_menu');
+        $this->db->limit($numPerPage, ($pageNum - 1) * $numPerPage );
+        $this->db->order_by($this->input->post('orderField') ? $this->input->post('orderField') : 'id', $this->input->post('orderDirection') ? $this->input->post('orderDirection') : 'asc');
+        $data['res_list'] = $this->db->get()->result();
+        $data['pageNum'] = $pageNum;
+        $data['numPerPage'] = $numPerPage;
+        return $data;
+    }
+
+    public function save_menu(){
+        $this->db->trans_start();
+        $data = array(
+            'id'=>$this->input->post('id'),
+            'menu_name'=>$this->input->post('menu_name'),
+            'flag'=>$this->input->post('flag')?1:2
+        );
+        if($this->input->post('id')){//修改
+            $this->db->where('id', $this->input->post('id'));
+            $this->db->update('power_menu', $data);
+            $m_id = $this->input->post('id');
+        }else{//新增
+            unset($data['id']);
+            $this->db->insert('power_menu', $data);
+            $m_id = $this->db->insert_id();
+        }
+        $this->db->where('m_id',$m_id)->delete('power_menu_detail');
+        if($this->input->post('p_id')){
+            $subid=$this->input->post('p_id');
+            foreach($subid as $id){
+                $this->db->insert('power_menu_detail', array(
+                    'p_id'=>$id,
+                    'm_id'=>$m_id
+                ));
+            }
+        }
+
+        $this->db->trans_complete();
+        if ($this->db->trans_status() === FALSE) {
+            return $this->db_error;
+        } else {
+            return 1;
+        }
+    }
+
+    public function get_menu($id){
+       return $this->db->select()->from('power_menu')->where('id',$id)->get()->row_array();
+    }
+    /**
      * 获取小区列表
      */
     public function list_xiaoqu(){
@@ -1453,6 +1541,19 @@ class Manage_model extends MY_Model
         $this->db->join('user_position b','a.id = b.user_id','left');
         $this->db->where('b.pid',9);
         $this->db->order_by('a.id');
+        return $this->db->get()->result_array();
+    }
+
+    public function get_icon_list(){
+        $this->db->select();
+        $this->db->from('icon');
+        return $this->db->get()->result_array();
+    }
+
+    public function get_menu_detail($id){
+        $this->db->select();
+        $this->db->from('power_menu_detail');
+        $this->db->where('m_id',$id);
         return $this->db->get()->result_array();
     }
 }

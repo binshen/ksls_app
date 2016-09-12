@@ -100,6 +100,7 @@ $(function(){
 							<li><a href="<?php echo site_url('manage/list_course');?>" target="navTab" rel="list_course">代办进程</a></li>
 							<li><a href="<?php echo site_url('manage/list_xiaoqu');?>" target="navTab" rel="list_xiaoqu">小区列表</a></li>
 							<li><a href="<?php echo site_url('manage/list_towns');?>" target="navTab" rel="list_towns">区镇列表</a></li>
+							<li><a href="<?php echo site_url('manage/list_menu');?>" target="navTab" rel="list_menu">套餐列表</a></li>
 						</ul>
 					</div>
 					<?php endif;?>

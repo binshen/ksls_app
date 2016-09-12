@@ -77,7 +77,8 @@ class Manage extends MY_Controller {
 	}
 
 	public function add_company() {
-		$this->load->view('manage/add_company.php');
+		$data['menu_list'] = $this->manage_model->get_menu_list();
+		$this->load->view('manage/add_company.php', $data);
 	}
 
 	public function save_company() {
@@ -91,6 +92,7 @@ class Manage extends MY_Controller {
 
 	public function edit_company($id) {
 		$data = $this->manage_model->get_company($id);
+		$data['menu_list'] = $this->manage_model->get_menu_list();
 		$this->load->view('manage/add_company.php', $data);
 	}
 
@@ -508,6 +510,46 @@ class Manage extends MY_Controller {
 		$data = $this->manage_model->get_xiaoqu($id);
 		$data['towns_list'] = $this->manage_model->get_towns_list();
 		$this->load->view('manage/add_xiaoqu.php',$data);
+	}
+	/**
+	 *
+	 * ***************************************以下为区镇列表*******************************************************************
+	 */
+
+	public function list_menu()
+	{
+		$data = $this->manage_model->list_menu();
+		$this->load->view('manage/list_menu.php',$data);
+	}
+
+	public function add_menu(){
+		$data['icon_list'] = $this->manage_model->get_icon_list();
+		$this->load->view('manage/add_menu.php',$data);
+	}
+
+	public function save_menu(){
+		$rs = $this->manage_model->save_menu();
+		if ($rs === 1) {
+			form_submit_json("200", "操作成功", "list_menu");
+		} else {
+			form_submit_json("300", $rs);
+		}
+	}
+
+	public function delete_menu($id){
+		$rs = $this->manage_model->delete_menu($id);
+		if ($rs === 1) {
+			form_submit_json("200", "操作成功", "list_menu", "", "");
+		} else {
+			form_submit_json("300", $rs);
+		}
+	}
+
+	public function edit_menu($id){
+		$data = $this->manage_model->get_menu($id);
+		$data['icon_list'] = $this->manage_model->get_icon_list();
+		$data['menu_detail'] = $this->manage_model->get_menu_detail($id);
+		$this->load->view('manage/add_menu.php',$data);
 	}
 
 	/**

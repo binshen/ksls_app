@@ -1,10 +1,53 @@
 <form id="pagerForm" method="post" action="<?php echo site_url('manage/list_company')?>">
     <input type="hidden" name="pageNum" value="<?php echo $pageNum;?>" />
     <input type="hidden" name="numPerPage" value="<?php echo $numPerPage;?>" />
+    <input type="hidden" name="company" value="<?php echo $company;?>" />
+    <input type="hidden" name="flag" value="<?php echo $flag;?>" />
+    <input type="hidden" name="power_id" value="<?php echo $menuid;?>" />
     <input type="hidden" name="orderField" value="<?php echo $this->input->post('orderField');?>" />
     <input type="hidden" name="orderDirection" value="<?php echo $this->input->post('orderDirection');?>" />
 </form>
-
+<?php if($this->session->userdata('permission_id') == 1): ?>
+<div class="pageHeader">
+    <form onsubmit="return navTabSearch(this);" action="<?php site_url('manage/list_company')?>" method="post">
+        <div class="searchBar">
+            <table class="searchContent" id="search_purchase_order">
+                <tr>
+                    <td><label>公司：</label><input type="text" size="16" name="company" value="<?php echo $company;?>" /></td>
+                    <td><label>状态：</label>
+                        <select class="combox" name="flag">
+                            <option value="">全部</option>
+                            <option value="1" <?php if($flag==1){echo 'selected';}?>>启用</option>
+                            <option value="2" <?php if($flag==2){echo 'selected';}?>>停用</option>
+                        </select>
+                    </td>
+                    <td><label>使用套餐：</label>
+                        <select name="power_id" class="combox"  id="power_id">
+                            <option value="">请选择套餐</option>
+                            <?php
+                            if (!empty($menu_list)):
+                                foreach ($menu_list as $row):
+                                    $selected = !empty($menuid) && $row->id == $menuid ? "selected" : "";
+                                    ?>
+                                    <option value="<?php echo $row->id; ?>" <?php echo $selected; ?>><?php echo $row->menu_name; ?></option>
+                                    <?php
+                                endforeach;
+                            endif;
+                            ?>
+                        </select>
+                    </td>
+                </tr>
+            </table>
+            <div class="subBar">
+                <ul>
+                    <li><div class="button"><div class="buttonContent"><button id="clear_search">清除查询</button></div></div></li>
+                    <li><div class="buttonActive"><div class="buttonContent"><button type="submit">执行查询</button></div></div></li>
+                </ul>
+            </div>
+        </div>
+    </form>
+</div>
+<?php endif ?>
 <div class="pageContent">
     <div class="panelBar">
         <ul class="toolBar">
@@ -16,15 +59,17 @@
         </ul>
     </div>
 
-    <div layoutH="54" id="list_warehouse_in_print">
+    <div layoutH="113" id="list_warehouse_in_print">
         <table class="list" width="100%" targetType="navTab" asc="asc" desc="desc">
             <thead>
             <tr>
-                <th width="120">ID</th>
+                <th width="30">ID</th>
                 <th>名称</th>
                 <th>地址</th>
-                <th>电话</th>
-                <th>状态</th>
+                <th>套餐</th>
+                <th width="90">电话</th>
+                <th width="80">公司账户</th>
+                <th width="80">状态</th>
             </tr>
             </thead>
             <tbody>
@@ -36,7 +81,9 @@
                         <td><?php echo $row->id;?></td>
                         <td><?php echo $row->name;?></td>
                         <td><?php echo $row->address;?></td>
+                        <td><?php echo $row->menu_name;?></td>
                         <td><?php echo $row->tel;?></td>
+                        <td><?php echo $row->sum;?></td>
                         <td><?php
                             if($row->flag == 1){
                                 echo '启用服务';
