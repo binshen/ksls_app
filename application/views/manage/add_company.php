@@ -62,7 +62,7 @@
 					<dl>
 						<dt>套餐截至时间：</dt>
 						<dd>
-							<input type="text" name="menu_end_time" id="menu_end_time" value="<?php echo $menu_end_time;?>" class="sel-begin-time trigger-node-yui_3_5_1_1_1470035798576_18">
+							<input type="text" name="menu_end_time" id="menu_end_time" value="<?php if(!empty($menu_end_time)) echo $menu_end_time;?>" class="sel-begin-time trigger-node-yui_3_5_1_1_1470035798576_18">
 						</dd>
 					</dl>
 				</fieldset>
