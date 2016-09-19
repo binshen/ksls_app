@@ -1,8 +1,8 @@
 <?php if (!defined('BASEPATH')) exit('No direct script access allowed');
-$config['appid'] = 'wx6eb14c27ebe160c6';
-$config['mch_id'] = '1378041402';
-$config['apikey'] = 'sEFja73shyeqwHSd9vbNik3e44DfB63s';
-$config['appsecret'] = '7921ff3dbf764e2c5df5964a18846554';
+$config['appid'] = '';
+$config['mch_id'] = '';
+$config['apikey'] = '';
+$config['appsecret'] = '';
 $config['sslcertPath'] = APPPATH . 'libraries/wxpay/cert/apiclient_cert.pem';
 $config['sslkeyPath'] = APPPATH . 'libraries/wxpay/cert/apiclient_key.pem';
 $config['CURL_PROXY_HOST'] = '0.0.0.0';
