@@ -133,7 +133,7 @@ class Agenda_model extends MY_Model
         $data['Estart_date'] = $this->input->post('Estart_date') ? $this->input->post('Estart_date') :"";
         $data['Eend_date'] = $this->input->post('Eend_date') ? $this->input->post('Eend_date') :"";
         //list
-        $this->db->select('a.*,b.rel_name,f.name course_name,u1.rel_name gh_name,u1.tel gh_tel,u2.rel_name yh_name,u2.tel yh_tel');
+        $this->db->select('a.*,b.rel_name,b.tel user_tel,f.name course_name,u1.rel_name gh_name,u1.tel gh_tel,u2.rel_name yh_name,u2.tel yh_tel');
         $this->db->distinct('a.id');
         $this->db->from('agenda a');
         $this->db->join('user b','a.user_id = b.id','inner');

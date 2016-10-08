@@ -137,7 +137,7 @@
                 {{if $item.status==3}}
 
                 <ul class="schedule-list dosth-list dosth-successful">
-                    <li class="time wid92">{{$item.rel_name}}</li>
+                    <li class="time wid92 liname">{{$item.rel_name}}<br />{{$item.user_tel}}</li>
                     <li class="bor-separate"></li>
                     <li class="time wid103">{{$item.num}}</li>
                     <li class="bor-separate"></li>
@@ -163,7 +163,7 @@
                 </ul>
                 {{else}}
                 <ul class="schedule-list dosth-list ">
-                    <li class="time wid92">{{$item.rel_name}}</li>
+                    <li class="time wid92 liname">{{$item.rel_name}}<br />{{$item.user_tel}}</li>
                     <li class="bor-separate"></li>
                     <li class="time wid103">{{$item.num}}</li>
                     <li class="bor-separate"></li>
