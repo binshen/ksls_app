@@ -181,14 +181,27 @@ class User_model extends MY_Model
         }
     }
 
-    public function set_wx_msg(){
+    public function set_wx_msg($flag){
+        $infomation = "请审核!";
+        if($flag == 1){
+            $infomation = "公司列表转xml完成!";
+        }
+        if($flag == 2){
+            $infomation = "门店列表转xml完成!";
+        }
+        if($flag == 3){
+            $infomation = "经纪人列表转xml完成!";
+        }
+        if($flag == 4){
+            $infomation = "房源列表转xml完成!";
+        }
         $data = array(
             'first' => array(
-                'value' => '软件测试单据',
+                'value' => '软件提醒单据',
                 'color' => '#FF0000'
             ),
             'keyword1' => array(
-                'value' => '测试定时发送',
+                'value' => '服务完成后提醒',
                 'color' => '#FF0000'
             ),
             'keyword2' => array(
@@ -196,7 +209,7 @@ class User_model extends MY_Model
                 'color' => '#FF0000'
             ),
             'remark' => array(
-                'value' => '请审核！',
+                'value' => $infomation,
                 'color' => '#FF0000'
             )
         );
