@@ -116,10 +116,10 @@ class Agenda_model extends MY_Model
             $this->db->where('c.permission_id >=', $this->session->userdata('login_permission_id'));
         }
         if(in_array(8,$this->session->userdata('login_position_id_array'))){
-            $this->db->where('a.dbgh_id >=', $this->session->userdata('login_user_id'));
+            $this->db->where('a.dbgh_id =', $this->session->userdata('login_user_id'));
         }
         if(in_array(9,$this->session->userdata('login_position_id_array'))){
-            $this->db->where('a.dbyh_id >=', $this->session->userdata('login_user_id'));
+            $this->db->where('a.dbyh_id =', $this->session->userdata('login_user_id'));
         }
         $row = $this->db->get()->row_array();
         //总记录数
@@ -194,10 +194,10 @@ class Agenda_model extends MY_Model
             $this->db->where('c.permission_id >=', $this->session->userdata('login_permission_id'));
         }
         if(in_array(8,$this->session->userdata('login_position_id_array'))){
-            $this->db->where('a.dbgh_id >=', $this->session->userdata('login_user_id'));
+            $this->db->where('a.dbgh_id =', $this->session->userdata('login_user_id'));
         }
         if(in_array(9,$this->session->userdata('login_position_id_array'))){
-            $this->db->where('a.dbyh_id >=', $this->session->userdata('login_user_id'));
+            $this->db->where('a.dbyh_id =', $this->session->userdata('login_user_id'));
         }
         $this->db->limit($numPerPage, ($pageNum - 1) * $numPerPage );
         $this->db->order_by('a.id', 'desc');
