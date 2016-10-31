@@ -416,9 +416,15 @@
             layer.msg('请输入客户收入情况', {icon: 2});
             return;
         }
+        var result = $.ajax({
+            url : '/agenda/zysm',
+            cache : false,
+            async : false,
+            type : "POST"
+        }).responseText;
 
-        layer.confirm('确定要保存代办服务信息？', {
-            btn: ['确定','取消'] //按钮
+        layer.confirm(result, {
+            btn: ['同意','不同意'] //按钮
         }, function(){
             var agenda_id = $("#agenda_id").val();
             if(agenda_id !=""){

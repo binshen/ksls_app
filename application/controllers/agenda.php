@@ -368,4 +368,8 @@ class Agenda extends MY_Controller
         redirect(site_url('agenda/list_agenda_other'));
     }
 
+    public function zysm(){
+        $this->display('minhtml/zysm.html');
+    }
+
 }
