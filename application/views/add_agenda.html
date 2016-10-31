@@ -424,7 +424,8 @@
         }).responseText;
 
         layer.confirm(result, {
-            btn: ['同意','不同意'] //按钮
+            btn: ['同意','不同意'], //按钮
+            area: ['1000px', 'auto']
         }, function(){
             var agenda_id = $("#agenda_id").val();
             if(agenda_id !=""){
