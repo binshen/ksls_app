@@ -105,7 +105,9 @@
         <ul class="toolBar">
             <?php if($this->session->userdata('permission_id') < 5): ?>
                 <li><a class="add" href="<?php echo site_url('manage/add_user')?>" target="dialog" width="600" height="370" rel="add_user" title="新建"><span>新建</span></a></li>
+                <!--
                 <li><a class="delete" href="<?php echo site_url('manage/delete_user')?>/{id}" target="ajaxTodo"  title="确定要删除？" warn="请选择一条记录"><span>删除</span></a></li>
+                -->
             <?php endif ?>
             <li><a class="edit" href="<?php echo site_url('manage/edit_user/{id}')?>" target="dialog" rel="edit_user" warn="请选择一条记录" title="查看"><span>查看</span></a></li>
         </ul>
