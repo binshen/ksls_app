@@ -39,10 +39,23 @@
                      {{foreach from=$video_type_list item=item}}
                         <li><a href="{{site_url url='video/list_video'}}/1/{{$item.id}}" {{if $video_type_id == $item.id}}class="current"{{/if}}>{{$item.name}}</a></li>
                      {{/foreach}}
+                     <li><a href="{{site_url url='video/list_video'}}/1/-1" {{if $video_type_id == -1}}class="current"{{/if}}>我的收藏</a></li>
                 </ul>
                 <div class="main-inner" id="slide01">
                     <div class="condiv" id="rank_0">
-                        <div class="tab-tit">全部课程</div>
+                        <div class="tab-tit">
+                            {{if $video_type_id == -1}}
+                            我的收藏
+                            {{elseif $video_type_id >= 1}}
+                            {{foreach from=$video_type_list item=item}}
+                            {{if $video_type_id == $item.id}}
+                            {{$item.name}}
+                            {{/if}}
+                            {{/foreach}}
+                            {{else}}
+                            全部课程
+                            {{/if}}
+                        </div>
                         {{if empty($video_type_id)}}
                             <ul class="ul-video">
                                 {{foreach from=$top_video_list item=item}}

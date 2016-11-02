@@ -54,34 +54,62 @@ class Video_model extends MY_Model
         $numPerPage = $this->input->post('numPerPage') ? $this->input->post('numPerPage') : $perPage;
         $pageNum = $this->input->post('pageNum') ? $this->input->post('pageNum') : $page;
 
-        //获得总记录数
-        $this->db->select('count(1) as num');
-        $this->db->from('video a');
-        $this->db->join('video_type b', 'a.type_id = b.id', 'inner');
-        if(!empty($type_id)) {
-            $this->db->where('a.type_id', $type_id);
-        }
-        if($this->input->post('title')) {
-            $this->db->like('a.title',$this->input->post('title'));
-        }
-        $rs_total = $this->db->get()->row();
-        //总记录数
-        $data['countPage'] = $rs_total->num;
+        if($type_id == -1){
+            $this->db->select('count(1) as num');
+            $this->db->from('video a');
+            $this->db->join('video_type b', 'a.type_id = b.id', 'inner');
+            $this->db->join('video_collect c', 'a.id = c.video_id', 'inner');
+            $this->db->where('c.user_id', $this->session->userdata('login_user_id'));
+            if($this->input->post('title')) {
+                $this->db->like('a.title',$this->input->post('title'));
+            }
+            $rs_total = $this->db->get()->row();
+            //总记录数
+            $data['countPage'] = $rs_total->num;
 
-        //list
-        $this->db->select('a.*, b.name as type_name');
-        $this->db->from('video a');
-        $this->db->join('video_type b', 'a.type_id = b.id', 'inner');
-        if(!empty($type_id)) {
-            $this->db->where('a.type_id', $type_id);
+            //list
+            $this->db->select('a.*, b.name as type_name');
+            $this->db->from('video a');
+            $this->db->join('video_type b', 'a.type_id = b.id', 'inner');
+            $this->db->join('video_collect c', 'a.id = c.video_id', 'inner');
+            $this->db->where('c.user_id', $this->session->userdata('login_user_id'));
+            if($this->input->post('title')) {
+                $this->db->like('a.title',$this->input->post('title'));
+            }
+            $this->db->limit($numPerPage, ($pageNum - 1) * $numPerPage );
+            $this->db->order_by('a.created', 'desc');
+            $data['res_list'] = $this->db->get()->result_array();
+        }else{
+            //获得总记录数
+            $this->db->select('count(1) as num');
+            $this->db->from('video a');
+            $this->db->join('video_type b', 'a.type_id = b.id', 'inner');
+            if(!empty($type_id)) {
+                $this->db->where('a.type_id', $type_id);
+            }
+            if($this->input->post('title')) {
+                $this->db->like('a.title',$this->input->post('title'));
+            }
+            $rs_total = $this->db->get()->row();
+            //总记录数
+            $data['countPage'] = $rs_total->num;
+
+            //list
+            $this->db->select('a.*, b.name as type_name');
+            $this->db->from('video a');
+            $this->db->join('video_type b', 'a.type_id = b.id', 'inner');
+            if(!empty($type_id)) {
+                $this->db->where('a.type_id', $type_id);
+            }
+            if($this->input->post('title')) {
+                $this->db->like('a.title',$this->input->post('title'));
+            }
+            $this->db->limit($numPerPage, ($pageNum - 1) * $numPerPage );
+            $this->db->order_by('a.created', 'desc');
+            $data['res_list'] = $this->db->get()->result_array();
+            //var_dump($this->db->last_query());
+
         }
-        if($this->input->post('title')) {
-            $this->db->like('a.title',$this->input->post('title'));
-        }
-        $this->db->limit($numPerPage, ($pageNum - 1) * $numPerPage );
-        $this->db->order_by('a.created', 'desc');
-        $data['res_list'] = $this->db->get()->result_array();
-        //var_dump($this->db->last_query());
         $data['pageNum'] = $pageNum;
         $data['numPerPage'] = $numPerPage;
         return $data;
