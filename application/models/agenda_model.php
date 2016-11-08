@@ -272,7 +272,9 @@ class Agenda_model extends MY_Model
     }
 
     public function save_agenda() {
+        if(!$this->input->post('id')){
 
+        }
         $now = date('Y-m-d H:i:s');
         $cdate = date('Y-m-d');
         $company_id = $this->session->userdata('login_company_id');
@@ -288,6 +290,7 @@ class Agenda_model extends MY_Model
         $this->db->trans_start();//--------开始事务
 
         $agenda = array(
+            'time_open'=>$this->input->post('time_open'),
             'user_id' => $this->session->userdata('login_user_id'),
             'xq_name' => $this->input->post('xq_name'),
             'landlord_name' => $this->input->post('landlord_name'),
@@ -342,6 +345,9 @@ class Agenda_model extends MY_Model
         } else {
             //这里查找权证人员,进行分单操作
             //第一步查找当前最后一单的权证是谁
+            if($this->check_save() == -1){
+                return -1;
+            }
             $agenda_row = $this->db->select('dbgh_id,dbyh_id')->from('agenda')->order_by('id','desc')->get()->row_array();
             $this->db->select('a.id,a.rel_name');
             $this->db->from('user a');
@@ -670,6 +676,24 @@ class Agenda_model extends MY_Model
         $pty = $company_sum - $agenda_num - $pay_sum;
         if($this->config->item('Arrears_CK') >= $pty){
             return -2;
+        }else{
+            return 1;
+        }
+    }
+
+    public function check_save()
+    {
+        if($this->input->post('time_open')){
+            $this->db->select('*');
+            $row = $this->db->from('agenda')->where(array(
+                'time_open'=>$this->input->post('time_open'),
+                'user_id' => $this->session->userdata('login_user_id'),
+                ))->get()->row();
+            if($row){
+                return -1;
+            }else{
+                return 1;
+            }
         }else{
             return 1;
         }

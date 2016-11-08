@@ -28,6 +28,7 @@
         </div>
         <div class="wrap-right">
             <form id="agendaForm" method="post" action="/agenda/save_agenda">
+                <input type="hidden" id="time_open" name="time_open">
                 <input type="hidden" id="agenda_id" name="id" value="{{$agenda->id|default:''}}">
                 <div class="search-wrap">
                     <div class="t-tit">代办买卖二手房服务Agent Housing Services</div>
@@ -326,7 +327,8 @@
 <script type="text/javascript" src="/static/js/layer/layer.js"></script>
 <script type="text/javascript">
     $(function(){
-
+        var data_ = Date.parse(new Date());
+        $('#time_open').val(data_);
       /*  {{if $agenda->order_status|default:1 == 1}}
         $("#R1").checked=true;
         $("#R2").checked=false;
@@ -427,6 +429,9 @@
             btn: ['同意','不同意'], //按钮
             area: ['1000px', 'auto']
         }, function(){
+            var index = layer.load(1, {
+                shade: [0.1,'#fff'] //0.1透明度的白色背景
+            });
             var agenda_id = $("#agenda_id").val();
             if(agenda_id !=""){
                 $("#agendaForm").submit();
