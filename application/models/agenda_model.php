@@ -121,6 +121,7 @@ class Agenda_model extends MY_Model
         if(in_array(9,$this->session->userdata('login_position_id_array'))){
             $this->db->where('a.dbyh_id =', $this->session->userdata('login_user_id'));
         }
+        $this->db->where('a.flag',1);
         $row = $this->db->get()->row_array();
         //总记录数
         $data['countPage'] = $row['num'];
@@ -199,6 +200,7 @@ class Agenda_model extends MY_Model
         if(in_array(9,$this->session->userdata('login_position_id_array'))){
             $this->db->where('a.dbyh_id =', $this->session->userdata('login_user_id'));
         }
+        $this->db->where('a.flag',1);
         $this->db->limit($numPerPage, ($pageNum - 1) * $numPerPage );
         $this->db->order_by('a.id', 'desc');
         //$this->db->order_by('a.user_id', 'desc');
@@ -657,6 +659,7 @@ class Agenda_model extends MY_Model
         $this->db->select('SUM(pay_sum) as num',false);
         $this->db->from('agenda');
         $this->db->where('status <>',3);
+        $this->db->where('flag',1);
         $this->db->where('company_id',$this->session->userdata('login_company_id'));
         $agenda = $this->db->get()->row_array();
         $agenda_num = $agenda['num'];

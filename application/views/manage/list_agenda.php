@@ -160,8 +160,8 @@
 <div class="pageContent">
     <div class="panelBar">
         <ul class="toolBar">
-            <?php if($this->session->userdata('permission_id') == 0): ?>
-                <li><a class="delete" href="<?php echo site_url('manage/delete_aganda')?>/{id}" target="ajaxTodo"  title="确定要删除？" warn="请选择一条记录"><span>删除</span></a></li>
+            <?php if($this->session->userdata('permission_id') == 1): ?>
+                <li><a class="delete" href="<?php echo site_url('manage/delete_agenda')?>/{id}" target="ajaxTodo"  title="确定要撤销？" warn="请选择一条记录"><span>撤销</span></a></li>
             <?php endif ?>
         </ul>
     </div>
@@ -179,6 +179,7 @@
                 <th width="80">服务完成时间</th>
                 <th>进程</th>
                 <th>状态</th>
+                <th width="80">是否撤销</th>
             </tr>
             </thead>
             <tbody>
@@ -186,7 +187,11 @@
             if (!empty($res_list)):
                 foreach ($res_list as $row):
                     ?>
-                    <tr target="id" rel=<?php echo $row->id; ?>>
+                    <tr target="id" rel=<?php echo $row->id; ?>  <?php
+                    if($row->flag!=1){
+                        echo "style='background-color:yellow;'";
+                    }
+                    ?>>
                         <td><?php echo $row->rel_name;?></td>
                         <td><?php echo $row->num;?></td>
                         <td><?php echo $row->xq_name;?></td>
@@ -205,6 +210,16 @@
                             }
                             if($row->status==3){
                                 echo '服务完成';
+                            }
+                            ?>
+                        </td>
+                        <td>
+                            <?php
+                            if($row->flag==1){
+                                echo '否';
+                            }
+                            if($row->flag==2){
+                                echo '是';
                             }
                             ?>
                         </td>

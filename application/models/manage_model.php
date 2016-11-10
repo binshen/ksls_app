@@ -1526,6 +1526,10 @@ class Manage_model extends MY_Model
         return $data;
     }
 
+    public function delete_agenda($id) {
+       return $this->db->where('id',$id)->update('agenda',array('flag'=>2));
+    }
+
     public function get_dbgh_list() {
         $this->db->select('a.id,a.rel_name');
         $this->db->from('user a');

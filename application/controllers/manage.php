@@ -726,4 +726,13 @@ class Manage extends MY_Controller {
 		$this->load->view('manage/list_agenda.php',$data);
 	}
 
+	public function delete_agenda($id) {
+		$ret = $this->manage_model->delete_agenda($id);
+		if($ret == 1) {
+			form_submit_json("200", "操作成功", 'list_agenda', '', '');
+		} else {
+			form_submit_json("300", "删除失败");
+		}
+	}
+
 }

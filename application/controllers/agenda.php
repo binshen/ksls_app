@@ -205,6 +205,9 @@ class Agenda extends MY_Controller
     public function view_agenda($id, $style=1) {
         $agenda = $this->agenda_model->get_agenda($id);
         $open_flag = 1;
+        if($agenda->flag != 1){
+            $open_flag = 2;
+        }
         if($agenda->user_id == $this->session->userdata('login_user_id')){
             $open_flag = 2;
         }
