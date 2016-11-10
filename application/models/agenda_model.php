@@ -127,7 +127,7 @@ class Agenda_model extends MY_Model
         $data['dbgh_id'] = $this->input->post('dbgh_id') ? $this->input->post('dbgh_id') :"";
         $data['dbyh_id'] = $this->input->post('dbyh_id') ? $this->input->post('dbyh_id') :"";
         $data['num'] = $this->input->post('num') ? trim($this->input->post('num')) :"";
-        $data['xq_name'] = $this->input->post('num') ? trim($this->input->post('xq_name')) :"";
+        $data['xq_name'] = $this->input->post('xq_name') ? trim($this->input->post('xq_name')) :"";
         $data['Cstart_date'] = $this->input->post('Cstart_date') ? $this->input->post('Cstart_date') :"";
         $data['Cend_date'] = $this->input->post('Cend_date') ? $this->input->post('Cend_date') :"";
         $data['Estart_date'] = $this->input->post('Estart_date') ? $this->input->post('Estart_date') :"";
