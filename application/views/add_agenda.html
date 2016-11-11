@@ -424,6 +424,14 @@
             async : false,
             type : "POST"
         }).responseText;
+        if(result == '-1'){
+            layer.alert('账户登陆超时或账号已在异地登陆,请退出后再登陆', {
+                skin: 'layui-layer-lan'
+                ,closeBtn: 0
+                ,shift: 4 //动画类型
+            });
+            return;
+        }
 
         layer.confirm(result, {
             btn: ['同意','不同意'], //按钮
@@ -471,12 +479,16 @@
                             ,closeBtn: 0
                             ,shift: 4 //动画类型
                         });
+                        layer.close(index);
+                        return;
                     }else{
-                        layer.alert('账户登陆超时或在异地登陆,请退出后再登陆', {
+                        layer.alert('账户登陆超时或账号已在异地登陆,请退出后再登陆', {
                             skin: 'layui-layer-lan'
                             ,closeBtn: 0
                             ,shift: 4 //动画类型
                         });
+                        layer.close(index);
+                        return;
                     }
                 })
              /*   $.getJSON('/agenda/check_sum/'+data_,function (data) {

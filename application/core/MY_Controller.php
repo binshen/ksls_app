@@ -31,10 +31,13 @@ class MY_Controller extends CI_Controller
 		}
 		if ($login_user_id <=0 || !$this->session->userdata('login_user_id')){
 			if($this->uri->segment(2) == 'popup_room'){
-				die('账户已被他人登陆');
+				die('账户登陆超时或在异地登陆,请退出后再登陆');
 			}
 			if($this->uri->segment(2) == 'show_room'){
-				die('账户已被他人登陆');
+				die('账户登陆超时或在异地登陆,请退出后再登陆');
+			}
+			if($this->uri->segment(2) == 'zysm'){
+				die('-1');
 			}
 		}
 		$this->cismarty->assign('login_user_id', $login_user_id > 0 ? true : false);
