@@ -735,4 +735,26 @@ class Manage extends MY_Controller {
 		}
 	}
 
+	/**
+	 *
+	 * ***************************************以下为大成莲创列表*******************************************************************
+	 */
+	public function list_dclc(){
+		$data = $this->manage_model->list_dclc();
+		$this->load->view('manage/list_dclc.php',$data);
+	}
+
+	public function edit_dclc($id){
+		$data = $this->manage_model->edit_dclc($id);
+		$this->load->view('manage/edit_dclc.php',$data);
+	}
+
+	public function save_dclc(){
+		$res = $this->manage_model->save_dclc();
+		if($res == 1) {
+			form_submit_json("200", "操作成功", 'list_dclc', '', '');
+		} else {
+			form_submit_json("300", "删除失败");
+		}
+	}
 }

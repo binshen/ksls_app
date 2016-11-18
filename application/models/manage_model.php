@@ -1560,4 +1560,86 @@ class Manage_model extends MY_Model
         $this->db->where('m_id',$id);
         return $this->db->get()->result_array();
     }
+
+    public function list_dclc(){
+        $numPerPage = $this->input->post('numPerPage') ? $this->input->post('numPerPage') : 20;
+        $pageNum = $this->input->post('pageNum') ? $this->input->post('pageNum') : 1;
+
+        //获得总记录数
+        $this->db->select('count(1) as num');
+        $this->db->from('dclc');
+        if($this->input->post('mobile'))
+            $this->db->like('mobile',trim($this->input->post('mobile')));
+        if($this->input->post('username'))
+            $this->db->like('username',trim($this->input->post('username')));
+        if($this->input->post('demo'))
+            $this->db->like('demo',trim($this->input->post('demo')));
+        if($this->input->post('flag'))
+            $this->db->where('flag',$this->input->post('flag'));
+        if($this->input->POST('start_date')) {
+            $this->db->where('cdate >=', date('Y-m-d H:i:s',strtotime($this->input->POST('start_date'))));
+        }
+        if($this->input->POST('end_date')) {
+            $this->db->where('cdate <=', date('Y-m-d H:i:s',strtotime('+1 day',strtotime($this->input->POST('end_date')))));
+        }
+        $rs_total = $this->db->get()->row();
+        //总记录数
+
+        $data['countPage'] = $rs_total->num;
+
+        $data['mobile'] = $this->input->post('mobile')?trim($this->input->post('mobile')):null;
+        $data['username'] = $this->input->post('username')?$this->input->post('username'):null;
+        $data['flag'] = $this->input->post('flag') ? trim($this->input->post('flag')):null;
+        $data['demo'] = $this->input->post('demo') ? trim($this->input->post('demo')):null;
+        $data['start_date'] = $this->input->post('start_date') ? trim($this->input->post('start_date')):null;
+        $data['end_date'] = $this->input->post('end_date') ? trim($this->input->post('end_date')):null;
+        //list
+        $this->db->select();
+        $this->db->from('dclc');
+
+        if($this->input->post('mobile'))
+            $this->db->like('mobile',trim($this->input->post('mobile')));
+        if($this->input->post('username'))
+            $this->db->like('username',trim($this->input->post('username')));
+        if($this->input->post('demo'))
+            $this->db->like('demo',trim($this->input->post('demo')));
+        if($this->input->post('flag'))
+            $this->db->where('flag',$this->input->post('flag'));
+        if($this->input->POST('start_date')) {
+            $this->db->where('cdate >=', date('Y-m-d H:i:s',strtotime($this->input->POST('start_date'))));
+        }
+        if($this->input->POST('end_date')) {
+            $this->db->where('cdate <=', date('Y-m-d H:i:s',strtotime('+1 day',strtotime($this->input->POST('end_date')))));
+        }
+        $this->db->limit($numPerPage, ($pageNum - 1) * $numPerPage );
+        $this->db->order_by($this->input->post('orderField') ? $this->input->post('orderField') : 'id', $this->input->post('orderDirection') ? $this->input->post('orderDirection') : 'desc');
+        $data['res_list'] = $this->db->get()->result();
+        // $data['type_list'] = $this->db->from('question_type')->get()->result();
+        $data['pageNum'] = $pageNum;
+        $data['numPerPage'] = $numPerPage;
+        return $data;
+    }
+
+    public function edit_dclc($id){
+        $row = $this->db->select()->from('dclc')->where('id',$id)->get()->row_array();
+        return $row;
+    }
+
+    public function save_dclc(){
+        if(!$this->input->post('id')){
+            return -1;
+        }
+        $data = array(
+            'flag'=>$this->input->post('flag'),
+            'mark'=>$this->input->post('mark')
+        );
+        $res = $this->db->where('id',$this->input->post('id'))->update('dclc',$data);
+        if($res){
+            return 1;
+        }else{
+            return -1;
+        }
+
+    }
+
 }
