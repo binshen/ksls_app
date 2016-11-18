@@ -752,7 +752,7 @@ class Manage extends MY_Controller {
 	public function save_dclc(){
 		$res = $this->manage_model->save_dclc();
 		if($res == 1) {
-			form_submit_json("200", "操作成功", 'list_dclc', '', '');
+			form_submit_json("200", "操作成功", 'list_dclc');
 		} else {
 			form_submit_json("300", "删除失败");
 		}
