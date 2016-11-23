@@ -33,11 +33,12 @@ class Dclc extends CI_Controller {
 
     public function save_info(){
         $res = $this->dclc_model->save_info();
-        if($res==1){
+        echo $res;
+        /*if($res==1){
             $this->display('dclc/dclc_info.html');
         }else{
             $this->display('dclc/dclc_info.html');
-        }
+        }*/
     }
 
 }

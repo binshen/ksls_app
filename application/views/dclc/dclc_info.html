@@ -56,7 +56,7 @@ font-size: 14px;
                     </div>
 
                     <div class="field submit-btn">
-                        <input type="submit" class="c-btn-orange" value="保存"/>
+                        <input id="save_btn" onclick="get_data()" type="button" class="c-btn-orange" value="保存"/>
                         </div>
                         
 <div class="field login-option">
@@ -75,6 +75,27 @@ font-size: 14px;
     <script type="text/javascript">
         var data_ = Date.parse(new Date());
         $('#label').val(data_);
+
+        function get_data(){
+            mobile = $('#mobile').val()
+            username = $('#username').val()
+            demo = $('#demo').val()
+            $.post("{{site_url url='dclc/save_info'}}/"+window.page,{mobile:mobile,username:username,demo:demo},function(data){
+                if(data==1){
+                   $("#save_btn").css('display','none');
+                    $("#mobile").attr('readonly','readonly');
+                    $("#username").attr('readonly','readonly');
+                    $("#demo").attr('readonly','readonly');
+                }else{
+                    if(data==-2){
+                        alert('你已提交申请!')
+                    }else{
+                        alert('信息填写不符合要求!')
+                    }
+                }
+
+            });
+        }
 </script>
 
 
