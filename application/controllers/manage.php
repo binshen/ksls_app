@@ -55,6 +55,11 @@ class Manage extends MY_Controller {
 				){
 					return call_user_func_array(array($this, $method), $params);
 				}else{
+					if($method == 'list_dclc' || $method == 'edit_dclc' || $method == 'save_dclc'){
+						if(in_array(10,$this->session->userdata('position_id_array'))){
+							return call_user_func_array(array($this, $method), $params);
+						}
+					}
 					redirect(site_url('/manage'));
 					exit();
 				}

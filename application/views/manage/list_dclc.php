@@ -50,9 +50,7 @@
 <div class="pageContent">
     <div class="panelBar">
         <ul class="toolBar">
-            <?php if($this->session->userdata('permission_id') == 1): ?>
                 <li><a class="edit" href="<?php echo site_url('manage/edit_dclc/{id}')?>" target="dialog" rel="edit_dclc" warn="请选择一条记录" title="查看"><span>查看</span></a></li>
-            <?php endif ?>
         </ul>
     </div>
 

@@ -142,14 +142,17 @@ $(function(){
 								<li><a href="<?php echo site_url('manage/list_agenda');?>" target="navTab" rel="list_agenda">代办事项</a></li>
 							</ul>
 						</div>
-						<div class="accordionHeader">
-							<h2><span>Folder</span>大成莲创信息</h2>
-						</div>
-						<div class="accordionContent">
-							<ul class="tree">
-								<li><a href="<?php echo site_url('manage/list_dclc');?>" target="navTab" rel="list_dclc">大成莲创信息</a></li>
-							</ul>
-						</div>
+
+					<?php endif;?>
+					<?php if($this->session->userdata('permission_id')==1 || in_array(10,$this->session->userdata('position_id_array'))):?>
+					<div class="accordionHeader">
+						<h2><span>Folder</span>大成莲创信息</h2>
+					</div>
+					<div class="accordionContent">
+						<ul class="tree">
+							<li><a href="<?php echo site_url('manage/list_dclc');?>" target="navTab" rel="list_dclc">大成莲创信息</a></li>
+						</ul>
+					</div>
 					<?php endif;?>
 				</div>
 			</div>
