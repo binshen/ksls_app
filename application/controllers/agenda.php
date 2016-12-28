@@ -197,8 +197,9 @@ class Agenda extends MY_Controller
             }
             $this->assign('agenda_images', $agenda_images);
         }
-
-        $this->assign('time', date('YmdHis'));
+        $folder_user = (string)$this->session->userdata('login_user_id');
+        $this->assign('time', $folder_user.date('YmdHis'));
+        $this->assign('f_user_id', $this->session->userdata('login_user_id'));
         $this->display('add_agenda.html');
     }
 
