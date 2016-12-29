@@ -501,7 +501,7 @@
     });
 
     function triggerFileUpload(style) {
-        var data_ ="{{$f_user_id}}_" + Date.parse(new Date());
+        var data_ ="{{$f_user_id}}_{{$time}}_" + Date.parse(new Date());
         $("#folder").val(data_);
         var html = '<div id="uploader" style="width:550px;"><p>Your browser doesn\'t have Flash, Silverlight or HTML5 support.</p></div>';
 
