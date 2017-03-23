@@ -22,19 +22,56 @@ body,div,ul,li,em{margin:0;padding:0;border:none;list-style: none;}
 <body>
 	<div class="main">
 		<ul class="num-list">
-			<li><em>1</em></li>
-			<li><em>2</em></li>
-			<li><em>3</em></li>
-			<li><em>4</em></li>
-			<li><em>5</em></li>
-			<li><em>6</em></li>
+			<li><em id="em1">0</em></li>
+			<li><em id="em2">0</em></li>
+			<li><em id="em3">0</em></li>
+			<li><em id="em4">0</em></li>
+			<li><em id="em5">0</em></li>
+			<li><em id="em6">0</em></li>
 		</ul>
 		<div class="btns">
-			<span class="btn-start">开始</span>
-			<span class="btn-start">暂停</span>
+			<span id="start_btn" class="btn-start">开始</span>
+			<span id="end_btn" class="btn-start">暂停</span>
 		</div>
 	</div>
-<script type="text/javascript"> 
+	<script type="text/javascript" src="/static/js/jquery-1.7.2.min.js"></script>
+	<script type="text/javascript" src="/static/js/layer/layer.js"></script>
+<script type="text/javascript">
+	function Refresh(){
+		$("#em1").html(Math.floor(Math.random()*10));
+		$("#em2").html(Math.floor(Math.random()*10));
+		$("#em3").html(Math.floor(Math.random()*10));
+		$("#em4").html(Math.floor(Math.random()*10));
+		$("#em5").html(Math.floor(Math.random()*10));
+		$("#em6").html(Math.floor(Math.random()*10));
+	}
+	var time
+	$("#start_btn").click(function(){
+		time = setInterval('Refresh()',50);
+	});
+
+	$("#end_btn").click(function(){
+		var data_ = Date.parse(new Date());
+		$.getJSON('/cj/get_number/'+data_,function (data) {
+			if(data > 0) {
+				clearInterval(time);
+				$("#em1").html(0);
+				$("#em2").html(0);
+				$("#em3").html(0);
+				if(data >= 100){
+					$("#em4").html(1);
+				}else{
+					$("#em4").html(0);
+				}
+				var dai_ge = data - ((Math.floor(data/10))*10);//个位
+				var dai_shi = (data - ((Math.floor(data/100))*100) - dai_ge)/10;//十位数
+				$("#em5").html(dai_shi);
+				$("#em6").html(dai_ge);
+			} else {
+				layer.msg('请重新开始!')
+			}
+		})
+	});
 // var alldata = "a,b,c,d,e" 
 // var alldataarr = alldata.split(","); 
 // var num = alldataarr.length-1 ; 
