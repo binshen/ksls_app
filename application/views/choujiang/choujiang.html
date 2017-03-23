@@ -55,9 +55,9 @@ body,div,ul,li,em{margin:0;padding:0;border:none;list-style: none;}
 		$.getJSON('/cj/get_number/'+data_,function (data) {
 			if(data > 0) {
 				clearInterval(time);
-				$("#em1").html(0);
-				$("#em2").html(0);
-				$("#em3").html(0);
+				$("#em1").html(8);
+				$("#em2").html(8);
+				$("#em3").html(8);
 				if(data >= 100){
 					$("#em4").html(1);
 				}else{
