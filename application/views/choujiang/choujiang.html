@@ -47,6 +47,7 @@ body,div,ul,li,em{margin:0;padding:0;border:none;list-style: none;}
 	}
 	var time
 	$("#start_btn").click(function(){
+		clearInterval(time);
 		time = setInterval('Refresh()',50);
 	});
 
