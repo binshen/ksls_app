@@ -114,4 +114,8 @@ class Index extends MY_Controller {
         $this->user_model->set_wx_msg($flag);
 
     }
+
+    public function set_cggg_msg(){
+        $this->user_model->set_cggg_msg();
+    }
 }

@@ -216,4 +216,28 @@ class User_model extends MY_Model
         $this->wxpost($this->config->item('WX_SJTJ'),$data,24);
 
     }
+
+    public function set_cggg_msg(){
+        $infomation = "请确认!";
+        $data = array(
+            'first' => array(
+                'value' => '软件提醒',
+                'color' => '#FF0000'
+            ),
+            'keyword1' => array(
+                'value' => '发现新的采购公告',
+                'color' => '#FF0000'
+            ),
+            'keyword2' => array(
+                'value' => $this->input->post('title'),
+                'color' => '#FF0000'
+            ),
+            'remark' => array(
+                'value' => $infomation,
+                'color' => '#FF0000'
+            )
+        );
+        $this->wxpost($this->config->item('WX_JGTZ'),$data,24);
+
+    }
 }

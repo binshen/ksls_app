@@ -10,6 +10,7 @@ $config['WX_SJTJ'] = 'GCLMW8LVj59vIBGfAnoTjo-98pcxBcZak_4eFornX0g'; //数据提�
 $config['WX_TK'] = 'jQaPXlMV4Vn2CBM1UaFFcrf9Kp7i-ZInQBk9xvnyq2M'; //退款模板
 $config['WX_YY'] = 'EFDja7hX1SvZWD7mW9vbN-ikff4cy6B6LIGdQ0jmXsk'; //预约模板
 $config['WX_XC'] = 'vo65oOidcn-zk1Oyh2sSPhM70n4BpwK-e8p683ULPJo'; //行程模板
+$config['WX_JGTZ'] = 'fK1UvQvOz4gYaMZYhjdw3WjvqHnT2NtXpyRcanfqpxk'; //搜索结果通知
 
 //限制最低额度
 $config['Arrears_CK'] = -10000;
