@@ -42,7 +42,7 @@ class Alipay_model extends MY_Model
     public function change_order($out_trade_no,$log=null){
         $row = $this->db->select()->from('sum_log')->where('id',$out_trade_no)->get()->row_array();
 
-        if($log){
+        /*if($log){
             $data = array(
                 'number' => 1,
                 'cdate' => date("Y-m-d H:i:s")
@@ -54,7 +54,7 @@ class Alipay_model extends MY_Model
                 'cdate' => date("Y-m-d H:i:s")
             );
             $this->db->insert('cj_list', $data);
-        }
+        }*/
         if($row){
             if($row['flag'] == 2){
                 $this->db->trans_start();//--------开始事务
