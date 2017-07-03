@@ -154,6 +154,16 @@ $(function(){
 						</ul>
 					</div>
 					<?php endif;?>
+					<?php if($this->session->userdata('permission_id')==1 || in_array(11,$this->session->userdata('position_id_array'))):?>
+						<div class="accordionHeader">
+							<h2><span>Folder</span>房产评估管理</h2>
+						</div>
+						<div class="accordionContent">
+							<ul class="tree">
+								<li><a href="<?php echo site_url('manage/list_pg');?>" target="navTab" rel="list_dclc">房屋评估信息列表</a></li>
+							</ul>
+						</div>
+					<?php endif;?>
 				</div>
 			</div>
 		</div>

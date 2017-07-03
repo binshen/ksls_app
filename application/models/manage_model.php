@@ -1642,4 +1642,39 @@ class Manage_model extends MY_Model
 
     }
 
+    public function list_pg(){
+        $numPerPage = $this->input->post('numPerPage') ? $this->input->post('numPerPage') : 20;
+        $pageNum = $this->input->post('pageNum') ? $this->input->post('pageNum') : 1;
+
+        //获得总记录数
+        $this->db->select('count(1) as num');
+        $this->db->from('fj_xiaoqu');
+        if($this->input->post('xiaoqu'))
+            $this->db->like('xiaoqu',trim($this->input->post('xiaoqu')));
+        if($this->input->post('flag'))
+            $this->db->where('flag',$this->input->post('flag'));
+        $rs_total = $this->db->get()->row();
+        //总记录数
+
+        $data['countPage'] = $rs_total->num;
+
+        $data['xiaoqu'] = $this->input->post('xiaoqu')?trim($this->input->post('xiaoqu')):null;
+        $data['flag'] = $this->input->post('flag') ? trim($this->input->post('flag')):null;
+        //list
+        $this->db->select('a.*,b.name area_name');
+        $this->db->from('fj_xiaoqu a');
+        $this->db->join('fj_area b','a.area_id = b.id');
+        if($this->input->post('xiaoqu'))
+            $this->db->like('xiaoqu',trim($this->input->post('xiaoqu')));
+        if($this->input->post('flag'))
+            $this->db->where('flag',$this->input->post('flag'));
+        $this->db->limit($numPerPage, ($pageNum - 1) * $numPerPage );
+        $this->db->order_by($this->input->post('orderField') ? $this->input->post('orderField') : 'id', $this->input->post('orderDirection') ? $this->input->post('orderDirection') : 'desc');
+        $data['res_list'] = $this->db->get()->result();
+        // $data['type_list'] = $this->db->from('question_type')->get()->result();
+        $data['pageNum'] = $pageNum;
+        $data['numPerPage'] = $numPerPage;
+        return $data;
+    }
+
 }

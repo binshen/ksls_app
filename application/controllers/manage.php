@@ -762,4 +762,46 @@ class Manage extends MY_Controller {
 			form_submit_json("300", "删除失败");
 		}
 	}
+
+	/**
+	 *
+	 * ***************************************以下为房屋评估管理*******************************************************************
+	 */
+
+	public function list_pg()
+	{
+		$data = $this->manage_model->list_pg();
+		$this->load->view('manage/list_pg.php',$data);
+	}
+
+	public function add_pg(){
+		$data['info_list'] = $this->manage_model->get_area_type();
+		$this->load->view('manage/add_menu.php',$data);
+	}
+
+	public function save_pg(){
+		$rs = $this->manage_model->save_pg();
+		if ($rs === 1) {
+			form_submit_json("200", "操作成功", "list_menu");
+		} else {
+			form_submit_json("300", $rs);
+		}
+	}
+
+	public function delete_pg($id){
+		$rs = $this->manage_model->delete_pg($id);
+		if ($rs === 1) {
+			form_submit_json("200", "操作成功", "list_menu", "", "");
+		} else {
+			form_submit_json("300", $rs);
+		}
+	}
+
+	public function edit_pg($id){
+		$data = $this->manage_model->get_pg($id);
+		//$data['icon_list'] = $this->manage_model->get_icon_list();
+		//$data['menu_detail'] = $this->manage_model->get_menu_detail($id);
+		$this->load->view('manage/add_menu.php',$data);
+	}
+
 }
