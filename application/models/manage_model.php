@@ -1677,4 +1677,82 @@ class Manage_model extends MY_Model
         return $data;
     }
 
+    public function get_fj_area(){
+        $area = $this->db->select()->from('fj_area')->get()->result();
+        return $area;
+    }
+
+    public function get_fj_type(){
+        $type = $this->db->select()->from('fj_xiaoqu_type')->get()->result();
+        return $type;
+    }
+
+    public function save_pg(){
+
+        //检测是否存在相同名字的小区
+
+        if($xiaoqu_id = $this->input->post('id')){
+            //检测是否存在相同名字的小区
+            $row_ = $this->db->select()->from('fj_xiaoqu')->where(array(
+                'xiaoqu'=>trim($this->input->post('xiaoqu')),
+                'id <>'=>$xiaoqu_id
+            ))->get()->row();
+            if($row_){
+                return -1;
+            }
+            //开始保存
+            $xiaoqu_arr = array(
+                'xiaoqu'=>trim($this->input->post('xiaoqu')),
+                'flag'=>$this->input->post('flag'),
+                'area_id'=>$this->input->post('area_id')
+            );
+            $this->db->where('id',$xiaoqu_id)->update('fj_xiaoqu',$xiaoqu_arr);
+            $this->db->delete('fj_xiaoqu_detail',array('xiaoqu_id'=>$xiaoqu_id));
+            $type_ids = $this->input->post('type_id');
+            $pgjs=$this->input->post('pgj');
+            if($type_ids){
+                foreach($type_ids as $k=>$type_id){
+                    $this->db->insert('fj_xiaoqu_detail',array(
+                        'xiaoqu_id'=>$xiaoqu_id,
+                        'type_id'=>$type_id,
+                        'pgj'=>$pgjs[$k]
+                    ));
+                }
+            }
+        }else{
+            //检测是否存在相同名字的小区
+            $row_ = $this->db->select()->from('fj_xiaoqu')->where(array(
+                'xiaoqu'=>trim($this->input->post('xiaoqu'))
+            ))->get()->row();
+            if($row_){
+                return -1;
+            }
+            //开始新增
+            $xiaoqu_arr = array(
+                'xiaoqu'=>trim($this->input->post('xiaoqu')),
+                'flag'=>$this->input->post('flag'),
+                'area_id'=>$this->input->post('area_id')
+            );
+            $this->db->insert('fj_xiaoqu',$xiaoqu_arr);
+            $insert_id = $this->db->insert_id();
+            $type_ids = $this->input->post('type_id');
+            $pgjs=$this->input->post('pgj');
+            if($type_ids){
+                foreach($type_ids as $k=>$type_id){
+                    $this->db->insert('fj_xiaoqu_detail',array(
+                        'xiaoqu_id'=>$insert_id,
+                        'type_id'=>$type_id,
+                        'pgj'=>$pgjs[$k]
+                    ));
+                }
+            }
+        }
+        return 1;
+    }
+
+    public function get_pg($id){
+        $data = $this->db->select()->from('fj_xiaoqu')->where('id',$id)->get()->row_array();
+        $data['list'] = $this->db->select()->from('fj_xiaoqu_detail')->where('xiaoqu_id',$id)->get()->result();
+        return $data;
+    }
 }

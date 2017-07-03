@@ -160,7 +160,7 @@ $(function(){
 						</div>
 						<div class="accordionContent">
 							<ul class="tree">
-								<li><a href="<?php echo site_url('manage/list_pg');?>" target="navTab" rel="list_dclc">房屋评估信息列表</a></li>
+								<li><a href="<?php echo site_url('manage/list_pg');?>" target="navTab" rel="list_pg">房屋评估信息列表</a></li>
 							</ul>
 						</div>
 					<?php endif;?>

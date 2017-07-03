@@ -1,4 +1,4 @@
-<form id="pagerForm" method="post" action="<?php echo site_url('manage/list_dclc')?>">
+<form id="pagerForm" method="post" action="<?php echo site_url('manage/list_pg')?>">
     <input type="hidden" name="pageNum" value="<?php echo $pageNum;?>" />
     <input type="hidden" name="numPerPage" value="<?php echo $numPerPage;?>" />
     <input type="hidden" name="xiaoqu" value="<?php echo $xiaoqu;?>" />
@@ -8,7 +8,7 @@
 </form>
 
 <div class="pageHeader">
-    <form onsubmit="return navTabSearch(this);" action="<?php site_url('manage/list_dclc')?>" method="post">
+    <form onsubmit="return navTabSearch(this);" action="<?php site_url('manage/list_pg')?>" method="post">
         <div class="searchBar">
             <table class="searchContent" id="search_purchase_order">
                 <tr>
@@ -24,7 +24,7 @@
             </table>
             <div class="subBar">
                 <ul>
-                    <li><div class="button"><div class="buttonContent"><button id="clear_search">清除查询</button></div></div></li>
+                   <!-- <li><div class="button"><div class="buttonContent"><button id="clear_search">清除查询</button></div></div></li>-->
                     <li><div class="buttonActive"><div class="buttonContent"><button type="submit">执行查询</button></div></div></li>
                 </ul>
             </div>
@@ -34,7 +34,9 @@
 <div class="pageContent">
     <div class="panelBar">
         <ul class="toolBar">
-                <li><a class="edit" href="<?php echo site_url('manage/edit_dclc/{id}')?>" target="dialog" rel="edit_dclc" warn="请选择一条记录" title="查看"><span>查看</span></a></li>
+            <li><a class="add" href="<?php echo site_url('manage/add_pg')?>" target="navTab" rel="add_pg" title="新建"><span>新建</span></a></li>
+            <li><a class="edit" href="<?php echo site_url('manage/edit_pg/{id}')?>" target="navTab" rel="edit_pg" warn="请选择一条记录" title="查看"><span>查看</span></a></li>
+           <!-- <li><a class="delete" href="<?php /*echo site_url('manage/delete_pg')*/?>/{id}" target="ajaxTodo"  title="确定要操作？" warn="请选择一条记录"><span>使用/禁用</span></a></li>-->
         </ul>
     </div>
 

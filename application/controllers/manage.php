@@ -775,33 +775,33 @@ class Manage extends MY_Controller {
 	}
 
 	public function add_pg(){
-		$data['info_list'] = $this->manage_model->get_area_type();
-		$this->load->view('manage/add_menu.php',$data);
+		$data['list_area'] = $this->manage_model->get_fj_area();
+		$data['list_type'] = $this->manage_model->get_fj_type();
+		$this->load->view('manage/add_pg.php',$data);
 	}
 
 	public function save_pg(){
 		$rs = $this->manage_model->save_pg();
 		if ($rs === 1) {
-			form_submit_json("200", "操作成功", "list_menu");
-		} else {
-			form_submit_json("300", $rs);
-		}
-	}
-
-	public function delete_pg($id){
-		$rs = $this->manage_model->delete_pg($id);
-		if ($rs === 1) {
-			form_submit_json("200", "操作成功", "list_menu", "", "");
-		} else {
+			form_submit_json("200", "操作成功", "list_pg");
+		} elseif($rs == -1){
+			form_submit_json("300", '存在相同小区名字的信息已经保存!');
+		}else {
 			form_submit_json("300", $rs);
 		}
 	}
 
 	public function edit_pg($id){
 		$data = $this->manage_model->get_pg($id);
-		//$data['icon_list'] = $this->manage_model->get_icon_list();
-		//$data['menu_detail'] = $this->manage_model->get_menu_detail($id);
-		$this->load->view('manage/add_menu.php',$data);
+		//die(var_dump($data));
+		$data['list_area'] = $this->manage_model->get_fj_area();
+		$data['list_type'] = $this->manage_model->get_fj_type();
+		$this->load->view('manage/add_pg.php',$data);
+	}
+
+	public function get_fj_type(){
+		$data = $this->manage_model->get_fj_type();
+		return json_encode($data);
 	}
 
 }
