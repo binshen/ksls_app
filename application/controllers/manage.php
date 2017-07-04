@@ -804,4 +804,57 @@ class Manage extends MY_Controller {
 		return json_encode($data);
 	}
 
+	public function list_pg_qq(){
+		$data = $this->manage_model->list_pg_qq();
+		$this->load->view('manage/list_pg_qq.php',$data);
+	}
+
+	public function add_pg_qq(){
+		$this->load->view('manage/add_pg_qq.php');
+	}
+
+	public function save_pg_qq(){
+		$rs = $this->manage_model->save_pg_qq();
+		if ($rs === 1) {
+			form_submit_json("200", "操作成功", "list_pg_qq");
+		} else {
+			form_submit_json("300", $rs);
+		}
+	}
+
+	public function delete_pg_qq($id){
+		$rs = $this->manage_model->delete_pg_qq($id);
+		if ($rs === 1) {
+			form_submit_json("200", "操作成功", "list_pg_qq", "", "");
+		} else {
+			form_submit_json("300", $rs);
+		}
+	}
+
+	public function edit_pg_qq($id){
+		$data = $this->manage_model->get_pg_qq($id);
+		$this->load->view('manage/add_pg_qq.php',$data);
+	}
+	/**
+	 *
+	 * ***************************************以下为评估页面留言列表*******************************************************************
+	 */
+	public function list_pg_msg(){
+		$data = $this->manage_model->list_pg_msg();
+		$this->load->view('manage/list_pg_msg.php',$data);
+	}
+
+	public function edit_pg_msg($id){
+		$data = $this->manage_model->edit_pg_msg($id);
+		$this->load->view('manage/edit_pg_msg.php',$data);
+	}
+
+	public function save_pg_msg(){
+		$res = $this->manage_model->save_pg_msg();
+		if($res == 1) {
+			form_submit_json("200", "操作成功", 'list_pg_msg');
+		} else {
+			form_submit_json("300", "删除失败");
+		}
+	}
 }

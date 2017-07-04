@@ -1755,4 +1755,150 @@ class Manage_model extends MY_Model
         $data['list'] = $this->db->select()->from('fj_xiaoqu_detail')->where('xiaoqu_id',$id)->get()->result();
         return $data;
     }
+
+    public function list_pg_qq(){
+        $numPerPage = $this->input->post('numPerPage') ? $this->input->post('numPerPage') : 20;
+        $pageNum = $this->input->post('pageNum') ? $this->input->post('pageNum') : 1;
+
+        //获得总记录数
+        $this->db->select('count(1) as num');
+        $this->db->from('fj_pg_qq');
+        $rs_total = $this->db->get()->row();
+        //总记录数
+
+        $data['countPage'] = $rs_total->num;
+
+        //list
+        $this->db->select('*');
+        $this->db->from('fj_pg_qq');
+        $this->db->limit($numPerPage, ($pageNum - 1) * $numPerPage );
+        $this->db->order_by($this->input->post('orderField') ? $this->input->post('orderField') : 'id', $this->input->post('orderDirection') ? $this->input->post('orderDirection') : 'desc');
+        $data['res_list'] = $this->db->get()->result();
+        // $data['type_list'] = $this->db->from('question_type')->get()->result();
+        $data['pageNum'] = $pageNum;
+        $data['numPerPage'] = $numPerPage;
+        return $data;
+    }
+
+    /**
+     * 保存客服QQ
+     */
+    public function save_pg_qq(){
+        $this->db->trans_start();
+        if($this->input->post('id')){//修改
+            $this->db->where('id', $this->input->post('id'));
+            $this->db->update('fj_pg_qq', $this->input->post());
+        }else{//新增
+            $data = $this->input->post();
+            $this->db->insert('fj_pg_qq', $data);
+        }
+        $this->db->trans_complete();
+        if ($this->db->trans_status() === FALSE) {
+            return $this->db_error;
+        } else {
+            return 1;
+        }
+    }
+
+    /**
+     * 删除客服QQ
+     */
+    public function delete_pg_qq($id){
+        $rs = $this->db->delete('fj_pg_qq', array('id' => $id));
+        if($rs){
+            return 1;
+        }else{
+            return $this->db_error;
+        }
+    }
+
+    /**
+     * 获取客服QQ
+     */
+    public function get_pg_qq($id){
+        $this->db->select('*')->from('fj_pg_qq')->where('id', $id);
+        $data = $this->db->get()->row();
+        return $data;
+    }
+
+    public function list_pg_msg(){
+        $numPerPage = $this->input->post('numPerPage') ? $this->input->post('numPerPage') : 20;
+        $pageNum = $this->input->post('pageNum') ? $this->input->post('pageNum') : 1;
+
+        //获得总记录数
+        $this->db->select('count(1) as num');
+        $this->db->from('fj_msg');
+        if($this->input->post('mobile'))
+            $this->db->like('mobile',trim($this->input->post('mobile')));
+        if($this->input->post('username'))
+            $this->db->like('username',trim($this->input->post('username')));
+        if($this->input->post('demo'))
+            $this->db->like('demo',trim($this->input->post('demo')));
+        if($this->input->post('flag'))
+            $this->db->where('flag',$this->input->post('flag'));
+        if($this->input->POST('start_date')) {
+            $this->db->where('cdate >=', date('Y-m-d H:i:s',strtotime($this->input->POST('start_date'))));
+        }
+        if($this->input->POST('end_date')) {
+            $this->db->where('cdate <=', date('Y-m-d H:i:s',strtotime('+1 day',strtotime($this->input->POST('end_date')))));
+        }
+        $rs_total = $this->db->get()->row();
+        //总记录数
+
+        $data['countPage'] = $rs_total->num;
+
+        $data['mobile'] = $this->input->post('mobile')?trim($this->input->post('mobile')):null;
+        $data['username'] = $this->input->post('username')?$this->input->post('username'):null;
+        $data['flag'] = $this->input->post('flag') ? trim($this->input->post('flag')):null;
+        $data['demo'] = $this->input->post('demo') ? trim($this->input->post('demo')):null;
+        $data['start_date'] = $this->input->post('start_date') ? trim($this->input->post('start_date')):null;
+        $data['end_date'] = $this->input->post('end_date') ? trim($this->input->post('end_date')):null;
+        //list
+        $this->db->select();
+        $this->db->from('fj_msg');
+
+        if($this->input->post('mobile'))
+            $this->db->like('mobile',trim($this->input->post('mobile')));
+        if($this->input->post('username'))
+            $this->db->like('username',trim($this->input->post('username')));
+        if($this->input->post('demo'))
+            $this->db->like('demo',trim($this->input->post('demo')));
+        if($this->input->post('flag'))
+            $this->db->where('flag',$this->input->post('flag'));
+        if($this->input->POST('start_date')) {
+            $this->db->where('cdate >=', date('Y-m-d H:i:s',strtotime($this->input->POST('start_date'))));
+        }
+        if($this->input->POST('end_date')) {
+            $this->db->where('cdate <=', date('Y-m-d H:i:s',strtotime('+1 day',strtotime($this->input->POST('end_date')))));
+        }
+        $this->db->limit($numPerPage, ($pageNum - 1) * $numPerPage );
+        $this->db->order_by($this->input->post('orderField') ? $this->input->post('orderField') : 'id', $this->input->post('orderDirection') ? $this->input->post('orderDirection') : 'desc');
+        $data['res_list'] = $this->db->get()->result();
+        // $data['type_list'] = $this->db->from('question_type')->get()->result();
+        $data['pageNum'] = $pageNum;
+        $data['numPerPage'] = $numPerPage;
+        return $data;
+    }
+
+    public function edit_pg_msg($id){
+        $row = $this->db->select()->from('fj_msg')->where('id',$id)->get()->row_array();
+        return $row;
+    }
+
+    public function save_pg_msg(){
+        if(!$this->input->post('id')){
+            return -1;
+        }
+        $data = array(
+            'flag'=>$this->input->post('flag'),
+            'mark'=>$this->input->post('mark')
+        );
+        $res = $this->db->where('id',$this->input->post('id'))->update('fj_msg',$data);
+        if($res){
+            return 1;
+        }else{
+            return -1;
+        }
+
+    }
 }

@@ -161,6 +161,8 @@ $(function(){
 						<div class="accordionContent">
 							<ul class="tree">
 								<li><a href="<?php echo site_url('manage/list_pg');?>" target="navTab" rel="list_pg">房屋评估信息列表</a></li>
+								<li><a href="<?php echo site_url('manage/list_pg_qq');?>" target="navTab" rel="list_pg_qq">评估客服QQ列表</a></li>
+								<li><a href="<?php echo site_url('manage/list_pg_msg');?>" target="navTab" rel="list_pg_msg">评估留言列表</a></li>
 							</ul>
 						</div>
 					<?php endif;?>
