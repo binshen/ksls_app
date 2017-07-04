@@ -51,6 +51,39 @@ class Index extends MY_Controller {
         $this->display('index.html');
     }
 
+    public function index_test($page=1) {
+
+        $data = $this->news_model->list_news($page);
+        $pager = $this->pagination->getPageLink('/index/index_test', $data['countPage'], $data['numPerPage']);
+        $this->assign('pager', $pager);
+        $this->assign('news_list', $data);
+        $position_id = array();
+        $user_id = $this->session->userdata('login_user_id');
+        if(!empty($user_id)) {
+            $position_id = $this->session->userdata('login_position_id_array');
+            $icons = $this->user_model->get_icons($user_id);
+            $icon_count = $this->user_model->get_icon_count($user_id);
+
+            if(empty($icons)) {
+                $icons = array(
+                    array('id'=> 1, 'name' => '行程管理', 'img' => 'index_nav1.jpg', 'url' => '/activity/list_activity'),
+                    array('id'=> 2, 'name' => '绩效排行', 'img' => 'index_nav14.jpg', 'url' => '/activity/list_ranking'),
+                    array('id'=> 4, 'name' => '预约场地', 'img' => 'index_nav4.jpg', 'url' => '/appointment/book_room')
+                );
+                $icon_count = count($icons);
+            }
+        } else {
+            $icons = $this->user_model->get_icons();
+            $icon_count = $this->user_model->get_icon_count();
+            if($icon_count > 6) $icon_count = 6;
+        }
+        $this->assign('position_id', $position_id);
+        $this->assign('icon_data', json_encode($icons));
+        $this->assign('icon_count', $icon_count);
+
+        $this->display('testhtml/index_test.html');
+    }
+
     public function login() {
         echo $this->user_model->check_login();
         die;
