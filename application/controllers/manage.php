@@ -60,6 +60,24 @@ class Manage extends MY_Controller {
 							return call_user_func_array(array($this, $method), $params);
 						}
 					}
+					if($method == 'list_pg_msg' ||
+						$method == 'edit_pg_msg' ||
+						$method == 'save_pg_msg' ||
+						$method == 'list_pg' ||
+						$method == 'add_pg' ||
+						$method == 'save_pg' ||
+						$method == 'edit_pg' ||
+						$method == 'get_fj_type' ||
+						$method == 'list_pg_qq' ||
+						$method == 'add_pg_qq' ||
+						$method == 'save_pg_qq' ||
+						$method == 'delete_pg_qq' ||
+						$method == 'edit_pg_qq'
+					){
+						if(in_array(11,$this->session->userdata('position_id_array'))){
+							return call_user_func_array(array($this, $method), $params);
+						}
+					}
 					redirect(site_url('/manage'));
 					exit();
 				}
