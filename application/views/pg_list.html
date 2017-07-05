@@ -56,40 +56,48 @@
                 <div class="leftW590">
                     <span class="tit1"><img src="/static/images/tit1.png" alt=""></span>
                     <div class="bordiv-pg">
-                        <div class="pgdiv"><input type="text" class="xqname" placeholder="请输入小区名">
-                            <a href="" class="pgbtn">评估</a></div>
+                        <form id="formSearchHire" method="POST" action="/pg/pg_list">
+                        <div class="pgdiv"><input type="text" name="xiaoqu" class="xqname" placeholder="请输入小区名" value="{{$pg_list.xiaoqu|default:''}}">
+                            <a id="btn_search" href="" class="pgbtn">评估</a></div>
+                        </form>
                         <div class="divtable-pg">
+
                             <div class="thead-pg">
                                 <span class="sheadw172">小区名</span>
                                 <span class="sheadw122">类型</span>
-                                <span class="sheadw125">评估价<em class="fz12">（万元）</em></span>
+                                <span class="sheadw125">评估价<em class="fz12">（元）</em></span>
                                 <span class="sheadw85">操作</span>
                             </div>
+                            {{foreach from=$pg_list.res_list key=key item=item}}
                             <ul class="divtbody-pg">
-                                <li class="liw172">香榭水岸</li>
-                                <li class="liw122">高层</li>
-                                <li class="liw125">200</li>
+                                <li class="liw172">{{$item.xiaoqu|truncate:20:"...":true}}</li>
+                                <li class="liw122">{{$item.type_name}}</li>
+                                <li class="liw125">{{$item.pgj}}</li>
                                 <li class="liw85"><a href="" class="checkmore-pg"></a></li>
                             </ul>
-                            <ul class="divtbody-pg">
-                                <li class="liw172">香榭水岸</li>
-                                <li class="liw122">高层</li>
-                                <li class="liw125">200</li>
-                                <li class="liw85"><a href="" class="checkmore-pg"></a></li>
-                            </ul>
+                            {{/foreach}}
+                            <div id="list_page" class="pages">
+                                {{$pager}}
+                            </div>
                         </div>
+
                     </div>
                 </div>
                 <div class="rightW390">
                     <div class="tit1"><img src="/static/images/tit2.png" alt="" /></div>
                     <p class="p-pg1"><strong>1.</strong>您可以微信留言或者QQ联系我们</p>
                     <form action="" class="form-pg">
-                        <p class="p-txt"><input type="text" placeholder="请输入姓名" ></p>
-                        <p class="p-txt"><input type="text" placeholder="请输入电话号码"></p>
-                        <p class="p-txt p-textarea"><input type="text" placeholder="请输入您的留言" class="textarea"></p>
-                        <p class="send-pg-p"><a href="" class="send-pg-btn">发送</a></p>
+                        <p class="p-txt"><input id="username" type="text" placeholder="请输入姓名" ></p>
+                        <p class="p-txt"><input id="mobile" type="text" placeholder="请输入手机号码"></p>
+                        <p class="p-txt p-textarea"><input id="msg" type="text" placeholder="请输入您的留言" class="textarea"></p>
+                        <p class="send-pg-p"><a id="push_msg" href="javascript:void(0);" class="send-pg-btn">发送</a></p>
                     </form>
-                    <p class="contact-p-pg"><strong>2.</strong> <a href="" class="a-qq-btn"><img src="/static/images/qqicon.png" alt="" /><br />联系QQ客服</a></p>
+                    <p class="contact-p-pg"><strong>2.</strong>
+                        {{foreach from=$pg_list.qq_list key=key item=item}}
+                        <a target="_blank" href="http://wpa.qq.com/msgrd?v=3&uin={{$item.qq}}&site=qq&menu=yes"><img src="/static/images/qqicon.png" alt="{{$item.desc}}" title="{{$item.desc}}"/><br />{{$item.desc}}</a>
+                    {{/foreach}}
+                       <!-- <a href="" class="a-qq-btn"><img src="/static/images/qqicon.png" alt="" /><br />联系QQ客服</a>-->
+                    </p>
                 </div>
 
 
@@ -101,14 +109,59 @@
     {{include file='footer.html'}}
 </body>
 </html>
+<script type="text/javascript" src="/static/js/layer/layer.js"></script>
 <script>
+    $("#mobile").keyup(function () {
+        $(this).val($(this).val().replace(/[^0-9]/g, ''));
+    }).blur(function(){
+        $(this).val($(this).val().replace(/[^0-9]/g, ''));
+    }).bind("paste", function () {  //CTR+V事件处理
+        $(this).val($(this).val().replace(/[^0-9]/g, ''));
+    }).css("ime-mode", "disabled"); //CSS设置输入法不可用
+
     $("#btn_search").click(function(){
         $("#formSearchHire").submit();
+        return false;
     })
-    $("#hire_page").find('a').click(function(){
+    $("#list_page").find('a').click(function(){
         var path = $(this).attr('href');
         $("#formSearchHire").attr("action",path);
         $("#formSearchHire").submit();
         return false;
+    })
+    $("#push_msg").click(function(){
+        var username = $.trim($("#username").val());
+        if(!username){
+            $("#username").val("");
+            layer.msg('必须填写姓名！', {icon: 2});
+            return false;
+        }
+        var demo = $.trim($("#msg").val());
+        if(!demo){
+            $("#msg").val("");
+            layer.msg('请编写留言！', {icon: 2});
+            return false;
+        }
+        var myreg = /^(((13[0-9]{1})|(15[0-9]{1})|(18[0-9]{1}))+\d{8})$/;
+        if(!myreg.test($("#mobile").val()))
+        {
+            layer.msg('请输入有效的手机号码！', {icon: 2});
+            return false;
+        }
+
+        $.post('/pg/save_msg', {username: username, demo: demo,mobile:myreg}, function(data) {
+            if (data == 1) {
+                $("#username").val("");
+                $("#mobile").val("");
+                $("#msg").val("");
+                layer.alert('发送成功！留言信息已经记录,客服会尽快处理!', {
+                    skin: 'layui-layer-lan'
+                    ,closeBtn: 0
+                    ,shift: 4 //动画类型
+                });
+            } else {
+                layer.msg('发送失败！', {icon: 2});
+            }
+        })
     })
 </script>

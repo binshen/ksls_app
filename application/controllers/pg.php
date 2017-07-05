@@ -26,10 +26,17 @@ class Pg extends MY_Controller
     }
 
     public function pg_list($page=1){
-        /*$data = $this->hire_model->hire_list($page);
-        $this->assign('hire_list', $data);
-        $pager = $this->pagination->getPageLink('/hire/hire_list', $data['countPage'], $data['numPerPage']);
-        $this->assign('pager', $pager);*/
+        $data = $this->pg_model->pg_list($page);
+        $data['qq_list']=$this->pg_model->get_qq();
+        $this->assign('pg_list', $data);
+        $pager = $this->pagination->getPageLink('/pg/pg_list', $data['countPage'], $data['numPerPage']);
+        $this->assign('pager', $pager);
         $this->display('pg_list.html');
+    }
+
+    public function save_msg(){
+
+        $res = $this->pg_model->save_msg();
+        echo 1;
     }
 }
