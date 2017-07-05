@@ -65,10 +65,10 @@ class Pg_model extends MY_Model
 
     public function save_msg(){
         $data = array(
-            'username'=>trim($this->input->post('username')),
-            'mobile'=>trim($this->input->post('mobile')),
+            'username'=>trim($this->input->post('username',true)),
+            'mobile'=>trim($this->input->post('mobile',true)),
             'label'=>$this->input->post('label'),
-            'demo'=>$this->input->post('demo'),
+            'demo'=>$this->input->post('demo',true),
             'cdate'=>date('Y-m-d H:m:s')
         );
         //保存信息

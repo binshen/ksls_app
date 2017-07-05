@@ -148,8 +148,9 @@
             layer.msg('请输入有效的手机号码！', {icon: 2});
             return false;
         }
+        var mobile = $("#mobile").val()
 
-        $.post('/pg/save_msg', {username: username, demo: demo,mobile:myreg}, function(data) {
+        $.post('/pg/save_msg', {username: username, demo: demo,mobile:mobile}, function(data) {
             if (data == 1) {
                 $("#username").val("");
                 $("#mobile").val("");
