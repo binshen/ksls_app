@@ -9,6 +9,32 @@
     <link href="/static/css/reset.css" rel="stylesheet" type="text/css">
     <link href="/static/css/style.css" rel="stylesheet" type="text/css">
 </head>
+<style type="text/css">
+
+    .schedule-wrap-pg .leftW590{width:570px;float:left;margin-left:15px;}
+    .schedule-wrap-pg .bordiv-pg{border-right: 1px solid #8a8a8d;padding-bottom: 10px;}
+    .schedule-wrap-pg .tit1{display: block;margin: 30px 0;}
+    .schedule-wrap-pg .xqname{background: #ccc;color:#fff;border:none;padding:0 10px;width: 200px; height: 36px; line-height: 36px; float: left;}
+    .pgbtn{width:78px;height: 36px;border-radius: 3px; display: block; background: #5761a4; color: #fff;
+        font-size: 16px; line-height: 36px; text-align:center; float: left;margin-left: 15px; }.pgdiv{height: 36px;margin-bottom: 25px;}
+    .thead-pg{height: 34px;margin-bottom: 10px;}
+    .thead-pg span{float: left;margin-right: 14px; height: 34px; line-height: 34px; background: #bd6374; font-size: 16px; color: #fff; text-align: center;}
+    .thead-pg span .fz12{font-size: 12px;}
+    .thead-pg .sheadw172,.divtbody-pg .liw172{width:172px;}.thead-pg .sheadw122,.divtbody-pg .liw122{width:122px;}
+    .thead-pg .sheadw125,.divtbody-pg .liw125{width:125px;}.thead-pg .sheadw85,.divtbody-pg .liw85{width:85px;}
+    .divtbody-pg {margin-bottom: 5px; height: 30px;}
+    .divtbody-pg li{font-size:14px; margin-right: 14px;float: left;color:#8a8a8d; text-align: center; line-height: 30px; height: 30px; text-align: center; background: #fff;}
+    .checkmore-pg{width:85px; height: 30px; display:block; background: url(/static/images/btn1.png) no-repeat;}
+    .rightW390{width:380px; float: right;}
+    .schedule-wrap-pg .p-pg1{font-size: 12px; color: #121212;}
+    .form-pg .p-txt{margin:14px 0; background: #fff; height: 32px; line-height: 32px;padding:0 10px;width:168px;}
+    .form-pg .p-txt input{border:none;height: 32px; }
+    .form-pg .p-textarea{height: 140px; width: 345px;}
+    .form-pg .send-pg-p{margin-right: 15px; height: 32px;margin-bottom: 20px;}
+    .form-pg .send-pg-btn{width:80px;height: 32px;  font-size:14px; border-radius:3px;text-align: center; color: #fff; line-height: 32px; float: right; background: #bd6374;}
+    .schedule-wrap-pg .contact-p-pg .a-qq-btn{width:90px; height:90px; display: block; color: #131212; text-align: center;}
+
+</style>
 <body>
 <div class="doc">
     {{include file='header.html'}}
@@ -23,36 +49,52 @@
             </div>
         </div>
         <div class="wrap-right">
-             <div class="search-wrap" style="padding:0 20px;">
-                 <form id="formSearchHire" method="POST" action="/pg/pg_list">
-                     <div class="calendar-input-wrap">
-                         <span class="calendar-start-icon trigger-icon-yui_3_5_1_1_1467856854734_16"></span>
-                         <input type="text" name="xiaoqu" value="" class="sel-begin-time" style="width:200px;"></div>
-                     <a href="javascript:void(0);" class="search-btn" id="btn_search"></a>
-                 </form>
+            <div class="search-wrap">
+
             </div>
-              <div class="schedule-wrap upload-document-wrap">
-                <p class="tab-tit">租房信息</p>
-                <div class="examination-main clearfix">
-                    <table cellspadding="0" border="0" class="examination-list-table">
-                        <tr>
-                            <th width="">小区</th>
-                            <th width="">类型</th>
-                            <th width="">评估价</th>
-                            <th>操作</th>
-                        </tr>
-                        <tr>
-                            <td>琨公馆</td>
-                            <td>小高层</td>
-                            <td>11000</td>
-                            <td><a href="/pg/pg_detail/">查看</a></td>
-                        </tr>
-                    </table>
-                    <div id="hire_page" class="pages">
+            <div class="schedule-wrap upload-document-wrap schedule-wrap-pg">
+                <div class="leftW590">
+                    <span class="tit1"><img src="/static/images/tit1.png" alt=""></span>
+                    <div class="bordiv-pg">
+                        <div class="pgdiv"><input type="text" class="xqname" placeholder="请输入小区名">
+                            <a href="" class="pgbtn">评估</a></div>
+                        <div class="divtable-pg">
+                            <div class="thead-pg">
+                                <span class="sheadw172">小区名</span>
+                                <span class="sheadw122">类型</span>
+                                <span class="sheadw125">评估价<em class="fz12">（万元）</em></span>
+                                <span class="sheadw85">操作</span>
+                            </div>
+                            <ul class="divtbody-pg">
+                                <li class="liw172">香榭水岸</li>
+                                <li class="liw122">高层</li>
+                                <li class="liw125">200</li>
+                                <li class="liw85"><a href="" class="checkmore-pg"></a></li>
+                            </ul>
+                            <ul class="divtbody-pg">
+                                <li class="liw172">香榭水岸</li>
+                                <li class="liw122">高层</li>
+                                <li class="liw125">200</li>
+                                <li class="liw85"><a href="" class="checkmore-pg"></a></li>
+                            </ul>
+                        </div>
                     </div>
+                </div>
+                <div class="rightW390">
+                    <div class="tit1"><img src="/static/images/tit2.png" alt="" /></div>
+                    <p class="p-pg1"><strong>1.</strong>您可以微信留言或者QQ联系我们</p>
+                    <form action="" class="form-pg">
+                        <p class="p-txt"><input type="text" placeholder="请输入姓名" ></p>
+                        <p class="p-txt"><input type="text" placeholder="请输入电话号码"></p>
+                        <p class="p-txt p-textarea"><input type="text" placeholder="请输入您的留言" class="textarea"></p>
+                        <p class="send-pg-p"><a href="" class="send-pg-btn">发送</a></p>
+                    </form>
+                    <p class="contact-p-pg"><strong>2.</strong> <a href="" class="a-qq-btn"><img src="/static/images/qqicon.png" alt="" /><br />联系QQ客服</a></p>
+                </div>
+
+
             </div>
         </div>
-    </div>
 
 </div>
 </div>
