@@ -94,9 +94,9 @@
                     </form>
                     <p class="contact-p-pg"><strong>2.</strong>
                         {{foreach from=$pg_list.qq_list key=key item=item}}
-                        <a target="_blank" href="http://wpa.qq.com/msgrd?v=3&uin={{$item.qq}}&site=qq&menu=yes"><img src="/static/images/qqicon.png" alt="{{$item.desc}}" title="{{$item.desc}}"/><br />{{$item.desc}}</a>
+                        <a target="_blank" class="a-qq-btn" href="http://wpa.qq.com/msgrd?v=3&uin={{$item.qq}}&site=qq&menu=yes"><img src="/static/images/qqicon.png" alt="{{$item.desc}}" title="{{$item.desc}}"/><br />{{$item.desc}}</a>
                     {{/foreach}}
-                       <!-- <a href="" class="a-qq-btn"><img src="/static/images/qqicon.png" alt="" /><br />联系QQ客服</a>-->
+                       <!-- <a href="" ><img src="/static/images/qqicon.png" alt="" /><br />联系QQ客服</a>-->
                     </p>
                 </div>
 
