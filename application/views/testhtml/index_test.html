@@ -25,10 +25,10 @@
     <div class="wraper clearfix">
         <div class="main1000">
             <ul class="index_ul clearfix">
-                <li><a href="../../pg/pg_list"><img src="/static/images/index/ind-btn1.png" alt="" width="135" height="135" /></a></li>
-                <li><a href=""><img src="/static/images/index/ind-btn2.png" alt="" width="135" height="135" /></a></li>
-                <li><a href=""><img src="/static/images/index/ind-btn3.png" alt="" width="135" height="135" /></a></li>
-                <li><a href=""><img src="/static/images/index/ind-btn4.png" alt="" width="135" height="135" /></a></li>
+                <li><a href="javascript:void(0);" url="/pg/pg_list"><img src="/static/images/index/ind-btn1.png" alt="" width="135" height="135" /></a></li>
+                <li><a href="javascript:void(0);" url="/agenda/list_agenda"><img src="/static/images/index/ind-btn2.png" alt="" width="135" height="135" /></a></li>
+                <li><a href="javascript:void(0);" url="/"><img src="/static/images/index/ind-btn3.png" alt="" width="135" height="135" /></a></li>
+                <li><a href="javascript:void(0);" url="/"><img src="/static/images/index/ind-btn4.png" alt="" width="135" height="135" /></a></li>
             </ul>
         </div>
     </div>
@@ -57,8 +57,12 @@
     <script type="text/javascript">
         $(function() {
 
-            $(".a-btns").click(function() {
+            $(".index_ul a").click(function() {
                 redirect_url = $(this).attr('url');
+                if(redirect_url=="/"){
+                    layer.msg('功能开发中...')
+                    return false;
+                }
                 //var result = checkAuth();
                 var data_ = Date.parse(new Date());
                 $.getJSON('/index/check_login/'+data_,function (data) {

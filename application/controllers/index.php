@@ -48,7 +48,8 @@ class Index extends MY_Controller {
         $this->assign('icon_data', json_encode($icons));
         $this->assign('icon_count', $icon_count);
 
-        $this->display('index.html');
+        //$this->display('index.html');
+        $this->display('testhtml/index_test.html');
     }
 
     public function index_test($page=1) {
