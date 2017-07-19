@@ -39,4 +39,10 @@ class Pg extends MY_Controller
         $res = $this->pg_model->save_msg();
         echo 1;
     }
+
+    public function pg_detail($id){
+        $data = $this->pg_model->get_detail($id);
+        $this->assign('data', $data);
+        $this->display('tax_calculate.html');
+    }
 }

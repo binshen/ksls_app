@@ -33,7 +33,7 @@
                         <tr>
                             <td>
                                 <dl>
-                                    <dt>评估价：</dt><dd><input type="text" class="add-txt" id="housepinggu" msg="评估价" onblur="area()" onkeyup="clearNoNum(this)" /><em>万元</em></dd>
+                                    <dt>评估价：</dt><dd><input type="text" class="add-txt" id="housepinggu" msg="评估价" value="{{$data.pgj|default:0}}" onblur="area()" onkeyup="clearNoNum(this)" /><em>元</em></dd>
                                 </dl>
                             </td>
                         </tr>
@@ -51,13 +51,13 @@
                                 </dl>
                             </td>
                         </tr>
-                        <tr>
+                        <!--<tr>
                             <td>
                                 <dl>
                                     <dt>房屋单价：</dt><dd><input type="text" class="add-txt" id="unitprice" msg="房屋单价" onblur="area()" onkeyup="clearNoNum(this)" /><em>元/平米</em></dd>
                                 </dl>
                             </td>
-                        </tr>
+                        </tr>-->
                         <tr>
                             <td>
                                 <dl>
@@ -205,10 +205,10 @@
     function area(){
         var houseArea =   $("#housearea").val() || 0;//房屋面积
         var unitPrice = $("#unitprice").val() || 0;//房屋单价
-        var totalPrice = parseFloat(houseArea) * parseFloat(unitPrice)/10000;
+       // var totalPrice = parseFloat(houseArea) * parseFloat(unitPrice)/10000;
         //alert(unitprice);
         //总价处理
-        $("#totalPrice").val(totalPrice);
+        //$("#totalPrice").val(totalPrice);
     }
     //房产购置年限
 
@@ -241,9 +241,10 @@
         var city ='苏州',dklv ='',shoufu='' ;
         var housepinggu = parseFloat($("#housepinggu").val()) || 0;//评估价
         var houseArea = parseFloat($("#housearea").val()) || 0;//房屋面积
-        var houseareagl = parseFloat($("#houseareagl").val) || 0;//阁楼面积
-        var unitPrice = parseFloat($("#unitprice").val()) || 0;//房屋单价
-        var totalPrice = parseFloat(houseArea) * parseFloat(unitPrice);//房屋总价
+        var houseareagl = parseFloat($("#houseareagl").val()) || 0;//阁楼面积
+        //var unitPrice = parseFloat($("#unitprice").val()) || 0;//房屋单价
+        //var totalPrice = parseFloat(houseArea) * parseFloat(unitPrice);//房屋总价
+        var totalPrice = parseFloat($("#totalPrice").val()) * 10000 || 0;//房屋总价
         var houseProperty = $('#houseproperty').val() || 0;//房产性质
         var limitYear = $('#limityear').val() || 0; //购置年限
         var buyOnly =  $('input[name="buyonly"]:checked').val() || 0;//买家首次购房
@@ -327,7 +328,7 @@
        shoufu = totalPrice - [(housepinggu * houseArea + housepinggu * houseareagl * 0.5 ) * dklv];
        $("#shoufu").val(shoufu);
 
-      alert(dklv);
+      //alert(dklv);
         calnum();
 
     }
@@ -344,8 +345,8 @@
         if($('#housearea').val() ==''){
             alert( $('#housearea').attr("msg")+"不能为空！\r\n");
             return false ;
-        }else if($('#unitprice').val() ==''){
-            alert( $('#unitprice').attr("msg")+"不能为空！\r\n");
+        }else if($('#totalPrice').val() ==''){
+            alert( $('#totalPrice').attr("msg")+"不能为空！\r\n");
             return false;
         }else if( $('#houseproperty').val() == "非普通住宅" &&  $('#dlFwyj').show() &&  $('#fwyj').val() ==""){
             alert( $('#fwyj').attr("msg")+"不能为空！\r\n");
