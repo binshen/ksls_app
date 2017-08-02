@@ -45,4 +45,11 @@ class Pg extends MY_Controller
         $this->assign('data', $data);
         $this->display('tax_calculate.html');
     }
+
+    public function get_xiaoqu(){
+        $data=$this->pg_model->get_xiaoqu();
+        //var_dump($data);
+        echo json_encode($data);
+
+    }
 }

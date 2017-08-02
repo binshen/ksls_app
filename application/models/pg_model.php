@@ -89,4 +89,18 @@ class Pg_model extends MY_Model
         $row= $this->db->get()->row_array();
         return $row;
     }
+
+    public function get_xiaoqu(){
+        $this->db->distinct();
+        $this->db->select('a.xiaoqu name');
+        $this->db->from('fj_xiaoqu a');
+        $this->db->join('fj_xiaoqu_detail b','a.id = b.xiaoqu_id','inner');
+        $this->db->join('fj_xiaoqu_type c','b.type_id = c.id','inner');
+        $this->db->where(array(
+            'a.flag'=>1,
+            'b.pgj >'=>0
+        ));
+        $data = $this->db->get()->result_array();
+        return $data;
+    }
 }
