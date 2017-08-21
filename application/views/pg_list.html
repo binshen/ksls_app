@@ -8,6 +8,7 @@
     <meta name="description" content="评估列表" />
     <link href="/static/css/reset.css" rel="stylesheet" type="text/css">
     <link href="/static/css/style.css" rel="stylesheet" type="text/css">
+    <link href="/static/js/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <style type="text/css">
     .schedule-wrap-pg{overflow: hidden;zoom:1;}
@@ -57,7 +58,7 @@
                     <span class="tit1"><img src="/static/images/tit1.png" alt=""></span>
                     <div class="bordiv-pg">
                         <form id="formSearchHire" method="POST" action="/pg/pg_list">
-                        <div class="pgdiv"><input type="text" name="xiaoqu" class="xqname" placeholder="请输入小区名" value="{{$pg_list.xiaoqu|default:''}}">
+                        <div class="pgdiv"><input autocomplete="off" type="text" id="product_search" name="xiaoqu" class="xqname" placeholder="请输入小区名" value="{{$pg_list.xiaoqu|default:''}}">
                             <a id="btn_search" href="" class="pgbtn">评估</a></div>
                         </form>
                         <div class="divtable-pg">
@@ -73,7 +74,7 @@
                                 <li class="liw172">{{$item.xiaoqu|truncate:20:"...":true}}</li>
                                 <li class="liw122">{{$item.type_name}}</li>
                                 <li class="liw125">{{$item.pgj}}</li>
-                                <li class="liw85"><a href="" class="checkmore-pg"></a></li>
+                                <li class="liw85"><a href="/pg/pg_detail/{{$item.detail_id}}" class="checkmore-pg"></a></li>
                             </ul>
                             {{/foreach}}
                             <div id="list_page" class="pages">
@@ -109,60 +110,76 @@
     {{include file='footer.html'}}
 </body>
 </html>
+<script async="async" src="/static/js/bootstrap/js/bootstrap.min.js"></script>
 <script type="text/javascript" src="/static/js/layer/layer.js"></script>
+<script type="text/javascript" src="/static/js/bootstrap-typeahead.js"></script>
+<script type="text/javascript" src="/static/js/underscore-min.js"></script>
 <script>
-    $("#mobile").keyup(function () {
-        $(this).val($(this).val().replace(/[^0-9]/g, ''));
-    }).blur(function(){
-        $(this).val($(this).val().replace(/[^0-9]/g, ''));
-    }).bind("paste", function () {  //CTR+V事件处理
-        $(this).val($(this).val().replace(/[^0-9]/g, ''));
-    }).css("ime-mode", "disabled"); //CSS设置输入法不可用
-
-    $("#btn_search").click(function(){
-        $("#formSearchHire").submit();
-        return false;
-    })
-    $("#list_page").find('a').click(function(){
-        var path = $(this).attr('href');
-        $("#formSearchHire").attr("action",path);
-        $("#formSearchHire").submit();
-        return false;
-    })
-    $("#push_msg").click(function(){
-        var username = $.trim($("#username").val());
-        if(!username){
-            $("#username").val("");
-            layer.msg('必须填写姓名！', {icon: 2});
-            return false;
-        }
-        var demo = $.trim($("#msg").val());
-        if(!demo){
-            $("#msg").val("");
-            layer.msg('请编写留言！', {icon: 2});
-            return false;
-        }
-        var myreg = /^(((13[0-9]{1})|(15[0-9]{1})|(18[0-9]{1}))+\d{8})$/;
-        if(!myreg.test($("#mobile").val()))
-        {
-            layer.msg('请输入有效的手机号码！', {icon: 2});
-            return false;
-        }
-        var mobile = $("#mobile").val()
-
-        $.post('/pg/save_msg', {username: username, demo: demo,mobile:mobile}, function(data) {
-            if (data == 1) {
-                $("#username").val("");
-                $("#mobile").val("");
-                $("#msg").val("");
-                layer.alert('发送成功！留言信息已经记录,客服会尽快处理!', {
-                    skin: 'layui-layer-lan'
-                    ,closeBtn: 0
-                    ,shift: 4 //动画类型
-                });
-            } else {
-                layer.msg('发送失败！', {icon: 2});
-            }
+    $(function () {
+        $.getJSON("{{site_url url='pg/get_xiaoqu'}}",function (data) {
+            var arrayObj = new Array();
+            $.each(data, function (inx, item) {
+                arrayObj.push(item.name)
+            })
+            var products = arrayObj;
+            $('#product_search').typeahead({source: products})
         })
+
+        $("#mobile").keyup(function () {
+            $(this).val($(this).val().replace(/[^0-9]/g, ''));
+        }).blur(function(){
+            $(this).val($(this).val().replace(/[^0-9]/g, ''));
+        }).bind("paste", function () {  //CTR+V事件处理
+            $(this).val($(this).val().replace(/[^0-9]/g, ''));
+        }).css("ime-mode", "disabled"); //CSS设置输入法不可用
+
+        $("#btn_search").click(function(){
+            $("#formSearchHire").submit();
+            return false;
+        })
+        $("#list_page").find('a').click(function(){
+            var path = $(this).attr('href');
+            $("#formSearchHire").attr("action",path);
+            $("#formSearchHire").submit();
+            return false;
+        })
+        $("#push_msg").click(function(){
+            var username = $.trim($("#username").val());
+            if(!username){
+                $("#username").val("");
+                layer.msg('必须填写姓名！', {icon: 2});
+                return false;
+            }
+            var demo = $.trim($("#msg").val());
+            if(!demo){
+                $("#msg").val("");
+                layer.msg('请编写留言！', {icon: 2});
+                return false;
+            }
+            var myreg = /^(((13[0-9]{1})|(15[0-9]{1})|(18[0-9]{1}))+\d{8})$/;
+            if(!myreg.test($("#mobile").val()))
+            {
+                layer.msg('请输入有效的手机号码！', {icon: 2});
+                return false;
+            }
+            var mobile = $("#mobile").val()
+
+            $.post('/pg/save_msg', {username: username, demo: demo,mobile:mobile}, function(data) {
+                if (data == 1) {
+                    $("#username").val("");
+                    $("#mobile").val("");
+                    $("#msg").val("");
+                    layer.alert('发送成功！留言信息已经记录,客服会尽快处理!', {
+                        skin: 'layui-layer-lan'
+                        ,closeBtn: 0
+                        ,shift: 4 //动画类型
+                    });
+                } else {
+                    layer.msg('发送失败！', {icon: 2});
+                }
+            })
+        })
+
     })
+
 </script>
