@@ -912,3 +912,56 @@ html .fc,.fc table{font-size:1em;background:#f2f3f5}.fc td,.fc th{padding:0;vert
 
 .billurgent{ font-size:14px;padding:0 20px 20px;}
 
+
+.leftW590{width:570px;float:left;margin-left:15px;}
+.bordiv-pg{border-right: 1px solid #8a8a8d;padding-bottom: 10px;}
+.schedule-wrap-pg .tit1{display: block;margin: 30px 0;}
+.xqname{background: #ccc;color:#fff;border:none;padding:0 10px;width: 200px; height: 36px; line-height: 36px; float: left;}
+.pgbtn{width:78px;height: 36px;border-radius: 3px; display: block; background: #5761a4; color: #fff;
+    font-size: 16px; line-height: 36px; text-align:center; float: left;margin-left: 15px; }.pgdiv{height: 36px;margin-bottom: 25px;}
+.thead-pg{height: 34px;margin-bottom: 10px;}
+.thead-pg span{float: left;margin-right: 14px; height: 34px; line-height: 34px; background: #bd6374; font-size: 18px; color: #fff; text-align: center;}
+.thead-pg span .fz12{font-size: 12px;}
+.thead-pg .sheadw172,.divtbody-pg .liw172{width:172px;}.thead-pg .sheadw122,.divtbody-pg .liw122{width:122px;}
+.thead-pg .sheadw125,.divtbody-pg .liw125{width:125px;}.thead-pg .sheadw85,.divtbody-pg .liw85{width:85px;}
+.divtbody-pg {margin-bottom: 5px; height: 30px;}
+.divtbody-pg li{font-size:14px; margin-right: 14px;float: left;color:#8a8a8d; text-align: center; line-height: 30px; height: 30px; text-align: center; background: #fff;}
+.checkmore-pg{width:85px; height: 30px; display:block; background: url(../images/btn1.png) no-repeat;}
+.rightW390{width:380px; float: right;}
+.schedule-wrap-pg .p-pg1{font-size: 12px; color: #121212;}
+.form-pg .p-txt{margin:14px 0; background: #fff; height: 32px; line-height: 32px;padding:0 10px;width:168px;}
+.form-pg .p-txt input{border:none;height: 32px; }
+.form-pg .p-textarea{height: 140px; width: 345px;}
+.form-pg .send-pg-p{margin-right: 15px; height: 32px;margin-bottom: 20px;}
+.form-pg .send-pg-btn{width:80px;height: 32px;  font-size:14px; border-radius:3px;text-align: center; color: #fff; line-height: 32px; float: right; background: #bd6374;}
+.schedule-wrap-pg.contact-p-pg .a-qq-btn{width:90px; height:90px; display: block; color: #131212; text-align: center;}
+
+.add-data-table1 th{font-size:14px;padding:8px 0; color:#333;}
+.add-data-table1 td dl{padding:0;}.add-data-table1 td dt{width:80px;padding:0 15px;}.add-data-table2 td dt{width:50px;}
+.add-data-table1 td dt.wid120{width:120px;}
+.add-data-table1 td {padding:15px 0;width:30%;}.add-data-table2 td {width:20%;}
+.add-data-table1 td dd{width:auto;}.add-data-table1 td .wid75{width:75px;}
+.add-data-table1 td dd .add-txt-wid75{width:75px;}.add-data-table1 td dd .add-txt-wid170{width:160px;}
+.add-data-table1 td dd .add-txt-wid520{width:520px;}.add-data-table1 td dd .add-txt-wid50{width:50px;}
+.add-data-table1 td dl.dl1 dt{width:300px;padding-bottom: 10px;}
+.add-data-table1 td dl.dl1 dt,.add-data-table1 td dl.dl1 dd{clear: left;}
+.add-data-table1 td dl.dl1 dd{padding:0 15px;}
+.add-data-table1 td dl.dl1 dd .txt-area{ text-align: left; font-family: "微软雅黑"; font-size:14px; padding:10px;width:880px; height: 85px; border:1px solid #ccc; text-align: left;}
+.add-data-table1 td dl.dl-photo{}
+
+.finance-add-data-table td{border:none;}
+.finance-add-data-table .dl-photo{padding:30px 33px; height: 140px;}
+.finance-add-data-table .dl-photo .finance-tit{margin-bottom: 22px;margin-left:60px;height:18px; background: url(../images/finance-tit.png) no-repeat;}
+.finance-add-data-table .dl-photo .finance-sfz{width:796px;}
+.finance-add-data-table .dl-photo li{float: left;width: 152px;margin-left:60px;}
+.finance-add-data-table .dl-photo .upload-photo{width:148px; height: 88px; background: #efefef;border:1px solid #dcdcdc; display: block; position: relative;}
+.finance-add-data-table .dl-photo .upload-photo-txt{color:#999;text-align: center; display: block; font-size: 12px; padding:3px 0;}
+.finance-add-data-table .dl-photo .button-upload{border-radius: 3px; width:52px; height: 17px; background: #e0f4fb;border:1px solid #e1eef4; position: absolute;top:35px;left:40px; font-size: 12px; color: #7ab7e0; text-align: center; line-height: 17px;}
+.finance-add-data-table .dl-photo .finance-jhz{background-position: 0 -18px;width:375px;}
+.finance-add-data-table .dl-photo-wid1{float: left;}
+.finance-add-data-table .dl-photo .finance-bdc{width:148px;background-position: 0 -36px;}
+.finance-add-data-table .dl-photo .finance-sbz{width:148px;background-position: 0 -54px;}
+.finance-add-data-table .dl-photo .finance-zx{width:148px;background-position: 0 -71px;}
+.finance-add-data-table .dl-photo .finance-gz{width:148px;background-position: 0 -91px;}
+
+.finance-add-data-table .upload-p1{font-size: 14px; color:#999;padding:20px 100px ; font-family: "微软雅黑";}
