@@ -6,250 +6,20 @@
     <title>房猫房地产管理系统</title>
     <meta name="keywords" content="房猫-行程管理-我的行程" />
     <meta name="description" content="房猫-行程管理-我的行程" />
-    <link href="css/reset.css" rel="stylesheet" type="text/css">
-    <link href="css/style.css" rel="stylesheet" type="text/css">
+    <link href="/static/css/reset.css" rel="stylesheet" type="text/css">
+    <link href="/static/css/style.css" rel="stylesheet" type="text/css">
+    <style type="text/css">
+        .yy_width_{
+            width: 200px;
+        }
+
+    </style>
 </head>
 <body>
 <div class="doc">
-    <div class="header-wrap">
-    <div class="header-in-wrap">
-        <div class="header-left">
-            <!--<p>昆山 5月03日 周二 11：16</p>-->
-            <span class="location">昆山</span>
-            <div class="weather" id="Jweather">
-                <ul class="ulWeather" id="JulWeather">
-                </ul>
-            </div>
-            <div class="currentTime">
-                <div id="Jtime"></div>
-                <div id='calendar'></div>
-            </div>
-        </div>
-        <div class="login-info">
-                            <div class="login-in">
-                    <a href="javascript:" id="Jmoreoperation" class="moreoperation">
-                        <span class="logo-head-pic"><img src="/uploadfiles/profile/997c6b45505053b6d5a527acdd785732.jpeg" alt="" width="26" height="26" /> </span>
-                        沈斌<em class="up-icon"></em></a>
-                    <div class="more-operation" style="display:none;">
-                        <a href="javascript:" id="JperfectBtn"><em class="a-em1"></em>完善资料</a>
-                        <a href="javascript:" id="JreviseBtn"><em class="a-em2"></em>修改密码</a>
-                    </div>| <a href="/index/logout" class="outoperation">退出</a>
-                </div>
-                    </div>
-    </div>
+    {{include file='header.html'}}
 </div>
-<!--------修改密码------>
-<div class="revise-div" id="Jrevise-div" style="display: none; cursor: default">
-    <a href="javascript:" class="pop-close-btn" style="top:0;right:0;"></a>
-    <div class="pop-tit">修改密码</div>
-    <form action="/index/update_password" method="post" id="updatePWDForm">
-        <table  cellpadding="0" cellspacing="0" class="action-table">
-            <tr>
-                <th>当前登录密码：</th>
-                <td><input type="text" id="old_pass" name="oldpassword" class="input-txt"></td>
-                <td id="cur_pass_error"></td>
-            </tr>
-            <tr>
-                <th>新的登录密码：</th>
-                <td><input type="text" id="new_pass" name="password" class="input-txt"></td>
-                <td id="new_pass_error"></td>
-            </tr>
-            <tr>
-                <th>确认新的登录密码：</th>
-                <td><input type="text" id="re_new_pass" name="repassword" class="input-txt"></td>
-                <td id="re_new_pass_error"></td>
-            </tr>
-            <tr>
-                <th></th>
-                <td><a href="javascript:void(0);" id="btnUpdatePSW" class="confirm-btn">确认</a></td>
-                <td></td>
-            </tr>
-        </table>
-    </form>
-</div>
-<!--完善资料-->
-<div class="revise-div" id="Jperfect-div" style="display: none; cursor: default">
-    <a href="javascript:" class="pop-close-btn" style="top:0;right:0;"></a>
-    <div class="pop-tit">完善资料</div>
-    <form action="/" method="post" enctype="multipart/form-data">
-        <dl>
-            <dt class="dt-pic" id="headPic"><img src="/uploadfiles/profile/997c6b45505053b6d5a527acdd785732.jpeg" alt="" width="80" height="80" /></dt>
-            <dd>
-              <span class="s01">
-               修改头像：<br/>
-               <input type="text" value="" class="input-txt" id="txt_head_pic"></span>
-                <input type="file" name="userfile" style="display: none;" id="fileField" onchange="document.getElementById('txt_head_pic').value=this.value" />
-                <a href="javascript:void(0)" id="btnSelectPic" class="confirm-btn upload-btn">浏览</a>
-            </dd>
-            <dt></dt>
-            <dd>
-                修改昵称：<br/>
-                <input type="text" id="rel_name" name="rel_name" value="沈斌" class="input-txt">
-            </dd>
-            <dt></dt>
-            <dd>
-                <a href="javascript:void(0);" id="btnUpdateUser" class="confirm-btn">确认</a>
-            </dd>
-        </dl>
-    </form>
-</div>
-<script type="text/javascript" src="js/jquery-1.9.0.js"></script>
-<script type="text/javascript" src='js/fullcalendar.js'></script>
-<script type="text/javascript" src="js/jquery.blockUI.min.js"></script>
-<script type="text/javascript" src="js/store.min.js"></script>
-<script type="text/javascript" src="js/jquery.ui.widget.js"></script>
-<script type="text/javascript" src="js/jquery.fileupload.js"></script>
-<script type="text/javascript" src="js/jquery.iframe-transport.js"></script>
-<script>
-    //天气预报
-    $("#Jweather").mousemove(function(){
-        $("#JulWeather").show();
-    }).mouseleave(function(){
-        $("#JulWeather").hide();
 
-    })
-
-
-
-    var d = new Date();
-    var date = d.getFullYear() + "年" +(d.getMonth() + 1) + "月" + d.getDate() + "日"+d.getHours()+"时"+d.getMinutes()+"分";
-   $("#Jtime").html(date);
-
-    var weatherStr=ulHtml='';
-    var storeWithExpiration = {
-        set: function(key, val, exp) {
-            store.set(key, { val:val, exp:exp, time:new Date().getTime() })
-        },
-        get: function(key) {
-            var info = store.get(key)
-            if (!info) { return null }
-            if (new Date().getTime() - info.time > info.exp) { return null }
-            return info.val
-        }
-    }
-    if(!storeWithExpiration.get('WeatherData')){
-        $.getJSON("http://api.k780.com:88/?app=weather.future&weaid=1100&appkey=19326&sign=0007c0408974a63e576c48c264636337&format=json&json&jsoncallback=?", function(data){
-            $.each(data.result, function(i,item){
-                (i==0)?weatherStr +='<span class="w-img"><img src="'+item.weather_icon+'" width="28" height="20" /></span>'+item.weather+' '+item.temperature:'';
-                ulHtml += '<li> <span>'+item.week+'</span><span><img src="'+item.weather_icon+'" alt="" width="28" height="20" ></span><span>'+item.weather+'</span><span>'+item.temperature+'</span><span>'+item.wind+'</span></li>';
-            });
-            $("#Jweather").append(weatherStr);
-            $("#JulWeather").append(ulHtml);
-            storeWithExpiration.set('WeatherData',data,43200000);
-        });
-    }
-    else{
-        $.each(storeWithExpiration.get('WeatherData').result, function(i,item){
-            (i==0)?weatherStr +='<span class="w-img"><img src="'+item.weather_icon+'" width="28" height="20" /></span>'+item.weather+' '+item.temperature:'';
-            ulHtml += '<li> <span>'+item.week+'</span><span><img src="'+item.weather_icon+'" alt="" width="28" height="20" ></span><span>'+item.weather+'</span><span>'+item.temperature+'</span><span>'+item.wind+'</span></li>';
-        });
-        $("#Jweather").append(weatherStr);
-        $("#JulWeather").append(ulHtml);
-
-    }
-
-    $("#Jloginout").click(function(){
-        $.blockUI({ message: $('#Jloginpop'), css:{ background: 'none',top:'100px', border: 'none',width:'410px', height:'410px'}, overlayCSS: {cursor:'default'}});
-    });
-
-    $("#Jmoreoperation").click(function(){
-
-        $(".more-operation").toggle();
-        $(this).parent().mouseleave(function(){$(".more-operation").hide()});
-    });
-
-    //修改密码
-    $("#JreviseBtn").click(function(){
-        $.blockUI({ message: $('#Jrevise-div'), css:{ background: 'none',top:'100px',left:'50%',marginLeft:'-420px', border: 'none',width:'840px', height:'425px'}, overlayCSS: {cursor:'default'}});
-    });
-    //完善资料
-    $("#JperfectBtn").click(function(){
-        $.blockUI({ message: $('#Jperfect-div'), css:{ background: 'none',top:'100px',left:'50%',marginLeft:'-420px', border: 'none',width:'840px', height:'425px'}, overlayCSS: {cursor:'default'}});
-    });
-    //关闭弹框
-    $(".pop-close-btn").click(function(){
-        $.unblockUI();
-    });
-
-    $("#btnUpdatePSW").click(function() {
-        var $old_pass = $("#old_pass").val();
-        if($.trim($old_pass) == "") {
-            $("#cur_pass_error").html('<p class="newpwdtips"><em></em>当前密码不能为空</p>');
-            return;
-        }
-        var check = checkCurrentPass($old_pass);
-        if(check < 1) {
-            $("#cur_pass_error").html('<p class="newpwdtips"><em></em>当前密码输入不正确</p>');
-            return;
-        }
-        $("#cur_pass_error").empty();
-        var new_pass = $("#new_pass").val();
-        if($.trim(new_pass) == "") {
-            $("#new_pass_error").html('<p class="newpwdtips"><em></em>新密码不能为空</p>');
-            return;
-        }
-        $("#new_pass_error").empty();
-        var re_new_pass = $("#re_new_pass").val();
-        if(new_pass != re_new_pass) {
-            $("#re_new_pass_error").html('<p class="newpwdtips"><em></em>两次输入的密码不一致</p>');
-            return;
-        }
-        $("#re_new_pass_error").empty();
-
-
-        $.post('/index/update_password', {password: new_pass}, function(data) {
-            $("#old_pass").val("");
-            $("#new_pass").val("");
-            $("#re_new_pass").val("");
-            $.unblockUI();
-        });
-        //$("#updatePWDForm").submit();
-    });
-
-    $("#btnUpdateUser").click(function() {
-        $.post('/index/update_user', {rel_name: $("#rel_name").val()}, function(data) {
-            $.unblockUI();
-            window.location.reload();
-        });
-    });
-
-    $("#btnSelectPic").click(function() {
-        $("#fileField").click();
-    });
-
-    function checkCurrentPass($old_pass) {
-        return $.ajax({
-            url: "/index/check_pass/" + $old_pass,
-            async: false
-        }).responseText;
-    }
-
-    $("#fileField").change(function(){
-        var objUrl = getObjectURL(this.files[0]);
-        if (objUrl) {
-            html = '<img height="80px" width="80px" src="'+objUrl+'" />';
-            $("#headPic").html(html) ;
-        }
-    }).fileupload({
-        url: '/index/upload_pic',
-        dataType: 'json',
-        done: function(e, data) {
-            alert(data);
-        }
-    });
-
-    function getObjectURL(file) {
-        var url = null ;
-        if (window.createObjectURL!=undefined) { // basic
-            url = window.createObjectURL(file) ;
-        } else if (window.URL!=undefined) { // mozilla(firefox)
-            url = window.URL.createObjectURL(file) ;
-        } else if (window.webkitURL!=undefined) { // webkit or chrome
-            url = window.webkitURL.createObjectURL(file) ;
-        }
-        return url ;
-    }
-</script>
     <div class="wraper clearfix">
         <div class="wrap-left">
             <span class="logo"><img src="images/logo.jpg" alt="" width="130" height="35"></span>
@@ -266,38 +36,40 @@
             </div>
              <div class="div-th"><em></em>基本信息</div>
              <div class="div-bd">
-                <form>
+                 <form id="financeForm" method="post" action="/finance/save_finance_1">
+                    <input type="hidden" name="id" value="{{$data.id|default:''}}" />
                 <table cellpadding="0" cellsapcing="0" class="add-data-table add-data-table1">
                     <tr>
                         <th colspan="3" align="center">
-                            申请人信息
+                            申请人信息<span style="color: red">(必填)</span>
                         </th>
                     </tr>
                     <tr>
                         <td width="30%">
                             <dl>
                                 <dt class="">姓  名：</dt>
-                                <dd><input type="text" name="" class="add-txt add-txt-wid170" /></dd>
+                                <dd><input type="text" id="borrower_name" name="borrower_name" value="{{$data.borrower_name|default:''}}" maxlength="6"  class="add-txt add-txt-wid170" /></dd>
                             </dl>
                         </td>
                         <td width="30%"><dl><dt class="">年  龄：</dt>
-                            <dd><input type="text" name="" class="add-txt add-txt-wid75" /><!-- <em>平方米</em> --></dd></dl></td>
+                            <dd><input type="text" id="borrower_age" name="borrower_age" value="{{$data.borrower_age|default:''}}" maxlength="5" class="yy_num add-txt add-txt-wid75" /><!-- <em>平方米</em> --></dd></dl></td>
                         <td><dl><dt class="">性  别：</dt>
-                            <dd><input type="text" name="" class="add-txt add-txt-wid75" /><!-- <em>平方米</em> --></dd></dl></td>     
+                            <dd><label><input type="radio" id="borrower_sex_1" name="borrower_sex" {{if $data.borrower_sex|default:0 == 1 }}checked{{/if}} value="1" class="radio-choose" />男</label>
+                                <label><input type="radio" id="borrower_sex_2" name="borrower_sex" {{if $data.borrower_sex|default:0 == 2 }}checked{{/if}} value="2" class="radio-choose" />女</label></dd>
                     </tr>
                     <tr>
-                        <td><dl><dt class="">籍      贯:</dt><dd><input type="text" name="" class="add-txt add-txt-wid170" /></dd></dl></td>
+                        <td><dl><dt class="">籍      贯:</dt><dd><input type="text" maxlength="15" value="{{$data.borrower_native|default:''}}" id="borrower_native" name="borrower_native" class="add-txt add-txt-wid170" /></dd></dl></td>
                         <td>
                             <dl>
                                 <dt>学      历：</dt>
-                                <dd><input type="text" name="" class="add-txt add-txt-wid75" /></dd></dl></dd>
+                                <dd><input type="text" id="borrower_qualifications" maxlength="10"  value="{{$data.borrower_qualifications|default:''}}" name="borrower_qualifications" class="add-txt add-txt-wid75" /></dd></dl></dd>
                             </dl>
                         </td>
                         <td>
                             <dl>
                                 <dt>婚      姻：</dt>
-                                <dd><label><input type="radio" name="radio1" class="radio-choose" />已婚</label>
-                                    <label><input type="radio" name="radio1" class="radio-choose" />未婚</label></dd>
+                                <dd><label><input type="radio" id="borrower_marriage_1" name="borrower_marriage" {{if $data.borrower_marriage|default:0 == 1 }}checked{{/if}} value="1" class="radio-choose" />已婚</label>
+                                    <label><input type="radio" id="borrower_marriage_2" name="borrower_marriage" {{if $data.borrower_marriage|default:0 == 2 }}checked{{/if}} value="2" class="radio-choose" />未婚</label></dd>
                             </dl>
                         </td>
                     </tr>
@@ -305,16 +77,16 @@
                         <td colspan="3">
                             <dl>
                                 <dt class="wid120"> 工作单位地址：</dt>
-                                <dd><input type="text" name="" class="add-txt add-txt-wid520" /></dd>
+                                <dd><input type="text" id="borrower_workADD" value="{{$data.borrower_workADD|default:''}}" maxlength="40" name="borrower_workADD" class="add-txt add-txt-wid520" /></dd>
                             </dl>
                         </td> 
                     </tr>
                     <tr>
-                        <td><dl><dt class="">职 位：</dt><dd><input type="text" name="" class="add-txt" /></dd></dl></td>
+                        <td><dl><dt class="">职 位：</dt><dd><input type="text"  value="{{$data.borrower_position|default:''}}"  maxlength="10" id="borrower_position" name="borrower_position" class="add-txt" /></dd></dl></td>
                         <td colspan="2">
                             <dl>
                                 <dt>月收入：</dt>
-                                <dd><input type="text" name="" class="add-txt input-wid85" /><em>元/月</em></dd></dd>
+                                <dd><input type="text" id="borrower_income"  value="{{$data.borrower_income|default:''}}"  maxlength="10" name="borrower_income" class="yy_num add-txt input-wid85" /><em>元/月</em></dd></dd>
                             </dl>
                         </td>
                     </tr>
@@ -322,13 +94,13 @@
                         <td>
                             <dl>
                                 <dt class="">社保年限：</dt>
-                                <dd><input type="text" name="" class="add-txt" /></dd>
+                                <dd><input type="text" id="borrower_SSY"  value="{{$data.borrower_SSY|default:''}}"  maxlength="10" name="borrower_SSY" class="add-txt" /></dd>
                             </dl>
                         </td>
                          <td colspan="2">
                             <dl>
                                 <dt class="wid120">身份证号码：</dt>
-                                <dd><input type="text" name="" class="add-txt" /></dd>
+                                <dd><input type="text" id="borrower_code"  value="{{$data.borrower_code|default:''}}"  maxlength="20" name="borrower_code" class="add-txt" /></dd>
                             </dl>
                         </td>
                     </tr>
@@ -336,7 +108,7 @@
                        <td colspan="3">
                            <dl>
                                 <dt>联系方式：</dt>
-                                <dd><input type="text" name="" class="add-txt" /></dd>
+                                <dd><input type="text" id="borrower_phone"  value="{{$data.borrower_phone|default:''}}" maxlength="20" name="borrower_phone" class="add-txt" /></dd>
                             </dl>                            
                         </td>
                     </tr>
@@ -349,20 +121,21 @@
                         <td width="30%">
                             <dl>
                                 <dt class="">姓  名：</dt>
-                                <dd><input type="text" name="" class="add-txt add-txt-wid170" /></dd>
+                                <dd><input type="text" maxlength="6" value="{{$data.spouse_name|default:''}}" id="spouse_name" name="spouse_name" class="add-txt add-txt-wid170" /></dd>
                             </dl>
                         </td>
                         <td width="30%"><dl><dt class="">年  龄：</dt>
-                            <dd><input type="text" name="" class="add-txt add-txt-wid75" /><!-- <em>平方米</em> --></dd></dl></td>
+                            <dd><input type="text" id="spouse_age" value="{{$data.spouse_age|default:''}}"  maxlength="5" name="spouse_age" class="yy_num add-txt add-txt-wid75" /><!-- <em>平方米</em> --></dd></dl></td>
                         <td><dl><dt class="">性  别：</dt>
-                            <dd><input type="text" name="" class="add-txt add-txt-wid75" /><!-- <em>平方米</em> --></dd></dl></td>     
+                            <dd><label><input type="radio" id="spouse_sex_1" name="spouse_sex" {{if $data.spouse_sex|default:0 == 1 }}checked{{/if}} value="1" class="radio-choose" />男</label>
+                                <label><input type="radio" id="spouse_sex_2" name="spouse_sex" {{if $data.spouse_sex|default:0 == 2 }}checked{{/if}} value="2" class="radio-choose" />女</label></dd></dl></td>
                     </tr>
                     <tr>
-                        <td><dl><dt class="">籍      贯:</dt><dd><input type="text" name="" class="add-txt add-txt-wid170" /></dd></dl></td>
+                        <td><dl><dt class="">籍      贯:</dt><dd><input type="text" maxlength="20" value="{{$data.spouse_native|default:''}}"  id="spouse_native" name="spouse_native" class="add-txt add-txt-wid170" /></dd></dl></td>
                         <td>
                             <dl>
                                 <dt>学      历：</dt>
-                                <dd><input type="text" name="" class="add-txt add-txt-wid75" /></dd></dl></dd>
+                                <dd><input type="text" id="spouse_qualifications" maxlength="10" value="{{$data.spouse_qualifications|default:''}}"  name="spouse_qualifications"  class="add-txt add-txt-wid75" /></dd></dl></dd>
                             </dl>
                         </td>
                         <td>
@@ -372,16 +145,16 @@
                         <td colspan="3">
                             <dl>
                                 <dt class="wid120"> 工作单位地址：</dt>
-                                <dd><input type="text" name="" class="add-txt add-txt-wid520" /></dd>
+                                <dd><input type="text" id="spouse_workADD" maxlength="40"  value="{{$data.spouse_workADD|default:''}}" name="spouse_workADD" class="add-txt add-txt-wid520" /></dd>
                             </dl>
                         </td> 
                     </tr>
                     <tr>
-                        <td><dl><dt class="">职 位：</dt><dd><input type="text" name="" class="add-txt" /></dd></dl></td>
+                        <td><dl><dt class="">职 位：</dt><dd><input type="text" maxlength="10"  value="{{$data.spouse_position|default:''}}" id="spouse_position" name="spouse_position" class="add-txt" /></dd></dl></td>
                         <td colspan="2">
                             <dl>
                                 <dt>月收入：</dt>
-                                <dd><input type="text" name="" class="add-txt input-wid85" /><em>元/月</em></dd></dd>
+                                <dd><input type="text" id="spouse_income" maxlength="10" value="{{$data.spouse_income|default:''}}" name="spouse_income" class="yy_num add-txt input-wid85" /><em>元/月</em></dd></dd>
                             </dl>
                         </td>
                     </tr>
@@ -389,13 +162,13 @@
                         <td>
                             <dl>
                                 <dt class="">社保年限：</dt>
-                                <dd><input type="text" name="" class="add-txt" /></dd>
+                                <dd><input type="text" id="spouse_SSY" maxlength="10" value="{{$data.spouse_SSY|default:''}}" name="spouse_SSY" class="add-txt" /></dd>
                             </dl>
                         </td>
                          <td colspan="2">
                             <dl>
                                 <dt class="wid120">身份证号码：</dt>
-                                <dd><input type="text" name="" class="add-txt" /></dd>
+                                <dd><input type="text" id="spouse_code" maxlength="20"  value="{{$data.spouse_code|default:''}}" name="spouse_code" class="add-txt" /></dd>
                             </dl>
                         </td>
                     </tr>
@@ -403,7 +176,7 @@
                        <td colspan="3">
                            <dl>
                                 <dt>联系方式：</dt>
-                                <dd><input type="text" name="" class="add-txt" /></dd>
+                                <dd><input type="text" id="spouse_phone" maxlength="20"  value="{{$data.spouse_phone|default:''}}" name="spouse_phone" class="add-txt" /></dd>
                             </dl>                            
                         </td>
                     </tr>
@@ -418,84 +191,152 @@
                         <td>
                             <dl>
                                 <dt class="">姓  名：</dt>
-                                <dd><input type="text" name="" class="add-txt add-txt-wid75" /></dd>
+                                <dd><input type="text" id="relatives1name" maxlength="6"  value="{{$data.relatives1name|default:''}}" name="relatives1name" class="add-txt add-txt-wid75" /></dd>
                             </dl>
                         </td>
+                        <td><dl><dt class="">关  系：</dt>
+                            <dd><input type="text" id="relatives1tie" maxlength="6" value="{{$data.relatives1tie|default:''}}" name="relatives1tie" class="add-txt add-txt-wid50" /><!-- <em>平方米</em> --></dd></dl></td>
                         <td><dl><dt class="">年  龄：</dt>
-                            <dd><input type="text" name="" class="add-txt add-txt-wid50" /><!-- <em>平方米</em> --></dd></dl></td>
-                        <td><dl><dt class="">性  别：</dt>
-                            <dd><input type="text" name="" class="add-txt add-txt-wid50" /><!-- <em>平方米</em> --></dd></dl></td>
-                        <td><dl><dt class="">性  别：</dt>
-                            <dd><input type="text" name="" class="add-txt add-txt-wid50" /><!-- <em>平方米</em> --></dd></dl></td> 
-                        <td><dl><dt class="">性  别：</dt>
-                            <dd><input type="text" name="" class="add-txt add-txt-wid50" /><!-- <em>平方米</em> --></dd></dl></td>             
+                            <dd><input type="text" id="relatives1age" maxlength="3" value="{{$data.relatives1age|default:''}}" name="relatives1age" class="yy_num add-txt add-txt-wid50" /><!-- <em>平方米</em> --></dd></dl></td>
+                        <td><dl><dt class="">职  业：</dt>
+                            <dd><input type="text" id="relatives1position" maxlength="10" value="{{$data.relatives1position|default:''}}" name="relatives1position" class="add-txt add-txt-wid50" /><!-- <em>平方米</em> --></dd></dl></td>
+                        <td><dl><dt class="">籍  贯：</dt>
+                            <dd><input type="text" id="relatives1native" maxlength="20" value="{{$data.relatives1native|default:''}}" name="relatives1native" class="add-txt add-txt-wid50" /><!-- <em>平方米</em> --></dd></dl></td>
                     </tr>
                     <tr>
                         <td>
                             <dl>
                                 <dt class="">姓  名：</dt>
-                                <dd><input type="text" name="" class="add-txt add-txt-wid75" /></dd>
+                                <dd><input type="text" id="relatives2name" maxlength="6"  value="{{$data.relatives2name|default:''}}" name="relatives2name" class="add-txt add-txt-wid75" /></dd>
                             </dl>
                         </td>
+                        <td><dl><dt class="">关  系：</dt>
+                            <dd><input type="text" id="relatives2tie" maxlength="6"  value="{{$data.relatives2tie|default:''}}" name="relatives2tie" class="add-txt add-txt-wid50" /><!-- <em>平方米</em> --></dd></dl></td>
                         <td><dl><dt class="">年  龄：</dt>
-                            <dd><input type="text" name="" class="add-txt add-txt-wid50" /><!-- <em>平方米</em> --></dd></dl></td>
-                        <td><dl><dt class="">性  别：</dt>
-                            <dd><input type="text" name="" class="add-txt add-txt-wid50" /><!-- <em>平方米</em> --></dd></dl></td>
-                        <td><dl><dt class="">性  别：</dt>
-                            <dd><input type="text" name="" class="add-txt add-txt-wid50" /><!-- <em>平方米</em> --></dd></dl></td> 
-                        <td><dl><dt class="">性  别：</dt>
-                            <dd><input type="text" name="" class="add-txt add-txt-wid50" /><!-- <em>平方米</em> --></dd></dl></td>             
+                            <dd><input type="text" id="relatives2age" maxlength="3"  value="{{$data.relatives2age|default:''}}" name="relatives2age" class="yy_num add-txt add-txt-wid50" /><!-- <em>平方米</em> --></dd></dl></td>
+                        <td><dl><dt class="">职  业：</dt>
+                            <dd><input type="text" id="relatives2position" maxlength="10"  value="{{$data.relatives2position|default:''}}" name="relatives2position" class="add-txt add-txt-wid50" /><!-- <em>平方米</em> --></dd></dl></td>
+                        <td><dl><dt class="">籍  贯：</dt>
+                            <dd><input type="text" id="relatives2native" maxlength="20"  value="{{$data.relatives2native|default:''}}" name="relatives2native" class="add-txt add-txt-wid50" /><!-- <em>平方米</em> --></dd></dl></td>
                     </tr>
 
                     <tr>
                         <td>
                             <dl>
                                 <dt class="">姓  名：</dt>
-                                <dd><input type="text" name="" class="add-txt add-txt-wid75" /></dd>
+                                <dd><input type="text" id="relatives3name" maxlength="6"  value="{{$data.relatives3name|default:''}}" name="relatives3name" class="add-txt add-txt-wid75" /></dd>
                             </dl>
                         </td>
+                        <td><dl><dt class="">关  系：</dt>
+                            <dd><input type="text" id="relatives3tie" maxlength="6"  value="{{$data.relatives3tie|default:''}}" name="relatives3tie" class="add-txt add-txt-wid50" /><!-- <em>平方米</em> --></dd></dl></td>
                         <td><dl><dt class="">年  龄：</dt>
-                            <dd><input type="text" name="" class="add-txt add-txt-wid50" /><!-- <em>平方米</em> --></dd></dl></td>
-                        <td><dl><dt class="">性  别：</dt>
-                            <dd><input type="text" name="" class="add-txt add-txt-wid50" /><!-- <em>平方米</em> --></dd></dl></td>
-                        <td><dl><dt class="">性  别：</dt>
-                            <dd><input type="text" name="" class="add-txt add-txt-wid50" /><!-- <em>平方米</em> --></dd></dl></td> 
-                        <td><dl><dt class="">性  别：</dt>
-                            <dd><input type="text" name="" class="add-txt add-txt-wid50" /><!-- <em>平方米</em> --></dd></dl></td>             
+                            <dd><input type="text" id="relatives3age" maxlength="3"  value="{{$data.relatives3age|default:''}}" name="relatives3age" class="yy_num add-txt add-txt-wid50" /><!-- <em>平方米</em> --></dd></dl></td>
+                        <td><dl><dt class="">职  业：</dt>
+                            <dd><input type="text" id="relatives3position" maxlength="10"  value="{{$data.relatives3position|default:''}}" name="relatives3position" class="add-txt add-txt-wid50" /><!-- <em>平方米</em> --></dd></dl></td>
+                        <td><dl><dt class="">籍  贯：</dt>
+                            <dd><input type="text" id="relatives3native" maxlength="20"  value="{{$data.relatives3native|default:''}}" name="relatives3native" class="add-txt add-txt-wid50" /><!-- <em>平方米</em> --></dd></dl></td>
                     </tr>
                     <tr>
                         <td>
                             <dl>
                                 <dt class="">姓  名：</dt>
-                                <dd><input type="text" name="" class="add-txt add-txt-wid75" /></dd>
+                                <dd><input type="text" id="relatives4name" maxlength="6"  value="{{$data.relatives4name|default:''}}" name="relatives4name" class="add-txt add-txt-wid75" /></dd>
                             </dl>
                         </td>
+                        <td><dl><dt class="">关  系：</dt>
+                            <dd><input type="text" id="relatives4tie" maxlength="6"  value="{{$data.relatives4tie|default:''}}" name="relatives4tie" class="add-txt add-txt-wid50" /><!-- <em>平方米</em> --></dd></dl></td>
                         <td><dl><dt class="">年  龄：</dt>
-                            <dd><input type="text" name="" class="add-txt add-txt-wid50" /><!-- <em>平方米</em> --></dd></dl></td>
-                        <td><dl><dt class="">性  别：</dt>
-                            <dd><input type="text" name="" class="add-txt add-txt-wid50" /><!-- <em>平方米</em> --></dd></dl></td>
-                        <td><dl><dt class="">性  别：</dt>
-                            <dd><input type="text" name="" class="add-txt add-txt-wid50" /><!-- <em>平方米</em> --></dd></dl></td> 
-                        <td><dl><dt class="">性  别：</dt>
-                            <dd><input type="text" name="" class="add-txt add-txt-wid50" /><!-- <em>平方米</em> --></dd></dl></td>             
+                            <dd><input type="text" id="relatives4age" maxlength="3"  value="{{$data.relatives4age|default:''}}" name="relatives4age" class="yy_num add-txt add-txt-wid50" /><!-- <em>平方米</em> --></dd></dl></td>
+                        <td><dl><dt class="">职  业：</dt>
+                            <dd><input type="text" id="relatives4position" maxlength="10"  value="{{$data.relatives4position|default:''}}" name="relatives4position" class="add-txt add-txt-wid50" /><!-- <em>平方米</em> --></dd></dl></td>
+                        <td><dl><dt class="">籍  贯：</dt>
+                            <dd><input type="text" id="relatives4native" maxlength="20"  value="{{$data.relatives4native|default:''}}" name="relatives4native" class="add-txt add-txt-wid50" /><!-- <em>平方米</em> --></dd></dl></td>
                     </tr>
                 </table>
+                 </form>
                 </div>
                 <p style="padding:0 20px 30px;">郑重提醒：<br />
        客户承诺提交资料真实有效，平台根据客户提交资料给出相匹配之金融产品。并给出贷款额度。如因客户提供资料为伪造，或因后期资料不全导致无法顺利办理金融业务的。平台不承担客户任何经济及精神损失。</p>
               <p class="p-btns">
-                  <a href="" class="sub-btn" style="background-color:#35aa47">下一步</a>
+                  <a href="javascript:void(0);" id="save_btn" class="sub-btn" style="background-color:#35aa47">下一步</a>
               </p>  
-              </form>
+
         </div>
     </div>
 </div>
+{{include file='footer.html'}}
+<script type="text/javascript" src="/static/js/layer/layer.js"></script>
 <script type="text/javascript">
     $(".ing-error").mouseover(function(){
         $(this).children(".error-explain").toggle();
     }).mouseout(function(){ $(this).children(".error-explain").hide();});
-    $("#btn_search").click(function() {
-        $('#formSearchActivity').submit();
+
+    $(".yy_num").keyup(function () {
+        $(this).val($(this).val().replace(/[^0-9]/g, ''));
+    }).blur(function(){
+        $(this).val($(this).val().replace(/[^0-9]/g, ''));
+    }).bind("paste", function () {  //CTR+V事件处理
+        $(this).val($(this).val().replace(/[^0-9]/g, ''));
+    }).css("ime-mode", "disabled"); //CSS设置输入法不可用
+
+    $("#save_btn").click(function() {
+
+        if($.trim($("#borrower_name").val()) == "") {
+            layer.msg('请输入申请人姓名', {icon: 2});
+            return;
+        }
+        if($.trim($("#borrower_age").val()) == "") {
+            layer.msg('请输入申请人年龄', {icon: 2});
+            return;
+        }
+        if($("#borrower_sex_1").is(':checked') || $("#borrower_sex_2").is(':checked')){
+
+        }else{
+            layer.msg('请选择申请人性别', {icon: 2});
+            return;
+        }
+        if($.trim($("#borrower_native").val()) == "") {
+            layer.msg('请输入申请人籍贯', {icon: 2});
+            return;
+        }
+        if($.trim($("#borrower_qualifications").val()) == "") {
+            layer.msg('请输入申请人学历', {icon: 2});
+            return;
+        }
+        if($("#borrower_marriage_1").is(':checked') || $("#borrower_marriage_2").is(':checked')){
+
+        }else{
+            layer.msg('请选择申请人婚姻状况', {icon: 2});
+            return;
+        }
+        if($.trim($("#borrower_workADD").val()) == "") {
+            layer.msg('请输入申请人工作地址', {icon: 2});
+            return;
+        }
+        if($.trim($("#borrower_position").val()) == "") {
+            layer.msg('请输入申请人职位', {icon: 2});
+            return;
+        }
+        if($.trim($("#borrower_income").val()) == "") {
+            layer.msg('请输入申请人月收入', {icon: 2});
+            return;
+        }
+        if($.trim($("#borrower_SSY").val()) == "") {
+            layer.msg('请输入申请人社保年限', {icon: 2});
+            return;
+        }
+        if($.trim($("#borrower_code").val()) == "") {
+            layer.msg('请输入申请人身份证号码', {icon: 2});
+            return;
+        }
+        if($.trim($("#borrower_phone").val()) == "") {
+            layer.msg('请输入申请人联系电话', {icon: 2});
+            return;
+        }
+
+        //这里开始处理 配偶信息
+
+        $('#financeForm').submit();
     });
 </script>
 </body>
