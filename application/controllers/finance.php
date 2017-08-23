@@ -24,7 +24,7 @@ class Finance extends MY_Controller
             return call_user_func_array(array($this, $method), $params);
         }
     }
-
+    //获取列表 等待开发
     public function finance_list($page=1){
         $data = $this->finance_model->finance_list($page);
         $this->assign('finance_list', $data);
@@ -33,13 +33,14 @@ class Finance extends MY_Controller
         $this->display('finance_list.html');
     }
 
-
+    //获取详情
     public function finance_detail($id){
         $data = $this->finance_model->get_detail($id);
         $this->assign('data', $data);
         $this->display('tax_calculate.html');
     }
 
+    //打开基本信息页面 第一页
     public function add_finance($id = ""){
         if($id != ""){
             $data = $this->finance_model->get_detail($id);
@@ -49,6 +50,7 @@ class Finance extends MY_Controller
         $this->display('finance.html');
     }
 
+    //保存基本信息页面 第一页
     public function save_finance_1(){
         $res = $this->finance_model->save_finance_1();
         if($res > 0){
@@ -58,6 +60,7 @@ class Finance extends MY_Controller
         }
     }
 
+    //保存基本信息页面 第二页
     public function save_finance_2(){
         $id = $this->input->post("id");
         if(!$id)
@@ -70,12 +73,21 @@ class Finance extends MY_Controller
         }
     }
 
+    //打开基本信息页面 第二页
     public function edit_finance_2($id){
         if(!$id)
             redirect(site_url('/finance/add_finance'));
         $data = $this->finance_model->get_detail($id);
         $this->assign('data', $data);
         $this->display('finance - step2.html');
+    }
+
+    public function edit_finance_3($id){
+        if(!$id)
+            redirect(site_url('/finance/add_finance'));
+        $data = $this->finance_model->get_detail($id);
+        $this->assign('data', $data);
+        $this->display('finance - step3.html');
     }
 
 }

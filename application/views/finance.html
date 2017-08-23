@@ -52,7 +52,7 @@
                             </dl>
                         </td>
                         <td width="30%"><dl><dt class="">年  龄：</dt>
-                            <dd><input type="text" id="borrower_age" name="borrower_age" value="{{$data.borrower_age|default:''}}" maxlength="5" class="yy_num add-txt add-txt-wid75" /><!-- <em>平方米</em> --></dd></dl></td>
+                            <dd><input type="text" id="borrower_age" name="borrower_age" value="{{$data.borrower_age|default:''}}" maxlength="3" class="yy_num add-txt add-txt-wid75" /><!-- <em>平方米</em> --></dd></dl></td>
                         <td><dl><dt class="">性  别：</dt>
                             <dd><label><input type="radio" id="borrower_sex_1" name="borrower_sex" {{if $data.borrower_sex|default:0 == 1 }}checked{{/if}} value="1" class="radio-choose" />男</label>
                                 <label><input type="radio" id="borrower_sex_2" name="borrower_sex" {{if $data.borrower_sex|default:0 == 2 }}checked{{/if}} value="2" class="radio-choose" />女</label></dd>
@@ -283,55 +283,55 @@
 
         if($.trim($("#borrower_name").val()) == "") {
             layer.msg('请输入申请人姓名', {icon: 2});
-            return;
+            return false;
         }
         if($.trim($("#borrower_age").val()) == "") {
             layer.msg('请输入申请人年龄', {icon: 2});
-            return;
+            return false;
         }
         if($("#borrower_sex_1").is(':checked') || $("#borrower_sex_2").is(':checked')){
 
         }else{
             layer.msg('请选择申请人性别', {icon: 2});
-            return;
+            return false;
         }
         if($.trim($("#borrower_native").val()) == "") {
             layer.msg('请输入申请人籍贯', {icon: 2});
-            return;
+            return false;
         }
         if($.trim($("#borrower_qualifications").val()) == "") {
             layer.msg('请输入申请人学历', {icon: 2});
-            return;
+            return false;
         }
         if($("#borrower_marriage_1").is(':checked') || $("#borrower_marriage_2").is(':checked')){
 
         }else{
             layer.msg('请选择申请人婚姻状况', {icon: 2});
-            return;
+            return false;
         }
         if($.trim($("#borrower_workADD").val()) == "") {
             layer.msg('请输入申请人工作地址', {icon: 2});
-            return;
+            return false;
         }
         if($.trim($("#borrower_position").val()) == "") {
             layer.msg('请输入申请人职位', {icon: 2});
-            return;
+            return false;
         }
         if($.trim($("#borrower_income").val()) == "") {
             layer.msg('请输入申请人月收入', {icon: 2});
-            return;
+            return false;
         }
         if($.trim($("#borrower_SSY").val()) == "") {
             layer.msg('请输入申请人社保年限', {icon: 2});
-            return;
+            return false;
         }
         if($.trim($("#borrower_code").val()) == "") {
             layer.msg('请输入申请人身份证号码', {icon: 2});
-            return;
+            return false;
         }
         if($.trim($("#borrower_phone").val()) == "") {
             layer.msg('请输入申请人联系电话', {icon: 2});
-            return;
+            return false;
         }
 
         //这里开始处理 配偶信息

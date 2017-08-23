@@ -145,6 +145,41 @@ class Finance_model extends MY_Model
 
     public function save_finance_2(){
 
+        $data = array(
+            "borrower_hasP" => $this->input->post('borrower_hasP'),
+            "property_community" => trim($this->input->post("property_community")),
+            "property_num" => trim($this->input->post("property_num")),
+            "property_estates" => trim($this->input->post("property_estates")),
+            "property_area" => trim($this->input->post("property_area")),
+            "property_price" => trim($this->input->post("property_price")),
+            "property_owner" => trim($this->input->post("property_owner")),
+            "property_SF" => trim($this->input->post("property_SF")),
+            "property_YG" => trim($this->input->post("property_YG")),
+            "property_AJ" => trim($this->input->post("property_AJ")),
+
+            "borrowing_amount" => $this->input->post('borrowing_amount'),
+            "repayment" => trim($this->input->post("repayment")),
+            "repayment_methods" => trim($this->input->post("repayment_methods")),
+            "explain_XYK" => $this->input->post("explain_XYK",true),
+            "explain_AJ" => $this->input->post("explain_AJ",true),
+            "explain_ZY" => $this->input->post("explain_ZY",true),
+            "explain_SYBX" => $this->input->post("explain_SYBX",true),
+            "explain_SFZC" => $this->input->post("explain_SFZC",true)
+
+
+        );
+        $this->db->trans_start();
+
+        $this->db->where('id',$this->input->post("id"))->update("finance",$data);
+
+        $this->db->trans_complete();//------结束事务
+        if ($this->db->trans_status() === FALSE) {
+            return -1;
+        } else {
+            return 1;
+        }
+
+
     }
 
     public function check_power($id){
