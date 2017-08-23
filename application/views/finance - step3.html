@@ -37,8 +37,9 @@
                                 <dd>
                                     <ul>
                                         <li>
-                                            <span class="upload-photo"><a href="" class="button-upload">上传图片</a></span>
+                                            <span class="upload-photo"><a id="btnUploadImg" href="javascript:void(0);" class="button-upload">上传图片</a></span>
                                             <span class="upload-photo-txt">申请人身份证正面</span>
+                                            <input type="hidden" id="hidImgName" name="pic" value="" />
                                         </li>
                                         <li>
                                             <span class="upload-photo"><a href="" class="button-upload">上传图片</a></span>
@@ -144,13 +145,51 @@
     </div>
 </div>
 {{include file='footer.html'}}
+<script type="text/javascript" src="/static/js/ajaxfileupload.js"></script>
+<script type="text/javascript" src="/static/js/layer/layer.js"></script>
 <script type="text/javascript">
-    $(".ing-error").mouseover(function(){
-        $(this).children(".error-explain").toggle();
-    }).mouseout(function(){ $(this).children(".error-explain").hide();});
-    $("#btn_search").click(function() {
-        $('#formSearchActivity').submit();
-    });
+    window.onload = function() {
+        init();  //初始化
+    }
+
+    //初始化
+    function init() {
+        //初始化图片上传
+        var btnImg = document.getElementById("btnUploadImg");
+        var img = document.getElementById("imgShow");
+        var hidImgName = document.getElementById("hidImgName");
+//		document.getElementById("btnDeleteImg").onclick = function() { DelImg(img, hidImgName); };
+        g_AjxUploadImg(btnImg, img, hidImgName);
+    }
+
+    var g_AjxTempDir = "/uploadfiles/finance/";
+
+    //图片上传
+    function g_AjxUploadImg(btn, img, hidPut) {
+        var button = btn, interval;
+        new AjaxUpload(button, {
+            action: '/finance/upload_image',
+            data: {},
+            name: 'userfile',
+            onSubmit: function(file, ext) {
+                if (!(ext && /^(jpg|JPG|png|PNG|gif|GIF)$/.test(ext))) {
+                    alert("您上传的图片格式不对，请重新选择！");
+                    return false;
+                }
+            },
+            onComplete: function(file, response) {
+                flagValue = response;
+                if (flagValue == "1") {
+                    alert("您上传的图片存在错误");
+                }
+                else {
+                    hidPut.value = response;
+                    img.src = g_AjxTempDir + response;
+
+                }
+            }
+        });
+    }
 </script>
 </body>
 </html>

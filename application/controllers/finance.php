@@ -24,6 +24,21 @@ class Finance extends MY_Controller
             return call_user_func_array(array($this, $method), $params);
         }
     }
+    //上传图片
+    public function upload_image(){
+        $config['upload_path'] = './uploadfiles/finance/';
+        $config['allowed_types'] = 'gif|jpg|png|jpeg';
+        $config['encrypt_name'] = true;
+        $config['max_size'] = '1000';
+        $this->load->library('upload', $config);
+
+        if ( ! $this->upload->do_upload('userfile')){
+            echo 1;
+        }else{
+            $pic_arr = $this->upload->data();
+            echo $pic_arr['file_name'];
+        }
+    }
     //获取列表 等待开发
     public function finance_list($page=1){
         $data = $this->finance_model->finance_list($page);
