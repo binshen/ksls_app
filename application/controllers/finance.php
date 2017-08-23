@@ -82,7 +82,7 @@ class Finance extends MY_Controller
             redirect(site_url('/finance/add_finance'));
         $res = $this->finance_model->save_finance_2();
         if($res > 0){
-            redirect(site_url('/finance/edit_finance_3')."/".$res);
+            redirect(site_url('/finance/edit_finance_3')."/".$id );
         }else{
             redirect(site_url('/finance/add_finance'));
         }
