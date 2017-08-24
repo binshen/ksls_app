@@ -28,7 +28,8 @@ class Finance extends MY_Controller
                     || $method == 'edit_finance_2'
                     || $method == 'edit_finance_2'
                     || $method == 'save_finance_tj'
-                    || $method == 'save_finance_3'){
+                    || $method == 'save_finance_3'
+                    || $method == 'go_finance_1'){
                     redirect(site_url('/finance/finance_list'));
                     exit();
                 }
@@ -84,6 +85,22 @@ class Finance extends MY_Controller
             }
         }
         $this->display('finance.html');
+    }
+
+    public function go_finance_1(){
+        $id = $this->input->post("id");
+        if(!$id)
+            redirect(site_url('/finance/add_finance'));
+        $power_ = $this->finance_model->save_power($id);
+        if($power_ != 1){
+            redirect(site_url('/'));
+        }
+        $res = $this->finance_model->save_finance_2();
+        if($res > 0){
+            redirect(site_url('/finance/add_finance')."/".$id );
+        }else{
+            redirect(site_url('/finance/add_finance'));
+        }
     }
 
     //保存基本信息页面 第一页
