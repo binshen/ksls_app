@@ -21,12 +21,30 @@ class Finance extends MY_Controller
         if(!$this->session->userdata('login_user_id') || in_array(1,$this->session->userdata('login_position_id_array'))) {
             redirect(site_url('/'));
         } else {
+            if($this->session->userdata('login_permission_id') < 3){
+                if($method == 'add_finance'
+                    || $method == 'save_finance_1'
+                    || $method == 'save_finance_2'
+                    || $method == 'edit_finance_2'
+                    || $method == 'edit_finance_2'
+                    || $method == 'save_finance_tj'
+                    || $method == 'save_finance_3'){
+                    redirect(site_url('/finance/finance_list'));
+                    exit();
+                }
+            }
             return call_user_func_array(array($this, $method), $params);
         }
     }
     //上传图片
-    public function upload_image(){
-        $config['upload_path'] = './uploadfiles/finance/';
+    public function upload_image($finance_num){
+        if (is_readable('./././uploadfiles/finance') == false) {
+            mkdir('./././uploadfiles/finance');
+        }
+        if (is_readable('./././uploadfiles/finance/'.$finance_num) == false) {
+            mkdir('./././uploadfiles/finance/'.$finance_num);
+        }
+        $config['upload_path'] = './uploadfiles/finance/'.$finance_num;
         $config['allowed_types'] = 'gif|jpg|png|jpeg';
         $config['encrypt_name'] = true;
         $config['max_size'] = '1000';
@@ -58,15 +76,22 @@ class Finance extends MY_Controller
     //打开基本信息页面 第一页
     public function add_finance($id = ""){
         if($id != ""){
-            $data = $this->finance_model->get_detail($id);
-            if($data)
-                $this->assign('data', $data);
+            $power_ = $this->finance_model->save_power($id);
+            if($power_ == 1){
+                $data = $this->finance_model->get_detail($id);
+                if($data)
+                    $this->assign('data', $data);
+            }
         }
         $this->display('finance.html');
     }
 
     //保存基本信息页面 第一页
     public function save_finance_1(){
+        $power_ = $this->finance_model->save_power($this->input->post('id'));
+        if($power_ != 1){
+            redirect(site_url('/'));
+        }
         $res = $this->finance_model->save_finance_1();
         if($res > 0){
             redirect(site_url('/finance/edit_finance_2')."/".$res);
@@ -80,6 +105,10 @@ class Finance extends MY_Controller
         $id = $this->input->post("id");
         if(!$id)
             redirect(site_url('/finance/add_finance'));
+        $power_ = $this->finance_model->save_power($id);
+        if($power_ != 1){
+            redirect(site_url('/'));
+        }
         $res = $this->finance_model->save_finance_2();
         if($res > 0){
             redirect(site_url('/finance/edit_finance_3')."/".$id );
@@ -92,6 +121,10 @@ class Finance extends MY_Controller
     public function edit_finance_2($id){
         if(!$id)
             redirect(site_url('/finance/add_finance'));
+        $power_ = $this->finance_model->save_power($id);
+        if($power_ != 1){
+            redirect(site_url('/'));
+        }
         $data = $this->finance_model->get_detail($id);
         $this->assign('data', $data);
         $this->display('finance - step2.html');
@@ -100,9 +133,45 @@ class Finance extends MY_Controller
     public function edit_finance_3($id){
         if(!$id)
             redirect(site_url('/finance/add_finance'));
+        $power_ = $this->finance_model->save_power($id);
+        if($power_ != 1){
+            redirect(site_url('/'));
+        }
         $data = $this->finance_model->get_detail($id);
         $this->assign('data', $data);
         $this->display('finance - step3.html');
+    }
+
+    public function save_finance_tj(){
+        $id = $this->input->post("id");
+        if(!$id)
+            redirect(site_url('/finance/add_finance'));
+        $power_ = $this->finance_model->save_power($id);
+        if($power_ != 1){
+            redirect(site_url('/'));
+        }
+        $res = $this->finance_model->save_finance_tj();
+        if($res > 0){
+            redirect(site_url('/finance/edit_finance_3')."/".$id );
+        }else{
+            redirect(site_url('/finance/add_finance'));
+        }
+    }
+
+    public function save_finance_3(){
+        $id = $this->input->post("id");
+        if(!$id)
+            redirect(site_url('/finance/add_finance'));
+        $power_ = $this->finance_model->save_power($id);
+        if($power_ != 1){
+            redirect(site_url('/'));
+        }
+        $res = $this->finance_model->save_finance_3();
+        if($res > 0){
+            redirect(site_url('/finance/edit_finance_2')."/".$id );
+        }else{
+            redirect(site_url('/finance/add_finance'));
+        }
     }
 
 }

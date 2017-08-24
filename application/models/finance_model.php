@@ -71,6 +71,25 @@ class Finance_model extends MY_Model
         return $row;
     }
 
+    public function create_finance_num(){
+
+        $company_id = $this->session->userdata('login_company_id');
+
+        $this->db->select_max('id');
+        $result = $this->db->get_where('finance',
+            array(
+                'company_id' => $company_id,
+                "DATE_FORMAT(create_date,'%Y')" => date('Y'),
+            )
+        )->row_array();
+        $max_num = 1;
+        if(!empty($result['max_num'])) {
+            $max_num += $result['max_num'];
+        }
+        $finance_num = 'FIN' .date('Y'). str_pad($company_id, 4, "0", STR_PAD_LEFT) . str_pad($max_num, 4, "0", STR_PAD_LEFT);
+        return $finance_num;
+    }
+
     public function save_finance_1(){
         $id = $this->input->post("id");
         $data = array(
@@ -124,6 +143,8 @@ class Finance_model extends MY_Model
         );
         $this->db->trans_start();
         if(!$id){
+            $data["company_id"] = $this->session->userdata('login_company_id');
+            $data["finance_num"] = $this->create_finance_num();
             $data["user_id"] = $this->session->userdata('login_user_id');
             $data["create_date"] = date('Y-m-d H:i:s');
             $data["status"] = 1;
@@ -182,8 +203,72 @@ class Finance_model extends MY_Model
 
     }
 
-    public function check_power($id){
+    public function save_finance_tj(){
 
+        $data = array(
+            "borrower_img_SFZ1" => $this->input->post('borrower_img_SFZ1'),
+            "borrower_img_SFZ2" => $this->input->post('borrower_img_SFZ2'),
+            "spouse_img_SFZ1" => $this->input->post('spouse_img_SFZ1'),
+            "spouse_img_SFZ2" => $this->input->post('spouse_img_SFZ2'),
+            "img_JHZ1" => $this->input->post('img_JHZ1'),
+            "img_JHZ2" => $this->input->post('img_JHZ2'),
+            "img_SBZ" => $this->input->post('img_SBZ'),
+            "img_BDC" => $this->input->post('img_BDC'),
+            "img_ZXBG" => $this->input->post('img_ZXBG'),
+            "img_YHLS" => $this->input->post('img_YHLS'),
+        );
+        $this->db->trans_start();
+
+        $this->db->where('id',$this->input->post("id"))->update("finance",$data);
+
+        $this->db->trans_complete();//------结束事务
+        if ($this->db->trans_status() === FALSE) {
+            return -1;
+        } else {
+            return 1;
+        }
+    }
+
+    public function save_finance_3(){
+
+        $data = array(
+            "borrower_img_SFZ1" => $this->input->post('borrower_img_SFZ1'),
+            "borrower_img_SFZ2" => $this->input->post('borrower_img_SFZ2'),
+            "spouse_img_SFZ1" => $this->input->post('spouse_img_SFZ1'),
+            "spouse_img_SFZ2" => $this->input->post('spouse_img_SFZ2'),
+            "img_JHZ1" => $this->input->post('img_JHZ1'),
+            "img_JHZ2" => $this->input->post('img_JHZ2'),
+            "img_SBZ" => $this->input->post('img_SBZ'),
+            "img_BDC" => $this->input->post('img_BDC'),
+            "img_ZXBG" => $this->input->post('img_ZXBG'),
+            "img_YHLS" => $this->input->post('img_YHLS'),
+        );
+        $this->db->trans_start();
+
+        $this->db->where('id',$this->input->post("id"))->update("finance",$data);
+
+        $this->db->trans_complete();//------结束事务
+        if ($this->db->trans_status() === FALSE) {
+            return -1;
+        } else {
+            return 1;
+        }
+    }
+
+    public function save_power($id){
+        $data = $this->db->from('finance')->where('id',$id)->get()->row_array();
+        if(!$data)
+            return -1;
+        if($data['user_id'] == $this->session->userdata('login_user_id')){
+            if($data['status'] == 1){
+                return 1;
+            }else{
+                return -3;
+            }
+
+        }else{
+            return -2;
+        }
     }
 
 }
