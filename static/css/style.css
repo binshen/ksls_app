@@ -941,7 +941,7 @@ html .fc,.fc table{font-size:1em;background:#f2f3f5}.fc td,.fc th{padding:0;vert
 .add-data-table1 td dt.wid120{width:120px;}
 .add-data-table1 td {padding:15px 0;width:30%;}.add-data-table2 td {width:20%;}
 .add-data-table1 td dd{width:auto;}.add-data-table1 td .wid75{width:75px;}
-.add-data-table1 td dd .add-txt-wid75{width:75px;}.add-data-table1 td dd .add-txt-wid170{width:160px;}
+.add-data-table1 td dd .add-txt-wid75{width:75px;}.add-data-table1 td dd .add-txt-wid170{width:160px;}.add-data-table1 td dd .add-txt-wid200{width:200px;}
 .add-data-table1 td dd .add-txt-wid520{width:520px;}.add-data-table1 td dd .add-txt-wid50{width:50px;}
 .add-data-table1 td dl.dl1 dt{width:300px;padding-bottom: 10px;}
 .add-data-table1 td dl.dl1 dt,.add-data-table1 td dl.dl1 dd{clear: left;}
@@ -965,3 +965,7 @@ html .fc,.fc table{font-size:1em;background:#f2f3f5}.fc td,.fc th{padding:0;vert
 .finance-add-data-table .dl-photo .finance-gz{width:148px;background-position: 0 -91px;}
 
 .finance-add-data-table .upload-p1{font-size: 14px; color:#999;padding:20px 100px ; font-family: "微软雅黑";}
+.finance-add-data-table .photo-img{position: absolute;top:0;left:0;}
+.finance-add-data-table .upload-photo .delete-this{width:148px; height: 20px; background: #000;filter:alpha(opacity=60);opacity: 0.6; display: block;
+    top:0; position: absolute;}
+.finance-add-data-table .upload-photo .delete-this i{padding:0 5px;width:10px; height:20px; background: url(/static/images/logo_in.png) no-repeat -123px 2px; display: block; float: right;margin-right:10px; cursor: pointer;}
