@@ -203,6 +203,7 @@ class Finance_model extends MY_Model
 
     }
 
+    //save_finance_tj 和 save_finnace_3 是一样的,目的是为了以后在提交和从第三页返回这两个动作区分开来
     public function save_finance_tj(){
 
         $data = array(

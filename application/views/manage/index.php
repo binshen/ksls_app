@@ -166,6 +166,17 @@ $(function(){
 							</ul>
 						</div>
 					<?php endif;?>
+					<?php if($this->session->userdata('permission_id')==1 || in_array(12,$this->session->userdata('position_id_array'))):?>
+						<div class="accordionHeader">
+							<h2><span>Folder</span>金融管理</h2>
+						</div>
+						<div class="accordionContent">
+							<ul class="tree">
+								<li><a href="<?php echo site_url('manage/list_fin');?>" target="navTab" rel="list_fin">金融信息列表</a></li>
+
+							</ul>
+						</div>
+					<?php endif;?>
 				</div>
 			</div>
 		</div>
