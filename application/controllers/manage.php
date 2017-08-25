@@ -875,4 +875,17 @@ class Manage extends MY_Controller {
 			form_submit_json("300", "删除失败");
 		}
 	}
+	/**
+	 *
+	 * ***************************************以下为金融页面列表*******************************************************************
+	 */
+	public function list_fin(){
+		$data = $this->manage_model->list_fin();
+		$data['company_list'] = $this->manage_model->get_company_list_age();
+		if($this->input->post('company_id'))
+			$data['subsidiary_list'] = $this->manage_model->get_subsidiary_list_age($this->input->post('company_id'));
+		if($this->input->post('subsidiary_id'))
+			$data['user_list'] = $this->manage_model->get_user_list_by_subsidiary_age($this->input->post('subsidiary_id'));
+		$this->load->view('manage/list_fin.php',$data);
+	}
 }

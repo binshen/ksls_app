@@ -23,33 +23,96 @@ class Finance_model extends MY_Model
         $numPerPage = $this->input->post('numPerPage') ? $this->input->post('numPerPage') : 10;
         $pageNum = $this->input->post('pageNum') ? $this->input->post('pageNum') : $page;
 
-        $this->db->select('count(1) as num');
-        $this->db->from('fj_xiaoqu a');
-        $this->db->join('fj_xiaoqu_detail b','a.id = b.xiaoqu_id','inner');
-        $this->db->join('fj_xiaoqu_type c','b.type_id = c.id','inner');
-        if ($this->input->post('xiaoqu')){
-            $this->db->like('a.xiaoqu',trim($this->input->post('xiaoqu')));
+        //获得总记录数
+        $this->db->select('count(distinct(a.id)) as num',false);
+        $this->db->from('finance a');
+        $this->db->join('user b','a.user_id = b.id','inner');
+        $this->db->join('user c','a.create_user = c.id','inner');
+        if($this->input->post('user_id')){
+            $this->db->where('a.user_id',$this->input->post('user_id'));
         }
-        $this->db->where(array(
-            'a.flag'=>1,
-            'b.pgj >'=>0
-        ));
+        if($this->input->post('status')){
+            $this->db->where('a.status',$this->input->post('status'));
+        }
+        if($this->input->post('finance_num')){
+            $this->db->like('a.finance_num',trim($this->input->post('finance_num')));
+        }
+        if($this->input->post('borrower_name')){
+            $this->db->like('a.borrower_name',trim($this->input->post('borrower_name')));
+        }
+        if($this->input->POST('company_id')) {
+            $this->db->where('a.company_id', $this->input->POST('company_id'));
+        }
+        if($this->input->POST('subsidiary_id')) {
+            $this->db->where_in('a.subsidiary_id', $this->input->POST('subsidiary_id'));
+        }
+        if($this->input->POST('Cstart_date')) {
+            $this->db->where('a.create_date >=', $this->input->POST('Cstart_date'));
+        }
+        if($this->input->POST('Cend_date')) {
+            $this->db->where('a.create_date <=', $this->input->POST('Cend_date'));
+        }
+        if($this->input->POST('Tstart_date')) {
+            $this->db->where('a.tijiao_date >=', $this->input->POST('Tstart_date'));
+        }
+        if($this->input->POST('Tend_date')) {
+            $this->db->where('a.tijiao_date <=', $this->input->POST('Tend_date'));
+        }
+        if($this->input->POST('Estart_date')) {
+            $this->db->where('a.end_date >=', $this->input->POST('Estart_date'));
+        }
+        if($this->input->POST('Eend_date')) {
+            $this->db->where('a.end_date <=', $this->input->POST('Eend_date'));
+        }
+        $this->db->where('a.flag',1);
+
         $row = $this->db->get()->row_array();
         //总记录数
         $data['countPage'] = $row['num'];
         $data['xiaoqu'] = $this->input->post('xiaoqu') ? trim($this->input->post('xiaoqu')) : "";
         //list
-        $this->db->select('a.*,b.*,c.type_name,b.id detail_id');
-        $this->db->from('fj_xiaoqu a');
-        $this->db->join('fj_xiaoqu_detail b','a.id = b.xiaoqu_id','inner');
-        $this->db->join('fj_xiaoqu_type c','b.type_id = c.id','inner');
-        if ($this->input->post('xiaoqu')){
-            $this->db->like('a.xiaoqu',trim($this->input->post('xiaoqu')));
+
+        $this->db->select("date_format(a.create_date, '%Y-%m-%d') cdate,a.borrower_phone,a.borrower_name,a.finance_num,a.borrowing_amount,a.repayment,a.repayment_methods,a.status,b.rel_name,a.id",false);
+        $this->db->from('finance a');
+        $this->db->join('user b','a.user_id = b.id','inner');
+        $this->db->join('user c','a.create_user = c.id','inner');
+        if($this->input->post('user_id')){
+            $this->db->where('a.user_id',$this->input->post('user_id'));
         }
-        $this->db->where(array(
-            'a.flag'=>1,
-            'b.pgj >'=>0
-        ));
+        if($this->input->post('status')){
+            $this->db->where('a.status',$this->input->post('status'));
+        }
+        if($this->input->post('finance_num')){
+            $this->db->like('a.finance_num',trim($this->input->post('finance_num')));
+        }
+        if($this->input->post('borrower_name')){
+            $this->db->like('a.borrower_name',trim($this->input->post('borrower_name')));
+        }
+        if($this->input->POST('company_id')) {
+            $this->db->where('a.company_id', $this->input->POST('company_id'));
+        }
+        if($this->input->POST('subsidiary_id')) {
+            $this->db->where_in('a.subsidiary_id', $this->input->POST('subsidiary_id'));
+        }
+        if($this->input->POST('Cstart_date')) {
+            $this->db->where('a.create_date >=', $this->input->POST('Cstart_date'));
+        }
+        if($this->input->POST('Cend_date')) {
+            $this->db->where('a.create_date <=', $this->input->POST('Cend_date'));
+        }
+        if($this->input->POST('Tstart_date')) {
+            $this->db->where('a.tijiao_date >=', $this->input->POST('Tstart_date'));
+        }
+        if($this->input->POST('Tend_date')) {
+            $this->db->where('a.tijiao_date <=', $this->input->POST('Tend_date'));
+        }
+        if($this->input->POST('Estart_date')) {
+            $this->db->where('a.end_date >=', $this->input->POST('Estart_date'));
+        }
+        if($this->input->POST('Eend_date')) {
+            $this->db->where('a.end_date <=', $this->input->POST('Eend_date'));
+        }
+        $this->db->where('a.flag',1);
         $this->db->limit($numPerPage, ($pageNum - 1) * $numPerPage );
         $this->db->order_by('a.id', 'desc');
         $data['res_list'] = $this->db->get()->result_array();

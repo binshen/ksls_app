@@ -64,7 +64,7 @@ class Finance extends MY_Controller
         $this->assign('finance_list', $data);
         $pager = $this->pagination->getPageLink('/finance/finance_list', $data['countPage'], $data['numPerPage']);
         $this->assign('pager', $pager);
-        $this->display('finance_list.html');
+        $this->display('finance/finance-list.html');
     }
 
     //获取详情

@@ -1901,4 +1901,118 @@ class Manage_model extends MY_Model
         }
 
     }
+
+    public function list_fin(){
+        $numPerPage = $this->input->post('numPerPage') ? $this->input->post('numPerPage') : 20;
+        $pageNum = $this->input->post('pageNum') ? $this->input->post('pageNum') : 1;
+
+        //获得总记录数
+        $this->db->select('count(distinct(a.id)) as num',false);
+        $this->db->from('finance a');
+        $this->db->join('user b','a.user_id = b.id','inner');
+        $this->db->join('user c','a.create_user = c.id','inner');
+        if($this->input->post('user_id')){
+            $this->db->where('a.user_id',$this->input->post('user_id'));
+        }
+        if($this->input->post('status')){
+            $this->db->where('a.status',$this->input->post('status'));
+        }
+        if($this->input->post('finance_num')){
+            $this->db->like('a.finance_num',trim($this->input->post('finance_num')));
+        }
+        if($this->input->post('borrower_name')){
+            $this->db->like('a.borrower_name',trim($this->input->post('borrower_name')));
+        }
+        if($this->input->POST('company_id')) {
+            $this->db->where('a.company_id', $this->input->POST('company_id'));
+        }
+        if($this->input->POST('subsidiary_id')) {
+            $this->db->where_in('a.subsidiary_id', $this->input->POST('subsidiary_id'));
+        }
+        if($this->input->POST('Cstart_date')) {
+            $this->db->where('a.create_date >=', $this->input->POST('Cstart_date'));
+        }
+        if($this->input->POST('Cend_date')) {
+            $this->db->where('a.create_date <=', $this->input->POST('Cend_date'));
+        }
+        if($this->input->POST('Tstart_date')) {
+            $this->db->where('a.tijiao_date >=', $this->input->POST('Tstart_date'));
+        }
+        if($this->input->POST('Tend_date')) {
+            $this->db->where('a.tijiao_date <=', $this->input->POST('Tend_date'));
+        }
+        if($this->input->POST('Estart_date')) {
+            $this->db->where('a.end_date >=', $this->input->POST('Estart_date'));
+        }
+        if($this->input->POST('Eend_date')) {
+            $this->db->where('a.end_date <=', $this->input->POST('Eend_date'));
+        }
+        //$this->db->where('a.flag',1);
+        $rs_total = $this->db->get()->row();
+        //总记录数
+
+        $data['countPage'] = $rs_total->num;
+
+        $data['company_id'] = $this->input->post('company_id')?$this->input->post('company_id'):null;
+        $data['subsidiary_id'] = $this->input->post('subsidiary_id')?$this->input->post('subsidiary_id'):null;
+        $data['user_id'] = $this->input->post('user_id')?$this->input->post('user_id'):null;
+        $data['status'] = $this->input->post('status')?$this->input->post('status'):null;
+        $data['finance_num'] = $this->input->post('finance_num') ? trim($this->input->post('finance_num')):null;
+        $data['borrower_name'] = $this->input->post('borrower_name') ? trim($this->input->post('borrower_name')):null;
+        $data['Cstart_date'] = $this->input->post('Cstart_date') ? $this->input->post('Cstart_date') :"";
+        $data['Cend_date'] = $this->input->post('Cend_date') ? $this->input->post('Cend_date') :"";
+        $data['Tstart_date'] = $this->input->post('Tstart_date') ? $this->input->post('Tstart_date') :"";
+        $data['Tend_date'] = $this->input->post('Tend_date') ? $this->input->post('Tend_date') :"";
+        $data['Estart_date'] = $this->input->post('Estart_date') ? $this->input->post('Estart_date') :"";
+        $data['Eend_date'] = $this->input->post('Eend_date') ? $this->input->post('Eend_date') :"";
+        //list
+        $this->db->select('a.*,b.rel_name');
+        $this->db->from('finance a');
+        $this->db->join('user b','a.user_id = b.id','inner');
+        $this->db->join('user c','a.create_user = c.id','inner');
+        if($this->input->post('user_id')){
+            $this->db->where('a.user_id',$this->input->post('user_id'));
+        }
+        if($this->input->post('status')){
+            $this->db->where('a.status',$this->input->post('status'));
+        }
+        if($this->input->post('finance_num')){
+            $this->db->like('a.finance_num',trim($this->input->post('finance_num')));
+        }
+        if($this->input->post('borrower_name')){
+            $this->db->like('a.borrower_name',trim($this->input->post('borrower_name')));
+        }
+        if($this->input->POST('company_id')) {
+            $this->db->where('a.company_id', $this->input->POST('company_id'));
+        }
+        if($this->input->POST('subsidiary_id')) {
+            $this->db->where_in('a.subsidiary_id', $this->input->POST('subsidiary_id'));
+        }
+        if($this->input->POST('Cstart_date')) {
+            $this->db->where('a.create_date >=', $this->input->POST('Cstart_date'));
+        }
+        if($this->input->POST('Cend_date')) {
+            $this->db->where('a.create_date <=', $this->input->POST('Cend_date'));
+        }
+        if($this->input->POST('Tstart_date')) {
+            $this->db->where('a.tijiao_date >=', $this->input->POST('Tstart_date'));
+        }
+        if($this->input->POST('Tend_date')) {
+            $this->db->where('a.tijiao_date <=', $this->input->POST('Tend_date'));
+        }
+        if($this->input->POST('Estart_date')) {
+            $this->db->where('a.end_date >=', $this->input->POST('Estart_date'));
+        }
+        if($this->input->POST('Eend_date')) {
+            $this->db->where('a.end_date <=', $this->input->POST('Eend_date'));
+        }
+        //$this->db->where('a.flag',1);
+        $this->db->limit($numPerPage, ($pageNum - 1) * $numPerPage );
+        $this->db->order_by($this->input->post('orderField') ? $this->input->post('orderField') : 'a.id', $this->input->post('orderDirection') ? $this->input->post('orderDirection') : 'desc');
+        $data['res_list'] = $this->db->get()->result();
+        // $data['type_list'] = $this->db->from('question_type')->get()->result();
+        $data['pageNum'] = $pageNum;
+        $data['numPerPage'] = $numPerPage;
+        return $data;
+    }
 }
