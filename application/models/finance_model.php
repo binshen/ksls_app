@@ -144,8 +144,11 @@ class Finance_model extends MY_Model
         $this->db->trans_start();
         if(!$id){
             $data["company_id"] = $this->session->userdata('login_company_id');
+            $subsidiary_id_array = $this->session->userdata('login_subsidiary_id_array');
+            $data["subsidiary_id"] = $subsidiary_id_array[0]; //在保存前已经判断用户职级,所以必然存在唯一门店编号
             $data["finance_num"] = $this->create_finance_num();
             $data["user_id"] = $this->session->userdata('login_user_id');
+            $data["create_user"] = $this->session->userdata('login_user_id');
             $data["create_date"] = date('Y-m-d H:i:s');
             $data["status"] = 1;
             $this->db->insert("finance",$data);
@@ -207,16 +210,8 @@ class Finance_model extends MY_Model
     public function save_finance_tj(){
 
         $data = array(
-            "borrower_img_SFZ1" => $this->input->post('borrower_img_SFZ1'),
-            "borrower_img_SFZ2" => $this->input->post('borrower_img_SFZ2'),
-            "spouse_img_SFZ1" => $this->input->post('spouse_img_SFZ1'),
-            "spouse_img_SFZ2" => $this->input->post('spouse_img_SFZ2'),
-            "img_JHZ1" => $this->input->post('img_JHZ1'),
-            "img_JHZ2" => $this->input->post('img_JHZ2'),
-            "img_SBZ" => $this->input->post('img_SBZ'),
-            "img_BDC" => $this->input->post('img_BDC'),
-            "img_ZXBG" => $this->input->post('img_ZXBG'),
-            "img_YHLS" => $this->input->post('img_YHLS'),
+            "status" => 2,
+            "tijiao_date" => date('Y-m-d H:i:s'),
         );
         $this->db->trans_start();
 

@@ -167,9 +167,14 @@ class Finance extends MY_Controller
         if($power_ != 1){
             redirect(site_url('/'));
         }
-        $res = $this->finance_model->save_finance_tj();
+        $res = $this->finance_model->save_finance_3();
         if($res > 0){
-            redirect(site_url('/finance/edit_finance_3')."/".$id );
+            $tj = $this->finance_model->save_finance_tj();
+            if($tj == 1){
+                redirect(site_url('/finance/edit_finance_3')."/".$id );
+            }else{
+                redirect(site_url('/finance/add_finance'));
+            }
         }else{
             redirect(site_url('/finance/add_finance'));
         }
