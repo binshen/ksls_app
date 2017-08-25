@@ -1930,10 +1930,10 @@ class Manage_model extends MY_Model
             $this->db->where_in('a.subsidiary_id', $this->input->POST('subsidiary_id'));
         }
         if($this->input->POST('Cstart_date')) {
-            $this->db->where('a.create_date >=', $this->input->POST('Cstart_date'));
+            $this->db->where('date_format(a.create_date, \'%Y-%m-%d\') >=', $this->input->POST('Cstart_date'));
         }
         if($this->input->POST('Cend_date')) {
-            $this->db->where('a.create_date <=', $this->input->POST('Cend_date'));
+            $this->db->where('date_format(a.create_date, \'%Y-%m-%d\') <=', $this->input->POST('Cend_date'));
         }
         if($this->input->POST('Tstart_date')) {
             $this->db->where('a.tijiao_date >=', $this->input->POST('Tstart_date'));
@@ -1989,10 +1989,10 @@ class Manage_model extends MY_Model
             $this->db->where_in('a.subsidiary_id', $this->input->POST('subsidiary_id'));
         }
         if($this->input->POST('Cstart_date')) {
-            $this->db->where('a.create_date >=', $this->input->POST('Cstart_date'));
+            $this->db->where('date_format(a.create_date, \'%Y-%m-%d\') >=', $this->input->POST('Cstart_date'));
         }
         if($this->input->POST('Cend_date')) {
-            $this->db->where('a.create_date <=', $this->input->POST('Cend_date'));
+            $this->db->where('date_format(a.create_date, \'%Y-%m-%d\') <=', $this->input->POST('Cend_date'));
         }
         if($this->input->POST('Tstart_date')) {
             $this->db->where('a.tijiao_date >=', $this->input->POST('Tstart_date'));

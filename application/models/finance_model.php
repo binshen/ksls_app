@@ -47,10 +47,10 @@ class Finance_model extends MY_Model
             $this->db->where_in('a.subsidiary_id', $this->input->POST('subsidiary_id'));
         }
         if($this->input->POST('Cstart_date')) {
-            $this->db->where('a.create_date >=', $this->input->POST('Cstart_date'));
+            $this->db->where('date_format(a.create_date, \'%Y-%m-%d\') >=', $this->input->POST('Cstart_date'));
         }
         if($this->input->POST('Cend_date')) {
-            $this->db->where('a.create_date <=', $this->input->POST('Cend_date'));
+            $this->db->where('date_format(a.create_date, \'%Y-%m-%d\') <=', $this->input->POST('Cend_date'));
         }
         if($this->input->POST('Tstart_date')) {
             $this->db->where('a.tijiao_date >=', $this->input->POST('Tstart_date'));
@@ -69,7 +69,11 @@ class Finance_model extends MY_Model
         $row = $this->db->get()->row_array();
         //总记录数
         $data['countPage'] = $row['num'];
-        $data['xiaoqu'] = $this->input->post('xiaoqu') ? trim($this->input->post('xiaoqu')) : "";
+        $data['status'] = $this->input->post('status') ? trim($this->input->post('status')) : "";
+        $data['borrower_name'] = $this->input->post('borrower_name') ? trim($this->input->post('borrower_name')) : "";
+        $data['finance_num'] = $this->input->post('finance_num') ? trim($this->input->post('finance_num')) : "";
+        $data['Cstart_date'] = $this->input->post('Cstart_date') ? trim($this->input->post('Cstart_date')) : "";
+        $data['Cend_date'] = $this->input->post('Cend_date') ? trim($this->input->post('Cend_date')) : "";
         //list
 
         $this->db->select("date_format(a.create_date, '%Y-%m-%d') cdate,a.borrower_phone,a.borrower_name,a.finance_num,a.borrowing_amount,a.repayment,a.repayment_methods,a.status,b.rel_name,a.id",false);
@@ -95,10 +99,10 @@ class Finance_model extends MY_Model
             $this->db->where_in('a.subsidiary_id', $this->input->POST('subsidiary_id'));
         }
         if($this->input->POST('Cstart_date')) {
-            $this->db->where('a.create_date >=', $this->input->POST('Cstart_date'));
+            $this->db->where('date_format(a.create_date, \'%Y-%m-%d\') >=', $this->input->POST('Cstart_date'));
         }
         if($this->input->POST('Cend_date')) {
-            $this->db->where('a.create_date <=', $this->input->POST('Cend_date'));
+            $this->db->where('date_format(a.create_date, \'%Y-%m-%d\') <=', $this->input->POST('Cend_date'));
         }
         if($this->input->POST('Tstart_date')) {
             $this->db->where('a.tijiao_date >=', $this->input->POST('Tstart_date'));
