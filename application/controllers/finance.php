@@ -84,7 +84,7 @@ class Finance extends MY_Controller
                     $this->assign('data', $data);
             }
         }
-        $this->display('finance.html');
+        $this->display('finance/finance.html');
     }
 
     public function go_finance_1(){
@@ -144,7 +144,7 @@ class Finance extends MY_Controller
         }
         $data = $this->finance_model->get_detail($id);
         $this->assign('data', $data);
-        $this->display('finance - step2.html');
+        $this->display('finance/finance - step2.html');
     }
 
     public function edit_finance_3($id){
@@ -156,7 +156,7 @@ class Finance extends MY_Controller
         }
         $data = $this->finance_model->get_detail($id);
         $this->assign('data', $data);
-        $this->display('finance - step3.html');
+        $this->display('finance/finance - step3.html');
     }
 
     public function save_finance_tj(){
