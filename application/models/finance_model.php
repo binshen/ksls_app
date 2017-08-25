@@ -18,7 +18,7 @@ class Finance_model extends MY_Model
         parent::__destruct();
     }
 
-    public function Finance_list($page){
+    public function finance_list($page,$user_id = null,$subsidiary_id=null,$company_id=null){
         // 每页显示的记录条数，默认20条
         $numPerPage = $this->input->post('numPerPage') ? $this->input->post('numPerPage') : 10;
         $pageNum = $this->input->post('pageNum') ? $this->input->post('pageNum') : $page;
@@ -28,8 +28,8 @@ class Finance_model extends MY_Model
         $this->db->from('finance a');
         $this->db->join('user b','a.user_id = b.id','inner');
         $this->db->join('user c','a.create_user = c.id','inner');
-        if($this->input->post('user_id')){
-            $this->db->where('a.user_id',$this->input->post('user_id'));
+        if($user_id){
+            $this->db->where('a.user_id',$user_id);
         }
         if($this->input->post('status')){
             $this->db->where('a.status',$this->input->post('status'));
@@ -80,8 +80,8 @@ class Finance_model extends MY_Model
         $this->db->from('finance a');
         $this->db->join('user b','a.user_id = b.id','inner');
         $this->db->join('user c','a.create_user = c.id','inner');
-        if($this->input->post('user_id')){
-            $this->db->where('a.user_id',$this->input->post('user_id'));
+        if($user_id){
+            $this->db->where('a.user_id',$user_id);
         }
         if($this->input->post('status')){
             $this->db->where('a.status',$this->input->post('status'));

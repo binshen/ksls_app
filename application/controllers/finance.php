@@ -58,9 +58,9 @@ class Finance extends MY_Controller
             echo $pic_arr['file_name'];
         }
     }
-    //获取列表 等待开发
+    //获取 我的金融 列表
     public function finance_list($page=1){
-        $data = $this->finance_model->finance_list($page);
+        $data = $this->finance_model->finance_list($page,$this->session->userdata('login_user_id'));
         $this->assign('finance_list', $data);
         $pager = $this->pagination->getPageLink('/finance/finance_list', $data['countPage'], $data['numPerPage']);
         $this->assign('pager', $pager);
