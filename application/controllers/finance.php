@@ -15,6 +15,11 @@ class Finance extends MY_Controller
     {
         parent::__construct();
         $this->load->model('finance_model');
+        $this->load->model('agenda_model');
+        $permission_id = $this->session->userdata('login_permission_id');
+        $this->assign('permission_id', $permission_id);
+        $position_id = $this->session->userdata('login_position_id_array');
+        $this->assign('position_id', $position_id);
     }
 
     function _remap($method,$params = array()) {
@@ -66,7 +71,76 @@ class Finance extends MY_Controller
         $this->assign('pager', $pager);
         $this->display('finance/finance-list.html');
     }
+    public function finance_list_other($page=1){
+        $position_id = $this->session->userdata('login_position_id_array');
+        $permission_id = $this->session->userdata('login_permission_id');
+        $company_id = NULL;
+        $subsidiary_id = NULL;
+        $user_id = NULL;
+        if($permission_id == 1 || in_array(12,$position_id)){ // 如果是管理员,或者金融管理专员
+            $company_list = $this->agenda_model->get_company_list();
+            $this->assign('company_list', $company_list);
+            if($this->input->POST('company')) {
+                $this->assign('company', $this->input->POST('company'));
+                $subsidiary_list = $this->agenda_model->get_subsidiary_list($this->input->POST('company'), NULL);
+            } else {
+                $company_id = null;
+                $subsidiary_list = $this->agenda_model->get_subsidiary_list($company_id, NULL);
 
+            }
+            $this->assign('subsidiary_list', $subsidiary_list);
+            if($this->input->POST('subsidiary')) {
+                $this->assign('subsidiary', $this->input->POST('subsidiary'));
+
+                $user_list = $this->agenda_model->get_subsidiary_user_list_7($this->input->POST('subsidiary'));
+                $this->assign('user_list', $user_list);
+            }
+            if($this->input->POST('user')) {
+                $this->assign('user', $this->input->POST('user'));
+            }
+            $company_id = $this->input->post('company')?$this->input->post('company'):NULL;
+            $subsidiary_id = $this->input->POST('subsidiary')?$this->input->post('subsidiary'):NULL;
+            $user_id = $this->input->POST('user')?$this->input->POST('user'):NULL;
+
+        }elseif($permission_id <= 3){ //总经理 和 区域经理可以查看不同门店
+            $company_id = $this->session->userdata('login_company_id');
+            if($permission_id == 2) {
+                $subsidiary_list = $this->agenda_model->get_subsidiary_list($company_id, NULL);
+            } else if($permission_id < 5) {
+                $subsidiary_id = $this->session->userdata('login_subsidiary_id_array');
+                $subsidiary_list = $this->agenda_model->get_subsidiary_list($company_id, $subsidiary_id);
+            }
+            $this->assign('subsidiary_list', $subsidiary_list);
+            if($this->input->POST('subsidiary')) {
+                $this->assign('subsidiary', $this->input->POST('subsidiary'));
+
+                $user_list = $this->agenda_model->get_subsidiary_user_list($this->input->POST('subsidiary'));
+                $this->assign('user_list', $user_list);
+            }elseif(!$this->input->post('subsidiary') && $permission_id < 5 && $permission_id > 3){
+                $subsidiary_id_array = $this->session->userdata('login_subsidiary_id_array');
+                $this->assign('subsidiary', $subsidiary_id_array[0]);
+                $user_list = $this->agenda_model->get_subsidiary_user_list($subsidiary_id_array[0]);
+                $this->assign('user_list', $user_list);
+            }
+            if($this->input->POST('user')) {
+                $this->assign('user', $this->input->POST('user'));
+            }
+            $subsidiary_id = $this->input->POST('subsidiary')?$this->input->post('subsidiary'):$this->session->userdata('login_subsidiary_id_array');
+            $user_id = $this->input->POST('user')?$this->input->POST('user'):NULL;
+        }else{
+            $company_id = $this->session->userdata('login_company_id');
+            $subsidiary_id = $this->session->userdata('login_subsidiary_id_array');
+            $this->assign('subsidiary', $subsidiary_id[0]);
+            $user_list = $this->agenda_model->get_subsidiary_user_list($subsidiary_id[0]);
+            $this->assign('user_list', $user_list);
+            $user_id = $this->input->POST('user')?$this->input->POST('user'):NULL;
+        }
+        $data = $this->finance_model->finance_list($page,$user_id,$subsidiary_id,$company_id);
+        $this->assign('finance_list', $data);
+        $pager = $this->pagination->getPageLink('/finance/finance_list', $data['countPage'], $data['numPerPage']);
+        $this->assign('pager', $pager);
+        $this->display('finance/finance_list_other.html');
+    }
     //获取详情
     public function finance_detail($id){
         $data = $this->finance_model->get_detail($id);

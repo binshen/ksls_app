@@ -18,29 +18,65 @@
             <div class="nav-left">
                 <ul class="nav-left-ul">
                     <li><a href="/"><em class="home"></em>回到首页</a></li>
-                    <li class="on"><a href="/finance/finance_list"><em class="finance"></em>我的金融</a></li>
-                    <li><a href="/finance/finance_list_boss"><em class="finance"></em>金融服务</a></li>
+                    <li ><a href="/finance/finance_list"><em class="finance"></em>我的金融</a></li>
+                    <li class="on"><a href="/finance/finance_list_other"><em class="finance"></em>金融服务</a></li>
                 </ul>
             </div>
         </div>
         <div class="wrap-right">
                 <form id="formSearch" method="POST" action="/finance/finance_list">
                     <div class="search-wrap" style="margin-left: 40px;">
-                    <input type="text" name="borrower_name" value="{{$finance_list.borrower_name|default:''}}" placeholder="姓名" class="sel-begin-time areanumber"/>
-                    <input type="text" name="finance_num" value="{{$finance_list.finance_num|default:''}}" placeholder="编号" class="sel-begin-time areanumber" />
-                    <select name="status">
-                        <option value="">进程选择</option>
-                        <option {{if $finance_list.status == 1}}selected{{/if}} value="1">未提交</option>
-                        <option {{if $finance_list.status == 2}}selected{{/if}} value="2">待审批</option>
-                        <option {{if $finance_list.status == 3}}selected{{/if}} value="3">审批通过</option>
-                        <option {{if $finance_list.status == 4}}selected{{/if}} value="5">审批未通过</option>
-                        <option {{if $finance_list.status == 5}}selected{{/if}} value="4">结案</option>
-                        <option {{if $finance_list.status == -1}}selected{{/if}} value="-1">终止</option>
-                    </select>
+                        {{if $permission_id == 1 || in_array(12,$position_id)}}
+                        <select name="company" id="sel_company">
+                            <option value="">选择公司</option>
+                            {{foreach from=$company_list key=key item=item}}
+                            {{if $item.id == $company}}
+                            <option value="{{$item.id}}" selected>{{$item.name}}</option>
+                            {{else}}
+                            <option value="{{$item.id}}">{{$item.name}}</option>
+                            {{/if}}
+                            {{/foreach}}
+                        </select>
+                        {{/if}}
+                        {{if $permission_id <= 3 || in_array(12,$position_id)}}
+                        <select name="subsidiary" id="sel_subsidiary" style="width:150px">
+                            <option value="">选择分店</option>
+                            {{foreach from=$subsidiary_list key=key item=item}}
+                            {{if $item.id == $subsidiary}}
+                            <option value="{{$item.id}}" selected>{{$item.name}}</option>
+                            {{else}}
+                            <option value="{{$item.id}}">{{$item.name}}</option>
+                            {{/if}}
+                            {{/foreach}}
+                        </select>
+                        {{/if}}
+                        <select name="user" id="sel_user">
+                            <option value="">选择员工</option>
+                            {{foreach from=$user_list key=key item=item}}
+                            {{if $item.id == $user}}
+                            <option value="{{$item.id}}" selected>{{$item.rel_name}}</option>
+                            {{else}}
+                            <option value="{{$item.id}}">{{$item.rel_name}}</option>
+                            {{/if}}
+                            {{/foreach}}
+                        </select>
+
 
 
                 </div>
                     <div class="search-wrap" style="margin-left: 40px;">
+                        <input type="text" name="borrower_name" value="{{$finance_list.borrower_name|default:''}}" placeholder="姓名" class="sel-begin-time areanumber"/>
+                        <input type="text" name="finance_num" value="{{$finance_list.finance_num|default:''}}" placeholder="编号" class="sel-begin-time areanumber" />
+                        <select name="status">
+                            <option value="">进程选择</option>
+                            <option {{if $finance_list.status == 1}}selected{{/if}} value="1">未提交</option>
+                            <option {{if $finance_list.status == 2}}selected{{/if}} value="2">待审批</option>
+                            <option {{if $finance_list.status == 3}}selected{{/if}} value="3">审批通过</option>
+                            <option {{if $finance_list.status == 4}}selected{{/if}} value="5">审批未通过</option>
+                            <option {{if $finance_list.status == 5}}selected{{/if}} value="4">结案</option>
+                            <option {{if $finance_list.status == -1}}selected{{/if}} value="-1">终止</option>
+                        </select>
+
                         <input placeholder="创建时间" type="text" name="Cstart_date" id="J_CDepDate" value="{{$finance_list.Cstart_date|default:''}}" class="sel-begin-time" />
                         <span class="time-break"> </span>
                         <input placeholder="创建时间" type="text" name="Cend_date" id="J_CEndDate" value="{{$finance_list.Cend_date|default:''}}" class="sel-end-time" />

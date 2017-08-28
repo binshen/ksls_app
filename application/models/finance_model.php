@@ -40,11 +40,11 @@ class Finance_model extends MY_Model
         if($this->input->post('borrower_name')){
             $this->db->like('a.borrower_name',trim($this->input->post('borrower_name')));
         }
-        if($this->input->POST('company_id')) {
+        if($company_id) {
             $this->db->where('a.company_id', $this->input->POST('company_id'));
         }
-        if($this->input->POST('subsidiary_id')) {
-            $this->db->where_in('a.subsidiary_id', $this->input->POST('subsidiary_id'));
+        if(!empty($subsidiary_id)) {
+            $this->db->where_in('a.subsidiary_id', $subsidiary_id);
         }
         if($this->input->POST('Cstart_date')) {
             $this->db->where('date_format(a.create_date, \'%Y-%m-%d\') >=', $this->input->POST('Cstart_date'));
@@ -52,7 +52,7 @@ class Finance_model extends MY_Model
         if($this->input->POST('Cend_date')) {
             $this->db->where('date_format(a.create_date, \'%Y-%m-%d\') <=', $this->input->POST('Cend_date'));
         }
-        if($this->input->POST('Tstart_date')) {
+        /*if($this->input->POST('Tstart_date')) {
             $this->db->where('a.tijiao_date >=', $this->input->POST('Tstart_date'));
         }
         if($this->input->POST('Tend_date')) {
@@ -63,7 +63,7 @@ class Finance_model extends MY_Model
         }
         if($this->input->POST('Eend_date')) {
             $this->db->where('a.end_date <=', $this->input->POST('Eend_date'));
-        }
+        }*/
         $this->db->where('a.flag',1);
 
         $row = $this->db->get()->row_array();
@@ -92,11 +92,11 @@ class Finance_model extends MY_Model
         if($this->input->post('borrower_name')){
             $this->db->like('a.borrower_name',trim($this->input->post('borrower_name')));
         }
-        if($this->input->POST('company_id')) {
+        if($company_id) {
             $this->db->where('a.company_id', $this->input->POST('company_id'));
         }
-        if($this->input->POST('subsidiary_id')) {
-            $this->db->where_in('a.subsidiary_id', $this->input->POST('subsidiary_id'));
+        if(!empty($subsidiary_id)) {
+            $this->db->where_in('a.subsidiary_id', $subsidiary_id);
         }
         if($this->input->POST('Cstart_date')) {
             $this->db->where('date_format(a.create_date, \'%Y-%m-%d\') >=', $this->input->POST('Cstart_date'));
@@ -104,7 +104,7 @@ class Finance_model extends MY_Model
         if($this->input->POST('Cend_date')) {
             $this->db->where('date_format(a.create_date, \'%Y-%m-%d\') <=', $this->input->POST('Cend_date'));
         }
-        if($this->input->POST('Tstart_date')) {
+        /*if($this->input->POST('Tstart_date')) {
             $this->db->where('a.tijiao_date >=', $this->input->POST('Tstart_date'));
         }
         if($this->input->POST('Tend_date')) {
@@ -115,7 +115,7 @@ class Finance_model extends MY_Model
         }
         if($this->input->POST('Eend_date')) {
             $this->db->where('a.end_date <=', $this->input->POST('Eend_date'));
-        }
+        }*/
         $this->db->where('a.flag',1);
         $this->db->limit($numPerPage, ($pageNum - 1) * $numPerPage );
         $this->db->order_by('a.id', 'desc');
