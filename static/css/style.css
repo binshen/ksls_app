@@ -111,6 +111,7 @@ body{background: #fff; font-family: "Microsoft YaHei";}p{white-space: normal; wo
 .nav-left-ul li .taxation{background-position:0 -423px;}
 .nav-left-ul li .rechargelist{background-position:0 -450px;}
 .nav-left-ul li .cpaccount{background-position:0 -473px;}
+.nav-left-ul li .finance{background-position:0 -497px;}
 
 .nav-left-ul li.on a{color:#fff;}
 .nav-left-ul li.on .schedule{background-position:-29px 2px;}
@@ -127,6 +128,7 @@ body{background: #fff; font-family: "Microsoft YaHei";}p{white-space: normal; wo
 .nav-left-ul li.on .questionbank{ background-position:-27px -320px; }
 .nav-left-ul li.on .onlinemark{background-position:-27px -343px;}
 .nav-left-ul li.on .exmaitems{background-position:-27px -368px;}
+.nav-left-ul li.on .finance{background-position:-27px -497px;}
 .nav-left-ul li a:hover .taxation,.nav-left-ul li.on .taxation{background-position:-27px -423px;}
 .nav-left-ul li a:hover .loan,.nav-left-ul li.on .loan{background-position:-27px -395px;}
 
@@ -206,6 +208,7 @@ body{background: #fff; font-family: "Microsoft YaHei";}p{white-space: normal; wo
 .dosth-list li.list-red{background-color: #ff6c60; color:#fff;}
 .dosth-list li.list-gray{background-color: #b4b8bc; color:#fff;}
 .dosth-list li.list-gray2{background-color: #8d8f92; color:#fff;}
+.dosth-list li.list-yellow{background-color: #fcdb74; color:#fff;}
 .dosth-list .finance-list-more a{color:#000;}.dosth-list .finance-list-more a:hover{color:#000;text-decoration: underline;}
 .schedule-ul li .time-bor{border-bottom:1px solid #f2f2f0; height:1px; width:75px; line-height:0;display:block;margin:0 14px;}
 .time-break{color:#d9d9d9;height:16px; border-bottom:2px solid #d9d9d9; float: left; width:12px;margin:0 4px;}

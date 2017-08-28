@@ -24,31 +24,31 @@
             </div>
         </div>
         <div class="wrap-right">
-            <div class="search-wrap">
                 <form id="formSearch" method="POST" action="/finance/finance_list">
+                    <div class="search-wrap" style="margin-left: 40px;">
+                    <input type="text" name="borrower_name" value="{{$finance_list.borrower_name|default:''}}" placeholder="姓名" class="sel-begin-time areanumber"/>
+                    <input type="text" name="finance_num" value="{{$finance_list.finance_num|default:''}}" placeholder="编号" class="sel-begin-time areanumber" />
+                    <select name="status">
+                        <option value="">进程选择</option>
+                        <option {{if $finance_list.status == 1}}selected{{/if}} value="1">未提交</option>
+                        <option {{if $finance_list.status == 2}}selected{{/if}} value="2">待审批</option>
+                        <option {{if $finance_list.status == 3}}selected{{/if}} value="3">审批通过</option>
+                        <option {{if $finance_list.status == 4}}selected{{/if}} value="5">审批未通过</option>
+                        <option {{if $finance_list.status == 5}}selected{{/if}} value="4">结案</option>
+                        <option {{if $finance_list.status == -1}}selected{{/if}} value="-1">终止</option>
+                    </select>
 
 
-                        <input type="text" name="borrower_name" value="{{$finance_list.borrower_name|default:''}}" placeholder="姓名" class="sel-begin-time areanumber"/>
-                        <input type="text" name="finance_num" value="{{$finance_list.finance_num|default:''}}" placeholder="编号" class="sel-begin-time areanumber" />
-                        <select name="status">
-                            <option value="">进程选择</option>
-                            <option {{if $finance_list.status == 1}}selected{{/if}} value="1">未提交</option>
-                            <option {{if $finance_list.status == 2}}selected{{/if}} value="2">待审批</option>
-                            <option {{if $finance_list.status == 3}}selected{{/if}} value="3">审批通过</option>
-                            <option {{if $finance_list.status == 4}}selected{{/if}} value="5">审批未通过</option>
-                            <option {{if $finance_list.status == 5}}selected{{/if}} value="4">结案</option>
-                            <option {{if $finance_list.status == -1}}selected{{/if}} value="-1">终止</option>
-                        </select>
-
+                </div>
+                    <div class="search-wrap" style="margin-left: 40px;">
                         <input placeholder="创建时间" type="text" name="Cstart_date" id="J_CDepDate" value="{{$finance_list.Cstart_date|default:''}}" class="sel-begin-time" />
                         <span class="time-break"> </span>
                         <input placeholder="创建时间" type="text" name="Cend_date" id="J_CEndDate" value="{{$finance_list.Cend_date|default:''}}" class="sel-end-time" />
                         <a href="javascript:void(0);" class="search-btn" id="btn_search"></a>
                         <a href="/finance/add_finance" class="add-schedule-btn">+贷款申请</a>
-
+                    </div>
 
                 </form>
-            </div>
             <div class="schedule-wrap">
                 <ul class="schedule-ul dosth-ul">
                     <li class="wid113">姓名</li>
