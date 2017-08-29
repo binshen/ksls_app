@@ -284,4 +284,18 @@ class Finance extends MY_Controller
         }
     }
 
+    public function view_finance($id){
+
+        $data = $this->finance_model->get_detail($id);
+        $this->assign('data', $data);
+        $this->display('finance/finance_detail.html');
+    }
+
+    public function view_finance_2($id){
+
+        $data = $this->finance_model->get_detail($id);
+        $this->assign('data', $data);
+        $this->display('finance/finance_detail1.html');
+    }
+
 }

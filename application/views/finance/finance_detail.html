@@ -18,7 +18,12 @@
             <div class="nav-left">
                  <ul class="nav-left-ul">
                     <li><a href="/"><em class="home"></em>回到首页</a></li>
-                    <li class="on"><a href="/activity/list_activity"><em class="finance"></em>金融服务</a></li>
+                     {{if $permission_id > 3}}
+                     <li class="on"><a href="/finance/finance_list"><em class="finance"></em>我的金融</a></li>
+                     {{/if}}
+                     {{if $permission_id < 5 || in_array(12,$position_id)}}
+                     <li><a href="/finance/finance_list_other"><em class="finance"></em>金融服务</a></li>
+                     {{/if}}
                 </ul>
             </div>
         </div>
@@ -39,26 +44,26 @@
                         <td width="30%">
                             <dl>
                                 <dt class="">姓  名：</dt>
-                                <dd>王某某</dd>
+                                <dd>{{$data.borrower_name|default:''}}</dd>
                             </dl>
                         </td>
                         <td width="30%"><dl><dt class="">年  龄：</dt>
-                            <dd>29</dd></dl></td>
+                            <dd>{{$data.borrower_age|default:''}}</dd></dl></td>
                         <td><dl><dt class="">性  别：</dt>
-                            <dd>男</dd></dl></td>     
+                            <dd>{{if $data.borrower_sex|default:0 == 1 }}男{{/if}}{{if $data.borrower_sex|default:0 == 2 }}女{{/if}}</dd></dl></td>
                     </tr>
                     <tr>
-                        <td><dl><dt class="">籍      贯:</dt><dd>江苏</dd></dl></td>
+                        <td><dl><dt class="">籍      贯:</dt><dd>{{$data.borrower_native|default:''}}</dd></dl></td>
                         <td>
                             <dl>
                                 <dt>学      历：</dt>
-                                <dd>大专</dd></dl></dd>
+                                <dd>{{$data.borrower_qualifications|default:''}}</dd></dl></dd>
                             </dl>
                         </td>
                         <td>
                             <dl>
                                 <dt>婚      姻：</dt>
-                                <dd>未婚</dd>
+                                <dd>{{if $data.borrower_marriage|default:0 == 1 }}已婚{{/if}}{{if $data.borrower_marriage|default:0 == 2 }}未婚{{/if}}</dd>
                             </dl>
                         </td>
                     </tr>
@@ -66,16 +71,16 @@
                         <td colspan="3">
                             <dl>
                                 <dt class="wid120"> 工作单位地址：</dt>
-                                <dd>湖北省麻城市顺河镇中国邮政</dd>
+                                <dd>{{$data.borrower_workADD|default:''}}</dd>
                             </dl>
                         </td> 
                     </tr>
                     <tr>
-                        <td><dl><dt class="">职 位：</dt><dd>职员</dd></dl></td>
+                        <td><dl><dt class="">职 位：</dt><dd>{{$data.borrower_position|default:''}}</dd></dl></td>
                         <td colspan="2">
                             <dl>
                                 <dt>月收入：</dt>
-                                <dd>5000元/月</dd></dd>
+                                <dd>{{$data.borrower_income|default:''}}元/月</dd></dd>
                             </dl>
                         </td>
                     </tr>
@@ -83,13 +88,13 @@
                         <td>
                             <dl>
                                 <dt class="">社保年限：</dt>
-                                <dd>5年</dd>
+                                <dd>{{$data.borrower_SSY|default:''}}</dd>
                             </dl>
                         </td>
                          <td colspan="2">
                             <dl>
                                 <dt class="wid120">身份证号码：</dt>
-                                <dd>32019239894299999999</dd>
+                                <dd>{{$data.borrower_code|default:''}}</dd>
                             </dl>
                         </td>
                     </tr>
@@ -97,7 +102,7 @@
                        <td colspan="3">
                            <dl>
                                 <dt>联系方式：</dt>
-                                <dd>13878888888</dd>
+                                <dd>{{$data.borrower_phone|default:''}}</dd>
                             </dl>                            
                         </td>
                     </tr>
@@ -110,20 +115,20 @@
                         <td width="30%">
                             <dl>
                                 <dt class="">姓  名：</dt>
-                                <dd>林某某</dd>
+                                <dd>{{$data.spouse_name|default:''}}</dd>
                             </dl>
                         </td>
                         <td width="30%"><dl><dt class="">年  龄：</dt>
-                            <dd>30<!-- <em>平方米</em> --></dd></dl></td>
+                            <dd>{{$data.spouse_age|default:''}}</dd></dl></td>
                         <td><dl><dt class="">性  别：</dt>
-                            <dd>女</dd></dl></td>     
+                            <dd>{{if $data.spouse_sex|default:0 == 1 }}男{{/if}}{{if $data.spouse_sex|default:0 == 2 }}女{{/if}}</dd></dl></td>
                     </tr>
                     <tr>
-                        <td><dl><dt class="">籍      贯:</dt><dd>湖北</dd></dl></td>
+                        <td><dl><dt class="">籍      贯:</dt><dd>{{$data.spouse_native|default:''}}</dd></dl></td>
                         <td>
                             <dl>
                                 <dt>学      历：</dt>
-                                <dd>本科</dd></dl></dd>
+                                <dd>{{$data.spouse_qualifications|default:''}}</dd></dl></dd>
                             </dl>
                         </td>
                         <td>
@@ -133,16 +138,16 @@
                         <td colspan="3">
                             <dl>
                                 <dt class="wid120"> 工作单位地址：</dt>
-                                <dd>湖北省麻城市顺河镇中国邮政</dd>
+                                <dd>{{$data.spouse_workADD|default:''}}</dd>
                             </dl>
                         </td> 
                     </tr>
                     <tr>
-                        <td><dl><dt class="">职 位：</dt><dd>职员</dd></dl></td>
+                        <td><dl><dt class="">职 位：</dt><dd>{{$data.spouse_position|default:''}}</dd></dl></td>
                         <td colspan="2">
                             <dl>
                                 <dt>月收入：</dt>
-                                <dd>10000元/月</dd></dd>
+                                <dd>{{$data.spouse_income|default:''}}元/月</dd></dd>
                             </dl>
                         </td>
                     </tr>
@@ -150,13 +155,13 @@
                         <td>
                             <dl>
                                 <dt class="">社保年限：</dt>
-                                <dd>5年</dd>
+                                <dd>{{$data.spouse_SSY|default:''}}</dd>
                             </dl>
                         </td>
                          <td colspan="2">
                             <dl>
                                 <dt class="wid120">身份证号码：</dt>
-                                <dd>320989098900000000</dd>
+                                <dd>{{$data.spouse_code|default:''}}</dd>
                             </dl>
                         </td>
                     </tr>
@@ -164,7 +169,7 @@
                        <td colspan="3">
                            <dl>
                                 <dt>联系方式：</dt>
-                                <dd>12345678909</dd>
+                                <dd>{{$data.spouse_phone|default:''}}</dd>
                             </dl>                            
                         </td>
                     </tr>
@@ -179,66 +184,66 @@
                         <td>
                             <dl>
                                 <dt class="">姓  名：</dt>
-                                <dd>王某某</dd>
+                                <dd>{{$data.relatives1name|default:''}}</dd>
                             </dl>
                         </td>
                         <td><dl><dt class="">关 系：</dt>
-                            <dd>父子</dd></dl></td>
+                            <dd>{{$data.relatives1tie|default:''}}</dd></dl></td>
                         <td><dl><dt class="">年 龄：</dt>
-                            <dd>60</dd></dl></td>
+                            <dd>{{$data.relatives1age|default:''}}</dd></dl></td>
                         <td><dl><dt class="">职 业：</dt>
-                            <dd>父子</dd></dl></td> 
+                            <dd>{{$data.relatives1position|default:''}}</dd></dl></td>
                         <td><dl><dt class="">籍 贯：</dt>
-                            <dd>江苏</dd></dl></td>             
+                            <dd>{{$data.relatives1native|default:''}}</dd></dl></td>
                     </tr>
                     <tr>
                          <td>
                             <dl>
                                 <dt class="">姓  名：</dt>
-                                <dd>王某某</dd>
+                                <dd>{{$data.relatives2name|default:''}}</dd>
                             </dl>
                         </td>
                         <td><dl><dt class="">关 系：</dt>
-                            <dd>父子</dd></dl></td>
+                            <dd>{{$data.relatives2tie|default:''}}</dd></dl></td>
                         <td><dl><dt class="">年 龄：</dt>
-                            <dd>60</dd></dl></td>
+                            <dd>{{$data.relatives2age|default:''}}</dd></dl></td>
                         <td><dl><dt class="">职 业：</dt>
-                            <dd>父子</dd></dl></td> 
+                            <dd>{{$data.relatives2position|default:''}}</dd></dl></td>
                         <td><dl><dt class="">籍 贯：</dt>
-                            <dd>江苏</dd></dl></td>                
+                            <dd>{{$data.relatives2native|default:''}}</dd></dl></td>
                     </tr>
 
                     <tr>
                         <td>
                             <dl>
                                 <dt class="">姓  名：</dt>
-                                <dd>王某某</dd>
+                                <dd>{{$data.relatives3name|default:''}}</dd>
                             </dl>
                         </td>
                         <td><dl><dt class="">关 系：</dt>
-                            <dd>父子</dd></dl></td>
+                            <dd>{{$data.relatives3tie|default:''}}</dd></dl></td>
                         <td><dl><dt class="">年 龄：</dt>
-                            <dd>60</dd></dl></td>
+                            <dd>{{$data.relatives3age|default:''}}</dd></dl></td>
                         <td><dl><dt class="">职 业：</dt>
-                            <dd>父子</dd></dl></td> 
+                            <dd>{{$data.relatives3position|default:''}}</dd></dl></td>
                         <td><dl><dt class="">籍 贯：</dt>
-                            <dd>江苏</dd></dl></td>                
+                            <dd>{{$data.relatives3native|default:''}}</dd></dl></td>
                     </tr>
                     <tr>
                          <td>
                             <dl>
                                 <dt class="">姓  名：</dt>
-                                <dd>王某某</dd>
+                                <dd>{{$data.relatives4name|default:''}}</dd>
                             </dl>
                         </td>
                         <td><dl><dt class="">关 系：</dt>
-                            <dd>父子</dd></dl></td>
+                            <dd>{{$data.relatives4tie|default:''}}</dd></dl></td>
                         <td><dl><dt class="">年 龄：</dt>
-                            <dd>60</dd></dl></td>
+                            <dd>{{$data.relatives4age|default:''}}</dd></dl></td>
                         <td><dl><dt class="">职 业：</dt>
-                            <dd>父子</dd></dl></td> 
+                            <dd>{{$data.relatives4position|default:''}}</dd></dl></td>
                         <td><dl><dt class="">籍 贯：</dt>
-                            <dd>江苏</dd></dl></td>             
+                            <dd>{{$data.relatives4native|default:''}}</dd></dl></td>
                     </tr>
 
                 </table>
@@ -252,7 +257,7 @@
                         <td colspan="3">
                             <dl>
                                 <dt>房 产：</dt>
-                                <dd>有房产</dd>
+                                <dd>{{if $data.borrower_hasP|default:0 == 1 }}有房产{{/if}}{{if $data.borrower_hasP|default:0 == 2 }}无房产{{/if}}</dd>
                             </dl>
                         </td> 
                     </tr>
@@ -260,41 +265,41 @@
                         <td width="30%">
                             <dl>
                                 <dt class="">社区名：</dt>
-                                <dd>颐景园</dd>
+                                <dd>{{$data.property_community|default:''}}</dd>
                             </dl>
                         </td>
                         <td width="30%"><dl><dt class="">楼栋号：</dt>
-                            <dd>12#1105</dd></dl></td>
+                            <dd>{{$data.property_num|default:''}}</dd></dl></td>
                         <td><dl><dt class="">物业类型：</dt>
-                            <dd>高层</dd></dl></td>     
+                            <dd>{{$data.property_estates|default:''}}</dd></dl></td>
                     </tr>
                     <tr>
-                        <td><dl><dt class="">面 积:</dt><dd>90</dd></dl></td>
+                        <td><dl><dt class="">面 积:</dt><dd>{{$data.property_area|default:''}}平方米</dd></dl></td>
                         <td>
                             <dl>
                                 <dt>购入总价：</dt>
-                                <dd>89w</dd></dl></dd>
+                                <dd>{{$data.property_price|default:''}}万</dd></dl></dd>
                             </dl>
                         </td>
                         <td>
                             <dl>
                                 <dt>权利人：</dt>
-                                <dd>王某某</dd></dl></dd>
+                                <dd>{{$data.property_owner|default:''}}</dd></dl></dd>
                             </dl>
                         </td>
                     </tr>
                     <tr>
-                        <td><dl><dt class="">首付额度:</dt><dd>30w</dd></dl></td>
+                        <td><dl><dt class="">首付额度:</dt><dd>{{$data.property_SF|default:''}}万</dd></dl></td>
                         <td>
                             <dl>
                                 <dt>月供额度：</dt>
-                                <dd>3000</dd></dl></dd>
+                                <dd>{{$data.property_YG|default:0}}元</dd></dl></dd>
                             </dl>
                         </td>
                         <td>
                             <dl>
                                 <dt>现余按揭：</dt>
-                                <dd>40</dd></dl></dd>
+                                <dd>{{$data.property_AJ|default:0}}万</dd></dl></dd>
                             </dl>
                         </td>
                     </tr>
@@ -304,7 +309,7 @@
                 <p style="padding:0 20px 30px;">郑重提醒：<br />
        客户承诺提交资料真实有效，平台根据客户提交资料给出相匹配之金融产品。并给出贷款额度。如因客户提供资料为伪造，或因后期资料不全导致无法顺利办理金融业务的。平台不承担客户任何经济及精神损失。</p>
               <p class="p-btns">
-                  <a href="finance_detail1.html" class="sub-btn" style="background-color:#35aa47">下一页</a>
+                  <a href="/finance/view_finance_2/{{$data.id}}" class="sub-btn" style="background-color:#35aa47">下一页</a>
               </p>  
               </form>
         </div>

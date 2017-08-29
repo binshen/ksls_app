@@ -8,6 +8,15 @@
     <meta name="description" content="房猫-金融-贷款申请" />
     <link href="/static/css/reset.css" rel="stylesheet" type="text/css">
     <link href="/static/css/style.css" rel="stylesheet" type="text/css">
+    <style type="text/css">
+        .yy_display{
+            display: none;
+        }
+        .yy_img{
+            width: 148px;
+            height: 88px;
+        }
+    </style>
 </head>
 <body>
 <div class="doc">
@@ -18,7 +27,12 @@
             <div class="nav-left">
                 <ul class="nav-left-ul">
                     <li><a href="/"><em class="home"></em>回到首页</a></li>
-                    <li class="on"><a href="/activity/list_activity"><em class="finance"></em>金融服务</a></li>
+                    {{if $permission_id > 3}}
+                    <li class="on"><a href="/finance/finance_list"><em class="finance"></em>我的金融</a></li>
+                    {{/if}}
+                    {{if $permission_id < 5 || in_array(12,$position_id)}}
+                    <li><a href="/finance/finance_list_other"><em class="finance"></em>金融服务</a></li>
+                    {{/if}}
                 </ul>
             </div>
         </div>
@@ -34,13 +48,15 @@
                         <td>
                             <dl>
                                 <dt>额 度：</dt>
-                                <dd>50万</dd>
+                                <dd>{{if $data.borrowing_amount|default:0 == 1 }}50万{{/if}}
+                                    {{if $data.borrowing_amount|default:0 == 2 }}40万{{/if}}
+                                    {{if $data.borrowing_amount|default:0 == 3 }}30万{{/if}}</dd>
                             </dl>
                         </td> 
                         <td colspan="2">
                             <dl>
                                 <dt class="wid120">预计还款周期：</dt>
-                                <dd>20年</dd>
+                                <dd>{{$data.repayment|default:''}}年</dd>
                             </dl>
                         </td> 
                     </tr>
@@ -48,7 +64,7 @@
                         <td colspan="3">
                             <dl>
                                 <dt class="">还款方式：</dt>
-                                <dd>等额本息</dd>
+                                <dd>{{if $data.repayment_methods|default:0 == 1 }}等额本息{{/if}}{{if $data.repayment_methods|default:0 == 2 }}等额本金{{/if}}{{if $data.repayment_methods|default:0 == 3 }}先息后本{{/if}}</dd>
                             </dl>
                         </td>    
                     </tr>
@@ -59,15 +75,15 @@
                         <td colspan="3">
                             <dl class="dl1">
                             <dt>有无信用卡逾期</dt>
-                            <dd>无</dd>
+                            <dd>{{$data.explain_XYK|default:'无'}}</dd>
                             <dt>有无信用卡逾期</dt>
-                            <dd>无</dd>
+                            <dd>{{$data.explain_AJ|default:'无'}}</dd>
                             <dt>房产有无第三方质押</dt>
-                            <dd>无</dd>
+                            <dd>{{$data.explain_ZY|default:'无'}}</dd>
                             <dt>有无商业保险</dt>
-                            <dd>无</dd>
+                            <dd>{{$data.explain_SYBX|default:'无'}}</dd>
                             <dt>有无司法裁决</dt>
-                            <dd>无</dd>
+                            <dd>{{$data.explain_SFZC|default:'无'}}</dd>
                             </dl>
                         </td>
                     </tr>
@@ -86,24 +102,24 @@
                                         <li>
                                             <div class="upload-photo">
                                                 <span class="photo-img">
-                                                    <img src="http://iph.href.lu/148x88" alt=""></span>                                                
+                                                    <img class="yy_img" src="{{if $data.borrower_img_SFZ1}}/uploadfiles/finance/{{$data.finance_num}}/{{$data.borrower_img_SFZ1}}{{else}}/static/images/finance_default.png{{/if}}" alt=""></span>
                                             </div>
 
                                             <span class="upload-photo-txt">申请人身份证正面</span>
                                         </li>
                                         <li>
                                             <span class="photo-img">
-                                                    <img src="http://iph.href.lu/148x88" alt=""></span>
+                                                    <img class="yy_img" src="{{if $data.borrower_img_SFZ2}}/uploadfiles/finance/{{$data.finance_num}}/{{$data.borrower_img_SFZ2}}{{else}}/static/images/finance_default.png{{/if}}" alt=""></span>
                                             <span class="upload-photo-txt">申请人身份证反面</span>
                                         </li>
                                         <li>
                                             <span class="photo-img">
-                                                    <img src="http://iph.href.lu/148x88" alt=""></span>
+                                                    <img class="yy_img" src="{{if $data.spouse_img_SFZ1}}/uploadfiles/finance/{{$data.finance_num}}/{{$data.spouse_img_SFZ1}}{{else}}/static/images/finance_default.png{{/if}}" alt=""></span>
                                             <span class="upload-photo-txt">配偶身份证正面</span>
                                         </li>
                                         <li>
                                              <span class="photo-img">
-                                                    <img src="http://iph.href.lu/148x88" alt=""></span>
+                                                    <img class="yy_img" src="{{if $data.spouse_img_SFZ2}}/uploadfiles/finance/{{$data.finance_num}}/{{$data.spouse_img_SFZ2}}{{else}}/static/images/finance_default.png{{/if}}" alt=""></span>
                                             <span class="upload-photo-txt">配偶身份证反面</span>
                                         </li>
                                     </ul>
@@ -119,13 +135,13 @@
                                     <ul>
                                         <li>
                                             <span class="photo-img">
-                                                    <img src="http://iph.href.lu/148x88" alt=""></span>
-                                            <span class="upload-photo-txt">申请人身份证正面</span>
+                                                    <img class="yy_img" src="{{if $data.img_JHZ1}}/uploadfiles/finance/{{$data.finance_num}}/{{$data.img_JHZ1}}{{else}}/static/images/finance_default.png{{/if}}" alt=""></span>
+                                            <span class="upload-photo-txt">结婚证1</span>
                                         </li>
                                         <li>
                                              <span class="photo-img">
-                                                    <img src="http://iph.href.lu/148x88" alt=""></span>
-                                            <span class="upload-photo-txt">申请人身份证正面</span>
+                                                    <img class="yy_img" src="{{if $data.img_JHZ2}}/uploadfiles/finance/{{$data.finance_num}}/{{$data.img_JHZ2}}{{else}}/static/images/finance_default.png{{/if}}" alt=""></span>
+                                            <span class="upload-photo-txt">结婚证2</span>
                                         </li>
                                     </ul>
                                 </dd>
@@ -136,8 +152,8 @@
                                     <ul>
                                         <li>
                                              <span class="photo-img">
-                                                    <img src="http://iph.href.lu/148x88" alt=""></span>
-                                            <span class="upload-photo-txt">申请人身份证正面</span>
+                                                    <img class="yy_img" src="{{if $data.img_BDC}}/uploadfiles/finance/{{$data.finance_num}}/{{$data.img_BDC}}{{else}}/static/images/finance_default.png{{/if}}" alt=""></span>
+                                            <span class="upload-photo-txt">不动产证</span>
                                         </li>
                                     </ul>
                                 </dd>
@@ -148,8 +164,8 @@
                                     <ul>
                                         <li>
                                             <span class="photo-img">
-                                                    <img src="http://iph.href.lu/148x88" alt=""></span>
-                                            <span class="upload-photo-txt">申请人身份证正面</span>
+                                                    <img class="yy_img" src="{{if $data.img_SBZ}}/uploadfiles/finance/{{$data.finance_num}}/{{$data.img_SBZ}}{{else}}/static/images/finance_default.png{{/if}}" alt=""></span>
+                                            <span class="upload-photo-txt">社保证</span>
                                         </li>
                                     </ul>
                                 </dd>
@@ -166,8 +182,8 @@
                                     <ul>
                                         <li>
                                              <span class="photo-img">
-                                                    <img src="http://iph.href.lu/148x88" alt=""></span>
-                                            <span class="upload-photo-txt">申请人身份证正面</span>
+                                                    <img class="yy_img" src="{{if $data.img_ZXBG}}/uploadfiles/finance/{{$data.finance_num}}/{{$data.img_ZXBG}}{{else}}/static/images/finance_default.png{{/if}}" alt=""></span>
+                                            <span class="upload-photo-txt">证信报告</span>
                                         </li>
                                     </ul>
                                 </dd>
@@ -178,8 +194,8 @@
                                     <ul>
                                         <li>
                                              <span class="photo-img">
-                                                    <img src="http://iph.href.lu/148x88" alt=""></span>
-                                            <span class="upload-photo-txt">申请人身份证正面</span>
+                                                    <img class="yy_img" src="{{if $data.img_YHLS}}/uploadfiles/finance/{{$data.finance_num}}/{{$data.img_YHLS}}{{else}}/static/images/finance_default.png{{/if}}" alt=""></span>
+                                            <span class="upload-photo-txt">工资流水/企业流水</span>
                                         </li>
                                     </ul>
                                 </dd>
@@ -194,6 +210,7 @@
                     </tr>
                 </table>
                 </div>
+            {{if $permission_id == 1 || in_array(12,$position_id)}}
                  <div class="div-th" style="background-color:#1abc9c;"><em></em>金融审核</div>
            <div class="div-bd div-bd2" style="border-color:#1abc9c;">
                
@@ -214,6 +231,7 @@
 
                     </div>
             </div>
+            {{/if}}
                  <p style="padding:0 20px 30px;">郑重提醒：<br />
        客户承诺提交资料真实有效，平台根据客户提交资料给出相匹配之金融产品。并给出贷款额度。如因客户提供资料为伪造，或因后期资料不全导致无法顺利办理金融业务的。平台不承担客户任何经济及精神损失。</p>
               <p class="p-btns" style="width:210px;">
