@@ -41,7 +41,7 @@ class Finance_model extends MY_Model
             $this->db->like('a.borrower_name',trim($this->input->post('borrower_name')));
         }
         if($company_id) {
-            $this->db->where('a.company_id', $this->input->POST('company_id'));
+            $this->db->where('a.company_id', $company_id);
         }
         if(!empty($subsidiary_id)) {
             $this->db->where_in('a.subsidiary_id', $subsidiary_id);
@@ -93,7 +93,7 @@ class Finance_model extends MY_Model
             $this->db->like('a.borrower_name',trim($this->input->post('borrower_name')));
         }
         if($company_id) {
-            $this->db->where('a.company_id', $this->input->POST('company_id'));
+            $this->db->where('a.company_id', $company_id);
         }
         if(!empty($subsidiary_id)) {
             $this->db->where_in('a.subsidiary_id', $subsidiary_id);
@@ -120,6 +120,7 @@ class Finance_model extends MY_Model
         $this->db->limit($numPerPage, ($pageNum - 1) * $numPerPage );
         $this->db->order_by('a.id', 'desc');
         $data['res_list'] = $this->db->get()->result_array();
+        //var_dump($this->db->last_query());
         $data['pageNum'] = $pageNum;
         $data['numPerPage'] = $numPerPage;
         return $data;
@@ -153,7 +154,7 @@ class Finance_model extends MY_Model
         if(!empty($result['max_num'])) {
             $max_num += $result['max_num'];
         }
-        $finance_num = 'FIN' .date('Y'). str_pad($company_id, 4, "0", STR_PAD_LEFT) . str_pad($max_num, 4, "0", STR_PAD_LEFT);
+        $finance_num = 'FIN' .date('y'). str_pad($company_id, 4, "0", STR_PAD_LEFT) . str_pad($max_num, 4, "0", STR_PAD_LEFT);
         return $finance_num;
     }
 
@@ -176,33 +177,33 @@ class Finance_model extends MY_Model
             "spouse_name" => trim($this->input->post("spouse_name")),
             "spouse_sex" => $this->input->post("spouse_sex"),
             "spouse_native" => $this->input->post("spouse_native"),
-            "spouse_age" => $this->input->post("spouse_age"),
+            "spouse_age" => $this->input->post("spouse_age")?$this->input->post("spouse_age"):null,
             "spouse_qualifications" => trim($this->input->post("spouse_qualifications")),
             "spouse_workADD" => trim($this->input->post("spouse_workADD")),
             "spouse_position" => trim($this->input->post("spouse_position")),
-            "spouse_income" => $this->input->post("spouse_income"),
+            "spouse_income" => $this->input->post("spouse_income")?$this->input->post("spouse_income"):null,
             "spouse_SSY" => trim($this->input->post("spouse_SSY")),
             "spouse_code" => trim($this->input->post("spouse_code")),
             "spouse_phone" => trim($this->input->post("spouse_phone")),
             //亲属
             "relatives1name" => trim($this->input->post("relatives1name")),
             "relatives1tie" => trim($this->input->post("relatives1tie")),
-            "relatives1age" => $this->input->post("relatives1age"),
+            "relatives1age" => trim($this->input->post("relatives1age"))?trim($this->input->post("relatives1age")):null,
             "relatives1position" => trim($this->input->post("relatives1position")),
             "relatives1native" => trim($this->input->post("relatives1native")),
             "relatives2name" => trim($this->input->post("relatives2name")),
             "relatives2tie" => trim($this->input->post("relatives2tie")),
-            "relatives2age" => $this->input->post("relatives2age"),
+            "relatives2age" => trim($this->input->post("relatives2age"))?trim($this->input->post("relatives2age")):null,
             "relatives2position" => trim($this->input->post("relatives2position")),
             "relatives2native" => trim($this->input->post("relatives2native")),
             "relatives3name" => trim($this->input->post("relatives3name")),
             "relatives3tie" => trim($this->input->post("relatives3tie")),
-            "relatives3age" => $this->input->post("relatives3age"),
+            "relatives3age" => trim($this->input->post("relatives3age"))?trim($this->input->post("relatives3age")):null,
             "relatives3position" => trim($this->input->post("relatives3position")),
             "relatives3native" => trim($this->input->post("relatives3native")),
             "relatives4name" => trim($this->input->post("relatives4name")),
             "relatives4tie" => trim($this->input->post("relatives4tie")),
-            "relatives4age" => $this->input->post("relatives4age"),
+            "relatives4age" => trim($this->input->post("relatives4age"))?trim($this->input->post("relatives4age")):null,
             "relatives4position" => trim($this->input->post("relatives4position")),
             "relatives4native" => trim($this->input->post("relatives4native")),
 
@@ -244,9 +245,9 @@ class Finance_model extends MY_Model
             "property_area" => trim($this->input->post("property_area")),
             "property_price" => trim($this->input->post("property_price")),
             "property_owner" => trim($this->input->post("property_owner")),
-            "property_SF" => trim($this->input->post("property_SF")),
-            "property_YG" => trim($this->input->post("property_YG")),
-            "property_AJ" => trim($this->input->post("property_AJ")),
+            "property_SF" => trim($this->input->post("property_SF"))?trim($this->input->post("property_SF")):null,
+            "property_YG" => trim($this->input->post("property_YG"))?trim($this->input->post("property_YG")):null,
+            "property_AJ" => trim($this->input->post("property_AJ"))?trim($this->input->post("property_AJ")):null,
 
             "borrowing_amount" => $this->input->post('borrowing_amount'),
             "repayment" => trim($this->input->post("repayment")),

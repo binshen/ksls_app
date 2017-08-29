@@ -35,6 +35,12 @@ class Finance extends MY_Controller
                     || $method == 'save_finance_tj'
                     || $method == 'save_finance_3'
                     || $method == 'go_finance_1'){
+                    redirect(site_url('/finance/finance_list_other'));
+                    exit();
+                }
+            }
+            if($this->session->userdata('login_permission_id') > 4){
+                if($method == 'finance_list_other'){
                     redirect(site_url('/finance/finance_list'));
                     exit();
                 }
@@ -71,6 +77,7 @@ class Finance extends MY_Controller
         $this->assign('pager', $pager);
         $this->display('finance/finance-list.html');
     }
+
     public function finance_list_other($page=1){
         $position_id = $this->session->userdata('login_position_id_array');
         $permission_id = $this->session->userdata('login_permission_id');
@@ -133,11 +140,15 @@ class Finance extends MY_Controller
             $this->assign('subsidiary', $subsidiary_id[0]);
             $user_list = $this->agenda_model->get_subsidiary_user_list($subsidiary_id[0]);
             $this->assign('user_list', $user_list);
+            if($this->input->POST('user')) {
+                $this->assign('user', $this->input->POST('user'));
+            }
             $user_id = $this->input->POST('user')?$this->input->POST('user'):NULL;
         }
         $data = $this->finance_model->finance_list($page,$user_id,$subsidiary_id,$company_id);
+        //die(var_dump($data));
         $this->assign('finance_list', $data);
-        $pager = $this->pagination->getPageLink('/finance/finance_list', $data['countPage'], $data['numPerPage']);
+        $pager = $this->pagination->getPageLink('/finance/finance_list_other', $data['countPage'], $data['numPerPage']);
         $this->assign('pager', $pager);
         $this->display('finance/finance_list_other.html');
     }
@@ -179,10 +190,13 @@ class Finance extends MY_Controller
 
     //保存基本信息页面 第一页
     public function save_finance_1(){
-        $power_ = $this->finance_model->save_power($this->input->post('id'));
-        if($power_ != 1){
-            redirect(site_url('/'));
+        if($id = $this->input->post('id')){
+            $power_ = $this->finance_model->save_power($id);
+            if($power_ != 1){
+                redirect(site_url('/finance/finance_list'));
+            }
         }
+
         $res = $this->finance_model->save_finance_1();
         if($res > 0){
             redirect(site_url('/finance/edit_finance_2')."/".$res);
@@ -245,9 +259,9 @@ class Finance extends MY_Controller
         if($res > 0){
             $tj = $this->finance_model->save_finance_tj();
             if($tj == 1){
-                redirect(site_url('/finance/edit_finance_3')."/".$id );
+                redirect(site_url('/finance/finance_list'));
             }else{
-                redirect(site_url('/finance/add_finance'));
+                redirect(site_url('/finance/edit_finance_3').'/'.$id);
             }
         }else{
             redirect(site_url('/finance/add_finance'));

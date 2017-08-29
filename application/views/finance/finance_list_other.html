@@ -18,13 +18,15 @@
             <div class="nav-left">
                 <ul class="nav-left-ul">
                     <li><a href="/"><em class="home"></em>回到首页</a></li>
+                    {{if $permission_id > 3}}
                     <li ><a href="/finance/finance_list"><em class="finance"></em>我的金融</a></li>
+                    {{/if}}
                     <li class="on"><a href="/finance/finance_list_other"><em class="finance"></em>金融服务</a></li>
                 </ul>
             </div>
         </div>
         <div class="wrap-right">
-                <form id="formSearch" method="POST" action="/finance/finance_list">
+                <form id="formSearch" method="POST" action="/finance/finance_list_other">
                     <div class="search-wrap" style="margin-left: 40px;">
                         {{if $permission_id == 1 || in_array(12,$position_id)}}
                         <select name="company" id="sel_company">
@@ -81,7 +83,6 @@
                         <span class="time-break"> </span>
                         <input placeholder="创建时间" type="text" name="Cend_date" id="J_CEndDate" value="{{$finance_list.Cend_date|default:''}}" class="sel-end-time" />
                         <a href="javascript:void(0);" class="search-btn" id="btn_search"></a>
-                        <a href="/finance/add_finance" class="add-schedule-btn">+贷款申请</a>
                     </div>
 
                 </form>
@@ -163,7 +164,30 @@
             count:1
         });
     });
-
+    $('#sel_company').change(function(){
+        var company_id = $(this).val();
+        $.get('/activity/get_subsidiary_list/' + $(this).val(), function(data) {
+            $("#sel_subsidiary").empty();
+            $("#sel_subsidiary").append('<option value="">选择分店</option>');
+            var data = JSON.parse(data);
+            for(var i in data) {
+                $("#sel_subsidiary").append('<option value="'+data[i].id+'">'+data[i].name+'</option>');
+            }
+        });
+        $("#sel_user").empty();
+        $("#sel_user").append('<option value="">选择员工</option>');
+    });
+    $('#sel_subsidiary').change(function(){
+        var path = '/agenda/get_subsidiary_user_list/';
+        $.get(path + $(this).val(), function(data) {
+            $("#sel_user").empty();
+            $("#sel_user").append('<option value="">选择员工</option>');
+            var data = JSON.parse(data);
+            for(var i in data) {
+                $("#sel_user").append('<option value="'+data[i].id+'">'+data[i].rel_name+'</option>');
+            }
+        });
+    });
  $(".history-list").height();
     $(".ing-error").mouseover(function(){
         $(this).children(".error-explain").toggle();
