@@ -975,9 +975,10 @@ html .fc,.fc table{font-size:1em;background:#f2f3f5}.fc td,.fc th{padding:0;vert
 .finance-add-data-table .dl-photo .finance-sbz{width:148px;background-position: 0 -54px;}
 .finance-add-data-table .dl-photo .finance-zx{width:148px;background-position: 0 -71px;}
 .finance-add-data-table .dl-photo .finance-gz{width:148px;background-position: 0 -91px;}
+.finance-add-data-table .dl-photo .upload-photo .photo-img{ position: absolute;top:0;left:0;}
 
 .finance-add-data-table .upload-p1{font-size: 14px; color:#999;padding:20px 100px ; font-family: "微软雅黑";}
 
-.add-data-table1 td dd .delete-this{width:85px; height: 20px; background: #000;filter:alpha(opacity=60);opacity: 0.6; display: block;
+.finance-add-data-table td dd .delete-this{width:148px; height: 20px; background: #000;filter:alpha(opacity=60);opacity: 0.6; display: block;
     top:0; position: absolute;}
-.add-data-table1 td dd .delete-this i{padding:0 5px;width:10px; height:20px; background: url(/static/images/logo_in.png) no-repeat -123px 2px; display: block; float: right;margin-right:10px; cursor: pointer;}
+.finance-add-data-table td dd .delete-this i{padding:0 5px;width:10px; height:20px; background: url(/static/images/logo_in.png) no-repeat -123px 2px; display: block; float: right;margin-right:10px; cursor: pointer;}
