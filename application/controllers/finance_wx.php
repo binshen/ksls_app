@@ -21,6 +21,7 @@ class Finance_wx extends CI_Controller
         $this->load->config('wxpay_config');
         $this->wxconfig['appid']=$this->config->item('fin_appid');
         $this->wxconfig['appsecret']=$this->config->item('fin_appsecret');
+        die(var_dump($this->wxconfig));
         if ( strpos($_SERVER['HTTP_USER_AGENT'], 'MicroMessenger') !== false ) {
             if(!$this->session->userdata('openid')){
                 $appid = $this->wxconfig['appid'];
