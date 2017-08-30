@@ -36,7 +36,7 @@ font-size: 14px;
 
     {{/if}}
 
-            <form method="post" class="c-form login-form" id="J_Register" action="/wxserver/save_openid">
+            <form method="post" class="c-form login-form" id="J_Register" action="/finance/save_openid">
                 {{if $data.res == -1}}账号登陆失败{{/if}}
                 {{if $data.res == 1}}绑定成功{{/if}}
                 {{if $data.res == 2}}人员离职,绑定失败{{/if}}
