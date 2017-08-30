@@ -52,8 +52,10 @@ class Finance_wx extends CI_Controller
             }
             $this->assign('data', $data);
             $this->display('finance/wx_login.html');
+        }else{
+            echo "Hello FunMall";
         }
-        //echo "Hello FunMall";
+        //
     }
 
     public function bdwx(){
