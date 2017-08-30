@@ -21,11 +21,14 @@ class Finance_wx extends CI_Controller
         $this->load->config('wxpay_config');
         $this->wxconfig['appid']=$this->config->item('fin_appid');
         $this->wxconfig['appsecret']=$this->config->item('fin_appsecret');
-        die(var_dump($this->wxconfig));
+        var_dump($this->wxconfig);
         if ( strpos($_SERVER['HTTP_USER_AGENT'], 'MicroMessenger') !== false ) {
             if(!$this->session->userdata('openid')){
                 $appid = $this->wxconfig['appid'];
                 $secret = $this->wxconfig['appsecret'];
+                var_dump($appid);
+                var_dump($secret);
+                die();
                 if(empty($_GET['code'])){
                     $url = 'http://'.$_SERVER['SERVER_NAME'].$_SERVER["REQUEST_URI"]; //这是要回调地址可以有别的写法
                     redirect("https://open.weixin.qq.com/connect/oauth2/authorize?appid={$appid}&redirect_uri={$url}&response_type=code&scope=snsapi_base&state=STATE#wechat_redirect");
