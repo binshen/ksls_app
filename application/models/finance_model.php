@@ -151,8 +151,8 @@ class Finance_model extends MY_Model
             )
         )->row_array();
         $max_num = 1;
-        if(!empty($result['max_num'])) {
-            $max_num += $result['max_num'];
+        if(!empty($result['id'])) {
+            $max_num += $result['id'];
         }
         $finance_num = 'FIN' .date('y'). str_pad($company_id, 4, "0", STR_PAD_LEFT) . str_pad($max_num, 4, "0", STR_PAD_LEFT);
         return $finance_num;
