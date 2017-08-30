@@ -26,7 +26,7 @@
             <div class="nav-left">
                  <ul class="nav-left-ul">
                     <li><a href="/"><em class="home"></em>回到首页</a></li>
-                     {{if $permission_id > 3}}
+                     {{if $permission_id > 3 && !in_array(12,$position_id)}}
                      <li class="on"><a href="/finance/finance_list"><em class="finance"></em>我的金融</a></li>
                      {{/if}}
                      {{if $permission_id < 5 || in_array(12,$position_id)}}

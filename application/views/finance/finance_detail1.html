@@ -27,7 +27,7 @@
             <div class="nav-left">
                 <ul class="nav-left-ul">
                     <li><a href="/"><em class="home"></em>回到首页</a></li>
-                    {{if $permission_id > 3}}
+                    {{if $permission_id > 3 && !in_array(12,$position_id)}}
                     <li class="on"><a href="/finance/finance_list"><em class="finance"></em>我的金融</a></li>
                     {{/if}}
                     {{if $permission_id < 5 || in_array(12,$position_id)}}
@@ -210,42 +210,78 @@
                     </tr>
                 </table>
                 </div>
+            {{if $data.status != 1}}
             {{if $permission_id == 1 || in_array(12,$position_id)}}
                  <div class="div-th" style="background-color:#1abc9c;"><em></em>金融审核</div>
-           <div class="div-bd div-bd2" style="border-color:#1abc9c;">
-               
+            <form id="status_form" method="post" action="/finance/status_finance_save">
+                <input type="hidden" name="finance_id" value="{{$data.id}}">
+                <div class="div-bd div-bd2" style="border-color:#1abc9c;">
+
+                    <div class="editor-process search-wrap">
+                        <div class="div-process">
+                            <div class="his-tit">状态</div>
+                            <select id="sel_status" name="status">
+                                <option value="">请选择</option>
+                                <option {{if $data.status == 3}}selected{{/if}} value="3">审核通过</option>
+                                <option {{if $data.status == 4}}selected{{/if}} value="4">结案</option>
+                                <option {{if $data.status == 5}}selected{{/if}} value="5">审批未通过</option>
+                                <option {{if $data.status == -1}}selected{{/if}} value="-1">终止</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="describe-process">
+                        <div class="his-tit">状态描述</div>
+                        <textarea name="meno_text" rows="2" cols="3" class="sce-remarks process-remarks" placeholder="如有其他情况请备注">{{$data.meno_text|default:''}}</textarea>
+
+                    </div>
+                </div>
+            </form>
+         {{else}}
+
+            <div class="div-th" style="background-color:#1abc9c;"><em></em>金融审核</div>
+            <div class="div-bd div-bd2" style="border-color:#1abc9c;">
+
                 <div class="editor-process search-wrap">
                     <div class="div-process">
                         <div class="his-tit">状态</div>
-                        <select name="status" disabled="disabled">
-                            <option value="2">审核通过</option>
-                            <option value="3">结案</option>
-                            <option value="4">审批未通过</option>
-                            <option value="5">终止</option>
-                        </select>
+                        {{if $data.status == 1}}待提交{{/if}}
+                        {{if $data.status == 2}}待审核{{/if}}
+                        {{if $data.status == 3}}审核通过{{/if}}
+                        {{if $data.status == 4}}结案{{/if}}
+                        {{if $data.status == 5}}审核未通过{{/if}}
+                        {{if $data.status == -1}}终止{{/if}}
+
                     </div>
                 </div>
                 <div class="describe-process">
-                        <div class="his-tit">异常状态描述</div>
-                        <textarea name="errtext" rows="2" cols="3" class="sce-remarks process-remarks" placeholder="如有其他情况请备注"></textarea>
+                    <div class="his-tit">状态描述</div>
+                    <textarea name="meno_text" readonly="readonly" rows="2" cols="3" class="sce-remarks process-remarks" placeholder="如有其他情况请备注">{{$data.meno_text|default:''}}</textarea>
 
-                    </div>
+                </div>
             </div>
+            {{/if}}
             {{/if}}
                  <p style="padding:0 20px 30px;">郑重提醒：<br />
        客户承诺提交资料真实有效，平台根据客户提交资料给出相匹配之金融产品。并给出贷款额度。如因客户提供资料为伪造，或因后期资料不全导致无法顺利办理金融业务的。平台不承担客户任何经济及精神损失。</p>
               <p class="p-btns" style="width:210px;">
-                  <a href="" class="sub-btn">提交</a>
+                  <a href="javascript:void(0);" onclick="window.history.go(-1)" class="sub-btn" style="background-color:#35aa47;">上一页</a>
+                  {{if $permission_id == 1 || in_array(12,$position_id)}}<a href="javascript:void(0);" id="save_btn" class="sub-btn">提交</a>{{/if}}
+
               </p> 
         </div>
     </div>
 </div>
+<script type="text/javascript" src="/static/js/layer/layer.js"></script>
 <script type="text/javascript">
     $(".ing-error").mouseover(function(){
         $(this).children(".error-explain").toggle();
     }).mouseout(function(){ $(this).children(".error-explain").hide();});
-    $("#btn_search").click(function() {
-        $('#formSearchActivity').submit();
+    $("#save_btn").click(function() {
+        if($("#sel_status").val()==""){
+            layer.msg('请选择状态', {icon: 2});
+            return false;
+        }
+        $('#status_form').submit();
     });
 </script>
 </body>

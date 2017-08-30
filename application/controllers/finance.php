@@ -26,25 +26,48 @@ class Finance extends MY_Controller
         if(!$this->session->userdata('login_user_id') || in_array(1,$this->session->userdata('login_position_id_array'))) {
             redirect(site_url('/'));
         } else {
-            if($this->session->userdata('login_permission_id') < 3){
-                if($method == 'add_finance'
-                    || $method == 'save_finance_1'
-                    || $method == 'save_finance_2'
-                    || $method == 'edit_finance_2'
-                    || $method == 'edit_finance_2'
-                    || $method == 'save_finance_tj'
-                    || $method == 'save_finance_3'
-                    || $method == 'go_finance_1'){
-                    redirect(site_url('/finance/finance_list_other'));
-                    exit();
+
+                if(in_array(12,$this->session->userdata('login_position_id_array'))){
+                    if($method == 'add_finance'
+                        || $method == 'save_finance_1'
+                        || $method == 'save_finance_2'
+                        || $method == 'edit_finance_2'
+                        || $method == 'edit_finance_2'
+                        || $method == 'save_finance_tj'
+                        || $method == 'save_finance_3'
+                        || $method == 'go_finance_1'
+                        || $method == 'finance_list'){
+                        redirect(site_url('/finance/finance_list_other'));
+                        exit();
+                    }
+                }else{
+                    if($method == 'status_finance_save'){
+                        redirect(site_url('/'));
+                        exit();
+                    }
+                    if($this->session->userdata('login_permission_id') < 3){
+                        if($method == 'add_finance'
+                            || $method == 'save_finance_1'
+                            || $method == 'save_finance_2'
+                            || $method == 'edit_finance_2'
+                            || $method == 'edit_finance_2'
+                            || $method == 'save_finance_tj'
+                            || $method == 'save_finance_3'
+                            || $method == 'go_finance_1'){
+                            redirect(site_url('/finance/finance_list_other'));
+                            exit();
+                        }
+                    }
+                    if($this->session->userdata('login_permission_id') > 4){
+                        if($method == 'finance_list_other'){
+                            redirect(site_url('/finance/finance_list'));
+                            exit();
+                        }
+                    }
                 }
-            }
-            if($this->session->userdata('login_permission_id') > 4){
-                if($method == 'finance_list_other'){
-                    redirect(site_url('/finance/finance_list'));
-                    exit();
-                }
-            }
+
+
+
             return call_user_func_array(array($this, $method), $params);
         }
     }
@@ -296,6 +319,15 @@ class Finance extends MY_Controller
         $data = $this->finance_model->get_detail($id);
         $this->assign('data', $data);
         $this->display('finance/finance_detail1.html');
+    }
+
+    public function status_finance_save(){
+        if(!$id = $this->input->post('finance_id'))
+            redirect(site_url('/'));
+        if(!in_array($this->input->post("status"),array(2,3,4,5,-1)))
+            redirect(site_url('/'));
+        $res = $this->finance_model->status_finance_save();
+        redirect(site_url('/finance/finance_list_other'));
     }
 
 }

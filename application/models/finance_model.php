@@ -335,4 +335,22 @@ class Finance_model extends MY_Model
         }
     }
 
+    public function status_finance_save(){
+        $data = array(
+            "status"=>$this->input->post("status")
+        );
+        switch ($data['status']){
+            case 3:
+            case 5:
+                $data['check_date']=date('Y-m-d H:i:s');
+                break;
+            case 4:
+            case -1:
+                $data['end_date']=date('Y-m-d H:i:s');
+                break;
+        }
+        $res = $this->db->where('id',$this->input->post('finance_id'))->update('finance',$data);
+        return $res;
+    }
+
 }
