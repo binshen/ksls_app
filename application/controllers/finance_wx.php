@@ -43,7 +43,7 @@ class Finance_wx extends CI_Controller
     }
 
     public function login(){
-        echo '1';
+
         $data['res'] = 0;
         $data['user_info'] = array();
         if($this->session->userdata('openid')){
@@ -51,8 +51,8 @@ class Finance_wx extends CI_Controller
             if($res){
                 $data['user_info'] = $res;
             }
-            $this->assign('data', $data);
-            $this->display('finance/wx_login.html');
+            $this->cismarty->assign('data', $data);
+            $this->cismarty->display('finance/wx_login.html');
         }else{
             echo "Hello FunMall";
         }
@@ -67,8 +67,8 @@ class Finance_wx extends CI_Controller
             if($res){
                 $data['user_info'] = $res;
             }
-            $this->assign('data', $data);
-            $this->display('wxhtml/login.html');
+            $this->cismarty->assign('data', $data);
+            $this->cismarty->display('wxhtml/login.html');
         }
 
     }
@@ -82,8 +82,8 @@ class Finance_wx extends CI_Controller
             if($res){
                 $data['user_info'] = $res;
             }
-            $this->assign('data', $data);
-            $this->display('finance/wx_login.html');
+            $this->cismarty->assign('data', $data);
+            $this->cismarty->display('finance/wx_login.html');
         }
     }
 
