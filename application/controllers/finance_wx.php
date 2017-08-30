@@ -54,7 +54,8 @@ class Finance_wx extends CI_Controller
             $this->cismarty->assign('data', $data);
             $this->cismarty->display('finance/wx_login.html');
         }else{
-            echo "Hello FunMall";
+            $this->cismarty->assign('data', $data);
+            $this->cismarty->display('finance/wx_login.html');
         }
         //
     }
