@@ -330,4 +330,8 @@ class Finance extends MY_Controller
         redirect(site_url('/finance/finance_list_other'));
     }
 
+    public function test(){
+        $this->finance_model->create_finance_num();
+
+    }
 }

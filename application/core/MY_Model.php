@@ -482,7 +482,7 @@ class MY_Model extends CI_Model{
         } else {
             $interval = time() - intval($data_token['created']);
             if($interval / 60 / 60 > 1) {
-                $data_token['token'] = $this->get_access_token();
+                $data_token['token'] = $this->get_access($app,$appsecret);
                 $data_token['created'] = time();
                 $this->db->where('id', $data_token['id']);
                 $this->db->update('token', $data_token);
