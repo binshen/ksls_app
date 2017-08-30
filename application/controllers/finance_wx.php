@@ -43,6 +43,7 @@ class Finance_wx extends CI_Controller
     }
 
     public function login(){
+        echo '1';
         $data['res'] = 0;
         $data['user_info'] = array();
         if($this->session->userdata('openid')){
