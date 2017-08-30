@@ -42,7 +42,7 @@ class Finance_wx extends CI_Controller
     }
 
     public function login(){
-        $data['res'] = 0;
+        /*$data['res'] = 0;
         $data['user_info'] = array();
         if($this->session->userdata('openid')){
             $res = $this->wxserver_model->check_openid();
@@ -51,7 +51,8 @@ class Finance_wx extends CI_Controller
             }
             $this->assign('data', $data);
             $this->display('finance/login.html');
-        }
+        }*/
+        echo "Hello FunMall";
     }
 
     public function bdwx(){
