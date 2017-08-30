@@ -396,7 +396,8 @@ class Finance_model extends MY_Model
 
     public function status_finance_save(){
         $data = array(
-            "status"=>$this->input->post("status")
+            "status"=>$this->input->post("status"),
+            "meno_text"=>$this->input->post("meno_text")
         );
         switch ($data['status']){
             case 3:

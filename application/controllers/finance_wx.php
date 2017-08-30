@@ -51,7 +51,7 @@ class Finance_wx extends CI_Controller
                 $data['user_info'] = $res;
             }
             $this->assign('data', $data);
-            $this->display('finance/login.html');
+            $this->display('finance/wx_login.html');
         }
         //echo "Hello FunMall";
     }
@@ -80,7 +80,7 @@ class Finance_wx extends CI_Controller
                 $data['user_info'] = $res;
             }
             $this->assign('data', $data);
-            $this->display('finance/login.html');
+            $this->display('finance/wx_login.html');
         }
     }
 
