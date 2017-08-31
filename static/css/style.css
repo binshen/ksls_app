@@ -982,3 +982,25 @@ html .fc,.fc table{font-size:1em;background:#f2f3f5}.fc td,.fc th{padding:0;vert
 .finance-add-data-table td dd .delete-this{width:148px; height: 20px; background: #000;filter:alpha(opacity=60);opacity: 0.6; display: block;
     top:0; position: absolute;}
 .finance-add-data-table td dd .delete-this i{padding:0 5px;width:10px; height:20px; background: url(/static/images/logo_in.png) no-repeat -123px 2px; display: block; float: right;margin-right:10px; cursor: pointer;}
+
+
+.f_result_tit{background: #f7f7f7;font-size: 16px; padding:20px; line-height: 24px;border-bottom:1px solid #dfdfdf;}
+.f_result_tit em{padding-left: 10px; float:left;width:23px;height:23px; display: inline-block; background: url(../images/re_icon.jpg) no-repeat -257px 0;}
+.f_result_div{width:978px;border:1px solid #dfdfdf; float: right; background: #fff;}
+
+.f_result_bd .suc_icon{width:80px; height:80px; background: url(../images/re_icon.jpg) no-repeat; float: left;}
+.f_result_bd .wls_icon{background-position: -83px 0;}
+.f_result_bd .sb_success_icon{background-position: -167px 0;}
+.f_result_bd .s_div{padding:100px 0 100px 200px;}
+.f_result_bd .s_p1{font-size: 14px; line-height: 24px;padding:0 100px;}.f_result_bd .s_p1 .fz18{font-size:18px; }
+
+.f_result_txt{border:1px solid #e7e7e7; background: #fcfcfc; padding:20px 40px 0;width:444px; height: 305px;margin:20px 0 0 100px;}
+.f_result_txt .s_f_r_tit{ display: block; font-size: 14px;}
+.f_result_txt .f_result_ul{padding:15px 0; height:55px;border-bottom:2px solid #e6e6e6;}
+.f_result_txt .f_result_ul li{ padding:0 40px; float: left; color:#cdcdcd; line-height: 26px;border-right: 1px dotted #eaeaea;}
+.f_result_txt .f_result_ul .li1{}
+.f_result_txt .f_result_ul.borno,.f_result_txt .f_result_ul:last-child,.f_result_txt .f_result_ul li:last-child{border:none;}
+.f_result_txt .f_result_ul li em{font-size:20px; color:#999;}.f_result_txt .f_result_ul li .em1{color:#d7a34c;}
+.f_result_txt .f_result_ul .li2{}
+.f_result_bd .f_p_back{margin-left: 95px; font-size: 14px;padding-top:20px;}
+.f_result_bd .f_p_back a{color: #7984af;}.f_result_bd .f_p_back a:hover{text-decoration: underline;}
