@@ -51,7 +51,7 @@
 
       <div class="am-tabs-bd">
         <div class="am-tab-panel am-active">
-          <form method="post" class="am-form" action="{{site_url url='finance/save_openid'}}">
+          <form method="post" class="am-form" action="{{site_url url='finance_wx/save_openid'}}">
             <label>服务绑定编号:</label>
             <input type="text" name="finance_wx_num" value="" required>
             {{if $flag == '-2'}}
@@ -67,7 +67,7 @@
           </form>
         </div>
         <div class="am-tab-panel">
-          <form method="post" class="am-form" action="{{site_url url='finance/user_login'}}">
+          <form method="post" class="am-form" action="{{site_url url='finance_wx/user_login'}}">
             <label>用户名:</label>
             <input type="text" name="username" value="" required>
             <br>
