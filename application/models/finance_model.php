@@ -311,7 +311,7 @@ class Finance_model extends MY_Model
                 )
             );
             //发送给用户自己
-            $this->wxpost_fin($this->config->item('WX_SJTJ'),$data_msg,$this->session->userdata('login_user_id'),'www.baidu.com');
+            $this->wxpost_fin($this->config->item('WX_FIN_SJTJ'),$data_msg,$this->session->userdata('login_user_id'),'www.baidu.com');
             //发送给用户的店长,如果用户本身职级大于等于店长,就不做通知
             if($this->session->userdata('login_permission_id') > 4){
                 $data['remark']['value'] = "你的员工 ".$this->session->userdata('login_rel_name')." 成功".$msg_type."提交一单代办业务.";
@@ -328,7 +328,7 @@ class Finance_model extends MY_Model
                 $this->db->where_in('b.subsidiary_id',$this->session->userdata('login_subsidiary_id_array'));
                 $user_list1 = $this->db->get()->result_array();
                 foreach($user_list1 as $item){
-                    $this->wxpost_fin($this->config->item('WX_SJTJ'),$data_msg,$item['id']);
+                    $this->wxpost_fin($this->config->item('WX_FIN_SJTJ'),$data_msg,$item['id']);
                 }
             }
             //发送给金融管理人员
@@ -346,7 +346,7 @@ class Finance_model extends MY_Model
             $this->db->where('a.openid is not null');
             $user_list2 = $this->db->get()->result_array();
             foreach($user_list2 as $item2){
-                $this->wxpost_fin($this->config->item('WX_SJTJ'),$data_msg,$item2['id']);
+                $this->wxpost_fin($this->config->item('WX_FIN_SJTJ'),$data_msg,$item2['id']);
             }
             return 1;
         }

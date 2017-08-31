@@ -359,6 +359,6 @@ class Finance extends MY_Controller
             )
         );
         //发送给用户自己
-        $this->finance_model->wxpost_fin($this->config->item('WX_SJTJ'),$data_msg,$this->session->userdata('login_user_id'),'www.baidu.com');
+        $this->finance_model->wxpost_fin($this->config->item('WX_FIN_SJTJ'),$data_msg,$this->session->userdata('login_user_id'),'www.baidu.com');
     }
 }
