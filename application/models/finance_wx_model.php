@@ -165,6 +165,7 @@ where a.flag = 1 and a.user_id = ".$this->session->userdata('user_id')."
             $user_id = $this->session->userdata('user_id');
 
         }
+        $data['fin_count'] = $this->get_count_finance($user_id,$subsidiary_id,$company_id,null,null);
         $data['fin_count7'] = $this->get_count_finance($user_id,$subsidiary_id,$company_id,null,1);
         $data['fin_count30'] = $this->get_count_finance($user_id,$subsidiary_id,$company_id,null,2);
         $data['ins_1'] = $this->get_count_finance($user_id,$subsidiary_id,$company_id,1,null);
