@@ -266,11 +266,26 @@
 
                     </div>
                 </div>
-                <div class="describe-process">
+                <div class="describe-process finance-process">
+                    <!-- 匹配方案 -->
+                    <div class="show-fangan" id="show-fangan" style="display:none;">匹配方案<br />
+                        <p>方案1  额度：<input type="text" class="finance_fangan">  年化：<input type="text" class="finance_fangan">周期：<input type="text" class="finance_fangan">—<input type="text" class="finance_fangan">期 类型 ： <label><input type="radio" name="radio1" class="radio-choose" />  信用 </label><label><input type="radio" name="radio1" class="radio-choose" /> 抵押</label></p>
+                        <p>方案2  额度：<input type="text" class="finance_fangan">  年化：<input type="text" class="finance_fangan">周期：<input type="text" class="finance_fangan">—<input type="text" class="finance_fangan">期 类型 ： <label><input type="radio" name="radio1" class="radio-choose" /> 信用 </label><label><input type="radio" name="radio1" class="radio-choose" /> 抵押</label></p>
+                        <p>方案3  额度：<input type="text" class="finance_fangan">  年化：<input type="text" class="finance_fangan">周期：<input type="text" class="finance_fangan">—<input type="text" class="finance_fangan">期 类型 ： <label><input type="radio" name="radio1" class="radio-choose" /> 信用 </label><label><input type="radio" name="radio1" class="radio-choose" /> 抵押</label></p>
+                    </div>
+
                     <div class="his-tit">状态描述</div>
                     <textarea name="meno_text" readonly="readonly" rows="2" cols="3" class="sce-remarks process-remarks">{{$data.meno_text|default:''}}</textarea>
 
                 </div>
+                <script type="text/javascript">
+                    $("#finance-status").change(function(){
+                        if($(this).val()=='1'){
+                            $("#show-fangan").show();
+                        }else{$("#show-fangan").hide();}
+                    });
+
+                </script>
             </div>
             {{/if}}
             {{/if}}
