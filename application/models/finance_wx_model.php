@@ -130,20 +130,20 @@ class Finance_wx_model extends MY_Model
         $this->db->select('count(1) num')->from('finance a');
         $this->db->where('a.flag',1);
         $this->db->where("a.user_id",$this->session->userdata('user_id'));
-        $data['my_finance_count']=$this->db->get()->row()->num;
+        $data['my_fin_count']=$this->db->get()->row()->num;
         $sql_7 = "select count(a.id) num
 from finance a
 where a.flag = 1 and a.user_id = ".$this->session->userdata('user_id')."
  and a.tijiao_date >= date_add(NOW(), INTERVAL - 7 DAY) ";
         $query = $this->db->query($sql_7);
-        $data['my_finance_count7'] =  $query->row()->num;
+        $data['my_fin_count7'] =  $query->row()->num;
 
         $sql_30 = "select count(a.id) num
 from finance a
 where a.flag = 1 and a.user_id = ".$this->session->userdata('user_id')."
  and a.tijiao_date >= date_add(NOW(), INTERVAL - 30 DAY) ";
         $query = $this->db->query($sql_30);
-        $data['my_finance_count30'] =  $query->row()->num;
+        $data['my_fin_count30'] =  $query->row()->num;
 
         $position_id = $this->session->userdata('position_id_array');
         $permission_id = $this->session->userdata('permission_id');
