@@ -30,7 +30,7 @@ class Finance_wx_user extends Finwx_Controller
     public function index(){
         $main_data = $this->finance_wx_model->get_main_data();
         $this->assign('main_data',$main_data);
-        $this->display('finance_wx/user_search.html');
+        $this->display('finance/user_search.html');
     }
 
 
