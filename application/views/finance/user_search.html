@@ -40,6 +40,7 @@
     <form method="post" action="{{site_url url='finance_wx_user/finance_list'}}">
         <input type="hidden" name="status" />
     <ul class="admin-content-list">
+        {{if $permission_id > 3 && !in_array(12,$position_id)}}
         <li>
             <div class="am-txt-fl">
                 <a href="{{site_url url='finance_wx_user/finance_list'}}" class="am-text-warning">
@@ -54,6 +55,8 @@
                 一月提交<em class="am-text-warning">{{$main_data.my_fin_count30}}</em>份
             </div>
         </li>
+        {{/if}}
+        {{if $permission_id < 5 || in_array(12,$position_id)}}
         <li>
             <div class="am-txt-fl">
                 <a href="{{site_url url='finance_wx_user/finance_list_other'}}" class="am-text-warning">
@@ -74,6 +77,7 @@
                 关闭<em class="am-text-warning">{{$main_data.ins_6}}</em>份<br />
             </div>
         </li>
+        {{/if}}
         <!--<li>
             <div class="am-txt-fl">
                 <a href="{{site_url url='supervisors/list_message'}}" class="am-text-success">

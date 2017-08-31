@@ -20,6 +20,10 @@ class Finance_wx_user extends Finwx_Controller
         }
         $this->assign('rel_name',$this->session->userdata('rel_name'));
         $this->assign('role_name',$this->session->userdata('role_name'));
+        $permission_id = $this->session->userdata('permission_id');
+        $this->assign('permission_id', $permission_id);
+        $position_id = $this->session->userdata('position_id_array');
+        $this->assign('position_id', $position_id);
     }
 
     public function logout(){
