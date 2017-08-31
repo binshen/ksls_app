@@ -413,4 +413,23 @@ class Finance_model extends MY_Model
         return $res;
     }
 
+    public function view_power($id){
+        $data = $this->db->from('finance')->where('id',$id)->get()->row_array();
+        if(!$data)
+            return -1;
+        $company_id = $this->session->userdata('login_company_id');
+        $subsidiary_id = $this->session->userdata('login_subsidiary_id_array');
+        $position_id = $this->session->userdata('login_position_id_array');
+        $permission_id = $this->session->userdata('login_permission_id');
+        if($permission_id == 1 || in_array(12,$position_id))
+            return 1;
+        if($permission_id == 2 && $data['company_id'] == $company_id)
+            return 1;
+        if($permission_id <= 4 && $data['company_id'] == $company_id && in_array($data['subsidiary_id'],$subsidiary_id))
+            return 1;
+        if($data['user_id'] == $this->session->userdata('login_user_id'))
+            return 1;
+        return -2;
+    }
+
 }

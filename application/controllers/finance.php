@@ -291,7 +291,7 @@ class Finance extends MY_Controller
         }
     }
 
-    public function save_finance_3(){
+    public function save_finance_3($flag = 1){
         $id = $this->input->post("id");
         if(!$id)
             redirect(site_url('/finance/add_finance'));
@@ -301,21 +301,30 @@ class Finance extends MY_Controller
         }
         $res = $this->finance_model->save_finance_3();
         if($res > 0){
-            redirect(site_url('/finance/edit_finance_2')."/".$id );
+            if($flag == 1){
+                redirect(site_url('/finance/edit_finance_2')."/".$id );
+            }else{
+                redirect(site_url('/finance/finance_list'));
+            }
+
         }else{
             redirect(site_url('/finance/add_finance'));
         }
     }
 
     public function view_finance($id){
-
+        $view_p = $this->finance_model->view_power($id);
+        if($view_p != 1)
+            redirect(site_url('/finance/finance_list'));
         $data = $this->finance_model->get_detail($id);
         $this->assign('data', $data);
         $this->display('finance/finance_detail.html');
     }
 
     public function view_finance_2($id){
-
+        $view_p = $this->finance_model->view_power($id);
+        if($view_p != 1)
+            redirect(site_url('/finance/finance_list'));
         $data = $this->finance_model->get_detail($id);
         $this->assign('data', $data);
         $this->display('finance/finance_detail1.html');

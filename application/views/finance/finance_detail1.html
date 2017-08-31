@@ -8,6 +8,7 @@
     <meta name="description" content="房猫-金融-贷款申请" />
     <link href="/static/css/reset.css" rel="stylesheet" type="text/css">
     <link href="/static/css/style.css" rel="stylesheet" type="text/css">
+    <link href="/static/css/lightbox.min.css" rel="stylesheet" type="text/css" >
     <style type="text/css">
         .yy_display{
             display: none;
@@ -102,24 +103,29 @@
                                         <li>
                                             <div class="upload-photo">
                                                 <span class="photo-img">
-                                                    <img class="yy_img" src="{{if $data.borrower_img_SFZ1}}/uploadfiles/finance/{{$data.finance_num}}/{{$data.borrower_img_SFZ1}}{{else}}/static/images/finance_default.png{{/if}}" alt=""></span>
+                                                    <a class="example-image-link" href="{{if $data.borrower_img_SFZ1}}/uploadfiles/finance/{{$data.finance_num}}/{{$data.borrower_img_SFZ1}}{{else}}/static/images/finance_default.png{{/if}}" data-lightbox="example-set example_num-1" data-title="申请人身份证正面">
+                                                    <img class="yy_img" src="{{if $data.borrower_img_SFZ1}}/uploadfiles/finance/{{$data.finance_num}}/{{$data.borrower_img_SFZ1}}{{else}}/static/images/finance_default.png{{/if}}" alt="">
+                                                </a></span>
                                             </div>
 
                                             <span class="upload-photo-txt">申请人身份证正面</span>
                                         </li>
                                         <li>
                                             <span class="photo-img">
-                                                    <img class="yy_img" src="{{if $data.borrower_img_SFZ2}}/uploadfiles/finance/{{$data.finance_num}}/{{$data.borrower_img_SFZ2}}{{else}}/static/images/finance_default.png{{/if}}" alt=""></span>
+                                                <a class="example-image-link" href="{{if $data.borrower_img_SFZ2}}/uploadfiles/finance/{{$data.finance_num}}/{{$data.borrower_img_SFZ2}}{{else}}/static/images/finance_default.png{{/if}}" data-lightbox="example-set example_num-2" data-title="申请人身份证反面">
+                                                    <img class="yy_img example-image-link" src="{{if $data.borrower_img_SFZ2}}/uploadfiles/finance/{{$data.finance_num}}/{{$data.borrower_img_SFZ2}}{{else}}/static/images/finance_default.png{{/if}}" alt=""></a></span>
                                             <span class="upload-photo-txt">申请人身份证反面</span>
                                         </li>
                                         <li>
                                             <span class="photo-img">
-                                                    <img class="yy_img" src="{{if $data.spouse_img_SFZ1}}/uploadfiles/finance/{{$data.finance_num}}/{{$data.spouse_img_SFZ1}}{{else}}/static/images/finance_default.png{{/if}}" alt=""></span>
+                                                <a class="example-image-link" href="{{if $data.spouse_img_SFZ1}}/uploadfiles/finance/{{$data.finance_num}}/{{$data.spouse_img_SFZ1}}{{else}}/static/images/finance_default.png{{/if}}" data-lightbox="example-set example_num-3" data-title="配偶身份证正面">
+                                                    <img class="yy_img" src="{{if $data.spouse_img_SFZ1}}/uploadfiles/finance/{{$data.finance_num}}/{{$data.spouse_img_SFZ1}}{{else}}/static/images/finance_default.png{{/if}}" alt=""></a></span>
                                             <span class="upload-photo-txt">配偶身份证正面</span>
                                         </li>
                                         <li>
                                              <span class="photo-img">
-                                                    <img class="yy_img" src="{{if $data.spouse_img_SFZ2}}/uploadfiles/finance/{{$data.finance_num}}/{{$data.spouse_img_SFZ2}}{{else}}/static/images/finance_default.png{{/if}}" alt=""></span>
+                                                 <a class="example-image-link" href="{{if $data.spouse_img_SFZ2}}/uploadfiles/finance/{{$data.finance_num}}/{{$data.spouse_img_SFZ2}}{{else}}/static/images/finance_default.png{{/if}}" data-lightbox="example-set example_num-4" data-title="配偶身份证反面">
+                                                    <img class="yy_img" src="{{if $data.spouse_img_SFZ2}}/uploadfiles/finance/{{$data.finance_num}}/{{$data.spouse_img_SFZ2}}{{else}}/static/images/finance_default.png{{/if}}" alt=""></a></span>
                                             <span class="upload-photo-txt">配偶身份证反面</span>
                                         </li>
                                     </ul>
@@ -135,12 +141,14 @@
                                     <ul>
                                         <li>
                                             <span class="photo-img">
-                                                    <img class="yy_img" src="{{if $data.img_JHZ1}}/uploadfiles/finance/{{$data.finance_num}}/{{$data.img_JHZ1}}{{else}}/static/images/finance_default.png{{/if}}" alt=""></span>
+                                                <a class="example-image-link" href="{{if $data.img_JHZ1}}/uploadfiles/finance/{{$data.finance_num}}/{{$data.img_JHZ1}}{{else}}/static/images/finance_default.png{{/if}}" data-lightbox="example-set example_num-5" data-title="结婚证1">
+                                                    <img class="yy_img" src="{{if $data.img_JHZ1}}/uploadfiles/finance/{{$data.finance_num}}/{{$data.img_JHZ1}}{{else}}/static/images/finance_default.png{{/if}}" alt=""></a></span>
                                             <span class="upload-photo-txt">结婚证1</span>
                                         </li>
                                         <li>
                                              <span class="photo-img">
-                                                    <img class="yy_img" src="{{if $data.img_JHZ2}}/uploadfiles/finance/{{$data.finance_num}}/{{$data.img_JHZ2}}{{else}}/static/images/finance_default.png{{/if}}" alt=""></span>
+                                                 <a class="example-image-link" href="{{if $data.img_JHZ2}}/uploadfiles/finance/{{$data.finance_num}}/{{$data.img_JHZ2}}{{else}}/static/images/finance_default.png{{/if}}" data-lightbox="example-set example_num-6" data-title="结婚证2">
+                                                    <img class="yy_img" src="{{if $data.img_JHZ2}}/uploadfiles/finance/{{$data.finance_num}}/{{$data.img_JHZ2}}{{else}}/static/images/finance_default.png{{/if}}" alt=""></a></span>
                                             <span class="upload-photo-txt">结婚证2</span>
                                         </li>
                                     </ul>
@@ -152,7 +160,8 @@
                                     <ul>
                                         <li>
                                              <span class="photo-img">
-                                                    <img class="yy_img" src="{{if $data.img_BDC}}/uploadfiles/finance/{{$data.finance_num}}/{{$data.img_BDC}}{{else}}/static/images/finance_default.png{{/if}}" alt=""></span>
+                                                 <a class="example-image-link" href="{{if $data.img_BDC}}/uploadfiles/finance/{{$data.finance_num}}/{{$data.img_BDC}}{{else}}/static/images/finance_default.png{{/if}}" data-lightbox="example-set example_num-7" data-title="不动产证">
+                                                    <img class="yy_img" src="{{if $data.img_BDC}}/uploadfiles/finance/{{$data.finance_num}}/{{$data.img_BDC}}{{else}}/static/images/finance_default.png{{/if}}" alt=""></a></span>
                                             <span class="upload-photo-txt">不动产证</span>
                                         </li>
                                     </ul>
@@ -164,7 +173,8 @@
                                     <ul>
                                         <li>
                                             <span class="photo-img">
-                                                    <img class="yy_img" src="{{if $data.img_SBZ}}/uploadfiles/finance/{{$data.finance_num}}/{{$data.img_SBZ}}{{else}}/static/images/finance_default.png{{/if}}" alt=""></span>
+                                                <a class="example-image-link" href="{{if $data.img_SBZ}}/uploadfiles/finance/{{$data.finance_num}}/{{$data.img_SBZ}}{{else}}/static/images/finance_default.png{{/if}}" data-lightbox="example-set example_num-8" data-title="社保证">
+                                                    <img class="yy_img" src="{{if $data.img_SBZ}}/uploadfiles/finance/{{$data.finance_num}}/{{$data.img_SBZ}}{{else}}/static/images/finance_default.png{{/if}}" alt=""></a></span>
                                             <span class="upload-photo-txt">社保证</span>
                                         </li>
                                     </ul>
@@ -182,7 +192,8 @@
                                     <ul>
                                         <li>
                                              <span class="photo-img">
-                                                    <img class="yy_img" src="{{if $data.img_ZXBG}}/uploadfiles/finance/{{$data.finance_num}}/{{$data.img_ZXBG}}{{else}}/static/images/finance_default.png{{/if}}" alt=""></span>
+                                                 <a class="example-image-link" href="{{if $data.img_ZXBG}}/uploadfiles/finance/{{$data.finance_num}}/{{$data.img_ZXBG}}{{else}}/static/images/finance_default.png{{/if}}" data-lightbox="example-set example_num-9" data-title="证信报告">
+                                                    <img class="yy_img" src="{{if $data.img_ZXBG}}/uploadfiles/finance/{{$data.finance_num}}/{{$data.img_ZXBG}}{{else}}/static/images/finance_default.png{{/if}}" alt=""></a></span>
                                             <span class="upload-photo-txt">证信报告</span>
                                         </li>
                                     </ul>
@@ -194,7 +205,9 @@
                                     <ul>
                                         <li>
                                              <span class="photo-img">
-                                                    <img class="yy_img" src="{{if $data.img_YHLS}}/uploadfiles/finance/{{$data.finance_num}}/{{$data.img_YHLS}}{{else}}/static/images/finance_default.png{{/if}}" alt=""></span>
+                                                 <a class="example-image-link" href="{{if $data.img_YHLS}}/uploadfiles/finance/{{$data.finance_num}}/{{$data.img_YHLS}}{{else}}/static/images/finance_default.png{{/if}}" data-lightbox="example-set example_num-10" data-title="工资流水/企业流水">
+                                                    <img class="yy_img" src="{{if $data.img_YHLS}}/uploadfiles/finance/{{$data.finance_num}}/{{$data.img_YHLS}}{{else}}/static/images/finance_default.png{{/if}}" alt="">
+                                             </a></span>
                                             <span class="upload-photo-txt">工资流水/企业流水</span>
                                         </li>
                                     </ul>
@@ -255,7 +268,7 @@
                 </div>
                 <div class="describe-process">
                     <div class="his-tit">状态描述</div>
-                    <textarea name="meno_text" readonly="readonly" rows="2" cols="3" class="sce-remarks process-remarks" placeholder="如有其他情况请备注">{{$data.meno_text|default:''}}</textarea>
+                    <textarea name="meno_text" readonly="readonly" rows="2" cols="3" class="sce-remarks process-remarks">{{$data.meno_text|default:''}}</textarea>
 
                 </div>
             </div>
@@ -272,17 +285,27 @@
     </div>
 </div>
 <script type="text/javascript" src="/static/js/layer/layer.js"></script>
+<script type="text/javascript" src="/static/js/lightbox-plus-jquery.min.js"></script>
 <script type="text/javascript">
-    $(".ing-error").mouseover(function(){
-        $(this).children(".error-explain").toggle();
-    }).mouseout(function(){ $(this).children(".error-explain").hide();});
-    $("#save_btn").click(function() {
-        if($("#sel_status").val()==""){
-            layer.msg('请选择状态', {icon: 2});
-            return false;
-        }
-        $('#status_form').submit();
-    });
+    $(function(){
+        var example_num =1;
+        $("[class='yy_img']").each(function(){
+            $(this).attr('data-lightbox','example_num-' + example_num);
+            example_num+=1;
+        })
+        $(".ing-error").mouseover(function(){
+            $(this).children(".error-explain").toggle();
+        }).mouseout(function(){ $(this).children(".error-explain").hide();});
+        $("#save_btn").click(function() {
+            if($("#sel_status").val()==""){
+                layer.msg('请选择状态', {icon: 2});
+                return false;
+            }
+            $('#status_form').submit();
+        });
+    })
+
+
 </script>
 </body>
 </html>

@@ -228,6 +228,7 @@
        客户承诺提交资料真实有效，平台根据客户提交资料给出相匹配之金融产品。并给出贷款额度。如因客户提供资料为伪造，或因后期资料不全导致无法顺利办理金融业务的。平台不承担客户任何经济及精神损失。</p>
               <p class="p-btns" style="width:210px;">
                  <a href="javascript:void(0);" id="save_btn" class="sub-btn" style="background-color:#e5e5e5; color:#333;">上一步</a>
+                  <a href="javascript:void(0);" id="save_end_btn" class="sub-btn" style="background-color:#35aa47">保存不提交</a>
                   <a href="javascript:void(0);" id="tj_btn" class="sub-btn" style="background-color:#35aa47">提交</a>
               </p> 
         </div>
@@ -360,6 +361,11 @@
     $("#save_btn").click(function() {
 
         $("#financeForm").attr("action","/finance/save_finance_3");
+        $('#financeForm').submit();
+    })
+    $("#save_end_btn").click(function() {
+
+        $("#financeForm").attr("action","/finance/save_finance_3/2");
         $('#financeForm').submit();
     })
 </script>
