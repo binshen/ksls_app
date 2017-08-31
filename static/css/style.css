@@ -1004,3 +1004,7 @@ html .fc,.fc table{font-size:1em;background:#f2f3f5}.fc td,.fc th{padding:0;vert
 .f_result_txt .f_result_ul .li2{}
 .f_result_bd .f_p_back{margin-left: 95px; font-size: 14px;padding-top:20px;}
 .f_result_bd .f_p_back a{color: #7984af;}.f_result_bd .f_p_back a:hover{text-decoration: underline;}
+
+.finance-process{font-size: 14px; width:620px;}
+.finance-process p{padding:5px 0;}
+.finance-process .finance_fangan{margin: 0 10px;border:1px solid #d7d3d3;width:40px; text-align: center; height: 20px; line-height: 20px; text-align: center; border-radius: 3px; }
