@@ -151,8 +151,8 @@ class Finance_model extends MY_Model
             )
         )->row_array();
         $max_num = 1;
-        if(!empty($result['max_num'])) {
-            $max_num += $result['max_num'];
+        if(!empty($result['id'])) {
+            $max_num += $result['id'];
         }
         $finance_num = 'FIN' .date('y'). str_pad($company_id, 4, "0", STR_PAD_LEFT) . str_pad($max_num, 4, "0", STR_PAD_LEFT);
         return $finance_num;
@@ -276,7 +276,7 @@ class Finance_model extends MY_Model
 
     //save_finance_tj 和 save_finnace_3 是一样的,目的是为了以后在提交和从第三页返回这两个动作区分开来
     public function save_finance_tj(){
-
+        $detail = $this->get_detail($this->input->post('id'));
         $data = array(
             "status" => 2,
             "tijiao_date" => date('Y-m-d H:i:s'),
@@ -289,6 +289,65 @@ class Finance_model extends MY_Model
         if ($this->db->trans_status() === FALSE) {
             return -1;
         } else {
+            $msg_type = "新增";
+            if($detail['status']==5)
+                $msg_type = "重新";
+            $data_msg = array(
+                'first' => array(
+                    'value' => "金融服务".$msg_type."提交成功!",
+                    'color' => '#FF0000'
+                ),
+                'keyword1' => array(
+                    'value' => $detail['finance_num'],
+                    'color' => '#FF0000'
+                ),
+                'keyword2' => array(
+                    'value' => date('Y-m-d H:m:s'),
+                    'color' => '#FF0000'
+                ),
+                'remark' => array(
+                    'value' => '感谢你对我们工作的信任',
+                    'color' => '#FF0000'
+                )
+            );
+            //发送给用户自己
+            $this->wxpost_fin($this->config->item('WX_SJTJ'),$data_msg,$this->session->userdata('login_user_id'),'www.baidu.com');
+            //发送给用户的店长,如果用户本身职级大于等于店长,就不做通知
+            if($this->session->userdata('login_permission_id') > 4){
+                $data['remark']['value'] = "你的员工 ".$this->session->userdata('login_rel_name')." 成功".$msg_type."提交一单代办业务.";
+                $this->db->select('a.id');
+                $this->db->from('user a');
+                $this->db->join('user_subsidiary b','a.id = b.user_id','left');
+                $this->db->where(array(
+                    'a.flag'=>1,
+                    'a.company_id'=>$this->session->userdata('login_company_id'),
+                    'a.role_id'=>4,
+                    'a.openid <>'=>''
+                ));
+                $this->db->where('a.openid is not null');
+                $this->db->where_in('b.subsidiary_id',$this->session->userdata('login_subsidiary_id_array'));
+                $user_list1 = $this->db->get()->result_array();
+                foreach($user_list1 as $item){
+                    $this->wxpost_fin($this->config->item('WX_SJTJ'),$data_msg,$item['id']);
+                }
+            }
+            //发送给金融管理人员
+            $data['first']['value'] = "有一单".$msg_type."提交的金融服务";
+            $data['remark']['value'] = "用户 ".$this->session->userdata('login_rel_name')." 成功".$msg_type."提交一单代办业务.";
+
+            $this->db->select('a.id');
+            $this->db->from('user a');
+            $this->db->join('user_position b','a.id = b.user_id','left');
+            $this->db->where(array(
+                'a.flag'=>1,
+                'b.pid'=>12,
+                'a.openid <>'=>''
+            ));
+            $this->db->where('a.openid is not null');
+            $user_list2 = $this->db->get()->result_array();
+            foreach($user_list2 as $item2){
+                $this->wxpost_fin($this->config->item('WX_SJTJ'),$data_msg,$item2['id']);
+            }
             return 1;
         }
     }
@@ -324,7 +383,7 @@ class Finance_model extends MY_Model
         if(!$data)
             return -1;
         if($data['user_id'] == $this->session->userdata('login_user_id')){
-            if($data['status'] == 1){
+            if($data['status'] == 1 || $data['status'] == 5){
                 return 1;
             }else{
                 return -3;
@@ -333,6 +392,25 @@ class Finance_model extends MY_Model
         }else{
             return -2;
         }
+    }
+
+    public function status_finance_save(){
+        $data = array(
+            "status"=>$this->input->post("status"),
+            "meno_text"=>$this->input->post("meno_text")
+        );
+        switch ($data['status']){
+            case 3:
+            case 5:
+                $data['check_date']=date('Y-m-d H:i:s');
+                break;
+            case 4:
+            case -1:
+                $data['end_date']=date('Y-m-d H:i:s');
+                break;
+        }
+        $res = $this->db->where('id',$this->input->post('finance_id'))->update('finance',$data);
+        return $res;
     }
 
 }

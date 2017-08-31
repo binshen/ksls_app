@@ -16,10 +16,12 @@ class Finance_wx extends CI_Controller
         parent::__construct();
         ini_set('date.timezone','Asia/Shanghai');
         $this->load->model('finance_model');
+        $this->load->model('wxserver_model');
         $this->load->helper('url');
         $this->load->config('wxpay_config');
         $this->wxconfig['appid']=$this->config->item('fin_appid');
         $this->wxconfig['appsecret']=$this->config->item('fin_appsecret');
+        //var_dump($this->wxconfig);
         if ( strpos($_SERVER['HTTP_USER_AGENT'], 'MicroMessenger') !== false ) {
             if(!$this->session->userdata('openid')){
                 $appid = $this->wxconfig['appid'];
@@ -41,8 +43,49 @@ class Finance_wx extends CI_Controller
     }
 
     public function login(){
-        echo 'Hello FunMall';
+
+        $data['res'] = 0;
+        $data['user_info'] = array();
+        if($this->session->userdata('openid')){
+            $res = $this->wxserver_model->check_openid();
+            if($res){
+                $data['user_info'] = $res;
+            }
+            $this->cismarty->assign('data', $data);
+            $this->cismarty->display('finance/wx_login.html');
+        }else{
+            $this->cismarty->assign('data', $data);
+            $this->cismarty->display('finance/wx_login.html');
+        }
+        //
     }
 
+    public function bdwx(){
+        $data['res'] = 0;
+        $data['user_info'] = array();
+        if($this->session->userdata('openid')){
+            $res = $this->wxserver_model->check_openid();
+            if($res){
+                $data['user_info'] = $res;
+            }
+            $this->cismarty->assign('data', $data);
+            $this->cismarty->display('wxhtml/login.html');
+        }
+
+    }
+
+    public function save_openid(){
+        $res = $this->wxserver_model->save_openid();
+        $data['res'] = $res;
+        $data['user_info'] = array();
+        if($this->session->userdata('openid')){
+            $res = $this->wxserver_model->check_openid();
+            if($res){
+                $data['user_info'] = $res;
+            }
+            $this->cismarty->assign('data', $data);
+            $this->cismarty->display('finance/wx_login.html');
+        }
+    }
 
 }
