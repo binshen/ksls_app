@@ -19,8 +19,8 @@
         }
         .aClickadd{width:25px; height:20px;border:1px solid #efefef; display: block; background: url(/static/images/upload.png) no-repeat 5px 3px;float:left;
         }
-        .aClickdel{width:25px; height:20px;border:1px solid #efefef; display: block; background: url(/static/images/upload.png) no-repeat 5px 3px;float:right;
-        }
+        .aClickdel{width:20px; height:20px; display: block;
+            background: url(/static/images/add_icon.png) no-repeat -80px -510px;float:right;}
     </style>
 </head>
 <body>
@@ -47,7 +47,7 @@
             </div>
             <div class="div-th" style="background-color:#fabe00;"><em></em>资金需求</div>
              <div class="div-bd" style="border-color:#fabe00;">
-              
+
                 <table cellpadding="0" cellsapcing="0" class="add-data-table add-data-table1">
                      <tr>
                         <td>
@@ -57,13 +57,13 @@
                                     {{if $data.borrowing_amount|default:0 == 2 }}40万{{/if}}
                                     {{if $data.borrowing_amount|default:0 == 3 }}30万{{/if}}</dd>
                             </dl>
-                        </td> 
+                        </td>
                         <td colspan="2">
                             <dl>
                                 <dt class="wid120">预计还款周期：</dt>
                                 <dd>{{$data.repayment|default:''}}年</dd>
                             </dl>
-                        </td> 
+                        </td>
                     </tr>
                     <tr>
                         <td colspan="3">
@@ -71,12 +71,12 @@
                                 <dt class="">还款方式：</dt>
                                 <dd>{{if $data.repayment_methods|default:0 == 1 }}等额本息{{/if}}{{if $data.repayment_methods|default:0 == 2 }}等额本金{{/if}}{{if $data.repayment_methods|default:0 == 3 }}先息后本{{/if}}</dd>
                             </dl>
-                        </td>    
+                        </td>
                     </tr>
                     <tr>
                         <td colspan="3"><dl><dt style="font-weight:bold">征信概要</dt><dd></dd></dl></td>
                      </tr>
-                     <tr>   
+                     <tr>
                         <td colspan="3">
                             <dl class="dl1">
                             <dt>有无信用卡逾期</dt>
@@ -96,7 +96,7 @@
                 </div>
              <div class="div-th" style="background-color:#df4b05;"><em></em>证件资料</div>
              <div class="div-bd" style="border-color:#df4b05;">
-              
+
                 <table cellpadding="0" cellsapcing="0" class="add-data-table finance-add-data-table">
                      <tr>
                         <td>
@@ -185,11 +185,11 @@
                                 </dd>
                             </dl>
 
-                        </td> 
+                        </td>
                     </tr>
                    <tr>
 <td>
-                           
+
                             <dl class="dl-photo dl-photo-wid1" style="width:212px;padding-right:0;">
                                 <dt class="finance-tit finance-zx"></dt>
                                 <dd>
@@ -217,8 +217,8 @@
                                     </ul>
                                 </dd>
                             </dl>
-                            
-                        </td> 
+
+                        </td>
                     </tr>
                     <tr>
                         <td><p class="upload-p1">温馨提醒：<br />
@@ -234,7 +234,7 @@
                 <input type="hidden" name="finance_id" value="{{$data.id}}">
                 <div class="div-bd div-bd2" style="border-color:#1abc9c;">
 
-                    <div class="editor-process search-wrap">
+                    <div class="editor-process search-wrap" style="width:200px;">
                         <div class="div-process">
                             <div class="his-tit">状态</div>
                             <select id="sel_status" name="status">
@@ -309,7 +309,7 @@
                   <a href="javascript:void(0);" onclick="window.history.go(-1)" class="sub-btn" style="background-color:#35aa47;">上一页</a>
                   {{if $permission_id == 1 || in_array(12,$position_id)}}{{if $data.status !=1}}<a href="javascript:void(0);" id="save_btn" class="sub-btn">提交</a>{{/if}}{{/if}}
 
-              </p> 
+              </p>
         </div>
     </div>
 </div>
@@ -344,11 +344,11 @@
     }).css("ime-mode", "disabled"); //CSS设置输入法不可用
 
     function add_fangan(){
-        var html_ = "<p>方案<fangan></fangan>  额度：<input name='ed[]' type='text' class='finance_fangan'>   ";
-        html_+= "年化：<input name='nh[]' type='text' class='finance_fangan'>";
-        html_+= "周期：<input type='text' name='minzq[]' class='finance_fangan yy_num'>—<input type='text' name='maxzq[]' class='finance_fangan yy_num'>期 ";
-        html_+= "类型：<label><input type='radio' name='type_yy' value='1' class='radio-choose' />  信用 </label>";
-        html_+= "<label><input type='radio' name='type_yy' value='2' class='radio-choose' /> 抵押</label>";
+        var html_ = "<p>方案<fangan></fangan>  额度：<span class='fas1'><input name='ed[]' type='text' class='finance_fangan'> <em>万元</em></span>  ";
+        html_+= "年化：<span class='fas1'><input name='nh[]' type='text' class='finance_fangan'></span>";
+        html_+= "周期：<span class='fas1'><input type='text' name='minzq[]' class='finance_fangan yy_num'></span>—<span class='fas1'><input type='text' name='maxzq[]' class='finance_fangan yy_num'>期</span> ";
+        html_+= "类型：<label><span class='fas1'><input type='radio' name='type_yy' value='1' class='radio-choose' />  信用 </label></span>";
+        html_+= "<label><span class='fas1'><input type='radio' name='type_yy' value='2' class='radio-choose' /> 抵押</label></span>";
         html_+= "<a href='javascript:' class='aClickdel' onclick='del_fangan(this)'></a></p>"
         $("#show-fangan").append(html_);
         $("#show-fangan").find("fangan").each(function(index_){

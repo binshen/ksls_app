@@ -37,7 +37,7 @@
                     <div class="f_result_bd">
                         <div class="s_div">
                             {{if $data.status==1}}
-                            <span class="suc_icon sb_success_icon"></span>
+                            <span class="suc_icon wtj_icon"></span>
                             <p class="s_p1"><span class="fz18">您的申请还未提交</span><br />
                                 请完善资料后进行提交,等待平台审核。</p>
                             <p class="f_p_back">您可以 <a href="/finance/add_finance/{{$data.id}}">完善资料</a> 或 <a href="javascript:void(0);" onclick="window.history.go(-1)">返回列表</a></p>
@@ -65,6 +65,21 @@
                                     <li class="li2"><em>年化8%</em><br />利息</li>
                                     <li class="li1"><em>12-36期</em><br />周期</li>
                                 </ul>
+                                <ul class="f_result_ul">
+                                    <li class="li1"><em class="em1">50万</em><br />额度</li>
+                                    <li class="li2"><em>年化8%</em><br />利息</li>
+                                    <li class="li1"><em>12-36期</em><br />周期</li>
+                                </ul>
+                                <ul class="f_result_ul">
+                                    <li class="li1"><em class="em1">50万</em><br />额度</li>
+                                    <li class="li2"><em>年化8%</em><br />利息</li>
+                                    <li class="li1"><em>12-36期</em><br />周期</li>
+                                </ul>
+                                <ul class="f_result_ul">
+                                    <li class="li1"><em class="em1">50万</em><br />额度</li>
+                                    <li class="li2"><em>年化8%</em><br />利息</li>
+                                    <li class="li1"><em>12-36期</em><br />周期</li>
+                                </ul>
                                 <ul class="f_result_ul borno">
                                     <li class="li1"><em class="em1">50万</em><br />额度</li>
                                     <li class="li2"><em>年化8%</em><br />利息</li>
@@ -76,11 +91,12 @@
                                     <li class="li2"><em>年化8%</em><br />利息</li>
                                     <li class="li1"><em>12-36期</em><br />周期</li>
                                 </ul>
-                                <p class="f_p_back">您可以 <a href="/finance/view_finance/{{$data.id}}">查看申请详情</a> 或 <a href="javascript:void(0);" onclick="window.history.go(-1)">返回列表</a></p>
                             </div>
+                                <p class="f_p_back">您可以 <a href="/finance/view_finance/{{$data.id}}">查看申请详情</a> 或 <a href="javascript:void(0);" onclick="window.history.go(-1)">返回列表</a></p>
+
                             {{/if}}
                             {{if $data.status==4}}
-                            <span class="suc_icon wls_icon"></span>
+                            <span class="suc_icon jiean_icon wls_icon"></span>
                             <p class="s_p1"><span class="fz18">您的金融服务已结案,感谢您对我们工作的信任和支持.</span><br /></p>
                             <p class="f_p_back">您可以<a href="/finance/finance_list">返回列表</a></p>
                             {{/if}}
@@ -91,7 +107,7 @@
                             <p class="f_p_back">您可以 <a href="/finance/add_finance/{{$data.id}}">完善资料</a> 或 <a href="javascript:void(0);" onclick="window.history.go(-1)">返回列表</a></p>
                             {{/if}}
                             {{if $data.status==-1}}
-                            <span class="suc_icon wls_icon"></span>
+                            <span class="suc_icon close_icon wls_icon"></span>
                             <p class="s_p1"><span class="fz18">抱歉，您的申请已被平台关闭</span><br />
                                 原因如下：{{$data.meno_text}}</p>
                             <p class="f_p_back">您可以 <a href="javascript:void(0);" onclick="window.history.go(-1)">返回列表</a></p>
@@ -133,6 +149,11 @@
                         </div>
                     </div>
                 </div>
+
+
+
+
+
              </div>
     </div>
 </div>
