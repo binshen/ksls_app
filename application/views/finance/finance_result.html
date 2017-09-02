@@ -55,42 +55,35 @@
                             <div class="clear"></div>
                             <div class="f_result_txt">
                                 {{if $data.result}}
+                                {{if $data.type1flag.num > 0}}
+                                <span class="s_f_r_tit">信用贷款</span>
                                 {{foreach from=$data.result item=item key=myId}}
 
+                                {{if $item.type == 1}}
+                                <ul class="f_result_ul">
+                                    <li class="li1"><em class="em1">{{$item.ed|default:'-'}}万</em><br />额度</li>
+                                    <li class="li2"><em>年化{{$item.nh|default:'-'}}</em><br />利息</li>
+                                    <li class="li1"><em>{{$item.minzq|default:''}}-{{$item.maxzq|default:''}}36期</em><br />周期</li>
+                                </ul>
+                                {{/if}}
                                 {{/foreach}}
                                 {{/if}}
+                                {{if $data.type2flag.num > 0}}
                                 <span class="s_f_r_tit">抵押贷款</span>
+                                {{foreach from=$data.result item=item key=myId}}
+
+                                {{if $item.type == 2}}
                                 <ul class="f_result_ul">
-                                    <li class="li1"><em class="em1">50万</em><br />额度</li>
-                                    <li class="li2"><em>年化8%</em><br />利息</li>
-                                    <li class="li1"><em>12-36期</em><br />周期</li>
+                                    <li class="li1"><em class="em1">{{$item.ed|default:'-'}}万</em><br />额度</li>
+                                    <li class="li2"><em>年化{{$item.nh|default:'-'}}</em><br />利息</li>
+                                    <li class="li1"><em>{{$item.minzq|default:''}}-{{$item.maxzq|default:''}}36期</em><br />周期</li>
                                 </ul>
-                                <ul class="f_result_ul">
-                                    <li class="li1"><em class="em1">50万</em><br />额度</li>
-                                    <li class="li2"><em>年化8%</em><br />利息</li>
-                                    <li class="li1"><em>12-36期</em><br />周期</li>
-                                </ul>
-                                <ul class="f_result_ul">
-                                    <li class="li1"><em class="em1">50万</em><br />额度</li>
-                                    <li class="li2"><em>年化8%</em><br />利息</li>
-                                    <li class="li1"><em>12-36期</em><br />周期</li>
-                                </ul>
-                                <ul class="f_result_ul">
-                                    <li class="li1"><em class="em1">50万</em><br />额度</li>
-                                    <li class="li2"><em>年化8%</em><br />利息</li>
-                                    <li class="li1"><em>12-36期</em><br />周期</li>
-                                </ul>
-                                <ul class="f_result_ul borno">
-                                    <li class="li1"><em class="em1">50万</em><br />额度</li>
-                                    <li class="li2"><em>年化8%</em><br />利息</li>
-                                    <li class="li1"><em>12-36期</em><br />周期</li>
-                                </ul>
-                                <span class="s_f_r_tit">信用贷款</span>
-                               <ul class="f_result_ul">
-                                    <li class="li1"><em class="em1">50万</em><br />额度</li>
-                                    <li class="li2"><em>年化8%</em><br />利息</li>
-                                    <li class="li1"><em>12-36期</em><br />周期</li>
-                                </ul>
+                                {{/if}}
+                                {{/foreach}}
+                                {{/if}}
+
+                                {{/if}}
+
                             </div>
                                 <p class="f_p_back">您可以 <a href="/finance/view_finance/{{$data.id}}">查看申请详情</a> 或 <a href="javascript:void(0);" onclick="window.history.go(-1)">返回列表</a></p>
 

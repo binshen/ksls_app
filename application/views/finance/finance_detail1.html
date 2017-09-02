@@ -251,7 +251,7 @@
                         <div class="show-fangan" id="show-fangan"><span style="float: left">匹配方案</span><a href="javascript:" class="aClickadd" onclick="add_fangan()"></a><br />
                             {{if $data.result}}
                             {{foreach from=$data.result item=item key=myId}}
-                            <p>方案<fangan>{{($myId + 1)}}</fangan>  额度：<input name="ed[]" value="{{$item.ed|default:''}}" type="text" class="finance_fangan">  年化：<input name="nh[]" value="{{$item.nh|default:''}}" type="text" class="finance_fangan">周期：<input type="text" value="{{$item.minzq|default:''}}" name="minzq[]" class="finance_fangan yy_num">—<input type="text" value="{{$item.maxzq|default:''}}" name="maxzq[]" class="finance_fangan yy_num">期 类型 ： <label><input type="radio" {{if $item.type==1}}checked{{/if}} value="1"  name="type{{$myId}}" class="radio-choose" />  信用 </label><label><input type="radio" {{if $item.type==2}}checked{{/if}} name="type{{$myId}}" value="2" class="radio-choose" /> 抵押</label><a href="javascript:" class="aClickdel" onclick="del_fangan(this)"></a></p>
+                            <p>方案<fangan>{{($myId + 1)}}</fangan>  额度：<span class='fas1'><input name="ed[]" value="{{$item.ed|default:''}}" type="text" class="finance_fangan yy_num"><em>万元</em></span>  年化:<span class='fas1'><input name="nh[]" value="{{$item.nh|default:''}}" type="text" class="finance_fangan"></span>周期:<span class='fas1'><input type="text" value="{{$item.minzq|default:''}}" name="minzq[]" class="finance_fangan yy_num"></span>—<span class='fas1'><input type="text" value="{{$item.maxzq|default:''}}" name="maxzq[]" class="finance_fangan yy_num">期</span>类型:<label><span class='fas1'><input type="radio" {{if $item.type==1}}checked{{/if}} value="1"  name="type{{$myId}}" class="radio-choose" />信用</span></label><label><span class='fas1'><input type="radio" {{if $item.type==2}}checked{{/if}} name="type{{$myId}}" value="2" class="radio-choose" /> 抵押</span></label><a href="javascript:" class="aClickdel" onclick="del_fangan(this)"></a></p>
                             {{/foreach}}
                             {{/if}}
                         </div>
@@ -266,7 +266,7 @@
             <div class="div-th" style="background-color:#1abc9c;"><em></em>金融审核</div>
             <div class="div-bd div-bd2" style="border-color:#1abc9c;">
 
-                <div class="editor-process search-wrap">
+                <div class="editor-process search-wrap" style="width:200px;">
                     <div class="div-process">
                         <div class="his-tit">状态</div>
                         {{if $data.status == 1}}待提交{{/if}}
@@ -280,10 +280,14 @@
                 </div>
                 <div class="describe-process finance-process">
                     <!-- 匹配方案 -->
-                    <div class="show-fangan" style="">匹配方案<br />
+                    <div class="show-fangan" style=""><span style="float: left">匹配方案</span><br />
                         {{if $data.result}}
                         {{foreach from=$data.result item=item key=myId}}
-                        <p>方案<fangan>{{($myId + 1)}}</fangan>  额度：<input name="ed[]" value="{{$item.ed|default:''}}" readonly="readonly" type="text" class="finance_fangan">  年化：<input name="nh[]" readonly="readonly" value="{{$item.nh|default:''}}" type="text" class="finance_fangan">周期：<input readonly="readonly" type="text" value="{{$item.minzq|default:''}}" name="minzq[]" class="finance_fangan">—<input type="text" readonly="readonly" value="{{$item.maxzq|default:''}}" name="maxzq[]" class="finance_fangan">期 类型 ： <label><input disabled="disabled" type="radio" {{if $item.type==1}}checked{{/if}} value="1"  name="type{{$myId}}" class="radio-choose" />  信用 </label><label><input type="radio" {{if $item.type==2}}checked{{/if}} disabled="disabled" name="type{{$myId}}" value="2" class="radio-choose" /> 抵押</label></p>
+                        <p>方案<fangan>{{($myId + 1)}}</fangan>  额度：<span class='fas1'><input name="ed[]" value="{{$item.ed|default:''}}" readonly="readonly" type="text" class="finance_fangan"><em>万元</em></span>
+                            年化:<span class='fas1'><input name="nh[]" readonly="readonly" value="{{$item.nh|default:''}}" type="text" class="finance_fangan"></span>
+                            周期:<span class='fas1'><input readonly="readonly" type="text" value="{{$item.minzq|default:''}}" name="minzq[]" class="finance_fangan"></span> — <span class='fas1'><input type="text" readonly="readonly" value="{{$item.maxzq|default:''}}" name="maxzq[]" class="finance_fangan">期</span>
+                            类型:<label><span class='fas1'><input disabled="disabled" type="radio" {{if $item.type==1}}checked{{/if}} value="1"  name="type{{$myId}}" class="radio-choose" />信用</span></label>
+                            <label><span class='fas1'><input type="radio" {{if $item.type==2}}checked{{/if}} disabled="disabled" name="type{{$myId}}" value="2" class="radio-choose" />抵押</span></label></p>
                         {{/foreach}}
                         {{/if}}
                     </div>
@@ -330,7 +334,47 @@
                 layer.msg('请选择状态', {icon: 2});
                 return false;
             }
-            $('#status_form').submit();
+            var flag=0;
+
+            $("[name='maxzq[]']").each(function(index_name){
+                if ($.trim($(this).val())==''){
+                    layer.msg('存在最大周期未填写!');
+                    flag=1;
+                    return false;
+                }
+                if ($.trim($("input[name='type" + index_name + "']:checked").val())==''){
+                    layer.msg('类型未填写!');
+                    flag=1;
+                    return false;
+                }
+            });
+            $("[name='minzq[]']").each(function(){
+                if ($.trim($(this).val())==""){
+                    layer.msg('存在最小周期未填写!');
+                    flag=1;
+                    return false;
+                }
+            });
+            $("[name='nh[]']").each(function(){
+                if ($.trim($(this).val())==""){
+                    layer.msg('存在年化率未填写!');
+                    flag=1;
+                    return false;
+                }
+            });
+            $("[name='ed[]']").each(function(){
+                if ($.trim($(this).val())==''){
+                    layer.msg('存在额度未填写!');
+                    flag=1;
+                    return false;
+                }
+            });
+
+
+
+            if (flag !=1){
+                $('#status_form').submit();
+            }
         });
 
 
@@ -344,11 +388,11 @@
     }).css("ime-mode", "disabled"); //CSS设置输入法不可用
 
     function add_fangan(){
-        var html_ = "<p>方案<fangan></fangan>  额度：<span class='fas1'><input name='ed[]' type='text' class='finance_fangan'> <em>万元</em></span>  ";
-        html_+= "年化：<span class='fas1'><input name='nh[]' type='text' class='finance_fangan'></span>";
-        html_+= "周期：<span class='fas1'><input type='text' name='minzq[]' class='finance_fangan yy_num'></span>—<span class='fas1'><input type='text' name='maxzq[]' class='finance_fangan yy_num'>期</span> ";
-        html_+= "类型：<label><span class='fas1'><input type='radio' name='type_yy' value='1' class='radio-choose' />  信用 </label></span>";
-        html_+= "<label><span class='fas1'><input type='radio' name='type_yy' value='2' class='radio-choose' /> 抵押</label></span>";
+        var html_ = "<p>方案<fangan></fangan>  额度：<span class='fas1'><input name='ed[]' type='text' class='finance_fangan yy_num'> <em>万元</em></span>";
+        html_+= "年化:<span class='fas1'><input name='nh[]' type='text' class='finance_fangan'></span>";
+        html_+= "周期:<span class='fas1'><input type='text' name='minzq[]' class='finance_fangan yy_num'></span>—<span class='fas1'><input type='text' name='maxzq[]' class='finance_fangan yy_num'>期</span>";
+        html_+= "类型:<label><span class='fas1'><input type='radio' name='type_yy' value='1' class='radio-choose' />信用</label></span>";
+        html_+= "<label><span class='fas1'><input type='radio' name='type_yy' value='2' class='radio-choose' />抵押</label></span>";
         html_+= "<a href='javascript:' class='aClickdel' onclick='del_fangan(this)'></a></p>"
         $("#show-fangan").append(html_);
         $("#show-fangan").find("fangan").each(function(index_){

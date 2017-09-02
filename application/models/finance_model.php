@@ -136,8 +136,12 @@ class Finance_model extends MY_Model
             'a.id'=>$id
         ));
         $row= $this->db->get()->row_array();
-        if($row)
+        if($row){
             $row['result'] = $this->db->select("*")->from("finance_result")->where("finance_id",$row['id'])->order_by('id',"asc")->get()->result_array();
+            $row['type1flag'] = $this->db->select('count(1) num')->from("finance_result")->where("finance_id",$row['id'])->where('type',1)->get()->row_array();
+            $row['type2flag'] = $this->db->select('count(1) num')->from("finance_result")->where("finance_id",$row['id'])->where('type',2)->get()->row_array();
+        }
+
         return $row;
     }
 
