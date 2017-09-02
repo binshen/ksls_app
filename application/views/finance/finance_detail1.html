@@ -17,6 +17,10 @@
             width: 148px;
             height: 88px;
         }
+        .aClickadd{width:25px; height:20px;border:1px solid #efefef; display: block; background: url(/static/images/upload.png) no-repeat 5px 3px;float:left;
+        }
+        .aClickdel{width:25px; height:20px;border:1px solid #efefef; display: block; background: url(/static/images/upload.png) no-repeat 5px 3px;float:right;
+        }
     </style>
 </head>
 <body>
@@ -242,7 +246,15 @@
                             </select>
                         </div>
                     </div>
-                    <div class="describe-process">
+                    <div class="describe-process finance-process">
+                        <!-- 匹配方案 -->
+                        <div class="show-fangan" id="show-fangan"><span style="float: left">匹配方案</span><a href="javascript:" class="aClickadd" onclick="add_fangan()"></a><br />
+                            {{if $data.result}}
+                            {{foreach from=$data.result item=item key=myId}}
+                            <p>方案<fangan>{{($myId + 1)}}</fangan>  额度：<input name="ed[]" value="{{$item.ed|default:''}}" type="text" class="finance_fangan">  年化：<input name="nh[]" value="{{$item.nh|default:''}}" type="text" class="finance_fangan">周期：<input type="text" value="{{$item.minzq|default:''}}" name="minzq[]" class="finance_fangan yy_num">—<input type="text" value="{{$item.maxzq|default:''}}" name="maxzq[]" class="finance_fangan yy_num">期 类型 ： <label><input type="radio" {{if $item.type==1}}checked{{/if}} value="1"  name="type{{$myId}}" class="radio-choose" />  信用 </label><label><input type="radio" {{if $item.type==2}}checked{{/if}} name="type{{$myId}}" value="2" class="radio-choose" /> 抵押</label><a href="javascript:" class="aClickdel" onclick="del_fangan(this)"></a></p>
+                            {{/foreach}}
+                            {{/if}}
+                        </div>
                         <div class="his-tit">状态描述</div>
                         <textarea name="meno_text" rows="2" cols="3" class="sce-remarks process-remarks" placeholder="如有其他情况请备注">{{$data.meno_text|default:''}}</textarea>
 
@@ -268,10 +280,12 @@
                 </div>
                 <div class="describe-process finance-process">
                     <!-- 匹配方案 -->
-                    <div class="show-fangan" id="show-fangan" style="display:none;">匹配方案<br />
-                        <p>方案1  额度：<input type="text" class="finance_fangan">  年化：<input type="text" class="finance_fangan">周期：<input type="text" class="finance_fangan">—<input type="text" class="finance_fangan">期 类型 ： <label><input type="radio" name="radio1" class="radio-choose" />  信用 </label><label><input type="radio" name="radio1" class="radio-choose" /> 抵押</label></p>
-                        <p>方案2  额度：<input type="text" class="finance_fangan">  年化：<input type="text" class="finance_fangan">周期：<input type="text" class="finance_fangan">—<input type="text" class="finance_fangan">期 类型 ： <label><input type="radio" name="radio1" class="radio-choose" /> 信用 </label><label><input type="radio" name="radio1" class="radio-choose" /> 抵押</label></p>
-                        <p>方案3  额度：<input type="text" class="finance_fangan">  年化：<input type="text" class="finance_fangan">周期：<input type="text" class="finance_fangan">—<input type="text" class="finance_fangan">期 类型 ： <label><input type="radio" name="radio1" class="radio-choose" /> 信用 </label><label><input type="radio" name="radio1" class="radio-choose" /> 抵押</label></p>
+                    <div class="show-fangan" style="">匹配方案<br />
+                        {{if $data.result}}
+                        {{foreach from=$data.result item=item key=myId}}
+                        <p>方案<fangan>{{($myId + 1)}}</fangan>  额度：<input name="ed[]" value="{{$item.ed|default:''}}" readonly="readonly" type="text" class="finance_fangan">  年化：<input name="nh[]" readonly="readonly" value="{{$item.nh|default:''}}" type="text" class="finance_fangan">周期：<input readonly="readonly" type="text" value="{{$item.minzq|default:''}}" name="minzq[]" class="finance_fangan">—<input type="text" readonly="readonly" value="{{$item.maxzq|default:''}}" name="maxzq[]" class="finance_fangan">期 类型 ： <label><input disabled="disabled" type="radio" {{if $item.type==1}}checked{{/if}} value="1"  name="type{{$myId}}" class="radio-choose" />  信用 </label><label><input type="radio" {{if $item.type==2}}checked{{/if}} disabled="disabled" name="type{{$myId}}" value="2" class="radio-choose" /> 抵押</label></p>
+                        {{/foreach}}
+                        {{/if}}
                     </div>
 
                     <div class="his-tit">状态描述</div>
@@ -293,7 +307,7 @@
        客户承诺提交资料真实有效，平台根据客户提交资料给出相匹配之金融产品。并给出贷款额度。如因客户提供资料为伪造，或因后期资料不全导致无法顺利办理金融业务的。平台不承担客户任何经济及精神损失。</p>
               <p class="p-btns" style="width:210px;">
                   <a href="javascript:void(0);" onclick="window.history.go(-1)" class="sub-btn" style="background-color:#35aa47;">上一页</a>
-                  {{if $permission_id == 1 || in_array(12,$position_id)}}<a href="javascript:void(0);" id="save_btn" class="sub-btn">提交</a>{{/if}}
+                  {{if $permission_id == 1 || in_array(12,$position_id)}}{{if $data.status !=1}}<a href="javascript:void(0);" id="save_btn" class="sub-btn">提交</a>{{/if}}{{/if}}
 
               </p> 
         </div>
@@ -318,8 +332,45 @@
             }
             $('#status_form').submit();
         });
-    })
 
+
+    })
+    $(".yy_num").keyup(function () {
+        $(this).val($(this).val().replace(/[^0-9]/g, ''));
+    }).blur(function(){
+        $(this).val($(this).val().replace(/[^0-9]/g, ''));
+    }).bind("paste", function () {  //CTR+V事件处理
+        $(this).val($(this).val().replace(/[^0-9]/g, ''));
+    }).css("ime-mode", "disabled"); //CSS设置输入法不可用
+
+    function add_fangan(){
+        var html_ = "<p>方案<fangan></fangan>  额度：<input name='ed[]' type='text' class='finance_fangan'>   ";
+        html_+= "年化：<input name='nh[]' type='text' class='finance_fangan'>";
+        html_+= "周期：<input type='text' name='minzq[]' class='finance_fangan yy_num'>—<input type='text' name='maxzq[]' class='finance_fangan yy_num'>期 ";
+        html_+= "类型：<label><input type='radio' name='type_yy' value='1' class='radio-choose' />  信用 </label>";
+        html_+= "<label><input type='radio' name='type_yy' value='2' class='radio-choose' /> 抵押</label>";
+        html_+= "<a href='javascript:' class='aClickdel' onclick='del_fangan(this)'></a></p>"
+        $("#show-fangan").append(html_);
+        $("#show-fangan").find("fangan").each(function(index_){
+            $(this).html(index_+1);
+            $(this).parent().find("input[type='radio']").attr("name","type"+index_);
+        })
+        $(".yy_num").off('keyup').off('blur').off('paste');
+        $(".yy_num").keyup(function () {
+            $(this).val($(this).val().replace(/[^0-9]/g, ''));
+        }).blur(function(){
+            $(this).val($(this).val().replace(/[^0-9]/g, ''));
+        }).bind("paste", function () {  //CTR+V事件处理
+            $(this).val($(this).val().replace(/[^0-9]/g, ''));
+        }).css("ime-mode", "disabled"); //CSS设置输入法不可用
+    }
+    function del_fangan(self){
+        $(self).parent().remove();
+        $("#show-fangan").find("fangan").each(function(index_){
+            $(this).html(index_+1);
+            $(this).parent().find("input[type='radio']").attr("name","type"+index_);
+        })
+    }
 
 </script>
 </body>

@@ -83,7 +83,7 @@
                         {{elseif $item.status==-1}} <li class="wid80 list-gray2">终止</li>
                         {{else}}<li class="wid80 list-gray2">终止</li>{{/if}}
 
-                    <li class="wid80 finance-list-more"><a href="" target="_blank">详情</a></li>
+                    <li class="wid80 finance-list-more"><a href="/finance/show_finance_result/{{$item.id}}">详情</a></li>
                     <li class="wid130">
                         {{if $item.status==1 || $item.status == 5}}<a href="/finance/add_finance/{{$item.id}}" class="operation-btn">修改</a>{{/if}}
                         <a href="/finance/view_finance/{{$item.id}}" class="operation-btn">查看</a>

@@ -136,6 +136,8 @@ class Finance_model extends MY_Model
             'a.id'=>$id
         ));
         $row= $this->db->get()->row_array();
+        if($row)
+            $row['result'] = $this->db->select("*")->from("finance_result")->where("finance_id",$row['id'])->order_by('id',"asc")->get()->result_array();
         return $row;
     }
 
@@ -410,6 +412,25 @@ class Finance_model extends MY_Model
                 break;
         }
         $res = $this->db->where('id',$this->input->post('finance_id'))->update('finance',$data);
+        $this->db->where('finance_id',$this->input->post('finance_id'))->delete('finance_result');
+        $ed_arr = $this->input->post('ed');
+        $nh_arr = $this->input->post('nh');
+        $minzq_arr = $this->input->post('minzq');
+        $maxzq_arr = $this->input->post('maxzq');
+        //$type_arr = $this->input->post('type');
+        if($ed_arr && is_array($ed_arr)){
+            foreach($ed_arr as $idx => $ed) {
+                $fin_res = array(
+                    'finance_id' => $this->input->post('finance_id'),
+                    'ed' => $ed,
+                    'nh' => $nh_arr[$idx],
+                    'minzq' => $minzq_arr[$idx],
+                    'maxzq' => $maxzq_arr[$idx],
+                    'type' => $this->input->post('type'.$idx),
+                );
+                $this->db->insert('finance_result', $fin_res);
+            }
+        }
         return $res;
     }
 

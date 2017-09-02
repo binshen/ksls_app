@@ -339,6 +339,15 @@ class Finance extends MY_Controller
         redirect(site_url('/finance/finance_list_other'));
     }
 
+    public function show_finance_result($id){
+        $view_p = $this->finance_model->view_power($id);
+        if($view_p != 1)
+            redirect(site_url('/finance/finance_list'));
+        $data = $this->finance_model->get_detail($id);
+        $this->assign('data', $data);
+        $this->display('finance/finance_result.html');
+    }
+
     public function test(){
         $data_msg = array(
             'first' => array(
