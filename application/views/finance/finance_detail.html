@@ -147,7 +147,7 @@
                         <td colspan="2">
                             <dl>
                                 <dt>月收入：</dt>
-                                <dd>{{$data.spouse_income|default:''}}元/月</dd></dd>
+                                <dd>{{if $data.spouse_income}}{{$data.spouse_income|default:''}}元/月{{/if}}</dd></dd>
                             </dl>
                         </td>
                     </tr>

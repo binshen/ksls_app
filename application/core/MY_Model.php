@@ -465,6 +465,33 @@ class MY_Model extends CI_Model{
 
     }
 
+    public function wxpost_finByOpenid($template_id,$post_data,$openid,$url='www.funmall.com.cn'){
+        $this->load->config('wxpay_config');
+        $access_token = $this->get_token($this->config->item('fin_appid'),$this->config->item('fin_appsecret'));
+        $url = "https://api.weixin.qq.com/cgi-bin/message/template/send?access_token=".$access_token;//access_token改成你的有效值
+
+
+        $template = array(
+            'touser' => $openid,
+            'template_id' => $template_id,
+            'url' => $url,
+            'topcolor' => '#7B68EE',
+            'data' => $post_data
+        );
+        $json_template = json_encode($template);
+        $dataRes = $this->request_post($url, urldecode($json_template)); //这里执行post请求,并获取返回数据
+        /*  if($this->session->userdata('login_user_id')==24){
+              die(var_dump($dataRes));
+          }*/
+
+        if ($dataRes['errcode'] == 0) {
+            return true;
+        } else {
+            return false;
+        }
+
+    }
+
     public function get_token($app,$appsecret){
         $this->db->from('token');
         $this->db->where('app_id', $app);
