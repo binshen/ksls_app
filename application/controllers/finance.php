@@ -358,8 +358,8 @@ class Finance extends MY_Controller
 
     }
 
-    public function show_code(){
-        $tf_id = $_POST['finance_id'];
+    public function show_code($tf_id){
+        //$tf_id = $_POST['finance_id'];
 
         $code = $this->set_base_code($tf_id);
 
@@ -410,6 +410,7 @@ class Finance extends MY_Controller
     }
 
     public function test2(){
+       // ini_get('gd2');
         phpinfo();
     }
 
