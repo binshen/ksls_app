@@ -59,7 +59,9 @@ class Finance_wx extends Finwx_Controller
     public function code_login($code=null){
         if(!$code)
             $code = $this->input->post('finance_wx_num');
-        $code = str_replace($this->config->item('base_url_wx').'/finance_wx/code_login/','',$code);
+        $replace_str = $this->config->item('base_url_wx').'/finance_wx/code_login/';
+        die(var_dump($replace_str));
+        $code = str_replace($replace_str,'',$code);
         $finance_id = $this->set_base_code($code);
         if($finance_id==-1){
             $this->cismarty->assign('tabs',0);
