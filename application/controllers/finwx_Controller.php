@@ -95,7 +95,7 @@ class Finwx_Controller extends CI_Controller
         $signature = sha1($string);
 
         $signPackage = array(
-            "appId"     => $this->appId,
+            "appId"     => $this->wxconfig['appid'],
             "nonceStr"  => $nonceStr,
             "timestamp" => $timestamp,
             "url"       => $url,
