@@ -70,7 +70,7 @@ class Finance_wx_model extends MY_Model
                 }
             }
             $token = uniqid();
-            $this->db->where('id',$res->id)->update('user',array('token'=>$token));
+            //$this->db->where('id',$res->id)->update('user',array('token'=>$token));
             $pids = $this->db->select()->from('user_position')->where('user_id',$res->id)->get()->result_array();
             $ids = array();
             if($pids){
