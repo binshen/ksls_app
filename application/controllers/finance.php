@@ -358,15 +358,15 @@ class Finance extends MY_Controller
 
     }
 
-    public function show_code($tf_id){
-        //$tf_id = $_POST['finance_id'];
+    public function show_code(){
+        $tf_id = $_POST['finance_id'];
 
         $code = $this->set_base_code($tf_id);
 
 
         $this->assign('finance_id', $tf_id);
 
-        //$this->assign('result', site_url("finance_wx/code_login").'/'.$code);
+        //$this->assign('result', "http:%2F%2Ffinance_wx%2Fcode_login".'/'.$code);
         $this->assign('result', $code);
         $this->display('finance/popup_code.html');
     }
@@ -374,16 +374,10 @@ class Finance extends MY_Controller
     public function show_img($id){
         //$code = $this->set_base_code($id);
         require_once (APPPATH . 'libraries/phpqrcode.php');
-        $value = 'http://www.cnblogs.com/txw1958/'; //二维码内容
-        $errorCorrectionLevel = 'L';//容错级别
-        $matrixPointSize = 6;//生成图片大小
+        $value = site_url('finance_wx/code_login').'/'.$id; //二维码内容
 //生成二维码图片
-        QRcode::png($value, 'qrcode.png', $errorCorrectionLevel, $matrixPointSize, 2);
-        $logo = 'logo.png';//准备好的logo图片
-        $QR = 'qrcode.png';//已经生成的原始二维码图
+        QRcode::png($value);
 
-        Header("Content-type: image/png");
-        ImagePng($QR);
     }
 
     public function test(){
@@ -410,8 +404,8 @@ class Finance extends MY_Controller
     }
 
     public function test2(){
-       // ini_get('gd2');
-        phpinfo();
+       $str = site_url('finance_wx/code_login').'/'.'123';
+        die(var_dump($str));
     }
 
 
