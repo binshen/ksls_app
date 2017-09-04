@@ -22,6 +22,7 @@ class Finance_wx extends Finwx_Controller
                 redirect('finance_wx_borrower/index');
             }
         }
+        $this->buildWxData();
     }
 
     public function login(){

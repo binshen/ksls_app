@@ -491,10 +491,58 @@ class MY_Model extends CI_Model{
         }
     }
 
+    public function get_ticket($app,$appsecret){
+        $this->db->from('wx_ticket');
+        $this->db->where('app_id', $app);
+        $this->db->where('app_secret', $appsecret);
+        $data_token = $this->db->get()->row_array();
+        if(empty($data_token)) {
+            $data = array(
+                'app_id' => $app,
+                'app_secret' => $appsecret,
+                'ticket' => $this->get_apiticket($app,$appsecret),
+                'created' => time()
+            );
+            $this->db->insert('ticket', $data);
+            return $data['ticket'];
+        } else {
+            $interval = time() - intval($data_token['created']);
+            if($interval / 60 / 60 > 1) {
+                $data_token['ticket'] = $this->get_apiticket($app,$appsecret);
+                $data_token['created'] = time();
+                $this->db->where('id', $data_token['id']);
+                $this->db->update('wx_ticket', $data_token);
+            }
+            return $data_token['ticket'];
+        }
+    }
+
     public function get_access($app,$appsecret) {
         $url = 'https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid='.$app.'&secret='.$appsecret;
         $response = file_get_contents($url);
         return json_decode($response)->access_token;
+    }
+
+    public function get_apiticket($app,$appsecret){
+        $accessToken = $this->get_token($this->wxconfig['appid'],$this->wxconfig['appsecret']);
+        $url = "https://api.weixin.qq.com/cgi-bin/ticket/getticket?type=jsapi&access_token=$accessToken";
+        $res = json_decode($this->wxhttpGet($url));
+        $ticket = $res->ticket;
+        return $ticket;
+    }
+
+    private function wxhttpGet($url) {
+        $curl = curl_init();
+        curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($curl, CURLOPT_TIMEOUT, 500);
+        curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
+        curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, false);
+        curl_setopt($curl, CURLOPT_URL, $url);
+
+        $res = curl_exec($curl);
+        curl_close($curl);
+
+        return $res;
     }
 
     public function get_openid($user_id){

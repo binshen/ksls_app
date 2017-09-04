@@ -123,40 +123,14 @@
           signature: '{{$wxsignature}}',// 必填，签名，见附录1
           jsApiList: ['previewImage','scanQRCode'] // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
   });
-  $("#scan").click(function(){
+  $("#saoma").click(function(){
     wx.scanQRCode({
       needResult: 1, // 默认为0，扫描结果由微信处理，1则直接返回扫描结果，
       scanType: ["qrCode","barCode"], // 可以指定扫二维码还是一维码，默认二者都有
       success: function (res) {
         var num = res.resultStr.split("_"); // 当needResult 为 1 时，扫码返回的结果
         num = num[0]
-        $.getJSON('{{site_url url="search/get_stock"}}/'+num,function(data){
-          if(data != 1){
-            qty = 0
-            $("#num").html(data.num)
-            $("#title_num").html(num)
-            $("#color").html('<font color="'+ data.rgb +'">'+ data.color +'</font>')
-            $("img").attr('src','{{$base_url}}/uploadfiles/product/'+data.pic)
-            html = ''
-            data.list.forEach(function(item){
-              qty += parseInt(item['stock'])
-              html += '<tr>'
-              html += '<td>'+ item['size'] +'</td>'
-              html += '<td>'+ item['stock'] +'</td>'
-              html += '<td>'+ item['h_stock'] +'</td>'
-              html += '</tr>'
-            });
-            $('#total_qty').html(qty)
-            $("#sizes").html(html)
-
-            $(".step1").hide()
-            $(".step2").show()
-            $('.smark').show()
-          }else{
-            $('#my-alert').modal({})
-          }
-
-        });
+       alert(num);
 
       }
     });
