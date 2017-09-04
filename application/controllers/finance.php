@@ -373,8 +373,9 @@ class Finance extends MY_Controller
 
     public function show_img($id){
         //$code = $this->set_base_code($id);
+        $this->load->config('wxpay_config');
         require_once (APPPATH . 'libraries/phpqrcode.php');
-        $value = site_url('finance_wx/code_login').'/'.$id; //二维码内容
+        $value = $this->config->item('base_url_wx').'/'.$id; //二维码内容
 //生成二维码图片
         QRcode::png($value);
 
