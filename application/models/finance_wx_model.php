@@ -29,7 +29,7 @@ class Finance_wx_model extends MY_Model
     public function check_openid(){
         $openid = $this->session->userdata('openid');
 
-        $this->db->select('a.rel_name,b.name,b.sum,c.name role_name')->from('user a');
+        $this->db->select('a.id,a.rel_name,b.name,b.sum,c.name role_name')->from('user a');
         $this->db->join('company b','a.company_id = b.id','left');
         $this->db->join('role c','c.id = a.role_id','left');
         $this->db->where('a.openid',$openid);
