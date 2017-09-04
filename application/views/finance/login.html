@@ -51,11 +51,20 @@
 
       <div class="am-tabs-bd">
         <div class="am-tab-panel am-active">
-          <form method="post" class="am-form" action="{{site_url url='finance_wx/code_login'}}">
+          <form method="post" class="am-form" id="scan_form" action="{{site_url url='finance_wx/code_login'}}">
             <label>服务绑定编号:</label>
             <input type="hidden" name="finance_wx_num" value="">
             {{if $flag == '-3'}}
-            <a class="am-badge am-badge-danger am-radius">二维码不规范或过期！</a>
+            <a class="am-badge am-badge-danger am-radius">编号不存在,绑定失败！</a>
+            {{/if}}
+            {{if $flag == '-4'}}
+            <a class="am-badge am-badge-danger am-radius">二维码不规范！</a>
+            {{/if}}
+            {{if $flag == '-5'}}
+            <a class="am-badge am-badge-danger am-radius">二维码过期！</a>
+            {{/if}}
+            {{if $flag == '-6'}}
+            <a class="am-badge am-badge-danger am-radius">扫码获取失败！</a>
             {{/if}}
             <br>
             <br>
@@ -131,7 +140,8 @@
       success: function (res) {
         var num = res.resultStr.split("_"); // 当needResult 为 1 时，扫码返回的结果
         num = num[0]
-       alert(num);
+       $("#finance_wx_num").val(num);
+        $("#scan_form").submit();
 
       }
     });

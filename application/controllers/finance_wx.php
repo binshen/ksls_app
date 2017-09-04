@@ -56,8 +56,22 @@ class Finance_wx extends Finwx_Controller
         }
     }
 
-    public function code_login($code){
-        $res = $this->finance_wx_model->code_login($code);
+    public function code_login($code=null){
+        if(!$code)
+            $code = $this->input->post('finance_wx_num');
+        $code = str_replace($this->config->item('base_url_wx').'/finance_wx/code_login/','',$code);
+        $finance_id = $this->set_base_code($code);
+        if($finance_id==-1){
+            $this->cismarty->assign('tabs',0);
+            $this->cismarty->assign('flag',-4);
+            $this->cismarty->display('finance/login.html');
+        }
+        if($finance_id==-2){
+            $this->cismarty->assign('tabs',0);
+            $this->cismarty->assign('flag',-5);
+            $this->cismarty->display('finance/login.html');
+        }
+        $res = $this->finance_wx_model->code_login($finance_id);
         if($res==1){
             redirect('finance_wx_borrower/index');
         }else{

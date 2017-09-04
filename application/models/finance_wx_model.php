@@ -39,9 +39,10 @@ class Finance_wx_model extends MY_Model
             if($res==1)
                 return 1;
         }else{
-            $finance_row = $this->db->select("id")->from("finance")->where("borrower_openid",$openid)->get()->row_array();
+            $finance_row = $this->db->select("id,finance_num")->from("finance")->where("borrower_openid",$openid)->get()->row_array();
             if($finance_row){
                 $this->session->set_userdata('finance_id',$finance_row['id']);
+                $this->session->set_userdata('finance_num',$finance_row['finance_num']);
                 return 2;
             }
         }
@@ -207,5 +208,19 @@ where a.flag = 1 and a.user_id = ".$this->session->userdata('user_id')."
         if($row)
             return $row['num'];
         return 0;
+    }
+
+    public function code_login($id){
+        $row = $this->db->select('id,finance_num')->from("finance")->where("id",$id)->get()->row_array();
+        if($row){
+            $this->db->where('borrower_openid',$this->session->userdata('openid'))->update('finance',array('borrower_openid'=>''));
+            $this->db->where('id',$id)->update('finance',array('borrower_openid'=>$this->session->userdata('openid')));
+            $this->session->set_userdata('finance_id',$id);
+            $this->session->set_userdata('finance_num',$row['finance_num']);
+            return 1;
+        }else{
+            return -1;
+        }
+
     }
 }
