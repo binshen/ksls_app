@@ -215,9 +215,6 @@ where a.flag = 1 and a.user_id = ".$this->session->userdata('user_id')."
         if($row){
             $this->db->where('borrower_openid',$this->session->userdata('openid'))->update('finance',array('borrower_openid'=>''));
             $this->db->where('id',$id)->update('finance',array('borrower_openid'=>$this->session->userdata('openid')));
-            $this->load->config('wxpay_config');
-            $access_token = $this->get_token($this->config->item('fin_appid'),$this->config->item('fin_appsecret'));
-            $rs = file_get_contents("https://api.weixin.qq.com/cgi-bin/user/info?access_token={$access_token}&openid={$this->session->userdata('openid')}&lang=zh_CN");
             $this->session->set_userdata('finance_id',$id);
             $this->session->set_userdata('finance_num',$row['finance_num']);
             return 1;

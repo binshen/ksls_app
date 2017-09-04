@@ -59,8 +59,15 @@ class Finance_wx extends Finwx_Controller
     public function code_login($code=null){
         if(!$code){
             $code = $this->input->post('finance_wx_num');
-            /*$list = explode('/',$url_str);
-            $code=$list[count($list)-1];*/
+        }else{
+            $access_token = $this->get_token($this->config->item('fin_appid'),$this->config->item('fin_appsecret'));
+            $rs = file_get_contents("https://api.weixin.qq.com/cgi-bin/user/info?access_token={$access_token}&openid={$this->session->userdata('openid')}&lang=zh_CN");
+            if($rs['subscribe'] != 1){
+                $img_url = $this->get_or_create_ticket($access_token);
+                $this->cismarty->assign('img_url',$img_url);
+                $this->cismarty->display('finance/wx_guanzhu.html');
+                exit();
+            }
         }
 
         //$replace_str = $this->config->item('base_url_wx').'/finance_wx/code_login/';
@@ -86,6 +93,33 @@ class Finance_wx extends Finwx_Controller
             $this->cismarty->assign('flag',-3);
             $this->cismarty->display('finance/login.html');
         }
+    }
+
+    private function get_or_create_ticket($access_token,$action_name = 'QR_LIMIT_STR_SCENE') {
+
+
+
+        $url = 'https://api.weixin.qq.com/cgi-bin/qrcode/create?access_token=' . $access_token;
+        @$post_data->expire_seconds = 2592000;
+        @$post_data->action_name = $action_name;
+        @$post_data->action_info->scene->scene_str = 'yy';
+        $ticket_data = json_decode($this->post($url, $post_data));
+        $ticket = $ticket_data->ticket;
+        $img_url = "https://mp.weixin.qq.com/cgi-bin/showqrcode?ticket=".urlencode($ticket);
+        return $img_url;
+    }
+
+    private function post($url, $post_data, $timeout = 300){
+        $options = array(
+            'http' => array(
+                'method' => 'POST',
+                'header' => 'Content-type:application/json;encoding=utf-8',
+                'content' => urldecode(json_encode($post_data)),
+                'timeout' => $timeout
+            )
+        );
+        $context = stream_context_create($options);
+        return file_get_contents($url, false, $context);
     }
 
 }
