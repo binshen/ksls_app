@@ -407,6 +407,7 @@ class Finance_model extends MY_Model
     }
 
     public function status_finance_save(){
+        $old_detail = $this->get_detail($this->input->post('finance_id'));
         $data = array(
             "status"=>$this->input->post("status"),
             "meno_text"=>$this->input->post("meno_text")
@@ -443,55 +444,46 @@ class Finance_model extends MY_Model
         }
         //发送微信通知
         $detail = $this->get_detail($this->input->post('finance_id'));
-        $data_msg = array(
-            'first' => array(
-                'value' => "金融服务提交成功!",
-                'color' => '#FF0000'
-            ),
-            'keyword1' => array(
-                'value' => $detail['finance_num'],
-                'color' => '#FF0000'
-            ),
-            'keyword2' => array(
-                'value' => date('Y-m-d H:m:s'),
-                'color' => '#FF0000'
-            ),
-            'remark' => array(
-                'value' => '感谢你对我们工作的信任',
-                'color' => '#FF0000'
-            )
-        );
-        switch($detail['status']){
-            case 2://待审核
-                $data_msg['first']['value'] = "您的金融服务已被提交!";
-                $data_msg['remark']['value'] = "感谢你对我们工作的信任和支持!";
-                break;
-            case 3://审核通过
-                $data_msg['first']['value'] = "恭喜!您的金融服务已审核通过!";
-                $data_msg['remark']['value'] = "请留意平台的金融方案,我们会尽快与您联系.感谢你对我们工作的信任和支持!";
-                break;
-            case 4://结案
-                $data_msg['first']['value'] = "您的金融服务已顺利结案.";
-                $data_msg['remark']['value'] = "感谢你对我们工作的信任和支持!";
-                break;
-            case 5://审核不通过
-                $data_msg['first']['value'] = "很抱歉,您提交的金融服务未通过平台审核!";
-                $data_msg['remark']['value'] = "请仔细阅读审核信息,修改申请信息后可再次提交申请.";
-                break;
-            case -1://关闭
-                $data_msg['first']['value'] = "很抱歉,您提交的金融服务已被关闭!";
-                $data_msg['remark']['value'] = "";
-                break;
-            default:
-                $data_msg['first']['value'] = "金融服务";
-                $data_msg['remark']['value'] = "感谢你对我们工作的信任和支持!";
-                break;
+        if($old_detail['status'] != $detail['status']){
+            $data_msg = array(
+                'first' => array('value' => "金融服务提交成功!", 'color' => '#FF0000'),
+                'keyword1' => array('value' => $detail['finance_num'], 'color' => '#FF0000'),
+                'keyword2' => array('value' => date('Y-m-d H:m:s'), 'color' => '#FF0000'),
+                'remark' => array('value' => '感谢你对我们工作的信任', 'color' => '#FF0000')
+            );
+            switch($detail['status']){
+                case 2://待审核
+                    $data_msg['first']['value'] = "您的金融服务已被提交!";
+                    $data_msg['remark']['value'] = "感谢你对我们工作的信任和支持!";
+                    break;
+                case 3://审核通过
+                    $data_msg['first']['value'] = "恭喜!您的金融服务已审核通过!";
+                    $data_msg['remark']['value'] = "请留意平台的金融方案,我们会尽快与您联系.感谢你对我们工作的信任和支持!";
+                    break;
+                case 4://结案
+                    $data_msg['first']['value'] = "您的金融服务已顺利结案.";
+                    $data_msg['remark']['value'] = "感谢你对我们工作的信任和支持!";
+                    break;
+                case 5://审核不通过
+                    $data_msg['first']['value'] = "很抱歉,您提交的金融服务未通过平台审核!";
+                    $data_msg['remark']['value'] = "请仔细阅读审核信息,修改申请信息后可再次提交申请.";
+                    break;
+                case -1://关闭
+                    $data_msg['first']['value'] = "很抱歉,您提交的金融服务已被关闭!";
+                    $data_msg['remark']['value'] = "";
+                    break;
+                default:
+                    $data_msg['first']['value'] = "金融服务";
+                    $data_msg['remark']['value'] = "感谢你对我们工作的信任和支持!";
+                    break;
+            }
+            //发送给金融服务绑定微信号
+            if($detail['borrower_openid']){
+                $this->wxpost_finByOpenid($this->config->item('WX_FIN_SJTJ'),$data_msg,$detail['borrower_openid'],'www.baidu.com');
+            }
+            $this->wxpost_fin($this->config->item('WX_FIN_SJTJ'),$data_msg,$detail['user_id'],'www.baidu.com');
         }
-        //发送给金融服务绑定微信号
-        if($detail['borrower_openid']){
-            $this->wxpost_finByOpenid($this->config->item('WX_FIN_SJTJ'),$data_msg,$detail['borrower_openid'],'www.baidu.com');
-        }
-        $this->wxpost_fin($this->config->item('WX_FIN_SJTJ'),$data_msg,$detail['user_id'],'www.baidu.com');
+
         return $res;
     }
 
