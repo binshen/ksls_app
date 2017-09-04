@@ -53,7 +53,7 @@
         <div class="am-tab-panel am-active">
           <form method="post" class="am-form" id="scan_form" action="{{site_url url='finance_wx/code_login'}}">
             <label>服务绑定编号:</label>
-            <input type="hidden" name="finance_wx_num" value="">
+            <input type="hidden" id="finance_wx_num" name="finance_wx_num" value="">
             {{if $flag == '-3'}}
             <a class="am-badge am-badge-danger am-radius">编号不存在,绑定失败！</a>
             {{/if}}
