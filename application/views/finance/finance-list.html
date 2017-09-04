@@ -86,8 +86,8 @@
                     <li class="wid80 finance-list-more"><a href="/finance/show_finance_result/{{$item.id}}">详情</a></li>
                     <li class="wid130">
                         {{if $item.status==1 || $item.status == 5}}<a href="/finance/add_finance/{{$item.id}}" class="operation-btn">修改</a>{{/if}}
-                        <a href="/finance/view_finance/{{$item.id}}" class="operation-btn">查看</a>
-                        <a href="javascript:void(0);" class="operation-btn">推送</a>
+                        <em class="roomtips-book-pos"></em><a href="/finance/view_finance/{{$item.id}}" class="operation-btn">查看</a>
+                        <a href="javascript:void(0);" finance_id="{{$item.id}}" class="operation-btn ts_btn_yy">推送</a>
                     </li>
                 </ul>
 
@@ -104,6 +104,8 @@
 </div>
 {{include file='footer.html'}}
 <script type="text/javascript" src="/static/js/yui-min.js"></script>
+<script type="text/javascript" src="/static/js/jquery.poshytip.min.js"></script>
+<script type="text/javascript" src="/static/js/layer/layer.js"></script>
 <script type="text/javascript">
     YUI({
         modules: {
@@ -144,6 +146,45 @@
         $("#formSearch").submit();
         return false;
     })
+
+    $('.ts_btn_yy').click(function(e){
+        $('.roomtips-book-pos').poshytip('hide');
+        $(this).siblings('.roomtips-book-pos').poshytip('show');
+        e.stopPropagation();
+    });
+
+    $('.roomtips-book-pos').poshytip({
+        className: 'choose-bookroom',
+        content:function(updateCallback) {
+            var finance_id = $(this).parent().find(".ts_btn_yy").attr('finance_id');;
+            var result = $.ajax({
+                url : '/finance/show_code',
+                data: { finance_id: finance_id},
+                cache : false,
+                async : false,
+                type : "POST"
+            }).responseText;
+            if(result == -1){
+                layer.msg("没有操作权限", {icon: 2});
+                return false;
+            } else if(result == -2) {
+                layer.msg("异常", {icon: 2});
+                return false;
+            } else {
+                return result;
+            }
+        },
+        showOn:'none',
+        alignTo:'target',
+        alignX:'center',offsetY:5
+    });
+    $(document).click(function(){
+        $('.roomtips-book-pos').poshytip('hide');
+        //$('.book-btn').removeClass('on');
+    });
+    $(".choose-bookroom").click(function(e){
+        e.stopPropagation();
+    });
 </script>
 </body>
 </html>

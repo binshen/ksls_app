@@ -30,4 +30,7 @@ $config['appointment_tksum_name'] = '预约会议_退款';
 $config['agenda_sum'] = 2;
 $config['agenda_sum_name'] = '权证服务扣款';
 
+//加密编号
+$config['token_key'] = "abcd888888";
+
 

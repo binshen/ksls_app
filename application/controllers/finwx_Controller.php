@@ -55,5 +55,20 @@ class Finwx_Controller extends CI_Controller
         $this->cismarty->display($html);
     }
 
+    public function set_base_code($token){
+        require_once (APPPATH . 'libraries/Base64.php');
+        try{
+            $token = base64_decode($token);
+            $token = base64::decrypt($token, $this->config->item('token_key'));
+            $token = explode('_', $token);
+            if($token[0]!= 'FIN') return -1;
+            $t = time() - $token[2];
+            if($t >= 60 * 60) return -2;
+        }catch(Exception $e){
+            return -3;
+        }
+        return (int)$token[1];
+    }
+
 
 }
