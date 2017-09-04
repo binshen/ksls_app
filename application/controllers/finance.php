@@ -360,12 +360,11 @@ class Finance extends MY_Controller
 
     public function show_code(){
         $tf_id = $_POST['finance_id'];
-
+        $view_p = $this->finance_model->view_power($tf_id);
         $code = $this->set_base_code($tf_id);
-
-
         $this->assign('finance_id', $tf_id);
-
+        if($view_p != 1)
+            $code = '123';
         //$this->assign('result', "http:%2F%2Ffinance_wx%2Fcode_login".'/'.$code);
         $this->assign('result', $code);
         $this->display('finance/popup_code.html');
