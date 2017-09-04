@@ -55,4 +55,15 @@ class Finance_wx extends Finwx_Controller
         }
     }
 
+    public function code_login($code){
+        $res = $this->finance_wx_model->code_login($code);
+        if($res==1){
+            redirect('finance_wx_borrower/index');
+        }else{
+            $this->cismarty->assign('tabs',0);
+            $this->cismarty->assign('flag',-3);
+            $this->cismarty->display('finance/login.html');
+        }
+    }
+
 }

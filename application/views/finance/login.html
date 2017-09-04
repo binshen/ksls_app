@@ -45,17 +45,33 @@
     <h3>登录方式选择</h3>
     <div class="am-tabs" data-am-tabs="{noSwipe: 1}" id="doc-tab-demo-1">
       <ul class="am-tabs-nav am-nav am-nav-tabs">
-        <li class="am-active"><a href="javascript: void(0)">申请人登陆</a></li>
+        <li class="am-active"><a href="javascript: void(0)">猫扫登陆</a></li>
         <li><a href="javascript: void(0)">公司登陆</a></li>
       </ul>
 
       <div class="am-tabs-bd">
         <div class="am-tab-panel am-active">
+          <form method="post" class="am-form" action="{{site_url url='finance_wx/code_login'}}">
+            <label>服务绑定编号:</label>
+            <input type="hidden" name="finance_wx_num" value="">
+            {{if $flag == '-3'}}
+            <a class="am-badge am-badge-danger am-radius">二维码不规范或过期！</a>
+            {{/if}}
+            <br>
+            <br>
+
+            <div class="am-cf">
+              <input type="button" id="saoma"  value="扫 码" class="am-btn am-btn-primary am-btn-sm am-fl">
+            </div>
+
+          </form>
+        </div>
+        <!--<div class="am-tab-panel am-active">
           <form method="post" class="am-form" action="{{site_url url='finance_wx/save_openid'}}">
             <label>服务绑定编号:</label>
             <input type="text" name="finance_wx_num" value="" required>
             {{if $flag == '-2'}}
-            <a class="am-badge am-badge-danger am-radius">服务绑定编号！</a>
+            <a class="am-badge am-badge-danger am-radius">服务绑定编号异常！</a>
             {{/if}}
             <br>
             <br>
@@ -65,7 +81,7 @@
             </div>
 
           </form>
-        </div>
+        </div>-->
         <div class="am-tab-panel">
           <form method="post" class="am-form" action="{{site_url url='finance_wx/user_login'}}">
             <label>用户名:</label>
@@ -95,7 +111,56 @@
 <script>
   $(function() {
     $('#doc-tab-demo-1').tabs('open',{{$tabs|default:0}});
+
+
   })
+
+  wx.config({
+    debug: false, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
+    appId: '{{$wxappId}}', // 必填，公众号的唯一标识
+    timestamp:{{$wxtimestamp}}, // 必填，生成签名的时间戳
+  nonceStr: '{{$wxnonceStr}}', // 必填，生成签名的随机串
+          signature: '{{$wxsignature}}',// 必填，签名，见附录1
+          jsApiList: ['previewImage','scanQRCode'] // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
+  });
+  $("#scan").click(function(){
+    wx.scanQRCode({
+      needResult: 1, // 默认为0，扫描结果由微信处理，1则直接返回扫描结果，
+      scanType: ["qrCode","barCode"], // 可以指定扫二维码还是一维码，默认二者都有
+      success: function (res) {
+        var num = res.resultStr.split("_"); // 当needResult 为 1 时，扫码返回的结果
+        num = num[0]
+        $.getJSON('{{site_url url="search/get_stock"}}/'+num,function(data){
+          if(data != 1){
+            qty = 0
+            $("#num").html(data.num)
+            $("#title_num").html(num)
+            $("#color").html('<font color="'+ data.rgb +'">'+ data.color +'</font>')
+            $("img").attr('src','{{$base_url}}/uploadfiles/product/'+data.pic)
+            html = ''
+            data.list.forEach(function(item){
+              qty += parseInt(item['stock'])
+              html += '<tr>'
+              html += '<td>'+ item['size'] +'</td>'
+              html += '<td>'+ item['stock'] +'</td>'
+              html += '<td>'+ item['h_stock'] +'</td>'
+              html += '</tr>'
+            });
+            $('#total_qty').html(qty)
+            $("#sizes").html(html)
+
+            $(".step1").hide()
+            $(".step2").show()
+            $('.smark').show()
+          }else{
+            $('#my-alert').modal({})
+          }
+
+        });
+
+      }
+    });
+  });
 </script>
 </body>
 </html>
