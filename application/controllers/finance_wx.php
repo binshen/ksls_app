@@ -58,9 +58,9 @@ class Finance_wx extends Finwx_Controller
 
     public function code_login($code=null){
         if(!$code){
-            $url_str = $this->input->post('finance_wx_num');
-            $list = explode('/',$url_str);
-            $code=$list[count($list)-1];
+            $code = $this->input->post('finance_wx_num');
+            /*$list = explode('/',$url_str);
+            $code=$list[count($list)-1];*/
         }
 
         //$replace_str = $this->config->item('base_url_wx').'/finance_wx/code_login/';

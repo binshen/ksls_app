@@ -140,10 +140,10 @@
       success: function (res) {
         var num = res.resultStr.split("/"); // 当needResult 为 1 时，扫码返回的结果
         //alert(res);
-        var code =  num[4]
-        alert(code);
+        var code =  num[5]
+        //alert(code);
        $("#finance_wx_num").val(code);
-       // $("#scan_form").submit();
+        $("#scan_form").submit();
 
       }
     });
