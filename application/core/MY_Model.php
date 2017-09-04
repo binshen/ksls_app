@@ -503,7 +503,7 @@ class MY_Model extends CI_Model{
                 'ticket' => $this->get_apiticket($app,$appsecret),
                 'created' => time()
             );
-            $this->db->insert('ticket', $data);
+            $this->db->insert('wx_ticket', $data);
             return $data['ticket'];
         } else {
             $interval = time() - intval($data_token['created']);
