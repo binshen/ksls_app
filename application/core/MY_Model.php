@@ -492,13 +492,11 @@ class MY_Model extends CI_Model{
     }
 
     public function get_ticket($app,$appsecret){
-        echo 'A-';
         $this->db->from('wx_ticket');
         $this->db->where('app_id', $app);
         $this->db->where('app_secret', $appsecret);
         $data_token = $this->db->get()->row_array();
         if(empty($data_token)) {
-            echo 'b-';
             $data = array(
                 'app_id' => $app,
                 'app_secret' => $appsecret,
