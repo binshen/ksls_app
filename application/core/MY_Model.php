@@ -526,7 +526,7 @@ class MY_Model extends CI_Model{
     }
 
     public function get_apiticket($app,$appsecret){
-        $accessToken = $this->get_token($this->wxconfig['appid'],$this->wxconfig['appsecret']);
+        $accessToken = $this->get_token($app,$appsecret);
         $url = "https://api.weixin.qq.com/cgi-bin/ticket/getticket?type=jsapi&access_token=$accessToken";
         $res = json_decode($this->wxhttpGet($url));
         $ticket = $res->ticket;
