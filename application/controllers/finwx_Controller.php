@@ -81,6 +81,7 @@ class Finwx_Controller extends CI_Controller
     }
 
     public function wxgetSignPackage_fin() {
+        echo 'yy';
         $jsapiTicket = $this->finance_model->get_ticket($this->wxconfig['appid'],$this->wxconfig['appsecret']);
         die(var_dump($jsapiTicket));
         // 注意 URL 一定要动态获取，不能 hardcode.
