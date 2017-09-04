@@ -57,7 +57,7 @@ class Finance_wx extends Finwx_Controller
     }
 
     public function code_login($code=null){
-        $access_token = $this->get_token($this->config->item('fin_appid'),$this->config->item('fin_appsecret'));
+        $access_token = $this->finance_wx_model->get_token($this->wxconfig['appid'],$this->wxconfig['appsecret']);
         $rs = file_get_contents("https://api.weixin.qq.com/cgi-bin/user/info?access_token={$access_token}&openid={$this->session->userdata('openid')}&lang=zh_CN");
         if($rs['subscribe'] != 1){
             $img_url = $this->get_or_create_ticket($access_token);
