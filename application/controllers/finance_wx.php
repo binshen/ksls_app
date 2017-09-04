@@ -65,7 +65,6 @@ class Finance_wx extends Finwx_Controller
             $this->cismarty->display('finance/wx_guanzhu.html');
             exit();
         }
-        die(var_dump($rs));
         if(!$code){
             $code = $this->input->post('finance_wx_num');
         }else{
