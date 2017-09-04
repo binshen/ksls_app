@@ -223,4 +223,11 @@ where a.flag = 1 and a.user_id = ".$this->session->userdata('user_id')."
         }
 
     }
+
+    public function get_borrower_openid($id){
+        $row=$this->db->select("borrower_openid")->from("finance")->where("id",$id)->get()->row_array();
+        if($row)
+            return $row['borrower_openid'];
+        return -1;
+    }
 }
