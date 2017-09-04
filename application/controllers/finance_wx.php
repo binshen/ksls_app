@@ -68,6 +68,7 @@ class Finance_wx extends Finwx_Controller
                 $this->cismarty->display('finance/wx_guanzhu.html');
                 exit();
             }
+            die(var_dump($rs));
         }
 
         //$replace_str = $this->config->item('base_url_wx').'/finance_wx/code_login/';
