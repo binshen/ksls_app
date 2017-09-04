@@ -57,18 +57,19 @@ class Finance_wx extends Finwx_Controller
     }
 
     public function code_login($code=null){
+        $access_token = $this->get_token($this->config->item('fin_appid'),$this->config->item('fin_appsecret'));
+        $rs = file_get_contents("https://api.weixin.qq.com/cgi-bin/user/info?access_token={$access_token}&openid={$this->session->userdata('openid')}&lang=zh_CN");
+        if($rs['subscribe'] != 1){
+            $img_url = $this->get_or_create_ticket($access_token);
+            $this->cismarty->assign('img_url',$img_url);
+            $this->cismarty->display('finance/wx_guanzhu.html');
+            exit();
+        }
+        die(var_dump($rs));
         if(!$code){
             $code = $this->input->post('finance_wx_num');
         }else{
-            $access_token = $this->get_token($this->config->item('fin_appid'),$this->config->item('fin_appsecret'));
-            $rs = file_get_contents("https://api.weixin.qq.com/cgi-bin/user/info?access_token={$access_token}&openid={$this->session->userdata('openid')}&lang=zh_CN");
-            if($rs['subscribe'] != 1){
-                $img_url = $this->get_or_create_ticket($access_token);
-                $this->cismarty->assign('img_url',$img_url);
-                $this->cismarty->display('finance/wx_guanzhu.html');
-                exit();
-            }
-            die(var_dump($rs));
+
         }
 
         //$replace_str = $this->config->item('base_url_wx').'/finance_wx/code_login/';
