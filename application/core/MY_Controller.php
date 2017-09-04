@@ -36,6 +36,9 @@ class MY_Controller extends CI_Controller
 			if($this->uri->segment(2) == 'show_room'){
 				die('账户登陆超时或在异地登陆,请退出后再登陆');
 			}
+			if($this->uri->segment(2) == 'show_code'){
+				die('账户登陆超时或在异地登陆,请退出后再登陆');
+			}
 			if($this->uri->segment(2) == 'zysm'){
 				die('-1');
 			}
