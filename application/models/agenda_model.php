@@ -456,7 +456,7 @@ class Agenda_model extends MY_Model
                         'color' => '#FF0000'
                     ),
                     'keyword2' => array(
-                        'value' => date('Y-m-d H:m:s'),
+                        'value' => date('Y-m-d H:i:s'),
                         'color' => '#FF0000'
                     ),
                     'remark' => array(
@@ -577,7 +577,7 @@ class Agenda_model extends MY_Model
                         'color' => '#FF0000'
                     ),
                     'keyword2' => array(
-                        'value' => date('Y-m-d H:m:s'),
+                        'value' => date('Y-m-d H:i:s'),
                         'color' => '#FF0000'
                     ),
                     'remark' => array(
