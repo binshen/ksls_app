@@ -405,12 +405,13 @@ class Finance extends MY_Controller
 
     public function test2($tf_id){
         $code = $this->set_base_code($tf_id);
-        var_dump(base64_encode($tf_id));
-        var_dump(base64_encode(time()));
-        var_dump(mb_convert_encoding($code, 'utf-8', 'gb2312'));
-        var_dump(mb_convert_encoding($code, 'gb2312', 'utf-8'));
-        var_dump(urlencode($code));
-        var_dump(urlencode("+_)(*&^%$#@!./'\\\|,.<>"));
+        //var_dump(base64_encode($tf_id));
+        //var_dump(base64_encode(time()));
+        //var_dump(mb_convert_encoding($code, 'utf-8', 'gb2312'));
+        //var_dump(mb_convert_encoding($code, 'gb2312', 'utf-8'));
+        $url= urlencode($code);
+        var_dump($url);
+        var_dump(urldecode($url));
         die(var_dump($code));
     }
 
