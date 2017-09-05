@@ -308,7 +308,7 @@ class Finance_model extends MY_Model
                     'color' => '#FF0000'
                 ),
                 'keyword2' => array(
-                    'value' => date('Y-m-d H:m:s'),
+                    'value' => date('Y-m-d H:i:s'),
                     'color' => '#FF0000'
                 ),
                 'remark' => array(
@@ -448,7 +448,7 @@ class Finance_model extends MY_Model
             $data_msg = array(
                 'first' => array('value' => "金融服务提交成功!", 'color' => '#FF0000'),
                 'keyword1' => array('value' => $detail['finance_num'], 'color' => '#FF0000'),
-                'keyword2' => array('value' => date('Y-m-d H:m:s'), 'color' => '#FF0000'),
+                'keyword2' => array('value' => date('Y-m-d H:i:s'), 'color' => '#FF0000'),
                 'remark' => array('value' => '感谢你对我们工作的信任', 'color' => '#FF0000')
             );
             switch($detail['status']){
