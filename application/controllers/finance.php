@@ -364,9 +364,9 @@ class Finance extends MY_Controller
         $code = $this->set_base_code($tf_id);
         $this->assign('finance_id', $tf_id);
         if($view_p != 1)
-            $code = '123';
+            return -1;
         //$this->assign('result', "http:%2F%2Ffinance_wx%2Fcode_login".'/'.$code);
-        $this->assign('result', $code);
+        $this->assign('result', urlencode($code));
         $this->display('finance/popup_code.html');
     }
 
@@ -403,9 +403,16 @@ class Finance extends MY_Controller
         $this->finance_model->wxpost_fin($this->config->item('WX_FIN_SJTJ'),$data_msg,$this->session->userdata('login_user_id'),'www.baidu.com');
     }
 
-    public function test2(){
-       $str = site_url('finance_wx/code_login').'/'.'123';
-        die(var_dump($str));
+    public function test2($tf_id){
+        $code = $this->set_base_code($tf_id);
+        //var_dump(base64_encode($tf_id));
+        //var_dump(base64_encode(time()));
+        //var_dump(mb_convert_encoding($code, 'utf-8', 'gb2312'));
+        //var_dump(mb_convert_encoding($code, 'gb2312', 'utf-8'));
+        $url= urlencode($code);
+        var_dump($url);
+        var_dump(urldecode($url));
+        die(var_dump($code));
     }
 
 
