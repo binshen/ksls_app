@@ -43,7 +43,7 @@ class Finance_wx_user extends Finwx_Controller
         // $this->cismarty->assign('jindu_type',$jindu_type);
         $data = $this->finance_model->finance_list($page,$this->session->userdata('user_id'));
         $base_url = "/finance_wx_user/list_finance/";
-        $pager = $this->pagination->getPageLink($base_url, $data['total'], $data['limit']);
+        $pager = $this->pagination->getPageLink($base_url, $data['countPage'], $data['numPerPage']);
         $this->cismarty->assign('pager',$pager);
         $this->cismarty->assign('data',$data);
         $this->cismarty->display('finance/user_finance_list.html');
