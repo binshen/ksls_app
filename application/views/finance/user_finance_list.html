@@ -17,7 +17,7 @@
 <div class="am-g">
     {{include file="finance/user_header.html"}}
      <div class="app-tit">
-      <span class="mark">我的金融服务数量</span>
+      <span class="mark">我的金融 总数量</span>
       <span class="smark">共{{$main_data.my_fin_count}}个</span>
     </div>
     <section data-am-widget="accordion" class="am-accordion am-accordion-default"
@@ -27,6 +27,16 @@
         <dt class="am-accordion-title">
           <div class="fl">
             <span class="s-user-name"><i class="am-icon-user"></i>{{$item.borrower_name}}</span>
+          <span><i class="am-icon-calendar"></i>{{$item.finance_num}}</span>
+          </div>
+          <div class="fr">
+              {{if $item.status == '2'}}<span><i class="am-icon-check-circle"></i>已报备</span>{{/if}}
+              {{if $item.status == '1'}}<span><i class="am-icon-exclamation-circle"></i>将到期</span>{{/if}}
+              {{if $item.status == '3'}}<span><i class="am-icon-check-circle am-icon-check1-circle"></i>已带看</span>{{/if}}
+              {{if $item.status == '5'}}<span><i class="am-icon-exclamation-circle am-icon-exclamation1-circle"></i>将到期</span>{{/if}}
+              {{if $item.status == '4'}}<span><i class="am-icon-check-circle am-icon-check2-circle"></i>已签约</span>{{/if}}
+              {{if $item.status == '-1'}}<span class="overtime"><i class="am-icon-exclamation-circle am-icon-exclamation2-circle"></i>已过期</span>{{/if}}
+              <span><i class="am-icon-angle-right"></i></span>
           </div>
         </dt>
         <dd class="am-accordion-bd am-collapse">
@@ -72,21 +82,21 @@
             <div class="am-modal-actions-group">
                 <ul class="am-list">
                     <div class="am-form-group input_start_time">
-                        <input type="datetime" class="am-form-field" data-am-datepicker readonly name="Cstart_date" value="{{$finance_list.Cstart_date|default:''}}" placeholder="创建时间起始">
+                        <input type="datetime" class="am-form-field" data-am-datepicker readonly name="Cstart_date" value="{{$data.Cstart_date|default:''}}" placeholder="创建时间起始">
                     </div>
                     <div class="am-form-group input_end_time">
-                        <input type="datetime" class="am-form-field" data-am-datepicker readonly name="Cend_date" value="{{$finance_list.Cend_date|default:''}}" placeholder="创建时间结尾">
+                        <input type="datetime" class="am-form-field" data-am-datepicker readonly name="Cend_date" value="{{$data.Cend_date|default:''}}" placeholder="创建时间结尾">
                     </div>
                 </ul>
             </div>
               <div class="am-form-group">
-                  <input type="text" class="am-form-field" name="borrower_name" value="{{$finance_list.borrower_name|default:''}}" placeholder="申请人">
+                  <input type="text" class="am-form-field" name="borrower_name" value="{{$data.borrower_name|default:''}}" placeholder="申请人">
               </div>
               <div class="am-form-group">
-                  <input type="text" class="am-form-field" name="finance_num" value="{{$finance_list.finance_num|default:''}}" placeholder="申请编号">
+                  <input type="text" class="am-form-field" name="finance_num" value="{{$data.finance_num|default:''}}" placeholder="申请编号">
               </div>
             <div class="am-form-group">
-              <select id="doc-select-2" name="jindu_id">
+              <select id="doc-select-2" name="status">
                 <option value="">——请选择服务状态——</option>
                   <option {{if $data.status == 1}}selected{{/if}} value="1">未提交</option>
                   <option {{if $data.status == 2}}selected{{/if}} value="2">待审批</option>
