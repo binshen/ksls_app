@@ -80,10 +80,10 @@
                 </ul>
             </div>
               <div class="am-form-group">
-                  <input type="text" class="am-form-field" name="keyword" value="{{$data.keyword}}" placeholder="申请人">
+                  <input type="text" class="am-form-field" name="borrower_name" value="{{$finance_list.borrower_name|default:''}}" placeholder="申请人">
               </div>
               <div class="am-form-group">
-                  <input type="text" class="am-form-field" name="ht_id" value="{{$data.ht_id}}" placeholder="申请编号">
+                  <input type="text" class="am-form-field" name="finance_num" value="{{$finance_list.finance_num|default:''}}" placeholder="申请编号">
               </div>
             <div class="am-form-group">
               <select id="doc-select-2" name="jindu_id">
