@@ -27,15 +27,15 @@
         <dt class="am-accordion-title">
           <div class="fl">
             <span class="s-user-name"><i class="am-icon-user"></i>{{$item.borrower_name}}</span>
-          <span><i class="am-icon-calendar"></i>{{$item.finance_num}}</span>
+          <!--<span><i class="am-icon-calendar"></i>{{$item.finance_num}}</span>-->
           </div>
           <div class="fr">
-              {{if $item.status == '2'}}<span><i class="am-icon-check-circle"></i>已报备</span>{{/if}}
-              {{if $item.status == '1'}}<span><i class="am-icon-exclamation-circle"></i>将到期</span>{{/if}}
-              {{if $item.status == '3'}}<span><i class="am-icon-check-circle am-icon-check1-circle"></i>已带看</span>{{/if}}
-              {{if $item.status == '5'}}<span><i class="am-icon-exclamation-circle am-icon-exclamation1-circle"></i>将到期</span>{{/if}}
-              {{if $item.status == '4'}}<span><i class="am-icon-check-circle am-icon-check2-circle"></i>已签约</span>{{/if}}
-              {{if $item.status == '-1'}}<span class="overtime"><i class="am-icon-exclamation-circle am-icon-exclamation2-circle"></i>已过期</span>{{/if}}
+              {{if $item.status == '2'}}<span><i class="am-icon-check-circle"></i>待审核</span>{{/if}}
+              {{if $item.status == '1'}}<span><i class="am-icon-exclamation-circle"></i>未提交</span>{{/if}}
+              {{if $item.status == '3'}}<span><i class="am-icon-check-circle am-icon-check1-circle"></i>审核通过</span>{{/if}}
+              {{if $item.status == '5'}}<span><i class="am-icon-exclamation-circle am-icon-exclamation1-circle"></i>审核未通过</span>{{/if}}
+              {{if $item.status == '4'}}<span><i class="am-icon-check-circle am-icon-check2-circle"></i>结案</span>{{/if}}
+              {{if $item.status == '-1'}}<span class="overtime"><i class="am-icon-exclamation-circle am-icon-exclamation2-circle"></i>终止</span>{{/if}}
               <span><i class="am-icon-angle-right"></i></span>
           </div>
         </dt>
