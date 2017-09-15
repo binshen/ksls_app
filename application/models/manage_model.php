@@ -37,7 +37,7 @@ class Manage_model extends MY_Model
         $this->db->join('role b','a.role_id = b.id','inner');
         $this->db->where('a.username', $username);
         $this->db->where('a.password', sha1($password));
-        $this->db->where('b.permission_id <= 4');
+        //$this->db->where('b.permission_id <= 4');
         $rs = $this->db->get();
         if ($rs->num_rows() > 0) {
         	$res = $rs->row();

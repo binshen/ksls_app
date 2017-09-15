@@ -80,6 +80,12 @@
                             }else{
                                 layer.msg('如需使用此服务,请先购买')
                             }
+                        }else if(data==3){
+                            if(redirect_url=="/pg/pg_list"){
+                                window.location = redirect_url;
+                            }else{
+                                layer.msg('评估管理员,只可进入 在线评估 模块')
+                            }
                         }else {
                                 window.location = redirect_url;
                         }

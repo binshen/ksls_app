@@ -403,8 +403,8 @@ class Finance extends MY_Controller
         $this->finance_model->wxpost_fin($this->config->item('WX_FIN_SJTJ'),$data_msg,$this->session->userdata('login_user_id'),'www.baidu.com');
     }
 
-    public function test2($tf_id){
-        $code = $this->set_base_code($tf_id);
+    public function test2($tf_id=null){
+        /*$code = $this->set_base_code($tf_id);
         //var_dump(base64_encode($tf_id));
         //var_dump(base64_encode(time()));
         //var_dump(mb_convert_encoding($code, 'utf-8', 'gb2312'));
@@ -412,7 +412,9 @@ class Finance extends MY_Controller
         $url= urlencode($code);
         var_dump($url);
         var_dump(urldecode($url));
-        die(var_dump($code));
+        die(var_dump($code));*/
+        var_dump($this->router->class);
+        //var_dump($this->uri->segment(3));
     }
 
 

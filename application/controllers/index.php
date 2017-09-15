@@ -99,6 +99,8 @@ class Index extends MY_Controller {
         if($this->session->userdata('login_user_id')){
             if(in_array(1,$this->session->userdata('login_position_id_array'))){
                 echo 2;
+            }elseif(in_array(11,$this->session->userdata('login_position_id_array'))){
+                echo 3;
             }else{
                 echo 1;
             }

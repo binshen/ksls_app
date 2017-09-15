@@ -104,6 +104,7 @@ $(function(){
 						</ul>
 					</div>
 					<?php endif;?>
+					<?php if($this->session->userdata('permission_id') <= 4):?>
 					<div class="accordionHeader">
 						<h2><span>Folder</span>经纪人管理</h2>
 					</div>
@@ -114,6 +115,7 @@ $(function(){
 							<li><a href="<?php echo site_url('manage/list_user');?>" target="navTab" rel="list_user">用户列表</a></li>
 						</ul>
 					</div>
+					<?php endif;?>
 					<?php if($this->session->userdata('permission_id')==1):?>
 					<div class="accordionHeader">
 						<h2><span>Folder</span>文档/新闻/题库管理</h2>
