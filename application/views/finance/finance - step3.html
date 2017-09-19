@@ -77,6 +77,7 @@
                                             <span class="upload-photo-txt">申请人身份证反面</span>
 
                                         </li>
+
                                         <li>
                                             <div class="upload-photo">
                                                 <a href="javascript:void(0);" id="btnUploadImg_spSFZ1" class="button-upload">上传图片</a>
@@ -88,7 +89,7 @@
                                             </div>
                                             <span class="upload-photo-txt">配偶身份证正面</span>
                                         </li>
-                                        <li>
+                                        <li >
                                             <div class="upload-photo">
                                                 <a href="javascript:void(0);" id="btnUploadImg_spSFZ2" class="button-upload">上传图片</a>
                                                 <p id="p4" class="photo-img {{if $data.spouse_img_SFZ2|strip == ''}}yy_display{{/if}}">
@@ -102,40 +103,12 @@
                                     </ul>
                                 </dd>
                             </dl>
-</td>
-</tr>
-<tr>
-<td>
-                             <dl class="dl-photo dl-photo-wid1" style="width:425px;padding-right:0;">
-                                <dt class="finance-tit finance-jhz"></dt>
-                                <dd>
-                                    <ul>
-                                        <li>
-                                            <div class="upload-photo">
-                                                <a href="javascript:void(0);" id="btnUploadImg_img_JHZ1" class="button-upload">上传图片</a>
-                                                <p id="p5" class="photo-img {{if $data.img_JHZ1|strip == ''}}yy_display{{/if}}">
-                                                    <img class="yy_img" id="show_img_JHZ1" src="/uploadfiles/finance/{{$data.finance_num}}/{{$data.img_JHZ1}}" alt="">
-                                                    <span class="delete-this" onclick=""><i></i></span>
-                                                    <input type="hidden" id="hidImgName_img_JHZ1" name="img_JHZ1" value="{{$data.img_JHZ1|default:''}}" />
-                                                </p>
-                                            </div>
-                                            <span class="upload-photo-txt">结婚证1</span>
-                                        </li>
-                                        <li>
-                                            <div class="upload-photo">
-                                                <a href="javascript:void(0);" id="btnUploadImg_img_JHZ2" class="button-upload">上传图片</a>
-                                                <p id="p6" class="photo-img {{if $data.img_JHZ2|strip == ''}}yy_display{{/if}}">
-                                                    <img class="yy_img" id="show_img_JHZ2" src="/uploadfiles/finance/{{$data.finance_num}}/{{$data.img_JHZ2}}" alt="">
-                                                    <span class="delete-this" onclick=""><i></i></span>
-                                                    <input type="hidden" id="hidImgName_img_JHZ2" name="img_JHZ2" value="{{$data.img_JHZ2|default:''}}" />
-                                                </p>
-                                            </div>
-                                            <span class="upload-photo-txt">结婚证2</span>
-                                        </li>
-                                    </ul>
-                                </dd>
-                            </dl>
-                            <dl class="dl-photo dl-photo-wid1" style="width:212px;padding-left:0;padding-right:0;">
+                        </td>
+                        </tr>
+                        <tr>
+                        <td>
+
+                            <dl class="dl-photo dl-photo-wid1" style="width:212px;">
                                 <dt class="finance-tit finance-bdc"></dt>
                                 <dd>
                                     <ul>
@@ -153,7 +126,7 @@
                                     </ul>
                                 </dd>
                             </dl>
-                             <dl class="dl-photo dl-photo-wid1" style="width:212px;padding-left:0;padding-right:0;">
+                             <dl class="dl-photo dl-photo-wid1" style="width:212px;margin-left: 0;">
                                 <dt class="finance-tit finance-sbz"></dt>
                                 <dd>
                                     <ul>
@@ -171,13 +144,41 @@
                                     </ul>
                                 </dd>
                             </dl>
-
-                        </td> 
-                    </tr>
-                   <tr>
-<td>
+                                    <dl class="dl-photo dl-photo-wid1" style="width:425px;margin-left: 0;">
+                                        <dt class="finance-tit finance-jhz"></dt>
+                                        <dd>
+                                            <ul>
+                                                <li>
+                                                    <div class="upload-photo">
+                                                        <a href="javascript:void(0);" id="btnUploadImg_img_JHZ1" class="button-upload">上传图片</a>
+                                                        <p id="p5" class="photo-img {{if $data.img_JHZ1|strip == ''}}yy_display{{/if}}">
+                                                            <img class="yy_img" id="show_img_JHZ1" src="/uploadfiles/finance/{{$data.finance_num}}/{{$data.img_JHZ1}}" alt="">
+                                                            <span class="delete-this" onclick=""><i></i></span>
+                                                            <input type="hidden" id="hidImgName_img_JHZ1" name="img_JHZ1" value="{{$data.img_JHZ1|default:''}}" />
+                                                        </p>
+                                                    </div>
+                                                    <span class="upload-photo-txt">结婚证1</span>
+                                                </li>
+                                                <li>
+                                                    <div class="upload-photo">
+                                                        <a href="javascript:void(0);" id="btnUploadImg_img_JHZ2" class="button-upload">上传图片</a>
+                                                        <p id="p6" class="photo-img {{if $data.img_JHZ2|strip == ''}}yy_display{{/if}}">
+                                                            <img class="yy_img" id="show_img_JHZ2" src="/uploadfiles/finance/{{$data.finance_num}}/{{$data.img_JHZ2}}" alt="">
+                                                            <span class="delete-this" onclick=""><i></i></span>
+                                                            <input type="hidden" id="hidImgName_img_JHZ2" name="img_JHZ2" value="{{$data.img_JHZ2|default:''}}" />
+                                                        </p>
+                                                    </div>
+                                                    <span class="upload-photo-txt">结婚证2</span>
+                                                </li>
+                                            </ul>
+                                        </dd>
+                                    </dl>
+                                    </td>
+                                </tr>
+                               <tr>
+                                <td>
                            
-                            <dl class="dl-photo dl-photo-wid1" style="width:212px;padding-right:0;">
+                            <dl class="dl-photo dl-photo-wid1" style="width:212px;">
                                 <dt class="finance-tit finance-zx"></dt>
                                 <dd>
                                     <ul>
@@ -195,7 +196,7 @@
                                     </ul>
                                 </dd>
                             </dl>
-                             <dl class="dl-photo dl-photo-wid1" style="width:212px;padding-left:0;padding-right:0;">
+                             <dl class="dl-photo dl-photo-wid1" style="width:212px;margin-left: 0;">
                                 <dt class="finance-tit finance-gz"></dt>
                                 <dd>
                                     <ul>

@@ -115,6 +115,9 @@
                             </dl>                            
                         </td>
                     </tr>
+                    </table>
+                     <div  id="partner">
+                     <table cellpadding="0" cellsapcing="0" class="add-data-table add-data-table1" >
                     <tr>
                         <th colspan="3" align="center">
                             配偶信息
@@ -184,78 +187,7 @@
                         </td>
                     </tr>
                 </table>
-                <table cellpadding="0" cellsapcing="0" class="add-data-table add-data-table1 add-data-table2">
-                    <tr>
-                        <th colspan="5" align="center">
-                            申请人信息
-                        </th>
-                    </tr>
-                    <tr>
-                        <td>
-                            <dl>
-                                <dt class="">姓  名：</dt>
-                                <dd><input type="text" id="relatives1name" maxlength="6"  value="{{$data.relatives1name|default:''}}" name="relatives1name" class="add-txt add-txt-wid75" /></dd>
-                            </dl>
-                        </td>
-                        <td><dl><dt class="">关  系：</dt>
-                            <dd><input type="text" id="relatives1tie" maxlength="6" value="{{$data.relatives1tie|default:''}}" name="relatives1tie" class="add-txt add-txt-wid50" /><!-- <em>平方米</em> --></dd></dl></td>
-                        <td><dl><dt class="">年  龄：</dt>
-                            <dd><input type="text" id="relatives1age" maxlength="3" value="{{$data.relatives1age|default:''}}" name="relatives1age" class="yy_num add-txt add-txt-wid50" /><!-- <em>平方米</em> --></dd></dl></td>
-                        <td><dl><dt class="">职  业：</dt>
-                            <dd><input type="text" id="relatives1position" maxlength="10" value="{{$data.relatives1position|default:''}}" name="relatives1position" class="add-txt add-txt-wid50" /><!-- <em>平方米</em> --></dd></dl></td>
-                        <td><dl><dt class="">籍  贯：</dt>
-                            <dd><input type="text" id="relatives1native" maxlength="20" value="{{$data.relatives1native|default:''}}" name="relatives1native" class="add-txt add-txt-wid50" /><!-- <em>平方米</em> --></dd></dl></td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <dl>
-                                <dt class="">姓  名：</dt>
-                                <dd><input type="text" id="relatives2name" maxlength="6"  value="{{$data.relatives2name|default:''}}" name="relatives2name" class="add-txt add-txt-wid75" /></dd>
-                            </dl>
-                        </td>
-                        <td><dl><dt class="">关  系：</dt>
-                            <dd><input type="text" id="relatives2tie" maxlength="6"  value="{{$data.relatives2tie|default:''}}" name="relatives2tie" class="add-txt add-txt-wid50" /><!-- <em>平方米</em> --></dd></dl></td>
-                        <td><dl><dt class="">年  龄：</dt>
-                            <dd><input type="text" id="relatives2age" maxlength="3"  value="{{$data.relatives2age|default:''}}" name="relatives2age" class="yy_num add-txt add-txt-wid50" /><!-- <em>平方米</em> --></dd></dl></td>
-                        <td><dl><dt class="">职  业：</dt>
-                            <dd><input type="text" id="relatives2position" maxlength="10"  value="{{$data.relatives2position|default:''}}" name="relatives2position" class="add-txt add-txt-wid50" /><!-- <em>平方米</em> --></dd></dl></td>
-                        <td><dl><dt class="">籍  贯：</dt>
-                            <dd><input type="text" id="relatives2native" maxlength="20"  value="{{$data.relatives2native|default:''}}" name="relatives2native" class="add-txt add-txt-wid50" /><!-- <em>平方米</em> --></dd></dl></td>
-                    </tr>
-
-                    <tr>
-                        <td>
-                            <dl>
-                                <dt class="">姓  名：</dt>
-                                <dd><input type="text" id="relatives3name" maxlength="6"  value="{{$data.relatives3name|default:''}}" name="relatives3name" class="add-txt add-txt-wid75" /></dd>
-                            </dl>
-                        </td>
-                        <td><dl><dt class="">关  系：</dt>
-                            <dd><input type="text" id="relatives3tie" maxlength="6"  value="{{$data.relatives3tie|default:''}}" name="relatives3tie" class="add-txt add-txt-wid50" /><!-- <em>平方米</em> --></dd></dl></td>
-                        <td><dl><dt class="">年  龄：</dt>
-                            <dd><input type="text" id="relatives3age" maxlength="3"  value="{{$data.relatives3age|default:''}}" name="relatives3age" class="yy_num add-txt add-txt-wid50" /><!-- <em>平方米</em> --></dd></dl></td>
-                        <td><dl><dt class="">职  业：</dt>
-                            <dd><input type="text" id="relatives3position" maxlength="10"  value="{{$data.relatives3position|default:''}}" name="relatives3position" class="add-txt add-txt-wid50" /><!-- <em>平方米</em> --></dd></dl></td>
-                        <td><dl><dt class="">籍  贯：</dt>
-                            <dd><input type="text" id="relatives3native" maxlength="20"  value="{{$data.relatives3native|default:''}}" name="relatives3native" class="add-txt add-txt-wid50" /><!-- <em>平方米</em> --></dd></dl></td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <dl>
-                                <dt class="">姓  名：</dt>
-                                <dd><input type="text" id="relatives4name" maxlength="6"  value="{{$data.relatives4name|default:''}}" name="relatives4name" class="add-txt add-txt-wid75" /></dd>
-                            </dl>
-                        </td>
-                        <td><dl><dt class="">关  系：</dt>
-                            <dd><input type="text" id="relatives4tie" maxlength="6"  value="{{$data.relatives4tie|default:''}}" name="relatives4tie" class="add-txt add-txt-wid50" /><!-- <em>平方米</em> --></dd></dl></td>
-                        <td><dl><dt class="">年  龄：</dt>
-                            <dd><input type="text" id="relatives4age" maxlength="3"  value="{{$data.relatives4age|default:''}}" name="relatives4age" class="yy_num add-txt add-txt-wid50" /><!-- <em>平方米</em> --></dd></dl></td>
-                        <td><dl><dt class="">职  业：</dt>
-                            <dd><input type="text" id="relatives4position" maxlength="10"  value="{{$data.relatives4position|default:''}}" name="relatives4position" class="add-txt add-txt-wid50" /><!-- <em>平方米</em> --></dd></dl></td>
-                        <td><dl><dt class="">籍  贯：</dt>
-                            <dd><input type="text" id="relatives4native" maxlength="20"  value="{{$data.relatives4native|default:''}}" name="relatives4native" class="add-txt add-txt-wid50" /><!-- <em>平方米</em> --></dd></dl></td>
-                    </tr>
-                </table>
+                </div>
                  </form>
                 </div>
                 <p style="padding:0 20px 30px;">郑重提醒：<br />
@@ -270,6 +202,18 @@
 {{include file='footer.html'}}
 <script type="text/javascript" src="/static/js/layer/layer.js"></script>
 <script type="text/javascript">
+    //是否结婚
+
+    $('input[name="borrower_marriage"]').click(function () {
+
+        if($(this).val()=="1"){
+            $("#partner").show();
+        }
+        else if ($(this).val()=="2")
+        {
+            $("#partner").hide();
+        }
+    })
     $(".ing-error").mouseover(function(){
         $(this).children(".error-explain").toggle();
     }).mouseout(function(){ $(this).children(".error-explain").hide();});

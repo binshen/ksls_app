@@ -48,6 +48,8 @@
                             </dl>
                         </td> 
                     </tr>
+                </table>
+                 <table cellpadding="0" cellsapcing="0" class="add-data-table add-data-table1" id="Jhashouse" style="display:none;">
                     <tr>
                         <td width="30%">
                             <dl>
@@ -76,13 +78,6 @@
                         </td>
                     </tr>
                     <tr>
-                        <td><dl><dt class="">首付额度:</dt><dd><input type="text"  value="{{$data.property_SF|default:''}}" id="property_SF" name="property_SF" class="yy_float_2 add-txt add-txt-wid170" /><em>万元</em></dd></dl></td>
-                        <td>
-                            <dl>
-                                <dt>月供额度：</dt>
-                                <dd><input type="text" id="property_YG"  value="{{$data.property_YG|default:''}}"  name="property_YG" class="yy_float_2 add-txt add-txt-wid75" /><em>元</em></dd></dl></dd>
-                            </dl>
-                        </td>
                         <td>
                             <dl>
                                 <dt>现余按揭：</dt>
@@ -132,22 +127,47 @@
                      </tr>
                      <tr>   
                         <td colspan="3">
-                            <dl class="dl1">
-                            <dt>有无信用卡逾期</dt>
+                            <dl>
+                            <dt class="wid120">有无信用卡逾期</dt>
                             <dd>
-                            <textarea name="explain_XYK" id="explain_XYK" cols="30" rows="10" class="txt-area">{{$data.explain_XYK|default:''}}</textarea></dd>
-                            <dt>有无按揭逾期</dt>
+                                <label for="xkyq-yes"><input type="radio" id="xkyq-yes" name="xkyq-yes"> 有</label>
+                                <label for="xkyq-no"><input type="radio" id="xkyq-no" name="xkyq-no"> 无</label>
+                            <!--<textarea name="explain_XYK" id="explain_XYK" cols="30" rows="10" class="txt-area">{{$data.explain_XYK|default:''}}</textarea>-->
+                            </dd>
+                       </dl>
+                            </td>
+                         </tr>
+                    <tr> <td colspan="3">
+                        <dl>
+                            <dt class="wid120">有无按揭逾期</dt>
                             <dd>
-                            <textarea name="explain_AJ" id="explain_AJ" cols="30" rows="10" class="txt-area">{{$data.explain_AJ|default:''}}</textarea></dd>
-                            <dt>房产有无第三方质押</dt>
+                                <label for="ajyq-yes"><input type="radio" id="ajyq-yes" name="ajyq-yes"> 有</label>
+                                <label for="ajyq-no"><input type="radio" id="ajyq-no" name="ajyq-no"> 无</label>
+                            <!--<textarea name="explain_AJ" id="explain_AJ" cols="30" rows="10" class="txt-area">{{$data.explain_AJ|default:''}}</textarea>-->
+                            </dd></dl></td></tr>
+                    <tr> <td colspan="3"><dl>
+                            <dt class="wid160">房产有无第三方质押</dt>
                             <dd>
-                            <textarea name="explain_ZY" id="explain_ZY" cols="30" rows="10" class="txt-area">{{$data.explain_ZY|default:''}}</textarea></dd>
-                            <dt>有无商业保险</dt>
+                                <label for="sfzy-yes"><input type="radio" id="sfzy-yes" name="sfzy-yes"> 有</label>
+                                <label for="sfzy-no"><input type="radio" id="sfzy-no" name="sfzy-no"> 无</label>
+                            <!--<textarea name="explain_ZY" id="explain_ZY" cols="30" rows="10" class="txt-area">{{$data.explain_ZY|default:''}}</textarea>-->
+                            </dd></dl></td></tr>
+                    <tr> <td colspan="3">
+                            <dt class="wid120">有无商业保险</dt>
                             <dd>
-                            <textarea name="explain_SYBX" id="explain_SYBX" cols="30" rows="10" class="txt-area">{{$data.explain_SYBX|default:''}}</textarea></dd>
-                            <dt>有无司法裁决</dt>
+                            <!--<textarea name="explain_SYBX" id="explain_SYBX" cols="30" rows="10" class="txt-area">{{$data.explain_SYBX|default:''}}</textarea>-->
+                                <label for="sybx-yes"><input type="radio" id="sybx-yes" name="sybx-yes"> 有</label>
+                                <label for="sybx-no"><input type="radio" id="sybx-no" name="sybx-no"> 无</label>
+                            </dd>
+                    </dl></td></tr>
+                    <tr> <td colspan="3">
+                        <dl>
+                            <dt class="wid120">有无司法裁决</dt>
                             <dd>
-                            <textarea name="explain_SFZC" id="explain_SFZC" cols="30" rows="10" class="txt-area">{{$data.explain_SFZC|default:''}}</textarea></dd>
+                                <label for="sfcj-yes"><input type="radio" id="sfcj-yes" name="sfcj-yes"> 有</label>
+                                <label for="sfcj-no"><input type="radio" id="sfcj-no" name="sfcj-no"> 无</label>
+                            <!--<textarea name="explain_SFZC" id="explain_SFZC" cols="30" rows="10" class="txt-area">{{$data.explain_SFZC|default:''}}</textarea>-->
+                            </dd>
                             </dl>
                         </td>
                     </tr>
@@ -166,6 +186,12 @@
 {{include file='footer.html'}}
 <script type="text/javascript" src="/static/js/layer/layer.js"></script>
 <script type="text/javascript">
+    
+    $("input[name='borrower_hasP']").click(function () {
+        if($(this).val()=="1"){  $("#Jhashouse").show(); }
+        else if($(this).val()=="2"){ $("#Jhashouse").hide(); }
+    });
+    
     $(".ing-error").mouseover(function(){
         $(this).children(".error-explain").toggle();
     }).mouseout(function(){ $(this).children(".error-explain").hide();});
