@@ -12,9 +12,9 @@
   <link rel="icon" type="image/png" href="assets/i/favicon.png">
   <link rel="apple-touch-icon-precomposed" href="assets/i/app-icon72x72@2x.png">
   <meta name="apple-mobile-web-app-title" content="Amaze UI" />
-  <link rel="stylesheet" href="assets/css/amazeui.min.css"/>
-  <link rel="stylesheet" href="assets/css/admin.css">
-  <link rel="stylesheet" href="assets/css/app.css">
+  <link rel="stylesheet" href="/static/assets/css/amazeui.min.css"/>
+  <link rel="stylesheet" href="/static/assets/css/admin.css">
+  <link rel="stylesheet" href="/static/assets/css/app.css">
 </head>
 <body>
 <!--[if lte IE 9]>
@@ -35,15 +35,15 @@
       <div class="am-ind-top">
         <div class="search-wrap-box">
           <div class="search-box">
-            <input type="text" class="search-input" placeholder="姓名/电话号码/审核状态"><em class="am-icon-search"></em>
+            <input type="text" class="search-input" placeholder="姓名/电话号码"><em class="am-icon-search"></em>
           </div>
         </div>
         <ul class="am-ind-top-ul fix">
-          <li><a href=""><span class="am-ul-icon icon-wtj"></span><span class="txt">未提交:3</span></a></li>
-          <li><a href=""><span class="am-ul-icon icon-dsp"></span><span class="txt">待审批:10</span></a></li>
-          <li><a href=""><span class="am-ul-icon icon-shtg"></span><span class="txt">审核通过:20</span></a></li>
-          <li><a href=""><span class="am-ul-icon icon-wtg"></span><span class="txt">审核失败:1</span></a></li>
-          <li><a href=""><span class="am-ul-icon icon-ja"></span><span class="txt">结案：20</span></a></li>
+          <li><a href=""><span class="am-ul-icon icon-wtj"></span><span class="txt">未提交:{{$main_data.ins_1}}</span></a></li>
+          <li><a href=""><span class="am-ul-icon icon-dsp"></span><span class="txt">待审批:{{$main_data.ins_2}}</span></a></li>
+          <li><a href=""><span class="am-ul-icon icon-shtg"></span><span class="txt">审核通过:{{$main_data.ins_3}}</span></a></li>
+          <li><a href=""><span class="am-ul-icon icon-wtg"></span><span class="txt">审核失败:{{$main_data.ins_5}}</span></a></li>
+          <li><a href=""><span class="am-ul-icon icon-ja"></span><span class="txt">结案：{{$main_data.ins_4}}</span></a></li>
         </ul> 
       </div>
       <div class="am-data-add"><a class="am-data-add-icon"><img src="assets/i/jia.png"></a>提交新的金融订单</div>
@@ -123,13 +123,13 @@
 <!--[if lt IE 9]>
 <script src="http://libs.baidu.com/jquery/1.11.1/jquery.min.js"></script>
 <script src="http://cdn.staticfile.org/modernizr/2.8.3/modernizr.js"></script>
-<script src="assets/js/amazeui.ie8polyfill.min.js"></script>
+<script src="/static/assets/js/amazeui.ie8polyfill.min.js"></script>
 <![endif]-->
 
 <!--[if (gte IE 9)|!(IE)]><!-->
-<script src="assets/js/jquery.min.js"></script>
+<script src="/static/assets/js/jquery.min.js"></script>
 <!--<![endif]-->
-<script src="assets/js/amazeui.min.js"></script>
+<script src="/static/assets/js/amazeui.min.js"></script>
 <script type="text/x-handlebars-template" id="tpi-list-item">
 
   {{#each this}}
