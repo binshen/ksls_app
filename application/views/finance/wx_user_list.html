@@ -1,0 +1,290 @@
+<!doctype html>
+<html class="no-js fixed-layout">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Amaze UI Admin index Examples</title>
+  <meta name="description" content="房猫金融">
+  <meta name="keywords" content="index">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="Cache-Control" content="no-siteapp" />
+  <link rel="icon" type="image/png" href="assets/i/favicon.png">
+  <link rel="apple-touch-icon-precomposed" href="assets/i/app-icon72x72@2x.png">
+  <meta name="apple-mobile-web-app-title" content="Amaze UI" />
+  <link rel="stylesheet" href="/static/assets/css/amazeui.min.css"/>
+  <link rel="stylesheet" href="/static/assets/css/admin.css">
+  <link rel="stylesheet" href="/static/assets/css/app.css">
+</head>
+<body>
+<!--[if lte IE 9]>
+<p class="browsehappy">你正在使用<strong>过时</strong>的浏览器，Amaze UI 暂不支持。 请 <a href="http://browsehappy.com/" target="_blank">升级浏览器</a>
+  以获得更好的体验！</p>
+<![endif]-->
+
+
+<header class="am-topbar am-topbar-inverse admin-header">
+  <div class="am-topbar-brand">
+     <small>金融服务</small>
+  </div>
+</header>
+
+<div class="am-cf admin-main" id="wrapper">
+  <!-- content start -->
+  <div class="admin-content">
+    <div class="admin-content-body">
+      <div class="am-ind-top">
+        <div class="search-wrap-box">
+          <div class="search-box">
+            <input type="text" class="search-input" placeholder="姓名/电话号码"><em class="am-icon-search"></em>
+          </div>
+        </div>
+        <ul class="am-ind-top-ul fix">
+          <li><a href=""><span class="am-ul-icon icon-wtj"></span><span class="txt">未提交:{{$main_data.ins_1}}</span></a></li>
+          <li><a href=""><span class="am-ul-icon icon-dsp"></span><span class="txt">待审批:{{$main_data.ins_2}}</span></a></li>
+          <li><a href=""><span class="am-ul-icon icon-shtg"></span><span class="txt">审核通过:{{$main_data.ins_3}}</span></a></li>
+          <li><a href=""><span class="am-ul-icon icon-wtg"></span><span class="txt">审核失败:{{$main_data.ins_5}}</span></a></li>
+          <li><a href=""><span class="am-ul-icon icon-ja"></span><span class="txt">结案：{{$main_data.ins_4}}</span></a></li>
+        </ul> 
+      </div>
+      <div class="am-data-add"><a class="am-data-add-icon"><img src="assets/i/jia.png"></a>提交新的金融订单</div>
+      <ul class="am-data-ul" id="events-list">
+        <li>
+          <p class="data-list-1 fix"><span class="name">张春生</span><span class="time">2017-09-05</span></p>
+          <p class="data-list-2">
+            <span class="span-list"><em class="am-icon-list-alt"></em> 编 号：<em class="txt">FIN1700120011</em></span>
+            <span class="span-list"><em class="am-icon-phone-square"></em> 联系方式：<em class="txt">137-6334-3287</em></span>
+            <span class="span-list"><em class="am-icon-money"></em> 可贷额度：<em class="txt">50万</em></span>
+          </p>
+          <div class="fix"><div class="am-opration"><a href="" target="_blank" class="more">详情</a><a href="" target="_blank">修改</a><a href="" target="_blank">查看</a><a href="" target="_blank">推送</a></div>
+          </div>
+          <div class="am-status am-status-waiting"></div>
+        </li>
+         <li>
+          <p class="data-list-1 fix"><span class="name">张春生</span><span class="time">2017-09-05</span></p>
+          <p class="data-list-2">
+            <span class="span-list"><em class="am-icon-list-alt"></em> 编 号：<em class="txt">FIN1700120011</em></span>
+            <span class="span-list"><em class="am-icon-phone-square"></em> 联系方式：<em class="txt">137-6334-3287</em></span>
+            <span class="span-list"><em class="am-icon-money"></em> 可贷额度：<em class="txt">50万</em></span>
+          </p>
+          <div class="fix"><div class="am-opration"><a href="" target="_blank" class="more">详情</a><a href="" target="_blank">修改</a><a href="" target="_blank">查看</a><a href="" target="_blank">推送</a></div>
+          </div>
+          <div class="am-status am-status-fail"></div>
+        </li>
+        <li>
+          <p class="data-list-1 fix"><span class="name">张春生</span><span class="time">2017-09-05</span></p>
+          <p class="data-list-2">
+            <span class="span-list"><em class="am-icon-list-alt"></em> 编 号：<em class="txt">FIN1700120011</em></span>
+            <span class="span-list"><em class="am-icon-phone-square"></em> 联系方式：<em class="txt">137-6334-3287</em></span>
+            <span class="span-list"><em class="am-icon-money"></em> 可贷额度：<em class="txt">50万</em></span>
+          </p>
+          <div class="fix"><div class="am-opration"><a href="" target="_blank" class="more">详情</a><a href="" target="_blank">修改</a><a href="" target="_blank">查看</a><a href="" target="_blank">推送</a></div>
+          </div>
+          <div class="am-status am-status-success"></div>
+        </li> 
+       <li>
+          <p class="data-list-1 fix"><span class="name">张春生</span><span class="time">2017-09-05</span></p>
+          <p class="data-list-2">
+            <span class="span-list"><em class="am-icon-list-alt"></em> 编 号：<em class="txt">FIN1700120011</em></span>
+            <span class="span-list"><em class="am-icon-phone-square"></em> 联系方式：<em class="txt">137-6334-3287</em></span>
+            <span class="span-list"><em class="am-icon-money"></em> 可贷额度：<em class="txt">50万</em></span>
+          </p>
+          <div class="fix"><div class="am-opration"><a href="" target="_blank" class="more">详情</a><a href="" target="_blank">修改</a><a href="" target="_blank">查看</a><a href="" target="_blank">推送</a></div>
+          </div>
+          <div class="am-status am-status-over"></div>
+        </li>
+        <li>
+          <p class="data-list-1 fix"><strong class="name">张春生</strong><span class="time">2017-09-05</span></p>
+          <p class="data-list-2">
+            <span class="span-list"><em class="am-icon-list-alt"></em> 编 号：<em class="txt">FIN1700120011</em></span>
+            <span class="span-list"><em class="am-icon-phone-square"></em> 联系方式：<em class="txt">137-6334-3287</em></span>
+            <span class="span-list"><em class="am-icon-money"></em> 可贷额度：<em class="txt">50万</em></span>
+          </p>
+          <div class="fix"><div class="am-opration"><a href="" target="_blank" class="more">详情</a><a href="" target="_blank">修改</a><a href="" target="_blank">查看</a><a href="" target="_blank">推送</a></div>
+          </div>
+          <div class="am-status am-status-all"></div>
+        </li> 
+      </ul>
+      <div class="pull-action" id="pull-up">
+        <span class="am-icon-arrow-down pull-label"
+              id="pull-up-label"> 上拉加载更多</span>
+        <span class="am-icon-spinner am-icon-spin"></span>
+      </div>
+    </div>
+
+    <footer class="admin-content-footer">
+      <hr>
+      <p class="am-padding-left">© 2017 AllMobilize, Inc. Licensed under MIT license.</p>
+    </footer>
+  </div>
+  <!-- content end -->
+
+</div>
+
+<!--[if lt IE 9]>
+<script src="http://libs.baidu.com/jquery/1.11.1/jquery.min.js"></script>
+<script src="http://cdn.staticfile.org/modernizr/2.8.3/modernizr.js"></script>
+<script src="/static/assets/js/amazeui.ie8polyfill.min.js"></script>
+<![endif]-->
+
+<!--[if (gte IE 9)|!(IE)]><!-->
+<script src="/static/assets/js/jquery.min.js"></script>
+<!--<![endif]-->
+<script src="/static/assets/js/amazeui.min.js"></script>
+<script type="text/x-handlebars-template" id="tpi-list-item">
+
+  {{#each this}}
+  // <li class="am-list-item-desced" data-id="{{iwed}}">
+  //   <a href="{{alt}}" class="am-list-item-hd" target="_blank">{{title}}</a>
+
+  //   <div class="am-list-item-text">{{content}}</div>
+  // </li>
+
+   <li>
+          <p class="data-list-1 fix"><strong class="name">{{name}}</strong><span class="time">{{time}}</span></p>
+          <p class="data-list-2">
+            <span class="span-list"><em class="am-icon-list-alt"></em> 编 号：<em class="txt">{{id}}</em></span>
+            <span class="span-list"><em class="am-icon-phone-square"></em> 联系方式：<em class="txt">{{tel}}</em></span>
+            <span class="span-list"><em class="am-icon-money"></em> 可贷额度：<em class="txt">{{money}}</em></span>
+          </p>
+          <div class="fix"><div class="am-opration"><a href="" target="_blank" class="more">详情</a><a href="" target="_blank">修改</a><a href="" target="_blank">查看</a><a href="" target="_blank">推送</a></div>
+          </div>
+          <div class="am-status am-status-all"></div>
+        </li>
+
+  {{/each}}
+</script>
+<script>
+  (function($) {
+    var EventsList = function(element, options) {
+      var $main = $('#wrapper');
+      var $list = $main.find('#events-list');
+     // var $pullDown = $main.find('#pull-down');
+      //var $pullDownLabel = $main.find('#pull-down- label');
+      var $pullUp = $main.find('#pull-up');
+     // var topOffset = -$pullDown.outerHeight();
+
+      this.compiler = Handlebars.compile($('#tpi-list-item').html());
+      this.prev = this.next = this.start = options.params.start;
+      this.total = null;
+     
+      this.getURL = function(params) {
+        var queries = ['callback=?'];
+        for (var key in  params) {
+          if (key !== 'start') {
+            queries.push(key + '=' + params[key]);
+          }
+
+        }
+        queries.push('start=');
+        return options.api + '?' + queries.join('&');
+      };
+
+      this.renderList = function(start, type) {
+        var _this = this;
+        var $el = $pullUp;
+        $.getJSON(this.URL + start).then(function(data) {
+          console.log(data);
+          _this.total = data.total;
+          var html = _this.compiler(data.events);
+         if (type === 'load') {
+            $list.append(html);
+          } else {
+            $list.html(html);
+          }
+
+          // refresh iScroll
+          setTimeout(function() {
+            _this.iScroll.refresh();
+          }, 100);
+        }, function() {
+          console.log('Error...')
+        }).always(function() {
+          _this.resetLoading($el);
+          if (type !== 'load') {
+            _this.iScroll.scrollTo(0, topOffset, 800, $.AMUI.iScroll.utils.circular);
+          }
+        });
+      };
+
+      this.setLoading = function($el) {
+        $el.addClass('loading');
+      };
+
+      this.resetLoading = function($el) {
+        $el.removeClass('loading');
+      };
+
+      this.init = function() {
+        var myScroll = this.iScroll = new $.AMUI.iScroll('#wrapper', {
+          click: true
+        });
+        // myScroll.scrollTo(0, topOffset);
+        var _this = this;
+        var pullFormTop = false;
+        var pullStart;
+
+        this.URL = this.getURL(options.params);
+        this.renderList(options.params.start);
+
+        myScroll.on('scrollStart', function() {
+          if (this.y >= topOffset) {
+            pullFormTop = true;
+          }
+
+          pullStart = this.y;
+          // console.log(this);
+        });
+
+        myScroll.on('scrollEnd', function() {
+          // pull up to load more
+          if (pullStart === this.y && (this.directionY === 1)) {
+            _this.handlePullUp();
+          }
+        });
+      };
+
+      // this.handlePullDown = function() {
+      //   console.log('handle pull down');
+      //   if (this.prev > 0) {
+      //     this.setLoading($pullDown);
+      //     this.prev -= options.params.count;
+      //     this.renderList(this.prev, 'refresh');
+      //   } else {
+      //     console.log('别刷了，没有了');
+      //   }
+      // };
+
+      this.handlePullUp = function() {
+        console.log('handle pull up');
+        if (this.next < this.total) {
+          this.setLoading($pullUp);
+          this.next += options.params.count;
+          this.renderList(this.next, 'load');
+        } else {
+          console.log(this.next);
+          // this.iScroll.scrollTo(0, topOffset);
+        }
+      }
+    };
+
+    $(function() {
+      var app = new EventsList(null, {
+        api: 'https://api.douban.com/v2/event/list',
+        params: {
+          start: 100,
+          type: 'music',
+          count: 10,
+          loc: 'beijing'
+        }
+      });
+      app.init();
+    });
+
+    document.addEventListener('touchmove', function(e) {
+      e.preventDefault();
+    }, false);
+  })(window.jQuery);
+</script>
+</body>
+</html>
