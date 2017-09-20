@@ -78,7 +78,7 @@
 
                                         </li>
 
-                                        <li>
+                                        <li {{if $data.borrower_marriage != 1}} style="display: none"{{/if}}>
                                             <div class="upload-photo">
                                                 <a href="javascript:void(0);" id="btnUploadImg_spSFZ1" class="button-upload">上传图片</a>
                                                 <p id="p3" class="photo-img {{if $data.spouse_img_SFZ1|strip == ''}}yy_display{{/if}}">
@@ -89,7 +89,7 @@
                                             </div>
                                             <span class="upload-photo-txt">配偶身份证正面</span>
                                         </li>
-                                        <li >
+                                        <li {{if $data.borrower_marriage != 1}} style="display: none"{{/if}}>
                                             <div class="upload-photo">
                                                 <a href="javascript:void(0);" id="btnUploadImg_spSFZ2" class="button-upload">上传图片</a>
                                                 <p id="p4" class="photo-img {{if $data.spouse_img_SFZ2|strip == ''}}yy_display{{/if}}">
@@ -100,6 +100,7 @@
                                             </div>
                                             <span class="upload-photo-txt">配偶身份证反面</span>
                                         </li>
+
                                     </ul>
                                 </dd>
                             </dl>
@@ -145,10 +146,11 @@
                                 </dd>
                             </dl>
                                     <dl class="dl-photo dl-photo-wid1" style="width:425px;margin-left: 0;">
-                                        <dt class="finance-tit finance-jhz"></dt>
+                                        <dt class="{{if $data.borrower_marriage == 1}}finance-tit finance-jhz{{/if}}"></dt>
                                         <dd>
                                             <ul>
-                                                <li>
+
+                                                <li {{if $data.borrower_marriage != 1}} style="display: none"{{/if}}>
                                                     <div class="upload-photo">
                                                         <a href="javascript:void(0);" id="btnUploadImg_img_JHZ1" class="button-upload">上传图片</a>
                                                         <p id="p5" class="photo-img {{if $data.img_JHZ1|strip == ''}}yy_display{{/if}}">
@@ -159,7 +161,7 @@
                                                     </div>
                                                     <span class="upload-photo-txt">结婚证1</span>
                                                 </li>
-                                                <li>
+                                                <li {{if $data.borrower_marriage != 1}} style="display: none"{{/if}}>
                                                     <div class="upload-photo">
                                                         <a href="javascript:void(0);" id="btnUploadImg_img_JHZ2" class="button-upload">上传图片</a>
                                                         <p id="p6" class="photo-img {{if $data.img_JHZ2|strip == ''}}yy_display{{/if}}">
@@ -170,6 +172,7 @@
                                                     </div>
                                                     <span class="upload-photo-txt">结婚证2</span>
                                                 </li>
+
                                             </ul>
                                         </dd>
                                     </dl>

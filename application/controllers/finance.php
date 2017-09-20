@@ -265,6 +265,10 @@ class Finance extends MY_Controller
         if($power_ != 1){
             redirect(site_url('/'));
         }
+        $check_ = $this->finance_model->check_ym2($id);
+        if($check_ != 1){
+            redirect(site_url('/finance/edit_finance_2').'/'.$id);
+        }
         $data = $this->finance_model->get_detail($id);
         $this->assign('data', $data);
         $this->display('finance/finance - step3.html');
@@ -403,18 +407,12 @@ class Finance extends MY_Controller
         $this->finance_model->wxpost_fin($this->config->item('WX_FIN_SJTJ'),$data_msg,$this->session->userdata('login_user_id'),'www.baidu.com');
     }
 
-    public function test2($tf_id=null){
-        /*$code = $this->set_base_code($tf_id);
-        //var_dump(base64_encode($tf_id));
-        //var_dump(base64_encode(time()));
-        //var_dump(mb_convert_encoding($code, 'utf-8', 'gb2312'));
-        //var_dump(mb_convert_encoding($code, 'gb2312', 'utf-8'));
-        $url= urlencode($code);
-        var_dump($url);
-        var_dump(urldecode($url));
-        die(var_dump($code));*/
-        var_dump($this->router->class);
-        //var_dump($this->uri->segment(3));
+    public function test2($id=null){
+        $check_ = $this->finance_model->check_ym2($id);
+        if($check_ != 1){
+            redirect(site_url('/finance/edit_finance_2').'/'.$id);
+        }
+        die(var_dump($check_));
     }
 
 

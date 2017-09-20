@@ -258,11 +258,16 @@ class Finance_model extends MY_Model
             "borrowing_amount" => $this->input->post('borrowing_amount'),
             "repayment" => trim($this->input->post("repayment")),
             "repayment_methods" => trim($this->input->post("repayment_methods")),
-            "explain_XYK" => $this->input->post("explain_XYK",true),
-            "explain_AJ" => $this->input->post("explain_AJ",true),
-            "explain_ZY" => $this->input->post("explain_ZY",true),
-            "explain_SYBX" => $this->input->post("explain_SYBX",true),
-            "explain_SFZC" => $this->input->post("explain_SFZC",true)
+            //"explain_XYK" => $this->input->post("explain_XYK",true),
+            //"explain_AJ" => $this->input->post("explain_AJ",true),
+            //"explain_ZY" => $this->input->post("explain_ZY",true),
+            //"explain_SYBX" => $this->input->post("explain_SYBX",true),
+            //"explain_SFZC" => $this->input->post("explain_SFZC",true),
+            "explain_XYK_radio" => $this->input->post("explain_XYK_radio",true)?$this->input->post("explain_XYK_radio",true):0,
+            "explain_AJ_radio" => $this->input->post("explain_AJ_radio",true)?$this->input->post("explain_AJ_radio",true):0,
+            "explain_ZY_radio" => $this->input->post("explain_ZY_radio",true)?$this->input->post("explain_ZY_radio",true):0,
+            "explain_SYBX_radio" => $this->input->post("explain_SYBX_radio",true)?$this->input->post("explain_SYBX_radio",true):0,
+            "explain_SFZC_radio" => $this->input->post("explain_SFZC_radio",true)?$this->input->post("explain_SFZC_radio",true):0
 
 
         );
@@ -503,6 +508,25 @@ class Finance_model extends MY_Model
             return 1;
         if($data['user_id'] == $this->session->userdata('login_user_id'))
             return 1;
+        return -2;
+    }
+
+    //检查第二页面的单选 是否有数据,如果没有就返回第二页面
+    public function check_ym2($id){
+        $data = $this->db->from('finance')->where('id',$id)->get()->row_array();
+        if(!$data)
+            return -1;
+        $arr_ = array(1,2);
+        $arr2_ = array(1,2,3);
+        if(in_array($data['explain_XYK_radio'],$arr_)
+            && in_array($data['borrower_hasP'],$arr_)
+            && in_array($data['explain_AJ_radio'],$arr_)
+            && in_array($data['explain_ZY_radio'],$arr_)
+            && in_array($data['explain_SYBX_radio'],$arr_)
+            && in_array($data['explain_SFZC_radio'],$arr_)
+            && in_array($data['repayment_methods'],$arr2_)){
+            return 1;
+        }
         return -2;
     }
 

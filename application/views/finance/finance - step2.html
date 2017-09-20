@@ -49,7 +49,7 @@
                         </td> 
                     </tr>
                 </table>
-                 <table cellpadding="0" cellsapcing="0" class="add-data-table add-data-table1" id="Jhashouse" style="display:none;">
+                 <table cellpadding="0" cellsapcing="0" class="add-data-table add-data-table1" id="Jhashouse" {{if $data.borrower_hasP|default:2 != 1 }}style="display:none;"{{/if}}>
                     <tr>
                         <td width="30%">
                             <dl>
@@ -130,8 +130,8 @@
                             <dl>
                             <dt class="wid120">有无信用卡逾期</dt>
                             <dd>
-                                <label for="xkyq-yes"><input type="radio" id="xkyq-yes" name="xkyq-yes"> 有</label>
-                                <label for="xkyq-no"><input type="radio" id="xkyq-no" name="xkyq-no"> 无</label>
+                                <label for="xkyq-yes"><input type="radio" {{if $data.explain_XYK_radio|default:0 == 1 }}checked{{/if}} id="xkyq-yes" value="1" name="explain_XYK_radio"> 有</label>
+                                <label for="xkyq-no"><input type="radio" {{if $data.explain_XYK_radio|default:0 == 2 }}checked{{/if}} id="xkyq-no" value="2" name="explain_XYK_radio"> 无</label>
                             <!--<textarea name="explain_XYK" id="explain_XYK" cols="30" rows="10" class="txt-area">{{$data.explain_XYK|default:''}}</textarea>-->
                             </dd>
                        </dl>
@@ -141,31 +141,31 @@
                         <dl>
                             <dt class="wid120">有无按揭逾期</dt>
                             <dd>
-                                <label for="ajyq-yes"><input type="radio" id="ajyq-yes" name="ajyq-yes"> 有</label>
-                                <label for="ajyq-no"><input type="radio" id="ajyq-no" name="ajyq-no"> 无</label>
+                                <label for="ajyq-yes"><input type="radio" {{if $data.explain_AJ_radio|default:0 == 1 }}checked{{/if}} id="ajyq-yes" value="1" name="explain_AJ_radio"> 有</label>
+                                <label for="ajyq-no"><input type="radio" {{if $data.explain_AJ_radio|default:0 == 2 }}checked{{/if}} id="ajyq-no" value="2" name="explain_AJ_radio"> 无</label>
                             <!--<textarea name="explain_AJ" id="explain_AJ" cols="30" rows="10" class="txt-area">{{$data.explain_AJ|default:''}}</textarea>-->
                             </dd></dl></td></tr>
                     <tr> <td colspan="3"><dl>
                             <dt class="wid160">房产有无第三方质押</dt>
                             <dd>
-                                <label for="sfzy-yes"><input type="radio" id="sfzy-yes" name="sfzy-yes"> 有</label>
-                                <label for="sfzy-no"><input type="radio" id="sfzy-no" name="sfzy-no"> 无</label>
+                                <label for="sfzy-yes"><input type="radio" {{if $data.explain_ZY_radio|default:0 == 1 }}checked{{/if}} id="sfzy-yes" value="1" name="explain_ZY_radio"> 有</label>
+                                <label for="sfzy-no"><input type="radio" {{if $data.explain_ZY_radio|default:0 == 2 }}checked{{/if}} id="sfzy-no" value="2" name="explain_ZY_radio"> 无</label>
                             <!--<textarea name="explain_ZY" id="explain_ZY" cols="30" rows="10" class="txt-area">{{$data.explain_ZY|default:''}}</textarea>-->
                             </dd></dl></td></tr>
                     <tr> <td colspan="3">
                             <dt class="wid120">有无商业保险</dt>
                             <dd>
                             <!--<textarea name="explain_SYBX" id="explain_SYBX" cols="30" rows="10" class="txt-area">{{$data.explain_SYBX|default:''}}</textarea>-->
-                                <label for="sybx-yes"><input type="radio" id="sybx-yes" name="sybx-yes"> 有</label>
-                                <label for="sybx-no"><input type="radio" id="sybx-no" name="sybx-no"> 无</label>
+                                <label for="sybx-yes"><input type="radio" {{if $data.explain_SYBX_radio|default:0 == 1 }}checked{{/if}} id="sybx-yes" value="1" name="explain_SYBX_radio"> 有</label>
+                                <label for="sybx-no"><input type="radio" {{if $data.explain_SYBX_radio|default:0 == 2 }}checked{{/if}} id="sybx-no" value="2" name="explain_SYBX_radio"> 无</label>
                             </dd>
                     </dl></td></tr>
                     <tr> <td colspan="3">
                         <dl>
                             <dt class="wid120">有无司法裁决</dt>
                             <dd>
-                                <label for="sfcj-yes"><input type="radio" id="sfcj-yes" name="sfcj-yes"> 有</label>
-                                <label for="sfcj-no"><input type="radio" id="sfcj-no" name="sfcj-no"> 无</label>
+                                <label for="sfcj-yes"><input type="radio" {{if $data.explain_SFZC_radio|default:0 == 1 }}checked{{/if}} id="sfcj-yes" value="1" name="explain_SFZC_radio"> 有</label>
+                                <label for="sfcj-no"><input type="radio" {{if $data.explain_SFZC_radio|default:0 == 2 }}checked{{/if}} id="sfcj-no" value="2" name="explain_SFZC_radio"> 无</label>
                             <!--<textarea name="explain_SFZC" id="explain_SFZC" cols="30" rows="10" class="txt-area">{{$data.explain_SFZC|default:''}}</textarea>-->
                             </dd>
                             </dl>
@@ -270,6 +270,40 @@
 
         }else{
             layer.msg('请选择还款方式', {icon: 2});
+            return false;
+        }
+        if($.trim($("#repayment").val()) == "" || $.trim($("#repayment").val()) == "0") {
+            layer.msg('请输入还款周期', {icon: 2});
+            return false;
+        }
+        if($('input[name="explain_XYK_radio"]').is(':checked')){
+
+        }else{
+            layer.msg('请选择有无信用卡逾期', {icon: 2});
+            return false;
+        }
+        if($('input[name="explain_AJ_radio"]').is(':checked')){
+
+        }else{
+            layer.msg('请选择有无按揭逾期', {icon: 2});
+            return false;
+        }
+        if($('input[name="explain_ZY_radio"]').is(':checked')){
+
+        }else{
+            layer.msg('请选择房产有无第三方质押', {icon: 2});
+            return false;
+        }
+        if($('input[name="explain_SYBX_radio"]').is(':checked')){
+
+        }else{
+            layer.msg('请选择有无商业保险', {icon: 2});
+            return false;
+        }
+        if($('input[name="explain_SFZC_radio"]').is(':checked')){
+
+        }else{
+            layer.msg('请选择有无司法裁决', {icon: 2});
             return false;
         }
         $('#financeForm').submit();

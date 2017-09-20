@@ -80,15 +80,15 @@
                         <td colspan="3">
                             <dl class="dl1">
                             <dt>有无信用卡逾期</dt>
-                            <dd>{{$data.explain_XYK|default:'无'}}</dd>
+                            <dd>{{if $data.explain_XYK_radio|default:0 == 1 }}有{{/if}}{{if $data.explain_XYK_radio|default:0 == 2 }}无{{/if}}</dd>
                             <dt>有无信用卡逾期</dt>
-                            <dd>{{$data.explain_AJ|default:'无'}}</dd>
+                            <dd>{{if $data.explain_AJ_radio|default:0 == 1 }}有{{/if}}{{if $data.explain_AJ_radio|default:0 == 2 }}无{{/if}}</dd>
                             <dt>房产有无第三方质押</dt>
-                            <dd>{{$data.explain_ZY|default:'无'}}</dd>
+                            <dd>{{if $data.explain_ZY_radio|default:0 == 1 }}有{{/if}}{{if $data.explain_ZY_radio|default:0 == 2 }}无{{/if}}</dd>
                             <dt>有无商业保险</dt>
-                            <dd>{{$data.explain_SYBX|default:'无'}}</dd>
+                            <dd>{{if $data.explain_SYBX_radio|default:0 == 1 }}有{{/if}}{{if $data.explain_SYBX_radio|default:0 == 2 }}无{{/if}}</dd>
                             <dt>有无司法裁决</dt>
-                            <dd>{{$data.explain_SFZC|default:'无'}}</dd>
+                            <dd>{{if $data.explain_SFZC_radio|default:0 == 1 }}有{{/if}}{{if $data.explain_SFZC_radio|default:0 == 2 }}无{{/if}}</dd>
                             </dl>
                         </td>
                     </tr>
@@ -120,13 +120,13 @@
                                                     <img class="yy_img example-image-link" src="{{if $data.borrower_img_SFZ2}}/uploadfiles/finance/{{$data.finance_num}}/{{$data.borrower_img_SFZ2}}{{else}}/static/images/finance_default.png{{/if}}" alt=""></a></span>
                                             <span class="upload-photo-txt">申请人身份证反面</span>
                                         </li>
-                                        <li>
+                                        <li {{if $data.borrower_marriage != 1}} style="display: none"{{/if}}>
                                             <span class="photo-img">
                                                 <a class="example-image-link" href="{{if $data.spouse_img_SFZ1}}/uploadfiles/finance/{{$data.finance_num}}/{{$data.spouse_img_SFZ1}}{{else}}/static/images/finance_default.png{{/if}}" data-lightbox="example-set example_num-3" data-title="配偶身份证正面">
                                                     <img class="yy_img" src="{{if $data.spouse_img_SFZ1}}/uploadfiles/finance/{{$data.finance_num}}/{{$data.spouse_img_SFZ1}}{{else}}/static/images/finance_default.png{{/if}}" alt=""></a></span>
                                             <span class="upload-photo-txt">配偶身份证正面</span>
                                         </li>
-                                        <li>
+                                        <li {{if $data.borrower_marriage != 1}} style="display: none"{{/if}}>
                                              <span class="photo-img">
                                                  <a class="example-image-link" href="{{if $data.spouse_img_SFZ2}}/uploadfiles/finance/{{$data.finance_num}}/{{$data.spouse_img_SFZ2}}{{else}}/static/images/finance_default.png{{/if}}" data-lightbox="example-set example_num-4" data-title="配偶身份证反面">
                                                     <img class="yy_img" src="{{if $data.spouse_img_SFZ2}}/uploadfiles/finance/{{$data.finance_num}}/{{$data.spouse_img_SFZ2}}{{else}}/static/images/finance_default.png{{/if}}" alt=""></a></span>
@@ -140,16 +140,16 @@
 <tr>
 <td>
                              <dl class="dl-photo dl-photo-wid1" style="width:425px;padding-right:0;">
-                                <dt class="finance-tit finance-jhz"></dt>
+                                <dt {{if $data.borrower_marriage == 1}}class="finance-tit finance-jhz"{{/if}} ></dt>
                                 <dd>
                                     <ul>
-                                        <li>
+                                        <li {{if $data.borrower_marriage != 1}} style="display: none"{{/if}}>
                                             <span class="photo-img">
                                                 <a class="example-image-link" href="{{if $data.img_JHZ1}}/uploadfiles/finance/{{$data.finance_num}}/{{$data.img_JHZ1}}{{else}}/static/images/finance_default.png{{/if}}" data-lightbox="example-set example_num-5" data-title="结婚证1">
                                                     <img class="yy_img" src="{{if $data.img_JHZ1}}/uploadfiles/finance/{{$data.finance_num}}/{{$data.img_JHZ1}}{{else}}/static/images/finance_default.png{{/if}}" alt=""></a></span>
                                             <span class="upload-photo-txt">结婚证1</span>
                                         </li>
-                                        <li>
+                                        <li {{if $data.borrower_marriage != 1}} style="display: none"{{/if}}>
                                              <span class="photo-img">
                                                  <a class="example-image-link" href="{{if $data.img_JHZ2}}/uploadfiles/finance/{{$data.finance_num}}/{{$data.img_JHZ2}}{{else}}/static/images/finance_default.png{{/if}}" data-lightbox="example-set example_num-6" data-title="结婚证2">
                                                     <img class="yy_img" src="{{if $data.img_JHZ2}}/uploadfiles/finance/{{$data.finance_num}}/{{$data.img_JHZ2}}{{else}}/static/images/finance_default.png{{/if}}" alt=""></a></span>

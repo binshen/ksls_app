@@ -116,7 +116,7 @@
                         </td>
                     </tr>
                     </table>
-                     <div  id="partner">
+                     <div  id="partner" {{if $data.borrower_marriage|default:0 == 2}} style="display: none" {{/if}}>
                      <table cellpadding="0" cellsapcing="0" class="add-data-table add-data-table1" >
                     <tr>
                         <th colspan="3" align="center">
