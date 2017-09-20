@@ -1,6 +1,5 @@
 /* Write your styles */
 .am-topbar-brand{text-align: center; width:100%;}
-
 .fix:after{content: ''; visibility: hidden; display: block; clear: both;}
 ul,li,p{margin: 0;padding:0;}li{list-style: none; }em{font-style:normal;}
 
