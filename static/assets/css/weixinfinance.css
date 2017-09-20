@@ -1,0 +1,63 @@
+/* Write your styles */
+.am-topbar-brand{text-align: center; width:100%;}
+
+.fix:after{content: ''; visibility: hidden; display: block; clear: both;}
+ul,li,p{margin: 0;padding:0;}li{list-style: none; }em{font-style:normal;}
+
+.admin-content-body{background-color: #f4f5f7;}
+.am-ind-top{ padding-top:1.6rem; background-color: #fff;}
+.am-ind-top-ul {margin:4.5rem 0 .5rem;padding: 1.5rem 0 1rem;}
+.am-ind-top-ul li{text-align: center; font-size:.48rem; color:#333;width:20%; float: left;}
+.am-ind-top-ul li a{color:#333;}
+.am-ind-top-ul li .txt{display: block; line-height: 3rem; color: #999;}
+.am-ind-top-ul li:last-child{margin-right: 0;}
+/*.am-ind-top-ul .am-ul-icon{width:40px;height: 40px; display: block; background: url(../i/icon.jpg) no-repeat; }
+.am-ind-top-ul .icon-dsp{background-position:-86px 0;}
+.am-ind-top-ul .icon-shtg{background-position:-170px 0;}
+.am-ind-top-ul .icon-wtg{background-position:-253px 0;}
+.am-ind-top-ul .icon-ja{background-position:-338px 0;}*/
+.am-ind-top-ul .am-ul-icon{margin:0 auto;width:4.8rem; height: 4.8rem;font-size:3.2rem; border-radius:50%;background-color:#f1f4f1; display: block;}
+.am-ind-top-ul .icon-wtj:before{content: "\f16a";color:#aec5fa;}
+.am-ind-top-ul .icon-dsp:before{content: "\f254"; color:#fbbe01;}
+.am-ind-top-ul .icon-shtg:before{content: "\f14a"; color:#d9e885;}
+.am-ind-top-ul .icon-wtg:before{content:"\f119"; color:#ff6b6a;}
+.am-ind-top-ul .icon-ja:before{content: "\f1b8"; color:#18dfb7;}
+
+
+.am-data-add{margin:1rem 0;padding:1.5rem 0; background-color: #aec5fa;color: #fff;border:2px dotted #fff; border-radius: 10px; text-align: center;}
+.am-data-add-icon{display: block;padding-bottom: .3rem;}
+.am-data-ul{}
+.am-data-ul li{margin-bottom: .5rem;padding:1rem 0 1.5rem; background-color: #fff; clear: both; position: relative;}
+
+.am-data-ul li .data-list-0{padding:0 4rem 0 1.5rem;font-size: .5rem;}
+.am-data-ul .am-name-status{margin-top: .5rem; font-size: .5rem;line-height: 2rem; background-color:#f5d574; color: #fff; display: block;padding:0 .6rem;}
+.am-data-ul .am-name-status1{margin:0; position: absolute;top:0;right:1rem;}
+.am-data-ul li .data-list-1{line-height: 3rem;padding:0 4rem .5rem 1.5rem;}
+.am-data-ul li .name{font-size: 2rem; float: left;}
+.am-data-ul li .time{float: right;font-size: .5rem;}
+.am-data-ul .data-list-2{margin-bottom: 1.5rem;background-color: #f1f4f1;padding:0.5rem 3rem 1rem; font-size: 1.5rem; color:#999; clear: both;}
+.am-data-ul .data-list-2 .span-list{display: block;}
+.am-data-ul .data-list-2 .am-icon{color: #999;}
+.am-data-ul .data-list-2 .txt{color:#4c4d4a;}
+.am-data-ul .data-list-2 .am-icon-list-alt:before{content: "\f022"; }
+.am-data-ul .data-list-2 .am-icon-phone-square:before{content: "\f098";}
+.am-data-ul .data-list-2 .am-icon-money:before{content: "\f0d6";}
+.am-data-ul .am-opration{float: right;}
+.am-data-ul .am-opration a{margin-right: .5rem;border-radius: 5px; padding:.5rem 1rem; border:1px solid #c2c0c0; color: #000;}
+.am-data-ul .am-opration .more{border-color: #ff3c48; color:#ff3c38;}
+.am-data-ul .am-status{position: absolute;top:0;right: 0; background: url(../i/waiting.png) no-repeat; background-size: 5rem }
+.am-data-ul .am-status{width:5rem;height: 5rem; }
+.am-data-ul .am-status-waiting{ background-image: url(../i/waiting.png);}
+.am-data-ul .am-status-fail{ background-image: url(../i/fail.png);}
+.am-data-ul .am-status-success{ background-image: url(../i/success.png);}
+.am-data-ul .am-status-over{ background-image: url(../i/over.png);}
+.am-data-ul .am-status-all{ background-image: url(../i/all.png);}
+
+.pull-action {text-align: center;height: 45px;line-height: 45px;color: #999;}
+.pull-action .am-icon-spin {display: none;}
+.pull-action.loading .am-icon-spin {display: block;}
+.pull-action.loading .pull-label {display: none;}
+.search-wrap-box{background: #333; position: fixed; top:50px;left:0; z-index: 999;width: 100%;}
+.search-box{margin:1.5rem;position: relative;width: 100%;}
+.search-input{border:none;border-radius:5px;padding:0 .5rem 0 3rem;  height: 3rem;width: 90%; }
+.search-box .am-icon-search{position: absolute;left:1rem;top:.5rem; }
