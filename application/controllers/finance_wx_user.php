@@ -37,7 +37,7 @@ class Finance_wx_user extends Finwx_Controller
         $this->display('finance/weixin/index.html');
     }
 
-    public function list_finance($page=1){
+    /*public function list_finance($page=1){
         $main_data = $this->finance_wx_model->get_main_data();
         $this->cismarty->assign('main_data',$main_data);
         // $this->cismarty->assign('jindu_type',$jindu_type);
@@ -47,6 +47,12 @@ class Finance_wx_user extends Finwx_Controller
         $this->cismarty->assign('pager',$pager);
         $this->cismarty->assign('data',$data);
         $this->cismarty->display('finance/user_finance_list.html');
+    }*/
+
+    public function list_finance_loaddata($page=1){
+        $data = $this->finance_model->finance_list($page,$this->session->userdata('user_id'));
+        $this->cismarty->assign('data',$data);
+        $this->cismarty->display('finance/weixin/index_loaddata.html');
     }
 
 }
