@@ -33,7 +33,7 @@ ul,li,p{margin: 0;padding:0;}li{list-style: none; }em{font-style:normal;}
 .am-data-ul .am-name-status1{margin:0; position: absolute;top:0;right:1rem;}
 .am-data-ul li .data-list-1{line-height: 3rem;padding:0 4rem .5rem 1.5rem;}
 .am-data-ul li .name{font-size: 2rem; float: left;}
-.am-data-ul li .time{float: right;font-size: .5rem;}
+.am-data-ul li .time{float: right;font-size: 1.5rem;}
 .am-data-ul .data-list-2{margin-bottom: 1.5rem;background-color: #f1f4f1;padding:0.5rem 3rem 1rem; font-size: 1.5rem; color:#999; clear: both;}
 .am-data-ul .data-list-2 .span-list{display: block;}
 .am-data-ul .data-list-2 .am-icon{color: #999;}
