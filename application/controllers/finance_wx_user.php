@@ -50,7 +50,7 @@ class Finance_wx_user extends Finwx_Controller
     }*/
 
     public function list_finance_loaddata($page=1){
-        $data = $this->finance_model->finance_list($page,$this->session->userdata('user_id'));
+        $data = $this->finance_model->finance_list($page,$this->session->userdata('user_id'),null,null,6);
         $this->cismarty->assign('data',$data);
         $this->cismarty->display('finance/weixin/index_loaddata.html');
     }
