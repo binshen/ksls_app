@@ -18,9 +18,9 @@ class Finance_model extends MY_Model
         parent::__destruct();
     }
 
-    public function finance_list($page,$user_id = null,$subsidiary_id=null,$company_id=null){
+    public function finance_list($page,$user_id = null,$subsidiary_id=null,$company_id=null,$pageNum_ = 10){
         // 每页显示的记录条数，默认20条
-        $numPerPage = $this->input->post('numPerPage') ? $this->input->post('numPerPage') : 10;
+        $numPerPage = $this->input->post('numPerPage') ? $this->input->post('numPerPage') : $pageNum_;
         $pageNum = $this->input->post('pageNum') ? $this->input->post('pageNum') : $page;
 
         //获得总记录数
