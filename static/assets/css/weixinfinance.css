@@ -23,7 +23,6 @@ ul,li,p{margin: 0;padding:0;}li{list-style: none; }em{font-style:normal;}
 .am-ind-top-ul .am-icon-circle-o:before{ color:#18dfb7;}
 .am-ind-top-ul .am-icon-ban:before{ color:#8c8880;}
 
-
 .am-data-add{margin:1rem 0;padding:1.5rem 0; background-color: #aec5fa;color: #fff;border:2px dotted #fff; border-radius: 10px; text-align: center;}
 .am-data-add-icon{display: block;padding-bottom: .3rem;}
 .am-data-ul{}
