@@ -41,6 +41,10 @@ class Finwx_Controller extends CI_Controller
 
                 }
             }
+        }else{
+            $openid = 'oelDRwGhG9Nf_4b9kZu0sVNKdLg0';
+            $this->session->set_userdata('openid', $openid);
+            $res = $this->finance_wx_model->check_openid($openid);
         }
 
     }
