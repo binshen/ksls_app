@@ -61,7 +61,7 @@ ul,li,p{margin: 0;padding:0;}li{list-style: none; }em{font-style:normal;}
 .search-wrap-box{background: #333; position: fixed; top:-2px;left:0; z-index: 999;width: 100%;}
 .am-login-user{margin:1.3rem 1rem 0;width:15%; float: left;color:#fff; font-size:1rem; text-align: center;line-height:2rem;}
 .am-login-user em img{ width:2.5rem; display:inline-block;}
-.am-outer-user{  margin-top:1.6rem;line-height:1.8rem;    margin-right:0;}
+.am-outer-user{  margin-top:1.6rem;   margin-right:0;}
 .am-outer-user em img{ width:2rem; display:inline-block;}
 
 .search-box{margin:1.5rem 0;position: relative;width: 60%;float: left; overflow: hidden;}
