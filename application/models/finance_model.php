@@ -40,6 +40,10 @@ class Finance_model extends MY_Model
         if($this->input->post('borrower_name')){
             $this->db->like('a.borrower_name',trim($this->input->post('borrower_name')));
         }
+        if($this->input->post('search_info_hidden')){
+            $this->db->like('a.borrower_name',trim($this->input->post('search_info_hidden')));
+            $this->db->or_like('a.borrower_phone',trim($this->input->post('search_info_hidden')));
+        }
         if($company_id) {
             $this->db->where('a.company_id', $company_id);
         }
@@ -91,6 +95,10 @@ class Finance_model extends MY_Model
         }
         if($this->input->post('borrower_name')){
             $this->db->like('a.borrower_name',trim($this->input->post('borrower_name')));
+        }
+        if($this->input->post('search_info_hidden')){
+            $this->db->like('a.borrower_name',trim($this->input->post('search_info_hidden')));
+            $this->db->or_like('a.borrower_phone',trim($this->input->post('search_info_hidden')));
         }
         if($company_id) {
             $this->db->where('a.company_id', $company_id);
