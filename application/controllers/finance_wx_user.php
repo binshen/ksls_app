@@ -33,7 +33,7 @@ class Finance_wx_user extends Finwx_Controller
 
     public function index(){
         $main_data = $this->finance_wx_model->get_main_data();
-        $this->assign('search_info_hidden',$this->input->post('$search_info_hidden')?$this->input->post('$search_info_hidden'):'');
+        $this->assign('search_info_hidden',$this->input->post('search_info')?$this->input->post('search_info'):'');
         $this->assign('main_data',$main_data);
         $this->display('finance/weixin/index.html');
     }
