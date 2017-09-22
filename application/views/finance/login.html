@@ -125,12 +125,22 @@
     window.addEventListener("popstate", function(e) {
       $.post("{{site_url url='cj/check'}}",{},function(data){
         if(data == 1){
-
+          var state = {
+            title: "房猫金服",
+            url: "/finance_wx_user/index"
+          };
+          window.history.pushState(state, "房猫金服", "#");
+          return false;
         }
         if(data == 2){
-
+          var state = {
+            title: "房猫金服",
+            url: "/finance_wx_borrower/index"
+          };
+          window.history.pushState(state, "房猫金服", "#");
+          return false;
         }
-        alert('asd');
+        pushHistory()
         return false;
       });
     }, false);
