@@ -130,7 +130,6 @@
             url: "/finance_wx_user/index"
           };
           window.history.pushState(state, "房猫金服", "#");
-          return false;
         }
         if(data == 2){
           var state = {
@@ -138,10 +137,12 @@
             url: "/finance_wx_borrower/index"
           };
           window.history.pushState(state, "房猫金服", "#");
+        }
+        if(data == -1){
+          pushHistory()
           return false;
         }
-        pushHistory()
-        return false;
+
       });
     }, false);
 
