@@ -38,5 +38,19 @@ class Cj extends CI_Controller
     public function del_cj(){
         $this->cj_model->del_cj();
     }
+
+    //用于金融服务 首页返回时确认是否
+    public function check(){
+        if($this->session->userdata('user_id')){
+            echo 1;
+            exit();
+        }else{
+            if($this->session->userdata('finance_id')){
+                echo 2;
+                exit();
+            }
+        }
+        echo -1;
+    }
 }
 

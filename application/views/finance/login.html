@@ -121,7 +121,18 @@
 <script>
   $(function() {
     $('#doc-tab-demo-1').tabs('open',{{$tabs|default:0}});
+    window.addEventListener("popstate", function(e) {
+      $.post("{{site_url url='cj/check'}}",{},function(data){
+        if(data == 1){
 
+        }
+        if(data == 2){
+
+        }
+        alert('asd');
+        return false;
+      });
+    }, false);
 
   })
 
