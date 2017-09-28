@@ -1,0 +1,167 @@
+<!doctype html>
+<html class="no-js">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>填写资料信息</title>
+  <meta name="description" content="这是一个form页面">
+  <meta name="keywords" content="form">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="Cache-Control" content="no-siteapp" />
+  <link rel="icon" type="image/png" href="assets/i/favicon.png">
+  <link rel="apple-touch-icon-precomposed" href="assets/i/app-icon72x72@2x.png">
+  <meta name="apple-mobile-web-app-title" content="Amaze UI" />
+  <link rel="stylesheet" href="/static/assets/css/amazeui.min.css"/>
+    <link rel="stylesheet" href="/static/assets/css/weixinfinance.css">
+</head>
+<body>
+<!--[if lte IE 9]>
+<p class="browsehappy">你正在使用<strong>过时</strong>的浏览器，Amaze UI 暂不支持。 请 <a href="http://browsehappy.com/" target="_blank">升级浏览器</a>
+  以获得更好的体验！</p>
+<![endif]-->
+
+<header class="am-topbar am-topbar-inverse admin-header">
+  <div class="am-topbar-brand">
+     <small>金融服务</small>
+  </div>
+</header>
+
+<div class="am-cf admin-main">
+<!-- content start -->
+<div class="admin-content">
+  <div class="admin-content-body">
+    <div class="am-cf am-padding">
+      <div class="am-fl am-cf">
+        <strong class="am-text-primary am-text-lg">资金需求</strong> / <small>Fund Infromation</small>
+      </div>
+    </div>
+    <form class="am-form am-form-horizontal am-form-wrap-finance">
+       <div class="am-form-group am-form-finance">
+            <label class="am-form-label">额度</label>
+          <div class="am-sm-fin">
+            <select id="doc-select-1" class="doc-select">
+                  <option value="option1">50万</option>
+                  <option value="option2">40万</option>
+                  <option value="option3">20万</option>
+                  <option value="option3">10万</option>
+            </select>
+          </div>
+         </div>
+        <div class="am-form-group am-form-finance">
+          <label for="doc-ipt-4-1" class="am-form-label">预计还款周期</label>
+          <div class="am-sm-fin am-sm-fin-two">
+            <input type="text" id="doc-ipt-4-1" class="am-form-field" placeholder="请输入预计还款周期">
+          </div>
+        </div>
+         
+         <div class="am-form-group am-form-finance">
+           <label class="am-form-label">还款方式</label>
+          <div class="am-sm-fin">
+            <select id="doc-select-2" class="doc-select">
+                  <option value="option1">等额本息</option>
+                  <option value="option2">等额本金</option>
+                  <option value="option3">先息后本</option>
+            </select>
+          </div>
+         </div>
+         <div class="am-cf am-padding am-padding-left-0">
+          <div class="am-fl am-cf">
+            <strong class="am-text-primary am-text-lg">征信概要</strong> / <small>Applicant Infromation</small>
+          </div>
+        </div>
+          <div class="am-form-group am-form-finance">
+          <label  class="am-form-label">有无信用卡逾期</label>
+          <div class="am-sm-fin am-sm-fin-two">
+           <div class="am-radio">
+              <label>
+                <input type="radio" name="doc-radio-1" value="option1" checked> 有</label>
+            </div>
+            <div class="am-radio">
+              <label>
+                <input type="radio" name="doc-radio-1" value="option2"> 无<label>
+            </div>
+          </div>
+        </div>
+          <div class="am-form-group am-form-finance">
+          <label class="am-form-label">有无按揭逾期</label>
+          <div class="am-sm-fin am-sm-fin-two">
+           <div class="am-radio">
+              <label>
+                <input type="radio" name="doc-radio-1" value="option1" checked> 有</label>
+            </div>
+            <div class="am-radio">
+              <label>
+                <input type="radio" name="doc-radio-1" value="option2"> 无<label>
+            </div>
+          </div>
+        </div>
+        <div class="am-form-group am-form-finance">
+          <label class="am-form-label">房产有无第三方质押</label>
+          <div class="am-sm-fin am-sm-fin-two">
+           <div class="am-radio">
+              <label>
+                <input type="radio" name="doc-radio-1" value="option1" checked> 有</label>
+            </div>
+            <div class="am-radio">
+              <label>
+                <input type="radio" name="doc-radio-1" value="option2"> 无<label>
+            </div>
+          </div>
+        </div>
+        <div class="am-form-group am-form-finance">
+          <label class="am-form-label">有无商业保险</label>
+          <div class="am-sm-fin am-sm-fin-two">
+           <div class="am-radio">
+              <label>
+                <input type="radio" name="doc-radio-1" value="option1" checked> 有</label>
+            </div>
+            <div class="am-radio">
+              <label>
+                <input type="radio" name="doc-radio-1" value="option2"> 无<label>
+            </div>
+          </div>
+        </div>
+        <div class="am-form-group am-form-finance">
+          <label class="am-form-label">有无司法裁决</label>
+          <div class="am-sm-fin am-sm-fin-two">
+           <div class="am-radio">
+              <label>
+                <input type="radio" name="doc-radio-1" value="option1" checked> 有</label>
+            </div>
+            <div class="am-radio">
+              <label>
+                <input type="radio" name="doc-radio-1" value="option2"> 无<label>
+            </div>
+          </div>
+        </div>
+
+        <p class="finance-btn-p"><a href="" class="finance-btn">下一步</a></p>
+    </form>
+ </div>
+
+</div>
+<!-- content end -->
+
+</div>
+
+
+
+<footer>
+  <hr>
+  <p class="am-padding-left">© 2014 AllMobilize, Inc. Licensed under MIT license.</p>
+</footer>
+
+<!--[if lt IE 9]>
+<script src="http://libs.baidu.com/jquery/1.11.1/jquery.min.js"></script>
+<script src="http://cdn.staticfile.org/modernizr/2.8.3/modernizr.js"></script>
+<script src="assets/js/amazeui.ie8polyfill.min.js"></script>
+<![endif]-->
+
+<!--[if (gte IE 9)|!(IE)]><!-->
+<script src="assets/js/jquery.min.js"></script>
+<!--<![endif]-->
+<script src="assets/js/amazeui.min.js"></script>
+<script src="assets/js/app.js"></script>
+</body>
+</html>
