@@ -150,6 +150,19 @@
       $(".finance-btn").click(function(){
         alert('onMenuShareAppMessage');
         wx.onMenuShareAppMessage({
+          title:"funmall",
+          desc:"desc",
+          link:"http://www.funmall.com.cn/finance_wx/login",
+          imgUrl:"http://www.funmall.com.cn/static/assets/i/logo.png",
+          type:"",
+          success:function(){
+
+          },
+          cancel:function(){
+
+          }
+        })
+       /* wx.onMenuShareAppMessage({
           title: '这是分享给朋友标题', // 分享标题
           desc: '这是分享给朋友描述', // 分享描述
           link:"http://www.funmall.com.cn/finance_wx/login",
@@ -166,7 +179,7 @@
           },fail: function (res) {
             alert(JSON.stringify(res));
           }
-        });
+        });*/
       })
       var syncUpload = function(localIds){
         var localId = localIds.shift();
