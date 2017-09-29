@@ -308,6 +308,21 @@ where a.flag = 1 and a.user_id = ".$this->session->userdata('wx_user_id')."
             "finance_wx_num" => trim($this->input->post("finance_wx_num")),
             "borrower_hasP" => $this->input->post('borrower_hasP'),
 
+            "borrowing_amount" => trim($this->input->post('borrowing_amount')),
+            "repayment" => trim($this->input->post("repayment")),
+            "repayment_methods" => trim($this->input->post("repayment_methods")),
+            //"explain_XYK" => $this->input->post("explain_XYK",true),
+            //"explain_AJ" => $this->input->post("explain_AJ",true),
+            //"explain_ZY" => $this->input->post("explain_ZY",true),
+            //"explain_SYBX" => $this->input->post("explain_SYBX",true),
+            //"explain_SFZC" => $this->input->post("explain_SFZC",true),
+            "explain_XYK_radio" => $this->input->post("explain_XYK_radio",true)?$this->input->post("explain_XYK_radio",true):0,
+            "explain_AJ_radio" => $this->input->post("explain_AJ_radio",true)?$this->input->post("explain_AJ_radio",true):0,
+            "explain_ZY_radio" => $this->input->post("explain_ZY_radio",true)?$this->input->post("explain_ZY_radio",true):0,
+            "explain_SYBX_radio" => $this->input->post("explain_SYBX_radio",true)?$this->input->post("explain_SYBX_radio",true):0,
+            "explain_SFZC_radio" => $this->input->post("explain_SFZC_radio",true)?$this->input->post("explain_SFZC_radio",true):0
+
+
 
         );
         $this->db->trans_start();
@@ -335,5 +350,66 @@ where a.flag = 1 and a.user_id = ".$this->session->userdata('wx_user_id')."
             return $id;
         }
 
+    }
+
+    public function save_finance_2(){
+        $id = $this->input->post("id");
+        $data = array(
+
+            //下面是配偶信息
+            "spouse_name" => trim($this->input->post("spouse_name")),
+            "spouse_sex" => $this->input->post("spouse_sex"),
+            "spouse_native" => $this->input->post("spouse_native"),
+            "spouse_age" => $this->input->post("spouse_age")?$this->input->post("spouse_age"):null,
+            "spouse_qualifications" => trim($this->input->post("spouse_qualifications")),
+            "spouse_workADD" => trim($this->input->post("spouse_workADD")),
+            "spouse_position" => trim($this->input->post("spouse_position")),
+            "spouse_income" => $this->input->post("spouse_income")?$this->input->post("spouse_income"):null,
+            "spouse_SSY" => trim($this->input->post("spouse_SSY")),
+            "spouse_code" => trim($this->input->post("spouse_code")),
+            "spouse_phone" => trim($this->input->post("spouse_phone")),
+
+
+
+
+        );
+        $this->db->trans_start();
+        $this->db->where('id',$id)->update("finance",$data);
+
+
+        $this->db->trans_complete();//------结束事务
+        if ($this->db->trans_status() === FALSE) {
+            return -1;
+        } else {
+            return $id;
+        }
+    }
+
+    public function save_finance_3(){
+        $id = $this->input->post("id");
+        $data = array(
+            "borrower_hasP" => $this->input->post('borrower_hasP'),
+            "property_community" => trim($this->input->post("property_community")),
+            "property_num" => trim($this->input->post("property_num")),
+            "property_estates" => trim($this->input->post("property_estates")),
+            "property_area" => trim($this->input->post("property_area")),
+            "property_price" => trim($this->input->post("property_price")),
+            "property_owner" => trim($this->input->post("property_owner")),
+            "property_SF" => trim($this->input->post("property_SF"))?trim($this->input->post("property_SF")):null,
+            "property_YG" => trim($this->input->post("property_YG"))?trim($this->input->post("property_YG")):null,
+            "property_AJ" => trim($this->input->post("property_AJ"))?trim($this->input->post("property_AJ")):null,
+
+
+        );
+        $this->db->trans_start();
+
+        $this->db->where('id',$id)->update("finance",$data);
+
+        $this->db->trans_complete();//------结束事务
+        if ($this->db->trans_status() === FALSE) {
+            return -1;
+        } else {
+            return $id;
+        }
     }
 }

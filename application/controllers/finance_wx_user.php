@@ -84,8 +84,40 @@ class Finance_wx_user extends Finwx_Controller
             redirect(site_url('/finance_wx_user/edit_finance_detail/'.$rs.'/2'));
         }else if($rs == -2){
             $this->show_message('服务已申请！');
-        }else if($rs == -3){
-            $this->show_message('订单不能填写自己！');
+        }else{
+            $this->show_message('操作失败！');
+        }
+    }
+
+    public function save_finance_2(){
+        if($this->input->post('id')){
+            $power_ = $this->finance_wx_model->save_power($this->input->post('id'));
+            if($power_ != 1){
+                $this->show_message('服务已提交,或无保存权限！',site_url('finance_wx_user/index'));
+            }
+        }
+        $rs = $this->finance_wx_model->save_finance_2();
+        if($rs >= 1){
+            redirect(site_url('/finance_wx_user/edit_finance_detail/'.$rs.'/3'));
+        }else if($rs == -2){
+            $this->show_message('服务已申请！');
+        }else{
+            $this->show_message('操作失败！');
+        }
+    }
+
+    public function save_finance_3(){
+        if($this->input->post('id')){
+            $power_ = $this->finance_wx_model->save_power($this->input->post('id'));
+            if($power_ != 1){
+                $this->show_message('服务已提交,或无保存权限！',site_url('finance_wx_user/index'));
+            }
+        }
+        $rs = $this->finance_wx_model->save_finance_3();
+        if($rs >= 1){
+            redirect(site_url('/finance_wx_user/edit_finance_detail/'.$rs.'/4'));
+        }else if($rs == -2){
+            $this->show_message('服务已申请！');
         }else{
             $this->show_message('操作失败！');
         }
@@ -102,6 +134,7 @@ class Finance_wx_user extends Finwx_Controller
         }
         $data = $this->finance_model->get_detail($id);
         $this->cismarty->assign('data',$data);
+        $this->cismarty->assign('finance_wx_num',$data['finance_wx_num']);
         if(!$html)
             redirect(site_url('finance_wx_user/index'));
         if($html == 2 && $data['borrower_marriage']==2)
@@ -119,9 +152,6 @@ class Finance_wx_user extends Finwx_Controller
                 $this->cismarty->display('finance/weixin/admin-form-2.html');
                 break;
             case 4:
-                $this->cismarty->display('finance/weixin/admin-form-3.html');
-                break;
-            case 5:
                 $this->cismarty->display('finance/weixin/admin-form-4.html');
                 break;
             default:

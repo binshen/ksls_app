@@ -151,6 +151,112 @@
                 <input type="text" id="borrower_phone"  value="{{$data.borrower_phone|default:''}}" maxlength="20" name="borrower_phone" class="am-form-field" placeholder="请输入联系方式">
               </div>
            </div>
+        <div class="am-cf am-padding am-padding-left-0">
+            <div class="am-fl am-cf">
+                <strong class="am-text-primary am-text-lg">资金需求</strong> / <small>Fund Infromation</small>
+            </div>
+        </div>
+
+            <div class="am-form-group am-form-finance">
+                <label for="borrowing_amount" class="am-form-label">额度</label>
+                <div class="am-sm-fin">
+                    <input type="text" id="borrowing_amount"  value="{{$data.borrowing_amount|default:''}}" maxlength="20" name="borrowing_amount" class="yy_num am-form-field" placeholder="请输入额度">
+                </div>
+            </div>
+            <div class="am-form-group am-form-finance">
+                <label for="repayment" class="am-form-label am-form-identity">还款周期</label>
+                <div class="am-sm-fin">
+                    <select id="repayment" name="repayment" class="doc-select">
+                        <option {{if $data.repayment|default:0 == 1 }}selected="selected"{{/if}} value="1">3个月</option>
+                        <option {{if $data.repayment|default:0 == 2 }}selected="selected"{{/if}} value="2">半年</option>
+                        <option {{if $data.repayment|default:0 == 3 }}selected="selected"{{/if}} value="3">一年</option>
+                        <option {{if $data.repayment|default:0 == 4 }}selected="selected"{{/if}} value="4">两年</option>
+                        <option {{if $data.repayment|default:0 == 5 }}selected="selected"{{/if}} value="5">三年</option>
+                        <option {{if $data.repayment|default:0 == 6 }}selected="selected"{{/if}} value="6">三年以上</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="am-form-group am-form-finance">
+                <label for="repayment_methods" class="am-form-label am-form-identity">还款方式</label>
+                <div class="am-sm-fin">
+                    <select id="repayment_methods" name="repayment_methods" class="doc-select">
+                        <option {{if $data.repayment_methods|default:0 == 1 }}selected="selected"{{/if}} value="1">等额本息</option>
+                        <option {{if $data.repayment_methods|default:0 == 2 }}selected="selected"{{/if}} value="2">等额本金</option>
+                        <option {{if $data.repayment_methods|default:0 == 3 }}selected="selected"{{/if}} value="3">先息后本</option>
+                    </select>
+                </div>
+            </div>
+            <div class="am-cf am-padding am-padding-left-0">
+                <div class="am-fl am-cf">
+                    <strong class="am-text-primary am-text-lg">征信概要</strong> / <small>Applicant Infromation</small>
+                </div>
+            </div>
+            <div class="am-form-group am-form-finance">
+                <label  class="am-form-label am-form-identity">信用卡逾期</label>
+                <div class="am-sm-fin">
+                    <div class="am-radio">
+                        <label>
+                            <input type="radio" {{if $data.explain_XYK_radio|default:0 == 1 }}checked{{/if}} id="xkyq-yes" value="1" name="explain_XYK_radio"> 有</label>
+                    </div>
+                    <div class="am-radio">
+                        <label>
+                            <input type="radio" {{if $data.explain_XYK_radio|default:0 == 2 }}checked{{/if}} id="xkyq-no" value="2" name="explain_XYK_radio"> 无<label>
+                    </div>
+                </div>
+            </div>
+            <div class="am-form-group am-form-finance">
+                <label class="am-form-label am-form-identity">按揭逾期</label>
+                <div class="am-sm-fin">
+                    <div class="am-radio">
+                        <label>
+                            <input type="radio" {{if $data.explain_AJ_radio|default:0 == 1 }}checked{{/if}} id="ajyq-yes" value="1" name="explain_AJ_radio"> 有</label>
+                    </div>
+                    <div class="am-radio">
+                        <label>
+                            <input type="radio" {{if $data.explain_AJ_radio|default:0 == 2 }}checked{{/if}} id="ajyq-no" value="2" name="explain_AJ_radio"> 无<label>
+                    </div>
+                </div>
+            </div>
+            <div class="am-form-group am-form-finance">
+                <label class="am-form-label am-form-identity">房产第三方质押</label>
+                <div class="am-sm-fin am-sm-fin-two">
+                    <div class="am-radio">
+                        <label>
+                            <input type="radio" {{if $data.explain_ZY_radio|default:0 == 1 }}checked{{/if}} id="sfzy-yes" value="1" name="explain_ZY_radio"> 有</label>
+                    </div>
+                    <div class="am-radio">
+                        <label>
+                            <input type="radio" {{if $data.explain_ZY_radio|default:0 == 2 }}checked{{/if}} id="sfzy-no" value="2" name="explain_ZY_radio"> 无<label>
+                    </div>
+                </div>
+            </div>
+            <div class="am-form-group am-form-finance">
+                <label class="am-form-label am-form-identity">商业保险</label>
+                <div class="am-sm-fin">
+                    <div class="am-radio">
+                        <label>
+                            <input type="radio" {{if $data.explain_SYBX_radio|default:0 == 1 }}checked{{/if}} id="sybx-yes" value="1" name="explain_SYBX_radio"> 有</label>
+                    </div>
+                    <div class="am-radio">
+                        <label>
+                            <input type="radio" {{if $data.explain_SYBX_radio|default:0 == 2 }}checked{{/if}} id="sybx-no" value="2" name="explain_SYBX_radio"> 无<label>
+                    </div>
+                </div>
+            </div>
+            <div class="am-form-group am-form-finance">
+                <label class="am-form-label am-form-identity">司法裁决</label>
+                <div class="am-sm-fin">
+                    <div class="am-radio">
+                        <label>
+                            <input type="radio" {{if $data.explain_SFZC_radio|default:0 == 1 }}checked{{/if}} id="sfcj-yes" value="1" name="explain_SFZC_radio"> 有</label>
+                    </div>
+                    <div class="am-radio">
+                        <label>
+                            <input type="radio" {{if $data.explain_SFZC_radio|default:0 == 2 }}checked{{/if}} id="sfcj-no" value="2" name="explain_SFZC_radio"> 无<label>
+                    </div>
+                </div>
+            </div>
         <p class="finance-btn-p"><a id="save_btn" href="javascript:void(0);" class="finance-btn">下一步</a></p>
     </form>
  </div>
@@ -246,7 +352,48 @@
             layer.msg('请输入申请人联系电话', {icon: 2});
             return false;
         }
+        if($("#borrowing_amount").val() == "") {
+            layer.msg('请输入额度', {icon: 2});
+            return false;
+        }
+        if($("#repayment_methods").val() == "") {
+            layer.msg('请选择还款方式', {icon: 2});
+            return false;
+        }
+        if($.trim($("#repayment").val()) == "" || $.trim($("#repayment").val()) == "0") {
+            layer.msg('请输入还款周期', {icon: 2});
+            return false;
+        }
+        if($('input[name="explain_XYK_radio"]').is(':checked')){
 
+        }else{
+            layer.msg('请选择有无信用卡逾期', {icon: 2});
+            return false;
+        }
+        if($('input[name="explain_AJ_radio"]').is(':checked')){
+
+        }else{
+            layer.msg('请选择有无按揭逾期', {icon: 2});
+            return false;
+        }
+        if($('input[name="explain_ZY_radio"]').is(':checked')){
+
+        }else{
+            layer.msg('请选择房产有无第三方质押', {icon: 2});
+            return false;
+        }
+        if($('input[name="explain_SYBX_radio"]').is(':checked')){
+
+        }else{
+            layer.msg('请选择有无商业保险', {icon: 2});
+            return false;
+        }
+        if($('input[name="explain_SFZC_radio"]').is(':checked')){
+
+        }else{
+            layer.msg('请选择有无司法裁决', {icon: 2});
+            return false;
+        }
         //这里开始处理 配偶信息
 
         $('#financeForm').submit();
