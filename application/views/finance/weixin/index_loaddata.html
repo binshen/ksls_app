@@ -8,7 +8,7 @@
 			{{if $row.borrowing_amount==2}}40万{{/if}}
 			{{if $row.borrowing_amount==3}}30万{{/if}}</em></span>
 	</p>
-	<div class="fix"><div class="am-opration"><a href="{{$row.id}}" target="_blank" class="more">详情</a>{{if $row.status==1 || $row.status == 5}}<a href="/finance_wx_user/edit_finance_detail/{{$row.id}}/1" target="_blank">修改</a>{{/if}}<a href="" target="_blank">查看</a><a href="javascript:void(0);" onclick="wx_ts({{$row.id}})" target="_blank">推送</a></div>
+	<div class="fix"><div class="am-opration"><a href="{{$row.id}}" target="_blank" class="more">详情</a>{{if $row.status==1 || $row.status == 5}}<a href="/finance_wx_user/edit_finance_detail/{{$row.id}}/1" target="_blank">修改</a>{{/if}}<a href="" target="_blank">查看</a><a href="javascript:void(0);" onclick="wx_ts({{$row.id}})" class="yy_wx_ts" target="_blank">推送</a></div>
 	</div>
 	<div class="am-status {{if $row.status==1}}
               {{elseif $row.status==2}}am-status-waiting

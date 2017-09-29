@@ -144,7 +144,7 @@
       }
     });
     wx.ready(function () {
-      function wx_ts($id){
+      $(".yy_wx_ts").click(function(){
         wx.onMenuShareAppMessage({
           title: '分享标题', // 分享标题
           desc: "分享描述", // 分享描述
@@ -152,6 +152,9 @@
           imgUrl: "http://www.funmall.com.cn/static/assets/i/logo.png", // 分享图标
           type: 'link', // 分享类型,music、video或link，不填默认为link
         });
+      })
+      function wx_ts($id){
+
       }
     })
 
