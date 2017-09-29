@@ -145,6 +145,7 @@
         });
       })
       $(".finance-btn").click(function(){
+        alert('onMenuShareAppMessage');
         wx.onMenuShareAppMessage({
           title: '这是分享给朋友标题', // 分享标题
           desc: '这是分享给朋友描述', // 分享描述
