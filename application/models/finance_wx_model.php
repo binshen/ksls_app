@@ -18,11 +18,65 @@ class Finance_wx_model extends MY_Model
         parent::__destruct();
     }
 
+    public function create_finance_num(){
+
+        $company_id = $this->session->userdata('wx_company_id');
+
+        $this->db->select_max('id');
+        $result = $this->db->get_where('finance',
+            array(
+                'company_id' => $company_id,
+                "DATE_FORMAT(create_date,'%Y')" => date('Y'),
+            )
+        )->row_array();
+        $max_num = 1;
+        if(!empty($result['id'])) {
+            $max_num += $result['id'];
+        }
+        $finance_num = 'FIN' .date('y'). str_pad($company_id, 4, "0", STR_PAD_LEFT) . str_pad($max_num, 4, "0", STR_PAD_LEFT);
+        return $finance_num;
+    }
+
+    public function save_power($id){
+        $data = $this->db->from('finance')->where('id',$id)->get()->row_array();
+        if(!$data)
+            return -1;
+        if($data['user_id'] == $this->session->userdata('wx_user_id')){
+            if($data['status'] == 1 || $data['status'] == 5){
+                return 1;
+            }else{
+                return -3;
+            }
+
+        }else{
+            return -2;
+        }
+    }
+
+    public function view_power($id){
+        $data = $this->db->from('finance')->where('id',$id)->get()->row_array();
+        if(!$data)
+            return -1;
+        $company_id = $this->session->userdata('wx_company_id');
+        $subsidiary_id = $this->session->userdata('wx_subsidiary_id_array');
+        $position_id = $this->session->userdata('wx_position_id_array');
+        $permission_id = $this->session->userdata('wx_permission_id');
+        if($permission_id == 1 || in_array(12,$position_id))
+            return 1;
+        if($permission_id == 2 && $data['company_id'] == $company_id)
+            return 1;
+        if($permission_id <= 4 && $data['company_id'] == $company_id && in_array($data['subsidiary_id'],$subsidiary_id))
+            return 1;
+        if($data['user_id'] == $this->session->userdata('wx_user_id'))
+            return 1;
+        return -2;
+    }
+
     public function logout(){
-        $this->db->where('id',$this->session->userdata('user_id'))->update('user',array('openid'=>''));
-        $this->db->where('id',$this->session->userdata('finance_id'))->update('finance',array('borrower_openid'=>''));
-        $this->session->unset_userdata('user_id');
-        $this->session->unset_userdata('finance_id');
+        $this->db->where('id',$this->session->userdata('wx_user_id'))->update('user',array('openid'=>''));
+        $this->db->where('id',$this->session->userdata('wx_finance_id'))->update('finance',array('borrower_openid'=>''));
+        $this->session->unset_userdata('wx_user_id');
+        $this->session->unset_userdata('wx_finance_id');
         $this->session->sess_destroy();
     }
 
@@ -41,8 +95,8 @@ class Finance_wx_model extends MY_Model
         }else{
             $finance_row = $this->db->select("id,finance_num")->from("finance")->where("borrower_openid",$openid)->get()->row_array();
             if($finance_row){
-                $this->session->set_userdata('finance_id',$finance_row['id']);
-                $this->session->set_userdata('finance_num',$finance_row['finance_num']);
+                $this->session->set_userdata('wx_finance_id',$finance_row['id']);
+                $this->session->set_userdata('wx_finance_num',$finance_row['finance_num']);
                 return 2;
             }
         }
@@ -87,20 +141,20 @@ class Finance_wx_model extends MY_Model
                 }
             }
 
-            $user_info['token'] = $token;
-            $user_info['user_id'] = $res->id;
-            $user_info['username'] = $res->username;
-            $user_info['password'] = $res->password;
-            $user_info['rel_name'] = $res->rel_name;
-            $user_info['role_id'] = $res->role_id;
-            $user_info['role_name'] = $role_p->name;
-            $user_info['permission_id'] = $role_p->permission_id;
-            $user_info['company_id'] = $res->company_id;
+            $user_info['wx_token'] = $token;
+            $user_info['wx_user_id'] = $res->id;
+            $user_info['wx_username'] = $res->username;
+            $user_info['wx_password'] = $res->password;
+            $user_info['wx_rel_name'] = $res->rel_name;
+            $user_info['wx_role_id'] = $res->role_id;
+            $user_info['wx_role_name'] = $role_p->name;
+            $user_info['wx_permission_id'] = $role_p->permission_id;
+            $user_info['wx_company_id'] = $res->company_id;
             //  $user_info['login_subsidiary_id'] = $res->subsidiary_id;
-            $user_info['subsidiary_id_array'] = $sids;
+            $user_info['wx_subsidiary_id_array'] = $sids;
             // $user_info['login_position_id'] = $res->position_id; 此栏位暂不使用
-            $user_info['position_id_array'] = $ids;
-            $user_info['user_pic'] = $res->pic;
+            $user_info['wx_position_id_array'] = $ids;
+            $user_info['wx_user_pic'] = $res->pic;
             $this->session->set_userdata($user_info);
             return 1;
         }
@@ -130,40 +184,40 @@ class Finance_wx_model extends MY_Model
     public function get_main_data(){
         $this->db->select('count(1) num')->from('finance a');
         $this->db->where('a.flag',1);
-        $this->db->where("a.user_id",$this->session->userdata('user_id'));
+        $this->db->where("a.user_id",$this->session->userdata('wx_user_id'));
         $data['my_fin_count']=$this->db->get()->row()->num;
         $sql_7 = "select count(a.id) num
 from finance a
-where a.flag = 1 and a.user_id = ".$this->session->userdata('user_id')."
+where a.flag = 1 and a.user_id = ".$this->session->userdata('wx_user_id')."
  and a.tijiao_date >= date_add(NOW(), INTERVAL - 7 DAY) ";
         $query = $this->db->query($sql_7);
         $data['my_fin_count7'] =  $query->row()->num;
 
         $sql_30 = "select count(a.id) num
 from finance a
-where a.flag = 1 and a.user_id = ".$this->session->userdata('user_id')."
+where a.flag = 1 and a.user_id = ".$this->session->userdata('wx_user_id')."
  and a.tijiao_date >= date_add(NOW(), INTERVAL - 30 DAY) ";
         $query = $this->db->query($sql_30);
         $data['my_fin_count30'] =  $query->row()->num;
 
-        $position_id = $this->session->userdata('position_id_array');
-        $permission_id = $this->session->userdata('permission_id');
+        $position_id = $this->session->userdata('wx_position_id_array');
+        $permission_id = $this->session->userdata('wx_permission_id');
         $company_id = NULL;
         $subsidiary_id = NULL;
         $user_id = NULL;
         if($permission_id == 1 || in_array(12,$position_id)){ // 如果是管理员,或者金融管理专员
 
         }elseif($permission_id <= 3){ //总经理 和 区域经理可以查看不同门店
-            $company_id = $this->session->userdata('company_id');
+            $company_id = $this->session->userdata('wx_company_id');
             if($permission_id == 2) {
 
             } else if($permission_id < 5) {
-                $subsidiary_id = $this->session->userdata('subsidiary_id_array');
+                $subsidiary_id = $this->session->userdata('wx_subsidiary_id_array');
             }
         }else{
-            $company_id = $this->session->userdata('company_id');
-            $subsidiary_id = $this->session->userdata('subsidiary_id_array');
-            $user_id = $this->session->userdata('user_id');
+            $company_id = $this->session->userdata('wx_company_id');
+            $subsidiary_id = $this->session->userdata('wx_subsidiary_id_array');
+            $user_id = $this->session->userdata('wx_user_id');
 
         }
         $data['fin_count'] = $this->get_count_finance($user_id,$subsidiary_id,$company_id,null,null);
@@ -215,8 +269,8 @@ where a.flag = 1 and a.user_id = ".$this->session->userdata('user_id')."
         if($row){
             $this->db->where('borrower_openid',$this->session->userdata('openid'))->update('finance',array('borrower_openid'=>''));
             $this->db->where('id',$id)->update('finance',array('borrower_openid'=>$this->session->userdata('openid')));
-            $this->session->set_userdata('finance_id',$id);
-            $this->session->set_userdata('finance_num',$row['finance_num']);
+            $this->session->set_userdata('wx_finance_id',$id);
+            $this->session->set_userdata('wx_finance_num',$row['finance_num']);
             return 1;
         }else{
             return -1;
@@ -229,5 +283,57 @@ where a.flag = 1 and a.user_id = ".$this->session->userdata('user_id')."
         if($row)
             return $row['borrower_openid'];
         return -1;
+    }
+
+    public function save_finance_1(){
+        $id = $this->input->post("id");
+        if(!$id){
+            $row = $this->db->select('id')->from('finance')->where('create_user',$this->session->userdata('wx_user_id'))->where('finance_wx_num',trim($this->input->post("finance_wx_num")))->get()->row();
+            if($row)
+                $id = $row->id;
+        }
+        $data = array(
+            "borrower_name" => trim($this->input->post("borrower_name")),
+            "borrower_age" => $this->input->post("borrower_age"),
+            "borrower_sex" => $this->input->post("borrower_sex"),
+            "borrower_native" => trim($this->input->post("borrower_native")),
+            "borrower_qualifications" => $this->input->post("borrower_qualifications"),
+            "borrower_marriage" => $this->input->post("borrower_marriage"),
+            "borrower_workADD" => trim($this->input->post("borrower_workADD")),
+            "borrower_position" => trim($this->input->post("borrower_position")),
+            "borrower_income" => trim($this->input->post("borrower_income")),
+            "borrower_SSY" => trim($this->input->post("borrower_SSY")),
+            "borrower_code" => trim($this->input->post("borrower_code")),
+            "borrower_phone" => trim($this->input->post("borrower_phone")),
+            "finance_wx_num" => trim($this->input->post("finance_wx_num")),
+            "borrower_hasP" => $this->input->post('borrower_hasP'),
+
+
+        );
+        $this->db->trans_start();
+        if(!$id){
+            $data["company_id"] = $this->session->userdata('wx_company_id');
+            $subsidiary_id_array = $this->session->userdata('wx_subsidiary_id_array');
+            $data["subsidiary_id"] = $subsidiary_id_array[0]; //在保存前已经判断用户职级,所以必然存在唯一门店编号
+            $data["finance_num"] = $this->create_finance_num();
+            $data["user_id"] = $this->session->userdata('wx_user_id');
+            $data["create_user"] = $this->session->userdata('wx_user_id');
+            $data["create_date"] = date('Y-m-d H:i:s');
+            $data["status"] = 1;
+            $this->db->insert("finance",$data);
+            $id = $this->db->insert_id();
+
+        }else{
+            unset($data['finance_wx_num']);
+            $this->db->where('id',$id)->update("finance",$data);
+        }
+
+        $this->db->trans_complete();//------结束事务
+        if ($this->db->trans_status() === FALSE) {
+            return -1;
+        } else {
+            return $id;
+        }
+
     }
 }
