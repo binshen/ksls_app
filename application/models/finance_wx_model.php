@@ -289,8 +289,12 @@ where a.flag = 1 and a.user_id = ".$this->session->userdata('wx_user_id')."
         $id = $this->input->post("id");
         if(!$id){
             $row = $this->db->select('id')->from('finance')->where('create_user',$this->session->userdata('wx_user_id'))->where('finance_wx_num',trim($this->input->post("finance_wx_num")))->get()->row();
-            if($row)
+            if($row){
                 $id = $row->id;
+                $res_ = $this->save_power($id);
+                if($res_ !=1)
+                    return -1;
+            }
         }
         $data = array(
             "borrower_name" => trim($this->input->post("borrower_name")),

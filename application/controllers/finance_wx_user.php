@@ -85,7 +85,7 @@ class Finance_wx_user extends Finwx_Controller
         }else if($rs == -2){
             $this->show_message('服务已申请！');
         }else{
-            $this->show_message('操作失败！');
+            $this->show_message('操作失败！',site_url('finance_wx_user/index'));
         }
     }
 
