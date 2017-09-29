@@ -75,83 +75,87 @@
 
 </body>
 <script>
-  window.is_end = false
-  window.page = 1
-  window.top = 20
-  $(window).scroll(function () {
-    var scrollTop = $(this).scrollTop();
-    var scrollHeight = $(document).height();
-    var windowHeight = $(this).height();
-    if (scrollTop + windowHeight == scrollHeight) {
-      if(window.is_end){
-        $("#is_end").show()
-      }else{
-        window.top += 20;
-        $('#my-modal-loading').modal()
-        get_data()
+  $(function(){
+    window.is_end = false
+    window.page = 1
+    window.top = 20
+    $(window).scroll(function () {
+      var scrollTop = $(this).scrollTop();
+      var scrollHeight = $(document).height();
+      var windowHeight = $(this).height();
+      if (scrollTop + windowHeight == scrollHeight) {
+        if(window.is_end){
+          $("#is_end").show()
+        }else{
+          window.top += 20;
+          $('#my-modal-loading').modal()
+          get_data()
+        }
       }
-    }
-  });
-
-  function get_data(){
-    var search_info_hidden = $("#search_info_hidden").val();
-    var status = $("#status").val();
-    $.post("{{site_url url='finance_wx_user/list_finance_loaddata'}}/"+window.page,{search_info_hidden:search_info_hidden,status:status},function(data){
-      if(data){
-        $("#events-list").append(data)
-        $('#events-list').find('.flag-'+window.page).add('#doc-confirm-toggle').
-        on('click', function() {
-          $('#my-confirm').modal({
-            relatedTarget: this,
-            onConfirm: function(options) {
-
-            },
-            onCancel: function() {
-
-            }
-          });
-        });
-        window.page += 1
-        $('#my-modal-loading').modal('close');
-      }else{
-        $('#my-modal-loading').modal('close');
-        $("#is_end").show()
-        window.is_end = true
-      }
-
     });
-  }
-  get_data();
-  wx.config({
-    debug: false, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
-    appId: '{{$wxappId}}', // 必填，公众号的唯一标识
-    timestamp: {{$wxtimestamp}}, // 必填，生成签名的时间戳
-  nonceStr: '{{$wxnonceStr}}', // 必填，生成签名的随机串
-          signature: '{{$wxsignature}}',// 必填，签名，见附录1
-          jsApiList: ['checkJsApi','onMenuShareAppMessage'] // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
-  });
-  wx.checkJsApi({
-    jsApiList: [
-      'onMenuShareAppMessage'
-    ],
-    success: function (res) {
-      // alert(JSON.stringify(res.checkResult.getLocation));
-      if (res.checkResult.getLocation == false) {
-        alert('你的微信版本太低，不支持微信JS接口，请升级到最新的微信版本！');
-        return;
-      }
-    }
-  });
-  wx.ready(function () {
-    function wx_ts($id){
-      wx.onMenuShareAppMessage({
-        title: '分享标题', // 分享标题
-        desc: "分享描述", // 分享描述
-        link:"http://www.funmall.com.cn",
-        imgUrl: "http://www.funmall.com.cn/static/assets/i/logo.png", // 分享图标
-        type: 'link', // 分享类型,music、video或link，不填默认为link
+
+    function get_data(){
+      var search_info_hidden = $("#search_info_hidden").val();
+      var status = $("#status").val();
+      $.post("{{site_url url='finance_wx_user/list_finance_loaddata'}}/"+window.page,{search_info_hidden:search_info_hidden,status:status},function(data){
+        if(data){
+          $("#events-list").append(data)
+          $('#events-list').find('.flag-'+window.page).add('#doc-confirm-toggle').
+          on('click', function() {
+            $('#my-confirm').modal({
+              relatedTarget: this,
+              onConfirm: function(options) {
+
+              },
+              onCancel: function() {
+
+              }
+            });
+          });
+          window.page += 1
+          $('#my-modal-loading').modal('close');
+        }else{
+          $('#my-modal-loading').modal('close');
+          $("#is_end").show()
+          window.is_end = true
+        }
+
       });
     }
+    get_data();
+    wx.config({
+      debug: false, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
+      appId: '{{$wxappId}}', // 必填，公众号的唯一标识
+      timestamp: {{$wxtimestamp}}, // 必填，生成签名的时间戳
+    nonceStr: '{{$wxnonceStr}}', // 必填，生成签名的随机串
+            signature: '{{$wxsignature}}',// 必填，签名，见附录1
+            jsApiList: ['checkJsApi','onMenuShareAppMessage'] // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
+  });
+    wx.checkJsApi({
+      jsApiList: [
+        'onMenuShareAppMessage'
+      ],
+      success: function (res) {
+        // alert(JSON.stringify(res.checkResult.getLocation));
+        if (res.checkResult.getLocation == false) {
+          alert('你的微信版本太低，不支持微信JS接口，请升级到最新的微信版本！');
+          return;
+        }
+      }
+    });
+    wx.ready(function () {
+      function wx_ts($id){
+        wx.onMenuShareAppMessage({
+          title: '分享标题', // 分享标题
+          desc: "分享描述", // 分享描述
+          link:"http://www.funmall.com.cn",
+          imgUrl: "http://www.funmall.com.cn/static/assets/i/logo.png", // 分享图标
+          type: 'link', // 分享类型,music、video或link，不填默认为link
+        });
+      }
+    })
+
   })
+
 
 </script>
