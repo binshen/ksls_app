@@ -152,6 +152,7 @@ class Finance_wx_user extends Finwx_Controller
                 $this->cismarty->display('finance/weixin/admin-form-2.html');
                 break;
             case 4:
+                $this->buildWxData();
                 $this->cismarty->display('finance/weixin/admin-form-4.html');
                 break;
             default:
