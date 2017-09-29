@@ -191,6 +191,9 @@ class Finance extends MY_Controller
                 if($data)
                     $this->assign('data', $data);
             }
+        }else{
+            $finance_wx_num = time()."_".rand(1000000,9000000);
+            $this->cismarty->assign('finance_wx_num',$finance_wx_num);
         }
         $this->display('finance/finance.html');
     }
@@ -217,6 +220,16 @@ class Finance extends MY_Controller
             $power_ = $this->finance_model->save_power($id);
             if($power_ != 1){
                 redirect(site_url('/finance/finance_list'));
+            }
+        }else{
+            if(trim($this->input->post("finance_wx_num"))){
+                $id = $this->finance_model->getIdByWxNum();
+                if($id>0){
+                    $power_ = $this->finance_model->save_power($id);
+                    if($power_ != 1){
+                        redirect(site_url('/finance/finance_list'));
+                    }
+                }
             }
         }
 

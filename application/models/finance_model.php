@@ -172,8 +172,20 @@ class Finance_model extends MY_Model
         return $finance_num;
     }
 
+    public function getIdByWxNum(){
+        $row = $this->db->select('id')->from('finance')->where('create_user',$this->session->userdata('login_user_id'))->where('finance_wx_num',trim($this->input->post("finance_wx_num")))->get()->row();
+        if($row)
+            return $row->id;
+        return -1;
+    }
+
     public function save_finance_1(){
         $id = $this->input->post("id");
+        if(!$id && trim($this->input->post("finance_wx_num"))){
+            $mayid = $this->getIdByWxNum();
+            if($mayid > 0)
+                $id = $mayid;
+        }
         $data = array(
             "borrower_name" => trim($this->input->post("borrower_name")),
             "borrower_age" => $this->input->post("borrower_age"),
