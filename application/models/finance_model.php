@@ -263,7 +263,7 @@ class Finance_model extends MY_Model
             "property_YG" => trim($this->input->post("property_YG"))?trim($this->input->post("property_YG")):null,
             "property_AJ" => trim($this->input->post("property_AJ"))?trim($this->input->post("property_AJ")):null,
 
-            "borrowing_amount" => $this->input->post('borrowing_amount'),
+            "borrowing_amount" => trim($this->input->post("borrowing_amount"))?trim($this->input->post("borrowing_amount")):null,
             "repayment" => trim($this->input->post("repayment")),
             "repayment_methods" => trim($this->input->post("repayment_methods")),
             //"explain_XYK" => $this->input->post("explain_XYK",true),

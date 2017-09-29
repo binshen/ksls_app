@@ -53,15 +53,20 @@
                         <td>
                             <dl>
                                 <dt>额 度：</dt>
-                                <dd>{{if $data.borrowing_amount|default:0 == 1 }}50万{{/if}}
-                                    {{if $data.borrowing_amount|default:0 == 2 }}40万{{/if}}
-                                    {{if $data.borrowing_amount|default:0 == 3 }}30万{{/if}}</dd>
+                                <dd>{{$data.repayment|default:''}}万</dd>
                             </dl>
                         </td>
                         <td colspan="2">
                             <dl>
                                 <dt class="wid120">预计还款周期：</dt>
-                                <dd>{{$data.repayment|default:''}}年</dd>
+                                <dd>
+                                    {{if $data.repayment|default:0 == 1 }}3个月{{/if}}
+                                    {{if $data.repayment|default:0 == 2 }}半年{{/if}}
+                                    {{if $data.repayment|default:0 == 3 }}一年{{/if}}
+                                    {{if $data.repayment|default:0 == 4 }}两年{{/if}}
+                                    {{if $data.repayment|default:0 == 5 }}三年{{/if}}
+                                    {{if $data.repayment|default:0 == 6 }}三年以上{{/if}}
+                                </dd>
                             </dl>
                         </td>
                     </tr>

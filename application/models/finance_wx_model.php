@@ -308,7 +308,7 @@ where a.flag = 1 and a.user_id = ".$this->session->userdata('wx_user_id')."
             "finance_wx_num" => trim($this->input->post("finance_wx_num")),
             "borrower_hasP" => $this->input->post('borrower_hasP'),
 
-            "borrowing_amount" => trim($this->input->post('borrowing_amount')),
+            "borrowing_amount" =>trim($this->input->post("borrowing_amount"))?trim($this->input->post("borrowing_amount")):null,
             "repayment" => trim($this->input->post("repayment")),
             "repayment_methods" => trim($this->input->post("repayment_methods")),
             //"explain_XYK" => $this->input->post("explain_XYK",true),
