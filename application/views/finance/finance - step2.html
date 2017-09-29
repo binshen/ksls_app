@@ -96,17 +96,20 @@
                         <td>
                             <dl>
                                 <dt>额 度：</dt>
-                                <dd><select name="borrowing_amount" id="borrowing_amount">
-                                    <option {{if $data.borrowing_amount|default:0 == 1 }}selected{{/if}} value="1">50万</option>
-                                    <option {{if $data.borrowing_amount|default:0 == 2 }}selected{{/if}} value="2">40万</option>
-                                    <option {{if $data.borrowing_amount|default:0 == 3 }}selected{{/if}} value="3">30万</option>
-                                </select></dd>
+                                <dd> <input type="text" id="borrowing_amount"  value="{{$data.borrowing_amount|default:''}}" maxlength="20" name="borrowing_amount" class="yy_num am-form-field" placeholder="请输入额度"><em>万元</em></dd>
                             </dl>
                         </td> 
                         <td colspan="2">
                             <dl>
                                 <dt class="wid120">预计还款周期：</dt>
-                                <dd><input type="text"  value="{{$data.repayment|default:''}}" id="repayment" maxlength="2" name="repayment" class="yy_num add-txt input-wid85" /><em>年</em></dd>
+                                <dd> <select id="repayment" name="repayment" class="doc-select">
+                                    <option {{if $data.repayment|default:0 == 1 }}selected="selected"{{/if}} value="1">3个月</option>
+                                    <option {{if $data.repayment|default:0 == 2 }}selected="selected"{{/if}} value="2">半年</option>
+                                    <option {{if $data.repayment|default:0 == 3 }}selected="selected"{{/if}} value="3">一年</option>
+                                    <option {{if $data.repayment|default:0 == 4 }}selected="selected"{{/if}} value="4">两年</option>
+                                    <option {{if $data.repayment|default:0 == 5 }}selected="selected"{{/if}} value="5">三年</option>
+                                    <option {{if $data.repayment|default:0 == 6 }}selected="selected"{{/if}} value="6">三年以上</option>
+                                </select></dd>
                             </dl>
                         </td> 
                     </tr>

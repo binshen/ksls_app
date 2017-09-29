@@ -65,7 +65,16 @@
                         <td>
                             <dl>
                                 <dt>学      历：</dt>
-                                <dd><input type="text" id="borrower_qualifications" maxlength="10"  value="{{$data.borrower_qualifications|default:''}}" name="borrower_qualifications" class="add-txt add-txt-wid75" /></dd></dl></dd>
+                                <dd><select id="borrower_qualifications" name="borrower_qualifications" class="doc-select">
+                                    <option {{if $data.borrower_qualifications|default:'' == '小学' }}selected="selected"{{/if}} value="小学">小学</option>
+                                    <option {{if $data.borrower_qualifications|default:'' == '初中' }}selected="selected"{{/if}} value="初中">初中</option>
+                                    <option {{if $data.borrower_qualifications|default:'' == '中专' }}selected="selected"{{/if}} value="中专">中专</option>
+                                    <option {{if $data.borrower_qualifications|default:'' == '高中' }}selected="selected"{{/if}} value="高中">高中</option>
+                                    <option {{if $data.borrower_qualifications|default:'' == '大专' }}selected="selected"{{/if}} value="大专">大专</option>
+                                    <option {{if $data.borrower_qualifications|default:'' == '本科' }}selected="selected"{{/if}} value="本科">本科</option>
+                                    <option {{if $data.borrower_qualifications|default:'' == '硕士' }}selected="selected"{{/if}} value="硕士">硕士</option>
+                                    <option {{if $data.borrower_qualifications|default:'' == '博士' }}selected="selected"{{/if}} value="博士">博士</option>
+                                </select></dd></dl></dd>
                             </dl>
                         </td>
                         <td>
@@ -141,7 +150,16 @@
                         <td>
                             <dl>
                                 <dt>学      历：</dt>
-                                <dd><input type="text" id="spouse_qualifications" maxlength="10" value="{{$data.spouse_qualifications|default:''}}"  name="spouse_qualifications"  class="add-txt add-txt-wid75" /></dd></dl></dd>
+                                <dd> <select id="spouse_qualifications" name="spouse_qualifications" class="doc-select">
+                                    <option {{if $data.spouse_qualifications|default:'' == '小学' }}selected="selected"{{/if}} value="小学">小学</option>
+                                    <option {{if $data.spouse_qualifications|default:'' == '初中' }}selected="selected"{{/if}} value="初中">初中</option>
+                                    <option {{if $data.spouse_qualifications|default:'' == '中专' }}selected="selected"{{/if}} value="中专">中专</option>
+                                    <option {{if $data.spouse_qualifications|default:'' == '高中' }}selected="selected"{{/if}} value="高中">高中</option>
+                                    <option {{if $data.spouse_qualifications|default:'' == '大专' }}selected="selected"{{/if}} value="大专">大专</option>
+                                    <option {{if $data.spouse_qualifications|default:'' == '本科' }}selected="selected"{{/if}} value="本科">本科</option>
+                                    <option {{if $data.spouse_qualifications|default:'' == '硕士' }}selected="selected"{{/if}} value="硕士">硕士</option>
+                                    <option {{if $data.spouse_qualifications|default:'' == '博士' }}selected="selected"{{/if}} value="博士">博士</option>
+                                </select></dd></dl></dd>
                             </dl>
                         </td>
                         <td>
