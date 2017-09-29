@@ -45,6 +45,7 @@ class Finance_wx_user extends Finwx_Controller
         $this->assign('search_info_hidden',$this->input->post('search_info')?$this->input->post('search_info'):'');
         $this->assign('main_data',$main_data);
         $this->assign('status',$status);
+        $this->buildWxData();
         $this->display('finance/weixin/index-classify.html');
     }
 
