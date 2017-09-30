@@ -45,7 +45,6 @@ class Finance_wx_user extends Finwx_Controller
         $this->assign('search_info_hidden',$this->input->post('search_info')?$this->input->post('search_info'):'');
         $this->assign('main_data',$main_data);
         $this->assign('status',$status);
-        $this->buildWxData();
         $this->display('finance/weixin/index-classify.html');
     }
 
@@ -153,7 +152,7 @@ class Finance_wx_user extends Finwx_Controller
                 $this->cismarty->display('finance/weixin/admin-form-2.html');
                 break;
             case 4:
-                $this->buildWxData();
+                //$this->buildWxData();
                 $this->cismarty->display('finance/weixin/admin-form-4.html');
                 break;
             default:
