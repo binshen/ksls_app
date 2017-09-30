@@ -84,8 +84,13 @@ ul,li,p{margin: 0;padding:0;}li{list-style: none; }em{font-style:normal;}
 .am-form-finance .am-sm-fin-two{margin-top: 1.8rem}
 
 .identity-p-center{ text-align: center;}
-.identity-p-center{margin-bottom: 1rem;font-size: 3rem; text-align: center;}
-.upload-pic{margin:0 auto 2rem; border:3px dotted #999; width:15rem; height: 15rem;border-radius: 15px;display: block; text-align: center; line-height: 14rem;}
-.upload-pic .am-icon-plus{ font-size: 8rem; color: #666;}
+.identity-p-center{margin-bottom: 1rem;font-size: 2rem; text-align: center;}
+.upload-pic{margin:0 auto 2rem; border:2px dotted #999; width:15rem; height: 15rem;
+    display: block; text-align: center; line-height: 14rem; position: relative;}
+.upload-pic .am-icon-plus{ font-size: 6rem; color: #666;}
+.upload-pic .upload-has-pic{width: 100%;}
+.upload-pic .am-f-close{position: absolute;top:.5rem;right:.5rem; width:2rem;height:2rem;
+    background: url(../i/close_03.png) no-repeat;background-size: 100%;}
+/*.upload-pic .am-f-close img{width: 100%;}*/
 .upload-btn{margin:2rem 0; text-align: center;}
 .upload-btn-a{width:6rem;height: 6rem; display:inline-block; border-radius: 3rem; background-color: #5cb3de;}
