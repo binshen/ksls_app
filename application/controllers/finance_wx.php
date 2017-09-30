@@ -15,10 +15,10 @@ class Finance_wx extends Finwx_Controller
     public function __construct()
     {
         parent::__construct();
-        if($this->session->userdata('user_id')){
+        if($this->session->userdata('wx_user_id')){
             redirect('finance_wx_user/index');
         }else{
-            if($this->session->userdata('finance_id')){
+            if($this->session->userdata('wx_finance_id')){
                 redirect('finance_wx_borrower/index');
             }
         }
