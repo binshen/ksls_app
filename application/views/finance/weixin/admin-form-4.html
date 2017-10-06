@@ -217,8 +217,8 @@
       area: ['200px', 'auto']
     }, function(){
       html = "<em class='am-icon-plus'></em>";
-      $(obj).parent().html(html);
       $(obj).parent().next().val('');
+      $(obj).parent().html(html);
       layer.msg('删除成功,点击保存后生效', {icon: 1});
     }, function(){
     });
