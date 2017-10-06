@@ -177,7 +177,7 @@
             success: function (res) {
               var serverId = res.serverId; // 返回图片的服务器端ID
               html = "<img style='width: 15rem;height: 15rem' src='"+localId+"' alt='' class='upload-has-pic'>";
-              html +="<em href='#' onclick='del_pic(this)' class='am-f-close'></em>"
+              html +="<em onclick='del_pic(this);' class='am-f-close'></em>"
               my_.html(html);
               //alert(input_h_.val());
 
