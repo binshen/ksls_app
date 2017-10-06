@@ -177,7 +177,7 @@
             success: function (res) {
               var serverId = res.serverId; // 返回图片的服务器端ID
               html = "<img style='width: 15rem;height: 15rem' src='"+localId+"' alt='' class='upload-has-pic'>";
-              html +="<em href='#' class='am-f-close'></em>"
+              html +="<em href='#' onclick='del_pic(this)' class='am-f-close'></em>"
               my_.html(html);
               //alert(input_h_.val());
 
@@ -194,7 +194,6 @@
       })
 
     })
-
     $(".am-f-close").click(function(){
       layer.confirm('是否删除图片?', {
         btn: ['删除','取消'], //按钮
@@ -212,4 +211,25 @@
     })
 
   })
+  function del_pic(obj) {
+    layer.confirm('是否删除图片?', {
+      btn: ['删除','取消'], //按钮
+      area: ['200px', 'auto']
+    }, function(){
+      html = "<em class='am-icon-plus'></em>";
+      $(obj).parent().html(html);
+      $(obj).parent().next().val('');
+      layer.msg('删除成功,点击保存后生效', {icon: 1});
+    }, function(){
+    });
+
+    /* var current_pic = $(obj).parent().find('input[name="pic_short[]"]').val();
+     $.getJSON("/agenda/del_pic/" + $("#folder").val() + "/" + style + "/" + current_pic + "/", function(data){
+     if(data.flag == 1){
+     $(obj).parent().remove();
+     }else{
+     alert("删除图片失败，请清理图片缓存并刷新标签页");
+     }
+     });*/
+  }
 </script>
