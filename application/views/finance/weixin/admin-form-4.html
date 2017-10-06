@@ -148,9 +148,10 @@
 
         $(".upload-pic").click(function(){
           var my = $(this);
-          var img = $(this).next();
-          var input_h = $(this).next().next();
-          var close_btn = $(this).next().next().next();
+          var c1_ = $(this).children().eq(0);
+          var img = $(this).children().eq(1);
+          var input_h = $(this).children().eq(2);
+          var close_btn = $(this).children().eq(3);
           wx.chooseImage({
             count: 1, // 默认9
             sizeType: ['original', 'compressed'], // 可以指定是原图还是压缩图，默认二者都有
@@ -173,7 +174,7 @@
               var serverId = res.serverId; // 返回图片的服务器端ID
               img.src(serverId);
               input_h.val(serverId);
-              my.addClass("yy_display");
+              c1_.addClass("yy_display");
               img.removeClass("yy_display");
               close_btn.removeClass("yy_display");
             }
