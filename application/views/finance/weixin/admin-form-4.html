@@ -151,6 +151,7 @@
 
 
         $(".upload-pic").click(function(){
+          var my = $(this);
           var input_h = $(this).next();
           if(input_h.val()!=""){
             return false;
@@ -164,11 +165,11 @@
               //var tempFilePaths = res.tempFilePaths
               //alert(tempFilePaths);
               //$("#text_img").attr("src", localIds[0]);//显示图片到页面上
-              syncUpload(localIds,my,emc,img,input_h,close_btn);
+              syncUpload(localIds,my,input_h);
             }
           });
         })
-        var syncUpload = function(localIds,my_,emc_,img_,input_h_,close_btn_){
+        var syncUpload = function(localIds,my_,input_h_){
           var localId = localIds.shift();
           wx.uploadImage({
             localId: localId,
@@ -181,7 +182,7 @@
               //alert(input_h_.val());
 
               //img_.attr('src',localId);
-              //input_h_.val(serverId);
+              input_h_.val(serverId);
               //emc_.addClass("yy_display");
               //img_.removeClass("yy_display");
               //img_.removeClass("yy_img");
