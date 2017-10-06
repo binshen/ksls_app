@@ -176,18 +176,18 @@
             isShowProgressTips: 1,
             success: function (res) {
               var serverId = res.serverId; // 返回图片的服务器端ID
-              /*html = "<img style='width: 300px;height: 300px' src='"+serverId+"' alt='' class='upload-has-pic'>";
+              html = "<img style='width: 300px;height: 300px' src='"+localId+"' alt='' class='upload-has-pic'>";
               html +="<em href='#' class='am-f-close'></em>"
-              my_.html(html);*/
+              my_.html(html);
               //alert(input_h_.val());
 
-              img_.attr('src',localId);
-              input_h_.val(serverId);
-              emc_.addClass("yy_display");
-              img_.removeClass("yy_display");
-              img_.removeClass("yy_img");
-              img_.addClass("yy_img");
-              close_btn_.removeClass("yy_display");
+              //img_.attr('src',localId);
+              //input_h_.val(serverId);
+              //emc_.addClass("yy_display");
+              //img_.removeClass("yy_display");
+              //img_.removeClass("yy_img");
+              //img_.addClass("yy_img");
+              //close_btn_.removeClass("yy_display");
             }
           });
         };
@@ -200,10 +200,12 @@
         btn: ['删除','取消'], //按钮
         area: ['200px', 'auto']
       }, function(){
-        $(this).prev().val('');
+        html = "<em class='am-icon-plus'></em>";
+        $(this).parent().html(html);
+       /* $(this).prev().val('');
         $(this).prev().prev().addClass("yy_display");
         $(this).prev().prev().prev().removeClass("yy_display");
-        $(this).addClass("yy_display");
+        $(this).addClass("yy_display");*/
         layer.msg('删除成功,提交或保存后生效', {icon: 1});
       }, function(){
       });
