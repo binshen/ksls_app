@@ -161,22 +161,22 @@
               //var tempFilePaths = res.tempFilePaths
               //alert(tempFilePaths);
               //$("#text_img").attr("src", localIds[0]);//显示图片到页面上
-              syncUpload(localIds);
+              syncUpload(localIds,input_h,img);
             }
           });
         })
-        var syncUpload = function(localIds){
+        var syncUpload = function(localIds,input_h_,img_){
           var localId = localIds.shift();
           wx.uploadImage({
             localId: localId,
             isShowProgressTips: 1,
             success: function (res) {
-              alert(input_h.val());
+              alert(input_h_.val());
               var serverId = res.serverId; // 返回图片的服务器端ID
-              img.src(serverId);
-              input_h.val(serverId);
+              img_.src(serverId);
+              input_h_.val(serverId);
               c1_.addClass("yy_display");
-              img.removeClass("yy_display");
+              img_.removeClass("yy_display");
               close_btn.removeClass("yy_display");
             }
           });
