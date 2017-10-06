@@ -59,7 +59,7 @@
         <img src="/uploadfiles/finance/{{$data.finance_num}}/{{$data.borrower_img_SFZ2}}" alt="" class="yy_img upload-has-pic {{if $data.borrower_img_SFZ2|strip == ''}}yy_display{{/if}}">
         <input type="hidden" name="borrower_img_SFZ2" value="{{$data.borrower_img_SFZ2|default:'123'}}">
         <em href="#" class="am-f-close {{if $data.borrower_img_SFZ2|strip == ''}}yy_display{{/if}}"></em>
-      </a> 
+      </a>
       <p class="identity-p-center">配偶正面</p>
       <a href="javascript:void(0);" class="upload-pic">
         <em class="am-icon-plus yy_display"></em>
@@ -165,19 +165,23 @@
               //var tempFilePaths = res.tempFilePaths
               //alert(tempFilePaths);
               //$("#text_img").attr("src", localIds[0]);//显示图片到页面上
-              syncUpload(localIds,emc,img,input_h,close_btn);
+              syncUpload(localIds,my,emc,img,input_h,close_btn);
             }
           });
         })
-        var syncUpload = function(localIds,emc_,img_,input_h_,close_btn_){
+        var syncUpload = function(localIds,my_,emc_,img_,input_h_,close_btn_){
           var localId = localIds.shift();
           wx.uploadImage({
             localId: localId,
             isShowProgressTips: 1,
             success: function (res) {
-              //alert(input_h_.val());
               var serverId = res.serverId; // 返回图片的服务器端ID
-              img_.attr('src',serverId);
+              /*html = "<img style='width: 300px;height: 300px' src='"+serverId+"' alt='' class='upload-has-pic'>";
+              html +="<em href='#' class='am-f-close'></em>"
+              my_.html(html);*/
+              //alert(input_h_.val());
+
+              img_.attr('src',localId);
               input_h_.val(serverId);
               emc_.addClass("yy_display");
               img_.removeClass("yy_display");
