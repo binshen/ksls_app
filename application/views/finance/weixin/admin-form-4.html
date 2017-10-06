@@ -62,7 +62,10 @@
       </a> 
       <p class="identity-p-center">配偶正面</p>
       <a href="javascript:void(0);" class="upload-pic">
-        <em class="am-icon-plus"></em>
+        <em class="am-icon-plus yy_display"></em>
+        <img src="http://temp.im/300x300" alt="" class="yy_img upload-has-pic">
+        <input type="hidden" name="borrower_img_SFZ2" value="{{$data.borrower_img_SFZ2|default:'123'}}">
+        <em href="#" class="am-f-close"></em>
       </a> 
        <p class="identity-p-center">配偶反面</p>
       <a href="javascript:void(0);" class="upload-pic">
@@ -148,10 +151,10 @@
 
         $(".upload-pic").click(function(){
           var my = $(this);
-          var c1_ = $(this).children();
+          var emc = $(this).children();
           var img = $(this).children().next();
           var input_h = $(this).children().next().next();
-          alert(input_h.val())
+          //alert(input_h.val())
           var close_btn = $(this).children().next().next().next();
           wx.chooseImage({
             count: 1, // 默认9
@@ -162,23 +165,23 @@
               //var tempFilePaths = res.tempFilePaths
               //alert(tempFilePaths);
               //$("#text_img").attr("src", localIds[0]);//显示图片到页面上
-              syncUpload(localIds,input_h,img);
+              syncUpload(localIds,emc,img,input_h,close_btn);
             }
           });
         })
-        var syncUpload = function(localIds,input_h_,img_){
+        var syncUpload = function(localIds,emc_,img_,input_h_,close_btn_){
           var localId = localIds.shift();
           wx.uploadImage({
             localId: localId,
             isShowProgressTips: 1,
             success: function (res) {
-              alert(input_h_.val());
+              //alert(input_h_.val());
               var serverId = res.serverId; // 返回图片的服务器端ID
               img_.src(serverId);
               input_h_.val(serverId);
-              c1_.addClass("yy_display");
+              emc_.addClass("yy_display");
               img_.removeClass("yy_display");
-              close_btn.removeClass("yy_display");
+              close_btn_.removeClass("yy_display");
             }
           });
         };
