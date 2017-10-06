@@ -177,7 +177,7 @@
             success: function (res) {
               //alert(input_h_.val());
               var serverId = res.serverId; // 返回图片的服务器端ID
-              img_.src(serverId);
+              img_.attr('src',serverId);
               input_h_.val(serverId);
               emc_.addClass("yy_display");
               img_.removeClass("yy_display");
