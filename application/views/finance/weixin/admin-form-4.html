@@ -148,11 +148,10 @@
 
         $(".upload-pic").click(function(){
           var my = $(this);
-          var c1_ = $(this).children().find('.am-icon-plus');
-          var img = $(this).children().find('img');
-          var input_h = $(this).children().find('input');
+          var c1_ = $(this).children();
+          var img = $(this).children().children();
+          var input_h = $(this).children().children().children();
           alert(input_h.val())
-          alert(input_h.eq(0).val());
           var close_btn = $(this).children().find('.am-f-close');
           wx.chooseImage({
             count: 1, // 默认9
