@@ -171,6 +171,7 @@
             localId: localId,
             isShowProgressTips: 1,
             success: function (res) {
+              alert(res.serverId);
               var serverId = res.serverId; // 返回图片的服务器端ID
               img.src(serverId);
               input_h.val(serverId);
