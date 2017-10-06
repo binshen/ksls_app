@@ -57,7 +57,7 @@
       <a href="javascript:void(0);" class="upload-pic">
         <em class="am-icon-plus {{if $data.borrower_img_SFZ2|strip != ''}}yy_display{{/if}}"></em>
         <img src="/uploadfiles/finance/{{$data.finance_num}}/{{$data.borrower_img_SFZ2}}" alt="" class="yy_img upload-has-pic {{if $data.borrower_img_SFZ2|strip == ''}}yy_display{{/if}}">
-        <input type="hidden" name="borrower_img_SFZ2" value="{{$data.borrower_img_SFZ2|default:''}}">
+        <input type="hidden" name="borrower_img_SFZ2" value="{{$data.borrower_img_SFZ2|default:'123'}}">
         <em href="#" class="am-f-close {{if $data.borrower_img_SFZ2|strip == ''}}yy_display{{/if}}"></em>
       </a> 
       <p class="identity-p-center">配偶正面</p>
@@ -171,7 +171,7 @@
             localId: localId,
             isShowProgressTips: 1,
             success: function (res) {
-              alert(res.serverId);
+              alert(input_h.val());
               var serverId = res.serverId; // 返回图片的服务器端ID
               img.src(serverId);
               input_h.val(serverId);
