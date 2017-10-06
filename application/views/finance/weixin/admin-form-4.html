@@ -152,7 +152,7 @@
 
         $(".upload-pic").click(function(){
           var input_h = $(this).next();
-          if(input_h.val()==""){
+          if(input_h.val()!=""){
             return false;
           }
           wx.chooseImage({
