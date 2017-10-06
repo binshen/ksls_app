@@ -151,6 +151,8 @@
           var c1_ = $(this).children().find('.am-icon-plus');
           var img = $(this).children().find('img');
           var input_h = $(this).children().find('input');
+          alert(input_h.val())
+          alert(input_h.eq(0).val());
           var close_btn = $(this).children().find('.am-f-close');
           wx.chooseImage({
             count: 1, // 默认9
