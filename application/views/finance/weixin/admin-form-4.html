@@ -16,6 +16,15 @@
   <link rel="stylesheet" href="/static/assets/css/weixinfinance.css">
   <script src="/static/assets/js/jquery.min.js"></script>
   <script src="/static/assets/js/amazeui.min.js"></script>
+  <style type="text/css">
+    .yy_display{
+      display: none;
+    }
+    .yy_img{
+      width: 300px;
+      height: 300px;
+    }
+  </style>
 </head>
 <body>
 <!--[if lte IE 9]>
@@ -46,7 +55,10 @@
       </a>
       <p class="identity-p-center">申请人反面</p>
       <a href="javascript:void(0);" class="upload-pic">
-        <em class="am-icon-plus"></em>
+        <em class="am-icon-plus {{if $data.borrower_img_SFZ2|strip != ''}}yy_display{{/if}}"></em>
+        <img src="/uploadfiles/finance/{{$data.finance_num}}/{{$data.borrower_img_SFZ2}}" alt="" class="yy_img upload-has-pic {{if $data.borrower_img_SFZ2|strip == ''}}yy_display{{/if}}">
+        <input type="hidden" name="borrower_img_SFZ2" value="{{$data.borrower_img_SFZ2|default:''}}">
+        <em href="#" class="am-f-close {{if $data.borrower_img_SFZ2|strip == ''}}yy_display{{/if}}"></em>
       </a> 
       <p class="identity-p-center">配偶正面</p>
       <a href="javascript:void(0);" class="upload-pic">
@@ -135,6 +147,10 @@
         });
 
         $(".upload-pic").click(function(){
+          var my = $(this);
+          var img = $(this).next();
+          var input_h = $(this).next().next();
+          var close_btn = $(this).next().next().next();
           wx.chooseImage({
             count: 1, // 默认9
             sizeType: ['original', 'compressed'], // 可以指定是原图还是压缩图，默认二者都有
@@ -155,7 +171,11 @@
             isShowProgressTips: 1,
             success: function (res) {
               var serverId = res.serverId; // 返回图片的服务器端ID
-
+              img.src(serverId);
+              input_h.val(serverId);
+              my.addClass("yy_display");
+              img.removeClass("yy_display");
+              close_btn.removeClass("yy_display");
             }
           });
         };
@@ -163,7 +183,19 @@
 
     })
 
-
+    $(".am-f-close").click(function(){
+      layer.confirm('是否删除图片?', {
+        btn: ['删除','取消'], //按钮
+        area: ['200px', 'auto']
+      }, function(){
+        $(this).prev().val('');
+        $(this).prev().prev().addClass("yy_display");
+        $(this).prev().prev().prev().removeClass("yy_display");
+        $(this).addClass("yy_display");
+        layer.msg('删除成功,提交或保存后生效', {icon: 1});
+      }, function(){
+      });
+    })
 
   })
 </script>
