@@ -95,6 +95,7 @@
       <a href="javascript:void(0);" class="upload-pic">
         <em class="am-icon-plus"></em>
       </a>
+      <input type="hidden" name="img_BDC" value="{{$data.img_BDC|default:''}}">
       <!--  <div class="upload-btn"><a href=""class="upload-btn-a"></a></div> -->
    <!--  <div class="upload-btn"><a href=""><img src="assets/i/photo-upload.png" alt=""></a></div>
     -->
@@ -150,12 +151,10 @@
 
 
         $(".upload-pic").click(function(){
-          var my = $(this);
-          var emc = $(this).children();
-          var img = $(this).children().next();
-          var input_h = $(this).children().next().next();
-          //alert(input_h.val())
-          var close_btn = $(this).children().next().next().next();
+          var input_h = $(this).next();
+          if(input_h.val()==""){
+            return false;
+          }
           wx.chooseImage({
             count: 1, // 默认9
             sizeType: ['original', 'compressed'], // 可以指定是原图还是压缩图，默认二者都有
@@ -176,7 +175,7 @@
             isShowProgressTips: 1,
             success: function (res) {
               var serverId = res.serverId; // 返回图片的服务器端ID
-              html = "<img style='width: 300px;height: 300px' src='"+localId+"' alt='' class='upload-has-pic'>";
+              html = "<img style='width: 15rem;height: 15rem' src='"+localId+"' alt='' class='upload-has-pic'>";
               html +="<em href='#' class='am-f-close'></em>"
               my_.html(html);
               //alert(input_h_.val());
