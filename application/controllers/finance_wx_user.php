@@ -63,10 +63,22 @@ class Finance_wx_user extends Finwx_Controller
     }*/
 
     public function list_finance_loaddata($page=1){
+        $position_id = $this->session->userdata('wx_position_id_array');
+        $permission_id = $this->session->userdata('wx_permission_id');
         $company_id = NULL;
         $subsidiary_id = NULL;
         $user_id = NULL;
-        $data = $this->finance_model->finance_list($page,$this->session->userdata('wx_user_id'),null,null,6);
+        if($permission_id == 1 || in_array(12,$position_id)){ // 如果是管理员,或者金融管理专员
+
+        }elseif($permission_id <= 3) { //总经理 和 区域经理可以查看不同门店
+            $company_id = $this->session->userdata('wx_company_id');
+        }elseif($permission_id == 4) {
+            $company_id = $this->session->userdata('wx_company_id');
+            $subsidiary_id = $this->session->userdata('wx_subsidiary_id_array');
+        }else{
+            $user_id = $this->session->userdata('wx_user_id');
+        }
+        $data = $this->finance_model->finance_list($page,$user_id,$subsidiary_id,$company_id,6);
         $this->cismarty->assign('data',$data);
         $this->cismarty->display('finance/weixin/index_loaddata.html');
     }
