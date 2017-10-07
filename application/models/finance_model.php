@@ -80,7 +80,7 @@ class Finance_model extends MY_Model
         $data['Cend_date'] = $this->input->post('Cend_date') ? trim($this->input->post('Cend_date')) : "";
         //list
 
-        $this->db->select("date_format(a.create_date, '%Y-%m-%d') cdate,a.borrower_phone,a.borrower_name,a.finance_num,a.borrowing_amount,a.repayment,a.repayment_methods,a.status,b.rel_name,a.id",false);
+        $this->db->select("a.user_id,date_format(a.create_date, '%Y-%m-%d') cdate,a.borrower_phone,a.borrower_name,a.finance_num,a.borrowing_amount,a.repayment,a.repayment_methods,a.status,b.rel_name,a.id",false);
         $this->db->from('finance a');
         $this->db->join('user b','a.user_id = b.id','inner');
         $this->db->join('user c','a.create_user = c.id','inner');
