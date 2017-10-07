@@ -416,4 +416,65 @@ where a.flag = 1 and a.user_id = ".$this->session->userdata('wx_user_id')."
             return $id;
         }
     }
+
+    public function save_finance_4($app,$appsecret){
+        $id = $this->input->post("id");
+        $row_=$this->db->from('finance')->where('id',$id)->get()->row_array();
+        $data = array(
+            "borrower_img_SFZ1" => $this->input->post('borrower_img_SFZ1'),
+            "borrower_img_SFZ2" => $this->input->post('borrower_img_SFZ2'),
+            "spouse_img_SFZ1" => $this->input->post('spouse_img_SFZ1'),
+            "spouse_img_SFZ2" => $this->input->post('spouse_img_SFZ2'),
+            "img_JHZ1" => $this->input->post('img_JHZ1'),
+            "img_JHZ2" => $this->input->post('img_JHZ2'),
+            "img_SBZ" => $this->input->post('img_SBZ'),
+            "img_BDC" => $this->input->post('img_BDC'),
+            "img_ZXBG" => $this->input->post('img_ZXBG'),
+            "img_YHLS" => $this->input->post('img_YHLS'),
+        );
+        foreach($data as $key => $v){
+            if($v){
+                if(file_exists(dirname(SELF).'/uploadfiles/finance/'.$row_['finance_num'].'/'.$v)){
+
+                }else{
+                    $data[$key] = $this->getmedia($v,$app,$appsecret,$row_['finance_num']);
+                }
+            }
+        }
+        $this->db->trans_start();
+
+        $this->db->where('id',$id)->update("finance",$data);
+
+        $this->db->trans_complete();//------结束事务
+        if ($this->db->trans_status() === FALSE) {
+            return -1;
+        } else {
+            return $id;
+        }
+    }
+
+    private function getmedia($media_id,$finance_num,$app,$appsecret){
+        $accessToken = $this->get_token($app,$appsecret);
+        $url = "http://file.api.weixin.qq.com/cgi-bin/media/get?access_token=".$accessToken."&media_id=".$media_id;
+
+        if (is_readable('./././uploadfiles/finance') == false) {
+            mkdir('./././uploadfiles/finance');
+        }
+        if (is_readable('./././uploadfiles/finance/'.$finance_num) == false) {
+            mkdir('./././uploadfiles/finance/'.$finance_num);
+        }
+        $file_name = date('YmdHis').rand(1000,9999).'.jpg';
+        $targetName = './uploadfiles/finance/'.$finance_num.'/'.$file_name;
+        //file_put_contents('/var/yy.txt', $url);
+
+        $ch = curl_init($url); // 初始化
+        $fp = fopen($targetName, 'wb'); // 打开写入
+        curl_setopt($ch, CURLOPT_FILE, $fp); // 设置输出文件的位置，值是一个资源类型
+        curl_setopt($ch, CURLOPT_HEADER, 0);
+        curl_exec($ch);
+        curl_close($ch);
+        fclose($fp);
+
+        return $file_name;
+    }
 }

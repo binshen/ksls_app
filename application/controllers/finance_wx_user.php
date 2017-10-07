@@ -123,6 +123,45 @@ class Finance_wx_user extends Finwx_Controller
         }
     }
 
+    public function save_finance_4(){
+        if($this->input->post('id')){
+            $power_ = $this->finance_wx_model->save_power($this->input->post('id'));
+            if($power_ != 1){
+                $this->show_message('服务已提交,或无保存权限！',site_url('finance_wx_user/index'));
+            }
+        }
+        $rs = $this->finance_wx_model->save_finance_4($this->wxconfig['appid'],$this->wxconfig['appsecret']);
+        if($rs >= 1){
+            redirect(site_url('finance_wx_user/index'));
+        }else if($rs == -2){
+            $this->show_message('服务已申请！');
+        }else{
+            $this->show_message('操作失败！');
+        }
+    }
+
+    public function tj_finance(){
+        if($this->input->post('id')){
+            $power_ = $this->finance_wx_model->save_power($this->input->post('id'));
+            if($power_ != 1){
+                $this->show_message('服务已提交,或无保存权限！',site_url('finance_wx_user/index'));
+            }
+        }
+        $rs = $this->finance_wx_model->save_finance_4($this->wxconfig['appid'],$this->wxconfig['appsecret']);
+        if($rs >= 1){
+            $tj = $this->finance_model->save_finance_tj();
+            if($tj == 1){
+                redirect(site_url('/finance_wx_user/index'));
+            }else{
+                redirect(site_url('/finance_wx_user/index'));//预留,如果在提交前需要 判断一些验证可在这里做处理
+            }
+        }else if($rs == -2){
+            $this->show_message('服务已申请！');
+        }else{
+            $this->show_message('操作失败！');
+        }
+    }
+
     public function edit_finance_detail($id,$html=null){
         if($id){
             $power_ = $this->finance_wx_model->save_power($id);
