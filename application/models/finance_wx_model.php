@@ -250,10 +250,10 @@ where a.flag = 1 and a.user_id = ".$this->session->userdata('wx_user_id')."
         if(!empty($subsidiary_id)) {
             $this->db->where_in('a.subsidiary_id', $subsidiary_id);
         }
-        if($status==1) {
+        if($tj_flag==1) {
             $this->db->where('date_format(a.tijiao_date, \'%Y-%m-%d\') >=', date("Y-m-d",strtotime("-7 day")));
         }
-        if($status==2) {
+        if($tj_flag==2) {
             $this->db->where('date_format(a.tijiao_date, \'%Y-%m-%d\') >=', date("Y-m-d",strtotime("-30 day")));
         }
         $this->db->where('a.flag',1);

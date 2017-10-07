@@ -162,7 +162,32 @@ class Finance_wx_user extends Finwx_Controller
         }
     }
 
-    public function edit_finance_detail($id,$html=null){
+    public function go_finance($flag){
+        if($id = $this->input->post('id')){
+            $power_ = $this->finance_wx_model->save_power($id);
+            if($power_ != 1){
+                $this->show_message('服务已提交,或无保存权限！',site_url('finance_wx_user/index'));
+            }
+        }else{
+            redirect(site_url('finance_wx_user/index'));
+        }
+        switch($flag){
+            case 1:
+                $this->finance_wx_model->save_finance_2();
+                break;
+            case 2:
+                $this->finance_wx_model->save_finance_3();
+                break;
+            case 3:
+                $this->finance_wx_model->save_finance_4($this->wxconfig['appid'],$this->wxconfig['appsecret']);
+                break;
+            default:
+                redirect(site_url('finance_wx_user/index'));
+        }
+        $this->edit_finance_detail($id,$flag,2);
+    }
+
+    public function edit_finance_detail($id,$html=null,$order=1){
         if($id){
             $power_ = $this->finance_wx_model->save_power($id);
             if($power_ != 1){
@@ -176,10 +201,17 @@ class Finance_wx_user extends Finwx_Controller
         $this->cismarty->assign('finance_wx_num',$data['finance_wx_num']);
         if(!$html)
             redirect(site_url('finance_wx_user/index'));
-        if($html == 2 && $data['borrower_marriage']==2)
-            $html = 3;
-        if($html == 3 && $data['borrower_hasP']==2)
-            $html = 4;
+        if($order == 1){
+            if($html == 2 && $data['borrower_marriage']==2)
+                $html = 3;
+            if($html == 3 && $data['borrower_hasP']==2)
+                $html = 4;
+        }else{
+            if($html == 3 && $data['borrower_hasP']==2)
+                $html = 2;
+            if($html == 2 && $data['borrower_marriage']==2)
+                $html = 1;
+        }
         switch($html){
             case 1:
                 $this->cismarty->display('finance/weixin/admin-form.html');
