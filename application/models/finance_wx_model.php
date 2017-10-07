@@ -421,16 +421,16 @@ where a.flag = 1 and a.user_id = ".$this->session->userdata('wx_user_id')."
         $id = $this->input->post("id");
         $row_=$this->db->from('finance')->where('id',$id)->get()->row_array();
         $data = array(
-            "borrower_img_SFZ1" => $this->input->post('borrower_img_SFZ1'),
-            "borrower_img_SFZ2" => $this->input->post('borrower_img_SFZ2'),
-            "spouse_img_SFZ1" => $this->input->post('spouse_img_SFZ1'),
-            "spouse_img_SFZ2" => $this->input->post('spouse_img_SFZ2'),
-            "img_JHZ1" => $this->input->post('img_JHZ1'),
-            "img_JHZ2" => $this->input->post('img_JHZ2'),
-            "img_SBZ" => $this->input->post('img_SBZ'),
-            "img_BDC" => $this->input->post('img_BDC'),
-            "img_ZXBG" => $this->input->post('img_ZXBG'),
-            "img_YHLS" => $this->input->post('img_YHLS'),
+            "borrower_img_SFZ1" => $this->input->post('borrower_img_SFZ1')?$this->input->post('borrower_img_SFZ1'):null,
+            "borrower_img_SFZ2" => $this->input->post('borrower_img_SFZ2')?$this->input->post('borrower_img_SFZ2'):null,
+            "spouse_img_SFZ1" => $this->input->post('spouse_img_SFZ1')?$this->input->post('spouse_img_SFZ1'):null,
+            "spouse_img_SFZ2" => $this->input->post('spouse_img_SFZ2')?$this->input->post('spouse_img_SFZ2'):null,
+            "img_JHZ1" => $this->input->post('img_JHZ1')?$this->input->post('img_JHZ1'):null,
+            "img_JHZ2" => $this->input->post('img_JHZ2')?$this->input->post('img_JHZ2'):null,
+            "img_SBZ" => $this->input->post('img_SBZ')?$this->input->post('img_SBZ'):null,
+            "img_BDC" => $this->input->post('img_BDC')?$this->input->post('img_BDC'):null,
+            "img_ZXBG" => $this->input->post('img_ZXBG')?$this->input->post('img_ZXBG'):null,
+            "img_YHLS" => $this->input->post('img_YHLS')?$this->input->post('img_YHLS'):null,
         );
         foreach($data as $key => $v){
             if($v){
