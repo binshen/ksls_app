@@ -194,15 +194,15 @@
         return false;
       }
       //这里开始处理 配偶信息
-      $("#financeForm").attr("action","/finance/tj_finance");
+      $("#financeForm").attr("action","/finance_wx_user/tj_finance");
       $('#financeForm').submit();
     });
     $("#save_btn").click(function(){
-        $("#financeForm").attr("action","/finance/save_finance_4");
+        $("#financeForm").attr("action","/finance_wx_user/save_finance_4");
         $('#financeForm').submit();
     })
     $("#edit_btn").click(function(){
-      $("#financeForm").attr("action","/finance/go_finance/3");
+      $("#financeForm").attr("action","/finance_wx_user/go_finance/3");
       $('#financeForm').submit();
     })
       wx.config({
