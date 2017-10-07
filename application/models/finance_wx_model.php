@@ -457,7 +457,7 @@ where a.flag = 1 and a.user_id = ".$this->session->userdata('wx_user_id')."
         $id = $this->input->post("id");
         $detail = $this->db->from('finance')->where('id',$id)->get()->row_array();
         $data = array(
-            "status" => 2,
+            "status" => 1,
             "tijiao_date" => date('Y-m-d H:i:s'),
         );
         $this->db->trans_start();
@@ -541,11 +541,11 @@ where a.flag = 1 and a.user_id = ".$this->session->userdata('wx_user_id')."
         $accessToken = $this->get_token($app,$appsecret);
         $url = "http://file.api.weixin.qq.com/cgi-bin/media/get?access_token=".$accessToken."&media_id=".$media_id;
 
-        if (is_readable('./././uploadfiles/finance') == false) {
-            mkdir('./././uploadfiles/finance');
+        if (is_readable('./uploadfiles/finance') == false) {
+            mkdir('./uploadfiles/finance', 0777, true);
         }
-        if (is_readable('./././uploadfiles/finance/'.$finance_num) == false) {
-            mkdir('./././uploadfiles/finance/'.$finance_num);
+        if (is_readable('./uploadfiles/finance/'.$finance_num) == false) {
+            mkdir('./uploadfiles/finance/'.$finance_num, 0777, true);
         }
         $file_name = date('YmdHis').rand(1000,9999).'.jpg';
         $targetName = './uploadfiles/finance/'.$finance_num.'/'.$file_name;
