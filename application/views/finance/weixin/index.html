@@ -56,7 +56,9 @@
           <li><a href="/finance_wx_user/index_status/-1"><span class="am-ul-icon am-icon-ban"></span><span class="txt">终止：{{$main_data.ins_6}}</span></a></li>
         </ul> 
       </div>
+      {{if $permission_id > 3 || !in_array(12,$position_id)}}
       <div class="am-data-add"><a href="/finance_wx_user/add_finance" class="am-data-add-icon"><img src="/static/assets/i/jia.png"></a>提交新的金融订单</div>
+      {{/if}}
       <ul class="am-data-ul" id="events-list">
 
       </ul>

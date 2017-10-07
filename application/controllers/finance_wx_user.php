@@ -24,6 +24,8 @@ class Finance_wx_user extends Finwx_Controller
         $this->assign('permission_id', $permission_id);
         $position_id = $this->session->userdata('wx_position_id_array');
         $this->assign('position_id', $position_id);
+        $user_id = $this->session->userdata('wx_user_id');
+        $this->assign('user_id', $user_id);
     }
 
     public function logout(){
@@ -61,6 +63,9 @@ class Finance_wx_user extends Finwx_Controller
     }*/
 
     public function list_finance_loaddata($page=1){
+        $company_id = NULL;
+        $subsidiary_id = NULL;
+        $user_id = NULL;
         $data = $this->finance_model->finance_list($page,$this->session->userdata('wx_user_id'),null,null,6);
         $this->cismarty->assign('data',$data);
         $this->cismarty->display('finance/weixin/index_loaddata.html');

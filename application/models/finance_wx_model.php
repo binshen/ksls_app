@@ -457,7 +457,7 @@ where a.flag = 1 and a.user_id = ".$this->session->userdata('wx_user_id')."
         $id = $this->input->post("id");
         $detail = $this->db->from('finance')->where('id',$id)->get()->row_array();
         $data = array(
-            "status" => 1,
+            "status" => 2,
             "tijiao_date" => date('Y-m-d H:i:s'),
         );
         $this->db->trans_start();

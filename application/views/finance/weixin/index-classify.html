@@ -49,7 +49,9 @@
           <div class="am-login-user am-outer-user"><a href="/finance_wx_user/logout"><em><img src="/static/images/outer_icon.png" alt=""></em><br />退出</a></div>
         </div>
       </div>
+      {{if $permission_id > 3 || !in_array(12,$position_id)}}
       <div class="am-data-add" style="margin-top: 5rem;"><a class="am-data-add-icon"><img src="/static/assets/i/jia.png"></a>提交新的金融订单</div>
+      {{/if}}
       <ul class="am-data-ul" id="events-list">
 
       </ul>
