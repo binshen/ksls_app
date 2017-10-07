@@ -453,6 +453,90 @@ where a.flag = 1 and a.user_id = ".$this->session->userdata('wx_user_id')."
         }
     }
 
+    public function save_finance_tj(){
+        $id = $this->input->post("id");
+        $detail = $this->db->from('finance')->where('id',$id)->get()->row_array();
+        $data = array(
+            "status" => 2,
+            "tijiao_date" => date('Y-m-d H:i:s'),
+        );
+        $this->db->trans_start();
+
+        $this->db->where('id',$this->input->post("id"))->update("finance",$data);
+
+        $this->db->trans_complete();//------结束事务
+        if ($this->db->trans_status() === FALSE) {
+            return -1;
+        } else {
+            $msg_type = "新增";
+            if($detail['status']==5)
+                $msg_type = "重新";
+            $data_msg = array(
+                'first' => array(
+                    'value' => "金融服务".$msg_type."提交成功!",
+                    'color' => '#FF0000'
+                ),
+                'keyword1' => array(
+                    'value' => $detail['finance_num'],
+                    'color' => '#FF0000'
+                ),
+                'keyword2' => array(
+                    'value' => date('Y-m-d H:i:s'),
+                    'color' => '#FF0000'
+                ),
+                'remark' => array(
+                    'value' => '感谢你对我们工作的信任',
+                    'color' => '#FF0000'
+                )
+            );
+            //发送给用户自己
+            $this->wxpost_fin($this->config->item('WX_FIN_SJTJ'),$data_msg,$this->session->userdata('wx_user_id'),'www.baidu.com');
+            //发送给用户的店长,如果用户本身职级大于等于店长,就不做通知
+            if($this->session->userdata('wx_permission_id') > 4){
+                $data_msg['remark']['value'] = "你的员工 ".$this->session->userdata('wx_rel_name')." 成功".$msg_type."提交一单代办业务.";
+                $this->db->select('a.id');
+                $this->db->from('user a');
+                $this->db->join('user_subsidiary b','a.id = b.user_id','left');
+                $this->db->where(array(
+                    'a.flag'=>1,
+                    'a.company_id'=>$this->session->userdata('wx_company_id'),
+                    'a.role_id'=>4,
+                    'a.openid <>'=>''
+                ));
+                $this->db->where('a.openid is not null');
+                $this->db->where_in('b.subsidiary_id',$this->session->userdata('wx_subsidiary_id_array'));
+                $user_list1 = $this->db->get()->result_array();
+                foreach($user_list1 as $item){
+                    $this->wxpost_fin($this->config->item('WX_FIN_SJTJ'),$data_msg,$item['id']);
+                }
+            }
+            //发送给金融服务绑定微信号
+            if($detail['borrower_openid']){
+                $data_msg['first']['value'] = "您的金融服务已被提交!";
+                $data_msg['remark']['value'] = "感谢您对我们工作的信任和支持,审核结果会在第一时间通过微信反馈.";
+                $this->wxpost_finByOpenid($this->config->item('WX_FIN_SJTJ'),$data_msg,$detail['borrower_openid'],'www.baidu.com');
+            }
+            //发送给金融管理人员
+            $data_msg['first']['value'] = "有一单".$msg_type."提交的金融服务";
+            $data_msg['remark']['value'] = "用户 ".$this->session->userdata('wx_rel_name')." 成功".$msg_type."提交一单代办业务.";
+
+            $this->db->select('a.id');
+            $this->db->from('user a');
+            $this->db->join('user_position b','a.id = b.user_id','left');
+            $this->db->where(array(
+                'a.flag'=>1,
+                'b.pid'=>12,
+                'a.openid <>'=>''
+            ));
+            $this->db->where('a.openid is not null');
+            $user_list2 = $this->db->get()->result_array();
+            foreach($user_list2 as $item2){
+                $this->wxpost_fin($this->config->item('WX_FIN_SJTJ'),$data_msg,$item2['id']);
+            }
+            return 1;
+        }
+    }
+
     private function getmedia($media_id,$finance_num,$app,$appsecret){
         $accessToken = $this->get_token($app,$appsecret);
         $url = "http://file.api.weixin.qq.com/cgi-bin/media/get?access_token=".$accessToken."&media_id=".$media_id;
