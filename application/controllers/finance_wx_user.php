@@ -196,6 +196,7 @@ class Finance_wx_user extends Finwx_Controller
         }else{
             redirect(site_url('finance_wx_user/index'));
         }
+        die('asd');
         $data = $this->finance_model->get_detail($id);
         $this->cismarty->assign('data',$data);
         $this->cismarty->assign('finance_wx_num',$data['finance_wx_num']);
