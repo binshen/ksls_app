@@ -98,6 +98,7 @@ class Finance_wx_user extends Finwx_Controller
         }
         $rs = $this->finance_wx_model->save_finance_2();
         if($rs >= 1){
+            die(var_dump($rs));
             redirect(site_url('/finance_wx_user/edit_finance_detail/'.$rs.'/3'));
         }else if($rs == -2){
             $this->show_message('服务已申请！');
