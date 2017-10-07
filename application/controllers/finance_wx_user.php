@@ -92,6 +92,7 @@ class Finance_wx_user extends Finwx_Controller
     public function save_finance_2(){
         if($this->input->post('id')){
             $power_ = $this->finance_wx_model->save_power($this->input->post('id'));
+            die(var_dump($power_));
             if($power_ != 1){
                 $this->show_message('服务已提交,或无保存权限！',site_url('finance_wx_user/index'));
             }
