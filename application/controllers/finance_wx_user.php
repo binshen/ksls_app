@@ -149,7 +149,7 @@ class Finance_wx_user extends Finwx_Controller
         }
         $rs = $this->finance_wx_model->save_finance_4($this->wxconfig['appid'],$this->wxconfig['appsecret']);
         if($rs >= 1){
-            $tj = $this->finance_model->save_finance_tj();
+            $tj = $this->finance_wx_model->save_finance_tj();
             if($tj == 1){
                 redirect(site_url('/finance_wx_user/index'));
             }else{

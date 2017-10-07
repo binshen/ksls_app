@@ -437,7 +437,7 @@ where a.flag = 1 and a.user_id = ".$this->session->userdata('wx_user_id')."
                 if(file_exists(dirname(SELF).'/uploadfiles/finance/'.$row_['finance_num'].'/'.$v)){
 
                 }else{
-                    $data[$key] = $this->getmedia($v,$app,$appsecret,$row_['finance_num']);
+                    $data[$key] = $this->getmedia($v,$row_['finance_num'],$app,$appsecret);
                 }
             }
         }
