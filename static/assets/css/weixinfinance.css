@@ -94,3 +94,19 @@ ul,li,p{margin: 0;padding:0;}li{list-style: none; }em{font-style:normal;}
 /*.upload-pic .am-f-close img{width: 100%;}*/
 .upload-btn{margin:2rem 0; text-align: center;}
 .upload-btn-a{width:6rem;height: 6rem; display:inline-block; border-radius: 3rem; background-color: #5cb3de;}
+
+
+.am-form-finance .am-sm-fin .am-p-d{margin-top: .5rem;}
+
+.am-form-wrap-finance .am-finance-detail{margin:0 1rem 1rem;padding:1rem;background: #fff;border-radius: 10px;}
+.am-form-wrap-finance .am-form-finance{border:none;margin-bottom:0;}
+.am-form-wrap-finance .am-form-finance .am-form-label{padding:0;}
+.am-form-wrap-finance .am-form-finance .am-sm-fin .am-p-d{margin: 0;}
+
+.no-margin{margin:0;}
+.photo-wrap{margin-bottom: 1rem;overflow: hidden;}
+.photo-inner-wrap{width: 42%; background-color:#fff; float: left; margin:0 0 0 1.5rem; position: relative;}
+.photo-inner-wrap img{width: 100%;}
+.photo-inner-wrap .am-tit{color:#fff;width:100%; display: block; text-align: center; background:linear-gradient(to bottom, rgba(0, 0, 0,0) 0%, rgba(0, 0, 0, 0.56) 98%); background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(rgba(0, 0, 0, 0)), to(rgba(0, 0, 0, 0.8)));}
+.photo-inner-wrap .am-tit1{ position: absolute;bottom: 0;text-align: center; font-size: 1rem;}
+/*.photo-inner-wrap .photo-div{width:100%; height: 10rem; background: #666;}*/
