@@ -134,7 +134,11 @@
 
 
             $('.yy_img_').click(function(){
+
                 url = $(this).attr('src');
+                if(url=="http://temp.im/200x100/fff/000"){
+                    return false;
+                }
                 url = "http://www.funmall.com.cn" + url;
                 wx.previewImage({
                     current:url,
