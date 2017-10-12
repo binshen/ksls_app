@@ -134,7 +134,8 @@
 
 
             $('.yy_img_').click(function(){
-                url = $(this).attr('src')
+                url = $(this).attr('src');
+                url = "http://www.funmall.com.cn" + url;
                 wx.previewImage({
                     current:url,
                     urls:[url]
