@@ -249,4 +249,35 @@ class Finance_wx_user extends Finwx_Controller
         }
 
     }
+
+    public function show_finance_1($id){
+        if($id){
+            $power_ = $this->finance_wx_model->view_power($id);
+            if($power_ != 1){
+                $this->show_message('服务已提交,或无保存权限！',site_url('finance_wx_user/index'));
+            }
+        }else{
+            redirect(site_url('finance_wx_user/index'));
+        }
+        $data = $this->finance_model->get_detail($id);
+        $this->cismarty->assign('data',$data);
+        $this->cismarty->display('finance/weixin/admin-detail.html');
+
+    }
+
+    public function show_finance_2($id){
+        if($id){
+            $power_ = $this->finance_wx_model->view_power($id);
+            if($power_ != 1){
+                $this->show_message('服务已提交,或无保存权限！',site_url('finance_wx_user/index'));
+            }
+        }else{
+            redirect(site_url('finance_wx_user/index'));
+        }
+        $data = $this->finance_model->get_detail($id);
+        $this->cismarty->assign('data',$data);
+        $this->buildWxData();
+        $this->cismarty->display('finance/weixin/admin-picture-detail.html');
+
+    }
 }
