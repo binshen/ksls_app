@@ -37,12 +37,12 @@
             <div class="am-form-group am-form-finance">
                 <label for="doc-ipt-1-1" class="am-form-label">申请状态</label>
                 <div class="am-sm-fin">
-                    <p class="am-p-d">{{if $row.status==1}}未提交
-                        {{elseif $row.status==2}}待审核
-                        {{elseif $row.status==3}}审核通过
-                        {{elseif $row.status==4}}结案
-                        {{elseif $row.status==5}}审核失败
-                        {{elseif $row.status==-1}}关闭
+                    <p class="am-p-d">{{if $data.status==1}}未提交
+                        {{elseif $data.status==2}}待审核
+                        {{elseif $data.status==3}}审核通过
+                        {{elseif $data.status==4}}结案
+                        {{elseif $data.status==5}}审核失败
+                        {{elseif $data.status==-1}}关闭
                         {{else}}{{/if}}</p>
                 </div>
             </div>
