@@ -29,9 +29,6 @@
   </style>
 </head>
 <body style="overflow: auto;">
-
-
-
 <div class="am-cf admin-main" id="wrapper">
   <!-- content start -->
   <div class="admin-content">
@@ -50,7 +47,7 @@
         </div>
       </div>
       {{if $permission_id > 3 && !in_array(12,$position_id)}}
-      <div class="am-data-add" style="margin-top: 5rem;"><a class="am-data-add-icon"><img src="/static/assets/i/jia.png"></a>提交新的金融订单</div>
+      <div class="am-data-add" style="margin-top: 5rem;"><a href="/finance_wx_user/add_finance" class="am-data-add-icon"><img src="/static/assets/i/jia.png"></a>提交新的金融订单</div>
       {{/if}}
       <ul class="am-data-ul" id="events-list">
 
@@ -67,14 +64,10 @@
       </div>
     </div>
 
-    <!--<footer class="admin-content-footer">-->
-      <!--<p class="am-padding-left">© 2017 AllMobilize, Inc. Licensed under MIT license.</p>-->
-    <!--</footer>-->
   </div>
   <!-- content end -->
 
 </div>
-
 </body>
 <script src="http://res.wx.qq.com/open/js/jweixin-1.2.0.js"></script>
 <script>
