@@ -53,7 +53,8 @@ class Finance extends MY_Controller
                             || $method == 'edit_finance_2'
                             || $method == 'save_finance_tj'
                             || $method == 'save_finance_3'
-                            || $method == 'go_finance_1'){
+                            || $method == 'go_finance_1'
+                            || $method == 'finance_list'){
                             redirect(site_url('/finance/finance_list_other'));
                             exit();
                         }
