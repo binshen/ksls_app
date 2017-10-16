@@ -434,7 +434,7 @@ class MY_Model extends CI_Model{
 
     }
 
-    public function wxpost_fin($template_id,$post_data,$user_id,$url='www.funmall.com.cn'){
+    public function wxpost_fin($template_id,$post_data,$user_id,$url_www='www.funmall.com.cn'){
         $this->load->config('wxpay_config');
         $openid = $this->get_openid($user_id);
         if($openid == -1 || empty($openid)){
@@ -447,7 +447,7 @@ class MY_Model extends CI_Model{
         $template = array(
             'touser' => $openid,
             'template_id' => $template_id,
-            'url' => $url,
+            'url' => $url_www,
             'topcolor' => '#7B68EE',
             'data' => $post_data
         );
@@ -465,7 +465,7 @@ class MY_Model extends CI_Model{
 
     }
 
-    public function wxpost_finByOpenid($template_id,$post_data,$openid,$url='www.funmall.com.cn'){
+    public function wxpost_finByOpenid($template_id,$post_data,$openid,$url_www='www.funmall.com.cn'){
         $this->load->config('wxpay_config');
         $access_token = $this->get_token($this->config->item('fin_appid'),$this->config->item('fin_appsecret'));
         $url = "https://api.weixin.qq.com/cgi-bin/message/template/send?access_token=".$access_token;//access_token改成你的有效值
@@ -474,7 +474,7 @@ class MY_Model extends CI_Model{
         $template = array(
             'touser' => $openid,
             'template_id' => $template_id,
-            'url' => $url,
+            'url' => $url_www,
             'topcolor' => '#7B68EE',
             'data' => $post_data
         );
