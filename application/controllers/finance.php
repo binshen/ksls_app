@@ -194,7 +194,7 @@ class Finance extends MY_Controller
             }
         }else{
             $finance_wx_num = time()."_".rand(1000000,9000000);
-            $this->cismarty->assign('finance_wx_num',$finance_wx_num);
+            $this->assign('finance_wx_num',$finance_wx_num);
         }
         $this->display('finance/finance.html');
     }
