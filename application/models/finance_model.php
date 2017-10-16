@@ -342,7 +342,7 @@ class Finance_model extends MY_Model
                 )
             );
             //发送给用户自己
-            $this->wxpost_fin($this->config->item('WX_FIN_SJTJ'),$data_msg,$this->session->userdata('login_user_id'),'www.baidu.com');
+            $this->wxpost_fin($this->config->item('WX_FIN_SJTJ'),$data_msg,$this->session->userdata('login_user_id'),"www.funmall.com.cn/finance_wx_user/show_finance_1/{$detail['id']}");
             //发送给用户的店长,如果用户本身职级大于等于店长,就不做通知
             if($this->session->userdata('login_permission_id') > 4){
                 $data_msg['remark']['value'] = "你的员工 ".$this->session->userdata('login_rel_name')." 成功".$msg_type."提交一单代办业务.";
@@ -359,14 +359,14 @@ class Finance_model extends MY_Model
                 $this->db->where_in('b.subsidiary_id',$this->session->userdata('login_subsidiary_id_array'));
                 $user_list1 = $this->db->get()->result_array();
                 foreach($user_list1 as $item){
-                    $this->wxpost_fin($this->config->item('WX_FIN_SJTJ'),$data_msg,$item['id']);
+                    $this->wxpost_fin($this->config->item('WX_FIN_SJTJ'),$data_msg,$item['id'],"www.funmall.com.cn/finance_wx_user/show_finance_1/{$detail['id']}");
                 }
             }
             //发送给金融服务绑定微信号
             if($detail['borrower_openid']){
                 $data_msg['first']['value'] = "您的金融服务已被提交!";
                 $data_msg['remark']['value'] = "感谢您对我们工作的信任和支持,审核结果会在第一时间通过微信反馈.";
-                $this->wxpost_finByOpenid($this->config->item('WX_FIN_SJTJ'),$data_msg,$detail['borrower_openid'],'www.baidu.com');
+                $this->wxpost_finByOpenid($this->config->item('WX_FIN_SJTJ'),$data_msg,$detail['borrower_openid'],"www.funmall.com.cn/finance_wx_borrower/index");
             }
             //发送给金融管理人员
             $data_msg['first']['value'] = "有一单".$msg_type."提交的金融服务";
@@ -383,7 +383,7 @@ class Finance_model extends MY_Model
             $this->db->where('a.openid is not null');
             $user_list2 = $this->db->get()->result_array();
             foreach($user_list2 as $item2){
-                $this->wxpost_fin($this->config->item('WX_FIN_SJTJ'),$data_msg,$item2['id']);
+                $this->wxpost_fin($this->config->item('WX_FIN_SJTJ'),$data_msg,$item2['id'],"www.funmall.com.cn/finance_wx_user/show_finance_1/{$detail['id']}");
             }
             return 1;
         }
@@ -504,9 +504,9 @@ class Finance_model extends MY_Model
             }
             //发送给金融服务绑定微信号
             if($detail['borrower_openid']){
-                $this->wxpost_finByOpenid($this->config->item('WX_FIN_SJTJ'),$data_msg,$detail['borrower_openid'],'www.baidu.com');
+                $this->wxpost_finByOpenid($this->config->item('WX_FIN_SJTJ'),$data_msg,$detail['borrower_openid'],"www.funmall.com.cn/finance_wx_borrower/index");
             }
-            $this->wxpost_fin($this->config->item('WX_FIN_SJTJ'),$data_msg,$detail['user_id'],'www.baidu.com');
+            $this->wxpost_fin($this->config->item('WX_FIN_SJTJ'),$data_msg,$detail['user_id'],"www.funmall.com.cn/finance_wx_user/show_finance_1/{$detail['id']}");
         }
 
         return $res;
