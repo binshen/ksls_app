@@ -40,7 +40,7 @@
              <div class="div-th"><em></em>基本信息</div>
              <div class="div-bd">
                  <form id="financeForm" method="post" action="/finance/save_finance_1">
-                     <input type="hidden" name="finance_wx_num" value="{{$finance_wx_num|$data.finance_wx_num}}">
+                     <input type="hidden" name="finance_wx_num" value="{{$finance_wx_num|default:$data.finance_wx_num}}">
                     <input type="hidden" name="id" value="{{$data.id|default:''}}" />
                 <table cellpadding="0" cellsapcing="0" class="add-data-table add-data-table1">
                     <tr>
