@@ -120,3 +120,4 @@ ul,li,p{margin: 0;padding:0;}li{list-style: none; }em{font-style:normal;}
 .am-menu .am-menu-span .icon{ display:inline-block;width:2rem;height: 2rem;background: url(../i/menu-list.png) no-repeat; background-size:100%;}
 .am-menu .am-menu-span .icon1{background-image:url(../i/menu-detail.png);}
 .am-menu .am-menu-span a{ color: #999;}
+.am-menu-span1{width: 100%;}
