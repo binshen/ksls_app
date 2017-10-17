@@ -121,3 +121,9 @@ ul,li,p{margin: 0;padding:0;}li{list-style: none; }em{font-style:normal;}
 .am-menu .am-menu-span .icon1{background-image:url(../i/menu-detail.png);}
 .am-menu .am-menu-span a{ color: #999;}
 .am-menu-span1{width: 100%;}
+
+.am-topbar{margin: 0;}
+.share-right{ text-align: right; width: 15rem;height: 12rem; float: right; }
+.share-right img{width: 100%;}
+.erm{clear: both;}.erm{text-align: center;}
+.erm-tips{font-size:1.5rem; text-align: center;padding:1rem 0;}
