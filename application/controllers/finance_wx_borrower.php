@@ -34,9 +34,15 @@ class Finance_wx_borrower extends Finwx_Controller
         $id = $this->session->userdata('wx_finance_id');
         $data = $this->finance_model->get_detail($id);
         $this->cismarty->assign('data',$data);
-        $this->cismarty->display('finance/weixin/borrower-detail.html');
+        $this->cismarty->display('finance/weixin/borrower-plan.html');
     }
 
+    public function detail(){
+        $id = $this->session->userdata('wx_finance_id');
+        $data = $this->finance_model->get_detail($id);
+        $this->cismarty->assign('data',$data);
+        $this->cismarty->display('finance/weixin/borrower-detail.html');
+    }
     public function prcture(){
         $id = $this->session->userdata('wx_finance_id');
         $data = $this->finance_model->get_detail($id);
