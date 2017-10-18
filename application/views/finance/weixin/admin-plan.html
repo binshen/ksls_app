@@ -68,39 +68,42 @@
         {{/if}}
 
     </div>
-    <div class="finance-plan">
-      <ul class="f-r-tit">
-          {{if $data.result}}
-          {{if $data.type1flag.num > 0}}
-          <li class="li-tit">信用贷款</li>
-          {{foreach from=$data.result item=item key=myId}}
+      {{if $data.status==3}}
+      <div class="finance-plan">
+          <ul class="f-r-tit">
+              {{if $data.result}}
+              {{if $data.type1flag.num > 0}}
+              <li class="li-tit">信用贷款</li>
+              {{foreach from=$data.result item=item key=myId}}
 
-          {{if $item.type == 1}}
-          <li>
-              <div class="plan-list plan-list1"><span class="money">{{$item.ed|default:'-'}}万</span><span>额度</span></div>
-              <div class="plan-list plan-list2"><span class="rates">年化{{$item.nh|default:'-'}}</span><span>利息</span></div>
-              <div class="plan-list plan-list3"><span class="rates">{{$item.minzq|default:''}}-{{$item.maxzq|default:''}}期</span><span>周期</span></div>
-          </li>
-          {{/if}}
-          {{/foreach}}
-          {{/if}}
-          {{if $data.type2flag.num > 0}}
-          <li class="li-tit">抵押贷款</li>
-          {{foreach from=$data.result item=item key=myId}}
+              {{if $item.type == 1}}
+              <li>
+                  <div class="plan-list plan-list1"><span class="money">{{$item.ed|default:'-'}}万</span><span>额度</span></div>
+                  <div class="plan-list plan-list2"><span class="rates">年化{{$item.nh|default:'-'}}</span><span>利息</span></div>
+                  <div class="plan-list plan-list3"><span class="rates">{{$item.minzq|default:''}}-{{$item.maxzq|default:''}}期</span><span>周期</span></div>
+              </li>
+              {{/if}}
+              {{/foreach}}
+              {{/if}}
+              {{if $data.type2flag.num > 0}}
+              <li class="li-tit">抵押贷款</li>
+              {{foreach from=$data.result item=item key=myId}}
 
-          {{if $item.type == 2}}
-          <li>
-              <div class="plan-list plan-list1"><span class="money">{{$item.ed|default:'-'}}万</span><span>额度</span></div>
-              <div class="plan-list plan-list2"><span class="rates">年化{{$item.nh|default:'-'}}</span><span>利息</span></div>
-              <div class="plan-list plan-list3"><span class="rates">{{$item.minzq|default:''}}-{{$item.maxzq|default:''}}期</span><span>周期</span></div>
-          </li>
-          {{/if}}
-          {{/foreach}}
-          {{/if}}
+              {{if $item.type == 2}}
+              <li>
+                  <div class="plan-list plan-list1"><span class="money">{{$item.ed|default:'-'}}万</span><span>额度</span></div>
+                  <div class="plan-list plan-list2"><span class="rates">年化{{$item.nh|default:'-'}}</span><span>利息</span></div>
+                  <div class="plan-list plan-list3"><span class="rates">{{$item.minzq|default:''}}-{{$item.maxzq|default:''}}期</span><span>周期</span></div>
+              </li>
+              {{/if}}
+              {{/foreach}}
+              {{/if}}
 
-          {{/if}}
-      </ul>
-    </div>
+              {{/if}}
+          </ul>
+      </div>
+      {{/if}}
+
 
   </div>
 </div>
