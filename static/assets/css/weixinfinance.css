@@ -127,3 +127,16 @@ ul,li,p{margin: 0;padding:0;}li{list-style: none; }em{font-style:normal;}
 .share-right img{width: 100%;}
 .erm{clear: both;}.erm{text-align: center;}
 .erm-tips{font-size:1.5rem; text-align: center;padding:1rem 0;}
+
+.finance-result{background: #fff;padding:3rem 0;margin-bottom: 2rem;}
+.finance-result .p-res1{padding-bottom: .5rem;text-align: center;font-size:3rem;color:#666;}
+.finance-result .p-res2{padding:0 2rem; color:#666;text-align: center;}
+.finance-plan{padding:1rem;background: #fff; }
+.finance-result .p-icon{ text-align: center; }
+.finance-result .p-icon img{}
+.finance-plan .f-r-tit .li-tit{ font-weight: bold; line-height: 3rem;padding:1rem;}
+.finance-plan .f-r-tit li{border-bottom:1px solid #ddd; overflow: hidden;padding:1rem;}
+.finance-plan .f-r-tit .plan-list{width:30%; float: left; line-height: 3rem;}
+.finance-plan .f-r-tit .plan-list span{display: block; text-align: center; color: #aeadad;}
+.finance-plan .f-r-tit .plan-list .money{font-size:2rem; color: #ff5200;}
+.finance-plan .f-r-tit .plan-list .rates{font-size:2rem;color:#545454;}

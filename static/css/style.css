@@ -1001,7 +1001,7 @@ html .fc,.fc table{font-size:1em;background:#f2f3f5}.fc td,.fc th{padding:0;vert
 .f_result_bd .s_p1{font-size: 14px; line-height: 24px;padding:0 100px;}.f_result_bd .s_p1 .fz18{font-size:18px; }
 
 .f_result_txt{border:1px solid #e7e7e7; background: #fcfcfc; padding:20px 40px 0;width:444px; margin:20px 0 0 100px;}
-.f_result_txt .s_f_r_tit{ display: block; font-size: 14px;}
+.f_result_txt .s_f_r_tit{ display: block; font-size: 14px;padding:10px 0 5px;}
 .f_result_txt .f_result_ul{padding:15px 0; height:55px;border-bottom:2px solid #e6e6e6;}
 .f_result_txt .f_result_ul li{ padding:0 40px; float: left; color:#cdcdcd; line-height: 26px;border-right: 1px dotted #eaeaea;}
 .f_result_txt .f_result_ul .li1{}
