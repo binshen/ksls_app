@@ -14,6 +14,8 @@
   <meta name="apple-mobile-web-app-title" content="Amaze UI" />
   <link rel="stylesheet" href="/static/assets/css/amazeui.min.css"/>
   <link rel="stylesheet" href="/static/assets/css/weixinfinance.css">
+    <script src="/static/assets/js/jquery.min.js"></script>
+    <script src="/static/assets/js/amazeui.min.js"></script>
 </head>
 <body>
 <!--[if lte IE 9]>
@@ -26,8 +28,15 @@
 <div class="admin-content">
   <div class="admin-content-body">
     <div class="finance-result">
-      <p class="p-icon"><img src="/static/assets/i/lose-res.png" alt=""></p>
-<!--       <p class="p-icon"><img src="/static/assets/i/over-res.png" alt=""></p>//结案
+        {{if $data.status==1}}<p class="p-icon"><img src="/static/assets/i/wtj-res.png" alt=""></p>{{/if}}
+        {{if $data.status==2}}<p class="p-icon"><img src="/static/assets/i/lose-res.png" alt=""></p>{{/if}}
+        {{if $data.status==3}}<p class="p-icon"><img src="/static/assets/i/success-res.png" alt=""></p>{{/if}}
+        {{if $data.status==4}}<p class="p-icon"><img src="/static/assets/i/over-res.png" alt=""></p>{{/if}}
+        {{if $data.status==5}}<p class="p-icon"><img src="/static/assets/i/fail-res.png" alt=""></p>{{/if}}
+        {{if $data.status==-1}} <p class="p-icon"><img src="/static/assets/i/end-res.png" alt=""></p>{{/if}}
+
+<!--        <p class="p-icon"><img src="/static/assets/i/lose-res.png" alt=""></p>
+<p class="p-icon"><img src="/static/assets/i/over-res.png" alt=""></p>//结案
       <p class="p-icon"><img src="/static/assets/i/success-res.png" alt=""></p>//成功
       <p class="p-icon"><img src="/static/assets/i/wtj-res.png" alt=""></p>//未提交
       <p class="p-icon"><img src="/static/assets/i/fail-res.png" alt=""></p>//未通过
@@ -39,44 +48,44 @@
     </div>
     <div class="finance-plan">
       <ul class="f-r-tit">
+          {{if $data.result}}
+          {{if $data.type1flag.num > 0}}
           <li class="li-tit">信用贷款</li>
+          {{foreach from=$data.result item=item key=myId}}
+
+          {{if $item.type == 1}}
           <li>
-            <div class="plan-list plan-list1"><span class="money">20万</span><span>额度</span></div>
-            <div class="plan-list plan-list2"><span class="rates">年化10%</span><span>利息</span></div>
-            <div class="plan-list plan-list3"><span class="rates">1-6期</span><span>周期</span></div>
+              <div class="plan-list plan-list1"><span class="money">{{$item.ed|default:'-'}}万</span><span>额度</span></div>
+              <div class="plan-list plan-list2"><span class="rates">年化{{$item.nh|default:'-'}}</span><span>利息</span></div>
+              <div class="plan-list plan-list3"><span class="rates">{{$item.minzq|default:''}}-{{$item.maxzq|default:''}}期</span><span>周期</span></div>
           </li>
-          <li>
-            <div class="plan-list plan-list1"><span class="money">200万</span><span>额度</span></div>
-            <div class="plan-list plan-list2"><span class="rates">年化10%</span><span>利息</span></div>
-            <div class="plan-list plan-list3"><span class="rates">1-12期</span><span>周期</span></div>
-          </li>
+          {{/if}}
+          {{/foreach}}
+          {{/if}}
+          {{if $data.type2flag.num > 0}}
           <li class="li-tit">抵押贷款</li>
+          {{foreach from=$data.result item=item key=myId}}
+
+          {{if $item.type == 2}}
           <li>
-            <div class="plan-list plan-list1"><span class="money">20万</span><span>额度</span></div>
-            <div class="plan-list plan-list2"><span class="rates">年化10%</span><span>利息</span></div>
-            <div class="plan-list plan-list3"><span class="rates">1-6期</span><span>周期</span></div>
+              <div class="plan-list plan-list1"><span class="money">{{$item.ed|default:'-'}}万</span><span>额度</span></div>
+              <div class="plan-list plan-list2"><span class="rates">年化{{$item.nh|default:'-'}}</span><span>利息</span></div>
+              <div class="plan-list plan-list3"><span class="rates">{{$item.minzq|default:''}}-{{$item.maxzq|default:''}}期</span><span>周期</span></div>
           </li>
-          <li>
-            <div class="plan-list plan-list1"><span class="money">200万</span><span>额度</span></div>
-            <div class="plan-list plan-list2"><span class="rates">年化10%</span><span>利息</span></div>
-            <div class="plan-list plan-list3"><span class="rates">1-12期</span><span>周期</span></div>
-          </li>
+          {{/if}}
+          {{/foreach}}
+          {{/if}}
+
+          {{/if}}
       </ul>
     </div>
 
   </div>
 </div>
-<!-- content end -->
+    {{include file="finance/weixin/admin-menu.html"}}
 
 </div>
 
-
-
-<!--[if lt IE 9]>
-<script src="http://libs.baidu.com/jquery/1.11.1/jquery.min.js"></script>
-<script src="http://cdn.staticfile.org/modernizr/2.8.3/modernizr.js"></script>
-<script src="assets/js/amazeui.ie8polyfill.min.js"></script>
-<![endif]-->
 
 
 </body>
