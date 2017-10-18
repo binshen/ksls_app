@@ -12,8 +12,10 @@
   <link rel="icon" type="image/png" href="assets/i/favicon.png">
   <link rel="apple-touch-icon-precomposed" href="assets/i/app-icon72x72@2x.png">
   <meta name="apple-mobile-web-app-title" content="Amaze UI" />
-  <link rel="stylesheet" href="assets/css/amazeui.min.css"/>
-  <link rel="stylesheet" href="assets/css/app.css">
+    <link rel="stylesheet" href="/static/assets/css/amazeui.min.css"/>
+    <link rel="stylesheet" href="/static/assets/css/weixinfinance.css">
+    <script src="/static/assets/js/jquery.min.js"></script>
+    <script src="/static/assets/js/amazeui.min.js"></script>
 </head>
 <body>
 <!--[if lte IE 9]>
@@ -24,9 +26,9 @@
 <div class="am-cf admin-main">
 <!-- content start -->
 <div class="admin-content">
-    <p class="share-right"><img src="assets/i/share_img.png" alt=""></p>
+    <p class="share-right"><img src="/static/assets/i/share_img.png" alt=""></p>
     <div class="erm">
-      <img src="http://temp.im/200x200/000/fff" alt="">
+      <img src="{{site_url url='finance_wx_user/show_img'}}/{{$result}}" alt="">
     </div>
     <p class="erm-tips">有效期一小时</p>
 </div>
@@ -36,16 +38,73 @@
 
 
 
-<!--[if lt IE 9]>
-<script src="http://libs.baidu.com/jquery/1.11.1/jquery.min.js"></script>
-<script src="http://cdn.staticfile.org/modernizr/2.8.3/modernizr.js"></script>
-<script src="assets/js/amazeui.ie8polyfill.min.js"></script>
-<![endif]-->
 
-<!--[if (gte IE 9)|!(IE)]><!-->
-<script src="assets/js/jquery.min.js"></script>
-<!--<![endif]-->
-<script src="assets/js/amazeui.min.js"></script>
-<script src="assets/js/app.js"></script>
 </body>
 </html>
+<script type="text/javascript" src="/assets/js/layer/layer.js"></script>
+<script src="http://res.wx.qq.com/open/js/jweixin-1.2.0.js"></script>
+<script>
+    $(function(){
+        // alert('asd');
+
+        wx.config({
+            debug: false, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
+            appId: '{{$wxappId}}', // 必填，公众号的唯一标识
+            timestamp: {{$wxtimestamp}}, // 必填，生成签名的时间戳
+        nonceStr: '{{$wxnonceStr}}', // 必填，生成签名的随机串
+                signature: '{{$wxsignature}}',// 必填，签名，见附录1
+                jsApiList: ['chooseImage','uploadFile','checkJsApi','uploadImage','onMenuShareAppMessage','hideMenuItems'] // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
+    });
+
+        wx.checkJsApi({
+            jsApiList: [
+                'chooseImage','onMenuShareAppMessage'
+            ],
+            success: function (res) {
+                alert(JSON.stringify(res));
+                // alert(JSON.stringify(res.checkResult.getLocation));
+                if (res.checkResult.getLocation == false) {
+                    alert('你的微信版本太低，不支持微信JS接口，请升级到最新的微信版本！');
+                    return;
+                }
+            }
+        });
+        wx.ready(function () {
+
+            wx.hideMenuItems({
+                menuList: ['menuItem:share:qq',
+                    'menuItem:share:weiboApp',
+                    'menuItem:favorite',
+                    'menuItem:share:facebook',
+                    'menuItem:share:timeline',
+                    'menuItem:editTag',
+                    'menuItem:delete',
+                    'menuItem:copyUrl',
+                    'menuItem:originPage',
+                    'menuItem:readMode',
+                    'menuItem:openWithQQBrowser',
+                    'menuItem:openWithSafari',
+                    'menuItem:share:email',
+                    'menuItem:share:brand',
+                    'menuItem:share:QZone'], // 要隐藏的菜单项，只能隐藏“传播类”和“保护类”按钮，所有menu项见附录3
+                success:function(res){
+                    //alert("隐藏");
+                }
+            });
+            wx.onMenuShareAppMessage({
+                title:"房猫宅急递",
+                desc:"金融服务推送",
+                link:"http://www.funmall.com.cn/finance_wx/code_login/{{$result}}",
+                imgUrl:"http://www.funmall.com.cn/static/assets/i/logo.png",
+                type:"",
+                success:function(){
+
+                },
+                cancel:function(){
+
+                }
+            })
+        })
+
+    })
+</script>

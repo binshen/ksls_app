@@ -280,4 +280,42 @@ class Finance_wx_user extends Finwx_Controller
         $this->cismarty->display('finance/weixin/admin-picture-detail.html');
 
     }
+
+    public function set_base_code($id){
+
+        require_once (APPPATH . 'libraries/Base64.php');
+        $uid = 'FIN_'.$id.'_'.time();
+        //$uid = base64_encode($uid);
+        $uid = base64::encrypt($uid, $this->config->item('token_key'));
+        return base64_encode($uid);
+
+    }
+
+    public function show_code($id){
+        if($id){
+            $power_ = $this->finance_wx_model->view_power($id);
+            if($power_ != 1){
+                $this->show_message('服务已提交,或无保存权限！',site_url('finance_wx_user/index'));
+            }
+        }else{
+            redirect(site_url('finance_wx_user/index'));
+        }
+        $code = $this->set_base_code($id);
+        $this->cismarty->assign('finance_id', $id);
+        $this->cismarty->assign('result', urlencode($code));
+        $this->load->config('wxpay_config');
+        $this->buildWxData();
+        $this->cismarty->assign('url_base', $this->config->item('base_url_wx'));
+        $this->cismarty->display('finance/weixin/admin-ewm.html');
+    }
+
+    public function show_img($id){
+        //$code = $this->set_base_code($id);
+        $this->load->config('wxpay_config');
+        require_once (APPPATH . 'libraries/phpqrcode.php');
+        $value = $this->config->item('base_url_wx').'/finance_wx/code_login/'.$id; //二维码内容
+//生成二维码图片
+        QRcode::png($value);
+
+    }
 }
