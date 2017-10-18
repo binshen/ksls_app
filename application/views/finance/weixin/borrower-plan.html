@@ -41,10 +41,30 @@
       <p class="p-icon"><img src="/static/assets/i/wtj-res.png" alt=""></p>//未提交
       <p class="p-icon"><img src="/static/assets/i/fail-res.png" alt=""></p>//未通过
       <p class="p-icon"><img src="/static/assets/i/end-res.png" alt=""></p> //终止-->
+        {{if $data.status==1}}
+        <p class="p-res1">您的申请还未提交</p>
+        <p class="p-res2">请完善资料后进行提交,等待平台审核。</p>
+        {{/if}}
+        {{if $data.status==2}}
+        <p class="p-res1">您的申请提交成功</p>
+        <p class="p-res2">等待平台审核，我们会在三个工作日内给您回复。</p>
+        {{/if}}
         {{if $data.status==3}}
-        <p class="p-res1">喜您，您的审核已通过</p>
+        <p class="p-res1">恭喜您，您的审核已通过</p>
         <p class="p-res2">以下为平台为您推荐的贷款方案，平台客服人员将在近期联系您进行后续签约解答。
             请您保持手机接听通畅。</p>
+        {{/if}}
+        {{if $data.status==4}}
+        <p class="p-res1">您的金融服务已结案</p>
+        <p class="p-res2">感谢您对我们工作的信任和支持.</p>
+        {{/if}}
+        {{if $data.status==5}}
+        <p class="p-res1">抱歉，您的审核未被平台受理</p>
+        <p class="p-res2">原因如下：{{$data.meno_text}}</p>
+        {{/if}}
+        {{if $data.status==-1}}
+        <p class="p-res1">抱歉，您的申请已被平台关闭</p>
+        <p class="p-res2">原因如下：{{$data.meno_text}}</p>
         {{/if}}
 
     </div>
