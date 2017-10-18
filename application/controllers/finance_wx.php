@@ -60,17 +60,22 @@ class Finance_wx extends Finwx_Controller
         $access_token = $this->finance_wx_model->get_token($this->wxconfig['appid'],$this->wxconfig['appsecret']);
         $rs = file_get_contents("https://api.weixin.qq.com/cgi-bin/user/info?access_token={$access_token}&openid={$this->session->userdata('openid')}&lang=zh_CN");
         $rs = json_decode($rs,true);
-        if($rs['subscribe'] != 1){
-            $img_url = $this->get_or_create_ticket($access_token);
-            $this->cismarty->assign('img_url',$img_url);
-            $this->cismarty->display('finance/wx_guanzhu.html');
-            exit();
-        }
+
         if(!$code){
             $code = $this->input->post('finance_wx_num');
         }
         $code = urldecode($code);
         $finance_id = $this->set_base_code($code);
+
+        if($rs['subscribe'] != 1){
+            $res = $this->finance_wx_model->code_login($finance_id);
+            $img_url = $this->get_or_create_ticket($access_token);
+            redirect($img_url);
+            //$this->cismarty->assign('img_url',$img_url);
+            //$this->cismarty->display('finance/wx_guanzhu.html');
+            exit();
+        }
+
         if($finance_id==-1){
             $this->cismarty->assign('tabs',0);
             $this->cismarty->assign('flag',-4);
