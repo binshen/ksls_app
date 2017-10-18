@@ -70,9 +70,9 @@ class Finance_wx extends Finwx_Controller
         if($rs['subscribe'] != 1){
             $res = $this->finance_wx_model->code_login($finance_id);
             $img_url = $this->get_or_create_ticket($access_token);
-            redirect($img_url);
-            //$this->cismarty->assign('img_url',$img_url);
-            //$this->cismarty->display('finance/wx_guanzhu.html');
+            //redirect($img_url);
+            $this->cismarty->assign('img_url',$img_url);
+            $this->cismarty->display('finance/wx_guanzhu.html');
             exit();
         }
 
