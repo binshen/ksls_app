@@ -8,7 +8,7 @@
 			{{if $row.borrowing_amount==2}}40万{{/if}}
 			{{if $row.borrowing_amount==3}}30万{{/if}}</em></span>
 	</p>
-	<div class="fix"><div class="am-opration"><a href="{{$row.id}}" target="_blank" class="more">详情</a>
+	<div class="fix"><div class="am-opration"><a href="/finance_wx_user/show_plan/{{$row.id}}" target="_blank" class="more">详情</a>
 		{{if $permission_id > 3 && !in_array(12,$position_id)}}
 		{{if $row.status==1 || $row.status == 5}}
 		{{if $row.user_id == $user_id}}
