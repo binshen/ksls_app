@@ -140,3 +140,26 @@ ul,li,p{margin: 0;padding:0;}li{list-style: none; }em{font-style:normal;}
 .finance-plan .f-r-tit .plan-list span{display: block; text-align: center; color: #aeadad;}
 .finance-plan .f-r-tit .plan-list .money{font-size:2rem; color: #ff5200;}
 .finance-plan .f-r-tit .plan-list .rates{font-size:2rem;color:#545454;}
+
+.am-finance-approve-top{ overflow: hidden;background: #fff;padding:1rem 2rem;margin-bottom: 1rem;}
+.approve-tit{ font-size:1.5rem; float: left;}
+.approve-tit em{width:2rem;margin-right:.5rem; display:inline-block;}.approve-tit em img{width:100%;}
+
+.add-approve{float: right; width:8rem;}.add-approve-btn{ display: block;width:100%;}.add-approve-btn img{width: 100%;}
+.approve-list{ background: #fff; position: relative; padding:1rem 2rem;margin-bottom: .5rem;}
+.approve-list-data{overflow: hidden;margin-bottom: .8rem;}
+.approve-list-data:last-child{margin-bottom: 1rem;}
+.ap-remove-icon{width:2rem;height: 2rem; background: url(../i/sh_icon2.png) no-repeat; background-size:100%; display: block; position: absolute;top:5rem;right:2rem;}
+.ap-list-icon{ position:absolute; width:.5rem; height: 1rem; background: #fdac08; top:42px;left:0;}
+.approve-list .ap-list-tit{float: left;font-size:1.5rem;padding-top: .6rem;width: 4rem;}
+.approve-list .am-sm-fin{float: left; color: #989898;}
+.approve-list .am-sm-fin .am-radio{float: left;font-size:1.5rem; margin-right: 1rem;}
+.approve-list .am-sm-fin .am-approve-field{padding:.5rem;border:none; border-bottom: 2px solid #fcac08; width: 4rem; float: left;}
+.approve-list .ap-txt{padding: .5rem 2rem 0 .5rem; display: inline-block;color: #989898;}
+.approve-list-data .am-approve-select{border:none; border-bottom:2px solid #fcac08; width:10rem;color: #989898;float: left; text-align: center;}
+.approve-describe{background: #fff; padding:2rem;}
+.approve-de-icon{width:2rem;margin-right:.5rem; display:inline-block;}.approve-de-icon img{width: 100%;}
+.approve-area{margin-top: 1rem;}
+.approve-textarea{width:100%; }
+.submit-btn-p{margin-top: 1rem;}
+.submit-btn{border-radius:5px; font-size: 2rem;width:10rem; height: 3rem; line-height: 3rem; float: right; text-align: center; background: #fcac08; color: #fff;}
