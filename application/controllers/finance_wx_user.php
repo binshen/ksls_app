@@ -265,6 +265,22 @@ class Finance_wx_user extends Finwx_Controller
         }
     }
 
+    public function status_finance_save(){
+        $position_id = $this->session->userdata('login_position_id_array');
+        $permission_id = $this->session->userdata('login_permission_id');
+        if($permission_id == 1 || in_array(12,$position_id)){
+
+        }else{
+            redirect(site_url('/'));
+        }
+        if(!$id = $this->input->post('finance_id'))
+            redirect(site_url('/'));
+        if(!in_array($this->input->post("status"),array(2,3,4,5,-1)))
+            redirect(site_url('/'));
+        $res = $this->finance_wx_model->status_finance_save();
+        redirect(site_url('/finance_wx_user/index'));
+    }
+
     public function show_finance_1($id){
         if($id){
             $power_ = $this->finance_wx_model->view_power($id);
