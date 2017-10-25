@@ -250,6 +250,21 @@ class Finance_wx_user extends Finwx_Controller
 
     }
 
+    public function approve($id){
+        if($id){
+            redirect(site_url('finance_wx_user/index'));
+        }
+        $position_id = $this->session->userdata('wx_position_id_array');
+        $permission_id = $this->session->userdata('wx_permission_id');
+        if($permission_id == 1 || in_array(12,$position_id)){
+            $data = $this->finance_model->get_detail($id);
+            $this->cismarty->assign('data',$data);
+            $this->cismarty->display('finance/weixin/admin-approve.html');
+        }else{
+            redirect(site_url('finance_wx_user/index'));
+        }
+    }
+
     public function show_finance_1($id){
         if($id){
             $power_ = $this->finance_wx_model->view_power($id);

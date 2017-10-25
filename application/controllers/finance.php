@@ -349,6 +349,13 @@ class Finance extends MY_Controller
     }
 
     public function status_finance_save(){
+        $position_id = $this->session->userdata('login_position_id_array');
+        $permission_id = $this->session->userdata('login_permission_id');
+        if($permission_id == 1 || in_array(12,$position_id)){
+
+        }else{
+            redirect(site_url('/'));
+        }
         if(!$id = $this->input->post('finance_id'))
             redirect(site_url('/'));
         if(!in_array($this->input->post("status"),array(2,3,4,5,-1)))
