@@ -131,6 +131,7 @@ ul,li,p{margin: 0;padding:0;}li{list-style: none; }em{font-style:normal;}
 .finance-result{background: #fff;padding:3rem 0;margin-bottom: 2rem;}
 .finance-result .p-res1{padding-bottom: .5rem;text-align: center;font-size:3rem;color:#666;}
 .finance-result .p-res2{padding:0 2rem; color:#666;text-align: center;}
+.finance-result .p-res3{ text-align: center;}
 .finance-plan{padding:1rem;background: #fff; }
 .finance-result .p-icon{ text-align: center; }
 .finance-result .p-icon img{}
