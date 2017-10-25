@@ -3,7 +3,7 @@
 .fix:after{content: ''; visibility: hidden; display: block; clear: both;}
 ul,li,p{margin: 0;padding:0;}li{list-style: none; }em{font-style:normal;}
 
-.admin-content-body{background-color: #f4f5f7;}
+.admin-content-body{background-color: #f4f5f7; padding-bottom:7rem;}
 .am-ind-top{ padding-top:1.6rem; background-color: #fff;}
 .am-ind-top-ul {margin:4.5rem 0 .5rem;padding: 1.5rem 0 1rem;}
 .am-ind-top-ul li{text-align: center; font-size:.48rem; color:#333;width:16.6%; float: left;}
@@ -81,7 +81,7 @@ ul,li,p{margin: 0;padding:0;}li{list-style: none; }em{font-style:normal;}
 .am-form-finance .am-form-identity{font-size:1.3rem;}
 .am-form-finance .am-sm-fin .am-radio{float: left;width:40%;font-size: 1.6rem;}
 .am-form-finance .am-sm-fin .doc-select{width: 100%;border:none; background: none; }
-.finance-btn-p{text-align: center;margin: 2rem 0;}
+.finance-btn-p{text-align: center;margin-top: 2rem;}
 .finance-btn{padding:.5rem 2rem ; color: #fff; display: inline-block; background-color: #d85d5d; border-radius: 5px;}
 .am-form-finance .am-sm-fin-two{margin-top: 1.8rem}
 
@@ -120,7 +120,7 @@ ul,li,p{margin: 0;padding:0;}li{list-style: none; }em{font-style:normal;}
 .am-menu .am-menu-span .icon{ display:inline-block;width:2rem;height: 2rem;background: url(../i/menu-list.png) no-repeat; background-size:100%;}
 .am-menu .am-menu-span .icon1{background-image:url(../i/menu-detail.png);}
 .am-menu .am-menu-span a{ color: #999;}
-.am-menu-span1{width: 100%;}
+.am-menu .am-menu-span1{width: 100%;}
 
 .am-topbar{margin: 0;}
 .share-right{ text-align: right; width: 15rem;height: 12rem; float: right; }
