@@ -537,6 +537,87 @@ where a.flag = 1 and a.user_id = ".$this->session->userdata('wx_user_id')."
         }
     }
 
+    public function status_finance_save(){
+        $old_detail = $this->db->from('finance')->where('id',$this->input->post('finance_id'))->get()->row_array();
+        $data = array(
+            "status"=>$this->input->post("status"),
+            "meno_text"=>$this->input->post("meno_text")
+        );
+        switch ($data['status']){
+            case 3:
+            case 5:
+                $data['check_date']=date('Y-m-d H:i:s');
+                break;
+            case 4:
+            case -1:
+                $data['end_date']=date('Y-m-d H:i:s');
+                break;
+        }
+        $res = $this->db->where('id',$this->input->post('finance_id'))->update('finance',$data);
+        $this->db->where('finance_id',$this->input->post('finance_id'))->delete('finance_result');
+        $ed_arr = $this->input->post('ed');
+        $nh_arr = $this->input->post('nh');
+        $minzq_arr = $this->input->post('minzq');
+        $maxzq_arr = $this->input->post('maxzq');
+        //$type_arr = $this->input->post('type');
+        if($ed_arr && is_array($ed_arr)){
+            foreach($ed_arr as $idx => $ed) {
+                $fin_res = array(
+                    'finance_id' => $this->input->post('finance_id'),
+                    'ed' => $ed,
+                    'nh' => $nh_arr[$idx],
+                    'minzq' => $minzq_arr[$idx],
+                    'maxzq' => $maxzq_arr[$idx],
+                    'type' => $this->input->post('type'.$idx),
+                );
+                $this->db->insert('finance_result', $fin_res);
+            }
+        }
+        //发送微信通知
+        $detail = $this->db->from('finance')->where('id',$this->input->post('finance_id'))->get()->row_array();;
+        if($old_detail['status'] != $detail['status']){
+            $data_msg = array(
+                'first' => array('value' => "金融服务提交成功!", 'color' => '#FF0000'),
+                'keyword1' => array('value' => $detail['finance_num'], 'color' => '#FF0000'),
+                'keyword2' => array('value' => date('Y-m-d H:i:s'), 'color' => '#FF0000'),
+                'remark' => array('value' => '感谢你对我们工作的信任', 'color' => '#FF0000')
+            );
+            switch($detail['status']){
+                case 2://待审核
+                    $data_msg['first']['value'] = "您的金融服务已被提交!";
+                    $data_msg['remark']['value'] = "感谢你对我们工作的信任和支持!";
+                    break;
+                case 3://审核通过
+                    $data_msg['first']['value'] = "恭喜!您的金融服务已审核通过!";
+                    $data_msg['remark']['value'] = "请留意平台的金融方案,我们会尽快与您联系.感谢你对我们工作的信任和支持!";
+                    break;
+                case 4://结案
+                    $data_msg['first']['value'] = "您的金融服务已顺利结案.";
+                    $data_msg['remark']['value'] = "感谢你对我们工作的信任和支持!";
+                    break;
+                case 5://审核不通过
+                    $data_msg['first']['value'] = "很抱歉,您提交的金融服务未通过平台审核!";
+                    $data_msg['remark']['value'] = "请仔细阅读审核信息,修改申请信息后可再次提交申请.";
+                    break;
+                case -1://关闭
+                    $data_msg['first']['value'] = "很抱歉,您提交的金融服务已被关闭!";
+                    $data_msg['remark']['value'] = "";
+                    break;
+                default:
+                    $data_msg['first']['value'] = "金融服务";
+                    $data_msg['remark']['value'] = "感谢你对我们工作的信任和支持!";
+                    break;
+            }
+            //发送给金融服务绑定微信号
+            if($detail['borrower_openid']){
+                $this->wxpost_finByOpenid($this->config->item('WX_FIN_SJTJ'),$data_msg,$detail['borrower_openid'],"www.funmall.com.cn/finance_wx_borrower/index");
+            }
+            $this->wxpost_fin($this->config->item('WX_FIN_SJTJ'),$data_msg,$detail['user_id'],"www.funmall.com.cn/finance_wx_user/show_finance_1/{$detail['id']}");
+        }
+
+        return $res;
+    }
+
     private function getmedia($media_id,$finance_num,$app,$appsecret){
         $accessToken = $this->get_token($app,$appsecret);
         $url = "http://file.api.weixin.qq.com/cgi-bin/media/get?access_token=".$accessToken."&media_id=".$media_id;

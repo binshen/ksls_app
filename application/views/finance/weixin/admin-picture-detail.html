@@ -90,6 +90,11 @@
 
 <!--         <p class="finance-btn-p"><a href="" class="finance-btn">下一页</a></p> -->
       <a href="/finance_wx_user/show_finance_1/{{$data.id|default:''}}" class="am-btn am-btn-primary am-btn-block am-btn-xl am-round">上一页</a>
+      {{if $data.status != 1}}
+      {{if $permission_id == 1 || in_array(12,$position_id)}}
+      <a href="/finance_wx_user/approve/{{$data.id|default:''}}" class="am-btn am-btn-default am-btn-block am-btn-xl am-round">审核页面</a>
+      {{/if}}
+      {{/if}}
       <!--<a href="/finance_wx_user/index" class="am-btn am-btn-default am-btn-block am-btn-xl am-round">返回首页</a> -->
     </div>
  </div>
