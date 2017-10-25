@@ -4,9 +4,7 @@
 	<p class="data-list-2">
 		<span class="span-list"><em class="am-icon-list-alt"></em> 编 号：<em class="txt">{{$row.finance_num}}</em></span>
 		<span class="span-list"><em class="am-icon-phone-square"></em> 联系方式：<em class="txt">{{$row.borrower_phone}}</em></span>
-		<span class="span-list"><em class="am-icon-money"></em> 可贷额度：<em class="txt">{{if $row.borrowing_amount==1}}50万{{/if}}
-			{{if $row.borrowing_amount==2}}40万{{/if}}
-			{{if $row.borrowing_amount==3}}30万{{/if}}</em></span>
+		<span class="span-list"><em class="am-icon-money"></em> 可贷额度：<em class="txt">{{$row.borrowing_amount|default:''}}万</em></span>
 	</p>
 	<div class="fix"><div class="am-opration"><a href="/finance_wx_user/show_plan/{{$row.id}}" target="_blank" class="more">详情</a>
 		{{if $permission_id > 3 && !in_array(12,$position_id)}}

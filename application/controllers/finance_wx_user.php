@@ -251,7 +251,7 @@ class Finance_wx_user extends Finwx_Controller
     }
 
     public function approve($id){
-        if($id){
+        if(!$id){
             redirect(site_url('finance_wx_user/index'));
         }
         $position_id = $this->session->userdata('wx_position_id_array');
