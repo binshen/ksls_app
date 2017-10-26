@@ -29,8 +29,8 @@ class Finance_wx extends Finwx_Controller
 
         $this->assign('tabs',0);
         $this->assign('flag',1);
-        $this->display('finance/login.html');
-
+        //$this->display('finance/login.html');
+        $this->display('finance/weixin/admin-login.html');
     }
 
     public function user_login(){
@@ -40,7 +40,8 @@ class Finance_wx extends Finwx_Controller
         }else{
             $this->cismarty->assign('tabs',1);
             $this->cismarty->assign('flag',-1);
-            $this->cismarty->display('finance/login.html');
+            //$this->cismarty->display('finance/login.html');
+            $this->display('finance/weixin/admin-login.html');
         }
 
     }
@@ -52,7 +53,8 @@ class Finance_wx extends Finwx_Controller
         }else{
             $this->cismarty->assign('tabs',0);
             $this->cismarty->assign('flag',-2);
-            $this->cismarty->display('finance/login.html');
+            //$this->cismarty->display('finance/login.html');
+            $this->display('finance/weixin/err_login.html');
         }
     }
 
@@ -79,12 +81,14 @@ class Finance_wx extends Finwx_Controller
         if($finance_id==-1){
             $this->cismarty->assign('tabs',0);
             $this->cismarty->assign('flag',-4);
-            $this->cismarty->display('finance/login.html');
+            //$this->cismarty->display('finance/login.html');
+            $this->display('finance/weixin/err_login.html');
         }
         if($finance_id==-2){
             $this->cismarty->assign('tabs',0);
             $this->cismarty->assign('flag',-5);
-            $this->cismarty->display('finance/login.html');
+            //$this->cismarty->display('finance/login.html');
+            $this->display('finance/weixin/err_login.html');
         }
         $res = $this->finance_wx_model->code_login($finance_id);
         if($res==1){
@@ -92,7 +96,8 @@ class Finance_wx extends Finwx_Controller
         }else{
             $this->cismarty->assign('tabs',0);
             $this->cismarty->assign('flag',-3);
-            $this->cismarty->display('finance/login.html');
+            //$this->cismarty->display('finance/login.html');
+            $this->display('finance/weixin/err_login.html');
         }
     }
 
