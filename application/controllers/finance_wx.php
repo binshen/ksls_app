@@ -54,7 +54,7 @@ class Finance_wx extends Finwx_Controller
             $this->cismarty->assign('tabs',0);
             $this->cismarty->assign('flag',-2);
             //$this->cismarty->display('finance/login.html');
-            $this->display('finance/weixin/err-login.html');
+            $this->display('finance/weixin/err_login.html');
         }
     }
 
@@ -82,13 +82,13 @@ class Finance_wx extends Finwx_Controller
             $this->cismarty->assign('tabs',0);
             $this->cismarty->assign('flag',-4);
             //$this->cismarty->display('finance/login.html');
-            $this->display('finance/weixin/err-login.html');
+            $this->display('finance/weixin/err_login.html');
         }
         if($finance_id==-2){
             $this->cismarty->assign('tabs',0);
             $this->cismarty->assign('flag',-5);
             //$this->cismarty->display('finance/login.html');
-            $this->display('finance/weixin/err-login.html');
+            $this->display('finance/weixin/err_login.html');
         }
         $res = $this->finance_wx_model->code_login($finance_id);
         if($res==1){
@@ -97,7 +97,7 @@ class Finance_wx extends Finwx_Controller
             $this->cismarty->assign('tabs',0);
             $this->cismarty->assign('flag',-3);
             //$this->cismarty->display('finance/login.html');
-            $this->display('finance/weixin/err-login.html');
+            $this->display('finance/weixin/err_login.html');
         }
     }
 
