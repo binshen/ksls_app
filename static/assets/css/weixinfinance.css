@@ -5,7 +5,7 @@ ul,li,p{margin: 0;padding:0;}li{list-style: none; }em{font-style:normal;}
 
 .admin-content-body{background-color: #f4f5f7; padding-bottom:7rem;}
 .am-ind-top{ padding-top:1.6rem; background-color: #fff;}
-.am-ind-top-ul {margin:4.5rem 0 .5rem;padding: 1.5rem 0 1rem;}
+.am-ind-top-ul {padding-top:1rem;}.am-ind-top-ul:last-child{padding-bottom: 1rem;}
 .am-ind-top-ul li{text-align: center; font-size:.48rem; color:#333;width:16.6%; float: left;}
 .am-ind-top-ul li a{color:#333;}
 .am-ind-top-ul li .txt{display: block; line-height: 3rem; color: #999; font-size:1.2rem;}
@@ -15,7 +15,7 @@ ul,li,p{margin: 0;padding:0;}li{list-style: none; }em{font-style:normal;}
 .am-ind-top-ul .icon-shtg{background-position:-170px 0;}
 .am-ind-top-ul .icon-wtg{background-position:-253px 0;}
 .am-ind-top-ul .icon-ja{background-position:-338px 0;}*/
-.am-ind-top-ul .am-ul-icon{margin:0 auto;width:4.8rem; height: 4.8rem;font-size:3.2rem; border-radius:50%;background-color:#f1f4f1; display: block;}
+.am-ind-top-ul .am-ul-icon{margin:0 auto;width:5rem; height: 5rem;font-size:3.5rem;border-radius:50%;background-color:#f1f4f1; display: block;}
 .am-ind-top-ul .am-icon-exclamation-circle:before{color:#aec5fa;}
 .am-ind-top-ul .am-icon-hourglass-3:before{color:#fbbe01; font-size:2.8rem;}
 .am-ind-top-ul .icon-shtg:before{content: "\f14a"; color:#d9e885;}
