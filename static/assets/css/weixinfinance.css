@@ -164,3 +164,4 @@ ul,li,p{margin: 0;padding:0;}li{list-style: none; }em{font-style:normal;}
 .approve-textarea{width:100%; }
 .submit-btn-p{margin-top: 1rem;}
 .submit-btn{border-radius:5px; font-size: 2rem;width:10rem; height: 3rem; line-height: 3rem; float: right; text-align: center; background: #fcac08; color: #fff;}
+.p-fail{text-align: center;}
