@@ -66,6 +66,7 @@
         <p class="p-res1">抱歉，您的申请已被平台关闭</p>
         <p class="p-res2">原因如下：{{$data.meno_text}}</p>
         {{/if}}
+        <p class="p-fail">sorry！<br />您的二维码已经过期</p>
         <p class="p-res3"><a href="/finance_wx_user/show_finance_1/{{$data.id}}">查看申请详情</a></p>
     </div>
       {{if $data.status==3}}
