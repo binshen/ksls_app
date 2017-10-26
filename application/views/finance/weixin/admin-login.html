@@ -17,10 +17,13 @@
 <div class="am-g" id="login">
     <div class="login-div">
         <span class="login-logo"></span>
-        <form method="post" class="am-form" action="http://bb2.ksls.com.cn/login/check_login">
+        <form method="post" class="am-form" action="{{site_url url='finance_wx/user_login'}}">
             <div class="login-bd">
-                <div class="input-email input-div"><i class="am-input-icon am-icon-user"></i><input type="tel" name="name" id="email" value="" autoComplete="off" placeholder="请输入用户名" required></div>
-                <div class="input-div"><i class="am-input-icon am-icon-key"></i><input type="password" name="passwd" id="password" value="" autoComplete="off" placeholder="请输入密码" required></div>
+                <div class="input-email input-div"><i class="am-input-icon am-icon-user"></i><input type="tel" name="username" id="email" value="" autoComplete="off" placeholder="请输入用户名" required></div>
+                <div class="input-div"><i class="am-input-icon am-icon-key"></i><input type="password" name="password" id="password" value="" autoComplete="off" placeholder="请输入密码" required></div>
+                {{if $flag == '-1'}}
+                <a class="am-badge am-badge-danger am-radius">用户名密码错误或者账号已被停用！</a>
+                {{/if}}
             </div>
             <input type="submit" value="登 录" class="am-btn">
       </form>
