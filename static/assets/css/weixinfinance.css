@@ -98,12 +98,13 @@ ul,li,p{margin: 0;padding:0;}li{list-style: none; }em{font-style:normal;}
 .upload-btn-a{width:6rem;height: 6rem; display:inline-block; border-radius: 3rem; background-color: #5cb3de;}
 
 .am-form-finance .am-sm-fin .am-p-d{margin-top: .5rem;}
-
+.am-form-wrap-finance  .am-form-finance{padding:.5rem 0;}
 .am-form-wrap-finance .am-finance-detail{margin:0 1rem 1rem;padding:1rem;background: #fff;border-radius: 10px;}
 .am-form-wrap-finance .am-finance-detail-status{background:#e67c7c; color:#fff;}
 .am-form-wrap-finance .am-form-finance{border:none;margin-bottom:0;}
 .am-form-wrap-finance .am-form-finance .am-form-label{padding:0;}
 .am-form-wrap-finance .am-form-finance .am-sm-fin .am-p-d{margin: 0;}
+.am-form-wrap-finance input{padding:0;}
 .am-form-wrap-finance .am-radio{padding:.2rem 0 0 2rem ;}
 
 .no-margin{margin:0;}
