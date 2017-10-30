@@ -3,7 +3,7 @@
 .fix:after{content: ''; visibility: hidden; display: block; clear: both;}
 ul,li,p{margin: 0;padding:0;}li{list-style: none; }em{font-style:normal;}
 
-.admin-content-body{background-color: #f4f5f7; padding-bottom:7rem;}
+.admin-content-body{background-color: #f4f5f7;} /*padding-bottom:7rem;*/
 .am-ind-top{ padding-top:1.6rem; background-color: #fff;}
 .am-ind-top-ul {margin-top: 5rem;padding-top:1rem;}.am-ind-top-ul:last-child{padding-bottom: 1rem; margin:0 0 1rem;}
 .am-ind-top-ul li{text-align: center; font-size:.48rem; color:#333;width:33%; float: left;}
@@ -104,6 +104,7 @@ ul,li,p{margin: 0;padding:0;}li{list-style: none; }em{font-style:normal;}
 .am-form-wrap-finance .am-form-finance{border:none;margin-bottom:0;}
 .am-form-wrap-finance .am-form-finance .am-form-label{padding:0;}
 .am-form-wrap-finance .am-form-finance .am-sm-fin .am-p-d{margin: 0;}
+.am-form-horizontal .am-form-wrap-finance .am-radio{padding:0;}
 
 .no-margin{margin:0;}
 .photo-wrap{margin-bottom: 1rem;overflow: hidden;}
