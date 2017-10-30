@@ -104,7 +104,7 @@ ul,li,p{margin: 0;padding:0;}li{list-style: none; }em{font-style:normal;}
 .am-form-wrap-finance .am-form-finance{border:none;margin-bottom:0;}
 .am-form-wrap-finance .am-form-finance .am-form-label{padding:0;}
 .am-form-wrap-finance .am-form-finance .am-sm-fin .am-p-d{margin: 0;}
-.am-form-wrap-finance .am-radio{padding:0;}
+.am-form-wrap-finance .am-radio{padding:.2rem 0 0 2rem ;}
 
 .no-margin{margin:0;}
 .photo-wrap{margin-bottom: 1rem;overflow: hidden;}
