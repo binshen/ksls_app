@@ -34,7 +34,7 @@ class Agenda_wx extends Agendawx_Controller
     public function user_login(){
         $res = $this->agenda_wx_model->user_login();
         if($res==1){
-            redirect('finance_wx_user/index');
+            redirect('agenda_wx/index');
         }else{
             $this->cismarty->assign('tabs',1);
             $this->cismarty->assign('flag',-1);
