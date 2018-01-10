@@ -35,10 +35,12 @@ class Agendawx_Controller extends CI_Controller
                     //重定向到以上网址,这是微信给的固定地址.必须格式一致
                 }else{
                     //回调成功,获取code,再做请求,获取openid
+                    echo $_GET['code'];
                     $j_access_token=file_get_contents("https://api.weixin.qq.com/sns/oauth2/access_token?appid={$appid}&secret={$secret}&code={$_GET['code']}&grant_type=authorization_code");
                     $a_access_token=json_decode($j_access_token,true);
                     $access_token=$a_access_token["access_token"];//虽然这里 也获取了一个access_token,但是和获取用户详情,还有发送模板信息所使用的access_token不同
                     $openid=$a_access_token["openid"];
+                    echo $openid;
                     $this->session->set_userdata('agewx_openid', $openid);
                     //$res = $this->agenda_wx_model->check_openid($openid);
 

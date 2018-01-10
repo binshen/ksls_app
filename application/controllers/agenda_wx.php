@@ -25,7 +25,7 @@ class Agenda_wx extends Agendawx_Controller
     }
 
     public function login(){
-
+        die(var_dump("login"));
         $this->assign('tabs',0);
         $this->assign('flag',1);
         //$this->display('finance/login.html');
