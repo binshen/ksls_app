@@ -35,7 +35,7 @@ class Agenda_wx_user extends Agendawx_Controller
 
     public function index(){
 
-        $this->display('agenda/ok_login.html');
+        $this->display('agenda_wx/ok_login.html');
     }
 
 

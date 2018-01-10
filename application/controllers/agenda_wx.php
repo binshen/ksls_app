@@ -25,11 +25,10 @@ class Agenda_wx extends Agendawx_Controller
     }
 
     public function login(){
-        die(var_dump("login"));
         $this->assign('tabs',0);
         $this->assign('flag',1);
         //$this->display('finance/login.html');
-        $this->display('agenda/wx_login.html');
+        $this->display('agenda_wx/wx_login.html');
     }
 
     public function user_login(){
@@ -40,7 +39,7 @@ class Agenda_wx extends Agendawx_Controller
             $this->cismarty->assign('tabs',1);
             $this->cismarty->assign('flag',-1);
             //$this->cismarty->display('finance/login.html');
-            $this->display('finance/weixin/admin-login.html');
+            $this->display('agenda_wx/wx_login.html');
         }
 
     }
