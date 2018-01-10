@@ -40,7 +40,7 @@ class Agendawx_Controller extends CI_Controller
                     $access_token=$a_access_token["access_token"];//虽然这里 也获取了一个access_token,但是和获取用户详情,还有发送模板信息所使用的access_token不同
                     $openid=$a_access_token["openid"];
                     $this->session->set_userdata('agewx_openid', $openid);
-                    $res = $this->agenda_wx_model->check_openid($openid);
+                    //$res = $this->agenda_wx_model->check_openid($openid);
 
                 }
             }
