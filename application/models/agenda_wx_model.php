@@ -17,6 +17,26 @@ class Agenda_wx_model extends MY_Model
         parent::__destruct();
     }
 
+    public function user_login(){
+        $openid = $this->session->userdata('openid');
+        $username = $this->input->post('username');
+        $password = $this->input->post('password');
+        $this->db->from('user');
+        $this->db->where('username', $username);
+        $this->db->where('password', sha1($password));
+        $rs = $this->db->get();
+        if ($rs->num_rows() > 0) {
+            $this->db->where('agenda_openid',$openid)->set('openid','')->update('user');
+            $res = $rs->row();
+            $res_ret = $this->set_session_wx($res->id);
+            if($res_ret==1){
+                $this->db->where('id',$res->id)->update('user',array('agenda_openid'=>$openid));
+                return 1;
+            }
+        }
+        return -1;
+    }
+
     public function check_openid(){
         $openid = $this->session->userdata('agewx_openid');
 
