@@ -465,7 +465,7 @@ class Agenda_model extends MY_Model
                     )
                 );
                 //发送给用户自己
-                $this->wxpost($this->config->item('WX_SJTJ'),$data,$this->session->userdata('login_user_id'),'www.baidu.com');
+                $this->wxpost_age($this->config->item('WX_SJTJ'),$data,$this->session->userdata('login_user_id'),'www.baidu.com');
                 //发送给用户的店长,如果用户本身职级大于等于店长,就不做通知
                 if($this->session->userdata('login_permission_id') > 4){
                     $data['remark']['value'] = "你的员工 ".$this->session->userdata('login_rel_name')." 成功提交一单代办业务.";
@@ -482,7 +482,7 @@ class Agenda_model extends MY_Model
                     $this->db->where_in('b.subsidiary_id',$this->session->userdata('login_subsidiary_id_array'));
                     $user_list1 = $this->db->get()->result_array();
                     foreach($user_list1 as $item){
-                        $this->wxpost($this->config->item('WX_SJTJ'),$data,$item['id']);
+                        $this->wxpost_age($this->config->item('WX_SJTJ'),$data,$item['id']);
                     }
                 }
                 //发送给权证人员
@@ -500,12 +500,12 @@ class Agenda_model extends MY_Model
                 $this->db->where('a.openid is not null');
                 $user_list2 = $this->db->get()->result_array();
                 foreach($user_list2 as $item2){
-                    $this->wxpost($this->config->item('WX_SJTJ'),$data,$item2['id']);
+                    $this->wxpost_age($this->config->item('WX_SJTJ'),$data,$item2['id']);
                 }
                 //发送给 权证(过户)
-                $this->wxpost($this->config->item('WX_SJTJ'),$data,$dbgh_id,'www.baidu.com');
+                $this->wxpost_age($this->config->item('WX_SJTJ'),$data,$dbgh_id,'www.baidu.com');
                 //发送给 权证(银行)
-                $this->wxpost($this->config->item('WX_SJTJ'),$data,$dbyh_id,'www.baidu.com');
+                $this->wxpost_age($this->config->item('WX_SJTJ'),$data,$dbyh_id,'www.baidu.com');
 
             }
 
@@ -596,7 +596,7 @@ class Agenda_model extends MY_Model
                     }
                 }
                 //发送给用户自己
-                $this->wxpost($this->config->item('WX_SJTJ'),$data,$agenda_info['user_id'],'www.funmall.com');
+                $this->wxpost_age($this->config->item('WX_SJTJ'),$data,$agenda_info['user_id'],'www.funmall.com');
             }
 
             return 1;

@@ -353,13 +353,13 @@ class MY_Model extends CI_Model{
         return 2;
 
     }
-
+//已不使用
     public function get_access_token() {
         $url = 'https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid='.APP_ID.'&secret='.APP_SECRET;
         $response = file_get_contents($url);
         return json_decode($response)->access_token;
     }
-
+//已不使用
     public function get_or_create_token() {
 
         $this->db->from('token');
@@ -386,7 +386,7 @@ class MY_Model extends CI_Model{
             return $data_token['token'];
         }
     }
-
+//已不使用
     public function wxpost($template_id,$post_data,$user_id,$url='www.funmall.com.cn'){
         $openid = $this->get_openid($user_id);
         if($openid == -1 || empty($openid)){
@@ -425,6 +425,37 @@ class MY_Model extends CI_Model{
       /*  if($this->session->userdata('login_user_id')==24){
             die(var_dump($dataRes));
         }*/
+
+        if ($dataRes['errcode'] == 0) {
+            return true;
+        } else {
+            return false;
+        }
+
+    }
+
+    public function wxpost_age($template_id,$post_data,$user_id,$url_www='www.funmall.com.cn'){
+        $this->load->config('wxpay_config');
+        $openid = $this->get_openid4agenda($user_id);
+        if($openid == -1 || empty($openid)){
+            return false;
+        }
+        $access_token = $this->get_token($this->config->item('appid'),$this->config->item('appsecret'));
+        $url = "https://api.weixin.qq.com/cgi-bin/message/template/send?access_token=".$access_token;//access_token改成你的有效值
+
+
+        $template = array(
+            'touser' => $openid,
+            'template_id' => $template_id,
+            'url' => $url_www,
+            'topcolor' => '#7B68EE',
+            'data' => $post_data
+        );
+        $json_template = json_encode($template);
+        $dataRes = $this->request_post($url, urldecode($json_template)); //这里执行post请求,并获取返回数据
+        /*  if($this->session->userdata('login_user_id')==24){
+              die(var_dump($dataRes));
+          }*/
 
         if ($dataRes['errcode'] == 0) {
             return true;
@@ -576,6 +607,15 @@ class MY_Model extends CI_Model{
         $row = $this->db->select()->from('user')->where('id',$user_id)->get()->row_array();
         if ($row){
             return $row['openid'];
+        }else{
+            return -1;
+        }
+    }
+
+    public function get_openid4agenda($user_id){
+        $row = $this->db->select()->from('user')->where('id',$user_id)->get()->row_array();
+        if ($row){
+            return $row['agenda_openid'];
         }else{
             return -1;
         }
