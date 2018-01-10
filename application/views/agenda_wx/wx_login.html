@@ -1,90 +1,43 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
+<!doctype html>
+<html class="no-js">
 <head>
-<meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable = no' name='viewport'/>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-
-    <link href="/static/css/reg1.css" rel="stylesheet" type="text/css"/>
-<title>会员登录 -房猫经纪人触屏版</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>登录</title>
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+    <link rel="stylesheet" href="/static/assets/css/amazeui.min.css">
+    <link rel="stylesheet" href="/static/assets/css/amazeui.switch.css">
+    <link rel="stylesheet" href="/static/assets/css/app.css">
 </head>
-<style>html, body {
-background-color: #eee;
-color: #333;
-font-size: 14px;
--webkit-text-size-adjust: none;
-}</style>
 <body>
-<div id="tbh5v0" class="login">
-    <header class="c-nav">
-            <div class="c-nav-w">
-              <div class="c-nav-s">
-              </div>
-              <div class="c-nav-c">
-                <span class="omit">用户登录</span>
-              </div>
-              <div class="c-nav-e">
-                
-              </div>
+<div class="am-g" id="login">
+    <div class="login-div">
+        <span class="login-logo"></span>
+        <form method="post" class="am-form" action="{{site_url url='finance_wx/user_login'}}">
+            <div class="login-bd">
+                <div class="input-email input-div"><i class="am-input-icon am-icon-user"></i><input type="tel" name="username" id="email" value="" autoComplete="off" placeholder="请输入用户名" required></div>
+                <div class="input-div"><i class="am-input-icon am-icon-key"></i><input type="password" name="password" id="password" value="" autoComplete="off" placeholder="请输入密码" required></div>
+                {{if $flag == '-1'}}
+                <a class="am-badge am-badge-danger am-radius">用户名密码错误或者账号已被停用！</a>
+                {{/if}}
             </div>
-        </header>
-     
-<section class="innercontent">
-    {{if $data.user_info}}
-    <span class="omit">公司名称:{{$data.user_info.name}}</span>
-    <span class="omit">用户姓名:{{$data.user_info.rel_name}}</span>
-    <span class="omit">职级:{{$data.user_info.role_name}}</span>
-
-    {{/if}}
-
-            <form method="post" class="c-form login-form" id="J_Register" action="/finance/save_openid">
-                {{if $data.res == -1}}账号登陆失败{{/if}}
-                {{if $data.res == 1}}绑定成功{{/if}}
-                {{if $data.res == 2}}人员离职,绑定失败{{/if}}
-                {{if $data.res == 3}}公司服务暂停,绑定失败{{/if}}
-                {{if $data.res == 4}}写入失败{{/if}}
-
-                <fieldset>
-                    <div class="field username">
-                        <div class="c-form-search st">
-                            <input type="text" id="J_UserNameTxt" placeholder="账号/手机" value="" class="c-f-text" name="username"/><span></span></button>
-                        </div>
-                        <div class="tips"></div>
-                    </div>
-                    <div class="field pwd">
-                        <div class="ptxt st">
-                            <input id="J_PassWordTxt" type="password"  name="password"value="" placeholder="密码" class="c-f-text"/>
-                            
-                        </div>
-                         <div class="tips"></div>
-                    </div>
-
-                    <div class="field identifyCode">
-                        
-                        <div class="tips"></div>
-                    </div>
-
-                    <div class="field submit-btn">
-                        <input type="submit" class="c-btn-orange" value="登录"/>
-                        </div>
-                        
-<div class="field login-option">
-                        <span class="reg-find-pwd">
-           
-                                                        <!--<a href="forget_password.html" class="forget-pwd" target="_top" data-spm-anchor-id="0.0.0.0">修改密码</a>
-                                                    --></span>
-                    </div>
-
-                </fieldset>
-            </form>
-</section>
-
-<div id="J_um_mob" class="none"><img src="https://ynuf.alipay.com/dc.htm?token=Ta60f9f1944e56061da6f416d6d8e92a91416549443927&amp;jsInfo=1360%7C667%7C1360%7C728%7C-%7C-%7C-%7C-%7C-%7C-%7C-" width="0" height="0" frameborder="0"></div>
-<script type="text/javascript">
-
-</script>
-
-
+            <input type="submit" value="登 录" class="am-btn">
+        </form>
     </div>
+    <p class="copyright">© 2017 funmall.com.cn</p>
+</div>
+<script type="text/javascript">
+    var maxH=Math.max(document.documentElement.clientHeight,window.innerHeight);
 
+    function setHeight(){
+        var wrapper=document.getElementById('login');
+        wrapper.style.height=maxH+"px";
+    }
+    setHeight();
+</script>
 </body>
 </html>
