@@ -32,6 +32,8 @@ class Agenda_wx extends Agendawx_Controller
     }
 
     public function user_login(){
+
+        die(var_dump('123'));
         $res = $this->agenda_wx_model->user_login();
         if($res==1){
             redirect('agenda_wx_user/index');
