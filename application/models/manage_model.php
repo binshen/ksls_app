@@ -2010,9 +2010,14 @@ class Manage_model extends MY_Model
         $this->db->limit($numPerPage, ($pageNum - 1) * $numPerPage );
         $this->db->order_by($this->input->post('orderField') ? $this->input->post('orderField') : 'a.id', $this->input->post('orderDirection') ? $this->input->post('orderDirection') : 'desc');
         $data['res_list'] = $this->db->get()->result();
+        //die(var_dump($this->db->last_query()));
         // $data['type_list'] = $this->db->from('question_type')->get()->result();
         $data['pageNum'] = $pageNum;
         $data['numPerPage'] = $numPerPage;
         return $data;
+    }
+
+    public function delete_fin($id) {
+        return $this->db->where('id',$id)->update('finance',array('flag'=>2));
     }
 }

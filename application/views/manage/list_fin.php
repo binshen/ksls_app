@@ -156,7 +156,7 @@
                 foreach ($res_list as $row):
                     ?>
                     <tr target="id" rel=<?php echo $row->id; ?>  <?php
-                    if($row->status == -1){
+                    if($row->flag == 2){
                         echo "style='background-color:yellow;'";
                     }
                     ?>>

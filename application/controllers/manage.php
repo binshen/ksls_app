@@ -888,4 +888,13 @@ class Manage extends MY_Controller {
 			$data['user_list'] = $this->manage_model->get_user_list_by_subsidiary_age($this->input->post('subsidiary_id'));
 		$this->load->view('manage/list_fin.php',$data);
 	}
+
+	public function delete_fin($id) {
+		$ret = $this->manage_model->delete_fin($id);
+		if($ret == 1) {
+			form_submit_json("200", "操作成功", 'list_fin', '', '');
+		} else {
+			form_submit_json("300", "删除失败");
+		}
+	}
 }
