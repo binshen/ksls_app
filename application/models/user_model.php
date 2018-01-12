@@ -65,6 +65,34 @@ class User_model extends MY_Model
                 }
             }
 
+            //这里获取套餐信息 未测试
+            /*
+            if(!$company_flag['menu_id']){
+                return 4;//未购买套餐
+            }
+            if(!$company_flag['menu_end_time']){
+                return 5;//套餐过期
+            }
+            if(strtotime(date("Y-m-d"))>strtotime($company_flag['menu_end_time'])){
+                return 5;//套餐过期
+            }
+            $menu = $this->db->select()->where('id',$company_flag['menu_id'])->from('power_menu')->get()->row();
+            if(!$menu){
+                return 4;//未购买套餐
+            }
+            if($menu->flag!=1){
+                return 5;//套餐已失效
+            }
+            $power = $this->db->select()->from('power_menu_detail')->where('m_id',$company_flag['menu_id'])->get()->result_array();
+            $powers = array();
+            if($power){
+                foreach($power as $id){
+                    $powers[]=$id['p_id'];
+                }
+            }
+            $user_info['login_power_id_array'] = $powers;
+            */
+
             $user_info['login_token'] = $token;
             $user_info['login_user_id'] = $res->id;
             $user_info['login_username'] = $username;
