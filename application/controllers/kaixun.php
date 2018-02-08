@@ -1,20 +1,20 @@
 <?php
 /**
  * Created by PhpStorm.
- * User: yangyang
- * Date: 16/8/1
- * Time: 上午11:36
+ * User: bin.shen
+ * Date: 6/2/16
+ * Time: 21:22
  */
 
 if ( ! defined('BASEPATH')) exit('No direct script access allowed');
-
-//大成莲创 项目所使用
-class Dclc extends CI_Controller {
+//用于开讯
+class Kaixun extends CI_Controller
+{
     public function __construct()
     {
         parent::__construct();
         ini_set('date.timezone','Asia/Shanghai');
-        $this->load->model('dclc_model');
+        //$this->load->model('cj_model');
     }
 
     //重载smarty方法assign
@@ -28,17 +28,7 @@ class Dclc extends CI_Controller {
     }
 
     public function index(){
-        $this->display('dclc/dclc_info.html');
+        $this->display('download.html');
     }
-
-    public function save_info(){
-        $res = $this->dclc_model->save_info();
-        echo $res;
-        /*if($res==1){
-            $this->display('dclc/dclc_info.html');
-        }else{
-            $this->display('dclc/dclc_info.html');
-        }*/
-    }
-
 }
+

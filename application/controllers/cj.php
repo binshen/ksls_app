@@ -7,7 +7,7 @@
  */
 
 if ( ! defined('BASEPATH')) exit('No direct script access allowed');
-
+//用于抽奖
 class Cj extends CI_Controller
 {
     public function __construct()
