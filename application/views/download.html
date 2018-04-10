@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -7,6 +8,14 @@
     <meta name="description" content="开讯 下载" />
     <!--[if IE 6]><script>document.execCommand("BackgroundImageCache", false, true)</script><![endif]-->
 </head>
+<script type="text/javascript">
+var u = navigator.userAgent;
+var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1; //android终端
+var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端
+    if(isAndroid){
+        window.location.href = "http://www.funmall.com.cn/kaixun";
+    }else if(isiOS){window.location.href = "https://itunes.apple.com/cn/app/%E5%BC%80%E8%AE%AF/id1340650225?mt=8";}
+</script>
 <style type="text/css">
 body,dd,dl,form,h1,h2,h3,h4,h5,h6,hr,input,ol,p,pre,tbody,td,textarea,tfoot,th,thead,ul{margin:0;padding:0}
 ol,ul{list-style:none}
