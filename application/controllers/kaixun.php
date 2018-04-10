@@ -30,5 +30,9 @@ class Kaixun extends CI_Controller
     public function index(){
         $this->display('download.html');
     }
+
+    public function android(){
+        $this->display('android.html');
+    }
 }
 
