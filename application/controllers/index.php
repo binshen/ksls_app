@@ -16,7 +16,6 @@ class Index extends MY_Controller {
         parent::__construct();
         $this->load->model('user_model');
         $this->load->model('news_model');
-        $this->load->model('dclc_model');
     }
 
     public function index($page=1) {
@@ -156,12 +155,4 @@ class Index extends MY_Controller {
         $this->user_model->set_cggg_msg();
     }
 
-    public function show_result(){
-        $this->display("dclc/score.html");
-    }
-
-    public function get_result(){
-        $data = $this->dclc_model->get_result();
-        echo json_encode($data);
-    }
 }
