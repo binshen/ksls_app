@@ -14,7 +14,7 @@ class Exam_result extends CI_Controller {
     {
         parent::__construct();
         ini_set('date.timezone','Asia/Shanghai');
-        //$this->load->model('dclc_model');
+        $this->load->model('dclc_model');
     }
 
     //重载smarty方法assign
@@ -28,10 +28,13 @@ class Exam_result extends CI_Controller {
     }
 
     public function index(){
-        die('asd');
-        $this->display('dclc/dclc_info.html');
+        $this->display("dclc/score.html");
     }
 
+    public function get_result(){
+        $data = $this->dclc_model->get_result();
+        echo json_encode($data);
+    }
 
 
 }

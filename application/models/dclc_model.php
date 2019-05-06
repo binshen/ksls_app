@@ -60,4 +60,27 @@ class Dclc_model extends MY_Model
             return true;
         return false;
     }
+
+    public function get_result(){
+        $res = ['status' => 1, 'result' => [], 'msg' => ''];
+        $keyword = trim($this->input->post('keyword'));
+        $this->db->select()->from('exam_result');
+        if($keyword){
+            $this->db->where('ticket', $keyword);
+            $this->db->or_where('code', $keyword);
+        }else{
+            $res['status'] = -1;
+            $res['msg'] = '请输入信息再查询';
+            return $res;
+        }
+        $data = $this->db->get()->row_array();
+        //die(var_dump($this->db->last_query()));
+        if(!$data){
+            $res['status'] = -1;
+            $res['msg'] = '未找到信息!';
+            return $res;
+        }
+        $res['result'] = $data;
+        return $res;
+    }
 }
