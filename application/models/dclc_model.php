@@ -62,7 +62,7 @@ class Dclc_model extends MY_Model
     }
 
     public function get_result(){
-        $res = ['status' => 1, 'result' => [], 'msg' => ''];
+        $res = array('status' => 1, 'result' => [], 'msg' => '');
         $keyword = trim($this->input->post('keyword'));
         $this->db->select()->from('exam_result');
         if($keyword){
