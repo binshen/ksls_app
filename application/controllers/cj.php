@@ -52,5 +52,9 @@ class Cj extends CI_Controller
         }
         echo -1;
     }
+
+    public function show_result(){
+        $this->display('dclc/score.html');
+    }
 }
 
