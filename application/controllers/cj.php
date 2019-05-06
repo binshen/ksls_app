@@ -14,6 +14,7 @@ class Cj extends CI_Controller
     {
         parent::__construct();
         $this->load->model('cj_model');
+        $this->load->model('dclc_model');
     }
 
     //重载smarty方法assign
@@ -55,6 +56,11 @@ class Cj extends CI_Controller
 
     public function show_result(){
         $this->display('dclc/score.html');
+    }
+
+    public function get_result(){
+        $data = $this->dclc_model->get_result();
+        echo json_encode($data);
     }
 }
 
